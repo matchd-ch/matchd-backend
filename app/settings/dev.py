@@ -28,6 +28,7 @@ MIDDLEWARE += [
 
 GRAPHIQL_ENABLED = True
 
+
 # DEBUG TOOLBAR
 def show_debug_toolbar(request):
     return DEBUG
