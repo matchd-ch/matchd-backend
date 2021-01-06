@@ -1,0 +1,12 @@
+[
+{
+    "model": "db.userrequest",
+    "pk": 3,
+    "fields": {
+        "name": "Stefan Suter",
+        "email": "stefan.suter@liip.ch",
+        "message": "Debug Data Message",
+        "created_at": "2021-01-06T17:13:18.306Z"
+    }
+}
+]

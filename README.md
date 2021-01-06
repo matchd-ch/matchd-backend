@@ -25,7 +25,7 @@ If you want to access user specific data you also need to include the authorizat
 # Dump Fixtures
 
     docker-compose exec api bash 
-    ./manage.py dumpdata --indent 4 --exclude auth --exclude contenttypes --exclude wagtailcore.GroupCollectionPermission --exclude sessions --exclude wagtailcore > db/fixtures/initial_data.json
+    ./manage.py dumpdata --indent 4 --exclude auth --exclude contenttypes --exclude wagtailcore.GroupCollectionPermission --exclude sessions --exclude wagtailcore --exclude db.user > db/fixtures/initial_data.json
 
 
 # pylint
