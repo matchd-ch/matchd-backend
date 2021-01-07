@@ -10,6 +10,7 @@ class UserRequestInput(graphene.InputObjectType):
     message = graphene.String(description=_('Message'))
 
 
+# pylint: disable=R0903
 class UserRequest(graphene.Mutation):
 
     success = graphene.Boolean()
@@ -22,13 +23,13 @@ class UserRequest(graphene.Mutation):
         description = _('Creates a new user user request')
 
     @classmethod
-    def mutate(cls, root, info, **input):
+    def mutate(cls, root, info, **form_data):
         try:
-            user_request = UserRequestModel(**input.get('input'))
+            user_request = UserRequestModel(**form_data.get('input'))
             user_request.full_clean()
             user_request.save()
-        except ValidationError as e:
-            return UserRequest(success=False, errors=e.messages)
+        except ValidationError as error:
+            return UserRequest(success=False, errors=error.messages)
         return UserRequest(success=True, errors=[])
 
 

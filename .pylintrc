@@ -7,6 +7,7 @@ disable=
     W0401, # wildcard-import
     W1508, # invalid-envvar-default
     C0412, # ungrouped-imports
+    W0613, # unused-argument
 
 [FORMAT]
 max-line-length=120
