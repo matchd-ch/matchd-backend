@@ -3,8 +3,8 @@
     "model": "db.userrequest",
     "pk": 3,
     "fields": {
-        "name": "Stefan Suter",
-        "email": "stefan.suter@liip.ch",
+        "name": "Hans Muster",
+        "email": "test@example.com",
         "message": "Debug Data Message",
         "created_at": "2021-01-06T17:13:18.306Z"
     }
