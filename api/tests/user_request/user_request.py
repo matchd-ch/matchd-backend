@@ -24,7 +24,7 @@ class UserRequestGraphQLTestCase(GraphQLTestCase):
             'message': 'Debug Data Message'
           }
         }
-        
+
         response = self.query(
             '''
             mutation UserRequest($userRequest: UserRequestInput!) {
