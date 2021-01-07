@@ -16,7 +16,7 @@ class UserRequest(models.Model):
         post_save.disconnect(UserRequest.post_save, UserRequest, dispatch_uid='db.models.UserRequest')
         if created:
             instance.send_email('user_request_copy', [instance.email])
-            instance.send_email('user_request', [settings.DEFAULT_FROM_EMAIL])
+            instance.send_email('user_request', settings.USER_REQUEST_FORM_RECIPIENTS)
         post_save.connect(UserRequest.post_save, UserRequest, dispatch_uid='db.models.UserRequest')
 
     def send_email(self, email_type, recipients):
@@ -26,6 +26,7 @@ class UserRequest(models.Model):
             'message': self.message
         }
         subject = render_to_string(f'db/email/{email_type}/subject.txt', email_context)
+        subject = f'{settings.EMAIL_SUBJECT_PREFIX}{subject}'
         plain_body = render_to_string(f'db/email/{email_type}/body_plain.txt', email_context)
         html_body = render_to_string(f'db/email/{email_type}/body.html', email_context)
         send_mail(

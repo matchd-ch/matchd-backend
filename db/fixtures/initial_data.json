@@ -3,8 +3,8 @@
     "model": "db.userrequest",
     "pk": 3,
     "fields": {
-        "name": "Hans Muster",
-        "email": "test@example.com",
+        "name": "Jane Doe",
+        "email": "jane@doe.com",
         "message": "Debug Data Message",
         "created_at": "2021-01-06T17:13:18.306Z"
     }

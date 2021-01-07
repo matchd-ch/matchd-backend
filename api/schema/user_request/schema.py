@@ -1,6 +1,8 @@
 import graphene
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+
+from api.schema.error import ErrorType
 from db.models import UserRequest as UserRequestModel
 
 
@@ -14,7 +16,7 @@ class UserRequestInput(graphene.InputObjectType):
 class UserRequest(graphene.Mutation):
 
     success = graphene.Boolean()
-    errors = graphene.List(graphene.String)
+    errors = graphene.Field(ErrorType)
 
     class Arguments:
         input = UserRequestInput(description=_('UserRequest is required.'), required=True)
@@ -29,8 +31,8 @@ class UserRequest(graphene.Mutation):
             user_request.full_clean()
             user_request.save()
         except ValidationError as error:
-            return UserRequest(success=False, errors=error.messages)
-        return UserRequest(success=True, errors=[])
+            return UserRequest(success=False, errors=ErrorType.serialize(error.message_dict))
+        return UserRequest(success=True)
 
 
 class UserRequestMutation(graphene.ObjectType):
