@@ -1,0 +1,51 @@
+stages:
+  - "Test"
+
+pylint:
+  image:
+    docker.gitlab.liip.ch/matchd/docker-images/python-38-centos7:latest
+  script:
+    - pip install --upgrade pip && pip install -r requirements.txt
+    - pylint --load-plugins pylint_django --django-settings-module=app.settings.test api app db
+  stage: "Test"
+  only:
+    - branches
+    - tags
+  tags:
+    - docker
+    - swiss
+    - not-roadrunner
+
+test:
+  image:
+    docker.gitlab.liip.ch/matchd/docker-images/python-38-centos7:latest
+  script:
+    - pip install --upgrade pip && pip install -r requirements.txt
+    - until curl -s http://elasticsearch:9200/_cluster/health | egrep '(green|yellow)' -i > /dev/null; do echo "elastic is not ready. waiting..." && sleep 5; done
+    - ./manage.py test --settings app.settings.test
+  stage: "Test"
+  only:
+    - branches
+    - tags
+  tags:
+    - docker
+    - swiss
+    - not-roadrunner
+  services:
+    - name: mariadb:10.3.22
+      alias: api-db
+    - name: docker.gitlab.liip.ch/matchd/docker-images/elastic-search:latest
+      alias: elasticsearch
+      command: [ "bin/elasticsearch", "-Expack.security.enabled=false", "-Ediscovery.type=single-node" ]
+  variables:
+    MYSQL_DATABASE: "wagtail"
+    MYSQL_USER: "wagtail"
+    MYSQL_PASSWORD: "wagtail"
+    MYSQL_ROOT_PASSWORD: "wagtail"
+    DJANGO_DB_HOST: 'api-db'
+    DJANGO_DB_PORT: '3306'
+    DJANGO_DB_NAME: 'wagtail'
+    DJANGO_DB_USER: 'root'
+    DJANGO_DB_PW: 'wagtail'
+    DJANGO_ELASTIC_SEARCH_URL: 'http://elasticsearch:9200'
+  interruptible: true
