@@ -1,5 +1,6 @@
 import graphene
 
+from api.schema.temp import TempQuery
 from api.schema.user_request import UserRequestMutation
 
 
@@ -8,4 +9,8 @@ class Mutation(UserRequestMutation):
     pass
 
 
-schema = graphene.Schema(mutation=Mutation)
+class Query(TempQuery):
+    pass
+
+
+schema = graphene.Schema(query=Query, mutation=Mutation)
