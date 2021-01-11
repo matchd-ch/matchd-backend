@@ -24,8 +24,10 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Application definition
 
 INSTALLED_APPS = [
+    'wagtailfontawesome',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
+    'wagtail.contrib.modeladmin',
     'wagtail.embeds',
     'wagtail.sites',
     'wagtail.users',
@@ -39,6 +41,10 @@ INSTALLED_APPS = [
     'modelcluster',
     'taggit',
 
+    'graphene_django',
+    'corsheaders',
+    'graphql_auth',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -49,6 +55,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -196,3 +203,21 @@ BASE_URL = os.getenv('DJANGO_BASE_URL', '')
 APP_DOMAIN = os.getenv('APP_DOMAIN')
 
 AUTH_USER_MODEL = 'db.User'
+
+GRAPHIQL_ENABLED = os.getenv('DJANGO_GRAPHIQL_ENABLED', False)
+
+# Graphene Settings
+GRAPHENE = {
+    'SCHEMA': 'api.schema.schema',
+    'MIDDLEWARE': [
+        'graphql_jwt.middleware.JSONWebTokenMiddleware',
+    ]
+}
+
+# CORS
+CORS_ORIGIN_REGEX_WHITELIST = [
+    r"^http(s?)://localhost(:?)\d{0,5}$",
+    r"^http(s?)://(.*\.)?matchd\.lo(:\d{0,5})?$",
+]
+
+CORS_ALLOW_CREDENTIALS = True

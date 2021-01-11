@@ -1,2 +1,4 @@
 /static/*
 .idea
+.bash_history
+.pylint.d

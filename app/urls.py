@@ -1,16 +1,22 @@
+import debug_toolbar
 from django.conf import settings
 from django.urls import include, path
 from django.contrib import admin
+from django.views.decorators.csrf import csrf_exempt
 
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
+from graphql_jwt.decorators import jwt_cookie
+
+from api.views import csrf_view, GraphQLView
 
 urlpatterns = [
     path('django-admin/', admin.site.urls),
-
     path('admin/', include(wagtailadmin_urls)),
     path('documents/', include(wagtaildocs_urls)),
+    path('graphql/', jwt_cookie(GraphQLView.as_view(graphiql=settings.GRAPHIQL_ENABLED))),
+    path('csrf/', csrf_view),
 ]
 
 
@@ -21,6 +27,10 @@ if settings.DEBUG:
     # Serve static and media files from development server
     urlpatterns += staticfiles_urlpatterns()
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += [
+        path('__debug__/', include(debug_toolbar.urls)),
+        path('introspection/', csrf_exempt(GraphQLView.as_view(graphiql=settings.GRAPHIQL_ENABLED)))
+    ]
 
 urlpatterns = urlpatterns + [
     # For anything not caught by a more specific rule above, hand over to

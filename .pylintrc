@@ -1,0 +1,12 @@
+[MASTER]
+disable=
+    C0114, # missing-module-docstring
+    C0115, # missing-class-docstring
+    C0116, # missing-function-docstring
+    W0614, # unused-wildcard-import
+    W0401, # wildcard-import
+    W1508, # invalid-envvar-default
+    C0412, # ungrouped-imports
+
+[FORMAT]
+max-line-length=120
