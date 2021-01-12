@@ -7,12 +7,13 @@
         "last_login": null,
         "is_superuser": true,
         "username": "admin",
-        "first_name": "",
-        "last_name": "",
+        "first_name": "admin",
+        "last_name": "admin",
         "email": "admin@example.com",
         "is_staff": true,
         "is_active": true,
         "date_joined": "2020-07-07T09:40:35.819Z",
+        "role": "internal",
         "groups": [],
         "user_permissions": []
     }
