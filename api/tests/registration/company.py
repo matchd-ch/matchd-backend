@@ -31,7 +31,7 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
                 password2:"asdf1234$",
                 firstName: "John",
                 lastName: "Doe",
-                role: "company"
+                type: "company"
                 company: {
                   name: "Doe Unlimited",
                   uid: "CHE-999.999.996",
@@ -69,7 +69,7 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
                 password2:"asdf1234$",
                 firstName: "John",
                 lastName: "Doe",
-                role: "company"
+                type: "company"
                 company: {
                   name: "Doe Unlimited",
                   uid: "CHE-999.999.996",
@@ -126,7 +126,7 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
                 password2: "%s",
                 firstName: "John",
                 lastName: "Doe",
-                role: "company"
+                type: "company"
                 company: {
                   name: "Doe Unlimited",
                   uid: "CHE-999.999.996",
@@ -185,7 +185,7 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
                 password2:"asdf1234$",
                 firstName: "John",
                 lastName: "Doe",
-                role: "company"
+                type: "company"
                 company: {
                   name: "Doe Unlimited",
                   uid: "CHE-999.999.996",
@@ -229,7 +229,7 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
                 password2:"asdf1234$",
                 firstName: "",
                 lastName: "",
-                role: "company"
+                type: "company"
                 company: {
                   name: "Doe Unlimited",
                   uid: "CHE-999.999.996",
@@ -250,7 +250,7 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
         self.assertIn('firstName', content['data'].get('registerCompany').get('errors'))
         self.assertIn('lastName', content['data'].get('registerCompany').get('errors'))
 
-    def test_register_without_role(self):
+    def test_register_without_type(self):
         response = self.query(
             '''
             mutation RegisterCompany {
@@ -261,7 +261,7 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
                 password2:"asdf1234$",
                 firstName: "John",
                 lastName: "Doe",
-                role: ""
+                type: ""
                 company: {
                   name: "Doe Unlimited",
                   uid: "CHE-999.999.996",
@@ -279,7 +279,7 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
         self.assertResponseNoErrors(response)
         content = json.loads(response.content)
         self.assertFalse(content['data'].get('registerCompany').get('success'))
-        self.assertIn('role', content['data'].get('registerCompany').get('errors'))
+        self.assertIn('type', content['data'].get('registerCompany').get('errors'))
 
     def test_register_with_invalid_role(self):
         response = self.query(
@@ -292,7 +292,7 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
                 password2:"asdf1234$",
                 firstName: "John",
                 lastName: "Doe",
-                role: "some_invalid_role"
+                type: "some_invalid_role"
                 company: {
                   name: "Doe Unlimited",
                   uid: "CHE-999.999.996",
@@ -310,7 +310,7 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
         self.assertResponseNoErrors(response)
         content = json.loads(response.content)
         self.assertFalse(content['data'].get('registerCompany').get('success'))
-        self.assertIn('role', content['data'].get('registerCompany').get('errors'))
+        self.assertIn('type', content['data'].get('registerCompany').get('errors'))
 
     def test_register_without_company_data(self):
         response = self.query(
@@ -323,7 +323,7 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
                 password2:"asdf1234$",
                 firstName: "John",
                 lastName: "Doe",
-                role: "company"
+                type: "company"
                 company: {
                   name: "",
                   uid: "",
@@ -358,7 +358,7 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
                 password2:"asdf1234$",
                 firstName: "John",
                 lastName: "Doe",
-                role: "company"
+                type: "company"
                 company: {
                   name: "Doe Unlimited",
                   uid: "CHE-999.999.99",
