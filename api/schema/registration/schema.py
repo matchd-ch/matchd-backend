@@ -35,7 +35,7 @@ class RegisterCompany(Register):
         except ValidationError as error:
             return RegisterCompany(success=False, errors=ErrorType.serialize(error.message_dict))
 
-        data['type'] = UserType.COMPANY.value
+        data['type'] = UserType.COMPANY
 
         result = cls.resolve_mutation(root, info, **data)
         if result.errors:

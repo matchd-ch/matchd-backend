@@ -55,7 +55,7 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
         self._check_model_entries(Company, 1)
 
         user = get_user_model().objects.get(email='john@doe.com')
-        self.assertEqual(user.type, UserType.COMPANY.value)
+        self.assertEqual(user.type, UserType.COMPANY)
 
     def _register_twice(self):
         self._check_model_entries(get_user_model(), 1)
