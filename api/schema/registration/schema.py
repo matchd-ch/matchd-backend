@@ -12,6 +12,7 @@ from db.models import Company
 class CompanyInput(graphene.InputObjectType):
     role = graphene.String(description=_('Role'))
     name = graphene.String(description=_('Name'))
+    uid = graphene.String(description=_('UID'))
     zip = graphene.String(description=_('ZIP'))
     city = graphene.String(description=_('City'))
 

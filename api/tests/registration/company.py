@@ -34,6 +34,7 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
                 role: "company"
                 company: {
                   name: "Doe Unlimited",
+                  uid: "CHE-999.999.996",
                   role: "no role",
                   zip: "0000",
                   city: "Nowhere"
@@ -71,6 +72,7 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
                 role: "company"
                 company: {
                   name: "Doe Unlimited",
+                  uid: "CHE-999.999.996",
                   role: "no role",
                   zip: "0000",
                   city: "Nowhere"
@@ -127,6 +129,7 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
                 role: "company"
                 company: {
                   name: "Doe Unlimited",
+                  uid: "CHE-999.999.996",
                   role: "no role",
                   zip: "0000",
                   city: "Nowhere"
@@ -185,6 +188,7 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
                 role: "company"
                 company: {
                   name: "Doe Unlimited",
+                  uid: "CHE-999.999.996",
                   role: "no role",
                   zip: "0000",
                   city: "Nowhere"
@@ -228,6 +232,7 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
                 role: "company"
                 company: {
                   name: "Doe Unlimited",
+                  uid: "CHE-999.999.996",
                   role: "no role",
                   zip: "0000",
                   city: "Nowhere"
@@ -259,6 +264,7 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
                 role: ""
                 company: {
                   name: "Doe Unlimited",
+                  uid: "CHE-999.999.996",
                   role: "no role",
                   zip: "0000",
                   city: "Nowhere"
@@ -289,6 +295,7 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
                 role: "some_invalid_role"
                 company: {
                   name: "Doe Unlimited",
+                  uid: "CHE-999.999.996",
                   role: "no role",
                   zip: "0000",
                   city: "Nowhere"
@@ -319,6 +326,7 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
                 role: "company"
                 company: {
                   name: "",
+                  uid: "",
                   role: "",
                   zip: "",
                   city: ""
@@ -337,3 +345,35 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
         self.assertIn('role', content['data'].get('registerCompany').get('errors'))
         self.assertIn('zip', content['data'].get('registerCompany').get('errors'))
         self.assertIn('city', content['data'].get('registerCompany').get('errors'))
+        self.assertIn('uid', content['data'].get('registerCompany').get('errors'))
+
+    def test_register_with_invalid_uid(self):
+        response = self.query(
+            '''
+            mutation RegisterCompany {
+              registerCompany(
+                email: "john@doe.com",
+                username: "john@doe.com",
+                password1: "asdf1234$",
+                password2:"asdf1234$",
+                firstName: "John",
+                lastName: "Doe",
+                role: "company"
+                company: {
+                  name: "Doe Unlimited",
+                  uid: "CHE-999.999.99",
+                  role: "no role",
+                  zip: "0000",
+                  city: "Nowhere"
+                }
+              ) {
+                success
+                errors
+              }
+            }
+            '''
+        )
+        self.assertResponseNoErrors(response)
+        content = json.loads(response.content)
+        self.assertFalse(content['data'].get('registerCompany').get('success'))
+        self.assertIn('uid', content['data'].get('registerCompany').get('errors'))
