@@ -38,6 +38,8 @@ DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': show_debug_toolbar,
 }
 
+CSRF_COOKIE_DOMAIN = '.matchd.lo'
+
 try:
     from .local import *
 except ImportError:
