@@ -15,4 +15,6 @@ LOGGING = {
 WAGTAILSEARCH_BACKENDS.get('default')['INDEX'] = 'test'
 
 EMAIL_SUBJECT_PREFIX = '[TEST] '
-USER_REQUEST_FORM_RECIPIENTS = 'recipient1@matchd.ch,recipient2@matchd.ch'.split(',')
+USER_REQUEST_FORM_RECIPIENTS = [
+    recipient.strip() for recipient in 'recipient1@matchd.ch, recipient2@matchd.ch'.split(',')
+]
