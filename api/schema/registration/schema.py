@@ -52,7 +52,7 @@ class RegisterCompany(Register):
 
 
 class StudentInput(graphene.InputObjectType):
-    mobile_number = graphene.String(description=_('MobileNumber'))
+    mobile_number = graphene.String(description=_('Mobile'))
 
 
 # pylint: disable=R0903
