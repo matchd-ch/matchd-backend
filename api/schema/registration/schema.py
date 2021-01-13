@@ -73,6 +73,8 @@ class RegisterStudent(Register):
         except ValidationError as error:
             return RegisterStudent(success=False, errors=ErrorType.serialize(error.message_dict))
 
+        data['type'] = UserType.STUDENT
+
         result = cls.resolve_mutation(root, info, **data)
         if result.errors:
             return RegisterStudent(success=False, errors=ErrorType.serialize(result.errors))
