@@ -71,7 +71,7 @@ build:development:
   dependencies:
     - test
   only:
-    - develop
+    - MATCHD-46-deployment
   tags:
     - docker
     - docker-nonswiss-ok
