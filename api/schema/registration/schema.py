@@ -6,12 +6,13 @@ from graphql_auth.mutations import Register
 from django.utils.translation import gettext_lazy as _
 
 from api.schema.error import ErrorType
-from db.models import Company, Student
+from db.models import Company, Student, UserType
 
 
 class CompanyInput(graphene.InputObjectType):
     role = graphene.String(description=_('Role'))
     name = graphene.String(description=_('Name'))
+    uid = graphene.String(description=_('UID'))
     zip = graphene.String(description=_('ZIP'))
     city = graphene.String(description=_('City'))
 
@@ -34,6 +35,8 @@ class RegisterCompany(Register):
         except ValidationError as error:
             return RegisterCompany(success=False, errors=ErrorType.serialize(error.message_dict))
 
+        data['type'] = UserType.COMPANY
+
         result = cls.resolve_mutation(root, info, **data)
         if result.errors:
             return RegisterCompany(success=False, errors=ErrorType.serialize(result.errors))
@@ -42,6 +45,7 @@ class RegisterCompany(Register):
             user = get_user_model().objects.get(email=data.get('email'))
         except get_user_model().DoesNotExist:
             return RegisterCompany(success=False, errors={'non_field_errors': 'User not found.'})
+
         company.user = user
         company.save()
         return result
