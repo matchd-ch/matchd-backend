@@ -148,6 +148,7 @@ Deploy Development:
     name: dev
   variables:
     COMPOSE_PROJECT_NAME: dev
+    IMAGE: $CI_REGISTRY/matchd/backend:v0.0.0-alpha
   only:
     - MATCHD-46-deployment
 
