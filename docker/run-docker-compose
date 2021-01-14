@@ -34,7 +34,7 @@ echo "    APP_DOMAIN: ${APP_DOMAIN}" >&2
 echo "    APP_CSRF_COOKIE_DOMAIN: ${APP_CSRF_COOKIE_DOMAIN}" >&2
 echo "    WAGTAIL_SITE_NAME: ${WAGTAIL_SITE_NAME}" >&2
 
-
+export TRAEFIK_ROUTER_NAME="api-${COMPOSE_PROJECT_NAME}"
 
 if [[ ! -f "docker-compose.yml" ]]
 then
@@ -48,7 +48,7 @@ services:
     image: ${IMAGE}
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.api-${COMPOSE_PROJECT_NAME}.rule=Host(`"${APP_DOMAIN}"`)"
+      - "traefik.http.routers.${TRAEFIK_ROUTER_NAME}.rule=Host(`"${APP_DOMAIN}"`)"
     environment:
       DJANGO_SETTINGS_MODULE: '${DJANGO_SETTINGS_MODULE}'
       DJANGO_DB_NAME: '${DJANGO_DB_NAME}'
