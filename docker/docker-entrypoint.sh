@@ -1,14 +1,19 @@
 #!/bin/bash
 set -e
 
-echo "Apply database migrations"
-python ./manage.py migrate
+echo "HOST: ${DJANGO_DB_HOST}";
+echo "DATABASE: ${DJANGO_DB_PORT}";
 
-echo "Collect static files"
-python ./manage.py collectstatic --noinput
+# Check if script was called by CMD, can be sh -c 'CMD' or CMD
+if [ "$1" = '/usr/libexec/s2i/run' ] || [ "$3" = '/usr/libexec/s2i/run' ] || [ "$2" = 'runserver' ]; then
+    echo "Apply database migrations"
+    python ./manage.py migrate
 
-echo "Setup super admin"
-./manage.py loaddata app/fixtures/users.json
+    echo "Collect static files"
+    python ./manage.py collectstatic --noinput
+
+    echo "Setup super admin"
+    ./manage.py loaddata app/fixtures/users.json
 
 #    TODO add initial data
 #    echo "Load Demo data"
@@ -16,5 +21,6 @@ echo "Setup super admin"
 #
 #    echo "Reindex elastic"
 #    python ./manage.py update_index
+fi
 
 exec "$@"
