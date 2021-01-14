@@ -10,3 +10,19 @@ echo "    CI_COMMIT_REF_NAME: ${CI_COMMIT_REF_NAME}" >&2
 echo "    CI_COMMIT_REF_SLUG: ${CI_COMMIT_REF_SLUG}" >&2
 echo "    COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}" >&2
 echo "    IMAGE: ${IMAGE}" >&2
+
+
+if [[ ! -f "docker-compose.yml" ]]
+then
+    echo "Creating 'docker-compse.yml' template…"
+    cat <<EOF >docker-compose.yml
+---
+version: "3.8"
+
+services:
+  web:
+    image: ${IMAGE}
+EOF
+fi
+
+
