@@ -113,12 +113,12 @@ case "${COMPOSE_ACTION}" in
         echo "Creating and starting containers…"
         docker-compose -f docker-compose.yml up -d
 
-        for SLEEP in 1 3 5 10 10 10 10 10
-        do
-            echo "Checking health of containers…"
-            docker-compose ps -a | sed 1,2d | grep -P '(^(?!.*\bUp\b).*$|\(health: starting\)|\(unhealthy\))' && sleep ${SLEEP} || exit 0
-        done
-        exit 1
+#        for SLEEP in 1 3 5 10 10 10 10 10
+#        do
+#            echo "Checking health of containers…"
+#            docker-compose ps -a | sed 1,2d | grep -P '(^(?!.*\bUp\b).*$|\(health: starting\)|\(unhealthy\))' && sleep ${SLEEP} || exit 0
+#        done
+#        exit 1
         ;;
 
     "down")
