@@ -46,7 +46,7 @@ then
     echo "Creating 'docker-compse.yml' template…"
     cat <<EOF >docker-compose.yml
 ---
-version: "3.8"
+version: '3.8'
 
 services:
   web:
