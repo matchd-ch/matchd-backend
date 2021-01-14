@@ -2,4 +2,10 @@
 
 set -e
 
-echo "Running docker-compose.."
+echo "Setup docker-compose" >&2
+echo "--------------------" >&2
+echo "    CI_PROJECT_ID: ${CI_PROJECT_ID}" >&2
+echo "    CI_PROJECT_NAME: ${CI_PROJECT_NAME}" >&2
+echo "    CI_COMMIT_REF_NAME: ${CI_COMMIT_REF_NAME}" >&2
+echo "    CI_COMMIT_REF_SLUG: ${CI_COMMIT_REF_SLUG}" >&2
+echo "    COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}"

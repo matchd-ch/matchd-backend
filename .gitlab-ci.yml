@@ -2,8 +2,8 @@ variables:
   DOCKER_COMPOSE_SCRIPT: ./docker/run-docker-compose
 
 stages:
-  - "Test"
-  - "Build"
+#  - "Test"
+#  - "Build"
   - "Deploy"
 
 pylint:
