@@ -7,6 +7,7 @@ disable=
     W0401, # wildcard-import
     W1508, # invalid-envvar-default
     C0412, # ungrouped-imports
+    R0801, # duplicate-code
 
 [FORMAT]
 max-line-length=120
