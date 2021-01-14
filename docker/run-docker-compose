@@ -13,6 +13,28 @@ echo "    CI_COMMIT_REF_SLUG: ${CI_COMMIT_REF_SLUG}" >&2
 echo "    COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}" >&2
 echo "    IMAGE: ${IMAGE}" >&2
 
+echo "Environment" >&2
+echo "-----------" >&2
+echo "    DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE}" >&2
+echo "    DJANGO_DB_NAME: ${DJANGO_DB_NAME}" >&2
+echo "    DJANGO_DB_USER: ${DJANGO_DB_USER}" >&2
+echo "    DJANGO_DB_PW: ${DJANGO_DB_PW}" >&2
+echo "    DJANGO_DB_HOST: ${DJANGO_DB_HOST}" >&2
+echo "    DJANGO_DB_PORT: ${DJANGO_DB_PORT}" >&2
+echo "    DJANGO_ELASTIC_SEARCH_URL: ${DJANGO_ELASTIC_SEARCH_URL}" >&2
+echo "    DJANGO_EMAIL: ${DJANGO_EMAIL}" >&2
+echo "    DJANGO_EMAIL_HOST: ${DJANGO_EMAIL_HOST}" >&2
+echo "    DJANGO_EMAIL_PORT: ${DJANGO_EMAIL_PORT}" >&2
+echo "    DJANGO_EMAIL_HOST_PASSWORD: ${DJANGO_EMAIL_HOST_PASSWORD}" >&2
+echo "    DJANGO_EMAIL_HOST_USER: ${DJANGO_EMAIL_HOST_USER}" >&2
+echo "    DJANGO_EMAIL_SUBJECT_PREFIX: ${DJANGO_EMAIL_SUBJECT_PREFIX}" >&2
+echo "    DJANGO_GRAPHIQL_ENABLED: ${DJANGO_GRAPHIQL_ENABLED}" >&2
+echo "    FRONTEND_URL: ${FRONTEND_URL}" >&2
+echo "    APP_DOMAIN: ${APP_DOMAIN}" >&2
+echo "    APP_CSRF_COOKIE_DOMAIN: ${APP_CSRF_COOKIE_DOMAIN}" >&2
+echo "    WAGTAIL_SITE_NAME: ${WAGTAIL_SITE_NAME}" >&2
+
+
 
 if [[ ! -f "docker-compose.yml" ]]
 then
@@ -24,6 +46,36 @@ version: "3.8"
 services:
   web:
     image: ${IMAGE}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.api-dev.rule=Host(`${APP_DOMAIN}`)"
+    environment:
+      DJANGO_SETTINGS_MODULE: '${DJANGO_SETTINGS_MODULE}'
+      DJANGO_DB_NAME: '${DJANGO_DB_NAME}'
+      DJANGO_DB_USER: '${DJANGO_DB_USER}'
+      DJANGO_DB_PW: '${DJANGO_DB_PW}'
+      DJANGO_DB_HOST: '${DJANGO_DB_HOST}'
+      DJANGO_DB_PORT: '${DJANGO_DB_PORT}'
+      DJANGO_ELASTIC_SEARCH_URL: '${DJANGO_ELASTIC_SEARCH_URL}'
+      DJANGO_EMAIL: '${DJANGO_EMAIL}'
+      DJANGO_EMAIL_HOST: '${DJANGO_EMAIL_HOST}'
+      DJANGO_EMAIL_PORT: '${DJANGO_EMAIL_PORT}'
+      DJANGO_EMAIL_HOST_PASSWORD: '${DJANGO_EMAIL_HOST_PASSWORD}'
+      DJANGO_EMAIL_HOST_USER: '${DJANGO_EMAIL_HOST_USER}'
+      DJANGO_EMAIL_SUBJECT_PREFIX: '${DJANGO_EMAIL_SUBJECT_PREFIX}'
+      DJANGO_GRAPHIQL_ENABLED: '${DJANGO_GRAPHIQL_ENABLED}'
+      FRONTEND_URL: '${FRONTEND_URL}'
+      APP_DOMAIN: '${APP_DOMAIN}'
+      APP_CSRF_COOKIE_DOMAIN: '${APP_CSRF_COOKIE_DOMAIN}'
+      WAGTAIL_SITE_NAME: '${WAGTAIL_SITE_NAME}'
+    networks:
+      matchd_matchd:
+        aliases:
+          - ${APP_DOMAIN}
+
+networks:
+  matchd_matchd:
+    external: true
 EOF
 fi
 

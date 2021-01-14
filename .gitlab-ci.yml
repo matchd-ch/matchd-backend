@@ -149,6 +149,25 @@ Deploy Development:
   variables:
     COMPOSE_PROJECT_NAME: dev
     IMAGE: $CI_REGISTRY/matchd/backend:v0.0.0-alpha
+    DJANGO_SETTINGS_MODULE: 'app.settings.dev'
+    DJANGO_DB_NAME: 'wagtail-dev'
+    DJANGO_DB_USER: 'root'
+    DJANGO_DB_PW: 'wagtail'
+    DJANGO_DB_HOST: 'api-db'
+    DJANGO_DB_PORT: '3306'
+    DJANGO_ELASTIC_SEARCH_URL: 'search-index:9200'
+    #     TODO email
+    DJANGO_EMAIL: 'info@matchd.ch'
+    DJANGO_EMAIL_HOST: 'smtp'
+    DJANGO_EMAIL_PORT: '25'
+    DJANGO_EMAIL_HOST_PASSWORD: ''
+    DJANGO_EMAIL_HOST_USER: ''
+    DJANGO_EMAIL_SUBJECT_PREFIX: '[LOCAL] '
+    DJANGO_GRAPHIQL_ENABLED: 'true'
+    FRONTEND_URL: 'dev.app.matchd.lo'
+    APP_DOMAIN: dev.api.matchd.lo
+    APP_CSRF_COOKIE_DOMAIN: .dev.matchd.lo
+    WAGTAIL_SITE_NAME: 'MATCHD - DEV'
   only:
     - MATCHD-46-deployment
 
