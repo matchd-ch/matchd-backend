@@ -6,7 +6,7 @@ stages:
 #  - "Build"
   - "Deploy"
 
-pylint:
+.pylint:
   image:
     docker.gitlab.liip.ch/matchd/docker-images/python-38-centos7:latest
   script:
@@ -21,7 +21,7 @@ pylint:
     - swiss
     - not-roadrunner
 
-test:
+.test:
   image:
     docker.gitlab.liip.ch/matchd/docker-images/python-38-centos7:latest
   script:
@@ -63,7 +63,7 @@ test:
     -f "docker/Dockerfile" .
   - docker push $CI_REGISTRY/matchd/backend:$APP_TAG
 
-build:development:
+.build:development:
   image: docker:19.03.11
   stage: "Build"
   services:
@@ -86,7 +86,7 @@ build:development:
   interruptible: true
   resource_group: development
 
-build:integration:
+.build:integration:
   image: docker:19.03.11
   stage: "Build"
   services:
@@ -110,7 +110,7 @@ build:integration:
   interruptible: true
   resource_group: integration
 
-build:production:
+.build:production:
   image: docker:19.03.11
   stage: "Build"
   services:
