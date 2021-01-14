@@ -35,7 +35,7 @@ echo "    APP_DOMAIN: ${APP_DOMAIN}" >&2
 echo "    APP_CSRF_COOKIE_DOMAIN: ${APP_CSRF_COOKIE_DOMAIN}" >&2
 echo "    WAGTAIL_SITE_NAME: ${WAGTAIL_SITE_NAME}" >&2
 
-export DOCKER_GATEWAY_HOST="`hostname -I |awk '{print $1}'`"
+export DOCKER_GATEWAY_HOST="`/sbin/ip route|awk '/default/ { print $3 }'`"
 
 echo "    DOCKER_GATEWAY_HOST: ${DOCKER_GATEWAY_HOST}" >&2
 
