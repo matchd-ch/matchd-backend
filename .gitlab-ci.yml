@@ -72,7 +72,7 @@ build:development:
     DOCKER_DRIVER: overlay2
     DOCKER_HOST: tcp://docker:2375
     DOCKER_TLS_CERTDIR: ""
-    APP_TAG: latest
+    APP_TAG: $CI_COMMIT_SHA
   script:
     - *build
   dependencies:
@@ -151,7 +151,7 @@ Deploy Development:
   variables:
     COMPOSE_PROJECT_NAME: dev
     COMPOSE_ACTION: up
-    IMAGE: $CI_REGISTRY/matchd/backend:latest
+    IMAGE: $CI_REGISTRY/matchd/backend:$CI_COMMIT_SHA
     DJANGO_SETTINGS_MODULE: 'app.settings.production'
     DJANGO_DB_NAME: $DEVELOPMENT_DATABASE_NAME
     DJANGO_DB_USER: $DEVELOPMENT_DATABASE_USER
