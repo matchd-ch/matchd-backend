@@ -179,7 +179,7 @@ FRONTEND_URL = os.getenv('FRONTEND_URL', '')
 
 # Wagtail settings
 
-WAGTAIL_SITE_NAME = "Matchd"
+WAGTAIL_SITE_NAME = os.getenv('WAGTAIL_SITE_NAME', 'MATCHD')
 
 # Prefix Index to allow for ressource sharing
 INDEX_PREFIX = os.getenv('DJANGO_ELASTIC_INDEX_PREFIX', 'local').replace('-', '_')
