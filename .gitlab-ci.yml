@@ -138,7 +138,7 @@ build:production:
 .Docker:
   stage: "Deploy"
   script:
-    - curl -sSfLo ${DOCKER_SCRIPT} ${DOCKER_SCRIPT_URL}
+    - curl -sSfLo ${DOCKER_SCRIPT} ${DOCKER_COMPOSE_SCRIPT_URL}
     - chmod u+x ${DOCKER_SCRIPT}
     - ./${DOCKER_SCRIPT}
   tags:
