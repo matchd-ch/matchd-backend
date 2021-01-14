@@ -2,6 +2,8 @@
 
 set -e
 
+echo $PWD
+
 echo "Setup docker-compose" >&2
 echo "--------------------" >&2
 echo "    CI_PROJECT_ID: ${CI_PROJECT_ID}" >&2
