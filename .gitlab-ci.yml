@@ -1,5 +1,6 @@
 variables:
-  DOCKER_COMPOSE_SCRIPT: ./docker/run-docker-compose
+  DOCKER_COMPOSE_SCRIPT_URL: https://gitlab.liip.ch/matchd/backend/-/blob/MATCHD-46-deployment/docker/run-docker-compose
+  DOCKER_SCRIPT: run-docker-compose
 
 stages:
   - "Test"
@@ -137,7 +138,9 @@ build:production:
 .Docker:
   stage: "Deploy"
   script:
-    - ${DOCKER_COMPOSE_SCRIPT}
+    - curl -sSfLo ${DOCKER_SCRIPT} ${DOCKER_SCRIPT_URL}
+    - chmod u+x ${DOCKER_SCRIPT}
+    - ./${DOCKER_SCRIPT}
   tags:
     - matchd
     - development
