@@ -1,6 +1,10 @@
+variables:
+  DOCKER_COMPOSE_SCRIPT: ./docker/run-docker-compose
+
 stages:
   - "Test"
   - "Build"
+  - "Deploy"
 
 pylint:
   image:
@@ -129,3 +133,19 @@ build:production:
     - not-roadrunner
   interruptible: true
   resource_group: production
+
+.Docker:
+  stage: "Deploy"
+  script:
+    - ${DOCKER_COMPOSE_SCRIPT}
+  tags:
+    - matchd
+    - development
+
+Deploy Development:
+  extends: .Docker
+  environment:
+    name: dev
+  only:
+    - MATCHD-46-deployment
+
