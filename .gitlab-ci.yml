@@ -148,6 +148,7 @@ Deploy Development:
     name: dev
   variables:
     COMPOSE_PROJECT_NAME: dev
+    COMPOSE_ACTION: up
     IMAGE: $CI_REGISTRY/matchd/backend:v0.0.0-alpha
     DJANGO_SETTINGS_MODULE: 'app.settings.prod'
     DJANGO_DB_NAME: $DEVELOPMENT_DATABASE_NAME

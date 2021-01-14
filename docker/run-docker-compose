@@ -11,6 +11,7 @@ echo "    CI_PROJECT_NAME: ${CI_PROJECT_NAME}" >&2
 echo "    CI_COMMIT_REF_NAME: ${CI_COMMIT_REF_NAME}" >&2
 echo "    CI_COMMIT_REF_SLUG: ${CI_COMMIT_REF_SLUG}" >&2
 echo "    COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}" >&2
+echo "    COMPOSE_ACTION: ${COMPOSE_ACTION}" >&2
 echo "    IMAGE: ${IMAGE}" >&2
 
 echo "Environment" >&2
@@ -78,5 +79,47 @@ networks:
     external: true
 EOF
 fi
+
+
+case "${COMPOSE_ACTION}" in
+
+    "build")
+        echo "Building images…"
+        docker-compose build
+        ;;
+
+    "push")
+        echo "Pushing images…"
+        docker-compose push ${DOCKER_PUSH_SERVICES}
+        ;;
+
+    "up")
+        if [[ "${REMOVE_VOLUMES}" == "yes" ]]
+        then
+            echo "Removing containers and volumes first…"
+            docker-compose down -v
+        fi
+
+        echo "Creating and starting containers…"
+        docker-compose -f docker-compose.yml up -d
+
+        for SLEEP in 1 3 5 10 10 10 10 10
+        do
+            echo "Checking health of containers…"
+            docker-compose ps -a | sed 1,2d | grep -P '(^(?!.*\bUp\b).*$|\(health: starting\)|\(unhealthy\))' && sleep ${SLEEP} || exit 0
+        done
+        exit 1
+        ;;
+
+    "down")
+        echo "Removing containers, images and volumes…"
+        docker-compose down -v --remove-orphans --rmi all
+        ;;
+
+    *)
+        echo "ERROR: Invalid action '${COMPOSE_ACTION}'" >&2
+        exit 255
+
+esac
 
 
