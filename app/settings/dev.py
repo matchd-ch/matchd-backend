@@ -38,6 +38,12 @@ DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': show_debug_toolbar,
 }
 
+
+GRAPHQL_JWT.update({
+    'JWT_COOKIE_SECURE': False
+})
+
+
 CSRF_COOKIE_DOMAIN = os.getenv('APP_CSRF_COOKIE_DOMAIN', '.matchd.lo')
 
 try:

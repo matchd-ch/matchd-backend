@@ -1,1 +1,1 @@
-from .temp import TempQuery
+from .temp import *
