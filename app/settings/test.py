@@ -13,3 +13,10 @@ LOGGING = {
 }
 
 WAGTAILSEARCH_BACKENDS.get('default')['INDEX'] = 'test'
+
+EMAIL_SUBJECT_PREFIX = '[TEST] '
+USER_REQUEST_FORM_RECIPIENTS = [
+    recipient.strip() for recipient in 'recipient1@matchd.ch, recipient2@matchd.ch'.split(',')
+]
+
+GRAPHQL_AUTH['EMAIL_TEMPLATE_VARIABLES']['email_subject_prefix'] = EMAIL_SUBJECT_PREFIX

@@ -163,6 +163,9 @@ EMAIL_HOST_USER = os.getenv('DJANGO_EMAIL_HOST_USER', '')
 EMAIL_USE_SSL = os.getenv('DJANGO_EMAIL_USE_SSL', True)
 EMAIL_USE_TLS = os.getenv('DJANGO_EMAIL_USE_TLS', False)
 EMAIL_SUBJECT_PREFIX = os.getenv('DJANGO_EMAIL_SUBJECT_PREFIX', '')
+USER_REQUEST_FORM_RECIPIENTS = [
+    recipient.strip() for recipient in os.getenv('USER_REQUEST_FORM_RECIPIENTS', f'{DEFAULT_FROM_EMAIL}').split(',')
+]
 
 # FRONTEND
 FRONTEND_URL = os.getenv('FRONTEND_URL', '')
@@ -240,3 +243,5 @@ GRAPHQL_AUTH = {
     'REGISTER_MUTATION_FIELDS': ['email', 'username', 'first_name', 'last_name'],
     'REGISTER_MUTATION_FIELDS_OPTIONAL': ['type']
 }
+
+CSRF_COOKIE_DOMAIN = os.getenv('APP_CSRF_COOKIE_DOMAIN', None)
