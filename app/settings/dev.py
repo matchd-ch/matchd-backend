@@ -28,6 +28,7 @@ MIDDLEWARE += [
 
 GRAPHIQL_ENABLED = True
 
+
 # DEBUG TOOLBAR
 def show_debug_toolbar(request):
     return DEBUG
@@ -36,6 +37,14 @@ def show_debug_toolbar(request):
 DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': show_debug_toolbar,
 }
+
+
+GRAPHQL_JWT.update({
+    'JWT_COOKIE_SECURE': False
+})
+
+
+CSRF_COOKIE_DOMAIN = os.getenv('APP_CSRF_COOKIE_DOMAIN', '.matchd.lo')
 
 try:
     from .local import *
