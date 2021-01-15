@@ -77,6 +77,7 @@ services:
       APP_DOMAIN: '${APP_DOMAIN}'
       APP_CSRF_COOKIE_DOMAIN: '${APP_CSRF_COOKIE_DOMAIN}'
       WAGTAIL_SITE_NAME: '${WAGTAIL_SITE_NAME}'
+      DJANGO_SECRET_KEY: '${DJANGO_SECRET_KEY}'
     volumes:
       - /var/run/mysqld/mysqld.sock:/var/run/mysqld/mysqld.sock
     networks:
