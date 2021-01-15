@@ -8,6 +8,7 @@ disable=
     W1508, # invalid-envvar-default
     C0412, # ungrouped-imports
     W0613, # unused-argument
+    R0801, # duplicate-code
 
 [FORMAT]
 max-line-length=120
