@@ -36,4 +36,4 @@ If you want to access user specific data you also need to include the authorizat
 # Tests
 
     docker-compose exec api bash
-    ./manage.py test --settings app.settings.test
+    ./manage.py test --settings=app.settings.test
