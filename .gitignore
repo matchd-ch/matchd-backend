@@ -4,3 +4,4 @@
 .pylint.d
 __pycache__
 *.pyc
+.env
