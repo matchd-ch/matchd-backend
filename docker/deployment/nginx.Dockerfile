@@ -4,7 +4,7 @@ ARG PROXY_URL
 
 USER 0
 
-COPY ./docker/deplyoment/nginx nginx
+COPY ./docker/deployment/nginx nginx
 
 RUN yum install -y --setopt=tsflags=nodocs httpd-tools && \
   rpm -V httpd-tools && \
