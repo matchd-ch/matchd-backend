@@ -17,7 +17,7 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 COPY . '/opt/app-root/src'
 COPY app/wsgi.py .
 
-EXPOSE 8080
+EXPOSE 8000
 
 ENTRYPOINT ["docker-entrypoint"]
 CMD ["/usr/libexec/s2i/run"]
