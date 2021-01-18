@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 from datetime import timedelta
+from urllib.parse import urlparse
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
@@ -173,7 +174,7 @@ FRONTEND_URL = os.getenv('FRONTEND_URL', '')
 
 # Wagtail settings
 
-WAGTAIL_SITE_NAME = "Matchd"
+WAGTAIL_SITE_NAME = os.getenv('WAGTAIL_SITE_NAME', 'MATCHD')
 
 # Prefix Index to allow for ressource sharing
 INDEX_PREFIX = os.getenv('DJANGO_ELASTIC_INDEX_PREFIX', 'local').replace('-', '_')
@@ -181,7 +182,7 @@ INDEX_PREFIX = os.getenv('DJANGO_ELASTIC_INDEX_PREFIX', 'local').replace('-', '_
 WAGTAILSEARCH_BACKENDS = {
     'default': {
         'BACKEND': 'wagtail.search.backends.elasticsearch7',
-        'URLS': [os.getenv('DJANGO_ELASTIC_SEARCH_URL', '')],
+        'URLS': [get_elasticsearch_url()],
         'INDEX': f'{INDEX_PREFIX}_matchd',
         'TIMEOUT': 5,
         'OPTIONS': {},
