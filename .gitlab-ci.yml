@@ -1,6 +1,5 @@
 variables:
   DOCKER_COMPOSE_SCRIPT: ./docker/deployment/run-docker-compose
-  DOTENV: .env
 
 stages:
   - "Test"
@@ -150,7 +149,7 @@ Deploy Development:
   environment:
     name: dev
   variables:
-    DOTENV: ${DOTENV}
+    DOTENV: .env
     COMPOSE_PROJECT_NAME: dev
     COMPOSE_ACTION: up
     IMAGE: $CI_REGISTRY/matchd/backend:$CI_COMMIT_SHA

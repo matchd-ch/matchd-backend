@@ -32,7 +32,7 @@ then
     echo "Docker:" >&2
     echo "    DOTENV: ${DOTENV}" >&2
     echo "    COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}" >&2
-    echo "    COMPOSE_ACTION: ${COMPOSE_PROJECT_NAME}" >&2
+    echo "    COMPOSE_ACTION: ${COMPOSE_ACTION}" >&2
     echo "    IMAGE: ${IMAGE}" >&2
     echo "Django:" >&2
     echo "    DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE}" >&2
@@ -54,7 +54,7 @@ then
     echo "Elasticsearch:" >&2
     echo "    DJANGO_ELASTIC_SEARCH_URL: ${DJANGO_ELASTIC_SEARCH_URL}" >&2
     echo "    DJANGO_ELASTIC_SEARCH_USER: ${DJANGO_ELASTIC_SEARCH_USER}" >&2
-    if [ -z "${DJANGO_ELASTICSEARCH_PASSWORD}" ]
+    if [ -z "${DJANGO_ELASTIC_SEARCH_PASSWORD}" ]
     then
       echo "    DJANGO_ELASTIC_SEARCH_PASSWORD: ${DJANGO_ELASTIC_SEARCH_PASSWORD}" >&2
     else
