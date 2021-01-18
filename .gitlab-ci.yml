@@ -61,10 +61,10 @@ test:
     docker build
     -t "$CI_REGISTRY/matchd/backend:$APP_TAG"
     -f "docker/deployment/python.Dockerfile" .
-  - docker push $CI_REGISTRY/matchd/backend:python$APP_TAG
+  - docker push $CI_REGISTRY/matchd/backend:$APP_TAG-python
   - >
     docker build
-    -t "$CI_REGISTRY/matchd/backend-ngnix:$APP_TAG"
+    -t "$CI_REGISTRY/matchd/backend:$APP_TAG-nginx"
     --build-arg PROXY_URL="$PROXY_URL"
     -f "docker/deployment/nginx.Dockerfile" .
   - docker push $CI_REGISTRY/matchd/backend:nginx$APP_TAG
@@ -160,8 +160,8 @@ Deploy Development:
     DOTENV: .env
     COMPOSE_PROJECT_NAME: dev
     COMPOSE_ACTION: up
-    IMAGE_BACKEND: $CI_REGISTRY/matchd/backend:python$CI_COMMIT_SHA
-    IMAGE_BACKEND_NGINX: $CI_REGISTRY/matchd/backend:nginx$CI_COMMIT_SHA
+    IMAGE_BACKEND: $CI_REGISTRY/matchd/backend:$CI_COMMIT_SHA-python
+    IMAGE_BACKEND_NGINX: $CI_REGISTRY/matchd/backend:$CI_COMMIT_SHA-nginx
     DJANGO_SETTINGS_MODULE: 'app.settings.production'
     DJANGO_DB_NAME: $DEVELOPMENT_DATABASE_NAME
     DJANGO_DB_USER: $DEVELOPMENT_DATABASE_USER
