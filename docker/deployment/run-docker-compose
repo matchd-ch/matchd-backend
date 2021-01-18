@@ -18,14 +18,13 @@ if [[ -z "${DOTENV}" ||
       -z "${DJANGO_DB_PW}" ||
       -z "${DJANGO_ELASTIC_SEARCH_URL}" ||
       -z "${DJANGO_ELASTIC_SEARCH_USER}" ||
-      -z "${DJANGO_ELASTIC_SEARCH_PASSWORD}" ||
+      -z "${DJANGO_ELASTIC_SEARCH_PASSWORD}" ]]
 #      -z "${DJANGO_EMAIL}" ||
 #      -z "${DJANGO_EMAIL_HOST}" ||
 #      -z "${DJANGO_EMAIL_PORT}" ||
 #      -z "${DJANGO_EMAIL_HOST_USER}" ||
 #      -z "${DJANGO_EMAIL_HOST_PASSWORD}" ||
-#      -z "${DJANGO_EMAIL_SUBJECT_PREFIX}" ||
-      -z "${LAST}" ]]
+#      -z "${DJANGO_EMAIL_SUBJECT_PREFIX}" ]]
 then
     echo "ERROR: A required environment variable is not set" >&2
     echo " " >&2
