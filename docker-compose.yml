@@ -1,14 +1,21 @@
 version: '3.8'
 
 services:
-  web:
-    image: ${IMAGE}
+  nginx:
+    image: ${IMAGE_BACKEND_NGINX}
+    ports:
+      - 1337:80
+    depends_on:
+      - web
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.${TRAEFIK_ROUTER_NAME}.rule=Host(`${APP_DOMAIN}`)"
+
+  web:
+    image: ${IMAGE_BACKEND}
     command: gunicorn app.wsgi:application --bind 0.0.0.0:8000
-    ports:
-      - 8000:8000
+    expose:
+      - 8000
     environment:
       DJANGO_SETTINGS_MODULE: '${DJANGO_SETTINGS_MODULE}'
       DJANGO_DB_NAME: '${DJANGO_DB_NAME}'

@@ -60,8 +60,15 @@ test:
   - >
     docker build
     -t "$CI_REGISTRY/matchd/backend:$APP_TAG"
-    -f "docker/deployment/Dockerfile" .
+    -f "docker/deployment/python.Dockerfile" .
   - docker push $CI_REGISTRY/matchd/backend:$APP_TAG
+  - >
+    docker build
+    -t "$CI_REGISTRY/matchd/backend-ngnix:$APP_TAG"
+    --build-arg PROXY_URL="$PROXY_URL"
+    -f "docker/deployment/nginx.Dockerfile" .
+  - docker push $CI_REGISTRY/matchd/backend-nginx:$APP_TAG
+  - docker logout $CI_REGISTRY
 
 build:development:
   image: docker:19.03.11
@@ -73,6 +80,7 @@ build:development:
     DOCKER_HOST: tcp://docker:2375
     DOCKER_TLS_CERTDIR: ""
     APP_TAG: $CI_COMMIT_SHA
+    PROXY_URL: http://dev-matchd
   script:
     - *build
   dependencies:
@@ -152,7 +160,8 @@ Deploy Development:
     DOTENV: .env
     COMPOSE_PROJECT_NAME: dev
     COMPOSE_ACTION: up
-    IMAGE: $CI_REGISTRY/matchd/backend:$CI_COMMIT_SHA
+    IMAGE_BACKEND: $CI_REGISTRY/matchd/backend:$CI_COMMIT_SHA
+    IMAGE_BACKEND_NGINX: $CI_REGISTRY/matchd/backend-gninx:$CI_COMMIT_SHA
     DJANGO_SETTINGS_MODULE: 'app.settings.production'
     DJANGO_DB_NAME: $DEVELOPMENT_DATABASE_NAME
     DJANGO_DB_USER: $DEVELOPMENT_DATABASE_USER
