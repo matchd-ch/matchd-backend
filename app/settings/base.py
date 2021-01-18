@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 from datetime import timedelta
+from urllib.parse import urlparse
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
@@ -178,10 +179,32 @@ WAGTAIL_SITE_NAME = os.getenv('WAGTAIL_SITE_NAME', 'MATCHD')
 # Prefix Index to allow for ressource sharing
 INDEX_PREFIX = os.getenv('DJANGO_ELASTIC_INDEX_PREFIX', 'local').replace('-', '_')
 
+
+def get_elasticsearch_url():
+    url = os.getenv('DJANGO_ELASTIC_SEARCH_URL', '')
+    protocol = 'http'
+    port = ''
+    if url and url != '':
+        parsed_uri = urlparse(url)
+        protocol = parsed_uri.scheme
+        url = parsed_uri.hostname
+        port = parsed_uri.port
+    if port and port != '':
+        port = f':{port}'
+
+    user = os.getenv('DJANGO_ELASTIC_SEARCH_USER', '')
+    password = os.getenv('DJANGO_ELASTIC_SEARCH_PASSWORD', '')
+
+    elasticsearch_url = ''
+    if user and user != '' and password and password != '':
+        elasticsearch_url = f'{user}:{password}@'
+    return f'{protocol}://{elasticsearch_url}{url}{port}'
+
+
 WAGTAILSEARCH_BACKENDS = {
     'default': {
         'BACKEND': 'wagtail.search.backends.elasticsearch7',
-        'URLS': [os.getenv('DJANGO_ELASTIC_SEARCH_URL', '')],
+        'URLS': [get_elasticsearch_url()],
         'INDEX': f'{INDEX_PREFIX}_matchd',
         'TIMEOUT': 5,
         'OPTIONS': {},
