@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  web:
+    image: ${IMAGE_BACKEND}
+    command: gunicorn app.wsgi:application --bind 0.0.0.0:8000
+    environment:
+      DJANGO_SETTINGS_MODULE: '${DJANGO_SETTINGS_MODULE}'
+      DJANGO_DB_NAME: '${DJANGO_DB_NAME}'
+      DJANGO_DB_USER: '${DJANGO_DB_USER}'
+      DJANGO_DB_PW: '${DJANGO_DB_PW}'
+      DJANGO_ELASTIC_SEARCH_URL: '${DJANGO_ELASTIC_SEARCH_URL}'
+      DJANGO_ELASTIC_SEARCH_USER: '${DJANGO_ELASTIC_SEARCH_USER}'
+      DJANGO_ELASTIC_SEARCH_PASSWORD: '${DJANGO_ELASTIC_SEARCH_PASSWORD}'
+      DJANGO_EMAIL: '${DJANGO_EMAIL}'
+      DJANGO_EMAIL_HOST: '${DJANGO_EMAIL_HOST}'
+      DJANGO_EMAIL_PORT: '${DJANGO_EMAIL_PORT}'
+      DJANGO_EMAIL_HOST_PASSWORD: '${DJANGO_EMAIL_HOST_PASSWORD}'
+      DJANGO_EMAIL_HOST_USER: '${DJANGO_EMAIL_HOST_USER}'
+      DJANGO_EMAIL_SUBJECT_PREFIX: '${DJANGO_EMAIL_SUBJECT_PREFIX}'
+      DJANGO_GRAPHIQL_ENABLED: '${DJANGO_GRAPHIQL_ENABLED}'
+      FRONTEND_URL: '${FRONTEND_URL}'
+      APP_DOMAIN: '${APP_DOMAIN}'
+      APP_CSRF_COOKIE_DOMAIN: '${APP_CSRF_COOKIE_DOMAIN}'
+      WAGTAIL_SITE_NAME: '${WAGTAIL_SITE_NAME}'
+      DJANGO_SECRET_KEY: '${DJANGO_SECRET_KEY}'
+    volumes:
+      - /var/run/mysqld/mysqld.sock:/var/run/mysqld/mysqld.sock
+      - ./static:/opt/app-root/src/static
+      - ./media:/opt/app-root/src/media
+    networks:
+      matchd_matchd:
+        aliases:
+          - web
+
+  nginx:
+    image: ${IMAGE_BACKEND_NGINX}
+    ports:
+      - 1337:8080
+    depends_on:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${TRAEFIK_ROUTER_NAME}.rule=Host(`${APP_DOMAIN}`)"
+    volumes:
+      - ./static:/opt/app-root/src/static
+      - ./media:/opt/app-root/src/media
+    networks:
+      matchd_matchd:
+        aliases:
+          - nginx
+
+networks:
+  matchd_matchd:
+    external: true
