@@ -36,7 +36,7 @@ services:
   nginx:
     image: ${IMAGE_BACKEND_NGINX}
     ports:
-      - 1337:80
+      - 1337:8080
     depends_on:
       - web
     labels:
