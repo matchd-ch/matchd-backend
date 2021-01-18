@@ -80,7 +80,7 @@ build:development:
     DOCKER_HOST: tcp://docker:2375
     DOCKER_TLS_CERTDIR: ""
     APP_TAG: $CI_COMMIT_SHA
-    PROXY_URL: dev-matchd
+    PROXY_URL: http://dev-matchd
   script:
     - *build
   dependencies:
