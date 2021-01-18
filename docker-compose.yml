@@ -1,21 +1,9 @@
 version: '3.8'
 
 services:
-  nginx:
-    image: ${IMAGE_BACKEND_NGINX}
-    ports:
-      - 1337:80
-    depends_on:
-      - web
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.${TRAEFIK_ROUTER_NAME}.rule=Host(`${APP_DOMAIN}`)"
-
   web:
     image: ${IMAGE_BACKEND}
     command: gunicorn app.wsgi:application --bind 0.0.0.0:8000
-    expose:
-      - 8000
     environment:
       DJANGO_SETTINGS_MODULE: '${DJANGO_SETTINGS_MODULE}'
       DJANGO_DB_NAME: '${DJANGO_DB_NAME}'
@@ -38,10 +26,29 @@ services:
       DJANGO_SECRET_KEY: '${DJANGO_SECRET_KEY}'
     volumes:
       - /var/run/mysqld/mysqld.sock:/var/run/mysqld/mysqld.sock
+      - ./static:/opt/app-root/src/static
+      - ./media:/opt/app-root/src/media
     networks:
       matchd_matchd:
         aliases:
-          - ${APP_DOMAIN}
+          - web
+
+  nginx:
+    image: ${IMAGE_BACKEND_NGINX}
+    ports:
+      - 1337:80
+    depends_on:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${TRAEFIK_ROUTER_NAME}.rule=Host(`${APP_DOMAIN}`)"
+    volumes:
+      - ./static:/opt/app-root/src/static
+      - ./media:/opt/app-root/src/media
+    networks:
+      matchd_matchd:
+        aliases:
+          - nginx
 
 networks:
   matchd_matchd:

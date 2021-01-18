@@ -10,7 +10,7 @@ RUN yum install -y --setopt=tsflags=nodocs httpd-tools && \
   rpm -V httpd-tools && \
   yum clean all -y && \
   mv nginx/mime.types /opt/app-root/etc/ && \
-  sed "s|\$PROXY_URL|${PROXY_URL}|g;" nginx/nginx.conf.template > /opt/app-root/etc/nginx.conf && \
+  mv nginx/nginx.conf.template /opt/app-root/etc/nginx.conf && \
   rm -rf nginx && \
   yum remove -y httpd-tools && \
   yum clean all -y
