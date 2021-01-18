@@ -111,7 +111,7 @@ http {
     add_header Content-Security-Policy "default-src 'self' https://*.matchd.ch http://*matchd.lo ; prefetch-src 'self' https://*.matchd.ch http://*matchd.lo ; frame-src 'self' https://*.matchd.ch http://*matchd.lo ; frame-ancestors 'self' https://*.matchd.ch http://*matchd.lo ; script-src 'self' 'sha256-ARNjSKtspj8a/DrVLo1nQbdtVgrLyArpOfU/2z9mbII=' https://*.matchd.ch http://*matchd.lo ; object-src 'self' ; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com ; img-src 'self' data: blob: https://*.matchd.ch http://*matchd.lo ; font-src 'self' https://fonts.gstatic.com data: ; connect-src 'self' https://*.matchd.ch http://*matchd.lo ; worker-src 'self' ; upgrade-insecure-requests; block-all-mixed-content; manifest-src 'self'";
 
     upstream matchd_django {
-        server web:8000;
+        server web;
     }
 
     server {
