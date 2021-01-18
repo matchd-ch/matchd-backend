@@ -1,5 +1,10 @@
+variables:
+  DOCKER_COMPOSE_SCRIPT: ./docker/deployment/run-docker-compose
+
 stages:
   - "Test"
+  - "Build"
+  - "Deploy"
 
 pylint:
   image:
@@ -49,3 +54,133 @@ test:
     DJANGO_DB_PW: 'wagtail'
     DJANGO_ELASTIC_SEARCH_URL: 'http://elasticsearch:9200'
   interruptible: true
+
+.build: &build
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  - >
+    docker build
+    -t "$CI_REGISTRY/matchd/backend:python-$APP_TAG"
+    -f "docker/deployment/python.Dockerfile" .
+  - docker push $CI_REGISTRY/matchd/backend:python-$APP_TAG
+  - >
+    docker build
+    -t "$CI_REGISTRY/matchd/backend:nginx-$APP_TAG"
+    --build-arg PROXY_URL="$PROXY_URL"
+    -f "docker/deployment/nginx.Dockerfile" .
+  - docker push $CI_REGISTRY/matchd/backend:nginx-$APP_TAG
+  - docker logout $CI_REGISTRY
+
+build:development:
+  image: docker:19.03.11
+  stage: "Build"
+  services:
+    - docker:19.03.11-dind
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+    APP_TAG: $CI_COMMIT_SHA
+    PROXY_URL: http://dev-matchd
+  script:
+    - *build
+  dependencies:
+    - test
+  only:
+    - MATCHD-46-deployment
+  tags:
+    - docker
+    - docker-nonswiss-ok
+    - not-roadrunner
+  interruptible: true
+  resource_group: development
+
+build:integration:
+  image: docker:19.03.11
+  stage: "Build"
+  services:
+    - docker:19.03.11-dind
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+    APP_TAG: $CI_COMMIT_REF_NAME
+  script:
+    - *build
+  dependencies:
+    - test
+  only:
+    refs:
+      - /^v?\d+\.\d+\.\d+(?:-(?:alpha|beta|rc)(?:(?:(?:\+|\.)[a-zA-Z0-9-]+)*)?)$/
+  tags:
+    - docker
+    - docker-nonswiss-ok
+    - not-roadrunner
+  interruptible: true
+  resource_group: integration
+
+build:production:
+  image: docker:19.03.11
+  stage: "Build"
+  services:
+    - docker:19.03.11-dind
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+    APP_TAG: $CI_COMMIT_REF_NAME
+  script:
+    - *build
+  dependencies:
+    - test
+  only:
+    refs:
+      - /^v?\d+\.\d+\.\d+$/
+  tags:
+    - docker
+    - docker-nonswiss-ok
+    - not-roadrunner
+  interruptible: true
+  resource_group: production
+
+.Docker:
+  stage: "Deploy"
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - ${DOCKER_COMPOSE_SCRIPT}
+    - docker logout $CI_REGISTRY
+  tags:
+    - matchd
+    - development
+
+Deploy Development:
+  extends: .Docker
+  environment:
+    name: dev
+  variables:
+    DOTENV: .env
+    COMPOSE_PROJECT_NAME: dev
+    COMPOSE_ACTION: up
+    IMAGE_BACKEND: $CI_REGISTRY/matchd/backend:python-$CI_COMMIT_SHA
+    IMAGE_BACKEND_NGINX: $CI_REGISTRY/matchd/backend:nginx-$CI_COMMIT_SHA
+    DJANGO_SETTINGS_MODULE: 'app.settings.production'
+    DJANGO_DB_NAME: $DEVELOPMENT_DATABASE_NAME
+    DJANGO_DB_USER: $DEVELOPMENT_DATABASE_USER
+    DJANGO_DB_PW: $DEVELOPMENT_DATABASE_PASSWORD
+    DJANGO_ELASTIC_SEARCH_URL: $DEVELOPMENT_ELASTIC_SEARCH_URL
+    DJANGO_ELASTIC_SEARCH_USER: $DEVELOPMENT_ELASTIC_SEARCH_USER
+    DJANGO_ELASTIC_SEARCH_PASSWORD: $DEVELOPMENT_ELASTIC_SEARCH_PASSWORD
+    DJANGO_EMAIL: 'info@matchd.ch'
+    DJANGO_EMAIL_HOST: 'smtp'
+    DJANGO_EMAIL_PORT: '25'
+    DJANGO_EMAIL_HOST_PASSWORD: ''
+    DJANGO_EMAIL_HOST_USER: ''
+    DJANGO_EMAIL_SUBJECT_PREFIX: '[LOCAL] '
+    DJANGO_GRAPHIQL_ENABLED: 'true'
+    FRONTEND_URL: $DEVELOPMENT_FRONTEND_URL
+    APP_DOMAIN: $DEVELOPMENT_APP_DOMAIN
+    APP_CSRF_COOKIE_DOMAIN: $DEVELOPMENT_APP_CSRF_COOKIE_DOMAIN
+    WAGTAIL_SITE_NAME: $DEVELOPMENT_WAGTAIL_SITE_NAME
+    DJANGO_SECRET_KEY: $DEVELOPMENT_DJANGO_SECRET_KEY
+  only:
+    - MATCHD-46-deployment
+
