@@ -6,6 +6,9 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.${TRAEFIK_ROUTER_NAME}.rule=Host(`${APP_DOMAIN}`)"
+    command: gunicorn app.wsgi:application --bind 0.0.0.0:8000
+    ports:
+      - 8000:8000
     environment:
       DJANGO_SETTINGS_MODULE: '${DJANGO_SETTINGS_MODULE}'
       DJANGO_DB_NAME: '${DJANGO_DB_NAME}'
