@@ -145,6 +145,8 @@ build:production:
 .Docker:
   stage: "Deploy"
   script:
+    - mkdir -p /var/www/${COMPOSE_PROJECT_NAME}/media
+    - mkdir -p /var/www/${COMPOSE_PROJECT_NAME}/static
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - ${DOCKER_COMPOSE_SCRIPT}
     - docker logout $CI_REGISTRY

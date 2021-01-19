@@ -26,8 +26,8 @@ services:
       DJANGO_SECRET_KEY: '${DJANGO_SECRET_KEY}'
     volumes:
       - /var/run/mysqld/mysqld.sock:/var/run/mysqld/mysqld.sock
-      - ./static:/opt/app-root/src/static
-      - ./media:/opt/app-root/src/media
+      - /var/www/${COMPOSE_PROJECT_NAME}/static:/opt/app-root/src/static
+      - /var/www/${COMPOSE_PROJECT_NAME}/media:/opt/app-root/src/media
     networks:
       matchd_matchd:
         aliases:
@@ -43,8 +43,8 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.${TRAEFIK_ROUTER_NAME}.rule=Host(`${APP_DOMAIN}`)"
     volumes:
-      - ./static:/opt/app-root/src/static
-      - ./media:/opt/app-root/src/media
+      - /var/www/${COMPOSE_PROJECT_NAME}/static:/opt/app-root/src/static
+      - /var/www/${COMPOSE_PROJECT_NAME}/media:/opt/app-root/src/media
     networks:
       matchd_matchd:
         aliases:
