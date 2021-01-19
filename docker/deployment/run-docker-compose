@@ -125,6 +125,9 @@ case "${COMPOSE_ACTION}" in
             docker-compose down -v
         fi
 
+        echo "Pulling images..."
+        docker-compose pull
+
         echo "Creating and starting containers…"
         docker-compose -f docker-compose.yml up -d
         ;;
