@@ -1,7 +1,5 @@
 FROM centos/nginx-112-centos7:latest
 
-ARG PROXY_URL
-
 USER 0
 
 COPY ./docker/deployment/nginx nginx
