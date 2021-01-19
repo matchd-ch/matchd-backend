@@ -125,7 +125,7 @@ case "${COMPOSE_ACTION}" in
         fi
 
         echo "Creating and starting containers…"
-        docker-compose -f docker-compose.yml up --quiet-pull  -d
+        docker-compose -f docker-compose.yml up -d
         ;;
 
     "down")
