@@ -157,7 +157,6 @@ Deploy Development:
   variables:
     DOTENV: .env
     COMPOSE_PROJECT_NAME: dev
-    COMPOSE_ACTION: up
     IMAGE_BACKEND: $CI_REGISTRY/matchd/backend:python-latest
     IMAGE_BACKEND_NGINX: $CI_REGISTRY/matchd/backend:nginx-latest
     DJANGO_SETTINGS_MODULE: 'app.settings.production'

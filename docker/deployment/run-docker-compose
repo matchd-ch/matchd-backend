@@ -4,7 +4,6 @@ set -e
 
 if [[ -z "${DOTENV}" ||
       -z "${COMPOSE_PROJECT_NAME}" ||
-      -z "${COMPOSE_ACTION}" ||
       -z "${IMAGE_BACKEND}" ||
       -z "${IMAGE_BACKEND_NGINX}" ||
       -z "${DJANGO_SETTINGS_MODULE}" ||
@@ -32,7 +31,6 @@ then
     echo "Docker:" >&2
     echo "    DOTENV: ${DOTENV}" >&2
     echo "    COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}" >&2
-    echo "    COMPOSE_ACTION: ${COMPOSE_ACTION}" >&2
     echo "    IMAGE_BACKEND: ${IMAGE_BACKEND}" >&2
     echo "    IMAGE_BACKEND_NGINX: ${IMAGE_BACKEND_NGINX}" >&2
     echo "Django:" >&2
@@ -106,41 +104,8 @@ echo "DJANGO_EMAIL_HOST_PASSWORD=${DJANGO_EMAIL_HOST_PASSWORD}" >> $DOTENV
 echo "DJANGO_EMAIL_SUBJECT_PREFIX=${DJANGO_EMAIL_SUBJECT_PREFIX}" >> $DOTENV
 echo "TRAEFIK_ROUTER_NAME=${TRAEFIK_ROUTER_NAME}" >> $DOTENV
 
-case "${COMPOSE_ACTION}" in
+echo "Pulling images..."
+docker-compose pull
 
-    "build")
-        echo "Building images…"
-        docker-compose build
-        ;;
-
-    "push")
-        echo "Pushing images…"
-        docker-compose push ${DOCKER_PUSH_SERVICES}
-        ;;
-
-    "up")
-        if [[ "${REMOVE_VOLUMES}" == "yes" ]]
-        then
-            echo "Removing containers and volumes first…"
-            docker-compose down -v
-        fi
-
-        echo "Pulling images..."
-        docker-compose pull
-
-        echo "Creating and starting containers…"
-        docker-compose -f docker-compose.yml up -d
-        ;;
-
-    "down")
-        echo "Removing containers, images and volumes…"
-        docker-compose down -v --remove-orphans --rmi all
-        ;;
-
-    *)
-        echo "ERROR: Invalid action '${COMPOSE_ACTION}'" >&2
-        exit 255
-
-esac
-
-
+echo "Creating and starting containers…"
+docker-compose -f docker-compose.yml up -d
