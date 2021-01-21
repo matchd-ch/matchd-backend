@@ -121,9 +121,8 @@ class UserRequestGraphQLTestCase(GraphQLTestCase):
         content = json.loads(response.content)
         self.assertFalse(content.get('data').get('userRequest').get('success'))
         self.assertIn('email', content.get('data').get('userRequest').get('errors'))
-        self.assertEqual(
-            'Enter a valid email address.',
-            content.get('data').get('userRequest').get('errors').get('email')[0]
-        )
+        error = content.get('data').get('userRequest').get('errors').get('email')[0]
+        self.assertEqual('Enter a valid email address.', error.get('message'))
+        self.assertEqual('invalid', error.get('code'))
 
         self._check_user_request_entries(0)

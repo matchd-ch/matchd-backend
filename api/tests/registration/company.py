@@ -31,6 +31,7 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
                 password2:"asdf1234$",
                 firstName: "John",
                 lastName: "Doe",
+                type: "company",
                 company: {
                   name: "Doe Unlimited",
                   uid: "CHE-999.999.996",
@@ -71,6 +72,7 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
                 password2:"asdf1234$",
                 firstName: "John",
                 lastName: "Doe",
+                type: "company",
                 company: {
                   name: "Doe Unlimited",
                   uid: "CHE-999.999.996",
@@ -127,6 +129,7 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
                 password2: "%s",
                 firstName: "John",
                 lastName: "Doe",
+                type: "company",
                 company: {
                   name: "Doe Unlimited",
                   uid: "CHE-999.999.996",
@@ -185,6 +188,7 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
                 password2:"asdf1234$",
                 firstName: "John",
                 lastName: "Doe",
+                type: "company",
                 company: {
                   name: "Doe Unlimited",
                   uid: "CHE-999.999.996",
@@ -228,6 +232,7 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
                 password2:"asdf1234$",
                 firstName: "",
                 lastName: "",
+                type: "company",
                 company: {
                   name: "Doe Unlimited",
                   uid: "CHE-999.999.996",
@@ -259,6 +264,7 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
                 password2:"asdf1234$",
                 firstName: "John",
                 lastName: "Doe",
+                type: "company",
                 company: {
                   name: "",
                   uid: "",
@@ -293,6 +299,7 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
                 password2:"asdf1234$",
                 firstName: "John",
                 lastName: "Doe",
+                type: "company",
                 company: {
                   name: "Doe Unlimited",
                   uid: "CHE-999.999.99",

@@ -31,6 +31,7 @@ class StudentRegistrationGraphQLTestCase(GraphQLTestCase):
                 password2:"asdf1234$",
                 firstName: "Rudolph",
                 lastName: "Doe",
+                type: "student",
                 student: {
                     mobileNumber: "+41791234567"
                 }) {
@@ -66,6 +67,7 @@ class StudentRegistrationGraphQLTestCase(GraphQLTestCase):
                 password2:"asdf1234$",
                 firstName: "Rudolph",
                 lastName: "Doe",
+                type: "student",
                 student: {
                     mobileNumber: "+41791234567"
                 }
@@ -118,6 +120,7 @@ class StudentRegistrationGraphQLTestCase(GraphQLTestCase):
                 password2:"%s",
                 firstName: "Rudolph",
                 lastName: "Doe",
+                type: "student",
                 student: {
                     mobileNumber: "+41791234567"
                 }
@@ -172,6 +175,7 @@ class StudentRegistrationGraphQLTestCase(GraphQLTestCase):
                 password2:"asdf1234$",
                 firstName: "Rudolph",
                 lastName: "Doe",
+                type: "student",
                 student: {
                     mobileNumber: "+41791234567"
                 }
@@ -211,6 +215,7 @@ class StudentRegistrationGraphQLTestCase(GraphQLTestCase):
                 password2:"asdf1234$",
                 firstName: "",
                 lastName: "",
+                type: "student",
                 student: {
                     mobileNumber: "+41791234567"
                 }
@@ -238,6 +243,7 @@ class StudentRegistrationGraphQLTestCase(GraphQLTestCase):
                 password2:"asdf1234$",
                 firstName: "Rudolph",
                 lastName: "Doe",
+                type: "student",
                 student: {
                     mobileNumber: ""
                 }
@@ -264,6 +270,7 @@ class StudentRegistrationGraphQLTestCase(GraphQLTestCase):
                 password2:"asdf1234$",
                 firstName: "Rudolph",
                 lastName: "Doe",
+                type: "student",
                 student: {
                     mobileNumber: "+417611"
                 }
