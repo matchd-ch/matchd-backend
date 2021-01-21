@@ -2,7 +2,7 @@ import graphene
 
 
 # pylint: disable=R0903
-from api.schema.logIn.schema import AuthMutation
+from api.schema.auth.schema import AuthMutation
 from api.schema.registration import RegistrationMutation
 from api.schema.user_request import UserRequestMutation
 from api.schema.temp import TempQuery
