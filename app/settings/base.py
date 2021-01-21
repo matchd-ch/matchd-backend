@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_filters',
     'db.apps.DbConfig',
     'api.apps.ApiConfig'
 ]
@@ -225,7 +226,12 @@ CORS_ALLOW_CREDENTIALS = True
 GRAPHQL_JWT = {
     'JWT_EXPIRATION_DELTA': timedelta(hours=24),
     'JWT_VERIFY_EXPIRATION': True,
-    'JWT_COOKIE_SECURE': True
+    'JWT_COOKIE_SECURE': True,
+    "JWT_ALLOW_ANY_CLASSES": [
+        "graphql_auth.mutations.Register",
+        "graphql_auth.mutations.VerifyAccount",
+        "graphql_auth.mutations.ObtainJSONWebToken",
+    ],
 }
 
 GRAPHQL_AUTH = {
