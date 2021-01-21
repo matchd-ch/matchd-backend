@@ -10,7 +10,7 @@ from db.models import Company, Student
 
 class CompanyInput(graphene.InputObjectType):
     role = graphene.String(description=_('Role'), required=True)
-    name = graphene.String(description=_('Name'))
+    name = graphene.String(description=_('Name'), required=True)
     uid = graphene.String(description=_('UID'), required=True)
     zip = graphene.String(description=_('ZIP'), required=True)
     city = graphene.String(description=_('City'), required=True)

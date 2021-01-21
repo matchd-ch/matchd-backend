@@ -7,9 +7,9 @@ from db.models import UserRequest as UserRequestModel
 
 
 class UserRequestInput(graphene.InputObjectType):
-    name = graphene.String(description=_('Name'))
-    email = graphene.String(description=_('E-Mail'))
-    message = graphene.String(description=_('Message'))
+    name = graphene.String(description=_('Name'), required=True)
+    email = graphene.String(description=_('E-Mail'), required=True)
+    message = graphene.String(description=_('Message'), required=True)
 
 
 # pylint: disable=R0903
