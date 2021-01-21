@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'graphene_django',
     'corsheaders',
     'graphql_auth',
+    'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -227,9 +228,8 @@ GRAPHQL_JWT = {
     'JWT_EXPIRATION_DELTA': timedelta(hours=24),
     'JWT_VERIFY_EXPIRATION': True,
     'JWT_COOKIE_SECURE': True,
+    "JWT_LONG_RUNNING_REFRESH_TOKEN": True,
     "JWT_ALLOW_ANY_CLASSES": [
-        "graphql_auth.mutations.Register",
-        "graphql_auth.mutations.VerifyAccount",
         "graphql_auth.mutations.ObtainJSONWebToken",
     ],
 }
