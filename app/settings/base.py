@@ -240,8 +240,7 @@ GRAPHQL_AUTH = {
         'email_subject_prefix': EMAIL_SUBJECT_PREFIX
     },
     'USER_NODE_EXCLUDE_FIELDS': ['password', 'is_superuser', 'is_staff', 'last_login', 'is_active', 'date_joined'],
-    'REGISTER_MUTATION_FIELDS': ['email', 'username', 'first_name', 'last_name'],
-    'REGISTER_MUTATION_FIELDS_OPTIONAL': ['type']
+    'REGISTER_MUTATION_FIELDS': ['email', 'username', 'first_name', 'last_name', 'type'],
 }
 
 CSRF_COOKIE_DOMAIN = os.getenv('APP_CSRF_COOKIE_DOMAIN', None)

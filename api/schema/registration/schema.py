@@ -4,17 +4,16 @@ from django.core.exceptions import ValidationError
 from graphql_auth import mutations
 from graphql_auth.mutations import Register
 from django.utils.translation import gettext_lazy as _
-
-from api.schema.error import ErrorType
-from db.models import Company, Student, UserType
+from db.forms import CompanyForm, StudentForm
+from db.models import Company, Student
 
 
 class CompanyInput(graphene.InputObjectType):
-    role = graphene.String(description=_('Role'))
+    role = graphene.String(description=_('Role'), required=True)
     name = graphene.String(description=_('Name'))
-    uid = graphene.String(description=_('UID'))
-    zip = graphene.String(description=_('ZIP'))
-    city = graphene.String(description=_('City'))
+    uid = graphene.String(description=_('UID'), required=True)
+    zip = graphene.String(description=_('ZIP'), required=True)
+    city = graphene.String(description=_('City'), required=True)
 
 
 # pylint: disable=R0903
@@ -29,22 +28,47 @@ class RegisterCompany(Register):
 
     @classmethod
     def mutate(cls, root, info, **data):
-        try:
-            company = Company(**data.get('company'))
-            company.full_clean(exclude=['user'])
-        except ValidationError as error:
-            return RegisterCompany(success=False, errors=ErrorType.serialize(error.message_dict))
+        errors = {}
 
-        data['type'] = UserType.COMPANY
+        # Validate all models before writing to the database
+        # we need to provide a list with errors to the frontend across both models
+
+        # validate user type
+        # allowed types: company, university
+        user_type = data.get('type')
+        try:
+            get_user_model().validate_user_type_company(user_type)
+        except ValidationError as error:
+            errors.update({
+                'type': [{
+                    'code': error.code,
+                    'message': error.message
+                }]
+            })
+
+        # validate company
+        company_data = data.pop('company')
+        company = None
+
+        company_form = CompanyForm(company_data)
+        company_form.full_clean()
+        if company_form.is_valid():
+            company = Company(**company_data)
+        else:
+            errors.update(company_form.errors.get_json_data())
+
+        # validate user
+        user_data = data
+        register_form = cls.form(user_data)
+        register_form.full_clean()
+        if not register_form.is_valid():
+            errors.update(register_form.errors.get_json_data())
+
+        if errors:
+            return RegisterCompany(success=False, errors=errors)
 
         result = cls.resolve_mutation(root, info, **data)
-        if result.errors:
-            return RegisterCompany(success=False, errors=ErrorType.serialize(result.errors))
-
-        try:
-            user = get_user_model().objects.get(email=data.get('email'))
-        except get_user_model().DoesNotExist:
-            return RegisterCompany(success=False, errors={'non_field_errors': 'User not found.'})
+        user = get_user_model().objects.get(email=user_data.get('email'))
 
         company.user = user
         company.save()
@@ -52,7 +76,7 @@ class RegisterCompany(Register):
 
 
 class StudentInput(graphene.InputObjectType):
-    mobile_number = graphene.String(description=_('Mobile'))
+    mobile_number = graphene.String(description=_('Mobile'), required=True)
 
 
 # pylint: disable=R0903
@@ -67,22 +91,48 @@ class RegisterStudent(Register):
 
     @classmethod
     def mutate(cls, root, info, **data):
-        try:
-            student = Student(**data.get('student'))
-            student.full_clean(exclude=['user'])
-        except ValidationError as error:
-            return RegisterStudent(success=False, errors=ErrorType.serialize(error.message_dict))
+        errors = {}
 
-        data['type'] = UserType.STUDENT
+        # Validate all models before writing to the database
+        # we need to provide a list with errors to the frontend across both models
+
+        # validate user type
+        # allowed types: student, college-student, junior
+        user_type = data.get('type')
+        try:
+            get_user_model().validate_user_type_student(user_type)
+        except ValidationError as error:
+            errors.update({
+                'type': [{
+                    'code': error.code,
+                    'message': error.message
+                }]
+            })
+
+        # validate student
+        student_data = data.pop('student')
+        student = None
+
+        student_form = StudentForm(student_data)
+        student_form.full_clean()
+        if student_form.is_valid():
+            student = Student(**student_data)
+        else:
+            errors.update(student_form.errors.get_json_data())
+
+        # validate user
+        user_data = data
+        register_form = cls.form(user_data)
+        register_form.full_clean()
+        if not register_form.is_valid():
+            errors.update(register_form.errors.get_json_data())
+
+        if errors:
+            return RegisterStudent(success=False, errors=errors)
 
         result = cls.resolve_mutation(root, info, **data)
-        if result.errors:
-            return RegisterStudent(success=False, errors=ErrorType.serialize(result.errors))
+        user = get_user_model().objects.get(email=data.get('email'))
 
-        try:
-            user = get_user_model().objects.get(email=data.get('email'))
-        except get_user_model().DoesNotExist:
-            return RegisterCompany(success=False, errors={'non_field_errors': 'User not found.'})
         student.user = user
         student.save()
         return result
