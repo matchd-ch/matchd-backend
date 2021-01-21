@@ -43,4 +43,3 @@ class User(AbstractUser):
                 code='invalid_choice',
                 message=_('Select a valid choice.')
             )
-
