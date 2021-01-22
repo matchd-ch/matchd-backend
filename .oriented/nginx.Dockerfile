@@ -2,7 +2,7 @@ FROM centos/nginx-112-centos7:latest
 
 USER 0
 
-COPY ./docker/deployment/nginx nginx
+COPY ./.oriented/nginx nginx
 
 RUN yum install -y --setopt=tsflags=nodocs httpd-tools && \
   rpm -V httpd-tools && \
