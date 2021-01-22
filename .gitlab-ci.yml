@@ -1,5 +1,5 @@
 variables:
-  DOCKER_COMPOSE_SCRIPT: ./docker/deployment/run-docker-compose
+  DOCKER_COMPOSE_SCRIPT: ./.oriented/run-docker-compose
 
 stages:
   - "Test"
@@ -60,12 +60,12 @@ test:
   - >
     docker build
     -t "$CI_REGISTRY/matchd/backend:python-$APP_TAG"
-    -f "docker/deployment/python.Dockerfile" .
+    -f ".oriented/python.Dockerfile" .
   - docker push $CI_REGISTRY/matchd/backend:python-$APP_TAG
   - >
     docker build
     -t "$CI_REGISTRY/matchd/backend:nginx-$APP_TAG"
-    -f "docker/deployment/nginx.Dockerfile" .
+    -f ".oriented/nginx.Dockerfile" .
   - docker push $CI_REGISTRY/matchd/backend:nginx-$APP_TAG
   - docker logout $CI_REGISTRY
 
