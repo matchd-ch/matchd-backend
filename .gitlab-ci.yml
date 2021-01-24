@@ -157,7 +157,7 @@ build:production:
 deploy:development:
   extends: .deploy
   variables:
-    DOTENV: .env
+    DOTENV: .oriented/.env
     ENVIRONMENT: development
     IMAGE_BACKEND: $CI_REGISTRY/matchd/backend:python-latest
     IMAGE_BACKEND_NGINX: $CI_REGISTRY/matchd/backend:nginx-latest
@@ -191,7 +191,7 @@ deploy:development:
 deploy:integration:
   extends: .deploy
   variables:
-    DOTENV: .env
+    DOTENV: .oriented/.env
     ENVIRONMENT: integration
     IMAGE_BACKEND: $CI_REGISTRY/matchd/backend:python-$CI_COMMIT_REF_NAME
     IMAGE_BACKEND_NGINX: $CI_REGISTRY/matchd/backend:nginx-$CI_COMMIT_REF_NAME
@@ -226,7 +226,7 @@ deploy:integration:
 deploy:production:
   extends: .deploy
   variables:
-    DOTENV: .env
+    DOTENV: .oriented/.env
     ENVIRONMENT: production
     IMAGE_BACKEND: $CI_REGISTRY/matchd/backend:python-$CI_COMMIT_REF_NAME
     IMAGE_BACKEND_NGINX: $CI_REGISTRY/matchd/backend:nginx-$CI_COMMIT_REF_NAME
