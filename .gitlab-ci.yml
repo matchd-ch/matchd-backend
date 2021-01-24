@@ -88,6 +88,7 @@ build:development:
     - test
   only:
     - develop
+    - MATCHD-46-deployment
   tags:
     - docker
     - docker-nonswiss-ok
@@ -183,6 +184,7 @@ deploy:development:
     DJANGO_SECRET_KEY: $DEVELOPMENT_DJANGO_SECRET_KEY
   only:
     - develop
+    - MATCHD-46-deployment
   tags:
     - matchd
     - development

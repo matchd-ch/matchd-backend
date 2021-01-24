@@ -106,8 +106,10 @@ echo "DJANGO_EMAIL_SUBJECT_PREFIX=\"${DJANGO_EMAIL_SUBJECT_PREFIX}\"" >> $DOTENV
 echo "TRAEFIK_ROUTER_NAME=${TRAEFIK_ROUTER_NAME}" >> $DOTENV
 echo "API_NETWORK_ALIAS=api-${ENVIRONMENT}" >> $DOTENV
 
+cd .oriented
+
 echo "Pulling images..."
-docker-compose -f .oriented/docker-compose.yml --env-file .oriented/.env pull
+docker-compose pull
 
 echo "Creating and starting containers…"
-docker-compose -f .oriented/docker-compose.yml --env-file .oriented/.env up -d
+docker-compose up -d

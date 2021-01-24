@@ -4,6 +4,7 @@ services:
   api:
     image: ${IMAGE_BACKEND}
     command: gunicorn app.wsgi:application --bind 0.0.0.0:8000
+    restart: always
     environment:
       DJANGO_SETTINGS_MODULE: '${DJANGO_SETTINGS_MODULE}'
       DJANGO_DB_NAME: '${DJANGO_DB_NAME}'
@@ -35,6 +36,7 @@ services:
 
   nginx:
     image: ${IMAGE_BACKEND_NGINX}
+    restart: always
     depends_on:
       - api
     labels:
