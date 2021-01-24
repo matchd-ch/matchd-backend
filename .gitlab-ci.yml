@@ -1,5 +1,5 @@
 variables:
-  DOCKER_COMPOSE_SCRIPT: ./docker/deployment/run-docker-compose
+  DOCKER_COMPOSE_SCRIPT: ./.oriented/run-docker-compose
 
 stages:
   - "Test"
@@ -60,12 +60,13 @@ test:
   - >
     docker build
     -t "$CI_REGISTRY/matchd/backend:python-$APP_TAG"
-    -f "docker/deployment/python.Dockerfile" .
+    -f ".oriented/python.Dockerfile" .
   - docker push $CI_REGISTRY/matchd/backend:python-$APP_TAG
   - >
     docker build
     -t "$CI_REGISTRY/matchd/backend:nginx-$APP_TAG"
-    -f "docker/deployment/nginx.Dockerfile" .
+    --build-arg PROXY_URL="$PROXY_URL"
+    -f ".oriented/nginx.Dockerfile" .
   - docker push $CI_REGISTRY/matchd/backend:nginx-$APP_TAG
   - docker logout $CI_REGISTRY
 
@@ -79,12 +80,14 @@ build:development:
     DOCKER_HOST: tcp://docker:2375
     DOCKER_TLS_CERTDIR: ""
     APP_TAG: latest
+    ENVIRONMENT: development
+    PROXY_URL: http://api-development:8000
   script:
     - *build
   dependencies:
     - test
   only:
-    - MATCHD-46-deployment
+    - develop
   tags:
     - docker
     - docker-nonswiss-ok
@@ -102,6 +105,8 @@ build:integration:
     DOCKER_HOST: tcp://docker:2375
     DOCKER_TLS_CERTDIR: ""
     APP_TAG: $CI_COMMIT_REF_NAME
+    ENVIRONMENT: integration
+    PROXY_URL: http://api-integration:8000
   script:
     - *build
   dependencies:
@@ -126,6 +131,8 @@ build:production:
     DOCKER_HOST: tcp://docker:2375
     DOCKER_TLS_CERTDIR: ""
     APP_TAG: $CI_COMMIT_REF_NAME
+    ENVIRONMENT: production
+    PROXY_URL: http://api-production:8000
   script:
     - *build
   dependencies:
@@ -140,23 +147,18 @@ build:production:
   interruptible: true
   resource_group: production
 
-.Docker:
+.deploy:
   stage: "Deploy"
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - ${DOCKER_COMPOSE_SCRIPT}
     - docker logout $CI_REGISTRY
-  tags:
-    - matchd
-    - development
 
-Deploy Development:
-  extends: .Docker
-  environment:
-    name: dev
+deploy:development:
+  extends: .deploy
   variables:
     DOTENV: .env
-    COMPOSE_PROJECT_NAME: dev
+    ENVIRONMENT: development
     IMAGE_BACKEND: $CI_REGISTRY/matchd/backend:python-latest
     IMAGE_BACKEND_NGINX: $CI_REGISTRY/matchd/backend:nginx-latest
     DJANGO_SETTINGS_MODULE: 'app.settings.production'
@@ -166,6 +168,7 @@ Deploy Development:
     DJANGO_ELASTIC_SEARCH_URL: $DEVELOPMENT_ELASTIC_SEARCH_URL
     DJANGO_ELASTIC_SEARCH_USER: $DEVELOPMENT_ELASTIC_SEARCH_USER
     DJANGO_ELASTIC_SEARCH_PASSWORD: $DEVELOPMENT_ELASTIC_SEARCH_PASSWORD
+    DJANGO_ELASTIC_INDEX_PREFIX: $DEVELOPMENT_ELASTIC_SEARCH_INDEX_PREFIX
     DJANGO_EMAIL: 'info@matchd.ch'
     DJANGO_EMAIL_HOST: 'smtp'
     DJANGO_EMAIL_PORT: '25'
@@ -179,5 +182,79 @@ Deploy Development:
     WAGTAIL_SITE_NAME: $DEVELOPMENT_WAGTAIL_SITE_NAME
     DJANGO_SECRET_KEY: $DEVELOPMENT_DJANGO_SECRET_KEY
   only:
-    - MATCHD-46-deployment
+    - develop
+  tags:
+    - matchd
+    - development
+  resource_group: development
+
+deploy:integration:
+  extends: .deploy
+  variables:
+    DOTENV: .env
+    ENVIRONMENT: integration
+    IMAGE_BACKEND: $CI_REGISTRY/matchd/backend:python-$CI_COMMIT_REF_NAME
+    IMAGE_BACKEND_NGINX: $CI_REGISTRY/matchd/backend:nginx-$CI_COMMIT_REF_NAME
+    DJANGO_SETTINGS_MODULE: 'app.settings.production'
+    DJANGO_DB_NAME: $INTEGRATION_DATABASE_NAME
+    DJANGO_DB_USER: $INTEGRATION_DATABASE_USER
+    DJANGO_DB_PW: $INTEGRATION_DATABASE_PASSWORD
+    DJANGO_ELASTIC_SEARCH_URL: $INTEGRATION_ELASTIC_SEARCH_URL
+    DJANGO_ELASTIC_SEARCH_USER: $INTEGRATION_ELASTIC_SEARCH_USER
+    DJANGO_ELASTIC_SEARCH_PASSWORD: $INTEGRATION_ELASTIC_SEARCH_PASSWORD
+    DJANGO_ELASTIC_INDEX_PREFIX: $INTEGRATION_ELASTIC_SEARCH_INDEX_PREFIX
+    DJANGO_EMAIL: 'info@matchd.ch'
+    DJANGO_EMAIL_HOST: 'smtp'
+    DJANGO_EMAIL_PORT: '25'
+    DJANGO_EMAIL_HOST_PASSWORD: ''
+    DJANGO_EMAIL_HOST_USER: ''
+    DJANGO_EMAIL_SUBJECT_PREFIX: '[LOCAL] '
+    DJANGO_GRAPHIQL_ENABLED: 'true'
+    FRONTEND_URL: $INTEGRATION_FRONTEND_URL
+    APP_DOMAIN: $INTEGRATION_APP_DOMAIN
+    APP_CSRF_COOKIE_DOMAIN: $INTEGRATION_APP_CSRF_COOKIE_DOMAIN
+    WAGTAIL_SITE_NAME: $INTEGRATION_WAGTAIL_SITE_NAME
+    DJANGO_SECRET_KEY: $INTEGRATION_DJANGO_SECRET_KEY
+  only:
+    refs:
+      - /^v?\d+\.\d+\.\d+(?:-(?:alpha|beta|rc)(?:(?:(?:\+|\.)[a-zA-Z0-9-]+)*)?)$/
+  tags:
+    - matchd
+    - integration
+  resource_group: integration
+
+deploy:production:
+  extends: .deploy
+  variables:
+    DOTENV: .env
+    ENVIRONMENT: production
+    IMAGE_BACKEND: $CI_REGISTRY/matchd/backend:python-$CI_COMMIT_REF_NAME
+    IMAGE_BACKEND_NGINX: $CI_REGISTRY/matchd/backend:nginx-$CI_COMMIT_REF_NAME
+    DJANGO_SETTINGS_MODULE: 'app.settings.production'
+    DJANGO_DB_NAME: $PRODUCTION_DATABASE_NAME
+    DJANGO_DB_USER: $PRODUCTION_DATABASE_USER
+    DJANGO_DB_PW: $PRODUCTION_DATABASE_PASSWORD
+    DJANGO_ELASTIC_SEARCH_URL: $PRODUCTION_ELASTIC_SEARCH_URL
+    DJANGO_ELASTIC_SEARCH_USER: $PRODUCTION_ELASTIC_SEARCH_USER
+    DJANGO_ELASTIC_SEARCH_PASSWORD: $PRODUCTION_ELASTIC_SEARCH_PASSWORD
+    DJANGO_ELASTIC_INDEX_PREFIX: $PRODUCTION_ELASTIC_SEARCH_INDEX_PREFIX
+    DJANGO_EMAIL: 'info@matchd.ch'
+    DJANGO_EMAIL_HOST: 'smtp'
+    DJANGO_EMAIL_PORT: '25'
+    DJANGO_EMAIL_HOST_PASSWORD: ''
+    DJANGO_EMAIL_HOST_USER: ''
+    DJANGO_EMAIL_SUBJECT_PREFIX: '[LOCAL] '
+    DJANGO_GRAPHIQL_ENABLED: 'true'
+    FRONTEND_URL: $PRODUCTION_FRONTEND_URL
+    APP_DOMAIN: $PRODUCTION_APP_DOMAIN
+    APP_CSRF_COOKIE_DOMAIN: $PRODUCTION_APP_CSRF_COOKIE_DOMAIN
+    WAGTAIL_SITE_NAME: $PRODUCTION_WAGTAIL_SITE_NAME
+    DJANGO_SECRET_KEY: $PRODUCTION_DJANGO_SECRET_KEY
+  only:
+    refs:
+      - /^v?\d+\.\d+\.\d+$/
+  tags:
+    - matchd
+    - production
+  resource_group: production
 
