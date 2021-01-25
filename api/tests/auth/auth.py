@@ -83,7 +83,6 @@ class JWLTokenGraphQLTestCase(GraphQLTestCase):
 
     def test_registration_student_with_auth_token(self):
         self._register()
-        self._register_twice()
 
         self.assertTemplateUsed('api/email/activation/body.html')
         self.assertTemplateUsed('api/email/activation/subject.txt')
@@ -96,12 +95,4 @@ class JWLTokenGraphQLTestCase(GraphQLTestCase):
         activation_token = self._get_and_test_activation_token(activation_email)
         self.assertIsNotNone(activation_token)
 
-        user = get_user_model().objects.get(email='rudolph@doe.com')
-        user_status = UserStatus.objects.get(user=user)
-
-        self.assertFalse(user_status.verified)
-        self._verify_account(activation_token)
-
-        user_status = UserStatus.objects.get(user=user)
-        self.assertTrue(user_status.verified)
 
