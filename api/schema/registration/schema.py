@@ -76,7 +76,7 @@ class RegisterCompany(Register):
 
 
 class StudentInput(graphene.InputObjectType):
-    mobile_number = graphene.String(description=_('Mobile'), required=True)
+    mobile = graphene.String(description=_('Mobile'), required=True)
 
 
 # pylint: disable=R0903
@@ -84,7 +84,7 @@ class StudentInput(graphene.InputObjectType):
 class RegisterStudent(Register):
 
     class Arguments:
-        student = StudentInput(description=_('Student is required.'), required=True)
+        student = StudentInput(description=_('Student is optional.'))
 
     class Meta:
         description = _('Creates a new user as student')
@@ -110,15 +110,18 @@ class RegisterStudent(Register):
             })
 
         # validate student
-        student_data = data.pop('student')
+        student_data = data.pop('student', None)
         student = None
 
-        student_form = StudentForm(student_data)
-        student_form.full_clean()
-        if student_form.is_valid():
-            student = Student(**student_data)
+        if student_data is not None:
+            student_form = StudentForm(student_data)
+            student_form.full_clean()
+            if student_form.is_valid():
+                student = Student(**student_data)
+            else:
+                errors.update(student_form.errors.get_json_data())
         else:
-            errors.update(student_form.errors.get_json_data())
+            student = Student()
 
         # validate user
         user_data = data
