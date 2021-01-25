@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'graphene_django',
     'corsheaders',
     'graphql_auth',
+    'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -67,6 +68,12 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
+
+AUTHENTICATION_BACKENDS = [
+    'graphql_auth.backends.GraphQLAuthBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
 
 ROOT_URLCONF = 'app.urls'
 
@@ -218,8 +225,13 @@ CORS_ALLOW_CREDENTIALS = True
 
 GRAPHQL_JWT = {
     'JWT_EXPIRATION_DELTA': timedelta(hours=24),
+    'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=7),
     'JWT_VERIFY_EXPIRATION': True,
-    'JWT_COOKIE_SECURE': True
+    'JWT_COOKIE_SECURE': True,
+    "JWT_LONG_RUNNING_REFRESH_TOKEN": True,
+    "JWT_ALLOW_ANY_CLASSES": [
+        "graphql_auth.mutations.ObtainJSONWebToken",
+    ],
 }
 
 GRAPHQL_AUTH = {
