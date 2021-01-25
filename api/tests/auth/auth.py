@@ -31,8 +31,9 @@ class AuthGraphQLTestCase(GraphQLTestCase):
                 password2:"asdf1234$",
                 firstName: "Rudolph",
                 lastName: "Doe",
+                type: "student",
                 student: {
-                    mobileNumber: "+41791234567"
+                    mobile: "+41791234567"
                 }) {
                 success
                 errors
@@ -51,7 +52,6 @@ class AuthGraphQLTestCase(GraphQLTestCase):
 
         user = get_user_model().objects.get(email='rudolph@doe.com')
         self.assertEqual(user.type, UserType.STUDENT)
-
 
     def _get_and_test_activation_token(self, activation_email):
         activation_url = activation_email.body.split('\n')[-2]
@@ -120,15 +120,12 @@ class AuthGraphQLTestCase(GraphQLTestCase):
         content = json.loads(response.content)
         return content
 
-
-
     def test_auth_token_without_activation(self):
         self._register()
         content = self._get_and_test_auth_token()
 
         self.assertFalse(content['data'].get('tokenAuth').get('success'))
         self.assertIsNone(content['data'].get('tokenAuth').get('token'))
-
 
     def test_registration_student_with_auth_token(self):
         self._register()
