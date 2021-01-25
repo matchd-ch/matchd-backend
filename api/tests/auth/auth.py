@@ -95,9 +95,59 @@ class AuthGraphQLTestCase(GraphQLTestCase):
         )
         self.assertResponseNoErrors(response)
         content = json.loads(response.content)
+        return content
+
+    def _get_and_test_auth_token_with_wrong_password(self):
+        response = self.query(
+            '''
+            mutation TokenAuth {
+                tokenAuth(username: "rudolph@doe.com", password: "WrongPassword") {
+                    success,
+                    errors,
+                    unarchiving,
+                    token,
+                    unarchiving,
+                    refreshToken,
+                    user {
+                        email,
+                        username,
+                    }
+                }
+            }
+            '''
+        )
+        self.assertResponseNoErrors(response)
+        content = json.loads(response.content)
+        return content
+
+
+
+    def test_auth_token_without_activation(self):
+        self._register()
+        content = self._get_and_test_auth_token()
+
+        self.assertFalse(content['data'].get('tokenAuth').get('success'))
+        self.assertIsNone(content['data'].get('tokenAuth').get('token'))
+
+
+    def test_auth_token_wrong_password(self):
+        self._register()
+
+        self.assertTemplateUsed('api/email/activation/body.html')
+        self.assertTemplateUsed('api/email/activation/subject.txt')
+
+        activation_email = mail.outbox[0]
+        self.assertIn('rudolph@doe.com', activation_email.recipients())
+        self.assertIn(settings.EMAIL_SUBJECT_PREFIX, activation_email.subject)
+        self.assertIn('MATCHD Registration Student', activation_email.subject)
+
+        activation_token = self._get_and_test_activation_token(activation_email)
+        self.assertIsNotNone(activation_token)
+        self._verify_account(activation_token)
+
+        content = self._get_and_test_auth_token()
         self.assertTrue(content['data'].get('tokenAuth').get('success'))
         self.assertIsNotNone(content['data'].get('tokenAuth').get('token'))
-
 
     def test_registration_student_with_auth_token(self):
         self._register()
@@ -114,4 +164,6 @@ class AuthGraphQLTestCase(GraphQLTestCase):
         self.assertIsNotNone(activation_token)
         self._verify_account(activation_token)
 
-        self._get_and_test_auth_token()
+        content = self._get_and_test_auth_token_with_wrong_password()
+        self.assertFalse(content['data'].get('tokenAuth').get('success'))
+        self.assertIsNone(content['data'].get('tokenAuth').get('token'))
