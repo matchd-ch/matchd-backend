@@ -76,9 +76,28 @@ class JWLTokenGraphQLTestCase(GraphQLTestCase):
         self.assertTrue(content['data'].get('verifyAccount').get('success'))
 
     def _get_and_test_auth_token(self):
-        user = get_user_model().objects.get(email='rudolph@doe.com')
-        refresh = RefreshToken.for_user(user)
-        return refresh
+        response = self.query(
+            '''
+            mutation TokenAuth {
+                tokenAuth(username: "rudolph@doe.com", password: "asdf1234$") {
+                    success,
+                    errors,
+                    unarchiving,
+                    token,
+                    unarchiving,
+                    refreshToken,
+                    user {
+                        email,
+                        username,
+                    }
+                }
+            }
+            '''
+        )
+        self.assertResponseNoErrors(response)
+        content = json.loads(response.content)
+        self.assertTrue(content['data'].get('tokenAuth').get('success'))
+        self.assertIsNotNone(content['data'].get('tokenAuth').get('token'))
 
 
     def test_registration_student_with_auth_token(self):
@@ -94,5 +113,8 @@ class JWLTokenGraphQLTestCase(GraphQLTestCase):
 
         activation_token = self._get_and_test_activation_token(activation_email)
         self.assertIsNotNone(activation_token)
+        self._verify_account(activation_token)
+
+        self._get_and_test_auth_token()
 
 
