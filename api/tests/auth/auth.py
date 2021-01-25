@@ -10,7 +10,7 @@ from api.schema import schema
 from db.models import UserType, Student
 
 
-class JWLTokenGraphQLTestCase(GraphQLTestCase):
+class AuthGraphQLTestCase(GraphQLTestCase):
     GRAPHQL_SCHEMA = schema
 
     def _check_model_entries(self, model, expected_entries=0):
