@@ -4,8 +4,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core import mail
 from graphene_django.utils import GraphQLTestCase
-from graphql_auth.models import UserStatus
-from graphql_auth.mutations import RefreshToken
+
 
 from api.schema import schema
 from db.models import UserType, Student
@@ -116,5 +115,3 @@ class JWLTokenGraphQLTestCase(GraphQLTestCase):
         self._verify_account(activation_token)
 
         self._get_and_test_auth_token()
-
-
