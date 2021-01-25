@@ -130,7 +130,7 @@ class AuthGraphQLTestCase(GraphQLTestCase):
         self.assertIsNone(content['data'].get('tokenAuth').get('token'))
 
 
-    def test_auth_token_wrong_password(self):
+    def test_registration_student_with_auth_token(self):
         self._register()
 
         self.assertTemplateUsed('api/email/activation/body.html')
@@ -149,7 +149,7 @@ class AuthGraphQLTestCase(GraphQLTestCase):
         self.assertTrue(content['data'].get('tokenAuth').get('success'))
         self.assertIsNotNone(content['data'].get('tokenAuth').get('token'))
 
-    def test_registration_student_with_auth_token(self):
+    def test_auth_token_wrong_password(self):
         self._register()
 
         self.assertTemplateUsed('api/email/activation/body.html')
