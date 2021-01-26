@@ -2,6 +2,7 @@ import graphene
 from django.contrib.auth import get_user_model
 from graphql_auth.schema import UserNode
 from graphql_auth.settings import graphql_auth_settings
+from graphql_jwt.decorators import login_required
 
 
 class UserWithProfileNode(UserNode):
@@ -17,6 +18,7 @@ class UserWithProfileNode(UserNode):
 class UserQuery(graphene.ObjectType):
     me = graphene.Field(UserWithProfileNode)
 
+    @login_required
     def resolve_me(self, info):
         user = info.context.user
         if user.is_authenticated:
