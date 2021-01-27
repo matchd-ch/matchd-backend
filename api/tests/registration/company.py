@@ -32,10 +32,12 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
                 firstName: "John",
                 lastName: "Doe",
                 type: "company",
+                employee: {
+                  role: "no role"
+                }
                 company: {
                   name: "Doe Unlimited",
                   uid: "CHE-999.999.996",
-                  role: "no role",
                   zip: "0000",
                   city: "Nowhere"
                 }
@@ -73,10 +75,12 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
                 firstName: "John",
                 lastName: "Doe",
                 type: "company",
+                employee: {
+                  role: "no role"
+                }
                 company: {
                   name: "Doe Unlimited",
                   uid: "CHE-999.999.996",
-                  role: "no role",
                   zip: "0000",
                   city: "Nowhere"
                 }
@@ -130,10 +134,12 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
                 firstName: "John",
                 lastName: "Doe",
                 type: "company",
+                employee: {
+                  role: "no role"
+                }
                 company: {
                   name: "Doe Unlimited",
                   uid: "CHE-999.999.996",
-                  role: "no role",
                   zip: "0000",
                   city: "Nowhere"
                 }
@@ -189,10 +195,12 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
                 firstName: "John",
                 lastName: "Doe",
                 type: "company",
+                employee: {
+                  role: "no role"
+                }
                 company: {
                   name: "Doe Unlimited",
                   uid: "CHE-999.999.996",
-                  role: "no role",
                   zip: "0000",
                   city: "Nowhere"
                 }
@@ -233,10 +241,12 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
                 firstName: "",
                 lastName: "",
                 type: "company",
+                employee: {
+                  role: "no role"
+                }
                 company: {
                   name: "Doe Unlimited",
                   uid: "CHE-999.999.996",
-                  role: "no role",
                   zip: "0000",
                   city: "Nowhere"
                 }
@@ -253,7 +263,7 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
         self.assertIn('firstName', content['data'].get('registerCompany').get('errors'))
         self.assertIn('lastName', content['data'].get('registerCompany').get('errors'))
 
-    def test_register_without_company_data(self):
+    def test_register_without_company_and_employee_data(self):
         response = self.query(
             '''
             mutation RegisterCompany {
@@ -265,10 +275,12 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
                 firstName: "John",
                 lastName: "Doe",
                 type: "company",
+                employee: {
+                  role: ""
+                }
                 company: {
                   name: "",
                   uid: "",
-                  role: "",
                   zip: "",
                   city: ""
                 }
@@ -300,10 +312,12 @@ class CompanyRegistrationGraphQLTestCase(GraphQLTestCase):
                 firstName: "John",
                 lastName: "Doe",
                 type: "company",
+                employee: {
+                  role: "no role"
+                }
                 company: {
                   name: "Doe Unlimited",
                   uid: "CHE-999.999.99",
-                  role: "no role",
                   zip: "0000",
                   city: "Nowhere"
                 }
