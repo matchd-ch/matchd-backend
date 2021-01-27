@@ -18,7 +18,6 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('uid', models.CharField(max_length=255, validators=[django.core.validators.RegexValidator(regex='CHE-[0-9]{3}.[0-9]{3}.[0-9]{3}')])),
-                ('role', models.CharField(max_length=255)),
                 ('name', models.CharField(max_length=255)),
                 ('zip', models.CharField(max_length=10)),
                 ('city', models.CharField(max_length=255)),
