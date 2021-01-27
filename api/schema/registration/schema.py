@@ -21,6 +21,7 @@ class CompanyInput(graphene.InputObjectType):
 
 # pylint: disable=R0903
 # pylint: disable=R0901
+# pylint: disable=R0914
 class RegisterCompany(Register):
 
     class Arguments:
