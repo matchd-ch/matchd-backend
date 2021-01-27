@@ -4,12 +4,15 @@ from django.core.exceptions import ValidationError
 from graphql_auth import mutations
 from graphql_auth.mutations import Register
 from django.utils.translation import gettext_lazy as _
-from db.forms import CompanyForm, StudentForm
-from db.models import Company, Student
+from db.forms import CompanyForm, StudentForm, EmployeeForm
+from db.models import Company, Student, Employee
+
+
+class EmployeeInput(graphene.InputObjectType):
+    role = graphene.String(description=_('Role'), required=True)
 
 
 class CompanyInput(graphene.InputObjectType):
-    role = graphene.String(description=_('Role'), required=True)
     name = graphene.String(description=_('Name'), required=True)
     uid = graphene.String(description=_('UID'), required=True)
     zip = graphene.String(description=_('ZIP'), required=True)
@@ -22,6 +25,7 @@ class RegisterCompany(Register):
 
     class Arguments:
         company = CompanyInput(description=_('Company is required.'), required=True)
+        employee = EmployeeInput(description=_('Employee is required.'), required=True)
 
     class Meta:
         description = _('Creates a new user with company')
@@ -45,6 +49,17 @@ class RegisterCompany(Register):
                     'message': error.message
                 }]
             })
+
+        # validate employee
+        employee_data = data.pop('employee')
+        employee = None
+
+        employee_form = EmployeeForm(employee_data)
+        employee_form.full_clean()
+        if employee_form.is_valid():
+            employee = Employee(**employee_data)
+        else:
+            errors.update(employee_form.errors.get_json_data())
 
         # validate company
         company_data = data.pop('company')
@@ -72,6 +87,11 @@ class RegisterCompany(Register):
 
         company.user = user
         company.save()
+
+        employee.company = company
+        employee.user = user
+        employee.save()
+
         return result
 
 
