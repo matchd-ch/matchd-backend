@@ -4,28 +4,56 @@
     "pk": 1,
     "fields": {
         "password": "pbkdf2_sha256$180000$b6wQx15KEaLC$/3w37G6UXuTzNV7N7ocqg/toNxNgFIH0furFNIYoYuI=",
-        "last_login": null,
+        "last_login": "2021-01-27T11:42:48.563Z",
         "is_superuser": true,
         "username": "admin",
-        "first_name": "admin",
-        "last_name": "admin",
         "email": "admin@example.com",
         "is_staff": true,
         "is_active": true,
         "date_joined": "2020-07-07T09:40:35.819Z",
         "type": "internal",
+        "first_name": "admin",
+        "last_name": "admin",
         "groups": [],
         "user_permissions": []
     }
 },
 {
-    "model": "graphql_auth.userstatus",
-    "pk": 1,
+    "model": "db.user",
+    "pk": 2,
     "fields": {
-        "user": 1,
-        "verified": true,
-        "archived": false,
-        "secondary_email": null
+        "password": "pbkdf2_sha256$216000$DTYZCdfaEcpp$s0dMzdVb8n+4D+1Y2Hw21SQjr9xg6nMbrCw6KJDwT/k=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "john@doe.com",
+        "email": "john@doe.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-01-27T11:44:00.605Z",
+        "type": "company",
+        "first_name": "John",
+        "last_name": "Doe",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "db.user",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$RdqBtZaeSrBv$PpK7MIaB7NMldQqcQL8rswLUrS6rcuQmB7JDa2BTIJg=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "jane@doe.com",
+        "email": "jane@doe.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-01-27T11:45:50.056Z",
+        "type": "student",
+        "first_name": "Jane",
+        "last_name": "Doe",
+        "groups": [],
+        "user_permissions": []
     }
 }
 ]
