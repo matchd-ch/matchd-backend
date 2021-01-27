@@ -17,5 +17,15 @@
         "groups": [],
         "user_permissions": []
     }
+},
+{
+    "model": "graphql_auth.userstatus",
+    "pk": 1,
+    "fields": {
+        "user": 1,
+        "verified": true,
+        "archived": false,
+        "secondary_email": null
+    }
 }
 ]
