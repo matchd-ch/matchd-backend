@@ -4,8 +4,8 @@ from django.core.exceptions import ValidationError
 from graphql_auth import mutations
 from graphql_auth.mutations import Register
 from django.utils.translation import gettext_lazy as _
-from db.forms import CompanyForm, StudentForm, EmployeeForm
-from db.models import Company, Student, Employee
+from db.forms import CompanyForm, StudentForm, EmployeeForm, UniversityForm
+from db.models import Company, Student, Employee, UserType
 
 
 class EmployeeInput(graphene.InputObjectType):
@@ -14,7 +14,7 @@ class EmployeeInput(graphene.InputObjectType):
 
 class CompanyInput(graphene.InputObjectType):
     name = graphene.String(description=_('Name'), required=True)
-    uid = graphene.String(description=_('UID'), required=True)
+    uid = graphene.String(description=_('UID'))
     zip = graphene.String(description=_('ZIP'), required=True)
     city = graphene.String(description=_('City'), required=True)
 
@@ -66,7 +66,11 @@ class RegisterCompany(Register):
         company_data = data.pop('company')
         company = None
 
-        company_form = CompanyForm(company_data)
+        if user_type == UserType.UNIVERSITY:
+            company_form = UniversityForm(company_data)
+        else:
+            company_form = CompanyForm(company_data)
+
         company_form.full_clean()
         if company_form.is_valid():
             company = Company(**company_data)

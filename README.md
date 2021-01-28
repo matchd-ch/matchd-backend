@@ -27,6 +27,7 @@ If you want to access user specific data you also need to include the authorizat
 | Type | Username | Password |
 |---|---|---|
 | Company | john@doe.com | asdf1234$ |
+| University | joe@doe.com | asdf1234$ |
 | Student | jane@doe.com | asdf1234$ |
 
 
