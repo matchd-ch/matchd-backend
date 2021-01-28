@@ -2,10 +2,9 @@ import graphene
 
 
 # pylint: disable=R0903
-from api.schema.auth import AuthMutation
+from api.schema.auth import AuthMutation, VerifyPasswordResetToken
 from api.schema.registration import RegistrationMutation
 from api.schema.user_request import UserRequestMutation
-from api.schema.temp import TempQuery
 
 
 # pylint: disable=R0903
@@ -18,7 +17,7 @@ class Mutation(
     pass
 
 
-class Query(TempQuery):
+class Query(VerifyPasswordResetToken):
     pass
 
 
