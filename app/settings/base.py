@@ -242,7 +242,7 @@ GRAPHQL_AUTH = {
     'EXPIRATION_PASSWORD_RESET_TOKEN': timedelta(hours=1),
     'EMAIL_FROM': DEFAULT_FROM_EMAIL,
     'ACTIVATION_PATH_ON_EMAIL': 'aktivierung',
-    'PASSWORD_RESET_PATH_ON_EMAIL': 'password-reset',
+    'PASSWORD_RESET_PATH_ON_EMAIL': 'passwort-reset',
     'EMAIL_SUBJECT_ACTIVATION': 'api/email/activation/subject.txt',
     'EMAIL_TEMPLATE_ACTIVATION': 'api/email/activation/body.html',
     'EMAIL_SUBJECT_PASSWORD_RESET': 'api/email/password_reset/subject.txt',
