@@ -19,6 +19,7 @@ class AuthMutation(graphene.ObjectType):
 
 
 # pylint: disable=R0201
+# pylint: disable=W0703
 class VerifyPasswordResetToken(graphene.ObjectType):
     verify_password_reset_token = graphene.Field(
         graphene.Boolean,

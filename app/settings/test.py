@@ -20,14 +20,3 @@ USER_REQUEST_FORM_RECIPIENTS = [
 ]
 
 GRAPHQL_AUTH['EMAIL_TEMPLATE_VARIABLES']['email_subject_prefix'] = EMAIL_SUBJECT_PREFIX
-
-GRAPHQL_JWT = {
-    'JWT_EXPIRATION_DELTA': timedelta(seconds=2),
-    'JWT_REFRESH_EXPIRATION_DELTA': timedelta(seconds=2),
-    'JWT_VERIFY_EXPIRATION': True,
-    'JWT_COOKIE_SECURE': True,
-    "JWT_LONG_RUNNING_REFRESH_TOKEN": True,
-    "JWT_ALLOW_ANY_CLASSES": [
-        "graphql_auth.mutations.ObtainJSONWebToken",
-    ],
-}
