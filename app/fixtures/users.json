@@ -14,6 +14,7 @@
         "type": "internal",
         "first_name": "admin",
         "last_name": "admin",
+        "company": null,
         "groups": [],
         "user_permissions": []
     }
@@ -33,6 +34,7 @@
         "type": "company",
         "first_name": "John",
         "last_name": "Doe",
+        "company": 1,
         "groups": [],
         "user_permissions": []
     }
@@ -52,6 +54,7 @@
         "type": "student",
         "first_name": "Jane",
         "last_name": "Doe",
+        "company": null,
         "groups": [],
         "user_permissions": []
     }
@@ -71,6 +74,7 @@
         "type": "university",
         "first_name": "Joe",
         "last_name": "Doe",
+        "company": 2,
         "groups": [],
         "user_permissions": []
     }
