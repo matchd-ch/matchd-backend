@@ -1,6 +1,6 @@
 import graphene
 
-from api.schema.auth import AuthMutation, LogoutMutation
+from api.schema.auth import AuthMutation, LogoutMutation, VerifyPasswordResetToken
 from api.schema.registration import RegistrationMutation
 from api.schema.user import UserQuery
 from api.schema.user_request import UserRequestMutation
@@ -15,7 +15,7 @@ class Mutation(
     pass
 
 
-class Query(UserQuery):
+class Query(VerifyPasswordResetToken, UserQuery):
     pass
 
 
