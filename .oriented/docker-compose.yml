@@ -3,7 +3,7 @@ version: '3.8'
 services:
   api:
     image: ${IMAGE_BACKEND}
-    command: gunicorn app.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn app.wsgi:application --bind 0.0.0.0:8080
     restart: always
     environment:
       DJANGO_SETTINGS_MODULE: '${DJANGO_SETTINGS_MODULE}'
