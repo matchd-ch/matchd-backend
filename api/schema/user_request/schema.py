@@ -12,7 +12,6 @@ class UserRequestInput(graphene.InputObjectType):
     message = graphene.String(description=_('Message'), required=True)
 
 
-# pylint: disable=R0903
 class UserRequest(Output, graphene.Mutation):
 
     class Arguments:

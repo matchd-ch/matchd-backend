@@ -1,7 +1,6 @@
 import graphene
 import graphql_jwt
 
-# pylint: disable=R0903
 from django.contrib.auth import get_user_model
 from graphene import String
 from graphql_auth import mutations
@@ -18,8 +17,6 @@ class AuthMutation(graphene.ObjectType):
     password_reset = mutations.PasswordReset.Field()
 
 
-# pylint: disable=R0201
-# pylint: disable=W0703
 class VerifyPasswordResetToken(graphene.ObjectType):
     verify_password_reset_token = graphene.Field(
         graphene.Boolean,
@@ -37,3 +34,16 @@ class VerifyPasswordResetToken(graphene.ObjectType):
             return get_user_model().objects.filter(username=payload.get('username', None)).exists()
         except Exception:
             return False
+
+
+# Since we do not have access to cookies here,
+# we delete the cookie in the graphql view
+# see api/views/graphql.py
+class LogoutMutation(graphene.Mutation):
+    logout = graphene.Field(graphene.Boolean)
+
+    def resolve_logout(self, info):
+        return True
+
+    def mutate(self, info):
+        pass
