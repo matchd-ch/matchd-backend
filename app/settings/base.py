@@ -242,6 +242,7 @@ GRAPHENE = {
 CORS_ORIGIN_REGEX_WHITELIST = [
     r"^http(s?)://localhost(:?)\d{0,5}$",
     r"^http(s?)://(.*\.)?matchd\.lo(:\d{0,5})?$",
+    r"^http(s?)://(.*\.)?matchd\.ch(:\d{0,5})?$",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
