@@ -53,24 +53,8 @@ test:
     DJANGO_DB_USER: 'root'
     DJANGO_DB_PW: 'wagtail'
     DJANGO_ELASTIC_SEARCH_URL: 'http://elasticsearch:9200'
-  interruptible: true
 
-.build: &build
-  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-  - >
-    docker build
-    -t "$CI_REGISTRY/matchd/backend:python-$APP_TAG"
-    -f ".oriented/python.Dockerfile" .
-  - docker push $CI_REGISTRY/matchd/backend:python-$APP_TAG
-  - >
-    docker build
-    -t "$CI_REGISTRY/matchd/backend:nginx-$APP_TAG"
-    --build-arg PROXY_URL="$PROXY_URL"
-    -f ".oriented/nginx.Dockerfile" .
-  - docker push $CI_REGISTRY/matchd/backend:nginx-$APP_TAG
-  - docker logout $CI_REGISTRY
-
-build:development:
+.build:
   image: docker:19.03.11
   stage: "Build"
   services:
@@ -79,73 +63,61 @@ build:development:
     DOCKER_DRIVER: overlay2
     DOCKER_HOST: tcp://docker:2375
     DOCKER_TLS_CERTDIR: ""
-    APP_TAG: latest
-    ENVIRONMENT: development
-    PROXY_URL: http://api-development:8000
   script:
-    - *build
-  dependencies:
-    - test
-  only:
-    - develop
-    - MATCHD-46-deployment
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - >
+      docker build
+      -t "$CI_REGISTRY/matchd/backend:python-$APP_TAG"
+      -f ".oriented/python.Dockerfile" .
+    - docker push $CI_REGISTRY/matchd/backend:python-$APP_TAG
+    - >
+      docker build
+      -t "$CI_REGISTRY/matchd/backend:nginx-$APP_TAG"
+      --build-arg PROXY_URL="$PROXY_URL"
+      -f ".oriented/nginx.Dockerfile" .
+    - docker push $CI_REGISTRY/matchd/backend:nginx-$APP_TAG
+    - docker logout $CI_REGISTRY
   tags:
     - docker
     - docker-nonswiss-ok
     - not-roadrunner
-  interruptible: true
+
+build:development:
+  extends: .build
+  variables:
+    APP_TAG: latest
+    ENVIRONMENT: development
+    PROXY_URL: http://api-development:8000
+  dependencies:
+    - test
+  only:
+    - develop
   resource_group: development
 
 build:integration:
-  image: docker:19.03.11
-  stage: "Build"
-  services:
-    - docker:19.03.11-dind
+  extends: .build
   variables:
-    DOCKER_DRIVER: overlay2
-    DOCKER_HOST: tcp://docker:2375
-    DOCKER_TLS_CERTDIR: ""
     APP_TAG: $CI_COMMIT_REF_NAME
     ENVIRONMENT: integration
     PROXY_URL: http://api-integration:8000
-  script:
-    - *build
   dependencies:
     - test
   only:
     refs:
       - /^v?\d+\.\d+\.\d+(?:-(?:alpha|beta|rc)(?:(?:(?:\+|\.)[a-zA-Z0-9-]+)*)?)$/
-  tags:
-    - docker
-    - docker-nonswiss-ok
-    - not-roadrunner
-  interruptible: true
   resource_group: integration
 
 build:production:
-  image: docker:19.03.11
-  stage: "Build"
-  services:
-    - docker:19.03.11-dind
+  extends: .build
   variables:
-    DOCKER_DRIVER: overlay2
-    DOCKER_HOST: tcp://docker:2375
-    DOCKER_TLS_CERTDIR: ""
     APP_TAG: $CI_COMMIT_REF_NAME
     ENVIRONMENT: production
     PROXY_URL: http://api-production:8000
-  script:
-    - *build
   dependencies:
     - test
   only:
     refs:
       - /^v?\d+\.\d+\.\d+$/
-  tags:
-    - docker
-    - docker-nonswiss-ok
-    - not-roadrunner
-  interruptible: true
   resource_group: production
 
 .deploy:
@@ -184,7 +156,6 @@ deploy:development:
     DJANGO_SECRET_KEY: $DEVELOPMENT_DJANGO_SECRET_KEY
   only:
     - develop
-    - MATCHD-46-deployment
   tags:
     - matchd
     - development
