@@ -15,6 +15,7 @@ disable=
     W1508, # invalid-envvar-default
     W0212, # protected-access
     W0613, # unused-argument
+    W0703, # broad-except
 
 [FORMAT]
 max-line-length=120
