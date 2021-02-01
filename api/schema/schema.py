@@ -4,6 +4,7 @@ import graphene
 # pylint: disable=R0903
 from api.schema.auth import AuthMutation, VerifyPasswordResetToken
 from api.schema.registration import RegistrationMutation
+from api.schema.user import UserQuery
 from api.schema.user_request import UserRequestMutation
 
 
@@ -17,7 +18,7 @@ class Mutation(
     pass
 
 
-class Query(VerifyPasswordResetToken):
+class Query(VerifyPasswordResetToken, UserQuery):
     pass
 
 

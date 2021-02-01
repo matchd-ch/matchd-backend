@@ -1,5 +1,75 @@
 [
 {
+    "model": "graphql_auth.userstatus",
+    "pk": 1,
+    "fields": {
+        "user": 1,
+        "verified": true,
+        "archived": false,
+        "secondary_email": null
+    }
+},
+{
+    "model": "graphql_auth.userstatus",
+    "pk": 2,
+    "fields": {
+        "user": 2,
+        "verified": true,
+        "archived": false,
+        "secondary_email": null
+    }
+},
+{
+    "model": "graphql_auth.userstatus",
+    "pk": 3,
+    "fields": {
+        "user": 3,
+        "verified": true,
+        "archived": false,
+        "secondary_email": null
+    }
+},
+{
+    "model": "graphql_auth.userstatus",
+    "pk": 4,
+    "fields": {
+        "user": 4,
+        "verified": true,
+        "archived": false,
+        "secondary_email": null
+    }
+},
+{
+    "model": "db.company",
+    "pk": 1,
+    "fields": {
+        "user": 2,
+        "uid": "CHE-999.999.999",
+        "name": "Doe Unlimited",
+        "zip": "9000",
+        "city": "St. Gallen"
+    }
+},
+{
+    "model": "db.company",
+    "pk": 2,
+    "fields": {
+        "user": 4,
+        "uid": "",
+        "name": "Doe University",
+        "zip": "9000",
+        "city": "St. Gallen"
+    }
+},
+{
+    "model": "db.student",
+    "pk": 2,
+    "fields": {
+        "user": 3,
+        "mobile": "+41791234567"
+    }
+},
+{
     "model": "db.userrequest",
     "pk": 3,
     "fields": {
@@ -7,6 +77,24 @@
         "email": "jane@doe.com",
         "message": "Debug Data Message",
         "created_at": "2021-01-06T17:13:18.306Z"
+    }
+},
+{
+    "model": "db.employee",
+    "pk": 1,
+    "fields": {
+        "user": 2,
+        "company": 1,
+        "role": "Recruiter"
+    }
+},
+{
+    "model": "db.employee",
+    "pk": 2,
+    "fields": {
+        "user": 4,
+        "company": 2,
+        "role": "Recruiter"
     }
 }
 ]

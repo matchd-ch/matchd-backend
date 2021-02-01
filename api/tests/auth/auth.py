@@ -30,8 +30,9 @@ class AuthGraphQLTestCase(GraphQLTestCase):
                 password2:"asdf1234$",
                 firstName: "Rudolph",
                 lastName: "Doe",
+                type: "student",
                 student: {
-                    mobileNumber: "+41791234567"
+                    mobile: "+41791234567"
                 }) {
                 success
                 errors
