@@ -87,7 +87,7 @@ build:development:
   variables:
     APP_TAG: latest
     ENVIRONMENT: development
-    PROXY_URL: http://api-development:8000
+    PROXY_URL: http://api-development:8080
   dependencies:
     - test
   only:
@@ -99,7 +99,7 @@ build:integration:
   variables:
     APP_TAG: $CI_COMMIT_REF_NAME
     ENVIRONMENT: integration
-    PROXY_URL: http://api-integration:8000
+    PROXY_URL: http://api-integration:8080
   dependencies:
     - test
   only:
@@ -112,7 +112,7 @@ build:production:
   variables:
     APP_TAG: $CI_COMMIT_REF_NAME
     ENVIRONMENT: production
-    PROXY_URL: http://api-production:8000
+    PROXY_URL: http://api-production:8080
   dependencies:
     - test
   only:
