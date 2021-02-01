@@ -163,7 +163,7 @@ class AuthGraphQLTestCase(GraphQLTestCase):
         self.assertFalse(content['data'].get('tokenAuth').get('success'))
         self.assertIsNone(content['data'].get('tokenAuth').get('token'))
 
-    def _test_password_reset_token(self):
+    def _test_password_reset_token(self, success):
         response = self.query(
             '''
            mutation sendPasswordResetEmail{
@@ -178,7 +178,10 @@ class AuthGraphQLTestCase(GraphQLTestCase):
         )
         self.assertResponseNoErrors(response)
         content = json.loads(response.content)
-        return content
+        if success:
+            self.assertTrue(content['data'].get('sendPasswordResetEmail').get('success'))
+        else:
+            self.assertFalse(content['data'].get('sendPasswordResetEmail').get('success'))
 
     def _get_password_reset_token(self, reset_email):
         reset_url = reset_email.body.split('\n')[-2]
@@ -186,7 +189,7 @@ class AuthGraphQLTestCase(GraphQLTestCase):
         self.assertIn(f'https://{settings.FRONTEND_URL}/{verification_path}/', reset_url)
         return reset_url.split('/')[-1]
 
-    def _reset_pasword_query(self, token, password1, password2):
+    def _reset_password_query(self, token, password1, password2, success):
         response = self.query(
             '''
            mutation PasswordReset($token: String!, $password1: String!, $password2: String!,  ) {
@@ -203,9 +206,14 @@ class AuthGraphQLTestCase(GraphQLTestCase):
         )
         self.assertResponseNoErrors(response)
         content = json.loads(response.content)
-        return content
+        self.assertIsNotNone(content)
 
-    def _password_reset(self, password1, password2):
+        if success:
+            self.assertTrue(content['data'].get('passwordReset').get('success'))
+        else:
+            self.assertFalse(content['data'].get('passwordReset').get('success'))
+
+    def _password_reset(self, password1, password2, success):
         self._register()
         self.assertTemplateUsed('api/email/activation/body.html')
         self.assertTemplateUsed('api/email/activation/subject.txt')
@@ -217,26 +225,24 @@ class AuthGraphQLTestCase(GraphQLTestCase):
         self.assertIsNotNone(activation_token)
         self._verify_account(activation_token)
 
-        content = self._test_password_reset_token()
-        self.assertTrue(content['data'].get('sendPasswordResetEmail').get('success'))
+        self._test_password_reset_token(True)
 
         reset_email = mail.outbox[1]
         password_reset_token = self._get_password_reset_token(reset_email)
         self.assertIsNotNone(password_reset_token)
 
-        return self._reset_pasword_query(password_reset_token, password1, password2)
+        self._reset_password_query(password_reset_token, password1, password2, success)
+
 
     def test_password_reset(self):
-        content = self._password_reset('superStrongPassword1!', 'superStrongPassword1!')
-        self.assertTrue(content['data'].get('passwordReset').get('success'))
+        self._password_reset('superStrongPassword1!', 'superStrongPassword1!', True)
+
 
     def test_password_reset_with_weak_password(self):
-        content = self._password_reset('weakPassword', 'weakPassword')
-        self.assertFalse(content['data'].get('passwordReset').get('success'))
+        self._password_reset('weakPassword', 'weakPassword', False)
 
     def test_password_reset_with_miss_matched(self):
-        content = self._password_reset('weakPassword', 'weakPasswordButNotTheSame')
-        self.assertFalse(content['data'].get('passwordReset').get('success'))
+        self._password_reset('weakPassword', 'weakPasswordButNotTheSame', False)
 
     def test_reset_token_with_wrong_token(self):
         self._register()
@@ -250,11 +256,10 @@ class AuthGraphQLTestCase(GraphQLTestCase):
         self.assertIsNotNone(activation_token)
         self._verify_account(activation_token)
 
-        content = self._test_password_reset_token()
-        self.assertTrue(content['data'].get('sendPasswordResetEmail').get('success'))
+        self._test_password_reset_token(True)
 
-        content = self._reset_pasword_query('wrongToken', 'superStrongPassword1!', 'superStrongPassword1!')
-        self.assertFalse(content['data'].get('passwordReset').get('success'))
+        self._reset_password_query('wrongToken', 'superStrongPassword1!', 'superStrongPassword1!', False)
+
 
     def _verify_password_reset_token(self, token):
         response = self.query(
@@ -280,17 +285,7 @@ class AuthGraphQLTestCase(GraphQLTestCase):
         self.assertIsNotNone(activation_token)
         self._verify_account(activation_token)
 
-        content = self._test_password_reset_token()
-        self.assertTrue(content['data'].get('sendPasswordResetEmail').get('success'))
+        self._test_password_reset_token(True)
 
         reset_email = mail.outbox[1]
-        password_reset_token = self._get_password_reset_token(reset_email)
-        self.assertIsNotNone(password_reset_token)
-
-        content = self._verify_password_reset_token(password_reset_token)
-        self.assertTrue(content)
-
-    def test_verify_password_reset_token_with_wrong_token(self):
-
-        content = self._verify_password_reset_token('WrongToken')
-        self.assertTrue(content)
+        self._get_password_reset_token(reset_email)
