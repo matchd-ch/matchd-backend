@@ -17,13 +17,13 @@ if [[ -z "${ENVIRONMENT}" ||
       -z "${DJANGO_DB_PW}" ||
       -z "${DJANGO_ELASTIC_SEARCH_URL}" ||
       -z "${DJANGO_ELASTIC_SEARCH_USER}" ||
-      -z "${DJANGO_ELASTIC_SEARCH_PASSWORD}" ]]
-#      -z "${DJANGO_EMAIL}" ||
-#      -z "${DJANGO_EMAIL_HOST}" ||
-#      -z "${DJANGO_EMAIL_PORT}" ||
-#      -z "${DJANGO_EMAIL_HOST_USER}" ||
-#      -z "${DJANGO_EMAIL_HOST_PASSWORD}" ||
-#      -z "${DJANGO_EMAIL_SUBJECT_PREFIX}" ]]
+      -z "${DJANGO_ELASTIC_SEARCH_PASSWORD}" ||
+      -z "${DJANGO_EMAIL}" ||
+      -z "${DJANGO_EMAIL_HOST}" ||
+      -z "${DJANGO_EMAIL_PORT}" ||
+      -z "${DJANGO_EMAIL_HOST_USER}" ||
+      -z "${DJANGO_EMAIL_HOST_PASSWORD}" ||
+      -z "${DJANGO_EMAIL_SUBJECT_PREFIX}" ]]
 then
     echo "ERROR: A required environment variable is not set" >&2
     echo " " >&2
@@ -57,18 +57,18 @@ then
     else
       echo "    DJANGO_ELASTIC_SEARCH_PASSWORD: *****" >&2
     fi
-#    echo "Email:" >&2
-#    echo "    DJANGO_EMAIL: ${DJANGO_EMAIL}" >&2
-#    echo "    DJANGO_EMAIL_HOST: ${DJANGO_EMAIL_HOST}" >&2
-#    echo "    DJANGO_EMAIL_PORT: ${DJANGO_EMAIL_PORT}" >&2
-#    echo "    DJANGO_EMAIL_HOST_USER: ${DJANGO_EMAIL_HOST_USER}" >&2
-#    if [ -z "${DJANGO_EMAIL_HOST_PASSWORD}" ]
-#    then
-#      echo "    DJANGO_EMAIL_HOST_PASSWORD: ${DJANGO_EMAIL_HOST_PASSWORD}" >&2
-#    else
-#      echo "    DJANGO_EMAIL_HOST_PASSWORD: *****" >&2
-#    fi
-#    echo "    DJANGO_EMAIL_SUBJECT_PREFIX: ${DJANGO_EMAIL_SUBJECT_PREFIX}" >&2
+    echo "Email:" >&2
+    echo "    DJANGO_EMAIL: ${DJANGO_EMAIL}" >&2
+    echo "    DJANGO_EMAIL_HOST: ${DJANGO_EMAIL_HOST}" >&2
+    echo "    DJANGO_EMAIL_PORT: ${DJANGO_EMAIL_PORT}" >&2
+    echo "    DJANGO_EMAIL_HOST_USER: ${DJANGO_EMAIL_HOST_USER}" >&2
+    if [ -z "${DJANGO_EMAIL_HOST_PASSWORD}" ]
+    then
+      echo "    DJANGO_EMAIL_HOST_PASSWORD: ${DJANGO_EMAIL_HOST_PASSWORD}" >&2
+    else
+      echo "    DJANGO_EMAIL_HOST_PASSWORD: *****" >&2
+    fi
+    echo "    DJANGO_EMAIL_SUBJECT_PREFIX: ${DJANGO_EMAIL_SUBJECT_PREFIX}" >&2
 
     exit 1
 fi
