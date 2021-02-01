@@ -74,7 +74,7 @@ class AuthGraphQLTestCase(GraphQLTestCase):
         content = json.loads(response.content)
         self.assertTrue(content['data'].get('verifyAccount').get('success'))
 
-    def _get_and_test_auth_token(self):
+    def _get_and_test_auth_token(self, success=True):
         response = self.query(
             '''
             mutation TokenAuth {
@@ -95,7 +95,13 @@ class AuthGraphQLTestCase(GraphQLTestCase):
         )
         self.assertResponseNoErrors(response)
         content = json.loads(response.content)
-        return content
+
+        if success:
+            self.assertTrue(content['data'].get('tokenAuth').get('success'))
+            self.assertIsNotNone(content['data'].get('tokenAuth').get('token'))
+        else:
+            self.assertFalse(content['data'].get('tokenAuth').get('success'))
+            self.assertIsNone(content['data'].get('tokenAuth').get('token'))
 
     def _get_and_test_auth_token_with_wrong_password(self):
         response = self.query(
@@ -120,12 +126,24 @@ class AuthGraphQLTestCase(GraphQLTestCase):
         content = json.loads(response.content)
         return content
 
+    def _logout(self):
+        response = self.query(
+            '''
+            mutation Logout {
+              logout
+            }
+            '''
+        )
+
+        self.assertResponseNoErrors(response)
+        content = json.loads(response.content)
+
+        self.assertTrue(content['data'].get('logout'))
+        self.assertEqual(response.cookies['JWT'].value, '')
+
     def test_auth_token_without_activation(self):
         self._register()
-        content = self._get_and_test_auth_token()
-
-        self.assertFalse(content['data'].get('tokenAuth').get('success'))
-        self.assertIsNone(content['data'].get('tokenAuth').get('token'))
+        self._get_and_test_auth_token(success=False)
 
     def test_registration_student_with_auth_token(self):
         self._register()
@@ -142,9 +160,7 @@ class AuthGraphQLTestCase(GraphQLTestCase):
         self.assertIsNotNone(activation_token)
         self._verify_account(activation_token)
 
-        content = self._get_and_test_auth_token()
-        self.assertTrue(content['data'].get('tokenAuth').get('success'))
-        self.assertIsNotNone(content['data'].get('tokenAuth').get('token'))
+        self._get_and_test_auth_token(success=True)
 
     def test_auth_token_wrong_password(self):
         self._register()
@@ -164,3 +180,11 @@ class AuthGraphQLTestCase(GraphQLTestCase):
         content = self._get_and_test_auth_token_with_wrong_password()
         self.assertFalse(content['data'].get('tokenAuth').get('success'))
         self.assertIsNone(content['data'].get('tokenAuth').get('token'))
+
+    def test_logout(self):
+        self._register()
+        activation_email = mail.outbox[0]
+        token = self._get_and_test_activation_token(activation_email)
+        self._verify_account(token)
+        self._get_and_test_auth_token()
+        self._logout()
