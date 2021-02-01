@@ -31,8 +31,9 @@ class StudentRegistrationGraphQLTestCase(GraphQLTestCase):
                 password2:"asdf1234$",
                 firstName: "Rudolph",
                 lastName: "Doe",
+                type: "student",
                 student: {
-                    mobileNumber: "+41791234567"
+                    mobile: "+41791234567"
                 }) {
                 success
                 errors
@@ -66,8 +67,9 @@ class StudentRegistrationGraphQLTestCase(GraphQLTestCase):
                 password2:"asdf1234$",
                 firstName: "Rudolph",
                 lastName: "Doe",
+                type: "student",
                 student: {
-                    mobileNumber: "+41791234567"
+                    mobile: "+41791234567"
                 }
               ) {
                 success
@@ -118,8 +120,9 @@ class StudentRegistrationGraphQLTestCase(GraphQLTestCase):
                 password2:"%s",
                 firstName: "Rudolph",
                 lastName: "Doe",
+                type: "student",
                 student: {
-                    mobileNumber: "+41791234567"
+                    mobile: "+41791234567"
                 }
               ) {
                 success
@@ -172,8 +175,9 @@ class StudentRegistrationGraphQLTestCase(GraphQLTestCase):
                 password2:"asdf1234$",
                 firstName: "Rudolph",
                 lastName: "Doe",
+                type: "student",
                 student: {
-                    mobileNumber: "+41791234567"
+                    mobile: "+41791234567"
                 }
               ) {
                 success
@@ -211,8 +215,9 @@ class StudentRegistrationGraphQLTestCase(GraphQLTestCase):
                 password2:"asdf1234$",
                 firstName: "",
                 lastName: "",
+                type: "student",
                 student: {
-                    mobileNumber: "+41791234567"
+                    mobile: "+41791234567"
                 }
               ) {
                 success
@@ -238,9 +243,7 @@ class StudentRegistrationGraphQLTestCase(GraphQLTestCase):
                 password2:"asdf1234$",
                 firstName: "Rudolph",
                 lastName: "Doe",
-                student: {
-                    mobileNumber: ""
-                }
+                type: "student"
               ) {
                 success
                 errors
@@ -250,8 +253,7 @@ class StudentRegistrationGraphQLTestCase(GraphQLTestCase):
         )
         self.assertResponseNoErrors(response)
         content = json.loads(response.content)
-        self.assertFalse(content['data'].get('registerStudent').get('success'))
-        self.assertIn('mobileNumber', content['data'].get('registerStudent').get('errors'))
+        self.assertTrue(content['data'].get('registerStudent').get('success'))
 
     def test_register_with_wrong_mobile_number(self):
         response = self.query(
@@ -264,8 +266,9 @@ class StudentRegistrationGraphQLTestCase(GraphQLTestCase):
                 password2:"asdf1234$",
                 firstName: "Rudolph",
                 lastName: "Doe",
+                type: "student",
                 student: {
-                    mobileNumber: "+417611"
+                    mobile: "+417611"
                 }
               ) {
                 success
@@ -277,4 +280,4 @@ class StudentRegistrationGraphQLTestCase(GraphQLTestCase):
         self.assertResponseNoErrors(response)
         content = json.loads(response.content)
         self.assertFalse(content['data'].get('registerStudent').get('success'))
-        self.assertIn('mobileNumber', content['data'].get('registerStudent').get('errors'))
+        self.assertIn('mobile', content['data'].get('registerStudent').get('errors'))

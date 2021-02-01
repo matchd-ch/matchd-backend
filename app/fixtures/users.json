@@ -3,17 +3,74 @@
     "model": "db.user",
     "pk": 1,
     "fields": {
-        "password": "pbkdf2_sha256$180000$b6wQx15KEaLC$/3w37G6UXuTzNV7N7ocqg/toNxNgFIH0furFNIYoYuI=",
-        "last_login": null,
+        "password": "pbkdf2_sha256$216000$zm5hbNyUj2u1$XOHZkfILbONSDhLZDu7q9RP/ZPN1yNlY5HRsxM5hk6o=",
+        "last_login": "2021-01-28T09:06:44.160Z",
         "is_superuser": true,
         "username": "admin",
-        "first_name": "admin",
-        "last_name": "admin",
         "email": "admin@example.com",
         "is_staff": true,
         "is_active": true,
         "date_joined": "2020-07-07T09:40:35.819Z",
         "type": "internal",
+        "first_name": "admin",
+        "last_name": "admin",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "db.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$52DnhN7TdBcL$7ekFEGmeBFQPQptbaQqRXvi09Q6c0uQ+y3kJI72v+wA=",
+        "last_login": "2021-01-28T09:06:18.530Z",
+        "is_superuser": false,
+        "username": "john@doe.com",
+        "email": "john@doe.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-01-27T11:44:00.605Z",
+        "type": "company",
+        "first_name": "John",
+        "last_name": "Doe",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "db.user",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$RdqBtZaeSrBv$PpK7MIaB7NMldQqcQL8rswLUrS6rcuQmB7JDa2BTIJg=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "jane@doe.com",
+        "email": "jane@doe.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-01-27T11:45:50.056Z",
+        "type": "student",
+        "first_name": "Jane",
+        "last_name": "Doe",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "db.user",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$LYgKVLYWgtJn$ZubGInM3OswgZLhSvCh91GCw5pkwtd1l50ibXxIOq/s=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "joe@doe.com",
+        "email": "joe@doe.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-01-28T13:14:24.268Z",
+        "type": "university",
+        "first_name": "Joe",
+        "last_name": "Doe",
         "groups": [],
         "user_permissions": []
     }

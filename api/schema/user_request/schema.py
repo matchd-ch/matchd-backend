@@ -1,22 +1,19 @@
 import graphene
-from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+from graphql_auth.bases import Output
 
-from api.schema.error import ErrorType
+from db.forms import UserRequestForm
 from db.models import UserRequest as UserRequestModel
 
 
 class UserRequestInput(graphene.InputObjectType):
-    name = graphene.String(description=_('Name'))
-    email = graphene.String(description=_('E-Mail'))
-    message = graphene.String(description=_('Message'))
+    name = graphene.String(description=_('Name'), required=True)
+    email = graphene.String(description=_('E-Mail'), required=True)
+    message = graphene.String(description=_('Message'), required=True)
 
 
 # pylint: disable=R0903
-class UserRequest(graphene.Mutation):
-
-    success = graphene.Boolean()
-    errors = graphene.Field(ErrorType)
+class UserRequest(Output, graphene.Mutation):
 
     class Arguments:
         input = UserRequestInput(description=_('UserRequest is required.'), required=True)
@@ -26,12 +23,22 @@ class UserRequest(graphene.Mutation):
 
     @classmethod
     def mutate(cls, root, info, **form_data):
-        try:
-            user_request = UserRequestModel(**form_data.get('input'))
-            user_request.full_clean()
-            user_request.save()
-        except ValidationError as error:
-            return UserRequest(success=False, errors=ErrorType.serialize(error.message_dict))
+        errors = {}
+        user_request_data = form_data.pop('input')
+        user_request = None
+
+        user_request_form = UserRequestForm(user_request_data)
+        user_request_form.full_clean()
+        if user_request_form.is_valid():
+            user_request = UserRequestModel(**user_request_data)
+        else:
+            errors.update(user_request_form.errors.get_json_data())
+
+        if errors:
+            return UserRequest(success=False, errors=errors)
+
+        user_request.save()
+
         return UserRequest(success=True)
 
 

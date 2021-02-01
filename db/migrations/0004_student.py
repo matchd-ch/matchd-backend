@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
             name='Student',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('mobile_number', models.CharField(max_length=12, validators=[django.core.validators.RegexValidator(regex='\\+[0-9]{11}')])),
+                ('mobile', models.CharField(max_length=12, blank=True, validators=[django.core.validators.RegexValidator(regex='\\+[0-9]{11}')])),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='student', to=settings.AUTH_USER_MODEL)),
             ],
         ),
