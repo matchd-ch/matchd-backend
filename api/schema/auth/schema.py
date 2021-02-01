@@ -12,6 +12,9 @@ class AuthMutation(graphene.ObjectType):
     revoke_token = graphql_jwt.Revoke.Field()
 
 
+# Since we do not have access to cookies here,
+# we delete the cookie in the graphql view
+# see api/views/graphql.py
 class LogoutMutation(graphene.Mutation):
     logout = graphene.Field(graphene.Boolean)
 
