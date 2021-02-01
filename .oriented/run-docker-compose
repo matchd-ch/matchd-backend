@@ -1,0 +1,115 @@
+#!/bin/bash
+
+set -e
+
+if [[ -z "${ENVIRONMENT}" ||
+      -z "${IMAGE_BACKEND}" ||
+      -z "${IMAGE_BACKEND_NGINX}" ||
+      -z "${DJANGO_SETTINGS_MODULE}" ||
+      -z "${DJANGO_SECRET_KEY}" ||
+      -z "${DJANGO_GRAPHIQL_ENABLED}" ||
+      -z "${FRONTEND_URL}" ||
+      -z "${APP_DOMAIN}" ||
+      -z "${APP_CSRF_COOKIE_DOMAIN}" ||
+      -z "${WAGTAIL_SITE_NAME}" ||
+      -z "${DJANGO_DB_NAME}" ||
+      -z "${DJANGO_DB_USER}" ||
+      -z "${DJANGO_DB_PW}" ||
+      -z "${DJANGO_ELASTIC_SEARCH_URL}" ||
+      -z "${DJANGO_ELASTIC_SEARCH_USER}" ||
+      -z "${DJANGO_ELASTIC_SEARCH_PASSWORD}" ||
+      -z "${DJANGO_EMAIL}" ||
+      -z "${DJANGO_EMAIL_HOST}" ||
+      -z "${DJANGO_EMAIL_PORT}" ||
+      -z "${DJANGO_EMAIL_HOST_USER}" ||
+      -z "${DJANGO_EMAIL_HOST_PASSWORD}" ||
+      -z "${DJANGO_EMAIL_SUBJECT_PREFIX}" ]]
+then
+    echo "ERROR: A required environment variable is not set" >&2
+    echo " " >&2
+    echo "Docker:" >&2
+    echo "    ENVIRONMENT: ${ENVIRONMENT}" >&2
+    echo "    IMAGE_BACKEND: ${IMAGE_BACKEND}" >&2
+    echo "    IMAGE_BACKEND_NGINX: ${IMAGE_BACKEND_NGINX}" >&2
+    echo "Django:" >&2
+    echo "    DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE}" >&2
+    echo "    DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}" >&2
+    echo "    DJANGO_GRAPHIQL_ENABLED: ${DJANGO_GRAPHIQL_ENABLED}" >&2
+    echo "    FRONTEND_URL: ${FRONTEND_URL}" >&2
+    echo "    APP_DOMAIN: ${APP_DOMAIN}" >&2
+    echo "    APP_CSRF_COOKIE_DOMAIN: ${APP_CSRF_COOKIE_DOMAIN}" >&2
+    echo "    WAGTAIL_SITE_NAME: ${WAGTAIL_SITE_NAME}" >&2
+    echo "Database:" >&2
+    echo "    DJANGO_DB_NAME: ${DJANGO_DB_NAME}" >&2
+    echo "    DJANGO_DB_USER: ${DJANGO_DB_USER}" >&2
+    if [ -z "${DJANGO_DB_PW}" ]
+    then
+      echo "    DJANGO_DB_PW: ${DJANGO_DB_PW}" >&2
+    else
+      echo "    DJANGO_DB_PW: *****" >&2
+    fi
+    echo "Elasticsearch:" >&2
+    echo "    DJANGO_ELASTIC_SEARCH_URL: ${DJANGO_ELASTIC_SEARCH_URL}" >&2
+    echo "    DJANGO_ELASTIC_SEARCH_USER: ${DJANGO_ELASTIC_SEARCH_USER}" >&2
+    if [ -z "${DJANGO_ELASTIC_SEARCH_PASSWORD}" ]
+    then
+      echo "    DJANGO_ELASTIC_SEARCH_PASSWORD: ${DJANGO_ELASTIC_SEARCH_PASSWORD}" >&2
+    else
+      echo "    DJANGO_ELASTIC_SEARCH_PASSWORD: *****" >&2
+    fi
+    echo "Email:" >&2
+    echo "    DJANGO_EMAIL: ${DJANGO_EMAIL}" >&2
+    echo "    DJANGO_EMAIL_HOST: ${DJANGO_EMAIL_HOST}" >&2
+    echo "    DJANGO_EMAIL_PORT: ${DJANGO_EMAIL_PORT}" >&2
+    echo "    DJANGO_EMAIL_HOST_USER: ${DJANGO_EMAIL_HOST_USER}" >&2
+    if [ -z "${DJANGO_EMAIL_HOST_PASSWORD}" ]
+    then
+      echo "    DJANGO_EMAIL_HOST_PASSWORD: ${DJANGO_EMAIL_HOST_PASSWORD}" >&2
+    else
+      echo "    DJANGO_EMAIL_HOST_PASSWORD: *****" >&2
+    fi
+    echo "    DJANGO_EMAIL_SUBJECT_PREFIX: ${DJANGO_EMAIL_SUBJECT_PREFIX}" >&2
+
+    exit 1
+fi
+
+export DOTENV=".oriented/.env"
+
+echo "Writing ${DOTENV}..."
+
+export TRAEFIK_ROUTER_NAME="api-${ENVIRONMENT}-router"
+
+echo "ENVIRONMENT=${ENVIRONMENT}" > $DOTENV
+echo "COMPOSE_PROJECT_NAME=${ENVIRONMENT}-backend" >> $DOTENV
+echo "DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}" >> $DOTENV
+echo "DJANGO_DB_NAME=${DJANGO_DB_NAME}" >> $DOTENV
+echo "IMAGE_BACKEND=${IMAGE_BACKEND}" >> $DOTENV
+echo "IMAGE_BACKEND_NGINX=${IMAGE_BACKEND_NGINX}" >> $DOTENV
+echo "DJANGO_SECRET_KEY=\"${DJANGO_SECRET_KEY}\"" >> $DOTENV
+echo "DJANGO_GRAPHIQL_ENABLED=${DJANGO_GRAPHIQL_ENABLED}" >> $DOTENV
+echo "FRONTEND_URL=${FRONTEND_URL}" >> $DOTENV
+echo "APP_DOMAIN=${APP_DOMAIN}" >> $DOTENV
+echo "APP_CSRF_COOKIE_DOMAIN=${APP_CSRF_COOKIE_DOMAIN}" >> $DOTENV
+echo "WAGTAIL_SITE_NAME=\"${WAGTAIL_SITE_NAME}\"" >> $DOTENV
+echo "DJANGO_DB_NAME=${DJANGO_DB_NAME}" >> $DOTENV
+echo "DJANGO_DB_USER=${DJANGO_DB_USER}" >> $DOTENV
+echo "DJANGO_DB_PW=${DJANGO_DB_PW}" >> $DOTENV
+echo "DJANGO_ELASTIC_SEARCH_URL=${DJANGO_ELASTIC_SEARCH_URL}" >> $DOTENV
+echo "DJANGO_ELASTIC_SEARCH_USER=${DJANGO_ELASTIC_SEARCH_USER}" >> $DOTENV
+echo "DJANGO_ELASTIC_SEARCH_PASSWORD=${DJANGO_ELASTIC_SEARCH_PASSWORD}" >> $DOTENV
+echo "DJANGO_EMAIL=${DJANGO_EMAIL}" >> $DOTENV
+echo "DJANGO_EMAIL_HOST=${DJANGO_EMAIL_HOST}" >> $DOTENV
+echo "DJANGO_EMAIL_PORT=${DJANGO_EMAIL_PORT}" >> $DOTENV
+echo "DJANGO_EMAIL_HOST_USER=${DJANGO_EMAIL_HOST_USER}" >> $DOTENV
+echo "DJANGO_EMAIL_HOST_PASSWORD=${DJANGO_EMAIL_HOST_PASSWORD}" >> $DOTENV
+echo "DJANGO_EMAIL_SUBJECT_PREFIX=\"${DJANGO_EMAIL_SUBJECT_PREFIX}\"" >> $DOTENV
+echo "TRAEFIK_ROUTER_NAME=${TRAEFIK_ROUTER_NAME}" >> $DOTENV
+echo "API_NETWORK_ALIAS=api-${ENVIRONMENT}" >> $DOTENV
+
+cd .oriented
+
+echo "Pulling images..."
+docker-compose pull
+
+echo "Creating and starting containers…"
+docker-compose up -d

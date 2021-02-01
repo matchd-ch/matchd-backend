@@ -1,5 +1,6 @@
 from wagtail.core import hooks
 
+
 @hooks.register('construct_main_menu')
 def construct_main_menu(request, menu_items):
     hidden_items = ['explorer', 'images', 'documents', 'reports']

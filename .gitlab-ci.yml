@@ -1,5 +1,10 @@
+variables:
+  DOCKER_COMPOSE_SCRIPT: ./.oriented/run-docker-compose
+
 stages:
   - "Test"
+  - "Build"
+  - "Deploy"
 
 pylint:
   image:
@@ -48,4 +53,177 @@ test:
     DJANGO_DB_USER: 'root'
     DJANGO_DB_PW: 'wagtail'
     DJANGO_ELASTIC_SEARCH_URL: 'http://elasticsearch:9200'
-  interruptible: true
+
+.build:
+  image: docker:19.03.11
+  stage: "Build"
+  services:
+    - docker:19.03.11-dind
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - >
+      docker build
+      -t "$CI_REGISTRY/matchd/backend:python-$APP_TAG"
+      -f ".oriented/python.Dockerfile" .
+    - docker push $CI_REGISTRY/matchd/backend:python-$APP_TAG
+    - >
+      docker build
+      -t "$CI_REGISTRY/matchd/backend:nginx-$APP_TAG"
+      --build-arg PROXY_URL="$PROXY_URL"
+      -f ".oriented/nginx.Dockerfile" .
+    - docker push $CI_REGISTRY/matchd/backend:nginx-$APP_TAG
+    - docker logout $CI_REGISTRY
+  tags:
+    - docker
+    - docker-nonswiss-ok
+    - not-roadrunner
+
+build:development:
+  extends: .build
+  variables:
+    APP_TAG: latest
+    ENVIRONMENT: development
+    PROXY_URL: http://api-development:8000
+  dependencies:
+    - test
+  only:
+    - develop
+  resource_group: development
+
+build:integration:
+  extends: .build
+  variables:
+    APP_TAG: $CI_COMMIT_REF_NAME
+    ENVIRONMENT: integration
+    PROXY_URL: http://api-integration:8000
+  dependencies:
+    - test
+  only:
+    refs:
+      - /^v?\d+\.\d+\.\d+(?:-(?:alpha|beta|rc)(?:(?:(?:\+|\.)[a-zA-Z0-9-]+)*)?)$/
+  resource_group: integration
+
+build:production:
+  extends: .build
+  variables:
+    APP_TAG: $CI_COMMIT_REF_NAME
+    ENVIRONMENT: production
+    PROXY_URL: http://api-production:8000
+  dependencies:
+    - test
+  only:
+    refs:
+      - /^v?\d+\.\d+\.\d+$/
+  resource_group: production
+
+.deploy:
+  stage: "Deploy"
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - ${DOCKER_COMPOSE_SCRIPT}
+    - docker logout $CI_REGISTRY
+
+deploy:development:
+  extends: .deploy
+  variables:
+    ENVIRONMENT: development
+    IMAGE_BACKEND: $CI_REGISTRY/matchd/backend:python-latest
+    IMAGE_BACKEND_NGINX: $CI_REGISTRY/matchd/backend:nginx-latest
+    DJANGO_SETTINGS_MODULE: 'app.settings.production'
+    DJANGO_DB_NAME: $DEVELOPMENT_DATABASE_NAME
+    DJANGO_DB_USER: $DEVELOPMENT_DATABASE_USER
+    DJANGO_DB_PW: $DEVELOPMENT_DATABASE_PASSWORD
+    DJANGO_ELASTIC_SEARCH_URL: $DEVELOPMENT_ELASTIC_SEARCH_URL
+    DJANGO_ELASTIC_SEARCH_USER: $DEVELOPMENT_ELASTIC_SEARCH_USER
+    DJANGO_ELASTIC_SEARCH_PASSWORD: $DEVELOPMENT_ELASTIC_SEARCH_PASSWORD
+    DJANGO_ELASTIC_INDEX_PREFIX: $DEVELOPMENT_ELASTIC_SEARCH_INDEX_PREFIX
+    DJANGO_EMAIL: $DEVELOPMENT_DJANGO_EMAIL
+    DJANGO_EMAIL_HOST: $DEVELOPMENT_DJANGO_EMAIL_HOST
+    DJANGO_EMAIL_PORT: $DEVELOPMENT_DJANGO_EMAIL_PORT
+    DJANGO_EMAIL_HOST_PASSWORD: $DEVELOPMENT_DJANGO_EMAIL_HOST_PASSWORD
+    DJANGO_EMAIL_HOST_USER: $DEVELOPMENT_DJANGO_EMAIL_HOST_USER
+    DJANGO_EMAIL_SUBJECT_PREFIX: $DEVELOPMENT_DJANGO_EMAIL_SUBJECT_PREFIX
+    DJANGO_GRAPHIQL_ENABLED: 'true'
+    FRONTEND_URL: $DEVELOPMENT_FRONTEND_URL
+    APP_DOMAIN: $DEVELOPMENT_APP_DOMAIN
+    APP_CSRF_COOKIE_DOMAIN: $DEVELOPMENT_APP_CSRF_COOKIE_DOMAIN
+    WAGTAIL_SITE_NAME: $DEVELOPMENT_WAGTAIL_SITE_NAME
+    DJANGO_SECRET_KEY: $DEVELOPMENT_DJANGO_SECRET_KEY
+  only:
+    - develop
+  tags:
+    - matchd
+    - development
+  resource_group: development
+
+deploy:integration:
+  extends: .deploy
+  variables:
+    ENVIRONMENT: integration
+    IMAGE_BACKEND: $CI_REGISTRY/matchd/backend:python-$CI_COMMIT_REF_NAME
+    IMAGE_BACKEND_NGINX: $CI_REGISTRY/matchd/backend:nginx-$CI_COMMIT_REF_NAME
+    DJANGO_SETTINGS_MODULE: 'app.settings.production'
+    DJANGO_DB_NAME: $INTEGRATION_DATABASE_NAME
+    DJANGO_DB_USER: $INTEGRATION_DATABASE_USER
+    DJANGO_DB_PW: $INTEGRATION_DATABASE_PASSWORD
+    DJANGO_ELASTIC_SEARCH_URL: $INTEGRATION_ELASTIC_SEARCH_URL
+    DJANGO_ELASTIC_SEARCH_USER: $INTEGRATION_ELASTIC_SEARCH_USER
+    DJANGO_ELASTIC_SEARCH_PASSWORD: $INTEGRATION_ELASTIC_SEARCH_PASSWORD
+    DJANGO_ELASTIC_INDEX_PREFIX: $INTEGRATION_ELASTIC_SEARCH_INDEX_PREFIX
+    DJANGO_EMAIL: $INTEGRATION_DJANGO_EMAIL
+    DJANGO_EMAIL_HOST: $INTEGRATION_DJANGO_EMAIL_HOST
+    DJANGO_EMAIL_PORT: $INTEGRATION_DJANGO_EMAIL_PORT
+    DJANGO_EMAIL_HOST_PASSWORD: $INTEGRATION_DJANGO_EMAIL_HOST_PASSWORD
+    DJANGO_EMAIL_HOST_USER: $INTEGRATION_DJANGO_EMAIL_HOST_USER
+    DJANGO_EMAIL_SUBJECT_PREFIX: $INTEGRATION_DJANGO_EMAIL_SUBJECT_PREFIX
+    DJANGO_GRAPHIQL_ENABLED: 'true'
+    FRONTEND_URL: $INTEGRATION_FRONTEND_URL
+    APP_DOMAIN: $INTEGRATION_APP_DOMAIN
+    APP_CSRF_COOKIE_DOMAIN: $INTEGRATION_APP_CSRF_COOKIE_DOMAIN
+    WAGTAIL_SITE_NAME: $INTEGRATION_WAGTAIL_SITE_NAME
+    DJANGO_SECRET_KEY: $INTEGRATION_DJANGO_SECRET_KEY
+  only:
+    refs:
+      - /^v?\d+\.\d+\.\d+(?:-(?:alpha|beta|rc)(?:(?:(?:\+|\.)[a-zA-Z0-9-]+)*)?)$/
+  tags:
+    - matchd
+    - integration
+  resource_group: integration
+
+deploy:production:
+  extends: .deploy
+  variables:
+    ENVIRONMENT: production
+    IMAGE_BACKEND: $CI_REGISTRY/matchd/backend:python-$CI_COMMIT_REF_NAME
+    IMAGE_BACKEND_NGINX: $CI_REGISTRY/matchd/backend:nginx-$CI_COMMIT_REF_NAME
+    DJANGO_SETTINGS_MODULE: 'app.settings.production'
+    DJANGO_DB_NAME: $PRODUCTION_DATABASE_NAME
+    DJANGO_DB_USER: $PRODUCTION_DATABASE_USER
+    DJANGO_DB_PW: $PRODUCTION_DATABASE_PASSWORD
+    DJANGO_ELASTIC_SEARCH_URL: $PRODUCTION_ELASTIC_SEARCH_URL
+    DJANGO_ELASTIC_SEARCH_USER: $PRODUCTION_ELASTIC_SEARCH_USER
+    DJANGO_ELASTIC_SEARCH_PASSWORD: $PRODUCTION_ELASTIC_SEARCH_PASSWORD
+    DJANGO_ELASTIC_INDEX_PREFIX: $PRODUCTION_ELASTIC_SEARCH_INDEX_PREFIX
+    DJANGO_EMAIL: $PRODUCTION_DJANGO_EMAIL
+    DJANGO_EMAIL_HOST: $PRODUCTION_DJANGO_EMAIL_HOST
+    DJANGO_EMAIL_PORT: $PRODUCTION_DJANGO_EMAIL_PORT
+    DJANGO_EMAIL_HOST_PASSWORD: $PRODUCTION_DJANGO_EMAIL_HOST_PASSWORD
+    DJANGO_EMAIL_HOST_USER: $PRODUCTION_DJANGO_EMAIL_HOST_USER
+    DJANGO_GRAPHIQL_ENABLED: 'true'
+    FRONTEND_URL: $PRODUCTION_FRONTEND_URL
+    APP_DOMAIN: $PRODUCTION_APP_DOMAIN
+    APP_CSRF_COOKIE_DOMAIN: $PRODUCTION_APP_CSRF_COOKIE_DOMAIN
+    WAGTAIL_SITE_NAME: $PRODUCTION_WAGTAIL_SITE_NAME
+    DJANGO_SECRET_KEY: $PRODUCTION_DJANGO_SECRET_KEY
+  only:
+    refs:
+      - /^v?\d+\.\d+\.\d+$/
+  tags:
+    - matchd
+    - production
+  resource_group: production
+
