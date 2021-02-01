@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
         "password": "pbkdf2_sha256$216000$zm5hbNyUj2u1$XOHZkfILbONSDhLZDu7q9RP/ZPN1yNlY5HRsxM5hk6o=",
-        "last_login": "2021-01-28T09:06:44.160Z",
+        "last_login": "2021-02-01T10:52:05.454Z",
         "is_superuser": true,
         "username": "admin",
         "email": "admin@example.com",
@@ -22,7 +22,7 @@
     "model": "db.user",
     "pk": 2,
     "fields": {
-        "password": "pbkdf2_sha256$216000$52DnhN7TdBcL$7ekFEGmeBFQPQptbaQqRXvi09Q6c0uQ+y3kJI72v+wA=",
+        "password": "pbkdf2_sha256$216000$yc0EieRFDFl3$5vYudLrKiGQTWq4HCbJ2xXViguNd7pvldm/317GxJJw=",
         "last_login": "2021-01-28T09:06:18.530Z",
         "is_superuser": false,
         "username": "john@doe.com",
