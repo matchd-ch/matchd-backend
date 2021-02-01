@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
         "password": "pbkdf2_sha256$216000$zm5hbNyUj2u1$XOHZkfILbONSDhLZDu7q9RP/ZPN1yNlY5HRsxM5hk6o=",
-        "last_login": "2021-02-01T10:52:05.454Z",
+        "last_login": "2021-02-01T13:36:53.953Z",
         "is_superuser": true,
         "username": "admin",
         "email": "admin@example.com",
@@ -14,6 +14,7 @@
         "type": "internal",
         "first_name": "admin",
         "last_name": "admin",
+        "company": null,
         "groups": [],
         "user_permissions": []
     }
@@ -33,6 +34,7 @@
         "type": "company",
         "first_name": "John",
         "last_name": "Doe",
+        "company": 1,
         "groups": [],
         "user_permissions": []
     }
@@ -52,6 +54,7 @@
         "type": "student",
         "first_name": "Jane",
         "last_name": "Doe",
+        "company": null,
         "groups": [],
         "user_permissions": []
     }
@@ -71,6 +74,7 @@
         "type": "university",
         "first_name": "Joe",
         "last_name": "Doe",
+        "company": 2,
         "groups": [],
         "user_permissions": []
     }
