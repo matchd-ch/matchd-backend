@@ -19,9 +19,6 @@ class CompanyInput(graphene.InputObjectType):
     city = graphene.String(description=_('City'), required=True)
 
 
-# pylint: disable=R0903
-# pylint: disable=R0901
-# pylint: disable=R0914
 class RegisterCompany(Register):
 
     class Arguments:
@@ -104,8 +101,6 @@ class StudentInput(graphene.InputObjectType):
     mobile = graphene.String(description=_('Mobile'), required=True)
 
 
-# pylint: disable=R0903
-# pylint: disable=R0901
 class RegisterStudent(Register):
 
     class Arguments:

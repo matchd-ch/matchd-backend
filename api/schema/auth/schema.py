@@ -1,8 +1,6 @@
 import graphene
 import graphql_jwt
 
-
-# pylint: disable=R0903
 from graphql_auth import mutations
 
 

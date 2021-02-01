@@ -4,9 +4,6 @@ from graphql_auth.schema import UserNode
 from graphql_auth.settings import graphql_auth_settings
 from graphql_jwt.decorators import login_required
 
-# pylint: disable=R0903
-# pylint: disable=R0201
-
 
 class UserWithProfileNode(UserNode):
 
