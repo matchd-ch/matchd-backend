@@ -2,8 +2,7 @@
 
 set -e
 
-if [[ -z "${DOTENV}" ||
-      -z "${ENVIRONMENT}" ||
+if [[ -z "${ENVIRONMENT}" ||
       -z "${IMAGE_BACKEND}" ||
       -z "${IMAGE_BACKEND_NGINX}" ||
       -z "${DJANGO_SETTINGS_MODULE}" ||
@@ -29,7 +28,6 @@ then
     echo "ERROR: A required environment variable is not set" >&2
     echo " " >&2
     echo "Docker:" >&2
-    echo "    DOTENV: ${DOTENV}" >&2
     echo "    ENVIRONMENT: ${ENVIRONMENT}" >&2
     echo "    IMAGE_BACKEND: ${IMAGE_BACKEND}" >&2
     echo "    IMAGE_BACKEND_NGINX: ${IMAGE_BACKEND_NGINX}" >&2
@@ -74,6 +72,8 @@ then
 
     exit 1
 fi
+
+export DOTENV=".oriented/.env"
 
 echo "Writing ${DOTENV}..."
 
