@@ -14,12 +14,20 @@ class UserType(models.TextChoices):
     OTHER = 'other', _('Other')
 
 
+class UserState(models.TextChoices):
+    INCOMPLETE = 'incomplete', _('Incomplete')
+    ANONYMOUS = 'anonymous', _('Anonymous')
+    PUBLIC = 'public', _('Public')
+
+
 class User(AbstractUser):
     type = models.CharField(choices=UserType.choices, max_length=255, blank=False)
     first_name = models.CharField(_('first name'), max_length=150, blank=False)
     last_name = models.CharField(_('last name'), max_length=150, blank=False)
     company = models.ForeignKey('db.Company', on_delete=models.DO_NOTHING, blank=True, null=True,
                                 related_name='users')
+    state = models.CharField(choices=UserState.choices, max_length=255, blank=False, default=UserState.INCOMPLETE)
+    profile_step = models.IntegerField(default=1)
 
     @staticmethod
     def validate_user_type_student(user_type):
