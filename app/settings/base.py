@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from datetime import timedelta
+from urllib.parse import urlparse
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
@@ -44,6 +46,7 @@ INSTALLED_APPS = [
     'graphene_django',
     'corsheaders',
     'graphql_auth',
+    'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -51,7 +54,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'db.apps.DbConfig'
+    'db.apps.DbConfig',
+    'api.apps.ApiConfig'
 ]
 
 MIDDLEWARE = [
@@ -63,9 +67,14 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'graphql_auth.backends.GraphQLAuthBackend',
+]
+
 
 ROOT_URLCONF = 'app.urls'
 
@@ -106,23 +115,13 @@ DATABASES = {
 }
 
 
-
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+        'NAME': 'db.validators.PasswordValidator'
+    }
 ]
 
 
@@ -169,9 +168,12 @@ EMAIL_HOST = os.getenv('DJANGO_EMAIL_HOST', '')
 EMAIL_PORT = os.getenv('DJANGO_EMAIL_PORT', '')
 EMAIL_HOST_PASSWORD = os.getenv('DJANGO_EMAIL_HOST_PASSWORD', '')
 EMAIL_HOST_USER = os.getenv('DJANGO_EMAIL_HOST_USER', '')
-EMAIL_USE_SSL = os.getenv('DJANGO_EMAIL_USE_SSL', True)
-EMAIL_USE_TLS = os.getenv('DJANGO_EMAIL_USE_TLS', False)
+EMAIL_USE_SSL = os.getenv('DJANGO_EMAIL_USE_SSL', False)
+EMAIL_USE_TLS = os.getenv('DJANGO_EMAIL_USE_TLS', True)
 EMAIL_SUBJECT_PREFIX = os.getenv('DJANGO_EMAIL_SUBJECT_PREFIX', '')
+USER_REQUEST_FORM_RECIPIENTS = [
+    recipient.strip() for recipient in os.getenv('USER_REQUEST_FORM_RECIPIENTS', f'{DEFAULT_FROM_EMAIL}').split(',')
+]
 
 # FRONTEND
 FRONTEND_URL = os.getenv('FRONTEND_URL', '')
@@ -179,15 +181,37 @@ FRONTEND_URL = os.getenv('FRONTEND_URL', '')
 
 # Wagtail settings
 
-WAGTAIL_SITE_NAME = "Matchd"
+WAGTAIL_SITE_NAME = os.getenv('WAGTAIL_SITE_NAME', 'MATCHD')
 
 # Prefix Index to allow for ressource sharing
 INDEX_PREFIX = os.getenv('DJANGO_ELASTIC_INDEX_PREFIX', 'local').replace('-', '_')
 
+
+def get_elasticsearch_url():
+    url = os.getenv('DJANGO_ELASTIC_SEARCH_URL', '')
+    protocol = 'http'
+    port = ''
+    if url and url != '':
+        parsed_uri = urlparse(url)
+        protocol = parsed_uri.scheme
+        url = parsed_uri.hostname
+        port = parsed_uri.port
+    if port and port != '':
+        port = f':{port}'
+
+    user = os.getenv('DJANGO_ELASTIC_SEARCH_USER', '')
+    password = os.getenv('DJANGO_ELASTIC_SEARCH_PASSWORD', '')
+
+    elasticsearch_url = ''
+    if user and user != '' and password and password != '':
+        elasticsearch_url = f'{user}:{password}@'
+    return f'{protocol}://{elasticsearch_url}{url}{port}'
+
+
 WAGTAILSEARCH_BACKENDS = {
     'default': {
         'BACKEND': 'wagtail.search.backends.elasticsearch7',
-        'URLS': [os.getenv('DJANGO_ELASTIC_SEARCH_URL', '')],
+        'URLS': [get_elasticsearch_url()],
         'INDEX': f'{INDEX_PREFIX}_matchd',
         'TIMEOUT': 5,
         'OPTIONS': {},
@@ -218,6 +242,41 @@ GRAPHENE = {
 CORS_ORIGIN_REGEX_WHITELIST = [
     r"^http(s?)://localhost(:?)\d{0,5}$",
     r"^http(s?)://(.*\.)?matchd\.lo(:\d{0,5})?$",
+    r"^http(s?)://(.*\.)?matchd\.ch(:\d{0,5})?$",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
+
+GRAPHQL_JWT = {
+    'JWT_EXPIRATION_DELTA': timedelta(hours=24),
+    'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=7),
+    'JWT_VERIFY_EXPIRATION': True,
+    'JWT_COOKIE_SECURE': True,
+    "JWT_LONG_RUNNING_REFRESH_TOKEN": True,
+    "JWT_ALLOW_ANY_CLASSES": [
+        "graphql_auth.mutations.ObtainJSONWebToken",
+    ],
+}
+
+GRAPHQL_AUTH = {
+    'ALLOW_LOGIN_NOT_VERIFIED': False,
+    'ALLOW_LOGIN_WITH_SECONDARY_EMAIL': False,
+    'ALLOW_DELETE_ACCOUNT': True,
+    'EXPIRATION_ACTIVATION_TOKEN': timedelta(days=7),
+    'EXPIRATION_PASSWORD_RESET_TOKEN': timedelta(hours=1),
+    'EMAIL_FROM': DEFAULT_FROM_EMAIL,
+    'ACTIVATION_PATH_ON_EMAIL': 'aktivierung',
+    'PASSWORD_RESET_PATH_ON_EMAIL': 'passwort-reset',
+    'EMAIL_SUBJECT_ACTIVATION': 'api/email/activation/subject.txt',
+    'EMAIL_TEMPLATE_ACTIVATION': 'api/email/activation/body.html',
+    'EMAIL_SUBJECT_PASSWORD_RESET': 'api/email/password_reset/subject.txt',
+    'EMAIL_TEMPLATE_PASSWORD_RESET': 'api/email/password_reset/body.html',
+    'EMAIL_TEMPLATE_VARIABLES': {
+        'frontend_url': FRONTEND_URL,
+        'email_subject_prefix': EMAIL_SUBJECT_PREFIX
+    },
+    'USER_NODE_EXCLUDE_FIELDS': ['password', 'is_superuser', 'is_staff', 'last_login', 'is_active', 'date_joined'],
+    'REGISTER_MUTATION_FIELDS': ['email', 'username', 'first_name', 'last_name', 'type'],
+}
+
+CSRF_COOKIE_DOMAIN = os.getenv('APP_CSRF_COOKIE_DOMAIN', None)

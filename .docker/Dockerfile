@@ -3,7 +3,7 @@ ENV DJANGO_ENV dev
 
 USER root
 
-COPY ./docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
+COPY ./.docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint
 
 USER 1001

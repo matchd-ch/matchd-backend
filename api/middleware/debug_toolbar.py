@@ -70,11 +70,8 @@ def get_payload(request, response, toolbar):
 
 class DebugToolbarMiddleware(BaseMiddleware):
 
-    # pylint: disable=W0613
-    # pylint: disable=R0201
     def process_view(self, request, view_func, *args):
         if hasattr(view_func, 'view_class') and issubclass(view_func.view_class, GraphQLView):
-            # pylint: disable=W0212
             request._graphql_view = True
 
     def __call__(self, request):
@@ -97,7 +94,6 @@ class DebugToolbarMiddleware(BaseMiddleware):
             return response
 
         # noinspection PyUnresolvedReferences
-        # pylint: disable=E1101
         toolbar = self._toolbar
 
         payload = get_payload(request, response, toolbar)

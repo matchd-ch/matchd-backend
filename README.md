@@ -21,19 +21,29 @@ If you want to access user specific data you also need to include the authorizat
 
     Authorization: JWT <YOUR JWT TOKEN HERE>
 
+# Registered / Verified users
+
+
+| Type | Username | Password |
+|---|---|---|
+| Company | john@doe.com | asdf1234$ |
+| University | joe@doe.com | asdf1234$ |
+| Student | jane@doe.com | asdf1234$ |
+
 
 # Dump Fixtures
 
     docker-compose exec api bash 
-    ./manage.py dumpdata --indent 4 --exclude auth --exclude contenttypes --exclude wagtailcore.GroupCollectionPermission --exclude sessions --exclude wagtailcore > db/fixtures/initial_data.json
+    ./manage.py dumpdata --indent 4 --exclude auth --exclude contenttypes --exclude wagtailcore.GroupCollectionPermission --exclude sessions --exclude wagtailcore --exclude refresh_token.refreshtoken > db/fixtures/initial_data.json
 
+# Testing
 
-# pylint
+## pylint
 
     docker-compose exec api bash
     pylint --load-plugins pylint_django --django-settings-module=your.app.settings.test api app db
 
-# Tests
+## Tests
 
     docker-compose exec api bash
-    ./manage.py test --settings app.settings.test
+    ./manage.py test --settings=app.settings.test

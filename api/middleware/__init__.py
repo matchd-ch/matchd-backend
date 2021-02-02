@@ -1,0 +1,1 @@
+from .debug_toolbar import DebugToolbarMiddleware

@@ -7,7 +7,7 @@ certifi==2020.12.5
 chardet==4.0.0
 Django==3.1.5
 django-cors-headers==3.6.0
-django-debug-toolbar==3.2
+django-debug-toolbar==2.2
 django-filter==2.4.0
 django-graphiql-debug-toolbar==0.1.4
 django-graphql-auth==0.3.15
@@ -25,6 +25,7 @@ graphene-django==2.15.0
 graphene-django-optimizer==0.8.0
 graphql-core==2.3.2
 graphql-relay==2.0.1
+gunicorn==20.0.4
 html5lib==1.1
 idna==2.10
 isort==5.7.0
@@ -36,7 +37,7 @@ mysqlclient==2.0.1
 openpyxl==3.0.5
 Pillow==8.1.0
 promise==2.3
-PyJWT==2.0.0
+PyJWT==1.7.1
 pylint==2.6.0
 pylint-django==2.4.0
 pylint-plugin-utils==0.6

@@ -3,10 +3,19 @@ disable=
     C0114, # missing-module-docstring
     C0115, # missing-class-docstring
     C0116, # missing-function-docstring
-    W0614, # unused-wildcard-import
-    W0401, # wildcard-import
-    W1508, # invalid-envvar-default
     C0412, # ungrouped-imports
+    E1101, # no-member
+    R0201, # no-self-use
+    R0801, # duplicate-code
+    R0901, # too-many-ancestors
+    R0903, # too-few-public-method
+    R0914, # too-many-locals
+    W0401, # wildcard-import
+    W0614, # unused-wildcard-import
+    W1508, # invalid-envvar-default
+    W0212, # protected-access
+    W0613, # unused-argument
+    W0703, # broad-except
 
 [FORMAT]
 max-line-length=120

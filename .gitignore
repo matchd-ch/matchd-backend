@@ -2,3 +2,10 @@
 .idea
 .bash_history
 .pylint.d
+__pycache__
+*.pyc
+.env
+/static/*
+!/static/.gitkeep
+/media/*
+!/media/.gitkeep

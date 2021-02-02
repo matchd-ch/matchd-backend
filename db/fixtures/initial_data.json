@@ -1,0 +1,176 @@
+[
+{
+    "model": "graphql_auth.userstatus",
+    "pk": 1,
+    "fields": {
+        "user": 1,
+        "verified": true,
+        "archived": false,
+        "secondary_email": null
+    }
+},
+{
+    "model": "graphql_auth.userstatus",
+    "pk": 2,
+    "fields": {
+        "user": 2,
+        "verified": true,
+        "archived": false,
+        "secondary_email": null
+    }
+},
+{
+    "model": "graphql_auth.userstatus",
+    "pk": 3,
+    "fields": {
+        "user": 3,
+        "verified": true,
+        "archived": false,
+        "secondary_email": null
+    }
+},
+{
+    "model": "graphql_auth.userstatus",
+    "pk": 4,
+    "fields": {
+        "user": 4,
+        "verified": true,
+        "archived": false,
+        "secondary_email": null
+    }
+},
+{
+    "model": "db.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$zm5hbNyUj2u1$XOHZkfILbONSDhLZDu7q9RP/ZPN1yNlY5HRsxM5hk6o=",
+        "last_login": "2021-02-02T11:57:45.327Z",
+        "is_superuser": true,
+        "username": "admin",
+        "email": "admin@example.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2020-07-07T09:40:35.819Z",
+        "type": "internal",
+        "first_name": "admin",
+        "last_name": "admin",
+        "company": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "db.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$yc0EieRFDFl3$5vYudLrKiGQTWq4HCbJ2xXViguNd7pvldm/317GxJJw=",
+        "last_login": "2021-01-28T09:06:18.530Z",
+        "is_superuser": false,
+        "username": "john@doe.com",
+        "email": "john@doe.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-01-27T11:44:00.605Z",
+        "type": "company",
+        "first_name": "John",
+        "last_name": "Doe",
+        "company": 1,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "db.user",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$RdqBtZaeSrBv$PpK7MIaB7NMldQqcQL8rswLUrS6rcuQmB7JDa2BTIJg=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "jane@doe.com",
+        "email": "jane@doe.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-01-27T11:45:50.056Z",
+        "type": "student",
+        "first_name": "Jane",
+        "last_name": "Doe",
+        "company": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "db.user",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$LYgKVLYWgtJn$ZubGInM3OswgZLhSvCh91GCw5pkwtd1l50ibXxIOq/s=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "joe@doe.com",
+        "email": "joe@doe.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-01-28T13:14:24.268Z",
+        "type": "university",
+        "first_name": "Joe",
+        "last_name": "Doe",
+        "company": 2,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "db.company",
+    "pk": 1,
+    "fields": {
+        "uid": "CHE-999.999.999",
+        "name": "Doe Unlimited",
+        "zip": "9000",
+        "city": "St. Gallen"
+    }
+},
+{
+    "model": "db.company",
+    "pk": 2,
+    "fields": {
+        "uid": "",
+        "name": "Doe University",
+        "zip": "9000",
+        "city": "St. Gallen"
+    }
+},
+{
+    "model": "db.student",
+    "pk": 2,
+    "fields": {
+        "user": 3,
+        "mobile": "+41791234567"
+    }
+},
+{
+    "model": "db.userrequest",
+    "pk": 3,
+    "fields": {
+        "name": "Jane Doe",
+        "email": "jane@doe.com",
+        "message": "Debug Data Message",
+        "created_at": "2021-01-06T17:13:18.306Z"
+    }
+},
+{
+    "model": "db.employee",
+    "pk": 1,
+    "fields": {
+        "user": 2,
+        "role": "Recruiter"
+    }
+},
+{
+    "model": "db.employee",
+    "pk": 2,
+    "fields": {
+        "user": 4,
+        "role": "Recruiter"
+    }
+}
+]

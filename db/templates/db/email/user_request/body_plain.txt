@@ -1,0 +1,5 @@
+{% load i18n %}
+{% trans 'Formulardaten:' %}
+{% trans 'Name' %}: {{ name }}
+{% trans 'E-Mail' %}: {{ email }}
+{% trans 'Nachricht' %}: {{ message }}

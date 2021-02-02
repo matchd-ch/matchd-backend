@@ -9,7 +9,6 @@ SECRET_KEY = 'y1m_k!q=s(7m&8!)91-#9wan_568xbvqg_8$hfl@dkhy_ep#u-'
 # SECURITY WARNING: define the correct hosts in production!
 ALLOWED_HOSTS = ['*']
 
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_SSL = os.getenv('DJANGO_EMAIL_USE_SSL', False)
 EMAIL_USE_TLS = os.getenv('DJANGO_EMAIL_USE_TLS', False)
@@ -28,6 +27,7 @@ MIDDLEWARE += [
 
 GRAPHIQL_ENABLED = True
 
+
 # DEBUG TOOLBAR
 def show_debug_toolbar(request):
     return DEBUG
@@ -36,6 +36,14 @@ def show_debug_toolbar(request):
 DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': show_debug_toolbar,
 }
+
+
+GRAPHQL_JWT.update({
+    'JWT_COOKIE_SECURE': False
+})
+
+
+CSRF_COOKIE_DOMAIN = os.getenv('APP_CSRF_COOKIE_DOMAIN', '.matchd.lo')
 
 try:
     from .local import *
