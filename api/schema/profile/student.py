@@ -25,12 +25,25 @@ class StudentProfileStep6(Output, graphene.Mutation):
 
         user = info.context.user
 
+        if user.profile_step < 6:
+            errors.update({
+                'profile_step': [
+                    {
+                        'message': 'You must first complete the previous steps.',
+                        'code': 'invalid_step'
+                    }
+                ]
+            }
+            )
+            return StudentProfileStep6(success=False, errors=errors)
+
         profile_data = data.get('step6', None)
         profile_form = StudentProfileStep6Form(profile_data)
         profile_form.full_clean()
         if profile_form.is_valid():
             user.state = profile_data.get('state')
-            user.profile_step = 7
+            if user.profile_step == 6:
+                user.profile_step = 7
             user.save()
         else:
             errors.update(profile_form.errors.get_json_data())
