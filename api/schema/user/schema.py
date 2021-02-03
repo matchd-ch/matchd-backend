@@ -1,11 +1,23 @@
 import graphene
 from django.contrib.auth import get_user_model
+from graphene_django import DjangoObjectType
 from graphql_auth.schema import UserNode
 from graphql_auth.settings import graphql_auth_settings
 from graphql_jwt.decorators import login_required
 
+from db.models import Student as StudentModel
+
+
+class Student(DjangoObjectType):
+    class Meta:
+        model = StudentModel
+        fields = ['mobile']
+
 
 class UserWithProfileNode(UserNode):
+    student = graphene.Field(
+        Student
+    )
 
     class Meta:
         model = get_user_model()
