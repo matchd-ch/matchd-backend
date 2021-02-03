@@ -17,7 +17,7 @@ class LanguageLevelGraphQLTestCase(GraphQLTestCase):
         response = self.query(
             '''
             query{
-               languageLevel{
+               languageLevels{
                     name
                   }
               }
@@ -34,14 +34,14 @@ class LanguageLevelGraphQLTestCase(GraphQLTestCase):
         # Test ordering
 
         self.assertEqual(
-            content['data'].get('languageLevel')[0].get('name'),
+            content['data'].get('languageLevels')[0].get('name'),
             'A1'
         )
         self.assertEqual(
-            content['data'].get('languageLevel')[1].get('name'),
+            content['data'].get('languageLevels')[1].get('name'),
             'A2'
         )
         self.assertEqual(
-            content['data'].get('languageLevel')[2].get('name'),
+            content['data'].get('languageLevels')[2].get('name'),
             'B1'
         )
