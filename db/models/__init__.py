@@ -4,3 +4,4 @@ from .student import Student
 from .user_request import UserRequest
 from .employee import Employee
 from .hobby import Hobby
+from .skill import Skill
