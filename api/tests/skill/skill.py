@@ -8,8 +8,7 @@ from db.models import Skill, skill
 class SkillGraphQLTestCase(GraphQLTestCase):
     GRAPHQL_SCHEMA = schema
 
-    @classmethod
-    def setUpTestData(cls):
+    def setUp(self):
         Skill.objects.create(name="php")
         Skill.objects.create(name="css")
         Skill.objects.create(name="java")

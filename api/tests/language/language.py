@@ -8,8 +8,7 @@ from db.models import Language
 class LanguageGraphQLTestCase(GraphQLTestCase):
     GRAPHQL_SCHEMA = schema
 
-    @classmethod
-    def setUpTestData(cls):
+    def setUp(self):
         Language.objects.create(name="Deutsch")
         Language.objects.create(name="Englisch")
         Language.objects.create(name="Zulu")
