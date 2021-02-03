@@ -26,6 +26,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Application definition
 
 INSTALLED_APPS = [
+    'db.apps.DbConfig',
     'wagtailfontawesome',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
@@ -54,7 +55,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'db.apps.DbConfig',
     'api.apps.ApiConfig'
 ]
 
