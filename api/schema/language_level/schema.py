@@ -11,7 +11,7 @@ class LevelType(DjangoObjectType):
 
 
 class LanguageLevelQuery(ObjectType):
-    language_level = graphene.List(LevelType)
+    language_levels = graphene.List(LevelType)
 
-    def resolve_language_level(self, info, **kwargs):
+    def resolve_language_levels(self, info, **kwargs):
         return LanguageLevel.objects.all()
