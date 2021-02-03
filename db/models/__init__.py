@@ -7,3 +7,4 @@ from .hobby import Hobby
 from .skill import Skill
 from .language import Language
 from .language_level import LanguageLevel
+from .online_project import OnlineProject
