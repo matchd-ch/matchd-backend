@@ -6,4 +6,4 @@ from .employee import Employee
 from .hobby import Hobby
 from .skill import Skill
 from .language import Language
-from .language_niveau import LanguageNiveau
+from .language_level import LanguageNiveau

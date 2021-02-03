@@ -10,8 +10,8 @@ class LanguageNiveauGraphQLTestCase(GraphQLTestCase):
 
     def setUp(self):
         LanguageNiveau.objects.create(name="A1")
-        LanguageNiveau.objects.create(name="A2")
         LanguageNiveau.objects.create(name="B1")
+        LanguageNiveau.objects.create(name="A2")
 
     def test_language_query(self):
         response = self.query(
@@ -30,6 +30,9 @@ class LanguageNiveauGraphQLTestCase(GraphQLTestCase):
             3,
             num_entries
         )
+
+        # Test ordering
+
         self.assertEqual(
             content['data'].get('languageNiveaus')[0].get('name'),
             'A1'

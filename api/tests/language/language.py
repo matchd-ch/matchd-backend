@@ -9,9 +9,9 @@ class LanguageGraphQLTestCase(GraphQLTestCase):
     GRAPHQL_SCHEMA = schema
 
     def setUp(self):
+        Language.objects.create(name="Zulu")
         Language.objects.create(name="Deutsch")
         Language.objects.create(name="Englisch")
-        Language.objects.create(name="Zulu")
 
     def test_language_query(self):
         response = self.query(
@@ -30,6 +30,9 @@ class LanguageGraphQLTestCase(GraphQLTestCase):
             3,
             num_entries
         )
+
+        # Test ordering
+
         self.assertEqual(
             content['data'].get('languages')[0].get('name'),
             'Deutsch'

@@ -2,7 +2,7 @@ import json
 from graphene_django.utils import GraphQLTestCase
 
 from api.schema import schema
-from db.models import Skill, skill
+from db.models import Skill
 
 
 class SkillGraphQLTestCase(GraphQLTestCase):
@@ -30,15 +30,18 @@ class SkillGraphQLTestCase(GraphQLTestCase):
             3,
             num_entries
         )
+
+        # Test ordering
+
         self.assertEqual(
             content['data'].get('skills')[0].get('name'),
-            'php'
-        )
-        self.assertEqual(
-            content['data'].get('skills')[1].get('name'),
             'css'
         )
         self.assertEqual(
-            content['data'].get('skills')[2].get('name'),
+            content['data'].get('skills')[1].get('name'),
             'java'
+        )
+        self.assertEqual(
+            content['data'].get('skills')[2].get('name'),
+            'php'
         )
