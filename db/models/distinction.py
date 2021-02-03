@@ -1,5 +1,5 @@
 from django.db import models
 
 
-class MyDistinctions(models.Model):
+class Distinction(models.Model):
     text = models.CharField(max_length=255, unique=True)
