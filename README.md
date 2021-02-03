@@ -41,7 +41,7 @@ If you want to access user specific data you also need to include the authorizat
 ## pylint
 
     docker-compose exec api bash
-    pylint --load-plugins pylint_django --django-settings-module=your.app.settings.test api app db
+    pylint --load-plugins pylint_django --django-settings-module=app.settings.test api app db
 
 ## Tests
 
