@@ -3,14 +3,16 @@ from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 from django.utils.translation import gettext as _
 
+from api.schema.hobby import HobbyInputType
 from api.schema.skill import SkillInputType
+from db.forms import HobbyForm
 from db.forms.profile.student import StudentProfileFormStep4
-from db.models import UserType
+from db.models import UserType, Hobby
 
 
 class StudentProfileInputStep4(graphene.InputObjectType):
     skills = graphene.List(SkillInputType, description=_('Skills'), required=False)
-    # hobbies = graphene.String(description=_('Hobbies'), required=False)
+    hobbies = graphene.List(HobbyInputType, description=_('Hobbies'), required=False)
     # distinctions = graphene.String(description=_('Distinctions'), required=False)
     # online_projects = graphene.String(description=_('Online_Projects'), required=False)
     # languages = graphene.String(description=_('Languages'), required=True)
@@ -38,12 +40,30 @@ class StudentProfileStep4(Output, graphene.Mutation):
         profile = None
         profile_form = StudentProfileFormStep4(profile_data)
         profile_form.full_clean()
+
         if profile_form.is_valid():
             profile_data_for_update = profile_form.cleaned_data
 
             profile = user.student
             profile.skills.set(profile_data_for_update.get('skills'))
+            for hobby in profile_data['hobbies']:
+                hobby['student'] = profile.id
+                if 'id' in hobby:
+                    try:
+                        instance = Hobby.objects.get(id=hobby['id'])
+                        hobby_form = HobbyForm(hobby, instance=instance)
+                    except Hobby.DoesNotExist:
+                        hobby_form = HobbyForm(hobby)
+                else:
+                    hobby_form = HobbyForm(hobby)
+                hobby_form.full_clean()
+                if hobby_form.is_valid():
+                    hobby_form.save()
+                else:
+                    errors.update(hobby_form.errors.get_json_data())
+
             # profile.hobbies = profile_data_for_update.get('hobbies')
+
             # profile.distinctions = profile_data_for_update.get('distinctions')
             # profile.online_projects = profile_data_for_update.get('online_projects')
             # profile.languages = profile_data_for_update.get('languages')
