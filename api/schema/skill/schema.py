@@ -15,3 +15,11 @@ class SkillQuery(ObjectType):
 
     def resolve_skills(self, info, **kwargs):
         return Skill.objects.all()
+
+
+class SkillInputType(graphene.InputObjectType):
+    id = graphene.Int(required=True)
+
+    @property
+    def pk(self):
+        return self.id
