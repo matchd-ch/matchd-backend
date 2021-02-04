@@ -1,9 +1,22 @@
 import graphene
+from django.core.exceptions import ValidationError
 from graphql_auth.bases import Output
 from django.utils.translation import gettext_lazy as _
 from graphql_jwt.decorators import login_required
 
+from api.validators import StudentProfileFormStepValidator
 from db.forms.profile import StudentProfileStep6Form
+
+
+def error_to_dict(error, key):
+    return {
+        key: [
+            {
+                'message': error.message,
+                'code': error.code
+            }
+        ]
+    }
 
 
 class StudentProfileStep6Input(graphene.InputObjectType):
@@ -25,16 +38,12 @@ class StudentProfileStep6(Output, graphene.Mutation):
 
         user = info.context.user
 
-        if user.profile_step < 6:
-            errors.update({
-                'profile_step': [
-                    {
-                        'message': 'You must first complete the previous steps.',
-                        'code': 'invalid_step'
-                    }
-                ]
-            }
-            )
+        step_validator = StudentProfileFormStepValidator(6)
+
+        try:
+            step_validator.validate(user)
+        except ValidationError as error:
+            errors.update(error_to_dict(error, 'profile_step'))
             return StudentProfileStep6(success=False, errors=errors)
 
         profile_data = data.get('step6', None)
