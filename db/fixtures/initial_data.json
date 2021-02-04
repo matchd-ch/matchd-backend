@@ -44,7 +44,7 @@
     "pk": 1,
     "fields": {
         "password": "pbkdf2_sha256$216000$zm5hbNyUj2u1$XOHZkfILbONSDhLZDu7q9RP/ZPN1yNlY5HRsxM5hk6o=",
-        "last_login": "2021-02-02T11:57:45.327Z",
+        "last_login": "2021-02-04T08:27:56.604Z",
         "is_superuser": true,
         "username": "admin",
         "email": "admin@example.com",
@@ -171,6 +171,97 @@
     "fields": {
         "user": 4,
         "role": "Recruiter"
+    }
+},
+{
+    "model": "db.skill",
+    "pk": 1,
+    "fields": {
+        "name": "php"
+    }
+},
+{
+    "model": "db.skill",
+    "pk": 2,
+    "fields": {
+        "name": "java"
+    }
+},
+{
+    "model": "db.skill",
+    "pk": 3,
+    "fields": {
+        "name": "python"
+    }
+},
+{
+    "model": "db.language",
+    "pk": 2,
+    "fields": {
+        "name": "Deutsch"
+    }
+},
+{
+    "model": "db.language",
+    "pk": 3,
+    "fields": {
+        "name": "Englisch"
+    }
+},
+{
+    "model": "db.language",
+    "pk": 4,
+    "fields": {
+        "name": "Italienisch"
+    }
+},
+{
+    "model": "db.languagelevel",
+    "pk": 2,
+    "fields": {
+        "name": "A1 - Anfänger"
+    }
+},
+{
+    "model": "db.languagelevel",
+    "pk": 3,
+    "fields": {
+        "name": "A2 - Grundkenntnis"
+    }
+},
+{
+    "model": "db.languagelevel",
+    "pk": 4,
+    "fields": {
+        "name": "B1 - Fortgeschrittene Sprachverwendung"
+    }
+},
+{
+    "model": "db.languagelevel",
+    "pk": 5,
+    "fields": {
+        "name": "B2 - Selbständige Sprachverwendung"
+    }
+},
+{
+    "model": "db.languagelevel",
+    "pk": 6,
+    "fields": {
+        "name": "C1 - Fachkundige Sprachbeherrschung"
+    }
+},
+{
+    "model": "db.languagelevel",
+    "pk": 7,
+    "fields": {
+        "name": "C2 - Beherrschen der Sprache"
+    }
+},
+{
+    "model": "db.languagelevel",
+    "pk": 8,
+    "fields": {
+        "name": "Muttersprache"
     }
 }
 ]
