@@ -24,8 +24,8 @@ class UserType(models.TextChoices):
     @classmethod
     def valid_company_types(cls):
         return [
-            UserType.COMPANY,
-            UserType.UNIVERSITY
+            cls.COMPANY,
+            cls.UNIVERSITY
         ]
 
 
