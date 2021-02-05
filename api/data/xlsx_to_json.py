@@ -1,4 +1,5 @@
 import json
+# pylint:disable=E0401
 import pandas
 
 
@@ -14,9 +15,9 @@ for p in data['Ort / Ville / Città']:
     canton = data['Abkürzung / Abréviation / Abbreviazione'][p]
 
     items.append({
-    	'zip': zip_code,
-    	'city': city,
-    	'canton': canton
+        'zip': zip_code,
+        'city': city,
+        'canton': canton
     })
 
 with open('data.json', 'w') as outfile:
