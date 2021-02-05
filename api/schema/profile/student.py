@@ -6,27 +6,13 @@ from graphql_auth.bases import Output
 from django.utils.translation import gettext as _
 from graphql_jwt.decorators import login_required
 
+from api.helper import generic_error_dict, validation_error_to_dict
 from api.validators import StudentProfileFormStepValidator
 from db.forms.profile import StudentProfileFormStep6, StudentProfileFormStep1
 from db.forms.profile.student import StudentProfileFormStep5
 from db.helper import NicknameSuggestions
 from db.models import UserType
 from db.validators import NicknameValidator
-
-
-def generic_error_dict(key, message, code):
-    return {
-        key: [
-            {
-                'message': message,
-                'code': code
-            }
-        ]
-    }
-
-
-def validation_error_to_dict(error, key):
-    return generic_error_dict(key, error.message, error.code)
 
 
 class StudentProfileInputStep1(graphene.InputObjectType):

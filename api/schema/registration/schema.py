@@ -1,9 +1,10 @@
 import graphene
 from django.contrib.auth import get_user_model
-from django.core.exceptions import ValidationError
 from graphql_auth import mutations
 from graphql_auth.mutations import Register
 from django.utils.translation import gettext_lazy as _
+
+from api.helper import generic_error_dict
 from db.forms import CompanyForm, StudentForm, EmployeeForm, UniversityForm
 from db.models import Company, Student, Employee, UserType
 
@@ -38,15 +39,9 @@ class RegisterCompany(Register):
         # validate user type
         # allowed types: company, university
         user_type = data.get('type')
-        try:
-            get_user_model().validate_user_type_company(user_type)
-        except ValidationError as error:
-            errors.update({
-                'type': [{
-                    'code': error.code,
-                    'message': error.message
-                }]
-            })
+
+        if user_type not in UserType.valid_company_types():
+            errors.update(generic_error_dict('type', _('You are not a company'), 'invalid_type'))
 
         # validate employee
         employee_data = data.pop('employee')
@@ -120,15 +115,9 @@ class RegisterStudent(Register):
         # validate user type
         # allowed types: student, college-student, junior
         user_type = data.get('type')
-        try:
-            get_user_model().validate_user_type_student(user_type)
-        except ValidationError as error:
-            errors.update({
-                'type': [{
-                    'code': error.code,
-                    'message': error.message
-                }]
-            })
+
+        if user_type not in UserType.valid_student_types():
+            errors.update(generic_error_dict('type', _('You are not a student'), 'invalid_type'))
 
         # validate student
         student_data = data.pop('student', None)

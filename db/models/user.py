@@ -21,6 +21,13 @@ class UserType(models.TextChoices):
             cls.JUNIOR
         ]
 
+    @classmethod
+    def valid_company_types(cls):
+        return [
+            UserType.COMPANY,
+            UserType.UNIVERSITY
+        ]
+
 
 class UserState(models.TextChoices):
     INCOMPLETE = 'incomplete', _('Incomplete')
@@ -36,19 +43,6 @@ class User(AbstractUser):
                                 related_name='users')
     state = models.CharField(choices=UserState.choices, max_length=255, blank=False, default=UserState.INCOMPLETE)
     profile_step = models.IntegerField(default=1)
-
-    @staticmethod
-    def validate_user_type_student(user_type):
-        valid_student_types = [
-            UserType.STUDENT,
-            UserType.COLLEGE_STUDENT,
-            UserType.JUNIOR
-        ]
-        if user_type not in valid_student_types:
-            raise ValidationError(
-                code='invalid_choice',
-                message=_('Select a valid choice.')
-            )
 
     @staticmethod
     def validate_user_type_company(user_type):
