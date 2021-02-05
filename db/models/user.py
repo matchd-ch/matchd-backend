@@ -13,6 +13,14 @@ class UserType(models.TextChoices):
     UNIVERSITY = 'university', _('University')
     OTHER = 'other', _('Other')
 
+    @classmethod
+    def valid_student_types(cls):
+        return [
+            cls.STUDENT,
+            cls.COLLEGE_STUDENT,
+            cls.JUNIOR
+        ]
+
 
 class UserState(models.TextChoices):
     INCOMPLETE = 'incomplete', _('Incomplete')
