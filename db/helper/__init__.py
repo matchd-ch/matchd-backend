@@ -1,0 +1,1 @@
+from .nickname_suggestion import NicknameSuggestions
