@@ -14,7 +14,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     GRAPHQL_SCHEMA = schema
 
     query_step_1 = '''
-            mutation StudentProfileMutation($step1: StudentProfileInputStep1) {
+            mutation StudentProfileMutation($step1: StudentProfileInputStep1!) {
               studentProfileStep1(step1: $step1) {
                 success,
                 errors
@@ -47,7 +47,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     }
 
     query_step_5 = '''
-                mutation StudentProfileMutation($step5: StudentProfileInputStep5) {
+                mutation StudentProfileMutation($step5: StudentProfileInputStep5!) {
                   studentProfileStep5(step5: $step5) {
                     success,
                     errors,
@@ -75,7 +75,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     }
 
     query_step_6 = '''
-            mutation StudentProfileMutation($step6: StudentProfileInputStep6) {
+            mutation StudentProfileMutation($step6: StudentProfileInputStep6!) {
               studentProfileStep6(step6: $step6) {
                 success,
                 errors
@@ -276,7 +276,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
 
     def test_profile_step_1_with_invalid_data(self):
         self._test_step_with_invalid_data(1, self.query_step_1, self.invalid_variables_step_1, 'studentProfileStep1',
-                                          ['firstName', 'lastName', 'city', 'zip', 'street', 'dateOfBirth', 'mobile'])
+                                          ['firstName', 'lastName', 'dateOfBirth'])
 
     def test_profile_step_5_with_invalid_data(self):
         self._test_step_with_invalid_data(5, self.query_step_5, self.invalid_variables_step_5, 'studentProfileStep5',
