@@ -18,17 +18,17 @@ from db.validators import NicknameValidator
 class StudentProfileInputStep1(graphene.InputObjectType):
     first_name = graphene.String(description=_('First name'), required=True)
     last_name = graphene.String(description=_('Last name'), required=True)
-    street = graphene.String(description=_('street'), required=True)
-    zip = graphene.String(description=_('Zip'), required=True)
-    city = graphene.String(description=_('City'), required=True)
+    street = graphene.String(description=_('street'))
+    zip = graphene.String(description=_('Zip'))
+    city = graphene.String(description=_('City'))
     date_of_birth = graphene.String(description=_('Date of birth'), required=True)
-    mobile = graphene.String(description=_('Date of birth'), required=True)
+    mobile = graphene.String(description=_('Date of birth'))
 
 
 class StudentProfileStep1(Output, graphene.Mutation):
 
     class Arguments:
-        step1 = StudentProfileInputStep1(description=_('Profile Input Step 1 is required.'))
+        step1 = StudentProfileInputStep1(description=_('Profile Input Step 1 is required.'), required=True)
 
     class Meta:
         description = _('Updates the profile of a student')
@@ -67,17 +67,23 @@ class StudentProfileStep1(Output, graphene.Mutation):
         profile_form.full_clean()
         if profile_form.is_valid():
             # update user / profile
+            profile = user.student
             profile_data_for_update = profile_form.cleaned_data
 
+            # required parameters
             user.first_name = profile_data_for_update.get('first_name')
             user.last_name = profile_data_for_update.get('last_name')
-
-            profile = user.student
-            profile.street = profile_data_for_update.get('street')
-            profile.zip = profile_data_for_update.get('zip')
-            profile.city = profile_data_for_update.get('city')
             profile.date_of_birth = profile_data_for_update.get('date_of_birth')
-            profile.mobile = profile_data_for_update.get('mobile')
+
+            # optional parameters
+            if 'street' in profile_data_for_update:
+                profile.street = profile_data_for_update.get('street')
+            if 'zip' in profile_data_for_update:
+                profile.zip = profile_data_for_update.get('zip')
+            if 'city' in profile_data_for_update:
+                profile.city = profile_data_for_update.get('city')
+            if 'mobile' in profile_data_for_update:
+                profile.mobile = profile_data_for_update.get('mobile')
 
             # update step only if the user has step 1
             if user.profile_step == 1:
@@ -103,7 +109,7 @@ class StudentProfileStep5(Output, graphene.Mutation):
     nickname_suggestions = graphene.List(graphene.String)
 
     class Arguments:
-        step5 = StudentProfileInputStep5(description=_('Profile Input Step 5 is required.'))
+        step5 = StudentProfileInputStep5(description=_('Profile Input Step 5 is required.'), required=True)
 
     class Meta:
         description = _('Updates the nickname of a student')
@@ -171,7 +177,7 @@ class StudentProfileInputStep6(graphene.InputObjectType):
 class StudentProfileStep6(Output, graphene.Mutation):
 
     class Arguments:
-        step6 = StudentProfileInputStep6(description=_('Profile Input Step 6 is required.'))
+        step6 = StudentProfileInputStep6(description=_('Profile Input Step 6 is required.'), required=True)
 
     class Meta:
         description = _('Updates the state of a student')

@@ -60,7 +60,7 @@
         "last_name": "Doe",
         "company": null,
         "state": "incomplete",
-        "profile_step": 6,
+        "profile_step": 1,
         "groups": [],
         "user_permissions": []
     }
@@ -104,7 +104,7 @@
         "last_name": "Doe",
         "company": null,
         "state": "incomplete",
-        "profile_step": 6,
+        "profile_step": 1,
         "groups": [],
         "user_permissions": []
     }
