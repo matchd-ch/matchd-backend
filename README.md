@@ -24,17 +24,28 @@ If you want to access user specific data you also need to include the authorizat
 # Registered / Verified users
 
 
-| Type | Username | Password |
-|---|---|---|
-| Company | john@doe.com | asdf1234$ |
-| University | joe@doe.com | asdf1234$ |
-| Student | jane@doe.com | asdf1234$ |
+| Type | Username | Password | Nickname |
+|---|---|---|---|
+| Company | john@doe.com | asdf1234$ | - |
+| University | joe@doe.com | asdf1234$ | - |
+| Student | jane@doe.com | asdf1234$ | jane_doe |
+| Student | jane2@doe.com | asdf1234$ | - |
 
 
 # Dump Fixtures
 
     docker-compose exec api bash 
     ./manage.py dumpdata --indent 4 --exclude auth --exclude contenttypes --exclude wagtailcore.GroupCollectionPermission --exclude sessions --exclude wagtailcore --exclude refresh_token.refreshtoken > db/fixtures/initial_data.json
+
+# Zip / City
+
+Download xls file from here: https://postleitzahlenschweiz.ch/tabelle/
+
+Copy the file to api/data/data.xlsx and run the following command:
+
+    pip install pandas
+    cd api/data
+    python xlsx_to_json.py
 
 # Testing
 

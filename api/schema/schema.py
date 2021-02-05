@@ -8,6 +8,7 @@ from api.schema.profile import StudentProfileMutation
 from api.schema.registration import RegistrationMutation
 from api.schema.user import UserQuery
 from api.schema.user_request import UserRequestMutation
+from api.schema.zip_city import ZipCityQuery
 
 
 class Mutation(
@@ -20,7 +21,7 @@ class Mutation(
     pass
 
 
-class Query(VerifyPasswordResetToken, UserQuery, SkillQuery, LanguageQuery, LanguageLevelQuery):
+class Query(VerifyPasswordResetToken, UserQuery, SkillQuery, LanguageQuery, LanguageLevelQuery, ZipCityQuery):
     pass
 
 
