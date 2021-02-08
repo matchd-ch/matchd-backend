@@ -40,28 +40,12 @@ class StudentProfileStep4(Output, graphene.Mutation):
         profile = None
         profile_form = StudentProfileFormStep4(profile_data)
         profile_form.full_clean()
-
-        if profile_form.is_valid():
+        all_fields_valid = validate_all_inputs(profile_data)
+        if profile_form.is_valid() and all_fields_valid:
             profile_data_for_update = profile_form.cleaned_data
 
             profile = user.student
             profile.skills.set(profile_data_for_update.get('skills'))
-            if 'hobbies' in profile_data:
-                for hobby in profile_data['hobbies']:
-                    hobby['student'] = profile.id
-                    if 'id' in hobby:
-                        try:
-                            instance = Hobby.objects.get(id=hobby['id'])
-                            hobby_form = HobbyForm(hobby, instance=instance)
-                        except Hobby.DoesNotExist:
-                            hobby_form = HobbyForm(hobby)
-                    else:
-                        hobby_form = HobbyForm(hobby)
-                    hobby_form.full_clean()
-                    if hobby_form.is_valid():
-                        hobby_form.save()
-                    else:
-                        errors.update(hobby_form.errors.get_json_data())
 
             # profile.hobbies = profile_data_for_update.get('hobbies')
 
@@ -76,12 +60,35 @@ class StudentProfileStep4(Output, graphene.Mutation):
         else:
             errors.update(profile_form.errors.get_json_data())
 
+        if 'hobbies' in profile_data:
+            for hobby in profile_data['hobbies']:
+                hobby['student'] = profile.id
+                if 'id' in hobby:
+                    try:
+                        instance = Hobby.objects.get(id=hobby['id'])
+                        hobby_form = HobbyForm(hobby, instance=instance)
+                    except Hobby.DoesNotExist:
+                        hobby_form = HobbyForm(hobby)
+                else:
+                    hobby_form = HobbyForm(hobby)
+                hobby_form.full_clean()
+                if hobby_form.is_valid() and all_fields_valid:
+                    hobby_form.save()
+                else:
+                    errors.update(hobby_form.errors.get_json_data())
         if errors:
             return StudentProfileStep4(success=False, errors=errors)
 
         user.save()
         profile.save()
         return StudentProfileStep4(success=True, errors=None)
+
+ def validate_all_inputs(inputs):
+        for field in inputs['hobbies']:
+            if not field['name']:
+                # errors.update(field['name'].errors.get_json_data())
+                return False
+        return True
 
 
 def generic_error_dict(key, message, code):
@@ -101,3 +108,6 @@ def validation_error_to_dict(error, key):
 
 class StudentProfileMutation(graphene.ObjectType):
     student_profile_step4 = StudentProfileStep4.Field()
+
+
+
