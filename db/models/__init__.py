@@ -10,3 +10,4 @@ from .language_level import LanguageLevel
 from .online_project import OnlineProject
 from .distinction import Distinction
 from .job_option import JobOption, JobOptionType
+from .job_position import JobPosition
