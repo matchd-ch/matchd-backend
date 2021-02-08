@@ -46,21 +46,22 @@ class StudentProfileStep4(Output, graphene.Mutation):
 
             profile = user.student
             profile.skills.set(profile_data_for_update.get('skills'))
-            for hobby in profile_data['hobbies']:
-                hobby['student'] = profile.id
-                if 'id' in hobby:
-                    try:
-                        instance = Hobby.objects.get(id=hobby['id'])
-                        hobby_form = HobbyForm(hobby, instance=instance)
-                    except Hobby.DoesNotExist:
+            if 'hobbies' in profile_data:
+                for hobby in profile_data['hobbies']:
+                    hobby['student'] = profile.id
+                    if 'id' in hobby:
+                        try:
+                            instance = Hobby.objects.get(id=hobby['id'])
+                            hobby_form = HobbyForm(hobby, instance=instance)
+                        except Hobby.DoesNotExist:
+                            hobby_form = HobbyForm(hobby)
+                    else:
                         hobby_form = HobbyForm(hobby)
-                else:
-                    hobby_form = HobbyForm(hobby)
-                hobby_form.full_clean()
-                if hobby_form.is_valid():
-                    hobby_form.save()
-                else:
-                    errors.update(hobby_form.errors.get_json_data())
+                    hobby_form.full_clean()
+                    if hobby_form.is_valid():
+                        hobby_form.save()
+                    else:
+                        errors.update(hobby_form.errors.get_json_data())
 
             # profile.hobbies = profile_data_for_update.get('hobbies')
 
@@ -80,7 +81,7 @@ class StudentProfileStep4(Output, graphene.Mutation):
 
         user.save()
         profile.save()
-        return StudentProfileStep4(success=True, errors=errors)
+        return StudentProfileStep4(success=True, errors=None)
 
 
 def generic_error_dict(key, message, code):
