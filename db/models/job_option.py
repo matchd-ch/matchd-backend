@@ -10,3 +10,6 @@ class JobOptionType(models.TextChoices):
 class JobOption(models.Model):
     name = models.CharField(max_length=255, null=False, blank=False)
     type = models.CharField(max_length=255, choices=JobOptionType.choices, null=False, blank=False)
+
+    class Meta:
+        ordering = ('name', )
