@@ -12,13 +12,12 @@ class JobPositionGraphQLTestCase(GraphQLTestCase):
         JobPosition.objects.create(name="Systemtechniker*in")
         JobPosition.objects.create(name="Applikationsentwickler*in")
 
-    def test_language_query(self):
+    def test_job_position_query(self):
         response = self.query(
             '''
             query{
                jobPositions{
                     name
-                    type
                   }
               }
             '''

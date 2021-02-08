@@ -12,7 +12,7 @@ class JobOptionGraphQLTestCase(GraphQLTestCase):
         JobOption.objects.create(name="Praktikum", type=JobOptionType.DATE_FROM)
         JobOption.objects.create(name="Lehrstelle", type=JobOptionType.DATE_RANGE)
 
-    def test_language_query(self):
+    def test_job_option_query(self):
         response = self.query(
             '''
             query{

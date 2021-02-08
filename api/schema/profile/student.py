@@ -96,10 +96,9 @@ class StudentProfileStep1(Output, graphene.Mutation):
 
         # convert date of birth to date
         try:
-            date_of_birth = datetime.strptime(profile_data.get('date_of_birth'), "%d.%m.%Y").date()
-            profile_data['date_of_birth'] = date_of_birth
-        except ValueError as error:
-            errors.update(generic_error_dict('date_of_birth', str(error), 'invalid'))
+            profile_data = convert_date(profile_data, 'date_of_birth')
+        except MutationException as exception:
+            errors.update(exception.errors)
 
         # validate profile data
         profile = None
@@ -166,12 +165,10 @@ class StudentProfileStep2(Output, graphene.Mutation):
             return StudentProfileStep2(success=False, errors=exception.errors)
 
         # convert graduation to date
-        if 'graduation' in profile_data and profile_data.get('graduation') != '':
-            try:
-                graduation = datetime.strptime(profile_data.get('graduation'), "%m.%Y").date()
-                profile_data['graduation'] = graduation
-            except ValueError as error:
-                errors.update(generic_error_dict('graduation', str(error), 'invalid'))
+        try:
+            profile_data = convert_date(profile_data, 'graduation', '%m.%Y')
+        except MutationException as exception:
+            errors.update(exception.errors)
 
         profile = None
         profile_form = StudentProfileFormStep2(profile_data)
