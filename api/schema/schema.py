@@ -1,5 +1,6 @@
 import graphene
 
+from api.schema.job_option import JobOptionQuery
 from api.schema.language import LanguageQuery
 from api.schema.auth import AuthMutation, LogoutMutation, VerifyPasswordResetToken
 from api.schema.language_level import LanguageLevelQuery
@@ -21,7 +22,15 @@ class Mutation(
     pass
 
 
-class Query(VerifyPasswordResetToken, UserQuery, SkillQuery, LanguageQuery, LanguageLevelQuery, ZipCityQuery):
+class Query(
+    VerifyPasswordResetToken,
+    UserQuery,
+    SkillQuery,
+    LanguageQuery,
+    LanguageLevelQuery,
+    ZipCityQuery,
+    JobOptionQuery
+):
     pass
 
 
