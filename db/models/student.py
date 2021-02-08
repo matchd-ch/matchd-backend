@@ -12,3 +12,6 @@ class Student(models.Model):
     city = models.CharField(max_length=255, blank=True)
     date_of_birth = models.DateField(blank=True, null=True)
     nickname = models.CharField(max_length=150, null=True, unique=True)
+    school_name = models.CharField(blank=True, null=True, max_length=255)
+    field_of_study = models.CharField(blank=False, null=False, max_length=255)
+    graduation = models.DateField(blank=True, null=True)

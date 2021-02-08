@@ -172,6 +172,10 @@ class StudentGraphQLTestCase(GraphQLTestCase):
                     street
                     city
                     dateOfBirth
+                    nickname
+                    schoolName
+                    fieldOfStudy
+                    graduation
                 }
               }
             }
