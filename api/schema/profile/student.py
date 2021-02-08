@@ -76,14 +76,10 @@ class StudentProfileStep1(Output, graphene.Mutation):
             profile.date_of_birth = profile_data_for_update.get('date_of_birth')
 
             # optional parameters
-            if 'street' in profile_data_for_update:
-                profile.street = profile_data_for_update.get('street')
-            if 'zip' in profile_data_for_update:
-                profile.zip = profile_data_for_update.get('zip')
-            if 'city' in profile_data_for_update:
-                profile.city = profile_data_for_update.get('city')
-            if 'mobile' in profile_data_for_update:
-                profile.mobile = profile_data_for_update.get('mobile')
+            profile.street = profile_data_for_update.get('street')
+            profile.zip = profile_data_for_update.get('zip')
+            profile.city = profile_data_for_update.get('city')
+            profile.mobile = profile_data_for_update.get('mobile')
 
             # update step only if the user has step 1
             if user.profile_step == 1:
