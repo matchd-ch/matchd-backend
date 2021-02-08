@@ -1,1 +1,1 @@
-from .student import StudentProfileFormStep1, StudentProfileFormStep6
+from .student import StudentProfileFormStep1, StudentProfileFormStep2, StudentProfileFormStep5, StudentProfileFormStep6

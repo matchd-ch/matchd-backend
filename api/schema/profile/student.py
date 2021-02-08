@@ -6,13 +6,36 @@ from graphql_auth.bases import Output
 from django.utils.translation import gettext as _
 from graphql_jwt.decorators import login_required
 
+from api.exceptions import MutationException
 from api.helper import generic_error_dict, validation_error_to_dict
 from api.validators import StudentProfileFormStepValidator
-from db.forms.profile import StudentProfileFormStep6, StudentProfileFormStep1
-from db.forms.profile.student import StudentProfileFormStep5
+from db.forms.profile import StudentProfileFormStep6, StudentProfileFormStep1, StudentProfileFormStep5, \
+    StudentProfileFormStep2
 from db.helper import NicknameSuggestions
 from db.models import UserType
 from db.validators import NicknameValidator
+
+
+def validate_user_type_step_and_data(user, data, step):
+    errors = {}
+
+    # validate user type
+    if user.type not in UserType.valid_student_types():
+        errors.update(generic_error_dict('type', _('You are not a student'), 'invalid_type'))
+
+    # validate step
+    step_validator = StudentProfileFormStepValidator(step)
+    try:
+        step_validator.validate(user)
+    except ValidationError as error:
+        errors.update(validation_error_to_dict(error, 'profile_step'))
+
+    # validate profile data
+    if data is None:
+        errors.update(generic_error_dict('profile_data', _('Missing profile data'), 'required'))
+
+    if errors:
+        raise MutationException(errors)
 
 
 class StudentProfileInputStep1(graphene.InputObjectType):
@@ -39,22 +62,16 @@ class StudentProfileStep1(Output, graphene.Mutation):
         errors = {}
         user = info.context.user
 
-        # validate user type
-        if user.type not in UserType.valid_student_types():
-            errors.update(generic_error_dict('type', _('You are not a student'), 'invalid_type'))
-            return StudentProfileStep1(success=False, errors=errors)
-
-        # validate step
-        step_validator = StudentProfileFormStepValidator(1)
-        try:
-            step_validator.validate(user)
-        except ValidationError as error:
-            errors.update(validation_error_to_dict(error, 'profile_step'))
-            return StudentProfileStep1(success=False, errors=errors)
-
+        # profile data
         profile_data = data.get('step1', None)
 
-        # convert date of birth
+        # validate user type, step and data
+        try:
+            validate_user_type_step_and_data(user, profile_data, 1)
+        except MutationException as exception:
+            return StudentProfileStep2(success=False, errors=exception.errors)
+
+        # convert date of birth to date
         try:
             date_of_birth = datetime.strptime(profile_data.get('date_of_birth'), "%d.%m.%Y").date()
             profile_data['date_of_birth'] = date_of_birth
@@ -100,6 +117,73 @@ class StudentProfileStep1(Output, graphene.Mutation):
         return StudentProfileStep1(success=True, errors=None)
 
 
+class StudentProfileInputStep2(graphene.InputObjectType):
+    school_name = graphene.String(description=_('School name'))
+    field_of_study = graphene.String(description=_('Field of study'), required=True)
+    graduation = graphene.String(description=_('Graduation'))
+
+
+class StudentProfileStep2(Output, graphene.Mutation):
+
+    class Arguments:
+        step2 = StudentProfileInputStep2(description=_('Profile Input Step 2 is required.'), required=True)
+
+    class Meta:
+        description = _('Updates school name, field of study and graduation')
+
+    @classmethod
+    @login_required
+    def mutate(cls, root, info, **data):
+        errors = {}
+        user = info.context.user
+
+        # profile data
+        profile_data = data.get('step2', None)
+
+        # validate user type, step and data
+        try:
+            validate_user_type_step_and_data(user, profile_data, 2)
+        except MutationException as exception:
+            return StudentProfileStep2(success=False, errors=exception.errors)
+
+        # convert graduation to date
+        if 'graduation' in profile_data and profile_data.get('graduation') != '':
+            try:
+                graduation = datetime.strptime(profile_data.get('graduation'), "%m.%Y").date()
+                profile_data['graduation'] = graduation
+            except ValueError as error:
+                errors.update(generic_error_dict('graduation', str(error), 'invalid'))
+
+        profile = None
+        profile_form = StudentProfileFormStep2(profile_data)
+        profile_form.full_clean()
+        if profile_form.is_valid():
+            # update user / profile
+            profile = user.student
+            profile_data_for_update = profile_form.cleaned_data
+
+            # required parameters
+            profile.field_of_study = profile_data_for_update.get('field_of_study')
+
+            # optional parameters
+            profile.school_name = profile_data_for_update.get('school_name')
+            profile.graduation = profile_data_for_update.get('graduation')
+
+            # update step only if the user has step 2
+            if user.profile_step == 2:
+                user.profile_step = 3
+        else:
+            errors.update(profile_form.errors.get_json_data())
+
+        if errors:
+            return StudentProfileStep2(success=False, errors=errors)
+
+        # save profile
+        profile.save()
+
+        return StudentProfileStep2(success=True, errors=None)
+
+
 class StudentProfileInputStep5(graphene.InputObjectType):
     nickname = graphene.String(description=_('Nickname'), required=True)
 
@@ -120,21 +204,15 @@ class StudentProfileStep5(Output, graphene.Mutation):
         errors = {}
         user = info.context.user
 
-        # validate user type
-        if user.type not in UserType.valid_student_types():
-            errors.update(generic_error_dict('type', _('You are not a student'), 'invalid_type'))
-            return StudentProfileStep5(success=False, errors=errors)
-
-        # validate step
-        step_validator = StudentProfileFormStepValidator(5)
-        try:
-            step_validator.validate(user)
-        except ValidationError as error:
-            errors.update(validation_error_to_dict(error, 'profile_step'))
-            return StudentProfileStep5(success=False, errors=errors)
-
-        # validate profile data
+        # profile data
         profile_data = data.get('step5', None)
+
+        # validate user type, step and data
+        try:
+            validate_user_type_step_and_data(user, profile_data, 5)
+        except MutationException as exception:
+            return StudentProfileStep2(success=False, errors=exception.errors)
+
         profile = None
         profile_form = StudentProfileFormStep5(profile_data)
         profile_form.full_clean()
@@ -188,21 +266,15 @@ class StudentProfileStep6(Output, graphene.Mutation):
         errors = {}
         user = info.context.user
 
-        # validate user type
-        if user.type not in UserType.valid_student_types():
-            errors.update(generic_error_dict('type', _('You are not a student'), 'invalid_type'))
-            return StudentProfileStep6(success=False, errors=errors)
-
-        # validate step
-        step_validator = StudentProfileFormStepValidator(6)
-        try:
-            step_validator.validate(user)
-        except ValidationError as error:
-            errors.update(validation_error_to_dict(error, 'profile_step'))
-            return StudentProfileStep6(success=False, errors=errors)
-
-        # validate profile data
+        # profile data
         profile_data = data.get('step6', None)
+
+        # validate user type, step and data
+        try:
+            validate_user_type_step_and_data(user, profile_data, 6)
+        except MutationException as exception:
+            return StudentProfileStep2(success=False, errors=exception.errors)
+
         profile_form = StudentProfileFormStep6(profile_data)
         profile_form.full_clean()
         if profile_form.is_valid():
@@ -226,5 +298,6 @@ class StudentProfileStep6(Output, graphene.Mutation):
 
 class StudentProfileMutation(graphene.ObjectType):
     student_profile_step1 = StudentProfileStep1.Field()
+    student_profile_step2 = StudentProfileStep2.Field()
     student_profile_step5 = StudentProfileStep5.Field()
     student_profile_step6 = StudentProfileStep6.Field()
