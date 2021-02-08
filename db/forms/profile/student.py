@@ -2,7 +2,18 @@ from django import forms
 from django.conf import settings
 from django.core.validators import RegexValidator, MinLengthValidator
 
+from db.models import JobOption, JobPosition
 from db.models.user import UserState
+
+
+def convert_objects_to_id(data, key, pk_field='id'):
+    # convert job option input to integer
+    if key in data and data.get(key) is not None and data.get(key).get(pk_field, None) is not None:
+        job_option = data.get(key).get(pk_field)
+        data[key] = job_option
+    else:
+        data[key] = None
+    return data
 
 
 class StudentProfileFormStep1(forms.Form):
@@ -19,6 +30,26 @@ class StudentProfileFormStep2(forms.Form):
     school_name = forms.CharField(max_length=255, required=False)
     field_of_study = forms.CharField(max_length=255, required=True, validators=[MinLengthValidator(3)])
     graduation = forms.DateField(required=False)
+
+
+class StudentProfileFormStep3(forms.Form):
+    job_option = forms.ModelChoiceField(queryset=JobOption.objects.all(), required=True)
+    job_position = forms.ModelChoiceField(queryset=JobPosition.objects.all(), required=False)
+
+    def __init__(self, data=None, **kwargs):
+        # due to a bug with ModelChoiceField and graphene_django
+        data = convert_objects_to_id(data, 'job_option')
+        data = convert_objects_to_id(data, 'job_position')
+        super().__init__(data=data, **kwargs)
+
+
+class StudentProfileFormStep3Date(forms.Form):
+    job_from_date = forms.DateField(required=True)
+
+
+class StudentProfileFormStep3DateRange(forms.Form):
+    job_from_date = forms.DateField(required=True)
+    job_to_date = forms.DateField(required=True)
 
 
 class StudentProfileFormStep5(forms.Form):

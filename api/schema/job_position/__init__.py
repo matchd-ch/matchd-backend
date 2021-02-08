@@ -1,1 +1,1 @@
-from .job_position import JobPositionQuery
+from .schema import JobPositionQuery, JobPositionInputType

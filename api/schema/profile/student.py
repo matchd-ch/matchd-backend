@@ -8,12 +8,35 @@ from graphql_jwt.decorators import login_required
 
 from api.exceptions import MutationException
 from api.helper import generic_error_dict, validation_error_to_dict
+from api.schema.job_option import JobOptionInputType
+from api.schema.job_position import JobPositionInputType
 from api.validators import StudentProfileFormStepValidator
 from db.forms.profile import StudentProfileFormStep6, StudentProfileFormStep1, StudentProfileFormStep5, \
-    StudentProfileFormStep2
+    StudentProfileFormStep2, StudentProfileFormStep3, StudentProfileFormStep3DateRange, StudentProfileFormStep3Date
 from db.helper import NicknameSuggestions
-from db.models import UserType
+from db.models import UserType, JobOption, JobOptionType
 from db.validators import NicknameValidator
+
+
+# noinspection PyBroadException
+def convert_date(data, key, date_format='%d.%m.%Y'):
+    errors = {}
+
+    if data.get(key) is None:
+        errors.update(generic_error_dict(key, _('This field is required.'), 'required'))
+    else:
+        try:
+            date = datetime.strptime(data.get(key), date_format).date()
+            data[key] = date
+        except ValueError as error:
+            errors.update(generic_error_dict(key, str(error), 'invalid'))
+        except Exception:
+            errors.update(generic_error_dict(key, _('Invalid date.'), 'invalid'))
+
+    if errors:
+        raise MutationException(errors)
+
+    return data
 
 
 def validate_user_type_step_and_data(user, data, step):
@@ -180,6 +203,115 @@ class StudentProfileStep2(Output, graphene.Mutation):
         return StudentProfileStep2(success=True, errors=None)
 
 
+class StudentProfileInputStep3(graphene.InputObjectType):
+    job_option = graphene.Field(JobOptionInputType, required=True)
+    job_from_date = graphene.String(required=False)
+    job_to_date = graphene.String(required=False)
+    job_position = graphene.Field(JobPositionInputType, required=False)
+
+
+class StudentProfileStep3(Output, graphene.Mutation):
+
+    class Arguments:
+        step3 = StudentProfileInputStep3(description=_('Profile Input Step 3 is required.'), required=True)
+
+    class Meta:
+        description = _('Updates job option, date (start or range) and job position of a student')
+
+    @classmethod
+    @login_required
+    def mutate(cls, root, info, **data):
+        errors = {}
+        user = info.context.user
+
+        # profile data
+        profile_data = data.get('step3', None)
+
+        # validate user type, step and data
+        try:
+            validate_user_type_step_and_data(user, profile_data, 3)
+        except MutationException as exception:
+            return StudentProfileStep3(success=False, errors=exception.errors)
+
+        profile = None
+        profile_form = StudentProfileFormStep3(profile_data)
+        profile_form.full_clean()
+
+        if profile_form.is_valid():
+            # update user profile
+            profile_data_for_update = profile_form.cleaned_data
+            profile = user.student
+
+            # required parameters
+            profile.job_option = profile_data_for_update.get('job_option')
+
+            # optional parameters
+            profile.job_position = profile_data_for_update.get('job_position')
+        else:
+            errors.update(profile_form.errors.get_json_data())
+
+        job_option = JobOption.objects.get(pk=profile.job_option.id)
+
+        if 'job_from_date' in profile_data and profile_data.get('job_from_date', None) is not None:
+
+            # convert fromDate / toDate
+            try:
+                profile_data = convert_date(profile_data, 'job_from_date', '%m.%Y')
+            except MutationException as exception:
+                errors.update(exception.errors)
+
+            # we need different forms for different option types
+            #
+            # JobOptionType.DATE_RANGE:
+            # we need two valid dates and a valid date range (both dates are required)
+            #
+            # JobOptionType.DATE_FROM:
+            # we need one valid date and need to reset the second date (only one date is required)
+
+            if job_option.type == JobOptionType.DATE_RANGE:
+                try:
+                    profile_data = convert_date(profile_data, 'job_to_date', '%m.%Y')
+                except MutationException as exception:
+                    errors.update(exception.errors)
+
+                date_form = StudentProfileFormStep3DateRange(profile_data)
+                date_form.full_clean()
+                if date_form.is_valid():
+                    # update profile
+                    profile_data_for_update = date_form.cleaned_data
+
+                    # validate date range
+                    from_date = profile_data_for_update.get('job_from_date')
+                    to_date = profile_data_for_update.get('job_to_date')
+                    if from_date >= to_date:
+                        errors.update(generic_error_dict('job_to_date', _('Date must be after other date'),
+                                                         'invalid_range'))
+                    else:
+                        profile.job_from_date = from_date
+                        profile.job_to_date = to_date
+                else:
+                    errors.update(date_form.errors.get_json_data())
+            else:
+                date_form = StudentProfileFormStep3Date(profile_data)
+                date_form.full_clean()
+                if date_form.is_valid():
+                    # update profile
+                    profile_data_for_update = date_form.cleaned_data
+                    profile.job_from_date = profile_data_for_update.get('job_from_date')
+
+                    # reset to date
+                    profile.job_to_date = None
+                else:
+                    errors.update(date_form.errors.get_json_data())
+
+        if errors:
+            return StudentProfileStep3(success=False, errors=errors)
+
+        # save profile
+        profile.save()
+        return StudentProfileStep3(success=True, errors=None)
+
+
 class StudentProfileInputStep5(graphene.InputObjectType):
     nickname = graphene.String(description=_('Nickname'), required=True)
 
@@ -295,5 +427,6 @@ class StudentProfileStep6(Output, graphene.Mutation):
 class StudentProfileMutation(graphene.ObjectType):
     student_profile_step1 = StudentProfileStep1.Field()
     student_profile_step2 = StudentProfileStep2.Field()
+    student_profile_step3 = StudentProfileStep3.Field()
     student_profile_step5 = StudentProfileStep5.Field()
     student_profile_step6 = StudentProfileStep6.Field()

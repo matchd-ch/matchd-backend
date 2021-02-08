@@ -15,3 +15,8 @@ class JobPositionQuery(ObjectType):
 
     def resolve_job_positions(self, info, **kwargs):
         return JobPosition.objects.all()
+
+
+class JobPositionInputType(graphene.InputObjectType):
+    id = graphene.Int(required=True)
+    name = graphene.String(required=False)
