@@ -6,9 +6,11 @@ from django.utils.translation import gettext as _
 from api.exceptions import MutationException
 from api.schema.distinction import DistinctionInputType
 from api.schema.hobby import HobbyInputType
+from api.schema.online_project import OnlineProjectInputType
 from api.schema.skill import SkillInputType
 from db.forms import HobbyForm
 from db.forms.distinction import DistinctionForm
+from db.forms.online_project import OnlineProjectForm
 from db.forms.profile.student import StudentProfileFormStep4
 from db.models import UserType, Hobby, Skill
 
@@ -17,7 +19,7 @@ class StudentProfileInputStep4(graphene.InputObjectType):
     skills = graphene.List(SkillInputType, description=_('Skills'), required=False)
     hobbies = graphene.List(HobbyInputType, description=_('Hobbies'), required=False)
     distinctions = graphene.List(DistinctionInputType, description=_('Distinctions'), required=False)
-    # online_projects = graphene.String(description=_('Online_Projects'), required=False)
+    online_projects = graphene.List(OnlineProjectInputType, description=_('Online_Projects'), required=False)
     # languages = graphene.String(description=_('Languages'), required=True)
     # languagesLevel = graphene.String(description=_('LanguagesLevel'), required=True)
 
@@ -88,12 +90,26 @@ class StudentProfileStep4(Output, graphene.Mutation):
                         if not silent_fail(distinction_errors):
                             errors.update(distinction_form.errors.get_json_data())
 
+        valid_online_project_forms = []
+        if 'online_projects' in profile_data:
+            for online_project in profile_data['online_projects']:
+                online_project['student'] = profile.id
+                if 'id' not in online_project:
+                    online_project_form = OnlineProjectForm(online_project)
+                    online_project_form.full_clean()
+                    if online_project_form.is_valid():
+                        valid_online_project_forms.append(online_project_form)
+                    else:
+                        errors.update(online_project_form.errors.get_json_data())
+
         if errors:
             return StudentProfileStep4(success=False, errors=errors)
 
         for form in valid_hobby_forms:
             form.save()
         for form in valid_distinction_forms:
+            form.save()
+        for form in valid_online_project_forms:
             form.save()
         # user.save()
         # profile.save()
