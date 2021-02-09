@@ -19,11 +19,14 @@ from db.validators import NicknameValidator
 
 
 # noinspection PyBroadException
-def convert_date(data, key, date_format='%d.%m.%Y'):
+def convert_date(data, key, date_format='%d.%m.%Y', required=True):
     errors = {}
 
     if data.get(key) is None:
-        errors.update(generic_error_dict(key, _('This field is required.'), 'required'))
+        if required:
+            errors.update(generic_error_dict(key, _('This field is required.'), 'required'))
+        else:
+            return data
     else:
         try:
             date = datetime.strptime(data.get(key), date_format).date()
@@ -137,7 +140,7 @@ class StudentProfileStep1(Output, graphene.Mutation):
 
 class StudentProfileInputStep2(graphene.InputObjectType):
     school_name = graphene.String(description=_('School name'))
-    field_of_study = graphene.String(description=_('Field of study'), required=True)
+    field_of_study = graphene.String(description=_('Field of study'))
     graduation = graphene.String(description=_('Graduation'))
 
 
@@ -166,7 +169,7 @@ class StudentProfileStep2(Output, graphene.Mutation):
 
         # convert graduation to date
         try:
-            profile_data = convert_date(profile_data, 'graduation', '%m.%Y')
+            profile_data = convert_date(profile_data, 'graduation', '%m.%Y', False)
         except MutationException as exception:
             errors.update(exception.errors)
 
@@ -178,10 +181,8 @@ class StudentProfileStep2(Output, graphene.Mutation):
             profile = user.student
             profile_data_for_update = profile_form.cleaned_data
 
-            # required parameters
-            profile.field_of_study = profile_data_for_update.get('field_of_study')
-
             # optional parameters
+            profile.field_of_study = profile_data_for_update.get('field_of_study')
             profile.school_name = profile_data_for_update.get('school_name')
             profile.graduation = profile_data_for_update.get('graduation')
 

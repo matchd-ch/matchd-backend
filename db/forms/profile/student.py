@@ -28,7 +28,7 @@ class StudentProfileFormStep1(forms.Form):
 
 class StudentProfileFormStep2(forms.Form):
     school_name = forms.CharField(max_length=255, required=False)
-    field_of_study = forms.CharField(max_length=255, required=True, validators=[MinLengthValidator(3)])
+    field_of_study = forms.CharField(max_length=255, required=False, validators=[MinLengthValidator(3)])
     graduation = forms.DateField(required=False)
 
 
