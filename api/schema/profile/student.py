@@ -4,9 +4,11 @@ from graphql_jwt.decorators import login_required
 from django.utils.translation import gettext as _
 
 from api.exceptions import MutationException
+from api.schema.distinction import DistinctionInputType
 from api.schema.hobby import HobbyInputType
 from api.schema.skill import SkillInputType
 from db.forms import HobbyForm
+from db.forms.distinction import DistinctionForm
 from db.forms.profile.student import StudentProfileFormStep4
 from db.models import UserType, Hobby, Skill
 
@@ -14,7 +16,7 @@ from db.models import UserType, Hobby, Skill
 class StudentProfileInputStep4(graphene.InputObjectType):
     skills = graphene.List(SkillInputType, description=_('Skills'), required=False)
     hobbies = graphene.List(HobbyInputType, description=_('Hobbies'), required=False)
-    # distinctions = graphene.String(description=_('Distinctions'), required=False)
+    distinctions = graphene.List(DistinctionInputType, description=_('Distinctions'), required=False)
     # online_projects = graphene.String(description=_('Online_Projects'), required=False)
     # languages = graphene.String(description=_('Languages'), required=True)
     # languagesLevel = graphene.String(description=_('LanguagesLevel'), required=True)
@@ -57,6 +59,7 @@ class StudentProfileStep4(Output, graphene.Mutation):
             #     user.profile_step = 5
         else:
             errors.update(profile_form.errors.get_json_data())
+
         valid_hobby_forms = []
         if 'hobbies' in profile_data:
             for hobby in profile_data['hobbies']:
@@ -70,9 +73,27 @@ class StudentProfileStep4(Output, graphene.Mutation):
                         hobby_errors = hobby_form.errors.get_json_data()
                         if not silent_fail(hobby_errors):
                             errors.update(hobby_form.errors.get_json_data())
+
+        valid_distinction_forms = []
+        if 'distinctions' in profile_data:
+            for distinction in profile_data['distinctions']:
+                distinction['student'] = profile.id
+                if 'id' not in distinction:
+                    distinction_form = DistinctionForm(distinction)
+                    distinction_form.full_clean()
+                    if distinction_form.is_valid():
+                        valid_distinction_forms.append(distinction_form)
+                    else:
+                        distinction_errors = distinction_form.errors.get_json_data()
+                        if not silent_fail(distinction_errors):
+                            errors.update(distinction_form.errors.get_json_data())
+
         if errors:
             return StudentProfileStep4(success=False, errors=errors)
+
         for form in valid_hobby_forms:
+            form.save()
+        for form in valid_distinction_forms:
             form.save()
         # user.save()
         # profile.save()
