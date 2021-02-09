@@ -3,11 +3,12 @@ from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 from django.utils.translation import gettext as _
 
+from api.exceptions import MutationException
 from api.schema.hobby import HobbyInputType
 from api.schema.skill import SkillInputType
 from db.forms import HobbyForm
 from db.forms.profile.student import StudentProfileFormStep4
-from db.models import UserType, Hobby
+from db.models import UserType, Hobby, Skill
 
 
 class StudentProfileInputStep4(graphene.InputObjectType):
@@ -37,17 +38,14 @@ class StudentProfileStep4(Output, graphene.Mutation):
 
         profile_data = data.get('step4', None)
 
-        profile = None
+        profile = user.student
         profile_form = StudentProfileFormStep4(profile_data)
         profile_form.full_clean()
-        all_fields_valid = validate_all_inputs(profile_data)
-        if profile_form.is_valid() and all_fields_valid:
+        skills_to_save = None
+        if profile_form.is_valid():
             profile_data_for_update = profile_form.cleaned_data
 
-            profile = user.student
-            profile.skills.set(profile_data_for_update.get('skills'))
-
-            # profile.hobbies = profile_data_for_update.get('hobbies')
+            skills_to_save = profile_data_for_update.get('skills')
 
             # profile.distinctions = profile_data_for_update.get('distinctions')
             # profile.online_projects = profile_data_for_update.get('online_projects')
@@ -59,36 +57,35 @@ class StudentProfileStep4(Output, graphene.Mutation):
             #     user.profile_step = 5
         else:
             errors.update(profile_form.errors.get_json_data())
-
+        valid_hobby_forms = []
         if 'hobbies' in profile_data:
             for hobby in profile_data['hobbies']:
                 hobby['student'] = profile.id
-                if 'id' in hobby:
-                    try:
-                        instance = Hobby.objects.get(id=hobby['id'])
-                        hobby_form = HobbyForm(hobby, instance=instance)
-                    except Hobby.DoesNotExist:
-                        hobby_form = HobbyForm(hobby)
-                else:
+                if 'id' not in hobby:
                     hobby_form = HobbyForm(hobby)
-                hobby_form.full_clean()
-                if hobby_form.is_valid() and all_fields_valid:
-                    hobby_form.save()
-                else:
-                    errors.update(hobby_form.errors.get_json_data())
+                    hobby_form.full_clean()
+                    if hobby_form.is_valid():
+                        valid_hobby_forms.append(hobby_form)
+                    else:
+                        hobby_errors = hobby_form.errors.get_json_data()
+                        if not silent_fail(hobby_errors):
+                            errors.update(hobby_form.errors.get_json_data())
         if errors:
             return StudentProfileStep4(success=False, errors=errors)
-
-        user.save()
-        profile.save()
+        for form in valid_hobby_forms:
+            form.save()
+        # user.save()
+        # profile.save()
+        profile.skills.set(skills_to_save)
         return StudentProfileStep4(success=True, errors=None)
 
- def validate_all_inputs(inputs):
-        for field in inputs['hobbies']:
-            if not field['name']:
-                # errors.update(field['name'].errors.get_json_data())
-                return False
-        return True
+
+def silent_fail(errors):
+    if '__all__' in errors:
+        if len(errors['__all__']) == 1 and 'code' in errors['__all__'][0]:
+            if errors['__all__'][0]['code'] == 'unique_together':
+                return True
+    return False
 
 
 def generic_error_dict(key, message, code):
@@ -108,6 +105,3 @@ def validation_error_to_dict(error, key):
 
 class StudentProfileMutation(graphene.ObjectType):
     student_profile_step4 = StudentProfileStep4.Field()
-
-
-
