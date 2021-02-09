@@ -19,7 +19,7 @@ class HobbyQuery(ObjectType):
 
 class HobbyInputType(graphene.InputObjectType):
     id = graphene.Int()
-    name = graphene.String(required=True)
+    name = graphene.String(required=False)
 
     @property
     def pk(self):
