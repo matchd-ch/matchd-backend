@@ -7,10 +7,12 @@ from api.schema.distinction import DistinctionInputType
 from api.schema.hobby import HobbyInputType
 from api.schema.online_project import OnlineProjectInputType
 from api.schema.skill import SkillInputType
+from api.schema.user_language_relation.user_language_relation import UserLanguageRelationInputType
 from db.forms import HobbyForm
 from db.forms.distinction import DistinctionForm
 from db.forms.online_project import OnlineProjectForm
 from db.forms.profile.student import StudentProfileFormStep4
+from db.forms.user_language_relation import UserLanguageRelationForm
 from db.models import UserType, OnlineProject
 
 
@@ -19,6 +21,7 @@ class StudentProfileInputStep4(graphene.InputObjectType):
     hobbies = graphene.List(HobbyInputType, description=_('Hobbies'), required=False)
     distinctions = graphene.List(DistinctionInputType, description=_('Distinctions'), required=False)
     online_projects = graphene.List(OnlineProjectInputType, description=_('Online_Projects'), required=False)
+    languages = graphene.List(UserLanguageRelationInputType, description=_('Languages'), required=False)
     # languages = graphene.String(description=_('Languages'), required=True)
     # languagesLevel = graphene.String(description=_('LanguagesLevel'), required=True)
 
@@ -102,6 +105,20 @@ class StudentProfileStep4(Output, graphene.Mutation):
                     else:
                         errors.update(online_project_form.errors.get_json_data())
 
+        valid_languages_forms = []
+        if 'languages' in profile_data:
+            for languages in profile_data['languages']:
+                for language in languages:
+                    language['student'] = profile.id
+                    if 'id' not in language:
+                        language_form = UserLanguageRelationForm(language)
+                        language_form.full_clean()
+                        if language_form.is_valid():
+                            valid_languages_forms.append(online_project_form)
+                        else:
+                            language_errors = language_form.errors.get_json_data()
+                            if not silent_fail(language_errors):
+                                errors.update(language_form.errors.get_json_data())
         if errors:
             return StudentProfileStep4(success=False, errors=errors)
 
@@ -110,6 +127,8 @@ class StudentProfileStep4(Output, graphene.Mutation):
         for form in valid_distinction_forms:
             form.save()
         for form in valid_online_project_forms:
+            form.save()
+        for form in valid_languages_forms:
             form.save()
         # user.save()
         # profile.save()
