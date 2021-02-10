@@ -21,7 +21,7 @@ class StudentProfileInputStep4(graphene.InputObjectType):
     hobbies = graphene.List(HobbyInputType, description=_('Hobbies'), required=False)
     distinctions = graphene.List(DistinctionInputType, description=_('Distinctions'), required=False)
     online_projects = graphene.List(OnlineProjectInputType, description=_('Online_Projects'), required=False)
-    languages = graphene.List(UserLanguageRelationInputType, description=_('Languages'), required=False)
+    languages = graphene.List(UserLanguageRelationInputType, description=_('Languages'), required=True)
     # languages = graphene.String(description=_('Languages'), required=True)
     # languagesLevel = graphene.String(description=_('LanguagesLevel'), required=True)
 
