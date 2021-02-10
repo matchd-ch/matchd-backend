@@ -200,7 +200,7 @@
     "pk": 1,
     "fields": {
         "name": "Jahrespraktikum",
-        "type": "date_range"
+        "mode": "date_range"
     }
 },
 {
@@ -208,7 +208,7 @@
     "pk": 2,
     "fields": {
         "name": "Kurzpraktikum",
-        "type": "date_range"
+        "mode": "date_range"
     }
 },
 {
@@ -216,7 +216,7 @@
     "pk": 3,
     "fields": {
         "name": "Trainee für Hochschulabgänger",
-        "type": "date_range"
+        "mode": "date_range"
     }
 },
 {
@@ -224,7 +224,7 @@
     "pk": 4,
     "fields": {
         "name": "Teilzeitstelle für Studierende FH/Uni",
-        "type": "date_range"
+        "mode": "date_range"
     }
 },
 {
@@ -232,7 +232,7 @@
     "pk": 5,
     "fields": {
         "name": "Lehrstelle",
-        "type": "date_range"
+        "mode": "date_range"
     }
 },
 {
@@ -240,7 +240,7 @@
     "pk": 6,
     "fields": {
         "name": "Thema für Abschlussarbeit FH/Uni",
-        "type": "date_from"
+        "mode": "date_from"
     }
 },
 {
@@ -248,7 +248,7 @@
     "pk": 7,
     "fields": {
         "name": "Thema für Projektarbeit (Gruppe/Einzel)",
-        "type": "date_from"
+        "mode": "date_from"
     }
 },
 {
