@@ -74,15 +74,15 @@ class StudentProfileStep1(Output, graphene.Mutation):
             profile.zip = profile_data_for_update.get('zip')
             profile.city = profile_data_for_update.get('city')
             profile.mobile = profile_data_for_update.get('mobile')
-
-            # update step only if the user has step 1
-            if user.profile_step == 1:
-                user.profile_step = 2
         else:
             errors.update(profile_form.errors.get_json_data())
 
         if errors:
             return StudentProfileStep1(success=False, errors=errors)
+
+        # update step only if the user has step 1
+        if user.profile_step == 1:
+            user.profile_step = 2
 
         # save user / profile
         user.save()
@@ -137,17 +137,17 @@ class StudentProfileStep2(Output, graphene.Mutation):
             profile.field_of_study = profile_data_for_update.get('field_of_study')
             profile.school_name = profile_data_for_update.get('school_name')
             profile.graduation = profile_data_for_update.get('graduation')
-
-            # update step only if the user has step 2
-            if user.profile_step == 2:
-                user.profile_step = 3
         else:
             errors.update(profile_form.errors.get_json_data())
 
         if errors:
             return StudentProfileStep2(success=False, errors=errors)
 
-        # save profile
+        # update step only if the user has step 2
+        if user.profile_step == 2:
+            user.profile_step = 3
+
+        # save user / profile
         user.save()
         profile.save()
 
@@ -258,8 +258,14 @@ class StudentProfileStep3(Output, graphene.Mutation):
         if errors:
             return StudentProfileStep3(success=False, errors=errors)
 
-        # save profile
+        # update step only if the user has step 2
+        if user.profile_step == 3:
+            user.profile_step = 4
+
+        # save user / profile
+        user.save()
         profile.save()
+
         return StudentProfileStep3(success=True, errors=None)
 
 
@@ -311,19 +317,20 @@ class StudentProfileStep5(Output, graphene.Mutation):
                 return StudentProfileStep5(success=False, errors=errors, nickname_suggestions=suggestions)
 
             profile.nickname = profile_data_for_update.get('nickname')
-
-            # update step only if the user has step 6
-            if user.profile_step == 5:
-                user.profile_step = 6
         else:
             errors.update(profile_form.errors.get_json_data())
 
         if errors:
             return StudentProfileStep5(success=False, errors=errors)
 
+        # update step only if the user has step 6
+        if user.profile_step == 5:
+            user.profile_step = 6
+
         # save user / profile
         user.save()
         profile.save()
+
         return StudentProfileStep5(success=True, errors=None)
 
 
@@ -360,18 +367,19 @@ class StudentProfileStep6(Output, graphene.Mutation):
             # update user profile
             profile_data_for_update = profile_form.cleaned_data
             user.state = profile_data_for_update.get('state')
-
-            # update step only if the user has step 6
-            if user.profile_step == 6:
-                user.profile_step = 7
         else:
             errors.update(profile_form.errors.get_json_data())
 
         if errors:
             return StudentProfileStep6(success=False, errors=errors)
 
-        # save user / profile
+        # update step only if the user has step 6
+        if user.profile_step == 6:
+            user.profile_step = 7
+
+        # save user
         user.save()
+
         return StudentProfileStep6(success=True, errors=None)
 
 
