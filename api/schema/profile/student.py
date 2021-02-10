@@ -113,7 +113,7 @@ class StudentProfileStep4(Output, graphene.Mutation):
                     language_form = UserLanguageRelationForm(language)
                     language_form.full_clean()
                     if language_form.is_valid():
-                        valid_languages_forms.append(online_project_form)
+                        valid_languages_forms.append(language_form)
                     else:
                         language_errors = language_form.errors.get_json_data()
                         if not silent_fail(language_errors):
