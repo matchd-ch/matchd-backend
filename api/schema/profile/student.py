@@ -148,6 +148,7 @@ class StudentProfileStep2(Output, graphene.Mutation):
             return StudentProfileStep2(success=False, errors=errors)
 
         # save profile
+        user.save()
         profile.save()
 
         return StudentProfileStep2(success=True, errors=None)
