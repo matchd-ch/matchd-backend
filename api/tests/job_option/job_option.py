@@ -17,6 +17,7 @@ class JobOptionGraphQLTestCase(GraphQLTestCase):
             '''
             query{
                jobOptions{
+                    id
                     name
                     mode
                   }

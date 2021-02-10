@@ -17,6 +17,7 @@ class JobPositionGraphQLTestCase(GraphQLTestCase):
             '''
             query{
                jobPositions{
+                    id
                     name
                   }
               }
