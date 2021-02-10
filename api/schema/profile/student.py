@@ -1,67 +1,19 @@
-from datetime import datetime
-
 import graphene
 from django.core.exceptions import ValidationError
 from graphql_auth.bases import Output
 from django.utils.translation import gettext as _
 from graphql_jwt.decorators import login_required
 
-from api.exceptions import MutationException
-from api.helper import generic_error_dict, validation_error_to_dict
+from db.helper import generic_error_dict, validation_error_to_dict, validate_user_type_step_and_data
 from api.schema.job_option import JobOptionInputType
 from api.schema.job_position import JobPositionInputType
-from api.validators import StudentProfileFormStepValidator
+from db.helper.forms import convert_date
+from db.exceptions import FormException
 from db.forms.profile import StudentProfileFormStep6, StudentProfileFormStep1, StudentProfileFormStep5, \
     StudentProfileFormStep2, StudentProfileFormStep3, StudentProfileFormStep3DateRange, StudentProfileFormStep3Date
 from db.helper import NicknameSuggestions
-from db.models import UserType, JobOption, JobOptionType
+from db.models import JobOption, JobOptionType
 from db.validators import NicknameValidator
-
-
-# noinspection PyBroadException
-def convert_date(data, key, date_format='%d.%m.%Y', required=True):
-    errors = {}
-
-    if data.get(key) is None:
-        if required:
-            errors.update(generic_error_dict(key, _('This field is required.'), 'required'))
-        else:
-            return data
-    else:
-        try:
-            date = datetime.strptime(data.get(key), date_format).date()
-            data[key] = date
-        except ValueError as error:
-            errors.update(generic_error_dict(key, str(error), 'invalid'))
-        except Exception:
-            errors.update(generic_error_dict(key, _('Invalid date.'), 'invalid'))
-
-    if errors:
-        raise MutationException(errors)
-
-    return data
-
-
-def validate_user_type_step_and_data(user, data, step):
-    errors = {}
-
-    # validate user type
-    if user.type not in UserType.valid_student_types():
-        errors.update(generic_error_dict('type', _('You are not a student'), 'invalid_type'))
-
-    # validate step
-    step_validator = StudentProfileFormStepValidator(step)
-    try:
-        step_validator.validate(user)
-    except ValidationError as error:
-        errors.update(validation_error_to_dict(error, 'profile_step'))
-
-    # validate profile data
-    if data is None:
-        errors.update(generic_error_dict('profile_data', _('Missing profile data'), 'required'))
-
-    if errors:
-        raise MutationException(errors)
 
 
 class StudentProfileInputStep1(graphene.InputObjectType):
@@ -94,13 +46,13 @@ class StudentProfileStep1(Output, graphene.Mutation):
         # validate user type, step and data
         try:
             validate_user_type_step_and_data(user, profile_data, 1)
-        except MutationException as exception:
+        except FormException as exception:
             return StudentProfileStep2(success=False, errors=exception.errors)
 
         # convert date of birth to date
         try:
             profile_data = convert_date(profile_data, 'date_of_birth')
-        except MutationException as exception:
+        except FormException as exception:
             errors.update(exception.errors)
 
         # validate profile data
@@ -164,13 +116,13 @@ class StudentProfileStep2(Output, graphene.Mutation):
         # validate user type, step and data
         try:
             validate_user_type_step_and_data(user, profile_data, 2)
-        except MutationException as exception:
+        except FormException as exception:
             return StudentProfileStep2(success=False, errors=exception.errors)
 
         # convert graduation to date
         try:
             profile_data = convert_date(profile_data, 'graduation', '%m.%Y', False)
-        except MutationException as exception:
+        except FormException as exception:
             errors.update(exception.errors)
 
         profile = None
@@ -228,7 +180,7 @@ class StudentProfileStep3(Output, graphene.Mutation):
         # validate user type, step and data
         try:
             validate_user_type_step_and_data(user, profile_data, 3)
-        except MutationException as exception:
+        except FormException as exception:
             return StudentProfileStep3(success=False, errors=exception.errors)
 
         profile = None
@@ -255,7 +207,7 @@ class StudentProfileStep3(Output, graphene.Mutation):
             # convert fromDate / toDate
             try:
                 profile_data = convert_date(profile_data, 'job_from_date', '%m.%Y')
-            except MutationException as exception:
+            except FormException as exception:
                 errors.update(exception.errors)
 
             # we need different forms for different option types
@@ -269,7 +221,7 @@ class StudentProfileStep3(Output, graphene.Mutation):
             if job_option.type == JobOptionType.DATE_RANGE:
                 try:
                     profile_data = convert_date(profile_data, 'job_to_date', '%m.%Y')
-                except MutationException as exception:
+                except FormException as exception:
                     errors.update(exception.errors)
 
                 date_form = StudentProfileFormStep3DateRange(profile_data)
@@ -336,7 +288,7 @@ class StudentProfileStep5(Output, graphene.Mutation):
         # validate user type, step and data
         try:
             validate_user_type_step_and_data(user, profile_data, 5)
-        except MutationException as exception:
+        except FormException as exception:
             return StudentProfileStep2(success=False, errors=exception.errors)
 
         profile = None
@@ -398,7 +350,7 @@ class StudentProfileStep6(Output, graphene.Mutation):
         # validate user type, step and data
         try:
             validate_user_type_step_and_data(user, profile_data, 6)
-        except MutationException as exception:
+        except FormException as exception:
             return StudentProfileStep2(success=False, errors=exception.errors)
 
         profile_form = StudentProfileFormStep6(profile_data)

@@ -4,7 +4,7 @@ from graphql_auth import mutations
 from graphql_auth.mutations import Register
 from django.utils.translation import gettext_lazy as _
 
-from api.helper import generic_error_dict
+from db.helper import generic_error_dict
 from db.forms import CompanyForm, StudentForm, EmployeeForm, UniversityForm
 from db.models import Company, Student, Employee, UserType
 

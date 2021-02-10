@@ -2,19 +2,9 @@ from django import forms
 from django.conf import settings
 from django.core.validators import RegexValidator, MinLengthValidator
 
+from db.helper import convert_objects_to_id
 from db.models import JobOption, JobPosition
 from db.models.user import UserState
-
-
-# due to a bug with ModelChoiceField and graphene_django
-def convert_objects_to_id(data, key, pk_field='id'):
-    # convert job option input to integer
-    if key in data and data.get(key) is not None and data.get(key).get(pk_field, None) is not None:
-        job_option = data.get(key).get(pk_field)
-        data[key] = job_option
-    else:
-        data[key] = None
-    return data
 
 
 class StudentProfileFormStep1(forms.Form):

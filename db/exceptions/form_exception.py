@@ -1,5 +1,5 @@
 
-class MutationException(Exception):
+class FormException(Exception):
 
     def __init__(self, errors):
         self.errors = errors
