@@ -20,6 +20,7 @@ class SkillQuery(ObjectType):
 class SkillInputType(graphene.InputObjectType):
     id = graphene.Int(required=True)
 
+    # pylint: disable=C0103
     @property
     def pk(self):
         return self.id

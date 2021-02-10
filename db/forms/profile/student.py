@@ -1,10 +1,5 @@
 from django import forms
-from django.conf import settings
-from django.core.validators import RegexValidator
-from django.forms import formset_factory
-
-from db.forms import HobbyForm
-from db.models import Skill, Hobby
+from db.models import Skill
 
 
 class StudentProfileFormStep4(forms.Form):

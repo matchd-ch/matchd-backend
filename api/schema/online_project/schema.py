@@ -21,6 +21,7 @@ class OnlineProjectInputType(graphene.InputObjectType):
     id = graphene.Int()
     url = graphene.String(required=False)
 
+    # pylint: disable=C0103
     @property
     def pk(self):
         return self.id

@@ -21,6 +21,7 @@ class HobbyInputType(graphene.InputObjectType):
     id = graphene.Int()
     name = graphene.String(required=False)
 
+    # pylint: disable=C0103
     @property
     def pk(self):
         return self.id
