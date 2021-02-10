@@ -6,7 +6,7 @@ from django.core import mail
 from graphene_django.utils import GraphQLTestCase
 
 from api.schema import schema
-from db.models import UserTypeChoices, Student
+from db.models import UserType, Student
 
 
 class AuthGraphQLTestCase(GraphQLTestCase):
@@ -50,7 +50,7 @@ class AuthGraphQLTestCase(GraphQLTestCase):
         self._check_model_entries(Student, 1)
 
         user = get_user_model().objects.get(email='rudolph@doe.com')
-        self.assertEqual(user.type, UserTypeChoices.STUDENT)
+        self.assertEqual(user.type, UserType.STUDENT)
 
     def _get_and_test_activation_token(self, activation_email):
         activation_url = activation_email.body.split('\n')[-2]

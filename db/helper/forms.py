@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
 
 from db.exceptions import FormException
-from db.models import UserTypeChoices
+from db.models import UserType
 from db.validators import StudentProfileFormStepValidator
 
 
@@ -61,7 +61,7 @@ def validate_user_type_step_and_data(user, data, step):
     errors = {}
 
     # validate user type
-    if user.type not in UserTypeChoices.valid_student_types():
+    if user.type not in UserType.valid_student_types():
         errors.update(generic_error_dict('type', _('You are not a student'), 'invalid_type'))
 
     # validate step
