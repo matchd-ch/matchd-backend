@@ -6,7 +6,7 @@ from graphene_django.utils import GraphQLTestCase
 from graphql_auth.models import UserStatus
 
 from api.schema import schema
-from db.models import Student, JobOption, JobOptionType, JobPosition
+from db.models import Student, JobOption, JobOptionMode, JobPosition
 
 
 # pylint:disable=R0913
@@ -219,8 +219,8 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         user_status.verified = True
         user_status.save()
 
-        self.date_range_option = JobOption.objects.create(name='Date range', type=JobOptionType.DATE_RANGE, id=1)
-        self.date_from_option = JobOption.objects.create(name='Date from', type=JobOptionType.DATE_FROM, id=2)
+        self.date_range_option = JobOption.objects.create(name='Date range', mode=JobOptionMode.DATE_RANGE, id=1)
+        self.date_from_option = JobOption.objects.create(name='Date from', mode=JobOptionMode.DATE_FROM, id=2)
 
         self.job_position = JobPosition.objects.create(name='Job position', id=1)
 

@@ -1,4 +1,4 @@
-from .user import User, UserType
+from .user import User, UserTypeChoices
 from .company import Company
 from .student import Student
 from .user_request import UserRequest
@@ -9,5 +9,5 @@ from .language import Language
 from .language_level import LanguageLevel
 from .online_project import OnlineProject
 from .distinction import Distinction
-from .job_option import JobOption, JobOptionType
+from .job_option import JobOption, JobOptionMode
 from .job_position import JobPosition

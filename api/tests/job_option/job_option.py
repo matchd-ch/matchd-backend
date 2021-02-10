@@ -2,15 +2,15 @@ import json
 from graphene_django.utils import GraphQLTestCase
 
 from api.schema import schema
-from db.models import JobOption, JobOptionType
+from db.models import JobOption, JobOptionMode
 
 
 class JobOptionGraphQLTestCase(GraphQLTestCase):
     GRAPHQL_SCHEMA = schema
 
     def setUp(self):
-        JobOption.objects.create(name="Praktikum", type=JobOptionType.DATE_FROM)
-        JobOption.objects.create(name="Lehrstelle", type=JobOptionType.DATE_RANGE)
+        JobOption.objects.create(name="Praktikum", mode=JobOptionMode.DATE_FROM)
+        JobOption.objects.create(name="Lehrstelle", mode=JobOptionMode.DATE_RANGE)
 
     def test_job_option_query(self):
         response = self.query(
@@ -18,7 +18,7 @@ class JobOptionGraphQLTestCase(GraphQLTestCase):
             query{
                jobOptions{
                     name
-                    type
+                    mode
                   }
               }
             '''

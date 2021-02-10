@@ -12,7 +12,7 @@ from db.exceptions import FormException
 from db.forms.profile import StudentProfileFormStep6, StudentProfileFormStep1, StudentProfileFormStep5, \
     StudentProfileFormStep2, StudentProfileFormStep3, StudentProfileFormStep3DateRange, StudentProfileFormStep3Date
 from db.helper import NicknameSuggestions
-from db.models import JobOption, JobOptionType
+from db.models import JobOption, JobOptionMode
 from db.validators import NicknameValidator
 
 
@@ -212,13 +212,13 @@ class StudentProfileStep3(Output, graphene.Mutation):
 
             # we need different forms for different option types
             #
-            # JobOptionType.DATE_RANGE:
+            # JobOptionTypeChoices.DATE_RANGE:
             # we need two valid dates and a valid date range (both dates are required)
             #
-            # JobOptionType.DATE_FROM:
+            # JobOptionTypeChoices.DATE_FROM:
             # we need one valid date and need to reset the second date (only one date is required)
 
-            if job_option.type == JobOptionType.DATE_RANGE:
+            if job_option.mode == JobOptionMode.DATE_RANGE:
                 try:
                     profile_data = convert_date(profile_data, 'job_to_date', '%m.%Y')
                 except FormException as exception:

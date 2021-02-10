@@ -4,7 +4,7 @@ from django.db import models
 from django.utils.translation import gettext as _
 
 
-class UserType(models.TextChoices):
+class UserTypeChoices(models.TextChoices):
     INTERNAL = 'internal', _('Internal')
     STUDENT = 'student', _('Student')
     COLLEGE_STUDENT = 'college-student', _('College Student')
@@ -36,7 +36,7 @@ class UserState(models.TextChoices):
 
 
 class User(AbstractUser):
-    type = models.CharField(choices=UserType.choices, max_length=255, blank=False)
+    type = models.CharField(choices=UserTypeChoices.choices, max_length=255, blank=False)
     first_name = models.CharField(_('first name'), max_length=150, blank=False)
     last_name = models.CharField(_('last name'), max_length=150, blank=False)
     company = models.ForeignKey('db.Company', on_delete=models.DO_NOTHING, blank=True, null=True,
@@ -47,8 +47,8 @@ class User(AbstractUser):
     @staticmethod
     def validate_user_type_company(user_type):
         valid_student_types = [
-            UserType.COMPANY,
-            UserType.UNIVERSITY
+            UserTypeChoices.COMPANY,
+            UserTypeChoices.UNIVERSITY
         ]
         if user_type not in valid_student_types:
             raise ValidationError(
