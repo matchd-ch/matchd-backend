@@ -1,9 +1,10 @@
 from datetime import datetime
 from django.core.exceptions import ValidationError
+from django.utils.translation import gettext as _
+
 from db.exceptions import FormException
 from db.models import UserTypeChoices
 from db.validators import StudentProfileFormStepValidator
-from django.utils.translation import gettext as _
 
 
 def generic_error_dict(key, message, code):
