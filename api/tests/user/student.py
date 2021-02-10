@@ -6,10 +6,11 @@ from graphene_django.utils import GraphQLTestCase
 from graphql_auth.models import UserStatus
 
 from api.schema import schema
-from db.models import Student
+from db.models import Student, JobOption, JobOptionType, JobPosition
 
 
 # pylint:disable=R0913
+# pylint:disable=R0904
 class StudentGraphQLTestCase(GraphQLTestCase):
     GRAPHQL_SCHEMA = schema
 
@@ -71,6 +72,59 @@ class StudentGraphQLTestCase(GraphQLTestCase):
                 "schoolName": "",
                 "fieldOfStudy": "",
                 "graduation": "15.2022"
+              }
+            }
+        '''
+
+    query_step_3 = '''
+            mutation StudentProfileMutation($step3: StudentProfileInputStep3!) {
+              studentProfileStep3(step3: $step3) {
+                success,
+                errors
+              }
+            }
+        '''
+
+    variables_step_3_date_range = '''
+        {
+          "step3": {
+            "jobOption": {"id": 1},
+            "jobFromDate": "01.2020",
+            "jobToDate": "03.2020",
+            "jobPosition": {"id": 1}
+          }
+        }
+    '''
+
+    variables_step_3_date_from = '''
+            {
+              "step3": {
+                "jobOption": {"id": 2},
+                "jobFromDate": "01.2020",
+                "jobToDate": "",
+                "jobPosition": {"id": 1}
+              }
+            }
+        '''
+
+    invalid_variables_step_3_date_range = '''
+        {
+          "step3": {
+            "jobOption": {"id": 1},
+            "jobFromDate": "01.2020",
+            "jobToDate": "",
+            "jobPosition": {"id": 1}
+          }
+        }
+    '''
+
+    invalid_variables_step_3_date_from = '''
+            {
+              "step3": {
+                "jobOption": {"id": 2},
+                "jobFromDate": "18.2020",
+                "jobToDate": "",
+                "jobPosition": {"id": 1}
               }
             }
         '''
@@ -164,6 +218,11 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         user_status = UserStatus.objects.get(user=self.student_with_nickname)
         user_status.verified = True
         user_status.save()
+
+        self.date_range_option = JobOption.objects.create(name='Date range', type=JobOptionType.DATE_RANGE, id=1)
+        self.date_from_option = JobOption.objects.create(name='Date from', type=JobOptionType.DATE_FROM, id=2)
+
+        self.job_position = JobPosition.objects.create(name='Job position', id=1)
 
     def _login(self, username):
         response = self.query(
@@ -286,6 +345,9 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     def test_profile_step_2_without_login(self):
         self._test_step_without_login(self.query_step_2, self.variables_step_2, 'studentProfileStep2')
 
+    def test_profile_step_3_without_login(self):
+        self._test_step_without_login(self.query_step_3, self.variables_step_3_date_range, 'studentProfileStep3')
+
     def test_profile_step_5_without_login(self):
         self._test_step_without_login(self.query_step_5, self.variables_step_5, 'studentProfileStep5')
 
@@ -297,6 +359,9 @@ class StudentGraphQLTestCase(GraphQLTestCase):
 
     def test_profile_step_2_as_company(self):
         self._test_step_as_company(self.query_step_2, self.variables_step_2, 'studentProfileStep2')
+
+    def test_profile_step_3_as_company(self):
+        self._test_step_as_company(self.query_step_3, self.variables_step_3_date_range, 'studentProfileStep3')
 
     def test_profile_step_5_as_company(self):
         self._test_step_as_company(self.query_step_5, self.variables_step_5, 'studentProfileStep5')
@@ -310,6 +375,9 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     def test_profile_step_2_with_invalid_step(self):
         self._test_step_with_invalid_step(1, self.query_step_2, self.variables_step_2, 'studentProfileStep2')
 
+    def test_profile_step_3_with_invalid_step(self):
+        self._test_step_with_invalid_step(2, self.query_step_3, self.variables_step_3_date_range, 'studentProfileStep3')
+
     def test_profile_step_5_with_invalid_step(self):
         self._test_step_with_invalid_step(4, self.query_step_5, self.variables_step_5, 'studentProfileStep5')
 
@@ -322,7 +390,15 @@ class StudentGraphQLTestCase(GraphQLTestCase):
 
     def test_profile_step_2_with_invalid_data(self):
         self._test_step_with_invalid_data(2, self.query_step_2, self.invalid_variables_step_2, 'studentProfileStep2',
-                                          ['fieldOfStudy', 'graduation'])
+                                          ['graduation'])
+
+    def test_profile_step_3_with_invalid_data_date_range(self):
+        self._test_step_with_invalid_data(3, self.query_step_3, self.invalid_variables_step_3_date_range,
+                                          'studentProfileStep3', ['jobToDate'])
+
+    def test_profile_step_3_with_invalid_data_date_from(self):
+        self._test_step_with_invalid_data(3, self.query_step_3, self.invalid_variables_step_3_date_from,
+                                          'studentProfileStep3', ['jobFromDate'])
 
     def test_profile_step_5_with_invalid_data(self):
         self._test_step_with_invalid_data(5, self.query_step_5, self.invalid_variables_step_5, 'studentProfileStep5',
@@ -358,6 +434,35 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         self.assertEqual(profile.field_of_study, 'Applikationsentwicklung')
         graduation = datetime.strptime('08.2022', '%m.%Y').date()
         self.assertEqual(profile.graduation, graduation)
+
+    def test_profile_step_3_date_range(self):
+        self._test_and_get_step_response_content(3, self.query_step_3, self.variables_step_3_date_range,
+                                                 'studentProfileStep3')
+
+        # reload user
+        user = get_user_model().objects.get(pk=self.student.pk)
+
+        profile = user.student
+        self.assertEqual(profile.job_option.id, self.date_range_option.id)
+        from_date = datetime.strptime('01.2020', '%m.%Y').date()
+        self.assertEqual(profile.job_from_date, from_date)
+        to_date = datetime.strptime('03.2020', '%m.%Y').date()
+        self.assertEqual(profile.job_to_date, to_date)
+        self.assertEqual(profile.job_position.id, self.job_position.id)
+
+    def test_profile_step_3_date_from(self):
+        self._test_and_get_step_response_content(3, self.query_step_3, self.variables_step_3_date_from,
+                                                 'studentProfileStep3')
+
+        # reload user
+        user = get_user_model().objects.get(pk=self.student.pk)
+
+        profile = user.student
+        self.assertEqual(profile.job_option.id, self.date_from_option.id)
+        from_date = datetime.strptime('01.2020', '%m.%Y').date()
+        self.assertEqual(profile.job_from_date, from_date)
+        self.assertIsNone(profile.job_to_date)
+        self.assertEqual(profile.job_position.id, self.job_position.id)
 
     def test_profile_step_5(self):
         self._test_and_get_step_response_content(5, self.query_step_5, self.variables_step_5, 'studentProfileStep5')

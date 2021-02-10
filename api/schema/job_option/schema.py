@@ -21,7 +21,3 @@ class JobOptionInputType(graphene.InputObjectType):
     id = graphene.Int(required=True)
     name = graphene.String(required=False)
     type = graphene.String(required=False)
-
-    @property
-    def pk(self):
-        return self.id
