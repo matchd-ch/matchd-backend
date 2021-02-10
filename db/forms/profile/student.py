@@ -6,6 +6,7 @@ from db.models import JobOption, JobPosition
 from db.models.user import UserState
 
 
+# due to a bug with ModelChoiceField and graphene_django
 def convert_objects_to_id(data, key, pk_field='id'):
     # convert job option input to integer
     if key in data and data.get(key) is not None and data.get(key).get(pk_field, None) is not None:
