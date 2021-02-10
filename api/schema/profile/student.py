@@ -107,18 +107,17 @@ class StudentProfileStep4(Output, graphene.Mutation):
 
         valid_languages_forms = []
         if 'languages' in profile_data:
-            for languages in profile_data['languages']:
-                for language in languages:
-                    language['student'] = profile.id
-                    if 'id' not in language:
-                        language_form = UserLanguageRelationForm(language)
-                        language_form.full_clean()
-                        if language_form.is_valid():
-                            valid_languages_forms.append(online_project_form)
-                        else:
-                            language_errors = language_form.errors.get_json_data()
-                            if not silent_fail(language_errors):
-                                errors.update(language_form.errors.get_json_data())
+            for language in profile_data['languages']:
+                language['student'] = profile.id
+                if 'id' not in language:
+                    language_form = UserLanguageRelationForm(language)
+                    language_form.full_clean()
+                    if language_form.is_valid():
+                        valid_languages_forms.append(online_project_form)
+                    else:
+                        language_errors = language_form.errors.get_json_data()
+                        if not silent_fail(language_errors):
+                            errors.update(language_form.errors.get_json_data())
         if errors:
             return StudentProfileStep4(success=False, errors=errors)
 
