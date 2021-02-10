@@ -3,7 +3,6 @@ from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 from django.utils.translation import gettext as _
 
-from api.exceptions import MutationException
 from api.schema.distinction import DistinctionInputType
 from api.schema.hobby import HobbyInputType
 from api.schema.online_project import OnlineProjectInputType
@@ -12,7 +11,7 @@ from db.forms import HobbyForm
 from db.forms.distinction import DistinctionForm
 from db.forms.online_project import OnlineProjectForm
 from db.forms.profile.student import StudentProfileFormStep4
-from db.models import UserType, Hobby, Skill
+from db.models import UserType, OnlineProject
 
 
 class StudentProfileInputStep4(graphene.InputObjectType):
@@ -51,8 +50,6 @@ class StudentProfileStep4(Output, graphene.Mutation):
 
             skills_to_save = profile_data_for_update.get('skills')
 
-            # profile.distinctions = profile_data_for_update.get('distinctions')
-            # profile.online_projects = profile_data_for_update.get('online_projects')
             # profile.languages = profile_data_for_update.get('languages')
 
             # update step only if the user has step 1
@@ -98,7 +95,10 @@ class StudentProfileStep4(Output, graphene.Mutation):
                     online_project_form = OnlineProjectForm(online_project)
                     online_project_form.full_clean()
                     if online_project_form.is_valid():
-                        valid_online_project_forms.append(online_project_form)
+                        # OnlineProject Model fields (url and user) can't be unique together because url is too long
+                        # This is why we do a manual check
+                        if not OnlineProject.objects.filter(url=online_project['url'], student=profile).exists():
+                            valid_online_project_forms.append(online_project_form)
                     else:
                         errors.update(online_project_form.errors.get_json_data())
 
