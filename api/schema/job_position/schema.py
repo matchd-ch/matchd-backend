@@ -8,6 +8,7 @@ from db.models import JobPosition
 class JobPositionType(DjangoObjectType):
     class Meta:
         model = JobPosition
+        fields = ('id', 'name',)
 
 
 class JobPositionQuery(ObjectType):

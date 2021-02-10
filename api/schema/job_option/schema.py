@@ -8,6 +8,7 @@ from db.models import JobOption
 class JobOptionType(DjangoObjectType):
     class Meta:
         model = JobOption
+        fields = ('id', 'name', 'mode',)
 
 
 class JobOptionQuery(ObjectType):
