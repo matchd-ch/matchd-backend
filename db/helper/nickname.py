@@ -4,7 +4,12 @@ from db.validators import NicknameValidator
 
 
 # noinspection PyBroadException
-class NicknameSuggestions:
+class NicknameHelper:
+
+    def validate(self, user, nickname):
+        validator = NicknameValidator()
+        validator.validate(user, nickname)
+
     def get_suggestions(self, user, nickname):
         patterns = [
             '***iii',
