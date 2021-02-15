@@ -1,11 +1,31 @@
 import graphene
 from django.contrib.auth import get_user_model
+from graphene_django import DjangoObjectType
 from graphql_auth.schema import UserNode
 from graphql_auth.settings import graphql_auth_settings
 from graphql_jwt.decorators import login_required
 
+from api.schema.hobby import HobbyType
+from db.models import Student as StudentModel, Hobby
+
+
+class Student(DjangoObjectType):
+    hobbies = graphene.List(
+        HobbyType
+    )
+
+    class Meta:
+        model = StudentModel
+        fields = ['mobile', 'skills', 'hobbies']
+
+    def resolve_hobbies(self, info, **kwargs):
+        return Hobby.objects.filter(student=self)
+
 
 class UserWithProfileNode(UserNode):
+    student = graphene.Field(
+        Student
+    )
 
     class Meta:
         model = get_user_model()
