@@ -71,6 +71,13 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         }
     }
 
+    variables_step_4_duplicated_language = {
+        "step4": {
+            "skills": [{"id": 1}],
+            "languages": [{"language": 1, "languageLevel": 1}, {"language": 1, "languageLevel": 1}]
+        }
+    }
+
     variables_step_4_distinction = {
         "step4": {
             "skills": [{"id": 1}],
@@ -128,6 +135,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
             id=1,
             name='Deutsch'
         )
+
         self.language = Language.objects.create(
             id=2,
             name='Englisch'
@@ -135,12 +143,12 @@ class StudentGraphQLTestCase(GraphQLTestCase):
 
         self.language_level = LanguageLevel.objects.create(
             id=1,
-            name='A1'
+            level='A1'
         )
 
         self.language_level = LanguageLevel.objects.create(
             id=2,
-            name='A2'
+            level='A2'
         )
 
     def _test_and_get_step_response_content(self, query, variables, success=True):
@@ -206,3 +214,22 @@ class StudentGraphQLTestCase(GraphQLTestCase):
 
     def test_profile_step_4_invalid_online_projects(self):
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_online_projects_invalid, False)
+
+    # def test_profile_step_4_valid_duplicated_languages(self):
+    #     self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_duplicated_language)
+    #     user = get_user_model().objects.get(pk=self.student.pk)
+    #
+    #     profile = user.student
+    #     self.assertEqual(profile.languages[0].language.name, 'Deutsch')
+    #     self.assertEqual(profile.languages[0].level.level, 'A1')
+
+    def test_profile_step_4_valid_duplicated_hobbies(self):
+        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_hobbies)
+        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_hobbies)
+
+        user = get_user_model().objects.get(pk=self.student.pk)
+
+        profile = user.student
+        print(profile.hobbies.count(),'hallo')
+        self.assertEqual(profile.hobbies[0].name, 'TV')
+        self.assertEqual(profile.hobbies.count(), 1)
