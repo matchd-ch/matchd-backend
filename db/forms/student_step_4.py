@@ -105,6 +105,18 @@ def process_language(profile, data):
     return None
 
 
+def get_unique_languages(data):
+    unique_languages = []
+    languages = []
+    for language in data:
+        language_id = language.get('language')
+        if language_id in languages:
+            continue
+        languages.append(language_id)
+        unique_languages.append(language)
+    return unique_languages
+
+
 def get_languages_to_delete(profile, data):
     exclude_ids = []
     exclude_languages = []
@@ -180,6 +192,7 @@ def process_student_form_step_4(user, data):
 
     # validate languages
     languages = data.get('languages', None)
+    languages = get_unique_languages(languages)
     languages_to_delete = get_languages_to_delete(profile, languages)
     valid_languages_forms = []
     if languages is not None:
