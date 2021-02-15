@@ -3,11 +3,13 @@ from wagtail.admin.edit_handlers import FieldPanel
 
 
 class LanguageLevel(models.Model):
-    name = models.CharField(max_length=255, unique=True)
+    level = models.CharField(max_length=255, unique=True)
+    description = models.CharField(max_length=255, blank=True, null=True)
 
     panels = [
-        FieldPanel('name')
+        FieldPanel('level'),
+        FieldPanel('description')
     ]
 
     class Meta:
-        ordering = ['name']
+        ordering = ['level']

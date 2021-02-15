@@ -2,8 +2,6 @@ import graphene
 
 from api.schema.job_option import JobOptionQuery
 from api.schema.job_position import JobPositionQuery
-from api.schema.distinction import DistinctionQuery
-from api.schema.hobby import HobbyQuery
 from api.schema.language import LanguageQuery
 from api.schema.auth import AuthMutation, LogoutMutation, VerifyPasswordResetToken
 from api.schema.language_level import LanguageLevelQuery
@@ -28,14 +26,12 @@ class Mutation(
 class Query(
     VerifyPasswordResetToken,
     UserQuery,
-    SkillQuery,
     LanguageQuery,
     LanguageLevelQuery,
     ZipCityQuery,
     JobOptionQuery,
     JobPositionQuery,
-    HobbyQuery,
-    DistinctionQuery
+    SkillQuery
 ):
     pass
 
