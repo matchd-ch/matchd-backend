@@ -57,6 +57,14 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         }
     }
 
+    variables_step_4_hobbies_duplicated = {
+        "step4": {
+            "skills": [{"id": 1}],
+            "hobbies": [{"id": 1}, {"name": "TV"}],
+            "languages": [{"language": 1, "languageLevel": 1}]
+        }
+    }
+
     variables_step_4_language_invalid = {
         "step4": {
             "skills": [{"id": 1}],
@@ -106,6 +114,13 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         "step4": {
             "skills": [{"id": 1}],
             "onlineProjects": [{"url": "invalid url "}],
+            "languages": [{"language": 1, "languageLevel": 1}]
+        }
+    }
+    variables_step_4_online_projects_duplicated = {
+        "step4": {
+            "skills": [{"id": 1}],
+            "onlineProjects": [{"id": 1},{"url": "google.com"}],
             "languages": [{"language": 1, "languageLevel": 1}]
         }
     }
@@ -183,12 +198,24 @@ class StudentGraphQLTestCase(GraphQLTestCase):
 
     def test_profile_step_4_valid_base(self):
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_base)
+        user = get_user_model().objects.get(pk=self.student.pk)
+
+        profile = user.student
+        self.assertEqual(profile.skills.all()[0].name, 'php')
+        self.assertEqual(profile.languages.all()[0].language.name, 'Deutsch')
+        self.assertEqual(profile.languages.all()[0].language_level.level, 'A1')
+        self.assertEqual(profile.skills.all().count(), 1)
 
     def test_profile_step_4_invalid_skill(self):
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_skill_invalid, False)
 
     def test_profile_step_4_valid_hobbies(self):
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_hobbies)
+        user = get_user_model().objects.get(pk=self.student.pk)
+
+        profile = user.student
+        self.assertEqual(profile.skills.all()[0].name, 'php')
+        self.assertEqual(profile.hobbies.all().count(), 1)
 
     def test_profile_step_4_valid_hobbies_no_name(self):
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_hobbies_no_name, False)
@@ -199,6 +226,11 @@ class StudentGraphQLTestCase(GraphQLTestCase):
 
     def test_profile_step_4_valid_distinction(self):
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_distinction)
+        user = get_user_model().objects.get(pk=self.student.pk)
+
+        profile = user.student
+        self.assertEqual(profile.distinctions.all()[0].text, 'valid Text')
+        self.assertEqual(profile.distinctions.all().count(), 1)
 
     def test_profile_step_4_invalid_distinction(self):
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_distinction_invalid, False)
@@ -208,28 +240,52 @@ class StudentGraphQLTestCase(GraphQLTestCase):
 
     def test_profile_step_4_valid_multiple_languages(self):
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_multiple_language)
+        user = get_user_model().objects.get(pk=self.student.pk)
+
+        profile = user.student
+        self.assertEqual(profile.languages.all()[0].language.name, 'Deutsch')
+        self.assertEqual(profile.languages.all()[1].language.name, 'Englisch')
+        self.assertEqual(profile.languages.all()[0].language_level.level, 'A1')
+        self.assertEqual(profile.languages.all()[1].language_level.level, 'A2')
+        self.assertEqual(profile.languages.count(), 2)
+
 
     def test_profile_step_4_valid_online_projects(self):
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_online_projects)
+        user = get_user_model().objects.get(pk=self.student.pk)
+
+        profile = user.student
+        self.assertEqual(profile.onlineProjects.all()[0].url, 'http://google.com')
+        self.assertEqual(profile.onlineProjects.all().count(), 1)
 
     def test_profile_step_4_invalid_online_projects(self):
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_online_projects_invalid, False)
 
-    # def test_profile_step_4_valid_duplicated_languages(self):
-    #     self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_duplicated_language)
-    #     user = get_user_model().objects.get(pk=self.student.pk)
-    #
-    #     profile = user.student
-    #     self.assertEqual(profile.languages[0].language.name, 'Deutsch')
-    #     self.assertEqual(profile.languages[0].level.level, 'A1')
+    def test_profile_step_4_valid_duplicated_languages(self):
+        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_duplicated_language)
+        user = get_user_model().objects.get(pk=self.student.pk)
+
+        profile = user.student
+        self.assertEqual(profile.languages.all()[0].language.name, 'Deutsch')
+        self.assertEqual(profile.languages.all()[0].language_level.level, 'A1')
+        self.assertEqual(profile.languages.count(), 1)
 
     def test_profile_step_4_valid_duplicated_hobbies(self):
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_hobbies)
-        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_hobbies)
+        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_hobbies_duplicated)
 
         user = get_user_model().objects.get(pk=self.student.pk)
 
         profile = user.student
-        print(profile.hobbies.count(),'hallo')
-        self.assertEqual(profile.hobbies[0].name, 'TV')
-        self.assertEqual(profile.hobbies.count(), 1)
+        self.assertEqual(profile.hobbies.all()[0].name, 'TV')
+        self.assertEqual(profile.hobbies.all().count(), 1)
+
+    def test_profile_step_4_valid_duplicated_online_projects(self):
+        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_online_projects)
+        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_online_projects_duplicated)
+
+        user = get_user_model().objects.get(pk=self.student.pk)
+
+        profile = user.student
+        self.assertEqual(profile.onlineProjects.all()[0].url, 'http://google.com')
+        self.assertEqual(profile.onlineProjects.all().count(), 1)
