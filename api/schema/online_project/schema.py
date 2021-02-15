@@ -11,13 +11,6 @@ class OnlineProjectType(DjangoObjectType):
         fields = ('id', 'url',)
 
 
-class OnlineProjectQuery(ObjectType):
-    online_project = graphene.List(OnlineProjectType)
-
-    def resolve_online_project(self, info, **kwargs):
-        return OnlineProject.objects.all()
-
-
 class OnlineProjectInputType(graphene.InputObjectType):
     id = graphene.Int()
     url = graphene.String(required=False)

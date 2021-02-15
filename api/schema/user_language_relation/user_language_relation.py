@@ -1,5 +1,4 @@
 import graphene
-from graphene import ObjectType
 from graphene_django import DjangoObjectType
 
 from db.models import UserLanguageRelation
@@ -8,13 +7,6 @@ from db.models import UserLanguageRelation
 class UserLanguageRelationType(DjangoObjectType):
     class Meta:
         model = UserLanguageRelation
-
-
-class UserLanguageRelationQuery(ObjectType):
-    user_language_relation = graphene.List(UserLanguageRelationType)
-
-    def resolve_user_language_relation(self, info, **kwargs):
-        return UserLanguageRelation.objects.all()
 
 
 class UserLanguageRelationInputType(graphene.InputObjectType):
