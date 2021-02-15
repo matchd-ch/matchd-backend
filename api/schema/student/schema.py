@@ -3,11 +3,16 @@ from graphql_auth.bases import Output
 from django.utils.translation import gettext as _
 from graphql_jwt.decorators import login_required
 
+from api.schema.distinction import DistinctionInputType
+from api.schema.hobby import HobbyInputType
 from api.schema.job_option import JobOptionInputType
 from api.schema.job_position import JobPositionInputType
+from api.schema.online_project import OnlineProjectInputType
+from api.schema.skill import SkillInputType
+from api.schema.user_language_relation.user_language_relation import UserLanguageRelationInputType
 from db.exceptions import FormException, NicknameException
 from db.forms import process_student_form_step_1, process_student_form_step_2, process_student_form_step_3, \
-    process_student_form_step_5, process_student_form_step_6
+    process_student_form_step_5, process_student_form_step_6, process_student_form_step_4
 
 
 class StudentProfileInputStep1(graphene.InputObjectType):
@@ -93,6 +98,33 @@ class StudentProfileStep3(Output, graphene.Mutation):
         return StudentProfileStep3(success=True, errors=None)
 
 
+class StudentProfileInputStep4(graphene.InputObjectType):
+    skills = graphene.List(SkillInputType, description=_('Skills'), required=False)
+    hobbies = graphene.List(HobbyInputType, description=_('Hobbies'), required=False)
+    distinctions = graphene.List(DistinctionInputType, description=_('Distinctions'), required=False)
+    online_projects = graphene.List(OnlineProjectInputType, description=_('Online_Projects'), required=False)
+    languages = graphene.List(UserLanguageRelationInputType, description=_('Languages'), required=True)
+
+
+class StudentProfileStep4(Output, graphene.Mutation):
+    class Arguments:
+        step4 = StudentProfileInputStep4(description=_('Profile Input Step 4 is required.'))
+
+    class Meta:
+        description = _('Updates the profile of a student')
+
+    @classmethod
+    @login_required
+    def mutate(cls, root, info, **data):
+        user = info.context.user
+        form_data = data.get('step4', None)
+        try:
+            process_student_form_step_4(user, form_data)
+        except FormException as exception:
+            return StudentProfileStep4(success=False, errors=exception.errors)
+        return StudentProfileStep4(success=True, errors=None)
+
+
 class StudentProfileInputStep5(graphene.InputObjectType):
     nickname = graphene.String(description=_('Nickname'), required=True)
 
@@ -150,5 +182,6 @@ class StudentProfileMutation(graphene.ObjectType):
     student_profile_step1 = StudentProfileStep1.Field()
     student_profile_step2 = StudentProfileStep2.Field()
     student_profile_step3 = StudentProfileStep3.Field()
+    student_profile_step4 = StudentProfileStep4.Field()
     student_profile_step5 = StudentProfileStep5.Field()
     student_profile_step6 = StudentProfileStep6.Field()

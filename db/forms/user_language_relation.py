@@ -1,6 +1,6 @@
 from django import forms
 
-from db.models import Student, UserLanguageRelation
+from db.models import UserLanguageRelation
 
 
 class UserLanguageRelationForm(forms.ModelForm):
