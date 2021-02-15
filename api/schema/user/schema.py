@@ -11,7 +11,8 @@ from db.models import Student as StudentModel
 class Student(DjangoObjectType):
     class Meta:
         model = StudentModel
-        fields = ['mobile']
+        fields = ['mobile', 'street', 'zip', 'city', 'date_of_birth', 'nickname', 'school_name', 'field_of_study',
+                  'graduation']
 
 
 class UserWithProfileNode(UserNode):
