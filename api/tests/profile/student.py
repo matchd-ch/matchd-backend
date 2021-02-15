@@ -22,12 +22,14 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     variables_step_4_skills = {
             "step4": {
                 "skills": [{"id": 1}],
+                "languages": [{"language": 1, "languageLevel": 1}],
             }
     }
 
     variables_step_4_skills_invalid = {
             "step4": {
                 "skills": [{"id": 0}],
+                "languages": [{"language": 1, "languageLevel": 1}],
             }
     }
 
@@ -35,6 +37,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
             "step4": {
                 "skills": [{"id": 1}],
                 "hobbies": [{"name": "TV"}],
+                "languages": [{"language": 1, "languageLevel": 1}],
             }
     }
 
@@ -42,6 +45,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         "step4": {
             "skills": [{"id": 1}],
             "hobbies": [{"name": ""}],
+            "languages": [{"language": 1, "languageLevel": 1}],
         }
     }
 
@@ -49,6 +53,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         "step4": {
             "skills": [{"id": 1}],
             "hobbies": [{"id": 1, "name": "gamen"}],
+            "languages": [{"language": 1, "languageLevel": 1}],
         }
     }
 
@@ -71,6 +76,8 @@ class StudentGraphQLTestCase(GraphQLTestCase):
             id=1,
             name='php'
         )
+
+        self.language = Language.obje
 
     def _test_and_get_step_response_content(self, query, variables, success=True):
         self._login()

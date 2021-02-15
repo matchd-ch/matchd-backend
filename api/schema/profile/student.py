@@ -127,7 +127,7 @@ class StudentProfileStep4(Output, graphene.Mutation):
         if user.profile_step == 4:
             user.profile_step = 5
 
-        profile.save()
+        user.save()
         return StudentProfileStep4(success=True, errors=None)
 
 
