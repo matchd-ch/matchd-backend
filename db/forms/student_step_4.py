@@ -83,11 +83,19 @@ def get_online_projects_to_delete(profile, data):
     return OnlineProject.objects.filter(student=profile).exclude(id__in=exclude_ids)
 
 
-def process_language(data):
+def process_language(profile, data):
     if 'id' in data:
         return None
 
-    form = UserLanguageRelationForm(data)
+    instance = None
+    existing_entry_for_language = UserLanguageRelation.objects.filter(student=profile,
+                                                                      language=data.get('language', None))
+
+    if len(existing_entry_for_language) > 0:
+        instance = existing_entry_for_language[0]
+        data['id'] = instance.id
+
+    form = UserLanguageRelationForm(data, instance=instance)
     form.full_clean()
     if form.is_valid():
         return form
@@ -99,11 +107,15 @@ def process_language(data):
 
 def get_languages_to_delete(profile, data):
     exclude_ids = []
+    exclude_languages = []
     if data is not None:
         for language in data:
             if 'id' in language:
                 exclude_ids.append(language.get('id'))
-    return UserLanguageRelation.objects.filter(student=profile).exclude(id__in=exclude_ids)
+            if 'language' in language:
+                exclude_languages.append(language.get('language'))
+    languages_to_delete = UserLanguageRelation.objects.filter(student=profile)
+    return languages_to_delete.exclude(id__in=exclude_ids).exclude(language_id__in=exclude_languages)
 
 
 # pylint:disable=R0912
@@ -173,7 +185,7 @@ def process_student_form_step_4(user, data):
         for language in languages:
             language['student'] = profile.id
             try:
-                valid_languages_forms.append(process_language(language))
+                valid_languages_forms.append(process_language(profile, language))
             except FormException as exception:
                 errors.update(exception.errors)
 
