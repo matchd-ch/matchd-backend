@@ -15,16 +15,25 @@ class StudentProfileFormStep3(forms.Form):
         # due to a bug with ModelChoiceField and graphene_django
         data['job_option'] = convert_object_to_id(data.get('job_option', None))
         data['job_position'] = convert_object_to_id(data.get('job_position', None))
-        data['job_from_date'] = convert_date(data.get('job_from_date', None), '%m.%Y')
-        data['job_to_date'] = convert_date(data.get('job_to_date', None), '%m.%Y')
         super().__init__(data=data, **kwargs)
 
 
 class StudentProfileFormStep3Date(forms.Form):
+
+    def __init__(self, data=None, **kwargs):
+        data['job_from_date'] = convert_date(data.get('job_from_date', None), '%m.%Y')
+        super().__init__(data=data, **kwargs)
+
     job_from_date = forms.DateField(required=True)
 
 
 class StudentProfileFormStep3DateRange(forms.Form):
+
+    def __init__(self, data=None, **kwargs):
+        data['job_from_date'] = convert_date(data.get('job_from_date', None), '%m.%Y')
+        data['job_to_date'] = convert_date(data.get('job_to_date', None), '%m.%Y')
+        super().__init__(data=data, **kwargs)
+
     job_from_date = forms.DateField(required=True)
     job_to_date = forms.DateField(required=True)
 
