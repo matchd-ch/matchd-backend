@@ -15,25 +15,25 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     GRAPHQL_SCHEMA = schema
 
     query_step_1 = '''
-            mutation StudentProfileMutation($step1: StudentProfileInputStep1!) {
-              studentProfileStep1(step1: $step1) {
-                success,
-                errors
-              }
-            }
-            '''
+    mutation StudentProfileMutation($step1: StudentProfileInputStep1!) {
+        studentProfileStep1(step1: $step1) {
+            success,
+            errors
+        }
+    }
+    '''
 
     variables_step_1 = {
-              'step1': {
-                'firstName': 'John2',
-                'lastName': 'Doe2',
-                'street': 'Doestreet 55',
-                'zip': '9000',
-                'city': 'St. Gallen',
-                'dateOfBirth': '01.01.2000',
-                'mobile': '+41999999999'
-              }
-            }
+        'step1': {
+            'firstName': 'John2',
+            'lastName': 'Doe2',
+            'street': 'Doestreet 55',
+            'zip': '9000',
+            'city': 'St. Gallen',
+            'dateOfBirth': '01.01.2000',
+            'mobile': '+41999999999'
+      }
+    }
 
     invalid_variables_step_1 = {
         'step1': {
@@ -44,100 +44,108 @@ class StudentGraphQLTestCase(GraphQLTestCase):
             'city': '',
             'dateOfBirth': '',
             'mobile': ''
-        }
-    }
-
-    query_step_2 = '''
-        mutation StudentProfileMutation($step2: StudentProfileInputStep2!) {
-          studentProfileStep2(step2: $step2) {
-            success,
-            errors
           }
         }
+
+    query_step_2 = '''
+    mutation StudentProfileMutation($step2: StudentProfileInputStep2!) {
+        studentProfileStep2(step2: $step2) {
+            success,
+            errors
+        }
+    }
     '''
 
     variables_step_2 = '''
-        {
-          "step2": {
+    {
+        "step2": {
             "schoolName": "FH Winterthur",
             "fieldOfStudy": "Applikationsentwicklung",
             "graduation": "08.2022"
-          }
         }
+    }
     '''
 
     invalid_variables_step_2 = '''
-            {
-              "step2": {
-                "schoolName": "",
-                "fieldOfStudy": "",
-                "graduation": "15.2022"
-              }
-            }
-        '''
+    {
+        "step2": {
+            "schoolName": "",
+            "fieldOfStudy": "",
+            "graduation": "15.2022"
+        }
+    }
+    '''
 
     query_step_3 = '''
-            mutation StudentProfileMutation($step3: StudentProfileInputStep3!) {
-              studentProfileStep3(step3: $step3) {
-                success,
-                errors
-              }
-            }
-        '''
+    mutation StudentProfileMutation($step3: StudentProfileInputStep3!) {
+        studentProfileStep3(step3: $step3) {
+            success,
+            errors
+        }
+    }
+    '''
 
     variables_step_3_date_range = '''
-        {
-          "step3": {
+    {
+        "step3": {
             "jobOption": {"id": 1},
             "jobFromDate": "01.2020",
             "jobToDate": "03.2020",
             "jobPosition": {"id": 1}
-          }
         }
+    }
     '''
 
     variables_step_3_date_from = '''
-            {
-              "step3": {
-                "jobOption": {"id": 2},
-                "jobFromDate": "01.2020",
-                "jobToDate": "",
-                "jobPosition": {"id": 1}
-              }
-            }
-        '''
-
-    invalid_variables_step_3_date_range = '''
-        {
-          "step3": {
-            "jobOption": {"id": 1},
+    {
+        "step3": {
+            "jobOption": {"id": 2},
             "jobFromDate": "01.2020",
             "jobToDate": "",
             "jobPosition": {"id": 1}
-          }
         }
+    }
+    '''
+
+    invalid_variables_step_3_date_range = '''
+    {
+        "step3": {
+            "jobOption": {
+                "id": 1
+            },
+            "jobFromDate": "01.2020",
+            "jobToDate": "",
+            "jobPosition": {
+                "id": 1
+            }
+        }
+    }
     '''
 
     invalid_variables_step_3_date_from = '''
-            {
-              "step3": {
-                "jobOption": {"id": 2},
-                "jobFromDate": "18.2020",
-                "jobToDate": "",
-                "jobPosition": {"id": 1}
-              }
+    {
+        "step3": {
+            "jobOption": {
+                "id": 2
+            },
+            "jobFromDate": "18.2020",
+            "jobToDate": "",
+            "jobPosition": {
+                "id": 1
             }
-        '''
+        }
+    }
+    '''
 
     query_step_5 = '''
-                mutation StudentProfileMutation($step5: StudentProfileInputStep5!) {
-                  studentProfileStep5(step5: $step5) {
-                    success,
-                    errors,
-                    nicknameSuggestions
-                  }
-                }
-                '''
+    mutation StudentProfileMutation($step5: StudentProfileInputStep5!) {
+        studentProfileStep5(step5: $step5) {
+            success,
+            errors,
+            nicknameSuggestions
+        }
+    }
+    '''
 
     variables_step_5 = {
         'step5': {
@@ -158,25 +166,25 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     }
 
     query_step_6 = '''
-            mutation StudentProfileMutation($step6: StudentProfileInputStep6!) {
-              studentProfileStep6(step6: $step6) {
-                success,
-                errors
-              }
-            }
-            '''
+    mutation StudentProfileMutation($step6: StudentProfileInputStep6!) {
+        studentProfileStep6(step6: $step6) {
+            success,
+            errors
+        }
+    }
+    '''
 
     variables_step_6 = {
-                'step6': {
-                    'state': 'anonymous'
-                }
-            }
+        'step6': {
+            'state': 'anonymous'
+        }
+    }
 
     invalid_variables_step_6 = {
-                'step6': {
-                    'state': 'anonymous2'
-                }
-            }
+        'step6': {
+            'state': 'anonymous2'
+        }
+    }
 
     def setUp(self):
         self.student = get_user_model().objects.create(
