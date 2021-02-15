@@ -45,7 +45,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         "step4": {
             "skills": [{"id": 1}],
             "hobbies": [{"name": ""}],
-            "languages": [{"language": 1, "languageLevel": 1}],
+            "languages": [{"language": 1, "languageLevel": 1}]
         }
     }
 
@@ -53,7 +53,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         "step4": {
             "skills": [{"id": 1}],
             "hobbies": [{"id": 1, "name": "gamen"}],
-            "languages": [{"language": 1, "languageLevel": 1}],
+            "languages": [{"language": 1, "languageLevel": 1}]
         }
     }
 
@@ -90,7 +90,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     variables_step_4_online_projects = {
         "step4": {
             "skills": [{"id": 1}],
-            "online_projects": [{"url": "google.com"}],
+            "onlineProjects": [{"url": "google.com"}],
             "languages": [{"language": 1, "languageLevel": 1}]
         }
     }
@@ -98,7 +98,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     variables_step_4_online_projects_invalid = {
         "step4": {
             "skills": [{"id": 1}],
-            "online_projects": [{"url": "invalid url "}],
+            "onlineProjects": [{"url": "invalid url "}],
             "languages": [{"language": 1, "languageLevel": 1}]
         }
     }
@@ -126,21 +126,21 @@ class StudentGraphQLTestCase(GraphQLTestCase):
 
         self.language = Language.objects.create(
             id=1,
-            name='Deutsch',
+            name='Deutsch'
         )
         self.language = Language.objects.create(
             id=2,
-            name='Englisch',
+            name='Englisch'
         )
 
         self.language_level = LanguageLevel.objects.create(
             id=1,
-            name='A1',
+            name='A1'
         )
 
         self.language_level = LanguageLevel.objects.create(
             id=2,
-            name='A2',
+            name='A2'
         )
 
     def _test_and_get_step_response_content(self, query, variables, success=True):
