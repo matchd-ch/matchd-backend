@@ -77,8 +77,6 @@ class StudentGraphQLTestCase(GraphQLTestCase):
             name='php'
         )
 
-        self.language = Language.obje
-
     def _test_and_get_step_response_content(self, query, variables, success=True):
         self._login()
         response = self.query(query, variables=variables)

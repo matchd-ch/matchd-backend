@@ -2,9 +2,8 @@ from django import forms
 from django.core.exceptions import ValidationError
 
 from db.exceptions import FormException, NicknameException
-from db.helper import validation_error_to_dict, NicknameSuggestions, \
-    validate_user_type, validate_step, validate_form_data
-from db.validators import NicknameValidator
+from db.helper import validation_error_to_dict, \
+    validate_user_type, validate_step, validate_form_data, NicknameHelper
 
 
 class StudentProfileFormStep5(forms.Form):
@@ -27,13 +26,12 @@ def process_student_form_step_5(user, data):
         profile = user.student
 
         nickname = cleaned_data.get('nickname')
+        nickname_helper = NicknameHelper()
         try:
-            nickname_validator = NicknameValidator()
-            nickname_validator.validate(user, nickname)
+            nickname_helper.validate(user, nickname)
         except ValidationError as error:
             errors.update(validation_error_to_dict(error, 'nickname'))
-            nicknames = NicknameSuggestions()
-            suggestions = nicknames.get_suggestions(user, nickname)
+            suggestions = nickname_helper.get_suggestions(user, nickname)
             # pylint:disable=W0707
             raise NicknameException(errors=errors, suggestions=suggestions)
 
