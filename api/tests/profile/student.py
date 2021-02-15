@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from graphene_django.utils import GraphQLTestCase
 from graphql_auth.models import UserStatus
 from api.schema import schema
-from db.models import Student, Skill
+from db.models import Student, Skill, Language, LanguageLevel
 
 
 class StudentGraphQLTestCase(GraphQLTestCase):
@@ -19,14 +19,14 @@ class StudentGraphQLTestCase(GraphQLTestCase):
                 }
                 '''
 
-    variables_step_4_skills = {
+    variables_step_4_base = {
             "step4": {
                 "skills": [{"id": 1}],
                 "languages": [{"language": 1, "languageLevel": 1}],
             }
     }
 
-    variables_step_4_skills_invalid = {
+    variables_step_4_skill_invalid = {
             "step4": {
                 "skills": [{"id": 0}],
                 "languages": [{"language": 1, "languageLevel": 1}],
@@ -57,6 +57,20 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         }
     }
 
+    variables_step_4_language_invalid = {
+        "step4": {
+            "skills": [{"id": 1}],
+            "languages": [{"language": 0, "languageLevel": 1}],
+        }
+    }
+
+    variables_step_4_multiple_language = {
+        "step4": {
+            "skills": [{"id": 1}],
+            "languages": [{"language": 1, "languageLevel": 1}, {"language": 2, "languageLevel": 2}],
+        }
+    }
+
     def setUp(self):
         self.student = get_user_model().objects.create(
             username='jane@doe.com',
@@ -77,7 +91,24 @@ class StudentGraphQLTestCase(GraphQLTestCase):
             name='php'
         )
 
-        self.language = Language.obje
+        self.language = Language.objects.create(
+            id=1,
+            name='Deutsch',
+        )
+        self.language = Language.objects.create(
+            id=2,
+            name='Englisch',
+        )
+
+        self.language_level = LanguageLevel.objects.create(
+            id=1,
+            name='A1',
+        )
+
+        self.language_level = LanguageLevel.objects.create(
+            id=2,
+            name='A2',
+        )
 
     def _test_and_get_step_response_content(self, query, variables, success=True):
         self._login()
@@ -109,11 +140,11 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         self.assertTrue(content['data'].get('tokenAuth').get('success'))
         self.assertIsNotNone(content['data'].get('tokenAuth').get('token'))
 
-    def test_profile_step_4_valid_skills(self):
-        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_skills)
+    def test_profile_step_4_valid_base(self):
+        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_base)
 
-    def test_profile_step_4_invalid_skills(self):
-        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_skills_invalid, False)
+    def test_profile_step_4_invalid_skill(self):
+        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_skill_invalid, False)
 
     def test_profile_step_4_valid_hobbies(self):
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_hobbies)
@@ -124,3 +155,9 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     def test_profile_step_4_valid_hobbies_update(self):
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_hobbies)
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_hobbies_update)
+
+    def test_profile_step_4_invalid_languages(self):
+        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_language_invalid, False)
+
+    def test_profile_step_4_valid_multiple_languages(self):
+        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_multiple_language)
