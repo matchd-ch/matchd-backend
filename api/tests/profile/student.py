@@ -22,14 +22,14 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     variables_step_4_base = {
             "step4": {
                 "skills": [{"id": 1}],
-                "languages": [{"language": 1, "languageLevel": 1}],
+                "languages": [{"language": 1, "languageLevel": 1}]
             }
     }
 
     variables_step_4_skill_invalid = {
             "step4": {
                 "skills": [{"id": 0}],
-                "languages": [{"language": 1, "languageLevel": 1}],
+                "languages": [{"language": 1, "languageLevel": 1}]
             }
     }
 
@@ -37,7 +37,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
             "step4": {
                 "skills": [{"id": 1}],
                 "hobbies": [{"name": "TV"}],
-                "languages": [{"language": 1, "languageLevel": 1}],
+                "languages": [{"language": 1, "languageLevel": 1}]
             }
     }
 
@@ -60,14 +60,46 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     variables_step_4_language_invalid = {
         "step4": {
             "skills": [{"id": 1}],
-            "languages": [{"language": 0, "languageLevel": 1}],
+            "languages": [{"language": 0, "languageLevel": 1}]
         }
     }
 
     variables_step_4_multiple_language = {
         "step4": {
             "skills": [{"id": 1}],
-            "languages": [{"language": 1, "languageLevel": 1}, {"language": 2, "languageLevel": 2}],
+            "languages": [{"language": 1, "languageLevel": 1}, {"language": 2, "languageLevel": 2}]
+        }
+    }
+
+    variables_step_4_distinction = {
+        "step4": {
+            "skills": [{"id": 1}],
+            "distinctions": [{"text": "valid Text"}],
+            "languages": [{"language": 1, "languageLevel": 1}]
+        }
+    }
+
+    variables_step_4_distinction_invalid = {
+        "step4": {
+            "skills": [{"id": 1}],
+            "distinctions": [{"text": ""}],
+            "languages": [{"language": 1, "languageLevel": 1}]
+        }
+    }
+
+    variables_step_4_online_projects = {
+        "step4": {
+            "skills": [{"id": 1}],
+            "online_projects": [{"url": "google.com"}],
+            "languages": [{"language": 1, "languageLevel": 1}]
+        }
+    }
+
+    variables_step_4_online_projects_invalid = {
+        "step4": {
+            "skills": [{"id": 1}],
+            "online_projects": [{"url": "invalid url "}],
+            "languages": [{"language": 1, "languageLevel": 1}]
         }
     }
 
@@ -78,6 +110,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
             type='student'
         )
         self.student.set_password('asdf1234$')
+        self.student.profile_step = 4
         self.student.save()
 
         Student.objects.create(user=self.student, mobile='+41791234567')
@@ -115,6 +148,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         response = self.query(query, variables=variables)
         self.assertResponseNoErrors(response)
         content = json.loads(response.content)
+        print(content)
         if success:
             self.assertTrue(content['data'].get('studentProfileStep4').get('success'))
             self.assertIsNone(content['data'].get('studentProfileStep4').get('errors'))
@@ -156,8 +190,20 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_hobbies)
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_hobbies_update)
 
+    def test_profile_step_4_valid_distinction(self):
+        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_distinction)
+
+    def test_profile_step_4_invalid_distinction(self):
+        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_distinction_invalid, False)
+
     def test_profile_step_4_invalid_languages(self):
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_language_invalid, False)
 
     def test_profile_step_4_valid_multiple_languages(self):
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_multiple_language)
+
+    def test_profile_step_4_valid_online_projects(self):
+        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_online_projects)
+
+    def test_profile_step_4_invalid_online_projects(self):
+        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_online_projects_invalid, False)
