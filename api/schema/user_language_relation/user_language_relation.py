@@ -10,9 +10,9 @@ class UserLanguageRelationType(DjangoObjectType):
 
 
 class UserLanguageRelationInputType(graphene.InputObjectType):
-    id = graphene.Int()
-    language = graphene.Int()
-    language_level = graphene.Int()
+    id = graphene.ID()
+    language = graphene.ID()
+    language_level = graphene.ID()
 
     # pylint: disable=C0103
     @property
