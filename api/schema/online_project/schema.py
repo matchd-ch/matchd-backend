@@ -1,5 +1,4 @@
 import graphene
-from graphene import ObjectType
 from graphene_django import DjangoObjectType
 
 from db.models import OnlineProject
