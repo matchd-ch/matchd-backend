@@ -22,8 +22,6 @@ class StudentProfileInputStep4(graphene.InputObjectType):
     distinctions = graphene.List(DistinctionInputType, description=_('Distinctions'), required=False)
     online_projects = graphene.List(OnlineProjectInputType, description=_('Online_Projects'), required=False)
     languages = graphene.List(UserLanguageRelationInputType, description=_('Languages'), required=True)
-    # languages = graphene.String(description=_('Languages'), required=True)
-    # languagesLevel = graphene.String(description=_('LanguagesLevel'), required=True)
 
 
 class StudentProfileStep4(Output, graphene.Mutation):
@@ -52,13 +50,6 @@ class StudentProfileStep4(Output, graphene.Mutation):
             profile_data_for_update = profile_form.cleaned_data
 
             skills_to_save = profile_data_for_update.get('skills')
-
-            # profile.languages = profile_data_for_update.get('languages')
-
-            # update step only if the user has step 1
-            # TODO
-            # if user.profile_step == 4:
-            #     user.profile_step = 5
         else:
             errors.update(profile_form.errors.get_json_data())
 
@@ -132,6 +123,10 @@ class StudentProfileStep4(Output, graphene.Mutation):
         # user.save()
         # profile.save()
         profile.skills.set(skills_to_save)
+
+        # update step only if the user has step 4
+        if user.profile_step == 4:
+            user.profile_step = 5
         return StudentProfileStep4(success=True, errors=None)
 
 
