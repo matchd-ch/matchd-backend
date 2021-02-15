@@ -11,7 +11,7 @@ class DistinctionType(DjangoObjectType):
 
 
 class DistinctionInputType(graphene.InputObjectType):
-    id = graphene.Int()
+    id = graphene.ID()
     text = graphene.String(required=False)
 
     # pylint: disable=C0103
