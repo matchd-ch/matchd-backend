@@ -61,7 +61,7 @@ def process_job_option_form(profile, data):
             from_date = cleaned_data.get('job_from_date')
             to_date = cleaned_data.get('job_to_date')
             if from_date >= to_date:
-                errors.update(generic_error_dict('job_to_date', _('Date must be after other date'),
+                errors.update(generic_error_dict('job_to_date', _('Date must be after from date'),
                                                  'invalid_range'))
             else:
                 profile.job_from_date = from_date
