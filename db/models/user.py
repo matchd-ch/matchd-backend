@@ -13,6 +13,27 @@ class UserType(models.TextChoices):
     UNIVERSITY = 'university', _('University')
     OTHER = 'other', _('Other')
 
+    @classmethod
+    def valid_student_types(cls):
+        return [
+            cls.STUDENT,
+            cls.COLLEGE_STUDENT,
+            cls.JUNIOR
+        ]
+
+    @classmethod
+    def valid_company_types(cls):
+        return [
+            cls.COMPANY,
+            cls.UNIVERSITY
+        ]
+
+
+class UserState(models.TextChoices):
+    INCOMPLETE = 'incomplete', _('Incomplete')
+    ANONYMOUS = 'anonymous', _('Anonymous')
+    PUBLIC = 'public', _('Public')
+
 
 class User(AbstractUser):
     type = models.CharField(choices=UserType.choices, max_length=255, blank=False)
@@ -20,19 +41,8 @@ class User(AbstractUser):
     last_name = models.CharField(_('last name'), max_length=150, blank=False)
     company = models.ForeignKey('db.Company', on_delete=models.DO_NOTHING, blank=True, null=True,
                                 related_name='users')
-
-    @staticmethod
-    def validate_user_type_student(user_type):
-        valid_student_types = [
-            UserType.STUDENT,
-            UserType.COLLEGE_STUDENT,
-            UserType.JUNIOR
-        ]
-        if user_type not in valid_student_types:
-            raise ValidationError(
-                code='invalid_choice',
-                message=_('Select a valid choice.')
-            )
+    state = models.CharField(choices=UserState.choices, max_length=255, blank=False, default=UserState.INCOMPLETE)
+    profile_step = models.IntegerField(default=1)
 
     @staticmethod
     def validate_user_type_company(user_type):
