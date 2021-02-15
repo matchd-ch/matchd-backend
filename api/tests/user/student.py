@@ -6,33 +6,34 @@ from graphene_django.utils import GraphQLTestCase
 from graphql_auth.models import UserStatus
 
 from api.schema import schema
-from db.models import Student
+from db.models import Student, JobOption, JobOptionMode, JobPosition
 
 
 # pylint:disable=R0913
+# pylint:disable=R0904
 class StudentGraphQLTestCase(GraphQLTestCase):
     GRAPHQL_SCHEMA = schema
 
     query_step_1 = '''
-            mutation StudentProfileMutation($step1: StudentProfileInputStep1!) {
-              studentProfileStep1(step1: $step1) {
-                success,
-                errors
-              }
-            }
-            '''
+    mutation StudentProfileMutation($step1: StudentProfileInputStep1!) {
+        studentProfileStep1(step1: $step1) {
+            success,
+            errors
+        }
+    }
+    '''
 
     variables_step_1 = {
-              'step1': {
-                'firstName': 'John2',
-                'lastName': 'Doe2',
-                'street': 'Doestreet 55',
-                'zip': '9000',
-                'city': 'St. Gallen',
-                'dateOfBirth': '01.01.2000',
-                'mobile': '+41999999999'
-              }
-            }
+        'step1': {
+            'firstName': 'John2',
+            'lastName': 'Doe2',
+            'street': 'Doestreet 55',
+            'zip': '9000',
+            'city': 'St. Gallen',
+            'dateOfBirth': '01.01.2000',
+            'mobile': '+41999999999'
+      }
+    }
 
     invalid_variables_step_1 = {
         'step1': {
@@ -43,18 +44,108 @@ class StudentGraphQLTestCase(GraphQLTestCase):
             'city': '',
             'dateOfBirth': '',
             'mobile': ''
+          }
+        }
+
+    query_step_2 = '''
+    mutation StudentProfileMutation($step2: StudentProfileInputStep2!) {
+        studentProfileStep2(step2: $step2) {
+            success,
+            errors
         }
     }
+    '''
+
+    variables_step_2 = '''
+    {
+        "step2": {
+            "schoolName": "FH Winterthur",
+            "fieldOfStudy": "Applikationsentwicklung",
+            "graduation": "08.2022"
+        }
+    }
+    '''
+
+    invalid_variables_step_2 = '''
+    {
+        "step2": {
+            "schoolName": "",
+            "fieldOfStudy": "",
+            "graduation": "15.2022"
+        }
+    }
+    '''
+
+    query_step_3 = '''
+    mutation StudentProfileMutation($step3: StudentProfileInputStep3!) {
+        studentProfileStep3(step3: $step3) {
+            success,
+            errors
+        }
+    }
+    '''
+
+    variables_step_3_date_range = '''
+    {
+        "step3": {
+            "jobOption": {"id": 1},
+            "jobFromDate": "01.2020",
+            "jobToDate": "03.2020",
+            "jobPosition": {"id": 1}
+        }
+    }
+    '''
+
+    variables_step_3_date_from = '''
+    {
+        "step3": {
+            "jobOption": {"id": 2},
+            "jobFromDate": "01.2020",
+            "jobToDate": "",
+            "jobPosition": {"id": 1}
+        }
+    }
+    '''
+
+    invalid_variables_step_3_date_range = '''
+    {
+        "step3": {
+            "jobOption": {
+                "id": 1
+            },
+            "jobFromDate": "01.2020",
+            "jobToDate": "",
+            "jobPosition": {
+                "id": 1
+            }
+        }
+    }
+    '''
+
+    invalid_variables_step_3_date_from = '''
+    {
+        "step3": {
+            "jobOption": {
+                "id": 2
+            },
+            "jobFromDate": "18.2020",
+            "jobToDate": "",
+            "jobPosition": {
+                "id": 1
+            }
+        }
+    }
+    '''
 
     query_step_5 = '''
-                mutation StudentProfileMutation($step5: StudentProfileInputStep5!) {
-                  studentProfileStep5(step5: $step5) {
-                    success,
-                    errors,
-                    nicknameSuggestions
-                  }
-                }
-                '''
+    mutation StudentProfileMutation($step5: StudentProfileInputStep5!) {
+        studentProfileStep5(step5: $step5) {
+            success,
+            errors,
+            nicknameSuggestions
+        }
+    }
+    '''
 
     variables_step_5 = {
         'step5': {
@@ -75,25 +166,25 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     }
 
     query_step_6 = '''
-            mutation StudentProfileMutation($step6: StudentProfileInputStep6!) {
-              studentProfileStep6(step6: $step6) {
-                success,
-                errors
-              }
-            }
-            '''
+    mutation StudentProfileMutation($step6: StudentProfileInputStep6!) {
+        studentProfileStep6(step6: $step6) {
+            success,
+            errors
+        }
+    }
+    '''
 
     variables_step_6 = {
-                'step6': {
-                    'state': 'anonymous'
-                }
-            }
+        'step6': {
+            'state': 'anonymous'
+        }
+    }
 
     invalid_variables_step_6 = {
-                'step6': {
-                    'state': 'anonymous2'
-                }
-            }
+        'step6': {
+            'state': 'anonymous2'
+        }
+    }
 
     def setUp(self):
         self.student = get_user_model().objects.create(
@@ -136,6 +227,11 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         user_status.verified = True
         user_status.save()
 
+        self.date_range_option = JobOption.objects.create(name='Date range', mode=JobOptionMode.DATE_RANGE, id=1)
+        self.date_from_option = JobOption.objects.create(name='Date from', mode=JobOptionMode.DATE_FROM, id=2)
+
+        self.job_position = JobPosition.objects.create(name='Job position', id=1)
+
     def _login(self, username):
         response = self.query(
             '''
@@ -172,6 +268,10 @@ class StudentGraphQLTestCase(GraphQLTestCase):
                     street
                     city
                     dateOfBirth
+                    nickname
+                    schoolName
+                    fieldOfStudy
+                    graduation
                 }
               }
             }
@@ -250,6 +350,12 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     def test_profile_step_1_without_login(self):
         self._test_step_without_login(self.query_step_1, self.variables_step_1, 'studentProfileStep1')
 
+    def test_profile_step_2_without_login(self):
+        self._test_step_without_login(self.query_step_2, self.variables_step_2, 'studentProfileStep2')
+
+    def test_profile_step_3_without_login(self):
+        self._test_step_without_login(self.query_step_3, self.variables_step_3_date_range, 'studentProfileStep3')
+
     def test_profile_step_5_without_login(self):
         self._test_step_without_login(self.query_step_5, self.variables_step_5, 'studentProfileStep5')
 
@@ -258,6 +364,12 @@ class StudentGraphQLTestCase(GraphQLTestCase):
 
     def test_profile_step_1_as_company(self):
         self._test_step_as_company(self.query_step_1, self.variables_step_1, 'studentProfileStep1')
+
+    def test_profile_step_2_as_company(self):
+        self._test_step_as_company(self.query_step_2, self.variables_step_2, 'studentProfileStep2')
+
+    def test_profile_step_3_as_company(self):
+        self._test_step_as_company(self.query_step_3, self.variables_step_3_date_range, 'studentProfileStep3')
 
     def test_profile_step_5_as_company(self):
         self._test_step_as_company(self.query_step_5, self.variables_step_5, 'studentProfileStep5')
@@ -268,6 +380,12 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     def test_profile_step_1_with_invalid_step(self):
         self._test_step_with_invalid_step(0, self.query_step_1, self.variables_step_1, 'studentProfileStep1')
 
+    def test_profile_step_2_with_invalid_step(self):
+        self._test_step_with_invalid_step(1, self.query_step_2, self.variables_step_2, 'studentProfileStep2')
+
+    def test_profile_step_3_with_invalid_step(self):
+        self._test_step_with_invalid_step(2, self.query_step_3, self.variables_step_3_date_range, 'studentProfileStep3')
+
     def test_profile_step_5_with_invalid_step(self):
         self._test_step_with_invalid_step(4, self.query_step_5, self.variables_step_5, 'studentProfileStep5')
 
@@ -277,6 +395,18 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     def test_profile_step_1_with_invalid_data(self):
         self._test_step_with_invalid_data(1, self.query_step_1, self.invalid_variables_step_1, 'studentProfileStep1',
                                           ['firstName', 'lastName', 'dateOfBirth'])
+
+    def test_profile_step_2_with_invalid_data(self):
+        self._test_step_with_invalid_data(2, self.query_step_2, self.invalid_variables_step_2, 'studentProfileStep2',
+                                          ['graduation'])
+
+    def test_profile_step_3_with_invalid_data_date_range(self):
+        self._test_step_with_invalid_data(3, self.query_step_3, self.invalid_variables_step_3_date_range,
+                                          'studentProfileStep3', ['jobToDate'])
+
+    def test_profile_step_3_with_invalid_data_date_from(self):
+        self._test_step_with_invalid_data(3, self.query_step_3, self.invalid_variables_step_3_date_from,
+                                          'studentProfileStep3', ['jobFromDate'])
 
     def test_profile_step_5_with_invalid_data(self):
         self._test_step_with_invalid_data(5, self.query_step_5, self.invalid_variables_step_5, 'studentProfileStep5',
@@ -297,10 +427,53 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         self.assertEqual(profile.street, 'Doestreet 55')
         self.assertEqual(profile.zip, '9000')
         self.assertEqual(profile.city, 'St. Gallen')
-        date_of_birth = datetime.strptime('01.01.2000', "%d.%m.%Y").date()
+        date_of_birth = datetime.strptime('01.01.2000', '%d.%m.%Y').date()
         self.assertEqual(profile.date_of_birth, date_of_birth)
         self.assertEqual(profile.mobile, '+41999999999')
         self.assertEqual(user.profile_step, 2)
+
+    def test_profile_step_2(self):
+        self._test_and_get_step_response_content(2, self.query_step_2, self.variables_step_2, 'studentProfileStep2')
+        # reload user
+        user = get_user_model().objects.get(pk=self.student.pk)
+
+        profile = user.student
+        self.assertEqual(profile.school_name, 'FH Winterthur')
+        self.assertEqual(profile.field_of_study, 'Applikationsentwicklung')
+        graduation = datetime.strptime('08.2022', '%m.%Y').date()
+        self.assertEqual(profile.graduation, graduation)
+        self.assertEqual(user.profile_step, 3)
+
+    def test_profile_step_3_date_range(self):
+        self._test_and_get_step_response_content(3, self.query_step_3, self.variables_step_3_date_range,
+                                                 'studentProfileStep3')
+
+        # reload user
+        user = get_user_model().objects.get(pk=self.student.pk)
+
+        profile = user.student
+        self.assertEqual(profile.job_option.id, self.date_range_option.id)
+        from_date = datetime.strptime('01.2020', '%m.%Y').date()
+        self.assertEqual(profile.job_from_date, from_date)
+        to_date = datetime.strptime('03.2020', '%m.%Y').date()
+        self.assertEqual(profile.job_to_date, to_date)
+        self.assertEqual(profile.job_position.id, self.job_position.id)
+        self.assertEqual(user.profile_step, 4)
+
+    def test_profile_step_3_date_from(self):
+        self._test_and_get_step_response_content(3, self.query_step_3, self.variables_step_3_date_from,
+                                                 'studentProfileStep3')
+
+        # reload user
+        user = get_user_model().objects.get(pk=self.student.pk)
+
+        profile = user.student
+        self.assertEqual(profile.job_option.id, self.date_from_option.id)
+        from_date = datetime.strptime('01.2020', '%m.%Y').date()
+        self.assertEqual(profile.job_from_date, from_date)
+        self.assertIsNone(profile.job_to_date)
+        self.assertEqual(profile.job_position.id, self.job_position.id)
+        self.assertEqual(user.profile_step, 4)
 
     def test_profile_step_5(self):
         self._test_and_get_step_response_content(5, self.query_step_5, self.variables_step_5, 'studentProfileStep5')
@@ -309,6 +482,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         user = get_user_model().objects.get(pk=self.student.pk)
         profile = user.student
         self.assertEqual(profile.nickname, 'jane_doe')
+        self.assertEqual(user.profile_step, 6)
 
     def test_profile_step_5_with_existing_nickname(self):
         content = self._test_and_get_step_response_content(5, self.query_step_5, self.invalid_variables_step_5_nickname,
@@ -316,6 +490,10 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         errors = content['data'].get('studentProfileStep5').get('errors')
         self.assertIn('nickname', errors)
         self.assertIsNotNone(content['data'].get('studentProfileStep5').get('nicknameSuggestions'))
+
+        # reload user
+        user = get_user_model().objects.get(pk=self.student.pk)
+        self.assertEqual(user.profile_step, 5)
 
     def test_profile_step_6(self):
         self._test_and_get_step_response_content(6, self.query_step_6, self.variables_step_6, 'studentProfileStep6')

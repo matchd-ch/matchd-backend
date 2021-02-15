@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
         "password": "pbkdf2_sha256$216000$zm5hbNyUj2u1$XOHZkfILbONSDhLZDu7q9RP/ZPN1yNlY5HRsxM5hk6o=",
-        "last_login": "2021-02-02T11:57:45.327Z",
+        "last_login": "2021-02-08T10:54:31.964Z",
         "is_superuser": true,
         "username": "admin",
         "email": "admin@example.com",
@@ -139,7 +139,14 @@
         "zip": "",
         "city": "",
         "date_of_birth": null,
-        "nickname": "jane_doe"
+        "nickname": "jane_doe",
+        "school_name": "",
+        "field_of_study": "",
+        "graduation": null,
+        "job_option": null,
+        "job_from_date": null,
+        "job_to_date": null,
+        "job_position": null
     }
 },
 {
@@ -152,7 +159,14 @@
         "zip": "",
         "city": "",
         "date_of_birth": null,
-        "nickname": null
+        "nickname": null,
+        "school_name": null,
+        "field_of_study": "",
+        "graduation": null,
+        "job_option": null,
+        "job_from_date": null,
+        "job_to_date": null,
+        "job_position": null
     }
 },
 {
@@ -179,6 +193,76 @@
     "fields": {
         "user": 4,
         "role": "Recruiter"
+    }
+},
+{
+    "model": "db.joboption",
+    "pk": 1,
+    "fields": {
+        "name": "Jahrespraktikum",
+        "mode": "date_range"
+    }
+},
+{
+    "model": "db.joboption",
+    "pk": 2,
+    "fields": {
+        "name": "Kurzpraktikum",
+        "mode": "date_range"
+    }
+},
+{
+    "model": "db.joboption",
+    "pk": 3,
+    "fields": {
+        "name": "Trainee für Hochschulabgänger",
+        "mode": "date_range"
+    }
+},
+{
+    "model": "db.joboption",
+    "pk": 4,
+    "fields": {
+        "name": "Teilzeitstelle für Studierende FH/Uni",
+        "mode": "date_range"
+    }
+},
+{
+    "model": "db.joboption",
+    "pk": 5,
+    "fields": {
+        "name": "Lehrstelle",
+        "mode": "date_range"
+    }
+},
+{
+    "model": "db.joboption",
+    "pk": 6,
+    "fields": {
+        "name": "Thema für Abschlussarbeit FH/Uni",
+        "mode": "date_from"
+    }
+},
+{
+    "model": "db.joboption",
+    "pk": 7,
+    "fields": {
+        "name": "Thema für Projektarbeit (Gruppe/Einzel)",
+        "mode": "date_from"
+    }
+},
+{
+    "model": "db.jobposition",
+    "pk": 1,
+    "fields": {
+        "name": "Applikationsentwickler*in"
+    }
+},
+{
+    "model": "db.jobposition",
+    "pk": 2,
+    "fields": {
+        "name": "Systemtechniker*in"
     }
 },
 {
