@@ -2,7 +2,8 @@ from django import forms
 from django.core.exceptions import ValidationError
 
 from db.exceptions import FormException, NicknameException
-from db.helper import validate_user_type_step_and_data, validation_error_to_dict, NicknameSuggestions
+from db.helper import validation_error_to_dict, NicknameSuggestions, \
+    validate_user_type, validate_step, validate_form_data
 from db.validators import NicknameValidator
 
 
@@ -13,7 +14,9 @@ class StudentProfileFormStep5(forms.Form):
 def process_student_form_step_5(user, data):
     errors = {}
     # validate user type, step and data
-    validate_user_type_step_and_data(user, data, 5)
+    validate_user_type(user)
+    validate_step(user, 5)
+    validate_form_data(data)
 
     profile = None
     form = StudentProfileFormStep5(data)

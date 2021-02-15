@@ -2,8 +2,8 @@ from django import forms
 from django.utils.translation import gettext as _
 
 from db.exceptions import FormException
-from db.helper import convert_objects_to_id, validate_user_type_step_and_data
-from db.helper.forms import convert_date, generic_error_dict
+from db.helper.forms import convert_date, generic_error_dict, validate_user_type, validate_step, validate_form_data, \
+    convert_object_to_id
 from db.models import JobOption, JobPosition, JobOptionMode
 
 
@@ -13,8 +13,10 @@ class StudentProfileFormStep3(forms.Form):
 
     def __init__(self, data=None, **kwargs):
         # due to a bug with ModelChoiceField and graphene_django
-        data = convert_objects_to_id(data, 'job_option')
-        data = convert_objects_to_id(data, 'job_position')
+        data['job_option'] = convert_object_to_id(data.get('job_option', None))
+        data['job_position'] = convert_object_to_id(data.get('job_position', None))
+        data['job_from_date'] = convert_date(data.get('job_from_date', None), '%m.%Y')
+        data['job_to_date'] = convert_date(data.get('job_to_date', None), '%m.%Y')
         super().__init__(data=data, **kwargs)
 
 
@@ -30,27 +32,16 @@ class StudentProfileFormStep3DateRange(forms.Form):
 def process_job_option_form(profile, data):
     errors = {}
 
-    # convert fromDate / toDate
-    try:
-        data = convert_date(data, 'job_from_date', '%m.%Y')
-    except FormException as exception:
-        errors.update(exception.errors)
-
     job_option = JobOption.objects.get(pk=profile.job_option.id)
 
     # we need different forms for different option types
     #
-    # JobOptionTypeChoices.DATE_RANGE:
+    # JobOptionMode.DATE_RANGE:
     # we need two valid dates and a valid date range (both dates are required)
     #
-    # JobOptionTypeChoices.DATE_FROM:
+    # JobOptionMode.DATE_FROM:
     # we need one valid date and need to reset the second date (only one date is required)
     if job_option.mode == JobOptionMode.DATE_RANGE:
-        try:
-            data = convert_date(data, 'job_to_date', '%m.%Y')
-        except FormException as exception:
-            errors.update(exception.errors)
-
         form = StudentProfileFormStep3DateRange(data)
         form.full_clean()
         if form.is_valid():
@@ -89,7 +80,9 @@ def process_student_form_step_3(user, data):
     errors = {}
 
     # validate user type, step and data
-    validate_user_type_step_and_data(user, data, 3)
+    validate_user_type(user)
+    validate_step(user, 3)
+    validate_form_data(data)
 
     profile = user.student
     form = StudentProfileFormStep3(data)

@@ -3,11 +3,15 @@ from django.conf import settings
 from django.core.validators import RegexValidator
 
 from db.exceptions import FormException
-from db.helper import validate_user_type_step_and_data
-from db.helper.forms import convert_date
+from db.helper.forms import convert_date, validate_user_type, validate_step, validate_form_data
 
 
 class StudentProfileFormStep1(forms.Form):
+
+    def __init__(self, data=None, **kwargs):
+        data['date_of_birth'] = convert_date(data.get('date_of_birth', None))
+        super().__init__(data=data, **kwargs)
+
     first_name = forms.CharField(max_length=150, required=True)
     last_name = forms.CharField(max_length=150, required=True)
     street = forms.CharField(max_length=255, required=False)
@@ -19,15 +23,11 @@ class StudentProfileFormStep1(forms.Form):
 
 def process_student_form_step_1(user, data):
     # validate user type, step and data
-    validate_user_type_step_and_data(user, data, 1)
+    validate_user_type(user)
+    validate_step(user, 1)
+    validate_form_data(data)
 
     errors = {}
-
-    # convert date of birth to date
-    try:
-        data = convert_date(data, 'date_of_birth')
-    except FormException as exception:
-        errors.update(exception.errors)
 
     profile = user.student
 

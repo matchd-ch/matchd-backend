@@ -3,8 +3,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
 
 from db.exceptions import FormException
-from db.models import UserType
-from db.validators import StudentProfileFormStepValidator
+from db.validators import StudentProfileFormStepValidator, StudentTypeValidator
 
 
 def generic_error_dict(key, message, code):
@@ -23,46 +22,44 @@ def validation_error_to_dict(error, key):
 
 
 # due to a bug with ModelChoiceField and graphene_django objects needs to be converted to ids
-def convert_objects_to_id(data, key, pk_field='id'):
-    # convert job option input to integer
-    if key in data and data.get(key) is not None and data.get(key).get(pk_field, None) is not None:
-        job_option = data.get(key).get(pk_field)
-        data[key] = job_option
-    else:
-        data[key] = None
-    return data
+def convert_object_to_id(obj, id_field='id'):
+    if obj is None:
+        return None
+    return obj.get(id_field, None)
 
 
 # noinspection PyBroadException
-def convert_date(data, key, date_format='%d.%m.%Y', required=True):
+def convert_date(date, date_format='%d.%m.%Y'):
+    if date is None:
+        return None
+
+    try:
+        date = datetime.strptime(date, date_format).date()
+        return date
+    except ValueError:
+        pass
+    except Exception:
+        pass
+
+    return date
+
+
+def validate_user_type(user):
     errors = {}
 
-    if data.get(key) is None:
-        if required:
-            errors.update(generic_error_dict(key, _('This field is required.'), 'required'))
-        else:
-            return data
-    else:
-        try:
-            date = datetime.strptime(data.get(key), date_format).date()
-            data[key] = date
-        except ValueError as error:
-            errors.update(generic_error_dict(key, str(error), 'invalid'))
-        except Exception:
-            errors.update(generic_error_dict(key, _('Invalid date.'), 'invalid'))
+    # validate user type
+    validator = StudentTypeValidator()
+    try:
+        validator.validate(user.type)
+    except ValidationError as error:
+        errors.update(validation_error_to_dict(error, 'type'))
 
     if errors:
         raise FormException(errors)
 
-    return data
 
-
-def validate_user_type_step_and_data(user, data, step):
+def validate_step(user, step):
     errors = {}
-
-    # validate user type
-    if user.type not in UserType.valid_student_types():
-        errors.update(generic_error_dict('type', _('You are not a student'), 'invalid_type'))
 
     # validate step
     step_validator = StudentProfileFormStepValidator(step)
@@ -70,6 +67,13 @@ def validate_user_type_step_and_data(user, data, step):
         step_validator.validate(user)
     except ValidationError as error:
         errors.update(validation_error_to_dict(error, 'profile_step'))
+
+    if errors:
+        raise FormException(errors)
+
+
+def validate_form_data(data):
+    errors = {}
 
     # validate profile data
     if data is None:
