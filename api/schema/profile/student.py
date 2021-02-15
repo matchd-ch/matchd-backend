@@ -120,13 +120,14 @@ class StudentProfileStep4(Output, graphene.Mutation):
             form.save()
         for form in valid_languages_forms:
             form.save()
-        # user.save()
-        # profile.save()
+
         profile.skills.set(skills_to_save)
 
         # update step only if the user has step 4
         if user.profile_step == 4:
             user.profile_step = 5
+
+        profile.save()
         return StudentProfileStep4(success=True, errors=None)
 
 
