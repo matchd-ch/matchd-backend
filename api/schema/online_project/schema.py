@@ -8,6 +8,7 @@ from db.models import OnlineProject
 class OnlineProjectType(DjangoObjectType):
     class Meta:
         model = OnlineProject
+        fields = ('id', 'url',)
 
 
 class OnlineProjectQuery(ObjectType):

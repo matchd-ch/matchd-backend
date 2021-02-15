@@ -1,5 +1,6 @@
 import graphene
 
+from api.schema.distinction import DistinctionQuery
 from api.schema.hobby import HobbyQuery
 from api.schema.language import LanguageQuery
 from api.schema.auth import AuthMutation, LogoutMutation, VerifyPasswordResetToken
@@ -21,7 +22,8 @@ class Mutation(
     pass
 
 
-class Query(VerifyPasswordResetToken, UserQuery, SkillQuery, LanguageQuery, LanguageLevelQuery, HobbyQuery):
+class Query(VerifyPasswordResetToken, UserQuery, SkillQuery, LanguageQuery, LanguageLevelQuery, HobbyQuery,
+            DistinctionQuery):
     pass
 
 

@@ -8,6 +8,7 @@ from db.models import Distinction
 class DistinctionType(DjangoObjectType):
     class Meta:
         model = Distinction
+        fields = ('id', 'text',)
 
 
 class DistinctionQuery(ObjectType):

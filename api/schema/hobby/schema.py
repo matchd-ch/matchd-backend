@@ -8,6 +8,7 @@ from db.models import Hobby
 class HobbyType(DjangoObjectType):
     class Meta:
         model = Hobby
+        fields = ('id', 'name',)
 
 
 class HobbyQuery(ObjectType):

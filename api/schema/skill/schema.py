@@ -8,6 +8,7 @@ from db.models import Skill
 class SkillType(DjangoObjectType):
     class Meta:
         model = Skill
+        fields = ('id', 'name',)
 
 
 class SkillQuery(ObjectType):
