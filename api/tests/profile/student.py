@@ -148,7 +148,6 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         response = self.query(query, variables=variables)
         self.assertResponseNoErrors(response)
         content = json.loads(response.content)
-        print(content)
         if success:
             self.assertTrue(content['data'].get('studentProfileStep4').get('success'))
             self.assertIsNone(content['data'].get('studentProfileStep4').get('errors'))
