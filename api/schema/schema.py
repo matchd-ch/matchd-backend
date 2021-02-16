@@ -26,12 +26,12 @@ class Mutation(
 class Query(
     VerifyPasswordResetToken,
     UserQuery,
-    SkillQuery,
     LanguageQuery,
     LanguageLevelQuery,
     ZipCityQuery,
     JobOptionQuery,
-    JobPositionQuery
+    JobPositionQuery,
+    SkillQuery
 ):
     pass
 

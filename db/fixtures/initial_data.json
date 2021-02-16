@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
         "password": "pbkdf2_sha256$216000$zm5hbNyUj2u1$XOHZkfILbONSDhLZDu7q9RP/ZPN1yNlY5HRsxM5hk6o=",
-        "last_login": "2021-02-02T11:57:45.327Z",
+        "last_login": "2021-02-15T13:50:19.249Z",
         "is_superuser": true,
         "username": "admin",
         "email": "admin@example.com",
@@ -146,7 +146,8 @@
         "job_option": null,
         "job_from_date": null,
         "job_to_date": null,
-        "job_position": null
+        "job_position": null,
+        "skills": []
     }
 },
 {
@@ -166,7 +167,8 @@
         "job_option": null,
         "job_from_date": null,
         "job_to_date": null,
-        "job_position": null
+        "job_position": null,
+        "skills": []
     }
 },
 {
@@ -214,76 +216,6 @@
     "pk": 3,
     "fields": {
         "name": "python"
-    }
-},
-{
-    "model": "db.language",
-    "pk": 2,
-    "fields": {
-        "name": "Deutsch"
-    }
-},
-{
-    "model": "db.language",
-    "pk": 3,
-    "fields": {
-        "name": "Englisch"
-    }
-},
-{
-    "model": "db.language",
-    "pk": 4,
-    "fields": {
-        "name": "Italienisch"
-    }
-},
-{
-    "model": "db.languagelevel",
-    "pk": 2,
-    "fields": {
-        "name": "A1 - Anfänger"
-    }
-},
-{
-    "model": "db.languagelevel",
-    "pk": 3,
-    "fields": {
-        "name": "A2 - Grundkenntnis"
-    }
-},
-{
-    "model": "db.languagelevel",
-    "pk": 4,
-    "fields": {
-        "name": "B1 - Fortgeschrittene Sprachverwendung"
-    }
-},
-{
-    "model": "db.languagelevel",
-    "pk": 5,
-    "fields": {
-        "name": "B2 - Selbständige Sprachverwendung"
-    }
-},
-{
-    "model": "db.languagelevel",
-    "pk": 6,
-    "fields": {
-        "name": "C1 - Fachkundige Sprachbeherrschung"
-    }
-},
-{
-    "model": "db.languagelevel",
-    "pk": 7,
-    "fields": {
-        "name": "C2 - Beherrschen der Sprache"
-    }
-},
-{
-    "model": "db.languagelevel",
-    "pk": 8,
-    "fields": {
-        "name": "Muttersprache"
     }
 },
 {
@@ -1565,6 +1497,62 @@
     "pk": 183,
     "fields": {
         "name": "Zulu"
+    }
+},
+{
+    "model": "db.languagelevel",
+    "pk": 2,
+    "fields": {
+        "level": "A1",
+        "description": "Anfänger"
+    }
+},
+{
+    "model": "db.languagelevel",
+    "pk": 3,
+    "fields": {
+        "level": "A2",
+        "description": "Grundkenntnis"
+    }
+},
+{
+    "model": "db.languagelevel",
+    "pk": 4,
+    "fields": {
+        "level": "B1",
+        "description": "Fortgeschrittene Sprachverwendung"
+    }
+},
+{
+    "model": "db.languagelevel",
+    "pk": 5,
+    "fields": {
+        "level": "B2",
+        "description": "Selbständige Sprachverwendung"
+    }
+},
+{
+    "model": "db.languagelevel",
+    "pk": 6,
+    "fields": {
+        "level": "C1",
+        "description": "Fachkundige Sprachbeherrschung"
+    }
+},
+{
+    "model": "db.languagelevel",
+    "pk": 7,
+    "fields": {
+        "level": "C2",
+        "description": "Beherrschen der Sprache"
+    }
+},
+{
+    "model": "db.languagelevel",
+    "pk": 8,
+    "fields": {
+        "level": "Muttersprache",
+        "description": null
     }
 },
 {

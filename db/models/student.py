@@ -19,3 +19,4 @@ class Student(models.Model):
     job_from_date = models.DateField(null=True, blank=True)
     job_to_date = models.DateField(null=True, blank=True)
     job_position = models.ForeignKey('db.JobPosition', blank=True, null=True, on_delete=models.DO_NOTHING)
+    skills = models.ManyToManyField('db.Skill', related_name='skills')

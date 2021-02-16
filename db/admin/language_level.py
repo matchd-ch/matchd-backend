@@ -10,8 +10,8 @@ class LanguageLevelAdmin(ModelAdmin):
     menu_icon = 'folder-open-inverse'
     add_to_settings_menu = False
     exclude_from_explorer = False
-    list_display = ('name',)
-    search_fields = ('name',)
+    list_display = ('level',)
+    search_fields = ('level', 'description', )
 
 
 modeladmin_register(LanguageLevelAdmin)

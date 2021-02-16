@@ -8,6 +8,7 @@ from db.models import Language
 class LanguageType(DjangoObjectType):
     class Meta:
         model = Language
+        fields = ('id', 'name',)
 
 
 class LanguageQuery(ObjectType):
