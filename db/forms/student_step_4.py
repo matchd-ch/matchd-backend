@@ -65,9 +65,10 @@ def process_online_project(profile, data):
     form = OnlineProjectForm(data)
     form.full_clean()
     if form.is_valid():
+        cleaned_data = form.cleaned_data
         # OnlineProject Model fields (url and user) can't be unique together because url is too long
         # This is why we do a manual check
-        if not OnlineProject.objects.filter(url=data['url'], student=profile).exists():
+        if not OnlineProject.objects.filter(url=cleaned_data['url'], student=profile).exists():
             return form
     else:
         raise FormException(errors=form.errors.get_json_data())
