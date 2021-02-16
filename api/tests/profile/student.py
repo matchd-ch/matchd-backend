@@ -102,6 +102,14 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         }
     }
 
+    variables_step_4_distinction_duplicated = {
+        "step4": {
+            "skills": [{"id": 1}],
+            "distinctions": [{"id": 1}, {"text": "valid Text"}],
+            "languages": [{"language": 1, "languageLevel": 1}]
+        }
+    }
+
     variables_step_4_online_projects = {
         "step4": {
             "skills": [{"id": 1}],
@@ -249,14 +257,13 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         self.assertEqual(profile.languages.all()[1].language_level.level, 'A2')
         self.assertEqual(profile.languages.count(), 2)
 
-
     def test_profile_step_4_valid_online_projects(self):
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_online_projects)
         user = get_user_model().objects.get(pk=self.student.pk)
 
         profile = user.student
-        self.assertEqual(profile.onlineProjects.all()[0].url, 'http://google.com')
-        self.assertEqual(profile.onlineProjects.all().count(), 1)
+        self.assertEqual(profile.online_projects.all()[0].url, 'http://google.com')
+        self.assertEqual(profile.online_projects.all().count(), 1)
 
     def test_profile_step_4_invalid_online_projects(self):
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_online_projects_invalid, False)
@@ -280,6 +287,16 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         self.assertEqual(profile.hobbies.all()[0].name, 'TV')
         self.assertEqual(profile.hobbies.all().count(), 1)
 
+    def test_profile_step_4_valid_duplicated_distinctions(self):
+        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_distinction)
+        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_distinction_duplicated)
+
+        user = get_user_model().objects.get(pk=self.student.pk)
+
+        profile = user.student
+        self.assertEqual(profile.distinctions.all()[0].text, 'valid Text')
+        self.assertEqual(profile.distinctions.all().count(), 1)
+
     def test_profile_step_4_valid_duplicated_online_projects(self):
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_online_projects)
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_online_projects_duplicated)
@@ -287,5 +304,38 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         user = get_user_model().objects.get(pk=self.student.pk)
 
         profile = user.student
-        self.assertEqual(profile.onlineProjects.all()[0].url, 'http://google.com')
-        self.assertEqual(profile.onlineProjects.all().count(), 1)
+        self.assertEqual(profile.online_projects.all()[0].url, 'http://google.com')
+        self.assertEqual(profile.online_projects.all().count(), 1)
+
+    def test_profile_step_4_valid_base_but_not_logged_in(self):
+        response = self.query(self.query_step_4, variables=self.variables_step_4_base)
+        self.assertResponseHasErrors(response)
+        user = get_user_model().objects.get(pk=self.student.pk)
+
+        profile = user.student
+        self.assertEqual(profile.skills.all().count(), 0)
+        self.assertEqual(profile.languages.all().count(), 0)
+
+    def test_profile_step_4_valid_hobbies_but_not_logged_in(self):
+        response = self.query(self.query_step_4, variables=self.variables_step_4_hobbies)
+        self.assertResponseHasErrors(response)
+        user = get_user_model().objects.get(pk=self.student.pk)
+
+        profile = user.student
+        self.assertEqual(profile.hobbies.all().count(), 0)
+
+    def test_profile_step_4_valid_distinctions_but_not_logged_in(self):
+        response = self.query(self.query_step_4, variables=self.variables_step_4_distinction)
+        self.assertResponseHasErrors(response)
+        user = get_user_model().objects.get(pk=self.student.pk)
+
+        profile = user.student
+        self.assertEqual(profile.distinctions.all().count(), 0)
+
+    def test_profile_step_4_valid_online_projects_but_not_logged_in(self):
+        response = self.query(self.query_step_4, variables=self.variables_step_4_online_projects)
+        self.assertResponseHasErrors(response)
+        user = get_user_model().objects.get(pk=self.student.pk)
+
+        profile = user.student
+        self.assertEqual(profile.online_projects.all().count(), 0)
