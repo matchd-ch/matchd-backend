@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from graphene_django.utils import GraphQLTestCase
 from graphql_auth.models import UserStatus
 from api.schema import schema
-from db.models import Student, Skill, Language, LanguageLevel
+from db.models import Student, Skill, Language, LanguageLevel, Distinction
 
 
 class StudentGraphQLTestCase(GraphQLTestCase):
@@ -128,7 +128,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     variables_step_4_online_projects_duplicated = {
         "step4": {
             "skills": [{"id": 1}],
-            "onlineProjects": [{"id": 1},{"url": "google.com"}],
+            "onlineProjects": [{"id": 1}, {"url": "google.com"}],
             "languages": [{"language": 1, "languageLevel": 1}]
         }
     }
@@ -288,7 +288,11 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         self.assertEqual(profile.hobbies.all().count(), 1)
 
     def test_profile_step_4_valid_duplicated_distinctions(self):
-        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_distinction)
+        Distinction.objects.create(
+            id=1,
+            text='valid Text',
+            student=self.student.student
+        )
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_distinction_duplicated)
 
         user = get_user_model().objects.get(pk=self.student.pk)
