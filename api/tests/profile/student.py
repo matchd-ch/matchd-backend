@@ -266,7 +266,8 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         self.assertEqual(profile.online_projects.all().count(), 1)
 
     def test_profile_step_4_invalid_online_projects(self):
-        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_online_projects_invalid, False)
+        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_online_projects_invalid,
+                                                 False)
 
     def test_profile_step_4_valid_duplicated_languages(self):
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_duplicated_language)
