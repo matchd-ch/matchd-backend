@@ -8,6 +8,7 @@ from db.models import LanguageLevel
 class LevelType(DjangoObjectType):
     class Meta:
         model = LanguageLevel
+        fields = ('id', 'level', 'description',)
 
 
 class LanguageLevelQuery(ObjectType):

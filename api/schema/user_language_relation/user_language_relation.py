@@ -7,6 +7,7 @@ from db.models import UserLanguageRelation
 class UserLanguageRelationType(DjangoObjectType):
     class Meta:
         model = UserLanguageRelation
+        fields = ('id', 'language', 'language_level',)
 
 
 class UserLanguageRelationInputType(graphene.InputObjectType):
