@@ -254,26 +254,54 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         response = self.query(
             '''
             query {
-              me {
-                username,
-                verified,
-                firstName,
-                lastName,
-                profileStep,
-                state
-                type
-                student {
-                    mobile
-                    zip
-                    street
-                    city
-                    dateOfBirth
-                    nickname
-                    schoolName
-                    fieldOfStudy
-                    graduation
+                me {
+                    username
+                    verified
+                    firstName
+                    lastName
+                    profileStep
+                    state
+                    type
+                    student {
+                      mobile
+                      zip
+                      street
+                      city
+                      dateOfBirth
+                      nickname
+                      schoolName
+                      fieldOfStudy
+                      graduation
+                      skills {
+                        id
+                        name
+                      }
+                      hobbies {
+                        id
+                        name
+                      }
+                      distinctions {
+                        id
+                        text
+                      }
+                      languages {
+                        id
+                        language {
+                          id
+                          name
+                        }
+                        languageLevel {
+                          id
+                          level
+                          description
+                        }
+                      }
+                      onlineProjects{
+                        id
+                        url
+                      }
+                    }
                 }
-              }
             }
             '''
         )
