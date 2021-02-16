@@ -19,5 +19,5 @@ class JobPositionQuery(ObjectType):
 
 
 class JobPositionInputType(graphene.InputObjectType):
-    id = graphene.Int(required=True)
+    id = graphene.ID(required=True)
     name = graphene.String(required=False)

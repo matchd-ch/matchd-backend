@@ -19,6 +19,6 @@ class JobOptionQuery(ObjectType):
 
 
 class JobOptionInputType(graphene.InputObjectType):
-    id = graphene.Int(required=True)
+    id = graphene.ID(required=True)
     name = graphene.String(required=False)
     mode = graphene.String(required=False)

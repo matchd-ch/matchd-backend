@@ -81,3 +81,11 @@ def validate_form_data(data):
 
     if errors:
         raise FormException(errors)
+
+
+def silent_fail(errors):
+    if '__all__' in errors:
+        if len(errors['__all__']) == 1 and 'code' in errors['__all__'][0]:
+            if errors['__all__'][0]['code'] == 'unique_together':
+                return True
+    return False
