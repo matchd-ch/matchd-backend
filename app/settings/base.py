@@ -26,6 +26,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Application definition
 
 INSTALLED_APPS = [
+    'db.apps.DbConfig',
     'wagtailfontawesome',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
@@ -54,7 +55,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'db.apps.DbConfig',
     'api.apps.ApiConfig'
 ]
 
@@ -280,3 +280,7 @@ GRAPHQL_AUTH = {
 }
 
 CSRF_COOKIE_DOMAIN = os.getenv('APP_CSRF_COOKIE_DOMAIN', None)
+
+MOBILE_REGEX = r'\+[0-9]{11}'
+
+ZIP_CITY_DATA_SOURCE = os.path.join(BASE_DIR, 'api', 'data', 'data.json')
