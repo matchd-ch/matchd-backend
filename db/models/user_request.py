@@ -37,4 +37,5 @@ class UserRequest(models.Model):
             html_message=html_body
         )
 
+
 post_save.connect(UserRequest.post_save, UserRequest, dispatch_uid='db.models.UserRequest')
