@@ -2,16 +2,16 @@ from django import forms
 
 from db.exceptions import FormException
 from db.forms.hobby import HobbyForm
-from db.forms.distinction import DistinctionForm
 from db.forms.online_project import OnlineProjectForm
 from db.forms.user_language_relation import UserLanguageRelationForm
 
 from db.helper import validate_user_type, validate_step, validate_form_data, silent_fail
-from db.models import Skill, OnlineProject, Hobby, Distinction, UserLanguageRelation
+from db.models import Skill, OnlineProject, Hobby, UserLanguageRelation
 
 
 class StudentProfileFormStep4(forms.Form):
     skills = forms.ModelMultipleChoiceField(queryset=Skill.objects.all(), required=True)
+    distinction = forms.CharField(max_length=1000,required=False)
 
 
 def process_hobby(data):
@@ -34,28 +34,6 @@ def get_hobbies_to_delete(profile, data):
             if 'id' in hobby:
                 exclude_ids.append(hobby.get('id'))
     return Hobby.objects.filter(student=profile).exclude(id__in=exclude_ids)
-
-
-def process_distinction(data):
-    if 'id' in data:
-        return None
-    form = DistinctionForm(data)
-    form.full_clean()
-    if form.is_valid():
-        return form
-    errors = form.errors.get_json_data()
-    if not silent_fail(errors):
-        raise FormException(errors=errors)
-    return None
-
-
-def get_distinctions_to_delete(profile, data):
-    exclude_ids = []
-    if data is not None:
-        for distinction in data:
-            if 'id' in distinction:
-                exclude_ids.append(distinction.get('id'))
-    return Distinction.objects.filter(student=profile).exclude(id__in=exclude_ids)
 
 
 def process_online_project(profile, data):
@@ -147,11 +125,13 @@ def process_student_form_step_4(user, data):
     profile_form = StudentProfileFormStep4(data)
     profile_form.full_clean()
     skills_to_save = None
+    distinction_to_save = None
 
     if profile_form.is_valid():
         # update user / profile
         profile_data_for_update = profile_form.cleaned_data
         skills_to_save = profile_data_for_update.get('skills')
+        distinction_to_save = profile_data_for_update.get('distinction')
     else:
         errors.update(profile_form.errors.get_json_data())
 
@@ -164,18 +144,6 @@ def process_student_form_step_4(user, data):
             hobby['student'] = profile.id
             try:
                 valid_hobby_forms.append(process_hobby(hobby))
-            except FormException as exception:
-                errors.update(exception.errors)
-
-    # validate distinctions
-    distinctions = data.get('distinctions', None)
-    distinctions_to_delete = get_distinctions_to_delete(profile, distinctions)
-    valid_distinction_forms = []
-    if distinctions is not None:
-        for distinction in distinctions:
-            distinction['student'] = profile.id
-            try:
-                valid_distinction_forms.append(process_distinction(distinction))
             except FormException as exception:
                 errors.update(exception.errors)
 
@@ -208,18 +176,18 @@ def process_student_form_step_4(user, data):
         raise FormException(errors=errors)
 
     hobbies_to_delete.delete()
-    distinctions_to_delete.delete()
     online_projects_to_delete.delete()
     languages_to_delete.delete()
 
     # save all valid forms
-    valid_forms = valid_hobby_forms + valid_distinction_forms + valid_online_project_forms + valid_languages_forms
+    valid_forms = valid_hobby_forms + valid_online_project_forms + valid_languages_forms
     valid_forms = [form for form in valid_forms if form]
 
     for form in valid_forms:
         form.save()
 
     profile.skills.set(skills_to_save)
+    profile.distinction.set(distinction_to_save)
 
     # update step only if the user has step 4
     if user.profile_step == 4:

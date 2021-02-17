@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from graphene_django.utils import GraphQLTestCase
 from graphql_auth.models import UserStatus
 from api.schema import schema
-from db.models import Student, Skill, Language, LanguageLevel, Distinction
+from db.models import Student, Skill, Language, LanguageLevel
 
 
 class StudentGraphQLTestCase(GraphQLTestCase):

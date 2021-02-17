@@ -280,10 +280,6 @@ class StudentGraphQLTestCase(GraphQLTestCase):
                         id
                         name
                       }
-                      distinctions {
-                        id
-                        text
-                      }
                       languages {
                         id
                         language {
