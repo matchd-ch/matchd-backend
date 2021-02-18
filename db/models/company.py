@@ -1,5 +1,6 @@
 from django.core.validators import RegexValidator
 from django.db import models
+from django.conf import settings
 
 
 class Company(models.Model):
@@ -8,3 +9,5 @@ class Company(models.Model):
     name = models.CharField(max_length=255, blank=False)
     zip = models.CharField(max_length=10, blank=False)
     city = models.CharField(max_length=255, blank=False)
+    phone = models.CharField(max_length=12, blank=True, validators=[RegexValidator(regex=settings.MOBILE_REGEX)])
+
