@@ -13,7 +13,7 @@ class Student(DjangoObjectType):
     class Meta:
         model = StudentModel
         fields = ['mobile', 'street', 'zip', 'city', 'date_of_birth', 'nickname', 'school_name', 'field_of_study',
-                  'graduation', 'skills', 'hobbies', 'languages', 'distinctions', 'online_projects']
+                  'graduation', 'skills', 'hobbies', 'languages', 'distinction', 'online_projects']
 
 
 class UserWithProfileNode(UserNode):
