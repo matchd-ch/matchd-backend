@@ -224,6 +224,14 @@ WAGTAILDOCS_DOCUMENT_MODEL = 'db.File'
 WAGTAILMEDIA_MEDIA_MODEL = 'db.Video'
 WAGTAILIMAGES_IMAGE_MODEL = 'db.Image'
 
+# Image Stacks
+IMAGE_STACKS = {
+    'desktop': 'fill-800x600',
+    'mobile': 'fill-640x480',
+    'desktop-square': 'fill-400x400',
+    'mobile-square': 'fill-200x200',
+}
+
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
