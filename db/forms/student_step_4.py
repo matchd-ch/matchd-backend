@@ -125,13 +125,12 @@ def process_student_form_step_4(user, data):
     profile_form = StudentProfileFormStep4(data)
     profile_form.full_clean()
     skills_to_save = None
-    distinction_to_save = None
 
     if profile_form.is_valid():
         # update user / profile
         profile_data_for_update = profile_form.cleaned_data
         skills_to_save = profile_data_for_update.get('skills')
-        distinction_to_save = profile_data_for_update.get('distinction')
+        profile.distinction = profile_data_for_update.get('distinction')
     else:
         errors.update(profile_form.errors.get_json_data())
 
@@ -187,7 +186,6 @@ def process_student_form_step_4(user, data):
         form.save()
 
     profile.skills.set(skills_to_save)
-    profile.distinction.set(distinction_to_save)
 
     # update step only if the user has step 4
     if user.profile_step == 4:
@@ -195,3 +193,4 @@ def process_student_form_step_4(user, data):
 
     # save user
     user.save()
+    profile.save()
