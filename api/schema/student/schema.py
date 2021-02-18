@@ -102,7 +102,7 @@ class StudentProfileInputStep4(graphene.InputObjectType):
     hobbies = graphene.List(HobbyInputType, description=_('Hobbies'), required=False)
     online_projects = graphene.List(OnlineProjectInputType, description=_('Online_Projects'), required=False)
     languages = graphene.List(UserLanguageRelationInputType, description=_('Languages'), required=True)
-    distinction = graphene.List(description=_('Distinction'), required=False)
+    distinction = graphene.String(description=_('Distinction'), required=False)
 
 
 class StudentProfileStep4(Output, graphene.Mutation):
