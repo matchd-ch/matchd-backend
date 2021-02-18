@@ -12,6 +12,7 @@ from db.models import Image, Attachment, UserType
 class UserUpload(Output, graphene.Mutation):
     class Arguments:
         file = Upload()
+        key = graphene.String()
 
     @classmethod
     @login_required
@@ -28,7 +29,7 @@ class UserUpload(Output, graphene.Mutation):
             object_id=user.student.id,
             attachment_type=ContentType.objects.get(app_label='db', model='image'),
             attachment_id=image.id,
-            key='test'
+            key=kwargs.get('key')
         )
 
         return UserUpload(success=True, errors=None)
