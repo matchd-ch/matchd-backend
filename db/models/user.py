@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractUser
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext as _
@@ -27,6 +28,12 @@ class UserType(models.TextChoices):
             cls.COMPANY,
             cls.UNIVERSITY
         ]
+
+    @classmethod
+    def content_type_for_user(cls, user):
+        if user.type in UserType.valid_student_types():
+            return ContentType.objects.get(app_label='db', model='student')
+        return None
 
 
 class UserState(models.TextChoices):
