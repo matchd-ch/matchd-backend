@@ -325,4 +325,3 @@ class StudentGraphQLTestCase(GraphQLTestCase):
 
         profile = user.student
         self.assertEqual(profile.distinction, 'updated Text')
-
