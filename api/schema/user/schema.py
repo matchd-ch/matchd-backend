@@ -5,7 +5,7 @@ from graphql_auth.schema import UserNode
 from graphql_auth.settings import graphql_auth_settings
 from graphql_jwt.decorators import login_required
 
-from db.models import Student as StudentModel
+from db.models import Student as StudentModel, Company as CompanyModel
 
 
 class Student(DjangoObjectType):
@@ -16,9 +16,19 @@ class Student(DjangoObjectType):
                   'graduation', 'skills', 'hobbies', 'languages', 'distinctions', 'online_projects']
 
 
+class Company(DjangoObjectType):
+
+    class Meta:
+        model = CompanyModel
+        fields = ['uid', 'name', 'zip', 'city', 'phone']
+
+
 class UserWithProfileNode(UserNode):
     student = graphene.Field(
         Student
+    )
+    company = graphene.Field(
+        Company
     )
 
     class Meta:
