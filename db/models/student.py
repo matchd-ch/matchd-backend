@@ -20,4 +20,4 @@ class Student(models.Model):
     job_to_date = models.DateField(null=True, blank=True)
     job_position = models.ForeignKey('db.JobPosition', blank=True, null=True, on_delete=models.DO_NOTHING)
     skills = models.ManyToManyField('db.Skill', related_name='skills')
-    distinction = models.CharField(max_length=1000, blank=True)
+    distinction = models.TextField(max_length=1000, blank=True)
