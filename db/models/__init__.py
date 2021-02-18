@@ -12,3 +12,6 @@ from .distinction import Distinction
 from .job_option import JobOption, JobOptionMode
 from .job_position import JobPosition
 from .user_language_relation import UserLanguageRelation
+from .image import Image, CustomRendition
+from .video import Video
+from .file import File

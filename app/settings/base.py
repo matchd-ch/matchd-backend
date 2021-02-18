@@ -28,6 +28,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 INSTALLED_APPS = [
     'db.apps.DbConfig',
     'wagtailfontawesome',
+    'wagtailmedia',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.contrib.modeladmin',
@@ -218,6 +219,10 @@ WAGTAILSEARCH_BACKENDS = {
         'INDEX_SETTINGS': {}
     }
 }
+
+WAGTAILDOCS_DOCUMENT_MODEL = 'db.File'
+WAGTAILMEDIA_MEDIA_MODEL = 'db.Video'
+WAGTAILIMAGES_IMAGE_MODEL = 'db.Image'
 
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
