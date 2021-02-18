@@ -1,7 +1,7 @@
-from graphene_django.views import GraphQLView as BaseGraphQLView
+from graphene_file_upload.django import FileUploadGraphQLView
 
 
-class GraphQLView(BaseGraphQLView):
+class GraphQLView(FileUploadGraphQLView):
     def dispatch(self, request, *args, **kwargs):
         response = super().dispatch(request, *args, **kwargs)
         response = self._delete_cookies_on_response_if_needed(request, response)
