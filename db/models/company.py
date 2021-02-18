@@ -10,4 +10,4 @@ class Company(models.Model):
     zip = models.CharField(max_length=10, blank=False)
     city = models.CharField(max_length=255, blank=False)
     phone = models.CharField(max_length=12, blank=True, validators=[RegexValidator(regex=settings.MOBILE_REGEX)])
-
+    position = models.CharField(max_length=255, blank=True)

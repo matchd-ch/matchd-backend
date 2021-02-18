@@ -20,7 +20,7 @@ class Company(DjangoObjectType):
 
     class Meta:
         model = CompanyModel
-        fields = ['uid', 'name', 'zip', 'city', 'phone']
+        fields = ['uid', 'name', 'zip', 'city', 'phone', 'position']
 
 
 class UserWithProfileNode(UserNode):
