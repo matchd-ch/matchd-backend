@@ -272,6 +272,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
                       schoolName
                       fieldOfStudy
                       graduation
+                      distinction
                       skills {
                         id
                         name

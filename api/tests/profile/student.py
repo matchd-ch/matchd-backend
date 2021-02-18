@@ -89,23 +89,14 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     variables_step_4_distinction = {
         "step4": {
             "skills": [{"id": 1}],
-            "distinctions": [{"text": "valid Text"}],
+            "distinction": "valid Text",
             "languages": [{"language": 1, "languageLevel": 1}]
         }
     }
-
-    variables_step_4_distinction_invalid = {
+    variables_step_4_distinction_update = {
         "step4": {
             "skills": [{"id": 1}],
-            "distinctions": [{"text": ""}],
-            "languages": [{"language": 1, "languageLevel": 1}]
-        }
-    }
-
-    variables_step_4_distinction_duplicated = {
-        "step4": {
-            "skills": [{"id": 1}],
-            "distinctions": [{"id": 1}, {"text": "valid Text"}],
+            "distinction": "updated Text",
             "languages": [{"language": 1, "languageLevel": 1}]
         }
     }
@@ -237,11 +228,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         user = get_user_model().objects.get(pk=self.student.pk)
 
         profile = user.student
-        self.assertEqual(profile.distinctions.all()[0].text, 'valid Text')
-        self.assertEqual(profile.distinctions.all().count(), 1)
-
-    def test_profile_step_4_invalid_distinction(self):
-        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_distinction_invalid, False)
+        self.assertEqual(profile.distinction, 'valid Text')
 
     def test_profile_step_4_invalid_languages(self):
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_language_invalid, False)
@@ -288,20 +275,6 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         self.assertEqual(profile.hobbies.all()[0].name, 'TV')
         self.assertEqual(profile.hobbies.all().count(), 1)
 
-    def test_profile_step_4_valid_duplicated_distinctions(self):
-        Distinction.objects.create(
-            id=1,
-            text='valid Text',
-            student=self.student.student
-        )
-        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_distinction_duplicated)
-
-        user = get_user_model().objects.get(pk=self.student.pk)
-
-        profile = user.student
-        self.assertEqual(profile.distinctions.all()[0].text, 'valid Text')
-        self.assertEqual(profile.distinctions.all().count(), 1)
-
     def test_profile_step_4_valid_duplicated_online_projects(self):
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_online_projects)
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_online_projects_duplicated)
@@ -329,13 +302,13 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         profile = user.student
         self.assertEqual(profile.hobbies.all().count(), 0)
 
-    def test_profile_step_4_valid_distinctions_but_not_logged_in(self):
+    def test_profile_step_4_valid_distinction_but_not_logged_in(self):
         response = self.query(self.query_step_4, variables=self.variables_step_4_distinction)
         self.assertResponseHasErrors(response)
         user = get_user_model().objects.get(pk=self.student.pk)
 
         profile = user.student
-        self.assertEqual(profile.distinctions.all().count(), 0)
+        self.assertEqual(profile.distinction, "")
 
     def test_profile_step_4_valid_online_projects_but_not_logged_in(self):
         response = self.query(self.query_step_4, variables=self.variables_step_4_online_projects)
@@ -344,3 +317,12 @@ class StudentGraphQLTestCase(GraphQLTestCase):
 
         profile = user.student
         self.assertEqual(profile.online_projects.all().count(), 0)
+
+    def test_profile_step_4_update_distinction(self):
+        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_distinction)
+        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_distinction_update)
+        user = get_user_model().objects.get(pk=self.student.pk)
+
+        profile = user.student
+        self.assertEqual(profile.distinction, 'updated Text')
+
