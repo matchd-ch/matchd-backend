@@ -16,6 +16,7 @@ class CompanyProfileFormStep1(forms.Form):
                           validators=[RegexValidator(regex=r'CHE-[0-9]{3}.[0-9]{3}.[0-9]{3}')])
     phone = forms.CharField(max_length=12, validators=[RegexValidator(regex=settings.MOBILE_REGEX)], required=True)
     email = forms.EmailField(max_length=255, required=True)
+    position = forms.CharField(max_length=255, required=True)
 
 
 def process_company_form_step_1(user, data):
@@ -35,6 +36,7 @@ def process_company_form_step_1(user, data):
         profile.zip = cleaned_data.get('zip')
         profile.city = cleaned_data.get('city')
         profile.phone = cleaned_data.get('phone')
+        profile.position = cleaned_data.get('position')
     else:
         errors.update(form.errors.get_json_data())
 
