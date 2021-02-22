@@ -1,8 +1,13 @@
 import graphene
 from django.utils.translation import gettext as _
+from graphql_auth.bases import Output
+from graphql_jwt.decorators import login_required
+
+from db.exceptions import FormException
+from db.forms.company_step_1 import process_company_form_step_1
 
 
-class StudentProfileInputStep1(graphene.InputObjectType):
+class CompanyProfileInputStep1(graphene.InputObjectType):
     first_name = graphene.String(description=_('First name'), required=True)
     last_name = graphene.String(description=_('Last name'), required=True)
     uid = graphene.String(description=_('Uid'), required=True)
@@ -11,3 +16,27 @@ class StudentProfileInputStep1(graphene.InputObjectType):
     city = graphene.String(description=_('City'), required=True)
     phone = graphene.String(description=_('Phone Number'))
     email = graphene.String(description=_('Email'), required=True)
+
+
+class CompanyProfileStep1(Output, graphene.Mutation):
+
+    class Arguments:
+        step1 = CompanyProfileInputStep1(description=_('Profile Input Step 1 is required.'), required=True)
+
+    class Meta:
+        description = _('Updates the profile of a Company')
+
+    @classmethod
+    @login_required
+    def mutate(cls, root, info, **data):
+        user = info.context.user
+        form_data = data.get('step1', None)
+        try:
+            process_company_form_step_1(user, form_data)
+        except FormException as exception:
+            return CompanyProfileStep1(success=False, errors=exception.errors)
+        return CompanyProfileStep1(success=True, errors=None)
+
+
+class CompanyProfileMutation(graphene.ObjectType):
+    company_profile_step1 = CompanyProfileStep1.Field()

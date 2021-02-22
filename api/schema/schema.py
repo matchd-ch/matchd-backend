@@ -1,5 +1,6 @@
 import graphene
 
+from api.schema.company import CompanyProfileMutation
 from api.schema.job_option import JobOptionQuery
 from api.schema.job_position import JobPositionQuery
 from api.schema.language import LanguageQuery
@@ -18,7 +19,8 @@ class Mutation(
     UserRequestMutation,
     AuthMutation,
     LogoutMutation,
-    StudentProfileMutation
+    StudentProfileMutation,
+    CompanyProfileMutation
 ):
     pass
 
