@@ -12,3 +12,4 @@ from .distinction import Distinction
 from .job_option import JobOption, JobOptionMode
 from .job_position import JobPosition
 from .user_language_relation import UserLanguageRelation
+from .branch import Branch
