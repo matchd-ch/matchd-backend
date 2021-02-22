@@ -19,11 +19,11 @@ class CompanyProfileFormStep1(forms.Form):
 
 
 def process_company_form_step_1(user, data):
-    validate_user_type(user)
+    validate_user_type(user, 'company')
     validate_step(user, 1)
     validate_form_data(data)
     errors = {}
-    profile = user.student
+    profile = user.company
     form = CompanyProfileFormStep1(data)
     form.full_clean()
     if form.is_valid():
