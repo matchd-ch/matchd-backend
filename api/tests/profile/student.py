@@ -341,7 +341,8 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         content = json.loads(response.content)
         self.assertFalse(content['data'].get('studentProfileStep4').get('success'))
         self.assertIsNotNone(content['data'].get('studentProfileStep4').get('errors'))
-        self.assertEqual(content['data'].get('studentProfileStep4').get('errors').get('distinction')[0].get('code'), 'max_length')
+        self.assertEqual(content['data'].get('studentProfileStep4').get('errors').get('distinction')[0].get('code'),
+                         'max_length')
 
         user = get_user_model().objects.get(pk=self.student.pk)
         profile = user.student
