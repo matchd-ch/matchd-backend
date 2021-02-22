@@ -256,7 +256,6 @@ class StudentGraphQLTestCase(GraphQLTestCase):
             query {
                 me {
                     username
-                    verified
                     firstName
                     lastName
                     profileStep
