@@ -338,7 +338,11 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         self._login()
         response = self.query(self.query_step_4, variables=self.variables_step_4_distinction_too_long_text)
         self.assertResponseNoErrors(response)
-        user = get_user_model().objects.get(pk=self.student.pk)
+        content = json.loads(response.content)
+        self.assertFalse(content['data'].get('studentProfileStep4').get('success'))
+        self.assertIsNotNone(content['data'].get('studentProfileStep4').get('errors'))
+        self.assertEqual(content['data'].get('studentProfileStep4').get('errors').get('distinction')[0].get('code'), 'max_length')
 
+        user = get_user_model().objects.get(pk=self.student.pk)
         profile = user.student
         self.assertEqual(profile.distinction, '')
