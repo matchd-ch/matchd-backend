@@ -3,6 +3,7 @@ from django.utils.translation import gettext as _
 from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 
+from api.schema.branch.schema import BranchInputType
 from db.exceptions import FormException
 from db.forms import process_company_form_step_2, process_student_form_step_3
 from db.forms.company_step_1 import process_company_form_step_1
@@ -42,7 +43,7 @@ class CompanyProfileStep1(Output, graphene.Mutation):
 
 class CompanyProfileInputStep2(graphene.InputObjectType):
     website = graphene.String(description=_('website'), required=True)
-    branch = graphene.String(description=_('branch'), required=False)
+    branch = graphene.Field(BranchInputType, description=_('branch'), required=False)
     description = graphene.String(description=_('description'), required=False)
     services = graphene.String(description=_('services'), required=False)
     member_it_st_gallen = graphene.String(description=_('memeber IT St. Gallen'), required=True)
