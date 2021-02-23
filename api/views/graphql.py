@@ -6,7 +6,8 @@ from graphene_file_upload.utils import place_files_in_operations
 
 def remove_multiple_uploads(file_map):
     keys_to_delete = list(file_map.keys())
-    keys_to_delete.remove('0')
+    keys_to_delete.sort()
+    keys_to_delete.pop(0)
     for key in keys_to_delete:
         del file_map[key]
     return file_map
