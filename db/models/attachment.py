@@ -123,13 +123,23 @@ upload_configurations = [
 ]
 
 
-def get_attachment_validator_map_for_key(key):
+def get_config_for_key(key):
     config = None
     for key_config in upload_configurations:
         if key_config.get('key', None) == key:
             config = key_config
             break
+    return config
+
+
+def get_attachment_validator_map_for_key(key):
+    config = get_config_for_key(key)
     return [
         (apps.get_model(content_type.get('model')), content_type.get('content_types'), content_type.get('max_size'))
         for content_type in config.get('content_types_configuration', [])
     ]
+
+
+def get_max_files_for_key(key):
+    config = get_config_for_key(key)
+    return config.get('max_files')

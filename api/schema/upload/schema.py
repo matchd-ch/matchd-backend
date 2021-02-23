@@ -10,10 +10,10 @@ from graphql_jwt.decorators import login_required
 from django.utils.translation import gettext as _
 
 from db.forms import AttachmentForm
-from db.helper import generic_error_dict, validate_upload, validation_error_to_dict, has_access_to_attachments
+from db.helper import generic_error_dict, validation_error_to_dict, has_access_to_attachments
 from db.models import Attachment, upload_configurations, AttachmentKey, \
     get_attachment_validator_map_for_key
-from db.validators import AttachmentKeyValidator
+from db.validators import AttachmentKeyValidator, AttachmentKeyNumFilesValidator, AttachmentFileValidator
 
 AttachmentKeyType = graphene.Enum.from_enum(AttachmentKey)
 
@@ -27,6 +27,9 @@ class UserUpload(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **kwargs):
         user = info.context.user
+        profile_content_type = user.get_profile_content_type()
+        profile_id = user.get_profile_id()
+
         file = info.context.FILES.get('0')
         key = kwargs.get('key', None)
 
@@ -37,8 +40,15 @@ class UserUpload(Output, graphene.Mutation):
 
         # check if user is allowed to upload files with the provided key
         try:
-            attachment_key_validator = AttachmentKeyValidator()
-            attachment_key_validator.validate(key, user)
+            validator = AttachmentKeyValidator()
+            validator.validate(key, user)
+        except ValidationError as error:
+            errors.update(validation_error_to_dict(error, 'key'))
+
+        # validate number of attachments for the provided key
+        try:
+            validator = AttachmentKeyNumFilesValidator()
+            validator.validate(key, profile_content_type, profile_id)
         except ValidationError as error:
             errors.update(validation_error_to_dict(error, 'key'))
 
@@ -50,13 +60,16 @@ class UserUpload(Output, graphene.Mutation):
 
         attachment_model = None
         attachment_model_name = None
+
+        # collect all attachment errors, but return them only if needed
         attachment_errors = {}
         is_valid_attachment = False
         for (model, types, size) in validator_model_map:
             type_failed = False
             # validate file type only
             try:
-                validate_upload(file, types)
+                validator = AttachmentFileValidator(content_types=types)
+                validator.validate(file)
             except ValidationError as error:
                 attachment_errors.update(validation_error_to_dict(error, 'file'))
                 type_failed = True
@@ -64,7 +77,8 @@ class UserUpload(Output, graphene.Mutation):
             if not type_failed:
                 # validate file type and file size
                 try:
-                    validate_upload(file, types, size)
+                    validator = AttachmentFileValidator(max_size=size, content_types=types)
+                    validator.validate(file)
                     attachment_model = model
                     # noinspection PyProtectedMember
                     attachment_model_name = model._meta.model_name
@@ -85,8 +99,6 @@ class UserUpload(Output, graphene.Mutation):
 
         # create user attachment
         attachment_content_type = ContentType.objects.get(app_label='db', model=attachment_model_name)
-        profile_content_type = user.get_profile_content_type()
-        profile_id = user.get_profile_id()
 
         form = AttachmentForm(data={
             'content_type': profile_content_type,
