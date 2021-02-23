@@ -150,6 +150,7 @@ class AttachmentQuery(ObjectType):
         user_id=graphene.Int(required=False)
     )
 
+    @login_required
     def resolve_attachments(self, info, **kwargs):
         user = info.context.user
         key = kwargs.get('key')
