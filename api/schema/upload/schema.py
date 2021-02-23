@@ -12,7 +12,8 @@ from django.utils.translation import gettext as _
 
 from db.forms import AttachmentForm
 from db.helper import generic_error_dict, validate_upload, validation_error_to_dict, has_access_to_attachments
-from db.models import Image, Attachment, UserType, Video, File, upload_configurations, UserState, AttachmentKey
+from db.models import Image, Attachment, Video, File, upload_configurations, AttachmentKey
+from db.validators import AttachmentKeyValidator
 
 AttachmentKeyType = graphene.Enum.from_enum(AttachmentKey)
 
@@ -27,14 +28,24 @@ class UserUpload(Output, graphene.Mutation):
     def mutate(cls, root, info, **kwargs):
         user = info.context.user
         file = info.context.FILES.get('0')
+        key = kwargs.get('key', None)
 
         if file is None:
             return UserUpload(success=False, errors=generic_error_dict('file', _('Field is required'), 'required'))
 
-        # todo check if key matches user type
-
         errors = {}
 
+        # check if user is allowed to upload files with the provided key
+        try:
+            attachment_key_validator = AttachmentKeyValidator()
+            attachment_key_validator.validate(key, user)
+        except ValidationError as error:
+            errors.update(validation_error_to_dict(error, 'key'))
+
+        if errors:
+            return UserUpload(success=False, errors=errors)
+
+        # validate uploaded file and determine the model for the attachment
         validator_model_map = [
             (Image, settings.USER_UPLOADS_IMAGE_TYPES, settings.USER_UPLOADS_MAX_IMAGE_SIZE, ),
             (Video, settings.USER_UPLOADS_VIDEO_TYPES, settings.USER_UPLOADS_MAX_VIDEO_SIZE, ),
@@ -80,7 +91,7 @@ class UserUpload(Output, graphene.Mutation):
             'object_id': profile_id,
             'attachment_type': attachment_content_type,
             'attachment_id': file_attachment.id,
-            'key': kwargs.get('key')
+            'key': key
         })
         form.full_clean()
         if form.is_valid():

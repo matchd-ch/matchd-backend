@@ -11,6 +11,20 @@ class AttachmentKey(models.TextChoices):
     COMPANY_AVATAR = 'company_avatar', _('Company Avatar')
     COMPANY_DOCUMENTS = 'company_documents', _('Company Documents')
 
+    @classmethod
+    def valid_student_keys(cls):
+        return [
+            cls.STUDENT_AVATAR,
+            cls.STUDENT_DOCUMENTS
+        ]
+
+    @classmethod
+    def valid_company_keys(cls):
+        return [
+            cls.COMPANY_AVATAR,
+            cls.COMPANY_DOCUMENTS
+        ]
+
 
 class Attachment(models.Model):
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, related_name='user_type')
