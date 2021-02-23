@@ -2,7 +2,7 @@ from django import forms
 from django.utils.translation import gettext as _
 
 from db.exceptions import FormException
-from db.helper.forms import convert_date, generic_error_dict, validate_user_type, validate_step, validate_form_data, \
+from db.helper.forms import convert_date, generic_error_dict, validate_student_user_type, validate_step, validate_form_data, \
     convert_object_to_id
 from db.models import JobOption, JobPosition, JobOptionMode
 
@@ -89,7 +89,7 @@ def process_student_form_step_3(user, data):
     errors = {}
 
     # validate user type, step and data
-    validate_user_type(user)
+    validate_student_user_type(user)
     validate_step(user, 3)
     validate_form_data(data)
 

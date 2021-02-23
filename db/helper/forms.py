@@ -44,14 +44,21 @@ def convert_date(date, date_format='%d.%m.%Y'):
     return date
 
 
-def validate_user_type(user, user_type='student'):
+def validate_company_user_type(user):
     errors = {}
+    validator = CompanyTypeValidator()
+    try:
+        validator.validate(user.type)
+    except ValidationError as error:
+        errors.update(validation_error_to_dict(error, 'type'))
 
-    # validate user type
-    if user_type == 'student':
-        validator = StudentTypeValidator()
-    elif user_type == 'company':
-        validator = CompanyTypeValidator()
+    if errors:
+        raise FormException(errors)
+
+
+def validate_student_user_type(user):
+    errors = {}
+    validator = StudentTypeValidator()
     try:
         validator.validate(user.type)
     except ValidationError as error:

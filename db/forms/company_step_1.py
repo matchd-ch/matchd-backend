@@ -3,7 +3,8 @@ from django.conf import settings
 from django.core.validators import RegexValidator
 
 from db.exceptions import FormException
-from db.helper import validate_user_type, validate_step, validate_form_data
+from db.helper import validate_step, validate_form_data
+from db.helper.forms import validate_company_user_type
 
 
 class CompanyProfileFormStep1(forms.Form):
@@ -20,7 +21,7 @@ class CompanyProfileFormStep1(forms.Form):
 
 
 def process_company_form_step_1(user, data):
-    validate_user_type(user, 'company')
+    validate_company_user_type(user)
     validate_step(user, 1)
     validate_form_data(data)
     errors = {}
