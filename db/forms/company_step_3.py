@@ -1,0 +1,38 @@
+from django import forms
+
+from db.exceptions import FormException
+from db.helper.forms import validate_user_type, validate_step, validate_form_data
+from db.models import JobPosition
+
+
+class CompanyProfileFormStep3(forms.Form):
+    job_position = forms.ModelMultipleChoiceField(queryset=JobPosition.objects.all(), required=True)
+    benefits = forms.CharField(required=False)
+
+
+def process_company_form_step_3(user, data):
+    errors = {}
+    validate_user_type(user, 'company')
+    validate_step(user, 3)
+    validate_form_data(data)
+    profile = user.company
+    form = CompanyProfileFormStep3(data)
+    form.full_clean()
+    if form.is_valid():
+        profile = user.company
+        cleaned_data = form.cleaned_data
+        profile.job_position = cleaned_data.get('job_position')
+        profile.benefits = cleaned_data.get('benefits')
+    else:
+        errors.update(form.errors.get_json_data())
+
+    if errors:
+        raise FormException(errors=errors)
+
+    # update step only if the user has step 3
+    if user.profile_step == 3:
+        user.profile_step = 4
+
+    # save user / profile
+    user.save()
+    profile.save()

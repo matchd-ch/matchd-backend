@@ -4,7 +4,7 @@ from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 
 from db.exceptions import FormException
-from db.forms import process_company_form_step_2
+from db.forms import process_company_form_step_2, process_student_form_step_3
 from db.forms.company_step_1 import process_company_form_step_1
 
 
@@ -68,6 +68,32 @@ class CompanyProfileStep2(Output, graphene.Mutation):
         return CompanyProfileStep2(success=True, errors=None)
 
 
+class CompanyProfileInputStep3(graphene.InputObjectType):
+    job_position = graphene.String(description=_('Job Position'))
+    benefits = graphene.String(description=_('Benefits'))
+
+
+class CompanyProfileStep3(Output, graphene.Mutation):
+
+    class Arguments:
+        step3 = CompanyProfileInputStep3(description=_('Profile Input Step 3 is required.'), required=True)
+
+    class Meta:
+        description = _('Updates the Company Profile with benefits and Job Positions')
+
+    @classmethod
+    @login_required
+    def mutate(cls, root, info, **data):
+        user = info.context.user
+        form_data = data.get('step3', None)
+        try:
+            process_student_form_step_3(user, form_data)
+        except FormException as exception:
+            return CompanyProfileStep3(success=False, errors=exception.errors)
+        return CompanyProfileStep3(success=True, errors=None)
+
+
 class CompanyProfileMutation(graphene.ObjectType):
     company_profile_step1 = CompanyProfileStep1.Field()
     company_profile_step2 = CompanyProfileStep2.Field()
+    company_profile_step3 = CompanyProfileStep3.Field()
