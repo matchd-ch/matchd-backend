@@ -9,14 +9,18 @@ from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 from django.utils.translation import gettext as _
 
+from db.forms import AttachmentForm
 from db.helper import generic_error_dict, validate_upload, validation_error_to_dict
-from db.models import Image, Attachment, UserType, Video, File
+from db.models import Image, Attachment, UserType, Video, File, upload_configurations
+from db.models.attachment import AttachmentKey
+
+AttachmentKeyType = graphene.Enum.from_enum(AttachmentKey)
 
 
 class UserUpload(Output, graphene.Mutation):
     class Arguments:
-        file = Upload()
-        key = graphene.String()
+        file = Upload(required=True)
+        key = AttachmentKeyType(required=True)
 
     @classmethod
     @login_required
@@ -30,12 +34,13 @@ class UserUpload(Output, graphene.Mutation):
         errors = {}
 
         validator_model_map = [
-            (Image, settings.USER_UPLOADS_IMAGE_TYPES, settings.USER_UPLOADS_MAX_IMAGE_SIZE),
-            (Video, settings.USER_UPLOADS_VIDEO_TYPES, settings.USER_UPLOADS_MAX_VIDEO_SIZE),
-            (File, settings.USER_UPLOADS_DOCUMENT_TYPES, settings.USER_UPLOADS_MAX_DOCUMENT_SIZE)
+            (Image, settings.USER_UPLOADS_IMAGE_TYPES, settings.USER_UPLOADS_MAX_IMAGE_SIZE, ),
+            (Video, settings.USER_UPLOADS_VIDEO_TYPES, settings.USER_UPLOADS_MAX_VIDEO_SIZE, ),
+            (File, settings.USER_UPLOADS_DOCUMENT_TYPES, settings.USER_UPLOADS_MAX_DOCUMENT_SIZE, )
         ]
 
         attachment_model = None
+        attachment_model_name = None
         for (model, types, size) in validator_model_map:
             try:
                 # validate file type only
@@ -47,22 +52,41 @@ class UserUpload(Output, graphene.Mutation):
                 # validate file type and file size
                 validate_upload(file, types, size)
                 attachment_model = model
+                # noinspection PyProtectedMember
+                attachment_model_name = model._meta.model_name
             except ValidationError as error:
                 errors.update(validation_error_to_dict(error, 'file'))
 
         if errors:
             return UserUpload(success=False, errors=errors)
 
-        # todo create form
-        file_attachment = attachment_model.objects.create(file=file)
+        # create file attachment (image, video or document)
+        try:
+            file_attachment = attachment_model.objects.create(file=file)
+            file_attachment = attachment_model.objects.get(id=file_attachment.id)
+        except attachment_model.DoesNotExist:
+            errors.update(generic_error_dict('file', _('File could not be saved.'), 'error'))
+            return UserUpload(success=False, errors=errors)
+
+        # create user attachment
+        attachment_content_type = ContentType.objects.get(app_label='db', model=attachment_model_name)
         user_content_type = UserType.content_type_for_user(user)
-        Attachment.objects.create(
-            content_type=user_content_type,
-            object_id=user.student.id,
-            attachment_type=ContentType.objects.get(app_label='db', model='image'),
-            attachment_id=file_attachment.id,
-            key=kwargs.get('key')
-        )
+
+        form = AttachmentForm(data={
+            'content_type': user_content_type,
+            'object_id': user.get_profile_id(),
+            'attachment_type': attachment_content_type,
+            'attachment_id': file_attachment.id,
+            'key': kwargs.get('key')
+        })
+        form.full_clean()
+        if form.is_valid():
+            form.save()
+        else:
+            errors.update(form.errors.get_json_data())
+
+        if errors:
+            return UserUpload(success=False, errors=errors)
 
         return UserUpload(success=True, errors=None)
 
@@ -88,17 +112,36 @@ class AttachmentType(DjangoObjectType):
         return self.attachment_type.model
 
     def resolve_file_size(self: Attachment, info):
-        self.attachment_object.get_file_size()
+        return self.attachment_object.get_file_size()
 
 
 class AttachmentQuery(ObjectType):
-    attachments = graphene.List(AttachmentType, key=graphene.String(required=True))
+    attachments = graphene.List(AttachmentType, key=AttachmentKeyType(required=True))
 
     def resolve_attachments(self, info, **kwargs):
         user = info.context.user
         key = kwargs.get('key')
+
         return Attachment.objects.filter(
             key=key,
             content_type__model='student',
             object_id=user.student.id).\
             prefetch_related('content_object', 'attachment_object')
+
+
+class UploadTypeConfiguration(ObjectType):
+    content_types = graphene.List(graphene.String)
+    max_size = graphene.Int()
+
+
+class UploadConfiguration(ObjectType):
+    content_types_configuration = graphene.List(UploadTypeConfiguration)
+    max_files = graphene.Int()
+    key = AttachmentKeyType()
+
+
+class UploadConfigurationQuery(ObjectType):
+    upload_configurations = graphene.List(UploadConfiguration)
+
+    def resolve_upload_configurations(self, info, **kwargs):
+        return upload_configurations

@@ -9,7 +9,7 @@ from api.schema.skill import SkillQuery
 from api.schema.student import StudentProfileMutation
 from api.schema.registration import RegistrationMutation
 from api.schema.upload import UploadMutation
-from api.schema.upload.schema import AttachmentQuery
+from api.schema.upload.schema import AttachmentQuery, UploadConfigurationQuery
 from api.schema.user import UserQuery
 from api.schema.user_request import UserRequestMutation
 from api.schema.zip_city import ZipCityQuery
@@ -35,7 +35,8 @@ class Query(
     JobOptionQuery,
     JobPositionQuery,
     SkillQuery,
-    AttachmentQuery
+    AttachmentQuery,
+    UploadConfigurationQuery
 ):
     pass
 
