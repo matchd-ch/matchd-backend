@@ -13,21 +13,29 @@ class CompanyProfileFormStep2(forms.Form):
 
 
 def process_company_form_step_2(user, data):
-    errors = {}
+    # validate user type, step and data
     validate_company_user_type(user)
     validate_step(user, 2)
     validate_form_data(data)
+    errors = {}
     profile = user.company
+
+    # validate profile data
     form = CompanyProfileFormStep2(data)
     form.full_clean()
     if form.is_valid():
+        # update user / profile
         profile = user.company
         cleaned_data = form.cleaned_data
+
+        # required parameters
         profile.website = cleaned_data.get('website')
+        profile.member_it_st_gallen = cleaned_data.get('member_it_st_gallen')
+
+        # optional parameters
         profile.branch = cleaned_data.get('branch')
         profile.description = cleaned_data.get('description')
         profile.services = cleaned_data.get('services')
-        profile.member_it_st_gallen = cleaned_data.get('member_it_st_gallen')
     else:
         errors.update(form.errors.get_json_data())
 
