@@ -30,7 +30,9 @@ class UserUpload(Output, graphene.Mutation):
         profile_content_type = user.get_profile_content_type()
         profile_id = user.get_profile_id()
 
-        file = info.context.FILES.get('0')
+        file_keys = list(info.context.FILES.keys())
+        file_keys.sort()
+        file = info.context.FILES.get(file_keys[0])
         key = kwargs.get('key', None)
 
         if file is None:
