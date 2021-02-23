@@ -42,11 +42,3 @@ class UploadValidator(object):
             if content_type not in self.content_types:
                 params = { 'content_type': content_type }
                 raise ValidationError(self.error_messages['content_type'], 'content_type', params)
-
-    def __eq__(self, other):
-        return (
-            isinstance(other, FileValidator) and
-            self.max_size == other.max_size and
-            self.min_size == other.min_size and
-            self.content_types == other.content_types
-        )

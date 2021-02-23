@@ -1,3 +1,4 @@
+from django.apps import apps
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
@@ -43,7 +44,8 @@ def student_avatar_config():
         'content_types_configuration': [
             {
                 'content_types': settings.USER_UPLOADS_IMAGE_TYPES,
-                'max_size': settings.USER_UPLOADS_MAX_IMAGE_SIZE
+                'max_size': settings.USER_UPLOADS_MAX_IMAGE_SIZE,
+                'model': settings.WAGTAILIMAGES_IMAGE_MODEL
             }
         ],
         'max_files': 1,
@@ -56,15 +58,18 @@ def student_documents_config():
         'content_types_configuration': [
             {
                 'content_types': settings.USER_UPLOADS_VIDEO_TYPES,
-                'max_size': settings.USER_UPLOADS_MAX_VIDEO_SIZE
+                'max_size': settings.USER_UPLOADS_MAX_VIDEO_SIZE,
+                'model': settings.WAGTAILMEDIA_MEDIA_MODEL
             },
             {
                 'content_types': settings.USER_UPLOADS_DOCUMENT_TYPES,
-                'max_size': settings.USER_UPLOADS_MAX_DOCUMENT_SIZE
+                'max_size': settings.USER_UPLOADS_MAX_DOCUMENT_SIZE,
+                'model': settings.WAGTAILDOCS_DOCUMENT_MODEL
             },
             {
                 'content_types': settings.USER_UPLOADS_IMAGE_TYPES,
-                'max_size': settings.USER_UPLOADS_MAX_IMAGE_SIZE
+                'max_size': settings.USER_UPLOADS_MAX_IMAGE_SIZE,
+                'model': settings.WAGTAILIMAGES_IMAGE_MODEL
             }
         ],
         'max_files': 5,
@@ -77,7 +82,8 @@ def company_avatar_config():
         'content_types_configuration': [
             {
                 'content_types': settings.USER_UPLOADS_IMAGE_TYPES,
-                'max_size': settings.USER_UPLOADS_MAX_IMAGE_SIZE
+                'max_size': settings.USER_UPLOADS_MAX_IMAGE_SIZE,
+                'model': settings.WAGTAILIMAGES_IMAGE_MODEL
             }
         ],
         'max_files': 1,
@@ -90,15 +96,18 @@ def company_documents_config():
         'content_types_configuration': [
             {
                 'content_types': settings.USER_UPLOADS_VIDEO_TYPES,
-                'max_size': settings.USER_UPLOADS_MAX_VIDEO_SIZE
+                'max_size': settings.USER_UPLOADS_MAX_VIDEO_SIZE,
+                'model': settings.WAGTAILMEDIA_MEDIA_MODEL
             },
             {
                 'content_types': settings.USER_UPLOADS_DOCUMENT_TYPES,
-                'max_size': settings.USER_UPLOADS_MAX_DOCUMENT_SIZE
+                'max_size': settings.USER_UPLOADS_MAX_DOCUMENT_SIZE,
+                'model': settings.WAGTAILDOCS_DOCUMENT_MODEL
             },
             {
                 'content_types': settings.USER_UPLOADS_IMAGE_TYPES,
-                'max_size': settings.USER_UPLOADS_MAX_IMAGE_SIZE
+                'max_size': settings.USER_UPLOADS_MAX_IMAGE_SIZE,
+                'model': settings.WAGTAILIMAGES_IMAGE_MODEL
             }
         ],
         'max_files': 5,
@@ -112,3 +121,15 @@ upload_configurations = [
     company_avatar_config(),
     company_documents_config()
 ]
+
+
+def get_attachment_validator_map_for_key(key):
+    config = None
+    for key_config in upload_configurations:
+        if key_config.get('key', None) == key:
+            config = key_config
+            break
+    return [
+        (apps.get_model(content_type.get('model')), content_type.get('content_types'), content_type.get('max_size'))
+        for content_type in config.get('content_types_configuration', [])
+    ]

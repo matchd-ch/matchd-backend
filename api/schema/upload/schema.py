@@ -1,5 +1,4 @@
 import graphene
-from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
@@ -12,7 +11,8 @@ from django.utils.translation import gettext as _
 
 from db.forms import AttachmentForm
 from db.helper import generic_error_dict, validate_upload, validation_error_to_dict, has_access_to_attachments
-from db.models import Image, Attachment, Video, File, upload_configurations, AttachmentKey
+from db.models import Attachment, upload_configurations, AttachmentKey, \
+    get_attachment_validator_map_for_key
 from db.validators import AttachmentKeyValidator
 
 AttachmentKeyType = graphene.Enum.from_enum(AttachmentKey)
@@ -46,32 +46,34 @@ class UserUpload(Output, graphene.Mutation):
             return UserUpload(success=False, errors=errors)
 
         # validate uploaded file and determine the model for the attachment
-        validator_model_map = [
-            (Image, settings.USER_UPLOADS_IMAGE_TYPES, settings.USER_UPLOADS_MAX_IMAGE_SIZE, ),
-            (Video, settings.USER_UPLOADS_VIDEO_TYPES, settings.USER_UPLOADS_MAX_VIDEO_SIZE, ),
-            (File, settings.USER_UPLOADS_DOCUMENT_TYPES, settings.USER_UPLOADS_MAX_DOCUMENT_SIZE, )
-        ]
+        validator_model_map = get_attachment_validator_map_for_key(key)
 
         attachment_model = None
         attachment_model_name = None
+        attachment_errors = {}
+        is_valid_attachment = False
         for (model, types, size) in validator_model_map:
+            type_failed = False
+            # validate file type only
             try:
-                # validate file type only
                 validate_upload(file, types)
-            except ValidationError:
-                continue
-
-            try:
-                # validate file type and file size
-                validate_upload(file, types, size)
-                attachment_model = model
-                # noinspection PyProtectedMember
-                attachment_model_name = model._meta.model_name
             except ValidationError as error:
-                errors.update(validation_error_to_dict(error, 'file'))
+                attachment_errors.update(validation_error_to_dict(error, 'file'))
+                type_failed = True
 
-        if errors:
-            return UserUpload(success=False, errors=errors)
+            if not type_failed:
+                # validate file type and file size
+                try:
+                    validate_upload(file, types, size)
+                    attachment_model = model
+                    # noinspection PyProtectedMember
+                    attachment_model_name = model._meta.model_name
+                    is_valid_attachment = True
+                except ValidationError as error:
+                    attachment_errors.update(validation_error_to_dict(error, 'file'))
+
+        if not is_valid_attachment:
+            return UserUpload(success=False, errors=attachment_errors)
 
         # create file attachment (image, video or document)
         try:
