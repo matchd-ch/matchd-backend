@@ -14,7 +14,7 @@ class CompanyProfileFormStep1(forms.Form):
     zip = forms.CharField(max_length=255, required=True)
     city = forms.CharField(max_length=255, required=True)
     uid = forms.CharField(max_length=255, required=True,
-                          validators=[RegexValidator(regex=r'CHE-[0-9]{3}.[0-9]{3}.[0-9]{3}')])
+                          validators=[RegexValidator(regex=settings.UID_REGEX)])
     phone = forms.CharField(max_length=12, validators=[RegexValidator(regex=settings.MOBILE_REGEX)], required=True)
     email = forms.EmailField(max_length=255, required=True)
     position = forms.CharField(max_length=255, required=True)
