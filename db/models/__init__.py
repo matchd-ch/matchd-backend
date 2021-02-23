@@ -15,4 +15,4 @@ from .user_language_relation import UserLanguageRelation
 from .image import Image, CustomRendition
 from .video import Video
 from .file import File
-from .attachment import Attachment
+from .attachment import Attachment, upload_configurations

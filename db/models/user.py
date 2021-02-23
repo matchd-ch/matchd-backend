@@ -51,6 +51,15 @@ class User(AbstractUser):
     state = models.CharField(choices=UserState.choices, max_length=255, blank=False, default=UserState.INCOMPLETE)
     profile_step = models.IntegerField(default=1)
 
+    def get_profile_id(self):
+        if self.type in UserType.valid_student_types():
+            # noinspection PyUnresolvedReferences
+            # student is reverse relation field
+            return self.student.id
+        elif self.type in UserType.valid_company_types():
+            return self.company.id
+        return None
+
     @staticmethod
     def validate_user_type_company(user_type):
         valid_student_types = [
