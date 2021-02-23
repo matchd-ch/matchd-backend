@@ -1,4 +1,4 @@
-from .user import User, UserType
+from .user import User, UserType, UserState
 from .company import Company
 from .student import Student
 from .user_request import UserRequest
@@ -15,4 +15,4 @@ from .user_language_relation import UserLanguageRelation
 from .image import Image, CustomRendition
 from .video import Video
 from .file import File
-from .attachment import Attachment, upload_configurations
+from .attachment import Attachment, upload_configurations, AttachmentKey

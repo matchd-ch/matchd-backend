@@ -29,12 +29,6 @@ class UserType(models.TextChoices):
             cls.UNIVERSITY
         ]
 
-    @classmethod
-    def content_type_for_user(cls, user):
-        if user.type in UserType.valid_student_types():
-            return ContentType.objects.get(app_label='db', model='student')
-        return None
-
 
 class UserState(models.TextChoices):
     INCOMPLETE = 'incomplete', _('Incomplete')
@@ -50,6 +44,13 @@ class User(AbstractUser):
                                 related_name='users')
     state = models.CharField(choices=UserState.choices, max_length=255, blank=False, default=UserState.INCOMPLETE)
     profile_step = models.IntegerField(default=1)
+
+    def get_profile_content_type(self):
+        if self.type in UserType.valid_student_types():
+            return ContentType.objects.get(app_label='db', model='student')
+        elif self.type in UserType.valid_company_types():
+            return ContentType.objects.get(app_label='db', model='company')
+        return None
 
     def get_profile_id(self):
         if self.type in UserType.valid_student_types():

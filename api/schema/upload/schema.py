@@ -1,5 +1,6 @@
 import graphene
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
 from graphene import ObjectType
@@ -10,9 +11,8 @@ from graphql_jwt.decorators import login_required
 from django.utils.translation import gettext as _
 
 from db.forms import AttachmentForm
-from db.helper import generic_error_dict, validate_upload, validation_error_to_dict
-from db.models import Image, Attachment, UserType, Video, File, upload_configurations
-from db.models.attachment import AttachmentKey
+from db.helper import generic_error_dict, validate_upload, validation_error_to_dict, has_access_to_attachments
+from db.models import Image, Attachment, UserType, Video, File, upload_configurations, UserState, AttachmentKey
 
 AttachmentKeyType = graphene.Enum.from_enum(AttachmentKey)
 
@@ -30,6 +30,8 @@ class UserUpload(Output, graphene.Mutation):
 
         if file is None:
             return UserUpload(success=False, errors=generic_error_dict('file', _('Field is required'), 'required'))
+
+        # todo check if key matches user type
 
         errors = {}
 
@@ -70,11 +72,12 @@ class UserUpload(Output, graphene.Mutation):
 
         # create user attachment
         attachment_content_type = ContentType.objects.get(app_label='db', model=attachment_model_name)
-        user_content_type = UserType.content_type_for_user(user)
+        profile_content_type = user.get_profile_content_type()
+        profile_id = user.get_profile_id()
 
         form = AttachmentForm(data={
-            'content_type': user_content_type,
-            'object_id': user.get_profile_id(),
+            'content_type': profile_content_type,
+            'object_id': profile_id,
             'attachment_type': attachment_content_type,
             'attachment_id': file_attachment.id,
             'key': kwargs.get('key')
@@ -116,16 +119,36 @@ class AttachmentType(DjangoObjectType):
 
 
 class AttachmentQuery(ObjectType):
-    attachments = graphene.List(AttachmentType, key=AttachmentKeyType(required=True))
+    attachments = graphene.List(
+        AttachmentType,
+        key=AttachmentKeyType(required=True),
+        user_id=graphene.Int(required=False)
+    )
 
     def resolve_attachments(self, info, **kwargs):
         user = info.context.user
         key = kwargs.get('key')
 
+        # if user id is None, we assume to return the list of the currently logged in user
+        user_id = kwargs.get('user_id', None)
+        attachment_owner = user
+        if user_id is not None:
+            attachment_owner = get_user_model().objects.get(pk=user_id)
+
+        # check if the owner has a public profile
+        # if not, return an empty list
+        show = has_access_to_attachments(user, attachment_owner)
+        if not show:
+            return []
+
+        # get profile content type and id
+        profile_content_type = attachment_owner.get_profile_content_type()
+        profile_id = attachment_owner.get_profile_id()
+
         return Attachment.objects.filter(
             key=key,
-            content_type__model='student',
-            object_id=user.student.id).\
+            content_type=profile_content_type,
+            object_id=profile_id).\
             prefetch_related('content_object', 'attachment_object')
 
 
