@@ -1,3 +1,4 @@
+import magic
 from django.db import models
 from wagtailmedia.models import AbstractMedia
 
@@ -5,6 +6,7 @@ from wagtailmedia.models import AbstractMedia
 class Video(AbstractMedia):
 
     file_size = models.PositiveIntegerField(null=True, editable=False)
+    mime_type = models.CharField(max_length=100, blank=True, null=True)
 
     @property
     def absolute_url(self):
@@ -23,3 +25,14 @@ class Video(AbstractMedia):
                 # silently fail
                 pass
         return self.file_size
+
+    # noinspection PyBroadException
+    def get_mime_type(self):
+        if self.mime_type is None:
+            try:
+                mime = magic.Magic(mime=True)
+                self.mime_type = mime.from_file(self.file.path)
+            except Exception:
+                pass
+            self.save(update_fields=['mime_type'])
+        return self.mime_type

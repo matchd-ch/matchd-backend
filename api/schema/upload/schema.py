@@ -128,7 +128,7 @@ class UploadMutation(graphene.ObjectType):
 class AttachmentType(DjangoObjectType):
 
     url = graphene.String()
-    type = graphene.String()
+    mime_type = graphene.String()
     file_size = graphene.Int()
 
     class Meta:
@@ -138,11 +138,11 @@ class AttachmentType(DjangoObjectType):
     def resolve_url(self: Attachment, info):
         return self.attachment_object.absolute_url
 
-    def resolve_type(self: Attachment, info):
-        return self.attachment_type.model
-
     def resolve_file_size(self: Attachment, info):
         return self.attachment_object.get_file_size()
+
+    def resolve_mime_type(self: Attachment, info):
+        return self.attachment_object.get_mime_type()
 
 
 class AttachmentQuery(ObjectType):

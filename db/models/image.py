@@ -1,3 +1,4 @@
+import magic
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
@@ -16,6 +17,8 @@ class Image(AbstractImage):
     # Necessary to resolve related name conflict
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_('tags'), related_name='image_tags')
 
+    mime_type = models.CharField(max_length=100, blank=True, null=True)
+
     admin_form_fields = (
         'title',
         'file',
@@ -31,6 +34,17 @@ class Image(AbstractImage):
         path = reverse('wagtailimages_serve', args=[self.pk, '--STACK--', self.title])
         path = path.replace('--STACK--', '{stack}')  # Workaround to avoid URL escaping
         return f'{settings.BASE_URL}{path}'
+
+    # noinspection PyBroadException
+    def get_mime_type(self):
+        if self.mime_type is None:
+            try:
+                mime = magic.Magic(mime=True)
+                self.mime_type = mime.from_file(self.file.path)
+            except Exception:
+                pass
+            self.save(update_fields=['mime_type'])
+        return self.mime_type
 
 
 class CustomRendition(AbstractRendition):
