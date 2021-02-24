@@ -30,14 +30,20 @@ class UserUpload(Output, graphene.Mutation):
         profile_content_type = user.get_profile_content_type()
         profile_id = user.get_profile_id()
 
-        file_keys = list(info.context.FILES.keys())
-        file_keys.sort()
-        file = info.context.FILES.get(file_keys[0])
-        key = kwargs.get('key', None)
-
-        if file is None:
+        # check if a file is uploaded
+        # noinspection PyBroadException
+        try:
+            # when a file is uploaded from the frontend, the file key is '1'
+            # when a file is uploaded directly via API, the file key is '0'
+            # workaround to use the first file key
+            file_key = list(info.context.FILES.keys())[0]
+            file = info.context.FILES.get(file_key)
+            if file is None:
+                return UserUpload(success=False, errors=generic_error_dict('file', _('Field is required'), 'required'))
+        except Exception:
             return UserUpload(success=False, errors=generic_error_dict('file', _('Field is required'), 'required'))
 
+        key = kwargs.get('key', None)
         errors = {}
 
         # check if user is allowed to upload files with the provided key
@@ -132,6 +138,7 @@ class DeleteAttachment(Output, graphene.Mutation):
         profile_id = user.get_profile_id()
         attachment_id = kwargs.get('id', None)
 
+        # check if the attachment exists and the user is owner of the attachment
         try:
             attachment = Attachment.objects.get(pk=attachment_id, object_id=profile_id)
         except Attachment.DoesNotExist:

@@ -5,6 +5,8 @@ from graphql_jwt.shortcuts import get_user_by_token
 from graphql_jwt.utils import get_credentials
 
 
+# custom middleware to add the user to the request
+# this is required for non graphql views (eg. api.views.AttachmentServeView)
 class JWTAuthenticationMiddleware(object):
     def __init__(self, get_response):
         self.get_response = get_response
