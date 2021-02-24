@@ -1,5 +1,4 @@
 from django.contrib.auth.models import AbstractUser
-from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext as _
 
@@ -43,15 +42,3 @@ class User(AbstractUser):
                                 related_name='users')
     state = models.CharField(choices=UserState.choices, max_length=255, blank=False, default=UserState.INCOMPLETE)
     profile_step = models.IntegerField(default=1)
-
-    @staticmethod
-    def validate_user_type_company(user_type):
-        valid_student_types = [
-            UserType.COMPANY,
-            UserType.UNIVERSITY
-        ]
-        if user_type not in valid_student_types:
-            raise ValidationError(
-                code='invalid_choice',
-                message=_('Select a valid choice.')
-            )

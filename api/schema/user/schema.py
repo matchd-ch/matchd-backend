@@ -1,7 +1,6 @@
 import graphene
 from django.contrib.auth import get_user_model
 from graphene_django import DjangoObjectType
-from graphql_auth.schema import UserNode
 from graphql_auth.settings import graphql_auth_settings
 from graphql_jwt.decorators import login_required
 
@@ -16,11 +15,7 @@ class Student(DjangoObjectType):
                   'graduation', 'skills', 'hobbies', 'languages', 'distinction', 'online_projects']
 
 
-class UserWithProfileNode(UserNode):
-    student = graphene.Field(
-        Student
-    )
-
+class UserWithProfileNode(DjangoObjectType):
     class Meta:
         model = get_user_model()
         filter_fields = graphql_auth_settings.USER_NODE_FILTER_FIELDS
