@@ -10,11 +10,12 @@ from db.helper.forms import validate_company_user_type
 class CompanyProfileFormStep1(forms.Form):
     first_name = forms.CharField(max_length=150, required=True)
     last_name = forms.CharField(max_length=150, required=True)
+    street = forms.CharField(max_length=255, required=True)
     zip = forms.CharField(max_length=255, required=True)
     city = forms.CharField(max_length=255, required=True)
     uid = forms.CharField(max_length=255, required=True,
                           validators=[RegexValidator(regex=settings.UID_REGEX)])
-    phone = forms.CharField(max_length=12, validators=[RegexValidator(regex=settings.MOBILE_REGEX)], required=True)
+    phone = forms.CharField(max_length=12, validators=[RegexValidator(regex=settings.PHONE_REGEX)], required=True)
     role = forms.CharField(max_length=255, required=True)
 
 
@@ -38,6 +39,7 @@ def process_company_form_step_1(user, data):
         user.first_name = cleaned_data.get('first_name')
         user.last_name = cleaned_data.get('last_name')
         user.uid = cleaned_data.get('uid')
+        company.street = cleaned_data.get('street')
         company.zip = cleaned_data.get('zip')
         company.city = cleaned_data.get('city')
         company.phone = cleaned_data.get('phone')
@@ -52,6 +54,7 @@ def process_company_form_step_1(user, data):
     if user.profile_step == 1:
         user.profile_step = 2
 
-    # save user / profile
+    # save user / company / employee
     user.save()
     company.save()
+    employee.save()

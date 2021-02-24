@@ -281,7 +281,7 @@ GRAPHQL_AUTH = {
 
 CSRF_COOKIE_DOMAIN = os.getenv('APP_CSRF_COOKIE_DOMAIN', None)
 
-MOBILE_REGEX = r'\+[0-9]{11}'
+PHONE_REGEX = r'\+[0-9]{11}'
 
 UID_REGEX = r'CHE-[0-9]{3}.[0-9]{3}.[0-9]{3}'
 

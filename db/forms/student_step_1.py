@@ -18,7 +18,7 @@ class StudentProfileFormStep1(forms.Form):
     zip = forms.CharField(max_length=255, required=False)
     city = forms.CharField(max_length=255, required=False)
     date_of_birth = forms.DateField(required=True)
-    mobile = forms.CharField(max_length=12, validators=[RegexValidator(regex=settings.MOBILE_REGEX)], required=False)
+    mobile = forms.CharField(max_length=12, validators=[RegexValidator(regex=settings.PHONE_REGEX)], required=False)
 
 
 def process_student_form_step_1(user, data):
