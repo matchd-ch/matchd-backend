@@ -15,7 +15,6 @@ class CompanyProfileFormStep1(forms.Form):
     uid = forms.CharField(max_length=255, required=True,
                           validators=[RegexValidator(regex=settings.UID_REGEX)])
     phone = forms.CharField(max_length=12, validators=[RegexValidator(regex=settings.MOBILE_REGEX)], required=True)
-    email = forms.EmailField(max_length=255, required=True)
     position = forms.CharField(max_length=255, required=True)
 
 
