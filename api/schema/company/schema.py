@@ -46,7 +46,7 @@ class CompanyProfileInputStep2(graphene.InputObjectType):
     branch = graphene.Field(BranchInputType, description=_('branch'), required=False)
     description = graphene.String(description=_('description'), required=False)
     services = graphene.String(description=_('services'), required=False)
-    member_it_st_gallen = graphene.String(description=_('memeber IT St. Gallen'), required=True)
+    member_it_st_gallen = graphene.Boolean(description=_('memeber IT St. Gallen'), required=True)
 
 
 class CompanyProfileStep2(Output, graphene.Mutation):
