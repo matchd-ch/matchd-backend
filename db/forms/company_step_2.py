@@ -10,7 +10,8 @@ class CompanyProfileFormStep2(forms.Form):
     branch = forms.ModelChoiceField(queryset=Branch.objects.all(), required=False)
     description = forms.CharField(max_length=1000, required=False)
     services = forms.CharField(max_length=1000, required=False)
-    member_it_st_gallen = forms.BooleanField(required=True)
+    # Bug prevention, when false is given as parameter
+    member_it_st_gallen = forms.BooleanField(required=False, initial=False)
 
     def __init__(self, data=None, **kwargs):
         # due to a bug with ModelChoiceField and graphene_django
