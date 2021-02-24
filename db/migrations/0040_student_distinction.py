@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('db', '0038_delete_distinction'),
+        ('db', '0039_delete_distinction'),
     ]
 
     operations = [
