@@ -16,7 +16,7 @@ class CompanyProfileInputStep1(graphene.InputObjectType):
     zip = graphene.String(description=_('Zip'), required=True)
     city = graphene.String(description=_('City'), required=True)
     phone = graphene.String(description=_('Phone Number'))
-    position = graphene.String(description=_('Position'), required=True)
+    role = graphene.String(description=_('role'), required=True)
 
 
 class CompanyProfileStep1(Output, graphene.Mutation):

@@ -15,7 +15,7 @@ class CompanyProfileFormStep1(forms.Form):
     uid = forms.CharField(max_length=255, required=True,
                           validators=[RegexValidator(regex=settings.UID_REGEX)])
     phone = forms.CharField(max_length=12, validators=[RegexValidator(regex=settings.MOBILE_REGEX)], required=True)
-    position = forms.CharField(max_length=255, required=True)
+    role = forms.CharField(max_length=255, required=True)
 
 
 def process_company_form_step_1(user, data):
@@ -24,7 +24,8 @@ def process_company_form_step_1(user, data):
     validate_step(user, 1)
     validate_form_data(data)
     errors = {}
-    profile = user.company
+    company = user.company
+    employee = user.employee
 
     # validate profile data
     form = CompanyProfileFormStep1(data)
@@ -37,10 +38,10 @@ def process_company_form_step_1(user, data):
         user.first_name = cleaned_data.get('first_name')
         user.last_name = cleaned_data.get('last_name')
         user.uid = cleaned_data.get('uid')
-        profile.zip = cleaned_data.get('zip')
-        profile.city = cleaned_data.get('city')
-        profile.phone = cleaned_data.get('phone')
-        profile.position = cleaned_data.get('position')
+        company.zip = cleaned_data.get('zip')
+        company.city = cleaned_data.get('city')
+        company.phone = cleaned_data.get('phone')
+        employee.role = cleaned_data.get('role')
     else:
         errors.update(form.errors.get_json_data())
 
@@ -53,4 +54,4 @@ def process_company_form_step_1(user, data):
 
     # save user / profile
     user.save()
-    profile.save()
+    company.save()
