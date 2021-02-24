@@ -121,8 +121,36 @@ class UserUpload(Output, graphene.Mutation):
         return UserUpload(success=True, errors=None)
 
 
+class DeleteAttachment(Output, graphene.Mutation):
+    class Arguments:
+        id = graphene.ID()
+
+    @classmethod
+    @login_required
+    def mutate(cls, root, info, **kwargs):
+        user = info.context.user
+        profile_id = user.get_profile_id()
+        attachment_id = kwargs.get('id', None)
+
+        try:
+            attachment = Attachment.objects.get(pk=attachment_id, object_id=profile_id)
+        except Attachment.DoesNotExist:
+            return DeleteAttachment(success=False, errors=generic_error_dict('id', _('Attachment does not exist'),
+                                                                             'not_found'))
+        # delete file and attachment
+        try:
+            file = attachment.attachment_object
+            file.delete()
+            attachment.delete()
+        except Exception as exception:
+            return DeleteAttachment(success=False, errors=generic_error_dict('id', '%s:%s' % (_('Error deleting file'),
+                                                                                              str(exception)), 'error'))
+        return DeleteAttachment(success=True, errors=None)
+
+
 class UploadMutation(graphene.ObjectType):
     upload = UserUpload.Field()
+    deleteAttachment = DeleteAttachment.Field()
 
 
 class AttachmentType(DjangoObjectType):
