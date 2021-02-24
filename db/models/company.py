@@ -5,7 +5,7 @@ from django.conf import settings
 
 class Company(models.Model):
     uid = models.CharField(max_length=255, blank=False,
-                           validators=[RegexValidator(regex=r'CHE-[0-9]{3}.[0-9]{3}.[0-9]{3}')])
+                           validators=[RegexValidator(regex=settings.UID_REGEX)])
     name = models.CharField(max_length=255, blank=False)
     zip = models.CharField(max_length=10, blank=False)
     city = models.CharField(max_length=255, blank=False)
