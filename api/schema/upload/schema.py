@@ -164,7 +164,7 @@ class AttachmentType(DjangoObjectType):
         fields = ('id',)
 
     def resolve_url(self: Attachment, info):
-        return self.attachment_object.absolute_url
+        return self.absolute_url
 
     def resolve_file_size(self: Attachment, info):
         return self.attachment_object.get_file_size()

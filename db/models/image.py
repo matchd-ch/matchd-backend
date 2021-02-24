@@ -1,7 +1,6 @@
 import magic
 from django.conf import settings
 from django.db import models
-from django.urls import reverse
 from taggit.managers import TaggableManager
 from wagtail.images.models import AbstractImage, AbstractRendition
 from django.utils.translation import gettext_lazy as _
@@ -28,12 +27,6 @@ class Image(AbstractImage):
         'focal_point_width',
         'focal_point_height',
     )
-
-    @property
-    def absolute_url(self):
-        path = reverse('wagtailimages_serve', args=[self.pk, '--STACK--', self.title])
-        path = path.replace('--STACK--', '{stack}')  # Workaround to avoid URL escaping
-        return f'{settings.BASE_URL}{path}'
 
     # noinspection PyBroadException
     def get_mime_type(self):

@@ -1,6 +1,5 @@
 import debug_toolbar
 from django.conf import settings
-from django.conf.urls import url
 from django.urls import include, path
 from django.contrib import admin
 from django.views.decorators.csrf import csrf_exempt
@@ -10,14 +9,15 @@ from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 from graphql_jwt.decorators import jwt_cookie
 
-from api.views import csrf_view, GraphQLView, ImageServeView
+from api.views import csrf_view, GraphQLView, AttachmentServeView
 
 urlpatterns = [
     path('django-admin/', admin.site.urls),
     path('admin/', include(wagtailadmin_urls)),
     path('documents/', include(wagtaildocs_urls)),
     path('graphql/', jwt_cookie(GraphQLView.as_view(graphiql=settings.GRAPHIQL_ENABLED))),
-    url(r'^images/(\d*)/([^/]*)/([^/])*$', ImageServeView.as_view(action='serve'), name='wagtailimages_serve'),
+    path('attachment/<int:attachment_id>/', AttachmentServeView.as_view(), name='attachment_serve'),
+    path('attachment/<int:attachment_id>/<str:stack>/', AttachmentServeView.as_view(), name='attachment_serve_image'),
     path('csrf/', csrf_view),
 ]
 

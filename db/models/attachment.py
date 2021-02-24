@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext as _
 
 
@@ -37,6 +38,15 @@ class Attachment(models.Model):
     attachment_object = GenericForeignKey('attachment_type', 'attachment_id')
 
     key = models.CharField(choices=AttachmentKey.choices, max_length=100, blank=False, null=False)
+
+    @property
+    def absolute_url(self):
+        if self.attachment_type.model == 'image':
+            path = reverse('attachment_serve_image', args=[self.pk, '--STACK--'])
+            path = path.replace('--STACK--', '{stack}')  # Workaround to avoid URL escaping
+        else:
+            path = reverse('attachment_serve', args=[self.pk])
+        return f'{settings.BASE_URL}{path}'
 
 
 def student_avatar_config():
