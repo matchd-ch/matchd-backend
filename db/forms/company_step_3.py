@@ -16,19 +16,18 @@ def process_company_form_step_3(user, data):
     validate_company_user_type(user)
     validate_step(user, 3)
     validate_form_data(data)
-    profile = user.company
+    company = user.company
 
     # validate profile data
     form = CompanyProfileFormStep3(data)
     form.full_clean()
     if form.is_valid():
         # update user / profile
-        profile = user.company
         cleaned_data = form.cleaned_data
 
         # optional parameters
-        profile.job_position = cleaned_data.get('job_position')
-        profile.benefits = cleaned_data.get('benefits')
+        company.job_position = cleaned_data.get('job_position')
+        company.benefits = cleaned_data.get('benefits')
     else:
         errors.update(form.errors.get_json_data())
 
@@ -41,4 +40,4 @@ def process_company_form_step_3(user, data):
 
     # save user / profile
     user.save()
-    profile.save()
+    company.save()

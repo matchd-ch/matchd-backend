@@ -25,24 +25,23 @@ def process_company_form_step_2(user, data):
     validate_step(user, 2)
     validate_form_data(data)
     errors = {}
-    profile = user.company
+    company = user.company
 
     # validate profile data
     form = CompanyProfileFormStep2(data)
     form.full_clean()
     if form.is_valid():
         # update user / profile
-        profile = user.company
         cleaned_data = form.cleaned_data
 
         # required parameters
-        profile.website = cleaned_data.get('website')
-        profile.member_it_st_gallen = cleaned_data.get('member_it_st_gallen')
+        company.website = cleaned_data.get('website')
+        company.member_it_st_gallen = cleaned_data.get('member_it_st_gallen')
 
         # optional parameters
-        profile.branch = cleaned_data.get('branch')
-        profile.description = cleaned_data.get('description')
-        profile.services = cleaned_data.get('services')
+        company.branch = cleaned_data.get('branch')
+        company.description = cleaned_data.get('description')
+        company.services = cleaned_data.get('services')
     else:
         errors.update(form.errors.get_json_data())
 
@@ -55,4 +54,4 @@ def process_company_form_step_2(user, data):
 
     # save user / profile
     user.save()
-    profile.save()
+    company.save()
