@@ -10,7 +10,6 @@ from db.helper.forms import validate_company_user_type
 class CompanyProfileFormStep1(forms.Form):
     first_name = forms.CharField(max_length=150, required=True)
     last_name = forms.CharField(max_length=150, required=True)
-    street = forms.CharField(max_length=255, required=True)
     zip = forms.CharField(max_length=255, required=True)
     city = forms.CharField(max_length=255, required=True)
     uid = forms.CharField(max_length=255, required=True,
@@ -39,7 +38,6 @@ def process_company_form_step_1(user, data):
         user.first_name = cleaned_data.get('first_name')
         user.last_name = cleaned_data.get('last_name')
         user.uid = cleaned_data.get('uid')
-        profile.street = cleaned_data.get('street')
         profile.zip = cleaned_data.get('zip')
         profile.city = cleaned_data.get('city')
         profile.phone = cleaned_data.get('phone')
