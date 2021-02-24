@@ -38,7 +38,7 @@ def process_company_form_step_1(user, data):
         # required parameters
         user.first_name = cleaned_data.get('first_name')
         user.last_name = cleaned_data.get('last_name')
-        user.uid = cleaned_data.get('uid')
+        company.uid = cleaned_data.get('uid')
         company.street = cleaned_data.get('street')
         company.zip = cleaned_data.get('zip')
         company.city = cleaned_data.get('city')
