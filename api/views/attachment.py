@@ -2,12 +2,14 @@ import imghdr
 from wsgiref.util import FileWrapper
 
 from django.conf import settings
+from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse, StreamingHttpResponse
 from django.shortcuts import get_object_or_404
 from django.views.generic import View
 from wagtail.images.exceptions import InvalidFilterSpecError
 from wagtail.images.models import SourceImageIOError
 
+from db.helper import has_access_to_attachments
 from db.models import Attachment
 
 
@@ -19,6 +21,15 @@ class AttachmentServeView(View):
 
     def get(self, request, attachment_id, stack=None):
         attachment = get_object_or_404(self.model, id=attachment_id)
+
+        user = request.user
+        owner = attachment.content_object.user
+
+        has_permission = has_access_to_attachments(user, owner)
+
+        if not has_permission:
+            raise PermissionDenied
+
         attachment_content_type = attachment.attachment_type.model
         if attachment_content_type == 'image':
             if stack not in self.stacks:

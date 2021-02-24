@@ -69,6 +69,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
+    'api.middleware.JWTAuthenticationMiddleware'
 ]
 
 AUTHENTICATION_BACKENDS = [
