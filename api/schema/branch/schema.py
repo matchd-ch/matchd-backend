@@ -2,7 +2,7 @@ import graphene
 from graphene import ObjectType
 from graphene_django import DjangoObjectType
 
-from db.models import JobOption, Branch
+from db.models import Branch
 
 
 class BranchType(DjangoObjectType):
@@ -21,4 +21,3 @@ class BranchQuery(ObjectType):
 class BranchInputType(graphene.InputObjectType):
     id = graphene.ID(required=True)
     name = graphene.String(required=False)
-
