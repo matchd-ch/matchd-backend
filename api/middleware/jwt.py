@@ -12,7 +12,7 @@ class JWTAuthenticationMiddleware(object):
         self.get_response = get_response
 
     def __call__(self, request):
-        request.user = SimpleLazyObject(lambda:self.__class__.get_jwt_user(request))
+        request.user = SimpleLazyObject(lambda: self.__class__.get_jwt_user(request))
         return self.get_response(request)
 
     @staticmethod
@@ -26,4 +26,4 @@ class JWTAuthenticationMiddleware(object):
                 return get_user_by_token(token, request)
         except JSONWebTokenError:
             pass
-        return None
+        return user
