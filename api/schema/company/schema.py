@@ -3,9 +3,11 @@ from django.utils.translation import gettext as _
 from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 
+from api.schema.benefit import BenefitInputType
 from api.schema.branch.schema import BranchInputType
+from api.schema.job_position import JobPositionInputType
 from db.exceptions import FormException
-from db.forms import process_company_form_step_2, process_student_form_step_3
+from db.forms import process_company_form_step_2, process_student_form_step_3, process_company_form_step_3
 from db.forms.company_step_1 import process_company_form_step_1
 
 
@@ -69,8 +71,8 @@ class CompanyProfileStep2(Output, graphene.Mutation):
 
 
 class CompanyProfileInputStep3(graphene.InputObjectType):
-    job_position = graphene.String(description=_('Job Position'))
-    benefits = graphene.String(description=_('Benefits'))
+    job_position = graphene.List(JobPositionInputType, description=_('Job Position'))
+    benefits = graphene.List(BenefitInputType, description=_('Benefits'))
 
 
 class CompanyProfileStep3(Output, graphene.Mutation):
@@ -87,7 +89,7 @@ class CompanyProfileStep3(Output, graphene.Mutation):
         user = info.context.user
         form_data = data.get('step3', None)
         try:
-            process_student_form_step_3(user, form_data)
+            process_company_form_step_3(user, form_data)
         except FormException as exception:
             return CompanyProfileStep3(success=False, errors=exception.errors)
         return CompanyProfileStep3(success=True, errors=None)

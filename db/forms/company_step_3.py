@@ -2,12 +2,12 @@ from django import forms
 
 from db.exceptions import FormException
 from db.helper.forms import validate_step, validate_form_data, validate_company_user_type
-from db.models import JobPosition
+from db.models import JobPosition, Benefit
 
 
 class CompanyProfileFormStep3(forms.Form):
     job_position = forms.ModelMultipleChoiceField(queryset=JobPosition.objects.all(), required=False)
-    benefits = forms.CharField(required=False)
+    benefits = forms.ModelMultipleChoiceField(queryset=Benefit.objects.all(), required=False)
 
 
 def process_company_form_step_3(user, data):
@@ -26,8 +26,8 @@ def process_company_form_step_3(user, data):
         cleaned_data = form.cleaned_data
 
         # optional parameters
-        company.job_position = cleaned_data.get('job_position')
-        company.benefits = cleaned_data.get('benefits')
+        jobs_to_save = cleaned_data.get('job_position')
+        benefits_to_save = cleaned_data.get('benefits')
     else:
         errors.update(form.errors.get_json_data())
 
@@ -41,3 +41,5 @@ def process_company_form_step_3(user, data):
     # save user / profile
     user.save()
     company.save()
+    company.benefits.set(benefits_to_save)
+    company.job_positions.set(jobs_to_save)

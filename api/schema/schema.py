@@ -1,5 +1,6 @@
 import graphene
 
+from api.schema.benefit import BenefitQuery
 from api.schema.company import CompanyProfileMutation
 from api.schema.job_option import JobOptionQuery
 from api.schema.job_position import JobPositionQuery
@@ -33,7 +34,8 @@ class Query(
     ZipCityQuery,
     JobOptionQuery,
     JobPositionQuery,
-    SkillQuery
+    SkillQuery,
+    BenefitQuery
 ):
     pass
 
