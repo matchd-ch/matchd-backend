@@ -132,7 +132,7 @@ class AttachmentGraphQLTestCase(GraphQLTestCase):
         file = SimpleUploadedFile(name='image.jpg', content=get_image(extension='jpg'), content_type='image/jpeg')
         self._test_upload_with_login('john@doe.com', AttachmentKey.STUDENT_AVATAR, file)
         # test max files
-        for i in get_range_for_key(AttachmentKey.COMPANY_AVATAR):
+        for i in get_range_for_key(AttachmentKey.STUDENT_AVATAR):
             self._test_upload_with_login('john@doe.com', AttachmentKey.STUDENT_AVATAR, file)
         # too many files
         self._test_upload_with_login('john@doe.com', AttachmentKey.STUDENT_AVATAR, file, False, ['key'])
@@ -153,3 +153,7 @@ class AttachmentGraphQLTestCase(GraphQLTestCase):
     def test_upload_company_with_student_key(self):
         file = SimpleUploadedFile(name='image.jpg', content=get_image(extension='jpg'), content_type='image/jpeg')
         self._test_upload_with_login('john2@doe.com', AttachmentKey.STUDENT_AVATAR, file, False, ['key'])
+
+    # def test_upload_student_documents(self):
+    #     file = SimpleUploadedFile(name='video.mp4', content=b"file_content", content_type='video/mp4')
+    #     self._test_upload_with_login('john@doe.com', AttachmentKey.STUDENT_DOCUMENTS, file)
