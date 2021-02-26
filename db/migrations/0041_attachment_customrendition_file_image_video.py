@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
         ('wagtailcore', '0060_fix_workflow_unique_constraint'),
         ('contenttypes', '0002_remove_content_type_name'),
         ('taggit', '0003_taggeditem_add_unique_index'),
-        ('db', '0037_auto_20210216_1441'),
+        ('db', '0040_student_distinction'),
     ]
 
     operations = [

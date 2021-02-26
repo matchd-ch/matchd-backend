@@ -60,15 +60,3 @@ class User(AbstractUser):
         elif self.type in UserType.valid_company_types():
             return self.company.id
         return None
-
-    @staticmethod
-    def validate_user_type_company(user_type):
-        valid_student_types = [
-            UserType.COMPANY,
-            UserType.UNIVERSITY
-        ]
-        if user_type not in valid_student_types:
-            raise ValidationError(
-                code='invalid_choice',
-                message=_('Select a valid choice.')
-            )
