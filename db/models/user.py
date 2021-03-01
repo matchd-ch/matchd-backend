@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractUser
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.translation import gettext as _
 
@@ -42,3 +43,19 @@ class User(AbstractUser):
                                 related_name='users')
     state = models.CharField(choices=UserState.choices, max_length=255, blank=False, default=UserState.INCOMPLETE)
     profile_step = models.IntegerField(default=1)
+
+    def get_profile_content_type(self):
+        if self.type in UserType.valid_student_types():
+            return ContentType.objects.get(app_label='db', model='student')
+        if self.type in UserType.valid_company_types():
+            return ContentType.objects.get(app_label='db', model='company')
+        return None
+
+    def get_profile_id(self):
+        if self.type in UserType.valid_student_types():
+            # noinspection PyUnresolvedReferences
+            # student is a reverse relation field
+            return self.student.id
+        if self.type in UserType.valid_company_types():
+            return self.company.id
+        return None

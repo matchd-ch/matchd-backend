@@ -16,6 +16,7 @@ disable=
     W0212, # protected-access
     W0613, # unused-argument
     W0703, # broad-except
+    R0911, # too-many-return-statements
 
 [FORMAT]
 max-line-length=120
