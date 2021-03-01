@@ -3,7 +3,6 @@ from graphql_auth.bases import Output
 from django.utils.translation import gettext as _
 from graphql_jwt.decorators import login_required
 
-from api.schema.distinction import DistinctionInputType
 from api.schema.hobby import HobbyInputType
 from api.schema.job_option import JobOptionInputType
 from api.schema.job_position import JobPositionInputType
@@ -101,9 +100,9 @@ class StudentProfileStep3(Output, graphene.Mutation):
 class StudentProfileInputStep4(graphene.InputObjectType):
     skills = graphene.List(SkillInputType, description=_('Skills'), required=False)
     hobbies = graphene.List(HobbyInputType, description=_('Hobbies'), required=False)
-    distinctions = graphene.List(DistinctionInputType, description=_('Distinctions'), required=False)
     online_projects = graphene.List(OnlineProjectInputType, description=_('Online_Projects'), required=False)
     languages = graphene.List(UserLanguageRelationInputType, description=_('Languages'), required=True)
+    distinction = graphene.String(description=_('Distinction'), required=False)
 
 
 class StudentProfileStep4(Output, graphene.Mutation):

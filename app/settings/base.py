@@ -28,6 +28,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 INSTALLED_APPS = [
     'db.apps.DbConfig',
     'wagtailfontawesome',
+    'wagtailmedia',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.contrib.modeladmin',
@@ -68,6 +69,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
+    'api.middleware.JWTAuthenticationMiddleware'
 ]
 
 AUTHENTICATION_BACKENDS = [
@@ -218,6 +220,27 @@ WAGTAILSEARCH_BACKENDS = {
         'INDEX_SETTINGS': {}
     }
 }
+
+WAGTAILDOCS_DOCUMENT_MODEL = 'db.File'
+WAGTAILMEDIA_MEDIA_MODEL = 'db.Video'
+WAGTAILIMAGES_IMAGE_MODEL = 'db.Image'
+
+# Image Stacks
+IMAGE_STACKS = {
+    'desktop': 'fill-800x600',
+    'mobile': 'fill-640x480',
+    'desktop-square': 'fill-400x400',
+    'mobile-square': 'fill-200x200',
+}
+
+USER_UPLOADS_IMAGE_TYPES = ('image/jpeg', 'image/png', 'image/gif',)
+USER_UPLOADS_MAX_IMAGE_SIZE = 1024 * 10000
+
+USER_UPLOADS_VIDEO_TYPES = ('video/mp4',)
+USER_UPLOADS_MAX_VIDEO_SIZE = 1024 * 100000
+
+USER_UPLOADS_DOCUMENT_TYPES = ('application/pdf',)
+USER_UPLOADS_MAX_DOCUMENT_SIZE = 1024 * 10000
 
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -

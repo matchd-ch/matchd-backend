@@ -13,6 +13,6 @@ from .student import StudentForm
 from .user_request import UserRequestForm
 from .employee import EmployeeForm
 from .hobby import HobbyForm
-from .distinction import DistinctionForm
 from .online_project import OnlineProjectForm
 from .user_language_relation import UserLanguageRelationForm
+from .attachment import AttachmentForm

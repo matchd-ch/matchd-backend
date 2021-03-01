@@ -17,6 +17,12 @@ def process_student_form_step_6(user, data):
     validate_step(user, 6)
     validate_form_data(data)
 
+    # do not disable enum conversion as described here:
+    # https://docs.graphene-python.org/projects/django/en/latest/queries/#choices-to-enum-conversion
+    # otherwise the frontend application will not have an enum type for the state field
+    # force lower case of the input (eg. "INCOMPLETE", etc)
+    data['state'] = data.get('state').lower()
+
     form = StudentProfileFormStep6(data)
     form.full_clean()
     if form.is_valid():
