@@ -49,6 +49,7 @@ class AttachmentType(DjangoObjectType):
     url = graphene.String()
     mime_type = graphene.String()
     file_size = graphene.Int()
+    filename = graphene.String()
 
     class Meta:
         model = Attachment
@@ -62,6 +63,9 @@ class AttachmentType(DjangoObjectType):
 
     def resolve_mime_type(self: Attachment, info):
         return self.attachment_object.get_mime_type()
+
+    def resolve_filename(self: Attachment, info):
+        return self.attachment_object.filename
 
 
 class AttachmentQuery(ObjectType):
