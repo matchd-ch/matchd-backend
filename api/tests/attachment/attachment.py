@@ -17,10 +17,25 @@ def get_image(extension='jpg'):
     return open(image_path, 'rb').read()
 
 
+def get_video(extension='mp4'):
+    image_path = os.path.join(settings.BASE_DIR, 'api', 'tests', 'data', f'video.{extension}')
+    return open(image_path, 'rb').read()
+
+
+def get_document(extension='pdf'):
+    image_path = os.path.join(settings.BASE_DIR, 'api', 'tests', 'data', f'document.{extension}')
+    return open(image_path, 'rb').read()
+
+
 def get_range_for_key(key):
     config = get_config_for_key(key)
     max_files = config.get('max_files')
-    return range(0, max_files - 2)
+    return range(0, max_files - 1)
+
+
+def camel_case(value):
+    output = ''.join(x for x in value.title() if x.isalnum())
+    return output[0].lower() + output[1:]
 
 
 class AttachmentGraphQLTestCase(GraphQLTestCase):
@@ -112,7 +127,6 @@ class AttachmentGraphQLTestCase(GraphQLTestCase):
         self._login(username)
         response = self._test_upload(upload_key, file)
         content = json.loads(response.content)
-        print(content)
         if success:
             self.assertResponseNoErrors(response)
             self.assertEqual(response.status_code, 200)
@@ -124,36 +138,157 @@ class AttachmentGraphQLTestCase(GraphQLTestCase):
                 for expected_error in expected_errors:
                     self.assertIn(expected_error, content['data'].get('upload').get('errors'))
 
+    def _test_attachments(self, key=AttachmentKey.STUDENT_AVATAR, num_entries=0, mime_types=None, success=True):
+        response = self.query('''
+        {
+          studentAvatar: attachments (key:STUDENT_AVATAR) {
+            id
+            url
+            mimeType
+            fileSize
+            fileName
+          }
+          
+          studentDocuments: attachments (key:STUDENT_DOCUMENTS) {
+            id
+            url
+            mimeType
+            fileSize
+            fileName
+          }
+          
+          companyAvatar: attachments (key:COMPANY_AVATAR) {
+            id
+            url
+            mimeType
+            fileSize
+            fileName
+          }
+          
+          companyDocuments: attachments (key:COMPANY_DOCUMENTS) {
+            id
+            url
+            mimeType
+            fileSize
+            fileName
+          }
+        }
+        ''')
+        if success:
+            self.assertResponseNoErrors(response)
+        else:
+            self.assertResponseHasErrors(response)
+
+        key = camel_case(key)
+        content = json.loads(response.content)
+        data = content.get('data')
+
+        if num_entries > 0:
+            self.assertEqual(len(data.get(key)), num_entries)
+            if mime_types is not None:
+                index = 0
+                for mime_type in mime_types:
+                    self.assertEqual(data.get(key)[index].get('mimeType'), mime_type)
+                    index += 1
+
     def test_upload_without_login(self):
         file = SimpleUploadedFile(name='image.jpg', content=get_image(extension='jpg'), content_type='image/jpeg')
         self._test_upload_without_login(AttachmentKey.STUDENT_AVATAR, file)
+        self._test_attachments(success=False)
 
     def test_upload_student_avatar(self):
-        file = SimpleUploadedFile(name='image.jpg', content=get_image(extension='jpg'), content_type='image/jpeg')
+        mime_type = 'image/jpeg'
+        file = SimpleUploadedFile(name='image.jpg', content=get_image(extension='jpg'), content_type=mime_type)
         self._test_upload_with_login('john@doe.com', AttachmentKey.STUDENT_AVATAR, file)
         # test max files
+        mime_types = [mime_type]
         for i in get_range_for_key(AttachmentKey.STUDENT_AVATAR):
             self._test_upload_with_login('john@doe.com', AttachmentKey.STUDENT_AVATAR, file)
+            mime_types.append(mime_type)
         # too many files
         self._test_upload_with_login('john@doe.com', AttachmentKey.STUDENT_AVATAR, file, False, ['key'])
+        self._test_attachments(num_entries=len(mime_types), mime_types=mime_types, key=AttachmentKey.STUDENT_AVATAR)
 
     def test_upload_student_with_company_key(self):
-        file = SimpleUploadedFile(name='image.jpg', content=get_image(extension='jpg'), content_type='image/jpeg')
+        mime_type = 'image/jpeg'
+        file = SimpleUploadedFile(name='image.jpg', content=get_image(extension='jpg'), content_type=mime_type)
         self._test_upload_with_login('john@doe.com', AttachmentKey.COMPANY_AVATAR, file, False, ['key'])
+        self._test_attachments(key=AttachmentKey.COMPANY_AVATAR)
 
     def test_upload_company_avatar(self):
-        file = SimpleUploadedFile(name='image.jpg', content=get_image(extension='jpg'), content_type='image/jpeg')
+        mime_type = 'image/jpeg'
+        file = SimpleUploadedFile(name='image.jpg', content=get_image(extension='jpg'), content_type=mime_type)
         self._test_upload_with_login('john2@doe.com', AttachmentKey.COMPANY_AVATAR, file)
         # test max files
+        mime_types = [mime_type]
         for i in get_range_for_key(AttachmentKey.COMPANY_AVATAR):
-            self._test_upload_with_login('john@doe.com', AttachmentKey.COMPANY_AVATAR, file)
+            self._test_upload_with_login('john2@doe.com', AttachmentKey.COMPANY_AVATAR, file)
+            mime_types.append(mime_type)
         # too many files
-        self._test_upload_with_login('john@doe.com', AttachmentKey.COMPANY_AVATAR, file, False, ['key'])
+        self._test_upload_with_login('john2@doe.com', AttachmentKey.COMPANY_AVATAR, file, False, ['key'])
+        self._test_attachments(num_entries=len(mime_types), mime_types=mime_types, key=AttachmentKey.COMPANY_AVATAR)
 
     def test_upload_company_with_student_key(self):
         file = SimpleUploadedFile(name='image.jpg', content=get_image(extension='jpg'), content_type='image/jpeg')
         self._test_upload_with_login('john2@doe.com', AttachmentKey.STUDENT_AVATAR, file, False, ['key'])
+        self._test_attachments(key=AttachmentKey.STUDENT_AVATAR)
 
-    # def test_upload_student_documents(self):
-    #     file = SimpleUploadedFile(name='video.mp4', content=b"file_content", content_type='video/mp4')
-    #     self._test_upload_with_login('john@doe.com', AttachmentKey.STUDENT_DOCUMENTS, file)
+    def test_upload_student_documents(self):
+        mime_type = 'application/pdf'
+        file = SimpleUploadedFile(name='document.pdf', content=get_document(), content_type=mime_type)
+        self._test_upload_with_login('john@doe.com', AttachmentKey.STUDENT_DOCUMENTS, file)
+        # test max files
+        mime_types = [mime_type]
+        for i in get_range_for_key(AttachmentKey.STUDENT_DOCUMENTS):
+            file.seek(0)
+            self._test_upload_with_login('john@doe.com', AttachmentKey.STUDENT_DOCUMENTS, file)
+            mime_types.append(mime_type)
+        # too many files
+        file.seek(0)
+        self._test_upload_with_login('john@doe.com', AttachmentKey.STUDENT_DOCUMENTS, file, False, ['key'])
+        self._test_attachments(num_entries=len(mime_types), mime_types=mime_types, key=AttachmentKey.STUDENT_DOCUMENTS)
+
+    def test_upload_company_documents(self):
+        mime_type = 'application/pdf'
+        file = SimpleUploadedFile(name='document.pdf', content=get_document(), content_type=mime_type)
+        self._test_upload_with_login('john2@doe.com', AttachmentKey.COMPANY_DOCUMENTS, file)
+        # test max files
+        mime_types = [mime_type]
+        for i in get_range_for_key(AttachmentKey.COMPANY_DOCUMENTS):
+            file.seek(0)
+            self._test_upload_with_login('john2@doe.com', AttachmentKey.COMPANY_DOCUMENTS, file)
+            mime_types.append(mime_type)
+        # too many files
+        file.seek(0)
+        self._test_upload_with_login('john2@doe.com', AttachmentKey.COMPANY_DOCUMENTS, file, False, ['key'])
+        self._test_attachments(num_entries=len(mime_types), mime_types=mime_types, key=AttachmentKey.COMPANY_DOCUMENTS)
+
+    def test_upload_student_video(self):
+        mime_type = 'video/mp4'
+        file = SimpleUploadedFile(name='video.mp4', content=get_video(), content_type=mime_type)
+        self._test_upload_with_login('john@doe.com', AttachmentKey.STUDENT_DOCUMENTS, file)
+        # test max files
+        mime_types = [mime_type]
+        for i in get_range_for_key(AttachmentKey.STUDENT_DOCUMENTS):
+            file.seek(0)
+            self._test_upload_with_login('john@doe.com', AttachmentKey.STUDENT_DOCUMENTS, file)
+            mime_types.append(mime_type)
+        # too many files
+        file.seek(0)
+        self._test_upload_with_login('john@doe.com', AttachmentKey.STUDENT_DOCUMENTS, file, False, ['key'])
+        self._test_attachments(num_entries=len(mime_types), mime_types=mime_types, key=AttachmentKey.STUDENT_DOCUMENTS)
+
+    def test_upload_company_video(self):
+        mime_type = 'video/mp4'
+        file = SimpleUploadedFile(name='video.mp4', content=get_video(), content_type=mime_type)
+        self._test_upload_with_login('john2@doe.com', AttachmentKey.COMPANY_DOCUMENTS, file)
+        # test max files
+        mime_types = [mime_type]
+        for i in get_range_for_key(AttachmentKey.COMPANY_DOCUMENTS):
+            file.seek(0)
+            self._test_upload_with_login('john2@doe.com', AttachmentKey.COMPANY_DOCUMENTS, file)
+            mime_types.append(mime_type)
+        # too many files
+        file.seek(0)
+        self._test_upload_with_login('john2@doe.com', AttachmentKey.COMPANY_DOCUMENTS, file, False, ['key'])
+        self._test_attachments(num_entries=len(mime_types), mime_types=mime_types, key=AttachmentKey.COMPANY_DOCUMENTS)
