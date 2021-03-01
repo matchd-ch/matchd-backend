@@ -8,7 +8,7 @@ from graphene_django.utils import GraphQLTestCase
 from graphql_auth.models import UserStatus
 
 from api.schema import schema
-from db.models import Student, AttachmentKey, Company
+from db.models import Student, AttachmentKey, Company, UserState
 from db.models.attachment import get_config_for_key
 
 # pylint: disable=W0612
@@ -53,7 +53,7 @@ class AttachmentGraphQLTestCase(GraphQLTestCase):
         self.student.set_password('asdf1234$')
         self.student.save()
 
-        Student.objects.create(user=self.student, mobile='+41771234568')
+        self.student_profile = Student.objects.create(user=self.student, mobile='+41771234568')
 
         user_status = UserStatus.objects.get(user=self.student)
         user_status.verified = True
@@ -194,6 +194,48 @@ class AttachmentGraphQLTestCase(GraphQLTestCase):
                     self.assertEqual(data.get(key)[index].get('mimeType'), mime_type)
                     index += 1
 
+    def _test_user_attachments(self, user_id, key, num_entries):
+        response = self.query('''
+        {
+          studentAvatar: attachments (key:STUDENT_AVATAR, userId: %s) {
+            id
+            url
+            mimeType
+            fileSize
+            fileName
+          }
+
+          studentDocuments: attachments (key:STUDENT_DOCUMENTS, userId: %s) {
+            id
+            url
+            mimeType
+            fileSize
+            fileName
+          }
+
+          companyAvatar: attachments (key:COMPANY_AVATAR, userId: %s) {
+            id
+            url
+            mimeType
+            fileSize
+            fileName
+          }
+
+          companyDocuments: attachments (key:COMPANY_DOCUMENTS, userId: %s) {
+            id
+            url
+            mimeType
+            fileSize
+            fileName
+          }
+        }
+        ''' % (user_id, user_id, user_id, user_id))
+
+        key = camel_case(key)
+        content = json.loads(response.content)
+        data = content.get('data')
+        self.assertEqual(len(data.get(key)), num_entries)
+
     def test_upload_without_login(self):
         file = SimpleUploadedFile(name='image.jpg', content=get_image(extension='jpg'), content_type='image/jpeg')
         self._test_upload_without_login(AttachmentKey.STUDENT_AVATAR, file)
@@ -295,3 +337,61 @@ class AttachmentGraphQLTestCase(GraphQLTestCase):
         file.seek(0)
         self._test_upload_with_login('john2@doe.com', AttachmentKey.COMPANY_DOCUMENTS, file, False, ['key'])
         self._test_attachments(num_entries=len(mime_types), mime_types=mime_types, key=AttachmentKey.COMPANY_DOCUMENTS)
+
+    def test_company_has_no_access_to_student_attachments(self):
+        mime_type = 'image/jpeg'
+        file = SimpleUploadedFile(name='image.jpg', content=get_image(extension='jpg'), content_type=mime_type)
+        self._test_upload_with_login('john@doe.com', AttachmentKey.STUDENT_AVATAR, file)
+        self._test_attachments(num_entries=1, mime_types=[mime_type], key=AttachmentKey.STUDENT_AVATAR)
+
+        # incomplete profile
+        self.student.state = UserState.INCOMPLETE
+        self.student.save()
+
+        # login as company
+        self._login('john2@doe.com')
+        # attachments not accessible
+        self._test_user_attachments(self.student.id, AttachmentKey.STUDENT_AVATAR, 0)
+
+        # anonymous profile
+        self.student.state = UserState.ANONYMOUS
+        self.student.save()
+
+        # attachments not accessible
+        self._test_user_attachments(self.student.id, AttachmentKey.STUDENT_AVATAR, 0)
+
+        # public profile
+        self.student.state = UserState.PUBLIC
+        self.student.save()
+
+        # attachments accessible
+        self._test_user_attachments(self.student.id, AttachmentKey.STUDENT_AVATAR, 1)
+
+    def test_student_has_access_to_company_attachments(self):
+        mime_type = 'image/jpeg'
+        file = SimpleUploadedFile(name='image.jpg', content=get_image(extension='jpg'), content_type=mime_type)
+        self._test_upload_with_login('john2@doe.com', AttachmentKey.COMPANY_AVATAR, file)
+        # self._test_attachments(num_entries=1, mime_types=[mime_type], key=AttachmentKey.COMPANY_AVATAR)
+
+        # incomplete profile
+        self.employee.state = UserState.INCOMPLETE
+        self.employee.save()
+
+        # login as student
+        self._login('john@doe.com')
+        # attachments not accessible
+        self._test_user_attachments(self.employee.id, AttachmentKey.COMPANY_AVATAR, 0)
+
+        # anonymous profile
+        self.employee.state = UserState.ANONYMOUS
+        self.employee.save()
+
+        # attachments accessible
+        self._test_user_attachments(self.employee.id, AttachmentKey.COMPANY_AVATAR, 1)
+
+        # public profile
+        self.employee.state = UserState.PUBLIC
+        self.employee.save()
+
+        # attachments accessible
+        self._test_user_attachments(self.employee.id, AttachmentKey.COMPANY_AVATAR, 1)

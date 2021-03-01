@@ -9,11 +9,13 @@ def has_access_to_attachments(user, owner):
     else:
         # show attachments for all companies
         user_type = owner.type
+        # check if the user has a public profile
+        state = owner.state
+
         if user_type in UserType.valid_company_types():
-            show = True
+            if state != UserState.INCOMPLETE:
+                show = True
         else:
-            # check if the user has a public profile
-            state = owner.state
             if state == UserState.PUBLIC:
                 show = True
     return show
