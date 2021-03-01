@@ -19,6 +19,8 @@ class UserUpload(Output, graphene.Mutation):
         file = Upload(required=True)
         key = AttachmentKeyType(required=True)
 
+    # pylint: disable=R0912
+    # pylint: disable=R0915
     @classmethod
     @login_required
     def mutate(cls, root, info, **kwargs):

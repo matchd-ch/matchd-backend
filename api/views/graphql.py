@@ -33,7 +33,7 @@ class GraphQLView(FileUploadGraphQLView):
                 files_map,
                 files
             )
-        return super(FileUploadGraphQLView, self).parse_body(request)
+        return super().parse_body(request)
 
     def _delete_cookies_on_response_if_needed(self, request, response):
         data = self.parse_body(request)

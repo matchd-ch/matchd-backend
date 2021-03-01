@@ -11,6 +11,9 @@ from api.schema import schema
 from db.models import Student, AttachmentKey, Company
 from db.models.attachment import get_config_for_key
 
+# pylint: disable=W0612
+# pylint: disable=R0913
+
 
 def get_image(extension='jpg'):
     image_path = os.path.join(settings.BASE_DIR, 'api', 'tests', 'data', f'image.{extension}')

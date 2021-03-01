@@ -233,13 +233,13 @@ IMAGE_STACKS = {
     'mobile-square': 'fill-200x200',
 }
 
-USER_UPLOADS_IMAGE_TYPES = 'image/jpeg', 'image/png', 'image/gif',
+USER_UPLOADS_IMAGE_TYPES = ('image/jpeg', 'image/png', 'image/gif',)
 USER_UPLOADS_MAX_IMAGE_SIZE = 1024 * 10000
 
-USER_UPLOADS_VIDEO_TYPES = 'video/mp4',
+USER_UPLOADS_VIDEO_TYPES = ('video/mp4',)
 USER_UPLOADS_MAX_VIDEO_SIZE = 1024 * 100000
 
-USER_UPLOADS_DOCUMENT_TYPES = 'application/pdf',
+USER_UPLOADS_DOCUMENT_TYPES = ('application/pdf',)
 USER_UPLOADS_MAX_DOCUMENT_SIZE = 1024 * 10000
 
 

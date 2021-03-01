@@ -1,6 +1,5 @@
 from django.contrib.auth.models import AbstractUser
 from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext as _
 
@@ -48,15 +47,15 @@ class User(AbstractUser):
     def get_profile_content_type(self):
         if self.type in UserType.valid_student_types():
             return ContentType.objects.get(app_label='db', model='student')
-        elif self.type in UserType.valid_company_types():
+        if self.type in UserType.valid_company_types():
             return ContentType.objects.get(app_label='db', model='company')
         return None
 
     def get_profile_id(self):
         if self.type in UserType.valid_student_types():
             # noinspection PyUnresolvedReferences
-            # student is reverse relation field
+            # student is a reverse relation field
             return self.student.id
-        elif self.type in UserType.valid_company_types():
+        if self.type in UserType.valid_company_types():
             return self.company.id
         return None

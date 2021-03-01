@@ -29,3 +29,6 @@ class Video(AbstractMedia):
                 pass
             self.save(update_fields=['mime_type'])
         return self.mime_type
+
+    def __str__(self):
+        return self.title

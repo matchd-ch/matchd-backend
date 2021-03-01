@@ -8,7 +8,7 @@ from db.models import UserType, AttachmentKey, get_max_files_for_key, Attachment
 
 
 @deconstructible
-class AttachmentKeyValidator(object):
+class AttachmentKeyValidator:
 
     def validate(self, key, user):
         valid = True
@@ -24,7 +24,7 @@ class AttachmentKeyValidator(object):
 
 
 @deconstructible
-class AttachmentKeyNumFilesValidator(object):
+class AttachmentKeyNumFilesValidator:
 
     def validate(self, key, profile_content_type, profile_id):
         max_files_for_key = get_max_files_for_key(key)
@@ -35,7 +35,7 @@ class AttachmentKeyNumFilesValidator(object):
 
 
 @deconstructible
-class AttachmentFileValidator(object):
+class AttachmentFileValidator:
     def __init__(self, max_size=None, content_types=()):
         self.max_size = max_size
         self.content_types = content_types
