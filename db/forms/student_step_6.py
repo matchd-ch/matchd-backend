@@ -2,7 +2,7 @@ from django import forms
 
 from db.exceptions import FormException
 from db.helper import validate_user_type, validate_step, validate_form_data
-from db.models.user import UserState
+from db.models import UserState
 
 
 class StudentProfileFormStep6(forms.Form):
