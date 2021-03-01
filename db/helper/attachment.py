@@ -3,9 +3,9 @@ from db.models import UserState, UserType
 
 def has_access_to_attachments(user, owner):
     # check if user has a public profile, or the user is the owner of the attachments
-    show = False
+    has_access = False
     if user.id == owner.id:
-        show = True
+        has_access = True
     else:
         # show attachments for all companies
         user_type = owner.type
@@ -14,8 +14,8 @@ def has_access_to_attachments(user, owner):
 
         if user_type in UserType.valid_company_types():
             if state != UserState.INCOMPLETE:
-                show = True
+                has_access = True
         else:
             if state == UserState.PUBLIC:
-                show = True
-    return show
+                has_access = True
+    return has_access
