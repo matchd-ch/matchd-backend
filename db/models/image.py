@@ -1,5 +1,5 @@
-import magic
 import os
+import magic
 from django.conf import settings
 from django.db import models
 from taggit.managers import TaggableManager

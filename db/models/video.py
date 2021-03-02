@@ -1,5 +1,5 @@
-import magic
 import os
+import magic
 from django.db import models
 from wagtailmedia.models import AbstractMedia
 from django.utils.translation import gettext_lazy as _
