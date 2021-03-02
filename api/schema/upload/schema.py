@@ -97,7 +97,7 @@ class UserUpload(Output, graphene.Mutation):
 
         # create file attachment (image, video or document)
         try:
-            file_attachment = attachment_model.objects.create(file=file)
+            file_attachment = attachment_model.objects.create(file=file, uploaded_by_user=user)
             file_attachment = attachment_model.objects.get(id=file_attachment.id)
         except attachment_model.DoesNotExist:
             errors.update(generic_error_dict('file', _('File could not be saved.'), 'error'))
