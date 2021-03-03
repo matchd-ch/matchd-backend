@@ -40,13 +40,14 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         "step1": {
             "firstName": "John",
             "lastName": "Doe",
+            "name": "Zoo",
             "street": "ZooStreet",
             "zip": "1337",
             "city": "ZooTown",
             "phone": "+41791234567",
-            "role": "Trainer",
+            "role": "Trainer"
         }
-    }
+    } 
     '''
 
     variables_step_1_base_invalid_first_name = {
@@ -65,19 +66,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         "step1": {
             "firstName": "Rick",
             "lastName": "",
-            "uid": "CHE-000.000.000",
-            "street": "ZooStreet",
-            "zip": "1337",
-            "city": "ZooTown",
-            "phone": "+41791234567",
-            "role": "Trainer"
-        }
-    }
-
-    variables_step_1_base_invalid_uid = {
-        "step1": {
-            "firstName": "Rick",
-            "lastName": "Doe",
             "street": "ZooStreet",
             "zip": "1337",
             "city": "ZooTown",
@@ -274,7 +262,7 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
 
         self.assertEqual(user.first_name, 'John')
         self.assertEqual(user.last_name, 'Doe')
-        self.assertEqual(company.name, 'Doe Unlimited')
+        self.assertEqual(company.name, 'Zoo')
         self.assertEqual(company.zip, '1337')
         self.assertEqual(company.street, 'ZooStreet')
         self.assertEqual(company.city, 'ZooTown')
@@ -294,17 +282,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
 
     def test_company_step_1_invalid_last_name(self):
         self._test_and_get_step_response_content(self.query_step_1, self.variables_step_1_base_invalid_last_name, 1,
-                                                 'companyProfileStep1', False)
-        user = get_user_model().objects.get(pk=self.user.pk)
-        company = user.company
-        self.assertEqual(user.first_name, '')
-        self.assertEqual(user.last_name, '')
-        self.assertEqual(company.name, 'Doe Unlimited')
-        self.assertEqual(company.zip, '0000')
-        self.assertEqual(company.city, 'DoeCity')
-
-    def test_company_step_1_invalid_uid(self):
-        self._test_and_get_step_response_content(self.query_step_1, self.variables_step_1_base_invalid_uid, 1,
                                                  'companyProfileStep1', False)
         user = get_user_model().objects.get(pk=self.user.pk)
         company = user.company

@@ -19,7 +19,7 @@ class Company(DjangoObjectType):
 
     class Meta:
         model = CompanyModel
-        fields = ['uid', 'name', 'zip', 'city', 'street', 'phone', 'description', 'member_it_st_gallen', 'employee.role'
+        fields = ['uid', 'name', 'zip', 'city', 'street', 'phone', 'description', 'member_it_st_gallen',
                   'services', 'website', 'job_positions', 'benefits']
 
 
