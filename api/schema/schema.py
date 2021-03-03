@@ -3,6 +3,7 @@ import graphene
 from api.schema.attachment import AttachmentMutation, AttachmentQuery
 from api.schema.job_option import JobOptionQuery
 from api.schema.job_position import JobPositionQuery
+from api.schema.job_posting.schema import JobPostingMutation
 from api.schema.language import LanguageQuery
 from api.schema.auth import AuthMutation, LogoutMutation, VerifyPasswordResetToken
 from api.schema.language_level import LanguageLevelQuery
@@ -23,7 +24,8 @@ class Mutation(
     LogoutMutation,
     StudentProfileMutation,
     UploadMutation,
-    AttachmentMutation
+    AttachmentMutation,
+    JobPostingMutation
 ):
     pass
 
