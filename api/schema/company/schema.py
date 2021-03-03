@@ -7,14 +7,14 @@ from api.schema.benefit import BenefitInputType
 from api.schema.branch.schema import BranchInputType
 from api.schema.job_position import JobPositionInputType
 from db.exceptions import FormException
-from db.forms import process_company_form_step_2, process_student_form_step_3, process_company_form_step_3
+from db.forms import process_company_form_step_2, process_company_form_step_3
 from db.forms.company_step_1 import process_company_form_step_1
 
 
 class CompanyProfileInputStep1(graphene.InputObjectType):
     first_name = graphene.String(description=_('First name'), required=True)
     last_name = graphene.String(description=_('Last name'), required=True)
-    uid = graphene.String(description=_('Uid'), required=True)
+    name = graphene.String(description=_('Name'), required=False)
     street = graphene.String(description=_('Street'), required=True)
     zip = graphene.String(description=_('Zip'), required=True)
     city = graphene.String(description=_('City'), required=True)
