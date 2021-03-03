@@ -8,7 +8,7 @@ from db.models import Branch
 class BranchType(DjangoObjectType):
     class Meta:
         model = Branch
-        fields = ('id', 'name', 'mode',)
+        fields = ('id', 'name',)
 
 
 class BranchQuery(ObjectType):

@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from graphene_django.utils import GraphQLTestCase
 from graphql_auth.models import UserStatus
 from api.schema import schema
-from db.models import Student, Skill, Language, LanguageLevel, Distinction, Company, Branch, Benefit, Employee
+from db.models import Branch, Benefit, Employee
 
 
 class CompanyGraphQLTestCase(GraphQLTestCase):
@@ -181,6 +181,22 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         }
     }
 
+    variables_step_2_base_invalid_too_long_description = {
+        "step2": {
+            "website": "no valid",
+            "description": "a" * 1001,
+            "services": "",
+            "memberItStGallen": ""
+        }
+    }
+
+    variables_step_3_base = {
+        "step3": {
+            "job_position": [{"id": 1}],
+            "benefits": [{"id": 1}],
+        }
+    }
+
     def setUp(self):
         self.user = get_user_model().objects.create(
             username='john@doe.com',
@@ -225,10 +241,10 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
 
         if success:
             self.assertTrue(content['data'].get(error).get('success'))
-            self.assertIsNone(content['data'].get('companyProfileStep1').get('errors'))
+            self.assertIsNone(content['data'].get(error).get('errors'))
         else:
-            self.assertFalse(content['data'].get('companyProfileStep1').get('success'))
-            self.assertIsNotNone(content['data'].get('companyProfileStep1').get('errors'))
+            self.assertFalse(content['data'].get(error).get('success'))
+            self.assertIsNotNone(content['data'].get(error).get('errors'))
         return content
 
     def _login(self):
@@ -248,26 +264,19 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         self.assertTrue(content['data'].get('tokenAuth').get('success'))
         self.assertIsNotNone(content['data'].get('tokenAuth').get('token'))
 
-    # def test_company_step_1_valid_base(self):
-    #     self._test_and_get_step_response_content(self.query_step_1, self.variables_step_1_base)
-    #     user = get_user_model().objects.get(pk=self.user.pk)
-    #     print(user)
-    #     profile = user
-    #     print(profile)
+    def test_company_step_1_valid_base(self):
+        self._test_and_get_step_response_content(self.query_step_1, self.variables_step_1_base, 1,
+                                                 'companyProfileStep1')
+        user = get_user_model().objects.get(pk=self.user.pk)
+        print(user)
+        profile = user
+        print(profile)
 
-    # "firstName": "John",
-    # "lastName": "Doe",
-    # "uid": "CHE-000.000.000",
-    # "street": "ZooStreet",
-    # "zip": "1337",
-    # "city": "ZooTown",
-    # "phone": "+41791234567",
-    # "role": "Trainer"
-    # self.assertEqual(profile.first_name, 'John')
-    # self.assertEqual(profile.last_name, 'Doe')
-    # # self.assertEqual(profile.benefits.all()[0].icon, 'doge')
-    # self.assertEqual(profile.benefits.all()[0].icon, 'sleep')
-    # self.assertEqual(profile.skills.all().count(), 1)
+        self.assertEqual(profile.first_name, 'John')
+        self.assertEqual(profile.last_name, 'Doe')
+        self.assertEqual(profile.benefits.all()[0].icon, 'doge')
+        self.assertEqual(profile.benefits.all()[0].icon, 'sleep')
+        self.assertEqual(profile.skills.all().count(), 1)
 
     def test_company_step_1_invalid_first_name(self):
         self._test_and_get_step_response_content(self.query_step_1, self.variables_step_1_base_invalid_first_name, 1,
@@ -332,18 +341,35 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         print(user)
         profile = user
         print(profile)
+        self.assertEqual(profile.website, 'http://google.com')
+        self.assertEqual(profile.description, 'A cool company')
+        self.assertEqual(profile.services, 'creating cool stuff')
+        self.assertEqual(profile.member_it_st_gallen, True)
 
 
     def test_company_step_2_invalid_website(self):
-        self._test_and_get_step_response_content(self.query_step_1, self.variables_step_2_base_invalid_website, 2,
+        self._test_and_get_step_response_content(self.query_step_2, self.variables_step_2_base_invalid_website, 2,
                                                  'companyProfileStep2', False)
         user = get_user_model().objects.get(pk=self.user.pk)
         profile = user.company
         self.assertEqual(profile, None)
 
     def test_company_step_2_invalid_member(self):
-        self._test_and_get_step_response_content(self.query_step_1, self.variables_step_2_base_invalid_member, 2,
+        self._test_and_get_step_response_content(self.query_step_2, self.variables_step_2_base_invalid_member, 2,
                                                  'companyProfileStep2', True)
         user = get_user_model().objects.get(pk=self.user.pk)
         profile = user.company
         self.assertEqual(profile.member_it_st_gallen, True)
+
+    def test_company_step_2_invalid_member(self):
+        self._test_and_get_step_response_content(self.query_step_2, self.variables_step_2_base_invalid_too_long_description, 2,
+                                                 'companyProfileStep2', True)
+        user = get_user_model().objects.get(pk=self.user.pk)
+        profile = user.company
+        self.assertEqual(profile.member_it_st_gallen, True)
+
+    def test_company_step_3_valid_base(self):
+        self._test_and_get_step_response_content(self.query_step_3, self.variables_step_3, 3,
+                                                 'companyProfileStep3', True)
+        user = get_user_model().objects.get(pk=self.user.pk)
+        profile = user.company
