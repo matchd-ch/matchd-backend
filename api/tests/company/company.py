@@ -45,7 +45,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             "city": "ZooTown",
             "phone": "+41791234567",
             "role": "Trainer",
-            "uid": "CHE-000.000.000"
         }
     }
     '''
@@ -54,7 +53,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         "step1": {
             "firstName": "",
             "lastName": "Doe",
-            "uid": "CHE-000.000.000",
             "street": "ZooStreet",
             "zip": "1337",
             "city": "ZooTown",
@@ -80,7 +78,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         "step1": {
             "firstName": "Rick",
             "lastName": "Doe",
-            "uid": "",
             "street": "ZooStreet",
             "zip": "1337",
             "city": "ZooTown",
@@ -93,7 +90,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         "step1": {
             "firstName": "Rick",
             "lastName": "Doe",
-            "uid": "CHE-000.000.000",
             "street": "",
             "zip": "1337",
             "city": "ZooTown",
@@ -106,7 +102,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         "step1": {
             "firstName": "Rick",
             "lastName": "Doe",
-            "uid": "CHE-000.000.000",
             "street": "ZooStreet",
             "zip": "",
             "city": "ZooTown",
@@ -119,7 +114,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         "step1": {
             "firstName": "Rick",
             "lastName": "Doe",
-            "uid": "CHE-000.000.000",
             "street": "ZooStreet",
             "zip": "1337",
             "city": "",
@@ -132,7 +126,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         "step1": {
             "firstName": "Rick",
             "lastName": "Doe",
-            "uid": "CHE-000.000.000",
             "street": "ZooStreet",
             "zip": "1337",
             "city": "ZooTown",
@@ -145,7 +138,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         "step1": {
             "firstName": "Rick",
             "lastName": "Doe",
-            "uid": "CHE-000.000.000",
             "street": "ZooStreet",
             "zip": "1337",
             "city": "ZooTown",
@@ -282,7 +274,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
 
         self.assertEqual(user.first_name, 'John')
         self.assertEqual(user.last_name, 'Doe')
-        self.assertEqual(company.uid, 'CHE-000.000.000')
         self.assertEqual(company.name, 'Doe Unlimited')
         self.assertEqual(company.zip, '1337')
         self.assertEqual(company.street, 'ZooStreet')
@@ -297,7 +288,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         company = user.company
         self.assertEqual(user.first_name, '')
         self.assertEqual(user.last_name, '')
-        self.assertEqual(company.uid, 'CHE-999.999.999')
         self.assertEqual(company.name, 'Doe Unlimited')
         self.assertEqual(company.zip, '0000')
         self.assertEqual(company.city, 'DoeCity')
@@ -309,7 +299,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         company = user.company
         self.assertEqual(user.first_name, '')
         self.assertEqual(user.last_name, '')
-        self.assertEqual(company.uid, 'CHE-999.999.999')
         self.assertEqual(company.name, 'Doe Unlimited')
         self.assertEqual(company.zip, '0000')
         self.assertEqual(company.city, 'DoeCity')
@@ -321,7 +310,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         company = user.company
         self.assertEqual(user.first_name, '')
         self.assertEqual(user.last_name, '')
-        self.assertEqual(company.uid, 'CHE-999.999.999')
         self.assertEqual(company.name, 'Doe Unlimited')
         self.assertEqual(company.zip, '0000')
         self.assertEqual(company.city, 'DoeCity')
@@ -333,7 +321,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         company = user.company
         self.assertEqual(user.first_name, '')
         self.assertEqual(user.last_name, '')
-        self.assertEqual(company.uid, 'CHE-999.999.999')
         self.assertEqual(company.name, 'Doe Unlimited')
         self.assertEqual(company.zip, '0000')
         self.assertEqual(company.city, 'DoeCity')
@@ -345,7 +332,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         company = user.company
         self.assertEqual(user.first_name, '')
         self.assertEqual(user.last_name, '')
-        self.assertEqual(company.uid, 'CHE-999.999.999')
         self.assertEqual(company.name, 'Doe Unlimited')
         self.assertEqual(company.zip, '0000')
         self.assertEqual(company.city, 'DoeCity')
@@ -357,7 +343,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         company = user.company
         self.assertEqual(user.first_name, '')
         self.assertEqual(user.last_name, '')
-        self.assertEqual(company.uid, 'CHE-999.999.999')
         self.assertEqual(company.name, 'Doe Unlimited')
         self.assertEqual(company.zip, '0000')
         self.assertEqual(company.city, 'DoeCity')
@@ -369,7 +354,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         company = user.company
         self.assertEqual(user.first_name, '')
         self.assertEqual(user.last_name, '')
-        self.assertEqual(company.uid, 'CHE-999.999.999')
         self.assertEqual(company.name, 'Doe Unlimited')
         self.assertEqual(company.zip, '0000')
         self.assertEqual(company.city, 'DoeCity')
@@ -381,7 +365,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         company = user.company
         self.assertEqual(user.first_name, '')
         self.assertEqual(user.last_name, '')
-        self.assertEqual(company.uid, 'CHE-999.999.999')
         self.assertEqual(company.name, 'Doe Unlimited')
         self.assertEqual(company.zip, '0000')
         self.assertEqual(company.city, 'DoeCity')
@@ -403,7 +386,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         company = user.company
         self.assertEqual(user.first_name, '')
         self.assertEqual(user.last_name, '')
-        self.assertEqual(company.uid, 'CHE-999.999.999')
         self.assertEqual(company.name, 'Doe Unlimited')
         self.assertEqual(company.zip, '0000')
         self.assertEqual(company.city, 'DoeCity')
@@ -415,7 +397,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         company = user.company
         self.assertEqual(user.first_name, '')
         self.assertEqual(user.last_name, '')
-        self.assertEqual(company.uid, 'CHE-999.999.999')
         self.assertEqual(company.name, 'Doe Unlimited')
         self.assertEqual(company.zip, '0000')
         self.assertEqual(company.city, 'DoeCity')
