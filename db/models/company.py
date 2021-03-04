@@ -18,4 +18,3 @@ class Company(models.Model):
     member_it_st_gallen = models.BooleanField(blank=True, default=False)
     benefits = models.ManyToManyField('db.Benefit', related_name='benefits')
     job_positions = models.ManyToManyField('db.JobPosition', related_name='job_positions')
-

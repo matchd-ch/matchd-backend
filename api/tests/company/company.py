@@ -7,6 +7,7 @@ from api.schema import schema
 from db.models import Branch, Benefit, Employee, Company, JobPosition
 
 
+# pylint:disable=R0913
 class CompanyGraphQLTestCase(GraphQLTestCase):
     GRAPHQL_SCHEMA = schema
 
