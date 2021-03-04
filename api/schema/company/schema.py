@@ -71,7 +71,7 @@ class CompanyProfileStep2(Output, graphene.Mutation):
 
 
 class CompanyProfileInputStep3(graphene.InputObjectType):
-    job_position = graphene.List(JobPositionInputType, description=_('Job Position'))
+    job_positions = graphene.List(JobPositionInputType, description=_('Job Position'))
     benefits = graphene.List(BenefitInputType, description=_('Benefits'))
 
 

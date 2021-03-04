@@ -6,7 +6,7 @@ from db.models import JobPosition, Benefit
 
 
 class CompanyProfileFormStep3(forms.Form):
-    job_position = forms.ModelMultipleChoiceField(queryset=JobPosition.objects.all(), required=False)
+    job_positions = forms.ModelMultipleChoiceField(queryset=JobPosition.objects.all(), required=False)
     benefits = forms.ModelMultipleChoiceField(queryset=Benefit.objects.all(), required=False)
 
 
@@ -26,7 +26,7 @@ def process_company_form_step_3(user, data):
         cleaned_data = form.cleaned_data
 
         # optional parameters
-        jobs_to_save = cleaned_data.get('job_position')
+        jobs_to_save = cleaned_data.get('job_positions')
         benefits_to_save = cleaned_data.get('benefits')
     else:
         errors.update(form.errors.get_json_data())
