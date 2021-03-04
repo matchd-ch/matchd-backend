@@ -256,7 +256,6 @@ class StudentGraphQLTestCase(GraphQLTestCase):
             query {
                 me {
                     username
-                    verified
                     firstName
                     lastName
                     profileStep
@@ -272,6 +271,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
                       schoolName
                       fieldOfStudy
                       graduation
+                      distinction
                       skills {
                         id
                         name
@@ -279,10 +279,6 @@ class StudentGraphQLTestCase(GraphQLTestCase):
                       hobbies {
                         id
                         name
-                      }
-                      distinctions {
-                        id
-                        text
                       }
                       languages {
                         id

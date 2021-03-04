@@ -2,7 +2,7 @@ from django import forms
 
 from db.exceptions import FormException
 from db.helper import validate_user_type, validate_step, validate_form_data
-from db.models.user import UserState
+from db.models import UserState
 
 
 class StudentProfileFormStep6(forms.Form):
@@ -16,6 +16,12 @@ def process_student_form_step_6(user, data):
     validate_user_type(user)
     validate_step(user, 6)
     validate_form_data(data)
+
+    # do not disable enum conversion as described here:
+    # https://docs.graphene-python.org/projects/django/en/latest/queries/#choices-to-enum-conversion
+    # otherwise the frontend application will not have an enum type for the state field
+    # force lower case of the input (eg. "INCOMPLETE", etc)
+    data['state'] = data.get('state').lower()
 
     form = StudentProfileFormStep6(data)
     form.full_clean()
