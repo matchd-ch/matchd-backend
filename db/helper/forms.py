@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
 
 from db.exceptions import FormException
-from db.validators import StudentProfileFormStepValidator, StudentTypeValidator
+from db.validators import StudentProfileFormStepValidator, StudentTypeValidator, CompanyTypeValidator
 
 
 def generic_error_dict(key, message, code):
@@ -44,11 +44,25 @@ def convert_date(date, date_format='%d.%m.%Y'):
     return date
 
 
-def validate_user_type(user):
+def validate_student_type(user):
     errors = {}
 
     # validate user type
     validator = StudentTypeValidator()
+    try:
+        validator.validate(user.type)
+    except ValidationError as error:
+        errors.update(validation_error_to_dict(error, 'type'))
+
+    if errors:
+        raise FormException(errors)
+
+
+def validate_company_type(user):
+    errors = {}
+
+    # validate user type
+    validator = CompanyTypeValidator()
     try:
         validator.validate(user.type)
     except ValidationError as error:

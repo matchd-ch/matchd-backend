@@ -3,7 +3,7 @@ from django.conf import settings
 from django.core.validators import RegexValidator
 
 from db.exceptions import FormException
-from db.helper.forms import convert_date, validate_user_type, validate_step, validate_form_data
+from db.helper.forms import convert_date, validate_student_type, validate_step, validate_form_data
 
 
 class StudentProfileFormStep1(forms.Form):
@@ -23,7 +23,7 @@ class StudentProfileFormStep1(forms.Form):
 
 def process_student_form_step_1(user, data):
     # validate user type, step and data
-    validate_user_type(user)
+    validate_student_type(user)
     validate_step(user, 1)
     validate_form_data(data)
 

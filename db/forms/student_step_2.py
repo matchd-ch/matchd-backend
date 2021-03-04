@@ -2,7 +2,7 @@ from django import forms
 from django.core.validators import MinLengthValidator
 
 from db.exceptions import FormException
-from db.helper.forms import convert_date, validate_user_type, validate_step, validate_form_data
+from db.helper.forms import convert_date, validate_student_type, validate_step, validate_form_data
 
 
 class StudentProfileFormStep2(forms.Form):
@@ -20,7 +20,7 @@ def process_student_form_step_2(user, data):
     errors = {}
 
     # validate user type, step and data
-    validate_user_type(user)
+    validate_student_type(user)
     validate_step(user, 2)
     validate_form_data(data)
 
