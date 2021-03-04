@@ -10,12 +10,22 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         data_set = self.read_json()
-
         for data in data_set:
-            Branch.objects.create(
-                id=data["id"],
-                name=data["name"]
-            ).save()
+            try:
+                branch_to_update = Branch.objects.get(id=data.get('pk'))
+
+            except Branch.DoesNotExist:
+                branch_to_update = None
+            if branch_to_update is not None:
+                branch_to_update.name = data.get('fields').get('name')
+                branch_to_update.save()
+
+            else:
+                Branch.objects.create(
+                    id=data.get('pk'),
+                    name=data.get('fields').get('name')
+                ).save()
+
         self.stdout.write(self.style.SUCCESS('Filled Database'))
 
     def read_file(self):
