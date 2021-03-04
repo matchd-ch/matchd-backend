@@ -12,9 +12,9 @@ class BranchType(DjangoObjectType):
 
 
 class BranchQuery(ObjectType):
-    branch = graphene.List(BranchType)
+    branches = graphene.List(BranchType)
 
-    def resolve_branch(self, info, **kwargs):
+    def resolve_branches(self, info, **kwargs):
         return Branch.objects.all()
 
 
