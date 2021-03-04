@@ -9,3 +9,4 @@ class JobPosting(models.Model):
     job_from_date = models.DateField(null=False, blank=False)
     job_to_date = models.DateField(null=True, blank=True)
     url = models.URLField(null=True, blank=True)
+    form_step = models.IntegerField(default=2)  # since we save the job posting in step 1 the default value is 2

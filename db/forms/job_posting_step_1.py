@@ -35,6 +35,8 @@ def process_job_posting_form_step_1(user, data):
     form = JobPostingFormStep1(data)
     form.full_clean()
 
+    job_posting = None
+
     if form.is_valid():
         cleaned_data = form.cleaned_data
 
@@ -47,10 +49,14 @@ def process_job_posting_form_step_1(user, data):
                                              'invalid_range'))
         else:
             cleaned_data['company'] = user.company
-            job_posting = JobPosting.objects.create(**cleaned_data)
-
+            try:
+                job_posting = JobPosting.objects.create(**cleaned_data)
+            except Exception as exception:
+                errors.update(generic_error_dict('job_posting', str(exception), 'invalid'))
     else:
         errors.update(form.errors.get_json_data())
 
     if errors:
         raise FormException(errors=errors)
+
+    return job_posting
