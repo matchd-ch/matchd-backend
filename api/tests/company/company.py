@@ -173,7 +173,7 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
 
     variables_step_3_base = {
         "step3": {
-            "jobPosition": [{"id": 1}],
+            "jobPositions": [{"id": 1}],
             "benefits": [{"id": 1, "icon": "doge"}, {"id": 2}],
         }
     }
