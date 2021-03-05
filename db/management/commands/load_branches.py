@@ -29,9 +29,9 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS('Filled Database'))
 
     def read_file(self):
-        file = open("db/management/data/branches.json", "r")
-        data = file.read()
-        file.close()
+        with open("db/management/data/branches.json") as file:
+            data = file.read()
+            file.close()
         return data
 
     def read_json(self):
