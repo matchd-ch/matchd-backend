@@ -2,8 +2,8 @@ from django import forms
 from django.utils.translation import gettext as _
 
 from db.exceptions import FormException
-from db.helper.forms import convert_date, generic_error_dict, validate_student_type, validate_step, validate_form_data, \
-    convert_object_to_id
+from db.helper.forms import convert_date, generic_error_dict, validate_student_type, validate_step, \
+    validate_form_data, convert_object_to_id
 from db.models import JobOption, JobPosition, JobOptionMode
 
 

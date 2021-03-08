@@ -36,7 +36,6 @@ def process_job_posting_form_step_1(user, data):
     errors = {}
 
     validate_company_type(user)
-    # todo validate step ?
     validate_form_data(data)
 
     form = JobPostingFormStep1(data)
