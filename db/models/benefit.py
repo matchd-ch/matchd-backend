@@ -10,4 +10,4 @@ class Benefit(models.Model):
     ]
 
     class Meta:
-        ordering = ['icon']
+        ordering = ('icon',)
