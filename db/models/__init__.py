@@ -18,3 +18,4 @@ from .attachment import Attachment, upload_configurations, AttachmentKey, get_at
     get_max_files_for_key
 from .job_posting import JobPosting
 from .expectation import Expectation
+from .job_posting_language_relation import JobPostingLanguageRelation

@@ -5,9 +5,6 @@ from .student_step_4 import StudentProfileFormStep4, process_student_form_step_4
 from .student_step_5 import StudentProfileFormStep5, process_student_form_step_5
 from .student_step_6 import StudentProfileFormStep6, process_student_form_step_6
 
-from .job_posting_step_1 import process_job_posting_form_step_1
-from .job_posting_step_2 import process_job_posting_form_step_2
-
 from .company import CompanyForm, UniversityForm
 from .student import StudentForm
 from .user_request import UserRequestForm
@@ -16,3 +13,7 @@ from .hobby import HobbyForm
 from .online_project import OnlineProjectForm
 from .user_language_relation import UserLanguageRelationForm
 from .attachment import AttachmentForm
+from .job_posting_language_relation import JobPostingLanguageRelationForm
+
+from .job_posting_step_1 import process_job_posting_form_step_1
+from .job_posting_step_2 import process_job_posting_form_step_2

@@ -9,6 +9,7 @@ from graphql_jwt.decorators import login_required
 
 from api.schema.expectation import ExpectationInputType
 from api.schema.job_option import JobOptionInputType
+from api.schema.job_posting_language_relation import JobPostingLanguageRelationInputType
 from api.schema.skill import SkillInputType
 from db.exceptions import FormException
 from db.forms import process_job_posting_form_step_1, process_job_posting_form_step_2
@@ -86,6 +87,7 @@ class JobPostingInputStep2(graphene.InputObjectType):
     id = graphene.ID()
     expectations = graphene.List(ExpectationInputType, required=False)
     skills = graphene.List(SkillInputType, required=False)
+    languages = graphene.List(JobPostingLanguageRelationInputType, required=False)
 
 
 class JobPostingStep2(Output, graphene.Mutation):
