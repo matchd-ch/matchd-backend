@@ -1,6 +1,7 @@
 import graphene
 
 from api.schema.attachment import AttachmentMutation, AttachmentQuery
+from api.schema.expectation import ExpectationQuery
 from api.schema.job_option import JobOptionQuery
 from api.schema.job_position import JobPositionQuery
 from api.schema.job_posting import JobPostingMutation, JobPostingQuery
@@ -41,7 +42,8 @@ class Query(
     SkillQuery,
     AttachmentQuery,
     UploadConfigurationQuery,
-    JobPostingQuery
+    JobPostingQuery,
+    ExpectationQuery
 ):
     pass
 
