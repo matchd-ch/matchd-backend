@@ -178,6 +178,18 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         }
     }
 
+    variables_step_1_invalid = {
+        "step1": {
+            "firstName": "",
+            "lastName": "",
+            "street": "",
+            "zip": "",
+            "city": "",
+            "phone": "",
+            "role": ""
+        }
+    }
+
     def setUp(self):
         self.company = Company.objects.create(uid='CHE-999.999.999', name='Doe Unlimited', zip='0000', city='DoeCity')
         self.company.save()
@@ -185,6 +197,8 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             username='john@doe.com',
             email='john@doe.com',
             type='company',
+            first_name='Johnny',
+            last_name='Test',
             company=self.company
         )
         self.user.set_password('asdf1234$')
@@ -238,6 +252,19 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             self.assertIsNotNone(content['data'].get(error).get('errors'))
         return content
 
+    def _test_with_invalid_data(self, step, query, variables, error_key, expected_errors):
+        self._login()
+        self.user.profile_step = step
+        self.user.save()
+
+        response = self.query(query, variables=variables)
+        content = json.loads(response.content)
+
+        self.assertResponseNoErrors(response)
+        errors = content['data'].get(error_key).get('errors')
+        for expected_error in expected_errors:
+            self.assertIn(expected_error, errors)
+
     def _login(self):
         response = self.query(
             '''
@@ -255,6 +282,57 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         self.assertTrue(content['data'].get('tokenAuth').get('success'))
         self.assertIsNotNone(content['data'].get('tokenAuth').get('token'))
 
+    def _test_me(self, success=True):
+        response = self.query(
+            '''
+            query {
+                me{
+                id,
+                username,
+                email,
+                type,
+                firstName,
+                lastName,
+                state,
+                profileStep,
+                employee{
+                  id,
+                  role,
+                }
+                company{
+                    uid,
+                    name,
+                    zip,
+                    city,
+                    street,
+                    phone,
+                    website,
+                    description,
+                    services,
+                    memberItStGallen,
+                  benefits{
+                    id,
+                    icon
+                  }
+                  jobPositions{
+                    id,
+                    name
+                  }
+                }
+              }
+            }
+            '''
+        )
+
+        content = json.loads(response.content)
+
+        if success:
+            self.assertResponseNoErrors(response)
+
+        else:
+            self.assertResponseHasErrors(response)
+            self.assertIsNone(content['data'].get('me'))
+
     def test_company_step_1_valid_base(self):
         self._test_and_get_step_response_content(self.query_step_1, self.variables_step_1_base, 1,
                                                  'companyProfileStep1')
@@ -270,13 +348,17 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         self.assertEqual(company.phone, '+41791234567')
         self.assertEqual(user.employee.role, 'Trainer')
 
+    def test_company_step_1_invalid_data(self):
+        self._test_with_invalid_data(1, self.query_step_1, self.variables_step_1_invalid, 'companyProfileStep1',
+                                     ['firstName', 'lastName', 'name', 'zip', 'street', 'city', 'phone', 'role'])
+
     def test_company_step_1_invalid_first_name(self):
         self._test_and_get_step_response_content(self.query_step_1, self.variables_step_1_base_invalid_first_name, 1,
                                                  'companyProfileStep1', False)
         user = get_user_model().objects.get(pk=self.user.pk)
         company = user.company
-        self.assertEqual(user.first_name, '')
-        self.assertEqual(user.last_name, '')
+        self.assertEqual(user.first_name, 'Johnny')
+        self.assertEqual(user.last_name, 'Test')
         self.assertEqual(company.name, 'Doe Unlimited')
         self.assertEqual(company.zip, '0000')
         self.assertEqual(company.city, 'DoeCity')
@@ -286,8 +368,8 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                                                  'companyProfileStep1', False)
         user = get_user_model().objects.get(pk=self.user.pk)
         company = user.company
-        self.assertEqual(user.first_name, '')
-        self.assertEqual(user.last_name, '')
+        self.assertEqual(user.first_name, 'Johnny')
+        self.assertEqual(user.last_name, 'Test')
         self.assertEqual(company.name, 'Doe Unlimited')
         self.assertEqual(company.zip, '0000')
         self.assertEqual(company.city, 'DoeCity')
@@ -297,8 +379,8 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                                                  'companyProfileStep1', False)
         user = get_user_model().objects.get(pk=self.user.pk)
         company = user.company
-        self.assertEqual(user.first_name, '')
-        self.assertEqual(user.last_name, '')
+        self.assertEqual(user.first_name, 'Johnny')
+        self.assertEqual(user.last_name, 'Test')
         self.assertEqual(company.name, 'Doe Unlimited')
         self.assertEqual(company.zip, '0000')
         self.assertEqual(company.city, 'DoeCity')
@@ -308,8 +390,8 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                                                  'companyProfileStep1', False)
         user = get_user_model().objects.get(pk=self.user.pk)
         company = user.company
-        self.assertEqual(user.first_name, '')
-        self.assertEqual(user.last_name, '')
+        self.assertEqual(user.first_name, 'Johnny')
+        self.assertEqual(user.last_name, 'Test')
         self.assertEqual(company.name, 'Doe Unlimited')
         self.assertEqual(company.zip, '0000')
         self.assertEqual(company.city, 'DoeCity')
@@ -319,8 +401,8 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                                                  'companyProfileStep1', False)
         user = get_user_model().objects.get(pk=self.user.pk)
         company = user.company
-        self.assertEqual(user.first_name, '')
-        self.assertEqual(user.last_name, '')
+        self.assertEqual(user.first_name, 'Johnny')
+        self.assertEqual(user.last_name, 'Test')
         self.assertEqual(company.name, 'Doe Unlimited')
         self.assertEqual(company.zip, '0000')
         self.assertEqual(company.city, 'DoeCity')
@@ -330,8 +412,8 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                                                  'companyProfileStep1', False)
         user = get_user_model().objects.get(pk=self.user.pk)
         company = user.company
-        self.assertEqual(user.first_name, '')
-        self.assertEqual(user.last_name, '')
+        self.assertEqual(user.first_name, 'Johnny')
+        self.assertEqual(user.last_name, 'Test')
         self.assertEqual(company.name, 'Doe Unlimited')
         self.assertEqual(company.zip, '0000')
         self.assertEqual(company.city, 'DoeCity')
@@ -341,8 +423,8 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                                                  'companyProfileStep1', False)
         user = get_user_model().objects.get(pk=self.user.pk)
         company = user.company
-        self.assertEqual(user.first_name, '')
-        self.assertEqual(user.last_name, '')
+        self.assertEqual(user.first_name, 'Johnny')
+        self.assertEqual(user.last_name, 'Test')
         self.assertEqual(company.name, 'Doe Unlimited')
         self.assertEqual(company.zip, '0000')
         self.assertEqual(company.city, 'DoeCity')
@@ -362,8 +444,8 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                                                  'companyProfileStep2', False)
         user = get_user_model().objects.get(pk=self.user.pk)
         company = user.company
-        self.assertEqual(user.first_name, '')
-        self.assertEqual(user.last_name, '')
+        self.assertEqual(user.first_name, 'Johnny')
+        self.assertEqual(user.last_name, 'Test')
         self.assertEqual(company.name, 'Doe Unlimited')
         self.assertEqual(company.zip, '0000')
         self.assertEqual(company.city, 'DoeCity')
@@ -373,8 +455,8 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                                                  'companyProfileStep2', True)
         user = get_user_model().objects.get(pk=self.user.pk)
         company = user.company
-        self.assertEqual(user.first_name, '')
-        self.assertEqual(user.last_name, '')
+        self.assertEqual(user.first_name, 'Johnny')
+        self.assertEqual(user.last_name, 'Test')
         self.assertEqual(company.name, 'Doe Unlimited')
         self.assertEqual(company.zip, '0000')
         self.assertEqual(company.city, 'DoeCity')
