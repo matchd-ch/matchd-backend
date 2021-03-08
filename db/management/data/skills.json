@@ -1,0 +1,9 @@
+[
+  {
+    "model": "db.skill",
+    "pk": 1,
+    "fields": {
+      "name": "Skillig"
+    }
+  }
+]
