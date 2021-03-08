@@ -20,7 +20,7 @@ class JobPostingType(DjangoObjectType):
     class Meta:
         model = JobPosting
         fields = ('id', 'description', 'job_option', 'workload', 'company', 'job_from_date', 'job_to_date', 'url',
-                  'form_step')
+                  'form_step', 'skills', 'expectations', 'languages')
 
 
 class JobPostingQuery(ObjectType):
