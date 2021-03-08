@@ -1,3 +1,4 @@
+import requests
 from django import forms
 from django.utils.translation import gettext as _
 
@@ -25,6 +26,12 @@ class JobPostingFormStep1(forms.Form):
         super().__init__(data=data, **kwargs)
 
 
+def validate_html_url(url):
+    response = requests.head(url)
+    content_type = response.headers.get('Content-Type')
+    return 'text/html' in content_type
+
+
 def process_job_posting_form_step_1(user, data):
     errors = {}
 
@@ -43,6 +50,11 @@ def process_job_posting_form_step_1(user, data):
         # validate date range
         from_date = cleaned_data.get('job_from_date')
         to_date = cleaned_data.get('job_to_date', None)
+        url = cleaned_data.get('url', None)
+
+        if url is not None and url != '':
+            if not validate_html_url(url):
+                errors.update(generic_error_dict('url', _('URL must point to a html page'), 'invalid'))
 
         if to_date is not None and from_date >= to_date:
             errors.update(generic_error_dict('job_to_date', _('Date must be after from date'),
@@ -57,6 +69,9 @@ def process_job_posting_form_step_1(user, data):
         errors.update(form.errors.get_json_data())
 
     if errors:
+        # delete job posting if it was created
+        if job_posting is not None:
+            job_posting.delete()
         raise FormException(errors=errors)
 
     return job_posting
