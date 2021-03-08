@@ -9,6 +9,9 @@ from db.models import JobOption, JobOptionMode, Company, UserState, JobPosting, 
     LanguageLevel
 
 
+# pylint: disable=C0303
+# pylint: disable=R0913
+# pylint: disable=R0902
 class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
 
     query_step_1 = '''
@@ -74,7 +77,7 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
             'url': None
         }
     }
-    
+
     variables_step_2 = {
       'step2': {
         'id': 1,

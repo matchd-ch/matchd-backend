@@ -5,7 +5,7 @@ from django.utils.translation import gettext as _
 
 from api.schema.job_posting_language_relation import JobPostingLanguageRelationInputType
 from db.exceptions import FormException
-from db.forms import JobPostingLanguageRelationForm
+from db.forms.job_posting_language_relation import JobPostingLanguageRelationForm
 from db.helper.forms import validate_company_type, validate_form_data, validate_job_posting_step, silent_fail
 from db.models import JobPosting, Expectation, Skill, JobPostingLanguageRelation, Language
 
