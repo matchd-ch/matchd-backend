@@ -7,7 +7,7 @@ from api.schema.job_posting_language_relation import JobPostingLanguageRelationI
 from db.exceptions import FormException
 from db.forms import JobPostingLanguageRelationForm
 from db.helper.forms import validate_company_type, validate_form_data, validate_job_posting_step, silent_fail
-from db.models import JobPosting, Expectation, Skill, JobPostingLanguageRelation
+from db.models import JobPosting, Expectation, Skill, JobPostingLanguageRelation, Language
 
 
 class JobPostingFormStep2(forms.Form):
@@ -17,6 +17,8 @@ class JobPostingFormStep2(forms.Form):
 
 
 def get_unique_languages(data):
+    # only allow short list languages
+    short_list_languages = Language.objects.filter(short_list=True).values_list('id', flat=True)
     unique_languages = []
     languages = []
     for language in data:
@@ -24,7 +26,8 @@ def get_unique_languages(data):
         if language_id in languages:
             continue
         languages.append(language_id)
-        unique_languages.append(language)
+        if int(language_id) in short_list_languages:
+            unique_languages.append(language)
     return unique_languages
 
 
@@ -91,7 +94,9 @@ def process_job_posting_form_step_2(user, data):
         for language in languages:
             language['job_posting'] = job_posting.id
             try:
-                valid_languages_forms.append(process_language(job_posting, language))
+                form = process_language(job_posting, language)
+                if form is not None:
+                    valid_languages_forms.append(form)
             except FormException as exception:
                 errors.update(exception.errors)
 
