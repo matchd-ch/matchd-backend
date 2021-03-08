@@ -328,6 +328,13 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
 
         if success:
             self.assertResponseNoErrors(response)
+            self.assertEqual(content['data'].get('me').get('username'), 'john@doe.com')
+            self.assertEqual(content['data'].get('me').get('first_name'), 'Johnny')
+            self.assertEqual(content['data'].get('me').get('last_name'), 'Test')
+            self.assertEqual(content['data'].get('me').get('state'), 'INCOMPLETE')
+            self.assertEqual(content['data'].get('me').get('profileStep'), 1)
+            self.assertEqual(content['data'].get('me').get('type'), 'COMPANY')
+            self.assertEqual(content['data'].get('me').get('company').get('mobile'), '+41791234567')
 
         else:
             self.assertResponseHasErrors(response)
