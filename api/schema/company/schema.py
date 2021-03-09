@@ -1,4 +1,6 @@
 import graphene
+from graphene import ObjectType
+from graphene_django import DjangoObjectType
 from django.utils.translation import gettext as _
 from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
@@ -9,6 +11,7 @@ from api.schema.job_position import JobPositionInputType
 from db.exceptions import FormException
 from db.forms import process_company_form_step_2, process_company_form_step_3
 from db.forms.company_step_1 import process_company_form_step_1
+from db.models import Company
 
 
 class CompanyProfileInputStep1(graphene.InputObjectType):
@@ -99,3 +102,17 @@ class CompanyProfileMutation(graphene.ObjectType):
     company_profile_step1 = CompanyProfileStep1.Field()
     company_profile_step2 = CompanyProfileStep2.Field()
     company_profile_step3 = CompanyProfileStep3.Field()
+
+
+class CompanyType(DjangoObjectType):
+    class Meta:
+        model = Company
+        fields = ('id', 'name',)
+
+
+class CompanyQuery(ObjectType):
+    company = graphene.List(CompanyType)
+
+    def resolve_company(self, info, **kwargs):
+        return Company.objects.all()
+
