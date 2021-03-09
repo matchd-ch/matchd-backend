@@ -107,7 +107,8 @@ class CompanyProfileMutation(graphene.ObjectType):
 class CompanyType(DjangoObjectType):
     class Meta:
         model = Company
-        fields = ('id', 'name',)
+        fields = ('name', 'zip', 'city', 'street', 'website', 'employee', 'phone', 'description',
+                  'services', 'job_positions', 'benefits')
 
 
 class CompanyQuery(ObjectType):
