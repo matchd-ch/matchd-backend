@@ -8,7 +8,7 @@ from db.models import Benefit
 class BenefitType(DjangoObjectType):
     class Meta:
         model = Benefit
-        fields = ('id', 'icon',)
+        fields = ('id', 'icon', 'name',)
 
 
 class BenefitQuery(ObjectType):
