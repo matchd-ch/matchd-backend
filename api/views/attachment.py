@@ -23,7 +23,7 @@ class AttachmentServeView(View):
         attachment = get_object_or_404(self.model, id=attachment_id)
 
         user = request.user
-        owner = attachment.content_object.user
+        owner = attachment.attachment_object.uploaded_by_user
 
         has_permission = has_access_to_attachments(user, owner)
 
