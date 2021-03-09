@@ -16,6 +16,7 @@ if [ "$1" = '/usr/libexec/s2i/run' ] || [ "$3" = '/usr/libexec/s2i/run' ] || [ "
     until curl -s $DJANGO_ELASTIC_SEARCH_URL/_cluster/health | egrep '(green|yellow)' -i > /dev/null; do echo "elastic is not ready. waiting..." && sleep 5; done
 
     echo "Load initial data"
+    ./manage.py load_initial_data
     ./manage.py loaddata db/fixtures/initial_data.json
 
     echo "Reindex elastic"
