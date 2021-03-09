@@ -1,1 +1,1 @@
-from .load_branches import Command
+from .load_initial_data import Command

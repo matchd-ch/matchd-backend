@@ -1,0 +1,9 @@
+[
+  {
+    "model": "db.benefit",
+    "pk": 1,
+    "fields": {
+      "icon": "Doge"
+    }
+  }
+]

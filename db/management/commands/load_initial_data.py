@@ -1,43 +1,32 @@
 import json
 import glob
 from django.core.management.base import BaseCommand
-from db.models import Branch
 from django.apps import apps
 
 
-
-
 class Command(BaseCommand):
-    help = 'loads Branches in DB'
+    help = 'loads initial data in DB'
 
     def handle(self, *args, **options):
         files = self.get_all_json()
         for file in files:
-
             data_set = self.read_json(file)
-
             for data in data_set:
                 self.get_fields(data)
                 model = self.get_model(data)
                 try:
-                    branch_to_update = model.objects.get(id=data.get('pk'))
-
+                    data_to_update = model.objects.get(id=data.get('pk'))
                 except model.DoesNotExist:
-                    branch_to_update = None
-                if branch_to_update is not None:
-                    branch_to_update.name = data.get('fields').get('name')
-                    branch_to_update.save()
-
-                else:
-                    model.objects.create(
-                        id=data.get('pk'),
-                        name=data.get('fields').get('name')
-                    ).save()
-
-            self.stdout.write(self.style.SUCCESS('Filled Database'))
+                    data_to_update = None
+                if data_to_update is None:
+                    data_to_update = model.objects.create(id=data.get('pk'))
+                fields = self.get_fields(data)
+                for field in fields:
+                    setattr(data_to_update, field, data.get('fields').get(field))
+                data_to_update.save()
+            self.stdout.write(self.style.SUCCESS('Filled ' + data.get('model')))
 
     def read_file(self, path):
-        # db/management/data/branches.json
         with open(path) as file:
             data = file.read()
             file.close()
@@ -56,7 +45,4 @@ class Command(BaseCommand):
 
     def get_fields(self, data):
         fields = data.get('fields').keys()
-        print(fields)
         return fields
-
-
