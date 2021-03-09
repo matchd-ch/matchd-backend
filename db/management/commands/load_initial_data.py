@@ -24,7 +24,7 @@ class Command(BaseCommand):
                 for field in fields:
                     setattr(data_to_update, field, data.get('fields').get(field))
                 data_to_update.save()
-            self.stdout.write(self.style.SUCCESS('Filled ' + data.get('model')))
+            self.stdout.write(self.style.SUCCESS('Filled ' + data_set[0].get('model')))
 
     def read_file(self, path):
         with open(path) as file:
