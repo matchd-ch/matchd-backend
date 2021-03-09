@@ -51,105 +51,12 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
     } 
     '''
 
-    variables_step_1_base_invalid_first_name = {
-        "step1": {
-            "firstName": "",
-            "lastName": "Doe",
-            "street": "ZooStreet",
-            "zip": "1337",
-            "city": "ZooTown",
-            "phone": "+41791234567",
-            "role": "Trainer"
-        }
-    }
-
-    variables_step_1_base_invalid_last_name = {
-        "step1": {
-            "firstName": "Rick",
-            "lastName": "",
-            "street": "ZooStreet",
-            "zip": "1337",
-            "city": "ZooTown",
-            "phone": "+41791234567",
-            "role": "Trainer"
-        }
-    }
-
-    variables_step_1_base_invalid_street = {
-        "step1": {
-            "firstName": "Rick",
-            "lastName": "Doe",
-            "street": "",
-            "zip": "1337",
-            "city": "ZooTown",
-            "phone": "+41791234567",
-            "role": "Trainer"
-        }
-    }
-
-    variables_step_1_base_invalid_zip = {
-        "step1": {
-            "firstName": "Rick",
-            "lastName": "Doe",
-            "street": "ZooStreet",
-            "zip": "",
-            "city": "ZooTown",
-            "phone": "+41791234567",
-            "role": "Trainer"
-        }
-    }
-
-    variables_step_1_base_invalid_city = {
-        "step1": {
-            "firstName": "Rick",
-            "lastName": "Doe",
-            "street": "ZooStreet",
-            "zip": "1337",
-            "city": "",
-            "phone": "+41791234567",
-            "role": "Trainer"
-        }
-    }
-
-    variables_step_1_base_invalid_phone = {
-        "step1": {
-            "firstName": "Rick",
-            "lastName": "Doe",
-            "street": "ZooStreet",
-            "zip": "1337",
-            "city": "ZooTown",
-            "phone": "",
-            "role": "Trainer"
-        }
-    }
-
-    variables_step_1_base_invalid_role = {
-        "step1": {
-            "firstName": "Rick",
-            "lastName": "Doe",
-            "street": "ZooStreet",
-            "zip": "1337",
-            "city": "ZooTown",
-            "phone": "+41791234567",
-            "role": ""
-        }
-    }
-
     variables_step_2_base = {
         "step2": {
             "website": "www.google.com",
             "description": "A cool company",
             "services": "creating cool stuff",
-            "memberItStGallen": "true"
-        }
-    }
-
-    variables_step_2_base_invalid_website = {
-        "step2": {
-            "website": "no valid",
-            "description": "A cool company",
-            "services": "creating cool stuff",
-            "memberItStGallen": "true"
+            "memberItStGallen": True
         }
     }
 
@@ -159,15 +66,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             "description": "",
             "services": "",
             "memberItStGallen": ""
-        }
-    }
-
-    variables_step_2_base_invalid_too_long_description = {
-        "step2": {
-            "website": "google.com",
-            "description": "a" * 1001,
-            "services": "",
-            "memberItStGallen": "False"
         }
     }
 
@@ -303,39 +201,38 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             '''
             query {
                 me{
-                id,
-                username,
-                email,
-                type,
-                firstName,
-                lastName,
-                state,
-                profileStep,
-                employee{
-                  id,
-                  role,
-                }
-                company{
-                    uid,
-                    name,
-                    zip,
-                    city,
-                    street,
-                    phone,
-                    website,
-                    description,
-                    services,
-                    memberItStGallen,
-                  benefits{
                     id,
-                    icon
-                  }
-                  jobPositions{
-                    id,
-                    name
-                  }
+                    username,
+                    email,
+                    type,
+                    firstName,
+                    lastName,
+                    state,
+                    profileStep,
+                    employee{
+                        id,
+                        role,
+                    }
+                    company{
+                        uid,
+                        name,
+                        zip,
+                        city,
+                        street,
+                        phone,
+                        website,
+                        description,
+                        services,
+                        memberItStGallen,
+                    benefits{
+                        id,
+                        icon
+                    }
+                    jobPositions{
+                        id,
+                        name
+                    }
                 }
-              }
             }
             '''
         )
@@ -384,6 +281,16 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         self.assertEqual(company.zip, '0000')
         self.assertEqual(company.city, 'DoeCity')
 
+    def test_company_step_2_valid_base(self):
+        self._test_and_get_step_response_content(self.query_step_2, self.variables_step_2_base, 2,
+                                                 'companyProfileStep2')
+        user = get_user_model().objects.get(pk=self.user.pk)
+        company = user.company
+        self.assertEqual(company.website, 'http://www.google.com')
+        self.assertEqual(company.description, 'A cool company')
+        self.assertEqual(company.services, 'creating cool stuff')
+        self.assertEqual(company.member_it_st_gallen, True)
+
     def test_company_step_2_invalid_data(self):
         self._test_with_invalid_data(2, self.query_step_2, self.variables_step_2_invalid, 'companyProfileStep2',
                                      ['website'])
@@ -394,21 +301,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         self.assertEqual(company.name, 'Doe Unlimited')
         self.assertEqual(company.zip, '0000')
         self.assertEqual(company.city, 'DoeCity')
-
-    def test_company_step_3_invalid_data(self):
-        self._test_with_invalid_data(3, self.query_step_3, self.variables_step_3_invalid, 'companyProfileStep3',
-                                     ['benefits', 'jobPositions'])
-
-
-    def test_company_step_2_valid_base(self):
-        self._test_and_get_step_response_content(self.query_step_2, self.variables_step_2_base, 2,
-                                                 'companyProfileStep2')
-        user = get_user_model().objects.get(pk=self.user.pk)
-        company = user.company
-        self.assertEqual(company.website, 'http://www.google.com')
-        self.assertEqual(company.description, 'A cool company')
-        self.assertEqual(company.services, 'creating cool stuff')
-        self.assertEqual(company.member_it_st_gallen, True)
 
     def test_company_step_2_invalid_member(self):
         self._test_and_get_step_response_content(self.query_step_2, self.variables_step_2_base_invalid_member, 2,
@@ -430,3 +322,7 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         self.assertEqual(company.benefits.all()[0].icon, 'doge')
         self.assertEqual(company.benefits.all()[1].icon, 'sleep')
         self.assertEqual(company.job_positions.all()[0].name, 'worker')
+
+    def test_company_step_3_invalid_data(self):
+        self._test_with_invalid_data(3, self.query_step_3, self.variables_step_3_invalid, 'companyProfileStep3',
+                                     ['benefits', 'jobPositions'])
