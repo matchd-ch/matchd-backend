@@ -3,7 +3,80 @@
     "model": "db.benefit",
     "pk": 1,
     "fields": {
-      "icon": "Doge"
+      "icon": "spa",
+      "name": "Wellness"
+    }
+  },
+  {
+    "model": "db.benefit",
+    "pk": 2,
+    "fields": {
+      "icon": "sports_bar",
+      "name": "Getränke"
+    }
+  },
+  {
+    "model": "db.benefit",
+    "pk": 3,
+    "fields": {
+      "icon": "free_breakfast",
+      "name": "Verpflegung"
+    }
+  },
+  {
+    "model": "db.benefit",
+    "pk": 4,
+    "fields": {
+      "icon": "pedal_bike",
+      "name": "Freizeitangebot"
+    }
+  },
+  {
+    "model": "db.benefit",
+    "pk": 5,
+    "fields": {
+      "icon": "dinner_dining",
+      "name": "Restaurant"
+    }
+  },
+  {
+    "model": "db.benefit",
+    "pk": 6,
+    "fields": {
+      "icon": "sports_esports",
+      "name": "Gaming"
+    }
+  },
+  {
+    "model": "db.benefit",
+    "pk": 7,
+    "fields": {
+      "icon": "commute",
+      "name": "Guter Verkehrsanschluss"
+    }
+  },
+  {
+    "model": "db.benefit",
+    "pk": 8,
+    "fields": {
+      "icon": "fitness_center",
+      "name": "Fitness"
+    }
+  },
+  {
+    "model": "db.benefit",
+    "pk": 9,
+    "fields": {
+      "icon": "laptop",
+      "name": "Laptop"
+    }
+  },
+  {
+    "model": "db.benefit",
+    "pk": 10,
+    "fields": {
+      "icon": "outdoor_grill",
+      "name": "Grillplatz"
     }
   }
 ]
