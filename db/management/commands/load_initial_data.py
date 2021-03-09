@@ -41,7 +41,7 @@ class Command(BaseCommand):
 
     def get_model(self, data):
         data_model = data.get('model').split(".")
-        return apps.get_model(app_label='db', model_name=data_model[1])
+        return apps.get_model(app_label=data_model[0], model_name=data_model[1])
 
     def get_fields(self, data):
         fields = data.get('fields').keys()
