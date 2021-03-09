@@ -1,3 +1,4 @@
+import os
 import magic
 from django.conf import settings
 from django.db import models
@@ -38,6 +39,13 @@ class Image(AbstractImage):
                 pass
             self.save(update_fields=['mime_type'])
         return self.mime_type
+
+    # noinspection PyUnresolvedReferences
+    def get_upload_to(self, filename):
+        owner = self.uploaded_by_user
+        user_type = owner.get_profile_content_type().name
+        profile_id = owner.get_profile_id()
+        return os.path.join(user_type, str(profile_id), 'images', filename)
 
 
 class CustomRendition(AbstractRendition):
