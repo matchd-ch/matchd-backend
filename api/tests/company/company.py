@@ -136,12 +136,14 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         self.branch.save()
         self.benefit = Benefit.objects.create(
             id=1,
-            icon='doge'
+            icon='doge',
+            name='Doge'
         )
 
         self.benefit = Benefit.objects.create(
             id=2,
-            icon='sleep'
+            icon='sleep',
+            name='Sleep'
         )
 
         self.job_position = JobPosition.objects.create(
