@@ -11,6 +11,8 @@ from .online_project import OnlineProject
 from .job_option import JobOption, JobOptionMode
 from .job_position import JobPosition
 from .user_language_relation import UserLanguageRelation
+from .branch import Branch
+from .benefit import Benefit
 from .image import Image, CustomRendition
 from .video import Video
 from .file import File

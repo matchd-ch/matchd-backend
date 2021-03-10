@@ -1,0 +1,114 @@
+[
+  {
+    "model": "db.branch",
+    "pk": 1,
+    "fields": {
+      "name": "Software-Entwicklung"
+    }
+  },
+  {
+    "model": "db.branch",
+    "pk": 2,
+    "fields": {
+      "name": "Applikations-Entwicklung"
+    }
+  },
+  {
+    "model": "db.branch",
+    "pk": 3,
+    "fields": {
+      "name": "Plattform-Entwicklung"
+    }
+  },
+  {
+    "model": "db.branch",
+    "pk": 4,
+    "fields": {
+      "name": "Web-Entwicklung"
+    }
+  },
+  {
+    "model": "db.branch",
+    "pk": 5,
+    "fields": {
+      "name": "Data Management"
+    }
+  },
+  {
+    "model": "db.branch",
+    "pk": 6,
+    "fields": {
+      "name": "Hardware-Management"
+    }
+  },
+  {
+    "model": "db.branch",
+    "pk": 7,
+    "fields": {
+      "name": "Netzwerk-Management"
+    }
+  },
+  {
+    "model": "db.branch",
+    "pk": 8,
+    "fields": {
+      "name": "System-Management"
+    }
+  },
+  {
+    "model": "db.branch",
+    "pk": 9,
+    "fields": {
+      "name": "Service-Management"
+    }
+  },
+  {
+    "model": "db.branch",
+    "pk": 10,
+    "fields": {
+      "name": "Qualitätsmanagement"
+    }
+  },
+  {
+    "model": "db.branch",
+    "pk": 11,
+    "fields": {
+      "name": "Security/Risiko Management"
+    }
+  },
+  {
+    "model": "db.branch",
+    "pk": 12,
+    "fields": {
+      "name": "Projektmanagement"
+    }
+  },
+  {
+    "model": "db.branch",
+    "pk": 13,
+    "fields": {
+      "name": "Business Engineering / Management"
+    }
+  },
+  {
+    "model": "db.branch",
+    "pk": 14,
+    "fields": {
+      "name": "Marketing Communication"
+    }
+  },
+  {
+    "model": "db.branch",
+    "pk": 15,
+    "fields": {
+      "name": "User Experience & (Interactive) Design"
+    }
+  },
+  {
+    "model": "db.branch",
+    "pk": 16,
+    "fields": {
+      "name": "Multimedia"
+    }
+  }
+]
