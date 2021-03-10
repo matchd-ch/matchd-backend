@@ -1,5 +1,8 @@
 import graphene
 
+from api.schema.benefit import BenefitQuery
+from api.schema.branch import BranchQuery
+from api.schema.company import CompanyProfileMutation
 from api.schema.attachment import AttachmentMutation, AttachmentQuery
 from api.schema.job_option import JobOptionQuery
 from api.schema.job_position import JobPositionQuery
@@ -22,6 +25,7 @@ class Mutation(
     AuthMutation,
     LogoutMutation,
     StudentProfileMutation,
+    CompanyProfileMutation,
     UploadMutation,
     AttachmentMutation
 ):
@@ -37,6 +41,8 @@ class Query(
     JobOptionQuery,
     JobPositionQuery,
     SkillQuery,
+    BenefitQuery,
+    BranchQuery,
     AttachmentQuery,
     UploadConfigurationQuery
 ):
