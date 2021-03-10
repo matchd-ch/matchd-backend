@@ -3,7 +3,7 @@ from django import forms
 from django.utils.translation import gettext as _
 
 from db.exceptions import FormException
-from db.helper.forms import convert_object_to_id, validate_company_type, validate_form_data, convert_date, \
+from db.helper.forms import convert_object_to_id, validate_company_user_type, validate_form_data, convert_date, \
     generic_error_dict
 from db.models import JobOption, JobPosting
 
@@ -35,7 +35,7 @@ def validate_html_url(url):
 def process_job_posting_form_step_1(user, data):
     errors = {}
 
-    validate_company_type(user)
+    validate_company_user_type(user)
     validate_form_data(data)
 
     form = JobPostingFormStep1(data)
