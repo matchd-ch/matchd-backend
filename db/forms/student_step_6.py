@@ -1,8 +1,8 @@
 from django import forms
 
 from db.exceptions import FormException
-from db.helper import validate_student_type, validate_step, validate_form_data
-from db.models import UserState
+from db.helper import validate_student_user_type, validate_step, validate_form_data
+from db.models.user import UserState
 
 
 class StudentProfileFormStep6(forms.Form):
@@ -13,7 +13,7 @@ def process_student_form_step_6(user, data):
     errors = {}
 
     # validate user type, step and data
-    validate_student_type(user)
+    validate_student_user_type(user)
     validate_step(user, 6)
     validate_form_data(data)
 

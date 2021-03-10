@@ -45,11 +45,9 @@ def convert_date(date, date_format='%d.%m.%Y'):
     return date
 
 
-def validate_student_type(user):
+def validate_company_user_type(user):
     errors = {}
-
-    # validate user type
-    validator = StudentTypeValidator()
+    validator = CompanyTypeValidator()
     try:
         validator.validate(user.type)
     except ValidationError as error:
@@ -59,11 +57,9 @@ def validate_student_type(user):
         raise FormException(errors)
 
 
-def validate_company_type(user):
+def validate_student_user_type(user):
     errors = {}
-
-    # validate user type
-    validator = CompanyTypeValidator()
+    validator = StudentTypeValidator()
     try:
         validator.validate(user.type)
     except ValidationError as error:

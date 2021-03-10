@@ -5,7 +5,7 @@ from db.forms.hobby import HobbyForm
 from db.forms.online_project import OnlineProjectForm
 from db.forms.user_language_relation import UserLanguageRelationForm
 
-from db.helper import validate_student_type, validate_step, validate_form_data, silent_fail
+from db.helper import validate_student_user_type, validate_step, validate_form_data, silent_fail
 from db.models import Skill, OnlineProject, Hobby, UserLanguageRelation
 
 
@@ -113,7 +113,7 @@ def get_languages_to_delete(profile, data):
 # pylint:disable=R0915
 def process_student_form_step_4(user, data):
     # validate user type, step and data
-    validate_student_type(user)
+    validate_student_user_type(user)
     validate_step(user, 4)
     validate_form_data(data)
 

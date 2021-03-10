@@ -198,27 +198,6 @@
     }
 },
 {
-    "model": "db.skill",
-    "pk": 1,
-    "fields": {
-        "name": "php"
-    }
-},
-{
-    "model": "db.skill",
-    "pk": 2,
-    "fields": {
-        "name": "java"
-    }
-},
-{
-    "model": "db.skill",
-    "pk": 3,
-    "fields": {
-        "name": "python"
-    }
-},
-{
     "model": "db.language",
     "pk": 1,
     "fields": {
