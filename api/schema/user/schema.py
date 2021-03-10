@@ -4,30 +4,22 @@ from graphene_django import DjangoObjectType
 from graphql_auth.settings import graphql_auth_settings
 from graphql_jwt.decorators import login_required
 
-from db.models import Student as StudentModel, Company as CompanyModel, Employee as EmployeeModel
+from db.models import Student as StudentModel, Employee as EmployeeModel
 
 
 class Student(DjangoObjectType):
 
     class Meta:
         model = StudentModel
-        fields = ['mobile', 'street', 'zip', 'city', 'date_of_birth', 'nickname', 'school_name', 'field_of_study',
-                  'graduation', 'skills', 'hobbies', 'languages', 'distinction', 'online_projects']
-
-
-class Company(DjangoObjectType):
-
-    class Meta:
-        model = CompanyModel
-        fields = ['uid', 'name', 'zip', 'city', 'street', 'phone', 'description', 'member_it_st_gallen',
-                  'services', 'website', 'job_positions', 'benefits']
+        fields = ('mobile', 'street', 'zip', 'city', 'date_of_birth', 'nickname', 'school_name', 'field_of_study',
+                  'graduation', 'skills', 'hobbies', 'languages', 'distinction', 'online_projects',)
 
 
 class Employee(DjangoObjectType):
 
     class Meta:
         model = EmployeeModel
-        fields = ['id', 'role']
+        fields = ('id', 'role',)
 
 
 class UserWithProfileNode(DjangoObjectType):

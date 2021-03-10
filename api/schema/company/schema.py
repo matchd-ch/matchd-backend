@@ -7,6 +7,7 @@ from graphql_jwt.decorators import login_required
 
 from api.schema.benefit import BenefitInputType
 from api.schema.branch.schema import BranchInputType
+from api.schema.employee import EmployeeType
 from api.schema.job_position import JobPositionInputType
 from db.exceptions import FormException
 from db.forms import process_company_form_step_2, process_company_form_step_3
@@ -26,7 +27,6 @@ class CompanyProfileInputStep1(graphene.InputObjectType):
 
 
 class CompanyProfileStep1(Output, graphene.Mutation):
-
     class Arguments:
         step1 = CompanyProfileInputStep1(description=_('Profile Input Step 1 is required.'), required=True)
 
@@ -54,7 +54,6 @@ class CompanyProfileInputStep2(graphene.InputObjectType):
 
 
 class CompanyProfileStep2(Output, graphene.Mutation):
-
     class Arguments:
         step2 = CompanyProfileInputStep2(description=_('Profile Input Step 2 is required.'), required=True)
 
@@ -79,7 +78,6 @@ class CompanyProfileInputStep3(graphene.InputObjectType):
 
 
 class CompanyProfileStep3(Output, graphene.Mutation):
-
     class Arguments:
         step3 = CompanyProfileInputStep3(description=_('Profile Input Step 3 is required.'), required=True)
 
@@ -104,16 +102,27 @@ class CompanyProfileMutation(graphene.ObjectType):
     company_profile_step3 = CompanyProfileStep3.Field()
 
 
-class CompanyType(DjangoObjectType):
+class Company(DjangoObjectType):
+    employees = graphene.Field(graphene.List(EmployeeType))
+
     class Meta:
         model = Company
-        fields = ('name', 'zip', 'city', 'street', 'website', 'employee', 'phone', 'description',
-                  'services', 'job_positions', 'benefits')
+        fields = ['uid', 'name', 'zip', 'city', 'street', 'phone', 'description', 'member_it_st_gallen',
+                  'services', 'website', 'job_positions', 'benefits']
+
+    def resolve_employees(self, info):
+        user = self.users.all()[0]
+        return [{
+            'id': user.id,
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            'email': user.email,
+            'role': user.employee.role
+        }]
 
 
 class CompanyQuery(ObjectType):
-    company = graphene.List(CompanyType)
+    company = graphene.Field(Company, id=graphene.ID())
 
-    def resolve_company(self, info, **kwargs):
-        return Company.objects.all()
-
+    def resolve_company(self, info, id):
+        return Company.objects.get(pk=id)
