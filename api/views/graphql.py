@@ -20,6 +20,14 @@ class GraphQLView(FileUploadGraphQLView):
         return response
 
     def parse_body(self, request):
+
+        try:
+            body = request.body.decode("utf-8")
+            request_json = json.loads(body)
+            self.batch = isinstance(request_json, list)
+        except:
+            self.batch = False
+
         """Handle multipart request spec for multipart/form-data"""
         content_type = self.get_content_type(request)
         if content_type == 'multipart/form-data':
