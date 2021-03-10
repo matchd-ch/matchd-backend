@@ -6,7 +6,7 @@ from django.utils.translation import gettext as _
 from api.schema.job_posting_language_relation import JobPostingLanguageRelationInputType
 from db.exceptions import FormException
 from db.forms.job_posting_language_relation import JobPostingLanguageRelationForm
-from db.helper.forms import validate_company_type, validate_form_data, validate_job_posting_step, silent_fail
+from db.helper.forms import validate_company_user_type, validate_form_data, validate_job_posting_step, silent_fail
 from db.models import JobPosting, Expectation, Skill, JobPostingLanguageRelation, Language
 
 
@@ -66,7 +66,7 @@ def process_language(job_posting, data):
 def process_job_posting_form_step_2(user, data):
     errors = {}
 
-    validate_company_type(user)
+    validate_company_user_type(user)
     validate_form_data(data)
     job_posting = get_object_or_404(JobPosting, id=data.get('id'))
     validate_job_posting_step(job_posting, 2)
