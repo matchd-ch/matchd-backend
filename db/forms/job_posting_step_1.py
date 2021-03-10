@@ -5,13 +5,14 @@ from django.utils.translation import gettext as _
 from db.exceptions import FormException
 from db.helper.forms import convert_object_to_id, validate_company_user_type, validate_form_data, convert_date, \
     generic_error_dict
-from db.models import JobOption, JobPosting
+from db.models import JobOption, JobPosting, Branch
 
 
 class JobPostingFormStep1(forms.Form):
     description = forms.CharField(max_length=1000, required=True)
     job_option = forms.ModelChoiceField(queryset=JobOption.objects.all(), required=True)
-    workload = forms.CharField(max_length=255, required=True)
+    branch = forms.ModelChoiceField(queryset=Branch.objects.all(), required=True)
+    workload = forms.CharField(max_length=255, required=False)
     job_from_date = forms.DateField(required=True)
     job_to_date = forms.DateField(required=False)
     url = forms.URLField(required=False)
@@ -19,6 +20,7 @@ class JobPostingFormStep1(forms.Form):
     def __init__(self, data=None, **kwargs):
         # due to a bug with ModelChoiceField and graphene_django
         data['job_option'] = convert_object_to_id(data.get('job_option', None))
+        data['branch'] = convert_object_to_id(data.get('branch', None))
         data['job_from_date'] = convert_date(data.get('job_from_date', None), '%m.%Y')
         to_date = data.get('job_to_date', None)
         if to_date is not None:

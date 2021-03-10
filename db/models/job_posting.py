@@ -3,7 +3,8 @@ from django.db import models
 
 class JobPosting(models.Model):
     description = models.TextField(max_length=1000)
-    job_option = models.ForeignKey('db.JobOption', null=False, blank=False, on_delete=models.CASCADE)
+    job_option = models.ForeignKey('db.JobOption', null=False, blank=False, on_delete=models.CASCADE, related_name='+')
+    branch = models.ForeignKey('db.Branch', null=False, blank=False, on_delete=models.CASCADE, related_name='+')
     workload = models.CharField(max_length=255, blank=True, null=True)
     company = models.ForeignKey('db.Company', null=False, blank=False, on_delete=models.CASCADE)
     job_from_date = models.DateField(null=False, blank=False)
