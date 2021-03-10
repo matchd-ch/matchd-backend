@@ -19,60 +19,17 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         }
     }
     '''
-    query_step_2 = '''
-    mutation CompanyProfileMutation($step2: CompanyProfileInputStep2!) {
-        companyProfileStep2(step2: $step2) {
-            success,
-            errors
-        }
-    }
-    '''
-    query_step_3 = '''
-    mutation CompanyProfileMutation($step3: CompanyProfileInputStep3!) {
-        companyProfileStep3(step3: $step3) {
-            success,
-            errors
-        }
-    }
-    '''
 
-    variables_step_1_base = '''
-        {
-            "step1": {
-                "firstName": "John",
-                "lastName": "Doe",
-                "name": "Zoo",
-                "street": "ZooStreet",
-                "zip": "1337",
-                "city": "ZooTown",
-                "phone": "+41791234567",
-                "role": "Trainer"
-            }
-        } 
-    '''
-
-    variables_step_2_base = {
-        "step2": {
-            "website": "www.google.com",
-            "description": "A cool company",
-            "services": "creating cool stuff",
-            "memberItStGallen": True
-        }
-    }
-
-    variables_step_2_base_invalid_member = {
-        "step2": {
-            "website": "google.com",
-            "description": "",
-            "services": "",
-            "memberItStGallen": ""
-        }
-    }
-
-    variables_step_3_base = {
-        "step3": {
-            "jobPositions": [{"id": 1}],
-            "benefits": [{"id": 1, "icon": "doge"}, {"id": 2}],
+    variables_step_1_base = {
+        "step1": {
+            "firstName": "John",
+            "lastName": "Doe",
+            "name": "Zoo",
+            "street": "ZooStreet",
+            "zip": "1337",
+            "city": "ZooTown",
+            "phone": "+41791234567",
+            "role": "Trainer"
         }
     }
 
@@ -88,12 +45,55 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         }
     }
 
+    query_step_2 = '''
+    mutation CompanyProfileMutation($step2: CompanyProfileInputStep2!) {
+        companyProfileStep2(step2: $step2) {
+            success,
+            errors
+        }
+    }
+    '''
+
+    variables_step_2_base = {
+        "step2": {
+            "website": "www.google.com",
+            "description": "A cool company",
+            "services": "creating cool stuff",
+            "memberItStGallen": True
+        }
+    }
+
     variables_step_2_invalid = {
         "step2": {
             "website": "",
             "description": "",
             "services": "",
             "memberItStGallen": ""
+        }
+    }
+
+    variables_step_2_base_invalid_member = {
+        "step2": {
+            "website": "google.com",
+            "description": "",
+            "services": "",
+            "memberItStGallen": ""
+        }
+    }
+
+    query_step_3 = '''
+    mutation CompanyProfileMutation($step3: CompanyProfileInputStep3!) {
+        companyProfileStep3(step3: $step3) {
+            success,
+            errors
+        }
+    }
+    '''
+
+    variables_step_3_base = {
+        "step3": {
+            "jobPositions": [{"id": 1}],
+            "benefits": [{"id": 1, "icon": "doge"}, {"id": 2}],
         }
     }
 
@@ -199,45 +199,44 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         self.assertIsNotNone(content['data'].get('tokenAuth').get('token'))
 
     def _test_me(self, success=True):
-        response = self.query(
-            '''
-            query {
-                me{
-                    id,
-                    username,
-                    email,
-                    type,
-                    firstName,
-                    lastName,
-                    state,
-                    profileStep,
-                    employee{
-                        id,
-                        role,
-                    }
-                    company{
-                        uid,
-                        name,
-                        zip,
-                        city,
-                        street,
-                        phone,
-                        website,
-                        description,
-                        services,
-                        memberItStGallen,
-                    benefits{
-                        id,
+        response = self.query('''
+        query {
+            me {
+                id
+                username
+                email
+                type
+                firstName
+                lastName
+                state
+                profileStep
+                employee {
+                    id
+                    role
+                }
+                company {
+                    uid
+                    name
+                    zip
+                    city
+                    street
+                    phone
+                    website
+                    description
+                    services
+                    memberItStGallen
+                    benefits {
+                        id
                         icon
                     }
-                    jobPositions{
-                        id,
+                    jobPositions {
+                        id
                         name
                     }
                 }
             }
-            '''
-        )
+        }
+        ''')
 
         content = json.loads(response.content)
 
