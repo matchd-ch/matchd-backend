@@ -19,14 +19,18 @@ class GraphQLView(FileUploadGraphQLView):
         response = self._delete_cookies_on_response_if_needed(request, response)
         return response
 
+    # noinspection PyBroadException
     def parse_body(self, request):
 
+        # monkey patch
+        # https://github.com/graphql-python/graphene-django/issues/967
         try:
             body = request.body.decode("utf-8")
             request_json = json.loads(body)
             self.batch = isinstance(request_json, list)
         except:
             self.batch = False
+        # monkey patch end
 
         """Handle multipart request spec for multipart/form-data"""
         content_type = self.get_content_type(request)
@@ -45,7 +49,15 @@ class GraphQLView(FileUploadGraphQLView):
 
     def _delete_cookies_on_response_if_needed(self, request, response):
         data = self.parse_body(request)
-        body = self.get_graphql_params(request, data)[0]
-        if body and ('logout' in body or 'deleteAccount' in body):
-            response.delete_cookie('JWT')
+
+        # monkey patch
+        # https://github.com/graphql-python/graphene-django/issues/967
+        if not isinstance(data, list):
+            data = [data]
+
+        for batch in data:
+            body = self.get_graphql_params(request, batch)[0]
+            if body and ('logout' in body or 'deleteAccount' in body):
+                response.delete_cookie('JWT')
+        # monkey patch end
         return response
