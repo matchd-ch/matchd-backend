@@ -20,7 +20,9 @@ class GraphQLView(FileUploadGraphQLView):
         return response
 
     # noinspection PyBroadException
+    # pylint: disable=W0702
     def parse_body(self, request):
+        """Handle multipart request spec for multipart/form-data"""
 
         # monkey patch
         # https://github.com/graphql-python/graphene-django/issues/967
@@ -32,7 +34,6 @@ class GraphQLView(FileUploadGraphQLView):
             self.batch = False
         # monkey patch end
 
-        """Handle multipart request spec for multipart/form-data"""
         content_type = self.get_content_type(request)
         if content_type == 'multipart/form-data':
             # workaround to avoid multiple file uploads
