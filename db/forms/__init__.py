@@ -20,3 +20,4 @@ from .job_posting_language_relation import JobPostingLanguageRelationForm
 
 from .job_posting_step_1 import process_job_posting_form_step_1
 from .job_posting_step_2 import process_job_posting_form_step_2
+from .job_posting_step_3 import process_job_posting_form_step_3
