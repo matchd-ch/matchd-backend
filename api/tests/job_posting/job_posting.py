@@ -6,7 +6,7 @@ from graphql_auth.models import UserStatus
 
 from api.tests.base import BaseGraphQLTestCase
 from db.models import JobOption, JobOptionMode, Company, UserState, JobPosting, Skill, Expectation, Language, \
-    LanguageLevel
+    LanguageLevel, Branch, JobPostingState
 
 
 # pylint: disable=C0303
@@ -24,20 +24,11 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
     }
     '''
 
-    query_step_2 = '''
-    mutation JobPostingMutation($step2: JobPostingInputStep2!) {
-      jobPostingStep2(step2: $step2) {
-        success,
-        errors,
-        jobPostingId
-      }
-    }
-    '''
-
     variables_step_1 = {
       'step1': {
         'description': 'Beschreibung',
         'jobOption': {'id': 1},
+        'branch': {'id': 1},
         'workload': 'Arbeitspensum',
         'jobFromDate': '03.2021',
         'jobToDate': '08.2021',
@@ -49,6 +40,7 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
         'step1': {
             'description': '',
             'jobOption': {'id': 999},
+            'branch': {'id': 999},
             'workload': '',
             'jobFromDate': '',
             'jobToDate': '',
@@ -60,6 +52,7 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
         'step1': {
             'description': 'Description',
             'jobOption': {'id': 1},
+            'branch': {'id': 1},
             'workload': 'Workload',
             'jobFromDate': '03.2020',
             'jobToDate': '01.2020',
@@ -71,12 +64,23 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
         'step1': {
             'description': 'Description',
             'jobOption': {'id': 1},
+            'branch': {'id': 1},
             'workload': 'Workload',
             'jobFromDate': '03.2020',
             'jobToDate': '04.2020',
             'url': None
         }
     }
+
+    query_step_2 = '''
+        mutation JobPostingMutation($step2: JobPostingInputStep2!) {
+          jobPostingStep2(step2: $step2) {
+            success,
+            errors,
+            jobPostingId
+          }
+        }
+        '''
 
     variables_step_2 = {
       'step2': {
@@ -96,12 +100,30 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
         }
     }
 
+    query_step_3 = '''
+    mutation JobPostingMutation($step3: JobPostingInputStep3!) {
+      jobPostingStep3(step3: $step3) {
+        success,
+        errors,
+        jobPostingId
+      }
+    }
+    '''
+
+    variables_step_3 = {
+      'step3': {
+        'id': 1,
+        'state': 'PUBLIC'
+      }
+    }
+
     def setUp(self):
         self.date_range_option = JobOption.objects.create(name='Date range', mode=JobOptionMode.DATE_RANGE, id=1)
         self.date_from_option = JobOption.objects.create(name='Date from', mode=JobOptionMode.DATE_FROM, id=2)
 
         self.skill = Skill.objects.create(id=1, name='Test')
         self.expectation = Expectation.objects.create(id=1, name='Test')
+        self.branch = Branch.objects.create(id=1, name='Test')
 
         self.language = Language.objects.create(id=1, name='Test', short_list=True)
         self.language2 = Language.objects.create(id=2, name='Test2', short_list=False)
@@ -129,7 +151,8 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
             id=1,
             company=self.company,
             job_option=self.date_range_option,
-            job_from_date=datetime.now()
+            job_from_date=datetime.now(),
+            branch=self.branch
         )
 
     def _login(self, username):
@@ -171,41 +194,45 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
 
     def _test_get_job_posting(self, job_posting_id):
         response = self.query('''
-                query {  
-                  jobPosting(id: %s) {
-                    id
-                    description
-                    jobOption {
-                      id
-                      name
-                      mode
-                    }
-                    workload
-                    jobFromDate
-                    jobToDate
-                    formStep
-                    url
-                    expectations {
-                      id
-                      name
-                    }
-                    skills {
-                      id
-                      name
-                    }
-                    languages {
-                      language {
-                        id
-                        name
-                      }
-                      languageLevel {
-                        id
-                        description
-                      }
-                    }
-                  }
-                }
-                ''' % str(job_posting_id))
+        query {  
+          jobPosting(id: %s) {
+            id
+            description
+            jobOption {
+              id
+              name
+              mode
+            }
+            branch {
+              id
+              name
+            }
+            workload
+            jobFromDate
+            jobToDate
+            formStep
+            url
+            expectations {
+              id
+              name
+            }
+            skills {
+              id
+              name
+            }
+            languages {
+              language {
+                id
+                name
+              }
+              languageLevel {
+                id
+                description
+              }
+            }
+          }
+        }
+        ''' % str(job_posting_id))
         self.assertResponseNoErrors(response)
         return json.loads(response.content)
 
@@ -227,11 +254,13 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
         self.assertEqual('http://www.google.ch', job_posting.get('url'))
         job_option = job_posting.get('jobOption')
         self.assertEqual('1', job_option.get('id'))
+        branch = job_posting.get('branch')
+        self.assertEqual('1', branch.get('id'))
 
     def test_job_posting_step_1_invalid_data(self):
         self._login('john@doe.com')
         self._test_job_posting(self.query_step_1, self.variables_step_1_invalid_data, 'jobPostingStep1', False,
-                               ['description', 'jobOption', 'workload', 'jobFromDate'])
+                               ['description', 'jobOption', 'jobFromDate', 'branch'])
 
     def test_job_posting_step_1_invalid_date_range(self):
         self._login('john@doe.com')
@@ -239,6 +268,8 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
                                ['jobToDate'])
 
     def test_job_posting_step_2(self):
+        self.job_posting.form_step = 3
+        self.job_posting.save()
         self._login('john@doe.com')
         self._test_job_posting(self.query_step_2, self.variables_step_2, 'jobPostingStep2')
 
@@ -252,7 +283,23 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
         languages = job_posting.get('languages')
         self.assertEqual(1, len(languages))
 
+        self.job_posting = JobPosting.objects.get(pk=1)
+
+        self.assertEqual(JobPostingState.DRAFT, self.job_posting.state)
+        self.assertEqual(3, self.job_posting.form_step)
+
     def test_job_posting_step_2_invalid_data(self):
         self._login('john@doe.com')
         self._test_job_posting(self.query_step_2, self.variables_step_2_invalid, 'jobPostingStep2', False,
                                ['expectations', 'skills'])
+
+    def test_job_posting_step_3(self):
+        self.job_posting.form_step = 3
+        self.job_posting.save()
+        self._login('john@doe.com')
+        self._test_job_posting(self.query_step_3, self.variables_step_3, 'jobPostingStep3')
+
+        self.job_posting = JobPosting.objects.get(pk=1)
+
+        self.assertEqual(JobPostingState.PUBLIC, self.job_posting.state)
+        self.assertEqual(4, self.job_posting.form_step)
