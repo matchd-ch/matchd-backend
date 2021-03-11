@@ -12,7 +12,7 @@ from api.schema.job_position import JobPositionInputType
 from db.exceptions import FormException
 from db.forms import process_company_form_step_2, process_company_form_step_3
 from db.forms.company_step_1 import process_company_form_step_1
-from db.models import Company
+from db.models import Company as CompanyModel
 
 
 class CompanyProfileInputStep1(graphene.InputObjectType):
@@ -106,7 +106,7 @@ class Company(DjangoObjectType):
     employees = graphene.Field(graphene.List(EmployeeType))
 
     class Meta:
-        model = Company
+        model = CompanyModel
         fields = ['uid', 'name', 'zip', 'city', 'street', 'phone', 'description', 'member_it_st_gallen',
                   'services', 'website', 'job_positions', 'benefits']
 
@@ -125,4 +125,4 @@ class CompanyQuery(ObjectType):
     company = graphene.Field(Company, id=graphene.ID())
 
     def resolve_company(self, info, id):
-        return Company.objects.get(pk=id)
+        return CompanyModel.objects.get(pk=id)
