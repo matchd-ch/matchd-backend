@@ -4,7 +4,7 @@ from django.db import migrations
 from django.utils.text import slugify
 
 
-def populate_reference(apps, schema_editor):
+def populate_slugs(apps, schema_editor):
     company = apps.get_model('db', 'Company')
     for obj in company.objects.all():
         obj.slug = slugify(obj.name)
@@ -17,5 +17,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(populate_reference),
+        migrations.RunPython(populate_slugs),
     ]
