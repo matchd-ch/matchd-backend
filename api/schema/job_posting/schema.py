@@ -26,7 +26,7 @@ class JobPostingType(DjangoObjectType):
 
 class JobPostingQuery(ObjectType):
     job_postings = graphene.List(JobPostingType, company=graphene.Int(required=True))
-    job_posting = graphene.Field(JobPostingType, id=graphene.Int(required=True))
+    job_posting = graphene.Field(JobPostingType, id=graphene.ID(required=True))
 
     def resolve_job_postings(self, info, **kwargs):
         company_id = kwargs.get('company')
