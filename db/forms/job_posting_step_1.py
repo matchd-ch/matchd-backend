@@ -1,5 +1,6 @@
 import requests
 from django import forms
+from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext as _
 
 from db.exceptions import FormException
@@ -43,7 +44,7 @@ def process_job_posting_form_step_1(user, data):
     form = JobPostingFormStep1(data)
     form.full_clean()
 
-    job_posting = None
+    cleaned_data = None
 
     if form.is_valid():
         cleaned_data = form.cleaned_data
@@ -60,19 +61,30 @@ def process_job_posting_form_step_1(user, data):
         if to_date is not None and from_date >= to_date:
             errors.update(generic_error_dict('job_to_date', _('Date must be after from date'),
                                              'invalid_range'))
-        else:
-            cleaned_data['company'] = user.company
-            try:
-                job_posting = JobPosting.objects.create(**cleaned_data)
-            except Exception as exception:
-                errors.update(generic_error_dict('job_posting', str(exception), 'invalid'))
+        cleaned_data['job_from_date'] = from_date
+        cleaned_data['job_to_date'] = to_date
+        cleaned_data['company'] = user.company
     else:
         errors.update(form.errors.get_json_data())
 
     if errors:
-        # delete job posting if it was created
-        if job_posting is not None:
-            job_posting.delete()
         raise FormException(errors=errors)
+
+    # get existing job posting
+    job_posting_id = data.get('id', None)
+    if job_posting_id is not None:
+        job_posting = get_object_or_404(JobPosting, pk=job_posting_id)
+    else:
+        job_posting = JobPosting()
+
+    job_posting.description = cleaned_data.get('description')
+    job_posting.job_option = cleaned_data.get('job_option')
+    job_posting.branch = cleaned_data.get('branch')
+    job_posting.workload = cleaned_data.get('workload', None)
+    job_posting.job_from_date = cleaned_data.get('job_from_date')
+    job_posting.job_to_date = cleaned_data.get('job_to_date', None)
+    job_posting.url = cleaned_data.get('url', None)
+    job_posting.company = cleaned_data.get('company')
+    job_posting.save()
 
     return job_posting

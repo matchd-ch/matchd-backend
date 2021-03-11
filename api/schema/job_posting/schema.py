@@ -54,6 +54,7 @@ class JobPostingQuery(ObjectType):
 
 
 class JobPostingInputStep1(graphene.InputObjectType):
+    id = graphene.ID(required=False)
     description = graphene.String(description=_('Description'), required=True)
     job_option = graphene.Field(JobOptionInputType, required=True)
     branch = graphene.Field(BranchInputType, required=True)
