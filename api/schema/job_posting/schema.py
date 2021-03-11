@@ -14,7 +14,7 @@ from api.schema.job_posting_language_relation import JobPostingLanguageRelationI
 from api.schema.skill import SkillInputType
 from db.exceptions import FormException
 from db.forms import process_job_posting_form_step_1, process_job_posting_form_step_2
-from db.models import JobPosting, Company
+from db.models import JobPosting, Company, JobPostingState
 
 
 class JobPostingType(DjangoObjectType):
@@ -37,7 +37,7 @@ class JobPostingQuery(ObjectType):
             return JobPosting.objects.filter(company=company)
 
         # hide incomplete job postings for other users
-        return JobPosting.objects.filter(form_step=3, company=company)
+        return JobPosting.objects.filter(state=JobPostingState.PUBLIC, company=company)
 
     def resolve_job_posting(self, info, **kwargs):
         job_posting_id = kwargs.get('id')
@@ -48,7 +48,7 @@ class JobPostingQuery(ObjectType):
             return job_posting
 
         # hide incomplete job postings for other users
-        if job_posting.form_step < 3:
+        if job_posting.state != JobPostingState.PUBLIC:
             raise Http404(_('Job posting not found'))
         return job_posting
 
