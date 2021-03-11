@@ -310,6 +310,10 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             self.assertEqual(content['data'].get('company').get('employees')[0].get('lastName'), 'Test')
             self.assertEqual(content['data'].get('company').get('employees')[0].get('email'), 'john@doe.com')
             self.assertEqual(content['data'].get('company').get('employees')[0].get('role'), 'Trainer')
+        else:
+            self.assertResponseHasErrors(response)
+            self.assertIsNone(content['data'].get('company'))
+
 
     def test_company_step_1_valid_base(self):
         self._test_and_get_step_response_content(self.query_step_1, self.variables_step_1_base, 1,
