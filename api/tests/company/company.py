@@ -105,7 +105,8 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
     }
 
     def setUp(self):
-        self.company = Company.objects.create(uid='CHE-999.999.999', name='Doe Unlimited', zip='0000', city='DoeCity')
+        self.company = Company.objects.create(id=1, uid='CHE-999.999.999', name='Doe Unlimited', zip='0000',
+                                              city='DoeCity')
         self.company.save()
         self.user = get_user_model().objects.create(
             username='john@doe.com',
@@ -253,6 +254,63 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             self.assertResponseHasErrors(response)
             self.assertIsNone(content['data'].get('me'))
 
+    def _test_company_query(self, company_id, success=True):
+        response = self.query(
+            '''
+            query{
+                company(id:"%s"){
+                    uid
+                    name
+                    zip
+                    city
+                    street
+                    phone
+                    website
+                    description
+                    services
+                    benefits{
+                      id
+                      icon
+                    }
+                    jobPositions{
+                      id
+                      name
+                    }
+                    employees{
+                      id
+                      firstName
+                      lastName
+                      email
+                      role
+                    }
+                }
+            }
+            ''' % company_id
+        )
+
+        content = json.loads(response.content)
+        if success:
+            self.assertResponseNoErrors(response)
+            self.assertEqual(content['data'].get('company').get('uid'), 'CHE-999.999.999')
+            self.assertEqual(content['data'].get('company').get('name'), 'Zoo')
+            self.assertEqual(content['data'].get('company').get('zip'), '1337')
+            self.assertEqual(content['data'].get('company').get('city'), 'ZooTown')
+            self.assertEqual(content['data'].get('company').get('street'), 'ZooStreet')
+            self.assertEqual(content['data'].get('company').get('phone'), '+41791234567')
+            self.assertEqual(content['data'].get('company').get('website'), 'http://www.google.com')
+            self.assertEqual(content['data'].get('company').get('description'), 'A cool company')
+            self.assertEqual(content['data'].get('company').get('services'), 'creating cool stuff')
+            self.assertEqual(content['data'].get('company').get('benefits')[0].get('id'), '1')
+            self.assertEqual(content['data'].get('company').get('benefits')[0].get('icon'), 'doge')
+            self.assertEqual(content['data'].get('company').get('benefits')[1].get('id'), '2')
+            self.assertEqual(content['data'].get('company').get('benefits')[1].get('icon'), 'sleep')
+            self.assertEqual(content['data'].get('company').get('jobPositions')[0].get('id'), '1')
+            self.assertEqual(content['data'].get('company').get('jobPositions')[0].get('name'), 'worker')
+            self.assertEqual(content['data'].get('company').get('employees')[0].get('firstName'), 'Johnny')
+            self.assertEqual(content['data'].get('company').get('employees')[0].get('lastName'), 'Test')
+            self.assertEqual(content['data'].get('company').get('employees')[0].get('email'), 'john@doe.com')
+            self.assertEqual(content['data'].get('company').get('employees')[0].get('role'), 'Trainer')
+
     def test_company_step_1_valid_base(self):
         self._test_and_get_step_response_content(self.query_step_1, self.variables_step_1_base, 1,
                                                  'companyProfileStep1')
@@ -326,3 +384,23 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
     def test_company_step_3_invalid_data(self):
         self._test_with_invalid_data(3, self.query_step_3, self.variables_step_3_invalid, 'companyProfileStep3',
                                      ['benefits', 'jobPositions'])
+
+    def test_company_query(self):
+        self._login()
+        self._test_and_get_step_response_content(self.query_step_1, self.variables_step_1_base, 1,
+                                                 'companyProfileStep1')
+        self._test_and_get_step_response_content(self.query_step_2, self.variables_step_2_base, 2,
+                                                 'companyProfileStep2')
+        self._test_and_get_step_response_content(self.query_step_3, self.variables_step_3_base, 3,
+                                                 'companyProfileStep3', True)
+        self._test_company_query(1)
+
+    def test_company_query_invalid_company_id(self):
+        self._login()
+        self._test_and_get_step_response_content(self.query_step_1, self.variables_step_1_base, 1,
+                                                 'companyProfileStep1')
+        self._test_and_get_step_response_content(self.query_step_2, self.variables_step_2_base, 2,
+                                                 'companyProfileStep2')
+        self._test_and_get_step_response_content(self.query_step_3, self.variables_step_3_base, 3,
+                                                 'companyProfileStep3', True)
+        self._test_company_query(1337, False)
