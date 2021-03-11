@@ -1,4 +1,10 @@
 from django.db import models
+from django.utils.translation import gettext as _
+
+
+class JobPostingState(models.TextChoices):
+    DRAFT = 'draft', _('Draft')
+    PUBLIC = 'public', _('Public')
 
 
 class JobPosting(models.Model):
@@ -13,3 +19,4 @@ class JobPosting(models.Model):
     expectations = models.ManyToManyField('db.Expectation')
     skills = models.ManyToManyField('db.Skill')
     form_step = models.IntegerField(default=2)  # since we save the job posting in step 1 the default value is 2
+    state = models.CharField(choices=JobPostingState.choices, default=JobPostingState.DRAFT, max_length=255)
