@@ -118,6 +118,7 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         )
         self.user.set_password('asdf1234$')
         self.user.profile_step = 1
+        self.user.state = 'public'
         self.user.save()
 
         user_status = UserStatus.objects.get(user=self.user)
@@ -428,3 +429,15 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         self._test_and_get_step_response_content(self.query_step_3, self.variables_step_3_base, 3,
                                                  'companyProfileStep3', True)
         self._test_company_query('a-wrong-slug', False)
+
+    def test_company_query_not_completed(self):
+        self._login()
+        self._test_and_get_step_response_content(self.query_step_1, self.variables_step_1_base, 1,
+                                                 'companyProfileStep1')
+        self._test_and_get_step_response_content(self.query_step_2, self.variables_step_2_base, 2,
+                                                 'companyProfileStep2')
+        self._test_and_get_step_response_content(self.query_step_3, self.variables_step_3_base, 3,
+                                                 'companyProfileStep3', True)
+        self.user.state = 'incomplete'
+        self.user.save()
+        self._test_company_query('doe-unlimited', False)
