@@ -279,7 +279,7 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                     employees{
                       id
                       role
-                      user{
+                      users{
                         firstName
                         lastName
                         email
@@ -308,9 +308,9 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             self.assertEqual(content['data'].get('company').get('benefits')[1].get('icon'), 'sleep')
             self.assertEqual(content['data'].get('company').get('jobPositions')[0].get('id'), '1')
             self.assertEqual(content['data'].get('company').get('jobPositions')[0].get('name'), 'worker')
-            self.assertEqual(content['data'].get('company').get('employees')[0].get('user')[0].get('firstName'), 'Johnny')
-            self.assertEqual(content['data'].get('company').get('employees')[0].get('user')[0].get('lastName'), 'Test')
-            self.assertEqual(content['data'].get('company').get('employees')[0].get('user')[0].get('email'), 'john@doe.com')
+            self.assertEqual(content['data'].get('company').get('employees')[0].get('users')[0].get('firstName'), 'Johnny')
+            self.assertEqual(content['data'].get('company').get('employees')[0].get('users')[0].get('lastName'), 'Test')
+            self.assertEqual(content['data'].get('company').get('employees')[0].get('users')[0].get('email'), 'john@doe.com')
             self.assertEqual(content['data'].get('company').get('employees')[0].get('role'), 'Trainer')
         else:
             self.assertResponseHasErrors(response)
