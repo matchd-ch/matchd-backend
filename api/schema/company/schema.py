@@ -128,5 +128,5 @@ class CompanyQuery(ObjectType):
         if len(company.users.all()) >= 1:
             if company.users.all()[0].state == UserState.PUBLIC:
                 return company
-            raise Http404('Company isn\'t public')
-        raise Http404('Company hasn\'t got an employee')
+
+        raise Http404(_('Company not found'))
