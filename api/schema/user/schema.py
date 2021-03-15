@@ -17,15 +17,15 @@ class Student(DjangoObjectType):
 
 
 class Employee(DjangoObjectType):
-    user = graphene.List(UserNode)
+    users = graphene.List(UserNode)
 
     class Meta:
         model = EmployeeModel
         fields = ('id', 'role',)
 
-    def resolve_user(self, info):
-        id = self.user
-        return [User.objects.get(username=id)]
+    def resolve_users(self, info):
+        user = self.user
+        return [User.objects.get(username=user)]
 
 
 class UserWithProfileNode(DjangoObjectType):
