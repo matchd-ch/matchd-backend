@@ -111,10 +111,12 @@ class Company(DjangoObjectType):
         fields = ['uid', 'name', 'zip', 'city', 'street', 'phone', 'description', 'member_it_st_gallen',
                   'services', 'website', 'job_positions', 'benefits']
 
-
     def resolve_employees(self, info):
-        employee_id = self.id
-        return [EmployeeModel.objects.get(pk=employee_id)]
+        employees = self.users.all()
+        employees_list = []
+        for employee in employees:
+            employees.append(EmployeeModel.objects.get(user=employee))
+        return employees_list
 
 
 class CompanyQuery(ObjectType):
