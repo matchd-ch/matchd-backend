@@ -213,6 +213,14 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                     employees{
                         id,
                         role,
+                        user{
+                        id
+                        username
+                        email
+                        type
+                        firstName
+                        lastName
+                        }
                     }
                     company{
                         uid,
@@ -249,6 +257,13 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             self.assertEqual(content['data'].get('me').get('profileStep'), 1)
             self.assertEqual(content['data'].get('me').get('type'), 'COMPANY')
             self.assertEqual(content['data'].get('me').get('company').get('mobile'), '+41791234567')
+            self.assertEqual(content['data'].get('me').get('employees').get('role'), '')
+            self.assertEqual(content['data'].get('me').get('employees').get('user').get('id'), '')
+            self.assertEqual(content['data'].get('me').get('employees').get('user').get('username'), '')
+            self.assertEqual(content['data'].get('me').get('employees').get('user').get('email'), '')
+            self.assertEqual(content['data'].get('me').get('employees').get('user').get('type'), '')
+            self.assertEqual(content['data'].get('me').get('employees').get('user').get('firstname'), '')
+            self.assertEqual(content['data'].get('me').get('employees').get('user').get('lastname'), '')
 
         else:
             self.assertResponseHasErrors(response)
