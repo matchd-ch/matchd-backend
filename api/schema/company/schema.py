@@ -115,7 +115,7 @@ class Company(DjangoObjectType):
         employees = self.users.all()
         employees_list = []
         for employee in employees:
-            employees.append(EmployeeModel.objects.get(user=employee))
+            employees_list.append(EmployeeModel.objects.get(user=employee))
         return employees_list
 
 
