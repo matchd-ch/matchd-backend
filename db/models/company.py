@@ -21,7 +21,8 @@ class Company(models.Model):
     job_positions = models.ManyToManyField('db.JobPosition', related_name='job_positions')
     slug = models.SlugField(unique=True)
 
-    def save(self, *args, **kwargs):
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
         if self.slug is None:
             self.slug = slugify(self.name)
-        super(Company, self).save(*args, **kwargs)
+        super().save(force_insert, force_update, using, update_fields)

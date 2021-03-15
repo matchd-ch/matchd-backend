@@ -3,13 +3,11 @@ from django.shortcuts import get_object_or_404
 from graphene import ObjectType
 from graphene_django import DjangoObjectType
 from django.utils.translation import gettext as _
-from graphql import GraphQLError
 from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 
 from api.schema.benefit import BenefitInputType
 from api.schema.branch.schema import BranchInputType
-from api.schema.employee import EmployeeType
 from api.schema.job_position import JobPositionInputType
 from api.schema.user.schema import Employee
 from db.exceptions import FormException
@@ -115,8 +113,8 @@ class Company(DjangoObjectType):
 
 
     def resolve_employees(self, info):
-        id = self.id
-        return [EmployeeModel.objects.get(pk=id)]
+        employee_id = self.id
+        return [EmployeeModel.objects.get(pk=employee_id)]
 
 
 class CompanyQuery(ObjectType):
