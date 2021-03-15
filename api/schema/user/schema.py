@@ -17,7 +17,7 @@ class Student(DjangoObjectType):
 
 
 class Employee(DjangoObjectType):
-    users = graphene.List(UserNode)
+    user = graphene.Field(UserNode)
 
     class Meta:
         model = EmployeeModel
@@ -25,7 +25,7 @@ class Employee(DjangoObjectType):
 
     def resolve_users(self, info):
         user = self.user
-        return [User.objects.get(username=user)]
+        return User.objects.get(username=user)
 
 
 class UserWithProfileNode(DjangoObjectType):
