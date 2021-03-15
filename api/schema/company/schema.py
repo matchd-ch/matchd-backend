@@ -11,10 +11,11 @@ from api.schema.benefit import BenefitInputType
 from api.schema.branch.schema import BranchInputType
 from api.schema.employee import EmployeeType
 from api.schema.job_position import JobPositionInputType
+from api.schema.user.schema import Employee
 from db.exceptions import FormException
 from db.forms import process_company_form_step_2, process_company_form_step_3
 from db.forms.company_step_1 import process_company_form_step_1
-from db.models import Company as CompanyModel
+from db.models import Company as CompanyModel, Employee as EmployeeModel
 
 
 class CompanyProfileInputStep1(graphene.InputObjectType):
@@ -105,26 +106,21 @@ class CompanyProfileMutation(graphene.ObjectType):
 
 
 class Company(DjangoObjectType):
-    employees = graphene.Field(graphene.List(EmployeeType))
+    employees = graphene.List(Employee)
 
     class Meta:
         model = CompanyModel
         fields = ['uid', 'name', 'zip', 'city', 'street', 'phone', 'description', 'member_it_st_gallen',
                   'services', 'website', 'job_positions', 'benefits']
 
+
     def resolve_employees(self, info):
-        user = self.users.all()[0]
-        return [{
-            'id': user.id,
-            'first_name': user.first_name,
-            'last_name': user.last_name,
-            'email': user.email,
-            'role': user.employee.role
-        }]
+        id = self.id
+        return [EmployeeModel.objects.get(pk=id)]
 
 
 class CompanyQuery(ObjectType):
-    company = graphene.Field(Company, id=graphene.ID())
+    company = graphene.Field(Company, slug=graphene.String())
 
-    def resolve_company(self, info, id):
-        return get_object_or_404(CompanyModel, pk=id)
+    def resolve_company(self, info, slug):
+        return get_object_or_404(CompanyModel, slug=slug)
