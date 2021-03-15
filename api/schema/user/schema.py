@@ -5,7 +5,7 @@ from graphql_auth.schema import UserNode
 from graphql_auth.settings import graphql_auth_settings
 from graphql_jwt.decorators import login_required
 
-from db.models import Student as StudentModel, Employee as EmployeeModel, User
+from db.models import Student as StudentModel, Employee as EmployeeModel
 
 
 class Student(DjangoObjectType):

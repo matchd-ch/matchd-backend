@@ -128,7 +128,7 @@ class CompanyQuery(ObjectType):
         try:
             if company.users.all()[0].state == 'public':
                 return company
-            else:
-                return GraphQLError('Company isn\'t active')
+
+            return GraphQLError('Company isn\'t active')
         except IndexError:
             return GraphQLError('Company has no Employees')
