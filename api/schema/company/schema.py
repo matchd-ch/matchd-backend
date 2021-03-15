@@ -1,9 +1,9 @@
 import graphene
+from django.http import Http404
 from django.shortcuts import get_object_or_404
 from graphene import ObjectType
 from graphene_django import DjangoObjectType
 from django.utils.translation import gettext as _
-from graphql import GraphQLError
 from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 
@@ -14,7 +14,7 @@ from api.schema.user.schema import Employee
 from db.exceptions import FormException
 from db.forms import process_company_form_step_2, process_company_form_step_3
 from db.forms.company_step_1 import process_company_form_step_1
-from db.models import Company as CompanyModel, Employee as EmployeeModel
+from db.models import Company as CompanyModel, Employee as EmployeeModel, UserState
 
 
 class CompanyProfileInputStep1(graphene.InputObjectType):
@@ -125,10 +125,8 @@ class CompanyQuery(ObjectType):
 
     def resolve_company(self, info, slug):
         company = get_object_or_404(CompanyModel, slug=slug)
-        try:
-            if company.users.all()[0].state == 'public':
+        if len(company.users.all()) >= 1:
+            if company.users.all()[0].state == UserState.PUBLIC:
                 return company
-
-            return GraphQLError('Company isn\'t active')
-        except IndexError:
-            return GraphQLError('Company has no Employees')
+            raise Http404('Company isn\'t public')
+        raise Http404('Company hasn\'t got an employee')
