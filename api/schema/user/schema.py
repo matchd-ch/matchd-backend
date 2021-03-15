@@ -23,13 +23,6 @@ class Company(DjangoObjectType):
                   'services', 'website', 'job_positions', 'benefits']
 
 
-class Employee(DjangoObjectType):
-
-    class Meta:
-        model = EmployeeModel
-        fields = ['id', 'role']
-
-
 class UserWithProfileNode(DjangoObjectType):
     class Meta:
         model = get_user_model()
@@ -37,6 +30,17 @@ class UserWithProfileNode(DjangoObjectType):
         exclude = graphql_auth_settings.USER_NODE_EXCLUDE_FIELDS
         interfaces = (graphene.relay.Node,)
         skip_registry = True
+
+
+class Employee(DjangoObjectType):
+    user = graphene.Field(UserWithProfileNode)
+
+    class Meta:
+        model = EmployeeModel
+        fields = ['id', 'role', 'user']
+
+    def resolve_user(self, info):
+        return self.user
 
 
 class UserQuery(graphene.ObjectType):
