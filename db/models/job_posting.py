@@ -7,6 +7,7 @@ class JobPostingState(models.TextChoices):
     PUBLIC = 'public', _('Public')
 
 
+# pylint: disable=R0902
 class JobPosting(models.Model):
     description = models.TextField(max_length=1000)
     job_option = models.ForeignKey('db.JobOption', null=False, blank=False, on_delete=models.CASCADE, related_name='+')

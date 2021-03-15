@@ -6,7 +6,7 @@ from graphql_auth.models import UserStatus
 
 from api.tests.base import BaseGraphQLTestCase
 from db.models import JobOption, JobOptionMode, Company, UserState, JobPosting, Skill, Expectation, Language, \
-    LanguageLevel, Branch, JobPostingState
+    LanguageLevel, Branch, JobPostingState, Employee
 
 
 # pylint: disable=C0303
@@ -113,7 +113,8 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
     variables_step_3 = {
       'step3': {
         'id': 1,
-        'state': 'PUBLIC'
+        'state': 'PUBLIC',
+        'employee': {'id': 1}
       }
     }
 
@@ -131,7 +132,7 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
 
         self.company = Company.objects.create(uid='CHE-000.000.000', name='Doe Unlimited', zip='0000', city='DoeCity')
 
-        self.employee = get_user_model().objects.create(
+        self.user = get_user_model().objects.create(
             first_name='John',
             last_name='Doe',
             username='john@doe.com',
@@ -139,11 +140,17 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
             type='company',
             company=self.company
         )
-        self.employee.set_password('asdf1234$')
-        self.employee.state = UserState.PUBLIC
-        self.employee.save()
+        self.user.set_password('asdf1234$')
+        self.user.state = UserState.PUBLIC
+        self.user.save()
 
-        user_status = UserStatus.objects.get(user=self.employee)
+        self.employee = Employee.objects.create(
+            id=1,
+            role='Test',
+            user=self.user
+        )
+
+        user_status = UserStatus.objects.get(user=self.user)
         user_status.verified = True
         user_status.save()
 
@@ -298,8 +305,8 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
         self.job_posting.save()
         self._login('john@doe.com')
         self._test_job_posting(self.query_step_3, self.variables_step_3, 'jobPostingStep3')
-
         self.job_posting = JobPosting.objects.get(pk=1)
 
         self.assertEqual(JobPostingState.PUBLIC, self.job_posting.state)
         self.assertEqual(4, self.job_posting.form_step)
+        self.assertEqual(self.employee.id, self.job_posting.employee.id)
