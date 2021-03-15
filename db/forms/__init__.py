@@ -10,6 +10,7 @@ from .company_step_3 import CompanyProfileFormStep3, process_company_form_step_3
 
 from .company import CompanyForm, UniversityForm
 from .student import StudentForm
+from .user import UserForm
 from .user_request import UserRequestForm
 from .employee import EmployeeForm
 from .hobby import HobbyForm
