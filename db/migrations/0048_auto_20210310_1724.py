@@ -13,7 +13,7 @@ def populate_slugs(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('db', '0045_company_slug'),
+        ('db', '0047_company_slug'),
     ]
 
     operations = [
