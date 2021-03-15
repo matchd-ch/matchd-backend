@@ -1,13 +1,21 @@
 from django import forms
 from django.shortcuts import get_object_or_404
+from django.utils.translation import gettext as _
 
 from db.exceptions import FormException
-from db.helper.forms import validate_company_user_type, validate_job_posting_step, validate_form_data
-from db.models import JobPosting, JobPostingState
+from db.helper.forms import validate_company_user_type, validate_job_posting_step, validate_form_data, \
+    convert_object_to_id, generic_error_dict
+from db.models import JobPosting, JobPostingState, Employee
 
 
 class JobPostingFormStep3(forms.Form):
     state = forms.ChoiceField(choices=JobPostingState.choices)
+    employee = forms.ModelChoiceField(queryset=Employee.objects.all())
+
+    def __init__(self, data=None, **kwargs):
+        # due to a bug with ModelChoiceField and graphene_django
+        data['employee'] = convert_object_to_id(data.get('employee', None))
+        super().__init__(data=data, **kwargs)
 
 
 def process_job_posting_form_step_3(user, data):
@@ -31,10 +39,18 @@ def process_job_posting_form_step_3(user, data):
         # update job posting
         cleaned_data = form.cleaned_data
         job_posting.state = cleaned_data.get('state')
+        job_posting.employee = cleaned_data.get('employee')
     else:
         errors.update(form.errors.get_json_data())
 
     if errors:
+        raise FormException(errors=errors)
+
+    # check if employee belongs to the same company
+    user_company = user.company.id
+    employee_company = job_posting.employee.user.company.id
+    if user_company != employee_company:
+        errors.update(generic_error_dict('employee', _('Employee does not belong to this company.'), 'invalid'))
         raise FormException(errors=errors)
 
     # update job posting

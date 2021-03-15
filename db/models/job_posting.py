@@ -20,3 +20,4 @@ class JobPosting(models.Model):
     skills = models.ManyToManyField('db.Skill')
     form_step = models.IntegerField(default=2)  # since we save the job posting in step 1 the default value is 2
     state = models.CharField(choices=JobPostingState.choices, default=JobPostingState.DRAFT, max_length=255)
+    employee = models.ForeignKey('db.Employee', on_delete=models.CASCADE, blank=True, null=True)
