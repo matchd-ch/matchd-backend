@@ -21,11 +21,7 @@ class Employee(DjangoObjectType):
 
     class Meta:
         model = EmployeeModel
-        fields = ('id', 'role',)
-
-    def resolve_users(self, info):
-        user = self.user
-        return User.objects.get(username=user)
+        fields = ('id', 'role', 'user',)
 
 
 class UserWithProfileNode(DjangoObjectType):
