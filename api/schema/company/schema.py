@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404
 from graphene import ObjectType
 from graphene_django import DjangoObjectType
 from django.utils.translation import gettext as _
+from graphql import GraphQLError
 from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 
@@ -123,4 +124,11 @@ class CompanyQuery(ObjectType):
     company = graphene.Field(Company, slug=graphene.String())
 
     def resolve_company(self, info, slug):
-        return get_object_or_404(CompanyModel, slug=slug)
+        company = get_object_or_404(CompanyModel, slug=slug)
+        try:
+            if company.users.all()[0].state == 'public':
+                return company
+            else:
+                return GraphQLError('Company isn\'t active')
+        except IndexError:
+            return GraphQLError('Company has no Employees')
