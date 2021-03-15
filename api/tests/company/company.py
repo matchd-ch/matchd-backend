@@ -106,7 +106,7 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
 
     def setUp(self):
         self.company = Company.objects.create(id=1, uid='CHE-999.999.999', name='Doe Unlimited', zip='0000',
-                                              city='DoeCity')
+                                              city='DoeCity', slug='doe-unlimited')
         self.company.save()
         self.user = get_user_model().objects.create(
             username='john@doe.com',
@@ -210,7 +210,7 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                     lastName,
                     state,
                     profileStep,
-                    employee{
+                    employees{
                         id,
                         role,
                     }
@@ -254,11 +254,11 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             self.assertResponseHasErrors(response)
             self.assertIsNone(content['data'].get('me'))
 
-    def _test_company_query(self, company_id, success=True):
+    def _test_company_query(self, company_slug, success=True):
         response = self.query(
             '''
             query{
-                company(id:"%s"){
+                company(slug:"%s"){
                     uid
                     name
                     zip
@@ -278,14 +278,16 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                     }
                     employees{
                       id
-                      firstName
-                      lastName
-                      email
                       role
+                      user{
+                        firstName
+                        lastName
+                        email
+                        }
                     }
                 }
             }
-            ''' % company_id
+            ''' % company_slug
         )
 
         content = json.loads(response.content)
@@ -306,9 +308,9 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             self.assertEqual(content['data'].get('company').get('benefits')[1].get('icon'), 'sleep')
             self.assertEqual(content['data'].get('company').get('jobPositions')[0].get('id'), '1')
             self.assertEqual(content['data'].get('company').get('jobPositions')[0].get('name'), 'worker')
-            self.assertEqual(content['data'].get('company').get('employees')[0].get('firstName'), 'Johnny')
-            self.assertEqual(content['data'].get('company').get('employees')[0].get('lastName'), 'Test')
-            self.assertEqual(content['data'].get('company').get('employees')[0].get('email'), 'john@doe.com')
+            self.assertEqual(content['data'].get('company').get('employees')[0].get('user')[0].get('firstName'), 'Johnny')
+            self.assertEqual(content['data'].get('company').get('employees')[0].get('user')[0].get('lastName'), 'Test')
+            self.assertEqual(content['data'].get('company').get('employees')[0].get('user')[0].get('email'), 'john@doe.com')
             self.assertEqual(content['data'].get('company').get('employees')[0].get('role'), 'Trainer')
         else:
             self.assertResponseHasErrors(response)
@@ -397,7 +399,7 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                                                  'companyProfileStep2')
         self._test_and_get_step_response_content(self.query_step_3, self.variables_step_3_base, 3,
                                                  'companyProfileStep3', True)
-        self._test_company_query(1)
+        self._test_company_query('doe-unlimited')
 
     def test_company_query_invalid_company_id(self):
         self._login()
@@ -407,4 +409,4 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                                                  'companyProfileStep2')
         self._test_and_get_step_response_content(self.query_step_3, self.variables_step_3_base, 3,
                                                  'companyProfileStep3', True)
-        self._test_company_query(1337, False)
+        self._test_company_query('a-wrong-slug', False)
