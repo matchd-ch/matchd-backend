@@ -6,7 +6,7 @@ from graphql_auth.models import UserStatus
 
 from api.tests.base import BaseGraphQLTestCase
 from db.models import JobOption, JobOptionMode, Company, UserState, JobPosting, Skill, Expectation, Language, \
-    LanguageLevel, Branch, JobPostingState, Employee
+    LanguageLevel, Branch, Employee
 
 
 # pylint: disable=C0303
@@ -118,6 +118,22 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
       }
     }
 
+    variables_step_3_invalid = {
+        'step3': {
+            'id': 1,
+            'state': 'INVALID',
+            'employee': {'id': 99}
+        }
+    }
+
+    variables_step_3_employee_from_different_company = {
+        'step3': {
+            'id': 1,
+            'state': 'PUBLIC',
+            'employee': {'id': 2}
+        }
+    }
+
     def setUp(self):
         self.date_range_option = JobOption.objects.create(name='Date range', mode=JobOptionMode.DATE_RANGE, id=1)
         self.date_from_option = JobOption.objects.create(name='Date from', mode=JobOptionMode.DATE_FROM, id=2)
@@ -161,6 +177,30 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
             job_from_date=datetime.now(),
             branch=self.branch
         )
+
+        self.company2 = Company.objects.create(uid='CHE-000.000.001', name='Doe Unlimited2', zip='0000', city='DoeCity')
+
+        self.user2 = get_user_model().objects.create(
+            first_name='John2',
+            last_name='Doe2',
+            username='john2@doe.com',
+            email='john2@doe.com',
+            type='company',
+            company=self.company2
+        )
+        self.user2.set_password('asdf1234$')
+        self.user2.state = UserState.PUBLIC
+        self.user2.save()
+
+        self.employee2 = Employee.objects.create(
+            id=2,
+            role='Test',
+            user=self.user2
+        )
+
+        user_status2 = UserStatus.objects.get(user=self.user2)
+        user_status2.verified = True
+        user_status2.save()
 
     def _login(self, username):
         response = self.query(
@@ -310,3 +350,17 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
         self.assertEqual(JobPostingState.PUBLIC, self.job_posting.state)
         self.assertEqual(4, self.job_posting.form_step)
         self.assertEqual(self.employee.id, self.job_posting.employee.id)
+
+    def test_job_posting_step_3_invalid(self):
+        self.job_posting.form_step = 3
+        self.job_posting.save()
+        self._login('john@doe.com')
+        self._test_job_posting(self.query_step_3, self.variables_step_3_invalid, 'jobPostingStep3', False,
+                               ['state', 'employee'])
+
+    def test_job_posting_step_3_employee_from_different_company(self):
+        self.job_posting.form_step = 3
+        self.job_posting.save()
+        self._login('john@doe.com')
+        self._test_job_posting(self.query_step_3, self.variables_step_3_employee_from_different_company,
+                               'jobPostingStep3', False, ['employee'])
