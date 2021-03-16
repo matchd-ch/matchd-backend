@@ -1,4 +1,8 @@
 import graphene
+from django.http import Http404
+from django.shortcuts import get_object_or_404
+from graphene import ObjectType
+from graphene_django import DjangoObjectType
 from django.utils.translation import gettext as _
 from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
@@ -6,9 +10,11 @@ from graphql_jwt.decorators import login_required
 from api.schema.benefit import BenefitInputType
 from api.schema.branch.schema import BranchInputType
 from api.schema.job_position import JobPositionInputType
+from api.schema.user.schema import Employee
 from db.exceptions import FormException
 from db.forms import process_company_form_step_2, process_company_form_step_3
 from db.forms.company_step_1 import process_company_form_step_1
+from db.models import Company as CompanyModel, UserState
 
 
 class CompanyProfileInputStep1(graphene.InputObjectType):
@@ -23,7 +29,6 @@ class CompanyProfileInputStep1(graphene.InputObjectType):
 
 
 class CompanyProfileStep1(Output, graphene.Mutation):
-
     class Arguments:
         step1 = CompanyProfileInputStep1(description=_('Profile Input Step 1 is required.'), required=True)
 
@@ -51,7 +56,6 @@ class CompanyProfileInputStep2(graphene.InputObjectType):
 
 
 class CompanyProfileStep2(Output, graphene.Mutation):
-
     class Arguments:
         step2 = CompanyProfileInputStep2(description=_('Profile Input Step 2 is required.'), required=True)
 
@@ -76,7 +80,6 @@ class CompanyProfileInputStep3(graphene.InputObjectType):
 
 
 class CompanyProfileStep3(Output, graphene.Mutation):
-
     class Arguments:
         step3 = CompanyProfileInputStep3(description=_('Profile Input Step 3 is required.'), required=True)
 
@@ -99,3 +102,31 @@ class CompanyProfileMutation(graphene.ObjectType):
     company_profile_step1 = CompanyProfileStep1.Field()
     company_profile_step2 = CompanyProfileStep2.Field()
     company_profile_step3 = CompanyProfileStep3.Field()
+
+
+class Company(DjangoObjectType):
+    employees = graphene.List(Employee)
+
+    class Meta:
+        model = CompanyModel
+        fields = ['uid', 'name', 'zip', 'city', 'street', 'phone', 'description', 'member_it_st_gallen',
+                  'services', 'website', 'job_positions', 'benefits']
+
+    def resolve_employees(self: CompanyModel, info):
+        users = self.users.prefetch_related('employee').all()
+        employees = []
+        for user in users:
+            employees.append(user.employee)
+        return employees
+
+
+class CompanyQuery(ObjectType):
+    company = graphene.Field(Company, slug=graphene.String())
+
+    def resolve_company(self, info, slug):
+        company = get_object_or_404(CompanyModel, slug=slug)
+        if len(company.users.all()) >= 1:
+            if company.users.all()[0].state == UserState.PUBLIC:
+                return company
+
+        raise Http404(_('Company not found'))
