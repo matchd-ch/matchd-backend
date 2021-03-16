@@ -1,18 +1,27 @@
 import graphene
 from django.contrib.auth import get_user_model
 from graphene_django import DjangoObjectType
+from graphql_auth.schema import UserNode
 from graphql_auth.settings import graphql_auth_settings
 from graphql_jwt.decorators import login_required
 
-from db.models import Student as StudentModel
+from db.models import Student as StudentModel, Employee as EmployeeModel
 
 
 class Student(DjangoObjectType):
 
     class Meta:
         model = StudentModel
-        fields = ['mobile', 'street', 'zip', 'city', 'date_of_birth', 'nickname', 'school_name', 'field_of_study',
-                  'graduation', 'skills', 'hobbies', 'languages', 'distinction', 'online_projects']
+        fields = ('mobile', 'street', 'zip', 'city', 'date_of_birth', 'nickname', 'school_name', 'field_of_study',
+                  'graduation', 'skills', 'hobbies', 'languages', 'distinction', 'online_projects',)
+
+
+class Employee(DjangoObjectType):
+    user = graphene.Field(UserNode)
+
+    class Meta:
+        model = EmployeeModel
+        fields = ('id', 'role', 'user',)
 
 
 class UserWithProfileNode(DjangoObjectType):
@@ -30,6 +39,10 @@ class UserQuery(graphene.ObjectType):
     @login_required
     def resolve_me(self, info):
         user = info.context.user
+
         if user.is_authenticated:
+            user = get_user_model().objects.prefetch_related('student', 'company__users',
+                                                             'company__benefits', 'company__job_positions').\
+                select_related('company', 'company__branch').get(pk=user.id)
             return user
         return None

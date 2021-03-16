@@ -1,8 +1,13 @@
 import graphene
 
+from api.schema.benefit import BenefitQuery
+from api.schema.branch import BranchQuery
+from api.schema.company import CompanyProfileMutation, CompanyQuery
 from api.schema.attachment import AttachmentMutation, AttachmentQuery
+from api.schema.expectation import ExpectationQuery
 from api.schema.job_option import JobOptionQuery
 from api.schema.job_position import JobPositionQuery
+from api.schema.job_posting import JobPostingMutation, JobPostingQuery
 from api.schema.language import LanguageQuery
 from api.schema.auth import AuthMutation, LogoutMutation, VerifyPasswordResetToken
 from api.schema.language_level import LanguageLevelQuery
@@ -22,8 +27,10 @@ class Mutation(
     AuthMutation,
     LogoutMutation,
     StudentProfileMutation,
+    CompanyProfileMutation,
     UploadMutation,
-    AttachmentMutation
+    AttachmentMutation,
+    JobPostingMutation
 ):
     pass
 
@@ -37,8 +44,13 @@ class Query(
     JobOptionQuery,
     JobPositionQuery,
     SkillQuery,
+    BenefitQuery,
+    BranchQuery,
     AttachmentQuery,
-    UploadConfigurationQuery
+    UploadConfigurationQuery,
+    CompanyQuery,
+    JobPostingQuery,
+    ExpectationQuery
 ):
     pass
 

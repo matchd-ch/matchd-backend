@@ -1,0 +1,1 @@
+from .benefit import BenefitGraphQLTestCase
