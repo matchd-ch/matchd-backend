@@ -4,6 +4,7 @@ from api.schema.benefit import BenefitQuery
 from api.schema.branch import BranchQuery
 from api.schema.company import CompanyProfileMutation, CompanyQuery
 from api.schema.attachment import AttachmentMutation, AttachmentQuery
+from api.schema.expectation import ExpectationQuery
 from api.schema.job_option import JobOptionQuery
 from api.schema.job_position import JobPositionQuery
 from api.schema.job_posting import JobPostingMutation, JobPostingQuery
@@ -48,7 +49,8 @@ class Query(
     AttachmentQuery,
     UploadConfigurationQuery,
     CompanyQuery,
-    JobPostingQuery
+    JobPostingQuery,
+    ExpectationQuery
 ):
     pass
 
