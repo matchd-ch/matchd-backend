@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 
 from db.exceptions import FormException, NicknameException
 from db.helper import validation_error_to_dict, \
-    validate_user_type, validate_step, validate_form_data, NicknameHelper
+    validate_student_user_type, validate_step, validate_form_data, NicknameHelper
 
 
 class StudentProfileFormStep5(forms.Form):
@@ -13,7 +13,7 @@ class StudentProfileFormStep5(forms.Form):
 def process_student_form_step_5(user, data):
     errors = {}
     # validate user type, step and data
-    validate_user_type(user)
+    validate_student_user_type(user)
     validate_step(user, 5)
     validate_form_data(data)
 
