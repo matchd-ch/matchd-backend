@@ -1,1 +1,1 @@
-from .schema import CompanyProfileMutation
+from .schema import CompanyProfileMutation, CompanyQuery
