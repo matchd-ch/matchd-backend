@@ -6,6 +6,7 @@ from api.schema.company import CompanyProfileMutation, CompanyQuery
 from api.schema.attachment import AttachmentMutation, AttachmentQuery
 from api.schema.job_option import JobOptionQuery
 from api.schema.job_position import JobPositionQuery
+from api.schema.job_posting import JobPostingMutation, JobPostingQuery
 from api.schema.language import LanguageQuery
 from api.schema.auth import AuthMutation, LogoutMutation, VerifyPasswordResetToken
 from api.schema.language_level import LanguageLevelQuery
@@ -27,7 +28,8 @@ class Mutation(
     StudentProfileMutation,
     CompanyProfileMutation,
     UploadMutation,
-    AttachmentMutation
+    AttachmentMutation,
+    JobPostingMutation
 ):
     pass
 
@@ -45,7 +47,8 @@ class Query(
     BranchQuery,
     AttachmentQuery,
     UploadConfigurationQuery,
-    CompanyQuery
+    CompanyQuery,
+    JobPostingQuery
 ):
     pass
 

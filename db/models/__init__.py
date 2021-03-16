@@ -18,3 +18,4 @@ from .video import Video
 from .file import File
 from .attachment import Attachment, upload_configurations, AttachmentKey, get_attachment_validator_map_for_key, \
     get_max_files_for_key
+from .job_posting import JobPosting

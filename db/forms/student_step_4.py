@@ -11,7 +11,7 @@ from db.models import Skill, OnlineProject, Hobby, UserLanguageRelation
 
 class StudentProfileFormStep4(forms.Form):
     skills = forms.ModelMultipleChoiceField(queryset=Skill.objects.all(), required=True)
-    distinction = forms.CharField(max_length=1000,required=False)
+    distinction = forms.CharField(max_length=1000, required=False)
 
 
 def process_hobby(data):

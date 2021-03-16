@@ -8,6 +8,8 @@ from .company_step_1 import CompanyProfileFormStep1, process_company_form_step_1
 from .company_step_2 import CompanyProfileFormStep2, process_company_form_step_2
 from .company_step_3 import CompanyProfileFormStep3, process_company_form_step_3
 
+from .job_posting_step_1 import process_job_posting_form_step_1
+
 from .company import CompanyForm, UniversityForm
 from .student import StudentForm
 from .user_request import UserRequestForm
