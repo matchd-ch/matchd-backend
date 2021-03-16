@@ -1,6 +1,7 @@
 from django.core.validators import RegexValidator
 from django.db import models
 from django.conf import settings
+from django.utils.text import slugify
 
 
 class Company(models.Model):
@@ -18,3 +19,10 @@ class Company(models.Model):
     member_it_st_gallen = models.BooleanField(blank=True, default=False)
     benefits = models.ManyToManyField('db.Benefit', related_name='benefits')
     job_positions = models.ManyToManyField('db.JobPosition', related_name='job_positions')
+    slug = models.SlugField(unique=True)
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        if self.slug is None:
+            self.slug = slugify(self.name)
+        super().save(force_insert, force_update, using, update_fields)

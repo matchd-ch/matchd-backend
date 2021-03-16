@@ -105,7 +105,8 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
     }
 
     def setUp(self):
-        self.company = Company.objects.create(uid='CHE-999.999.999', name='Doe Unlimited', zip='0000', city='DoeCity')
+        self.company = Company.objects.create(id=1, uid='CHE-999.999.999', name='Doe Unlimited', zip='0000',
+                                              city='DoeCity', slug='doe-unlimited')
         self.company.save()
         self.user = get_user_model().objects.create(
             username='john@doe.com',
@@ -117,6 +118,7 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         )
         self.user.set_password('asdf1234$')
         self.user.profile_step = 1
+        self.user.state = 'public'
         self.user.save()
 
         user_status = UserStatus.objects.get(user=self.user)
@@ -210,9 +212,17 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                 lastName
                 state
                 profileStep
-                employee {
+                employees{
                     id
                     role
+                    user{
+                        id
+                        username
+                        email
+                        type
+                        firstName
+                        lastName
+                    }
                 }
                 company {
                     uid
@@ -249,10 +259,83 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             self.assertEqual(content['data'].get('me').get('profileStep'), 1)
             self.assertEqual(content['data'].get('me').get('type'), 'COMPANY')
             self.assertEqual(content['data'].get('me').get('company').get('mobile'), '+41791234567')
+            self.assertEqual(content['data'].get('me').get('employees').get('role'), '')
+            self.assertEqual(content['data'].get('me').get('employees').get('user').get('id'), '')
+            self.assertEqual(content['data'].get('me').get('employees').get('user').get('username'), '')
+            self.assertEqual(content['data'].get('me').get('employees').get('user').get('email'), '')
+            self.assertEqual(content['data'].get('me').get('employees').get('user').get('type'), '')
+            self.assertEqual(content['data'].get('me').get('employees').get('user').get('firstname'), '')
+            self.assertEqual(content['data'].get('me').get('employees').get('user').get('lastname'), '')
 
         else:
             self.assertResponseHasErrors(response)
             self.assertIsNone(content['data'].get('me'))
+
+    def _test_company_query(self, company_slug, success=True):
+        response = self.query(
+            '''
+            query{
+                company(slug:"%s"){
+                    uid
+                    name
+                    zip
+                    city
+                    street
+                    phone
+                    website
+                    description
+                    services
+                    benefits{
+                      id
+                      icon
+                    }
+                    jobPositions{
+                      id
+                      name
+                    }
+                    employees{
+                      id
+                      role
+                      user{
+                        firstName
+                        lastName
+                        email
+                        }
+                    }
+                }
+            }
+            ''' % company_slug
+        )
+
+        content = json.loads(response.content)
+        if success:
+            self.assertResponseNoErrors(response)
+            self.assertEqual(content['data'].get('company').get('uid'), 'CHE-999.999.999')
+            self.assertEqual(content['data'].get('company').get('name'), 'Zoo')
+            self.assertEqual(content['data'].get('company').get('zip'), '1337')
+            self.assertEqual(content['data'].get('company').get('city'), 'ZooTown')
+            self.assertEqual(content['data'].get('company').get('street'), 'ZooStreet')
+            self.assertEqual(content['data'].get('company').get('phone'), '+41791234567')
+            self.assertEqual(content['data'].get('company').get('website'), 'http://www.google.com')
+            self.assertEqual(content['data'].get('company').get('description'), 'A cool company')
+            self.assertEqual(content['data'].get('company').get('services'), 'creating cool stuff')
+            self.assertEqual(content['data'].get('company').get('benefits')[0].get('id'), '1')
+            self.assertEqual(content['data'].get('company').get('benefits')[0].get('icon'), 'doge')
+            self.assertEqual(content['data'].get('company').get('benefits')[1].get('id'), '2')
+            self.assertEqual(content['data'].get('company').get('benefits')[1].get('icon'), 'sleep')
+            self.assertEqual(content['data'].get('company').get('jobPositions')[0].get('id'), '1')
+            self.assertEqual(content['data'].get('company').get('jobPositions')[0].get('name'), 'worker')
+            self.assertEqual(content['data'].get('company').get('employees')[0].get('user').get('firstName'),
+                             'Johnny')
+            self.assertEqual(content['data'].get('company').get('employees')[0].get('user').get('lastName'),
+                             'Test')
+            self.assertEqual(content['data'].get('company').get('employees')[0].get('user').get('email'),
+                             'john@doe.com')
+            self.assertEqual(content['data'].get('company').get('employees')[0].get('role'), 'Trainer')
+        else:
+            self.assertResponseHasErrors(response)
+            self.assertIsNone(content['data'].get('company'))
+
 
     def test_company_step_1_valid_base(self):
         self._test_and_get_step_response_content(self.query_step_1, self.variables_step_1_base, 1,
@@ -327,3 +410,35 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
     def test_company_step_3_invalid_data(self):
         self._test_with_invalid_data(3, self.query_step_3, self.variables_step_3_invalid, 'companyProfileStep3',
                                      ['benefits', 'jobPositions'])
+
+    def test_company_query(self):
+        self._login()
+        self._test_and_get_step_response_content(self.query_step_1, self.variables_step_1_base, 1,
+                                                 'companyProfileStep1')
+        self._test_and_get_step_response_content(self.query_step_2, self.variables_step_2_base, 2,
+                                                 'companyProfileStep2')
+        self._test_and_get_step_response_content(self.query_step_3, self.variables_step_3_base, 3,
+                                                 'companyProfileStep3', True)
+        self._test_company_query('doe-unlimited')
+
+    def test_company_query_invalid_company_id(self):
+        self._login()
+        self._test_and_get_step_response_content(self.query_step_1, self.variables_step_1_base, 1,
+                                                 'companyProfileStep1')
+        self._test_and_get_step_response_content(self.query_step_2, self.variables_step_2_base, 2,
+                                                 'companyProfileStep2')
+        self._test_and_get_step_response_content(self.query_step_3, self.variables_step_3_base, 3,
+                                                 'companyProfileStep3', True)
+        self._test_company_query('a-wrong-slug', False)
+
+    def test_company_query_not_completed(self):
+        self._login()
+        self._test_and_get_step_response_content(self.query_step_1, self.variables_step_1_base, 1,
+                                                 'companyProfileStep1')
+        self._test_and_get_step_response_content(self.query_step_2, self.variables_step_2_base, 2,
+                                                 'companyProfileStep2')
+        self._test_and_get_step_response_content(self.query_step_3, self.variables_step_3_base, 3,
+                                                 'companyProfileStep3', True)
+        self.user.state = 'incomplete'
+        self.user.save()
+        self._test_company_query('doe-unlimited', False)
