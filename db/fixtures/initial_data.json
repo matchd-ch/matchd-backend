@@ -116,7 +116,8 @@
         "uid": "CHE-999.999.999",
         "name": "Doe Unlimited",
         "zip": "9000",
-        "city": "St. Gallen"
+        "city": "St. Gallen",
+        "slug": "doe-unlimited"
     }
 },
 {
@@ -126,7 +127,8 @@
         "uid": "",
         "name": "Doe University",
         "zip": "9000",
-        "city": "St. Gallen"
+        "city": "St. Gallen",
+        "slug": "doe-university"
     }
 },
 {
