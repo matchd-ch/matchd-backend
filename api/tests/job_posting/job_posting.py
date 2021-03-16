@@ -6,7 +6,7 @@ from graphql_auth.models import UserStatus
 
 from api.tests.base import BaseGraphQLTestCase
 from db.models import JobOption, JobOptionMode, Company, UserState, JobPosting, Skill, Expectation, Language, \
-    LanguageLevel, Branch, Employee
+    LanguageLevel, Branch, Employee, JobPostingState
 
 
 # pylint: disable=C0303
@@ -146,7 +146,8 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
         self.language2 = Language.objects.create(id=2, name='Test2', short_list=False)
         self.language_level = LanguageLevel.objects.create(id=1, description='Test')
 
-        self.company = Company.objects.create(uid='CHE-000.000.000', name='Doe Unlimited', zip='0000', city='DoeCity')
+        self.company = Company.objects.create(uid='CHE-000.000.000', name='Doe Unlimited', zip='0000', city='DoeCity',
+                                              slug='doe-unlimited')
 
         self.user = get_user_model().objects.create(
             first_name='John',
@@ -178,7 +179,8 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
             branch=self.branch
         )
 
-        self.company2 = Company.objects.create(uid='CHE-000.000.001', name='Doe Unlimited2', zip='0000', city='DoeCity')
+        self.company2 = Company.objects.create(uid='CHE-000.000.001', name='Doe Unlimited2', zip='0000', city='DoeCity',
+                                               slug='doe-unlimited2')
 
         self.user2 = get_user_model().objects.create(
             first_name='John2',
