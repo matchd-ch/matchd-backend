@@ -14,7 +14,7 @@ from api.schema.user.schema import Employee
 from db.exceptions import FormException
 from db.forms import process_company_form_step_2, process_company_form_step_3
 from db.forms.company_step_1 import process_company_form_step_1
-from db.models import Company as CompanyModel, Employee as EmployeeModel, UserState
+from db.models import Company as CompanyModel, UserState
 
 
 class CompanyProfileInputStep1(graphene.InputObjectType):
