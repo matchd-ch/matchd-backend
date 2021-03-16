@@ -112,7 +112,7 @@ class Company(DjangoObjectType):
         fields = ['uid', 'name', 'zip', 'city', 'street', 'phone', 'description', 'member_it_st_gallen',
                   'services', 'website', 'job_positions', 'benefits']
 
-    def resolve_employees(self, info):
+    def resolve_employees(self: CompanyModel, info):
         employees = self.users.all()
         employees_list = []
         for employee in employees:
