@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('db', '0051_jobpostinglanguagerelation'),
+        ('db', '0054_jobpostinglanguagerelation'),
     ]
 
     operations = [
