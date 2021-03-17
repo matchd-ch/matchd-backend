@@ -1,5 +1,6 @@
 import graphene
 from django.contrib.auth import get_user_model
+from django.shortcuts import get_object_or_404
 from graphene import ObjectType
 from graphene_django import DjangoObjectType
 from graphql_auth.bases import Output
@@ -7,7 +8,7 @@ from graphql_jwt.decorators import login_required
 from django.utils.translation import gettext as _
 
 from db.helper import generic_error_dict, has_access_to_attachments
-from db.models import AttachmentKey, Attachment
+from db.models import AttachmentKey, Attachment, Company
 
 AttachmentKeyType = graphene.Enum.from_enum(AttachmentKey)
 
@@ -72,7 +73,8 @@ class AttachmentQuery(ObjectType):
     attachments = graphene.List(
         AttachmentType,
         key=AttachmentKeyType(required=True),
-        user_id=graphene.Int(required=False)
+        user_id=graphene.Int(required=False),
+        slug=graphene.String(required=False)
     )
 
     @login_required
@@ -82,9 +84,12 @@ class AttachmentQuery(ObjectType):
 
         # if user id is None, we assume to return the list of the currently logged in user
         user_id = kwargs.get('user_id', None)
+        slug = kwargs.get('slug', None)
         attachment_owner = user
         if user_id is not None:
-            attachment_owner = get_user_model().objects.get(pk=user_id)
+            attachment_owner = get_object_or_404(get_user_model(), pk=user_id)
+        elif slug is not None:
+            attachment_owner = get_object_or_404(Company, slug=slug)
 
         # check if the owner has a public profile
         # if not, return an empty list

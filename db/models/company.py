@@ -1,3 +1,4 @@
+from django.contrib.contenttypes.models import ContentType
 from django.core.validators import RegexValidator
 from django.db import models
 from django.conf import settings
@@ -26,3 +27,9 @@ class Company(models.Model):
         if self.slug is None:
             self.slug = slugify(self.name)
         super().save(force_insert, force_update, using, update_fields)
+
+    def get_profile_content_type(self):
+        return ContentType.objects.get(app_label='db', model='company')
+
+    def get_profile_id(self):
+        return self.id
