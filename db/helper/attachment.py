@@ -16,9 +16,9 @@ def has_access_to_attachments(user, owner):
         if user in company_users:
             has_access = True
         else:
-            # check if the user has a public profile
+            # check if the company has a completed profile
             state = company_users[0].state
-            if state == UserState.PUBLIC:
+            if state != UserState.INCOMPLETE:
                 has_access = True
     else:
         # user
