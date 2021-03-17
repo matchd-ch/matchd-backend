@@ -31,33 +31,26 @@
     "model": "db.expectation",
     "pk": 5,
     "fields": {
-        "name": "gute bis sehr gute Fachnoten"
+        "name": "gymnasiale Matura"
     }
 },
 {
     "model": "db.expectation",
     "pk": 6,
     "fields": {
-        "name": "gymnasiale Matura"
+        "name": "Studium im Fachbereich oder verwandter Disziplin"
     }
 },
 {
     "model": "db.expectation",
     "pk": 7,
     "fields": {
-        "name": "Studium im Fachbereich oder verwandter Disziplin"
-    }
-},
-{
-    "model": "db.expectation",
-    "pk": 8,
-    "fields": {
         "name": "Bachelor-Abschluss BA/BSc"
     }
 },
 {
     "model": "db.expectation",
-    "pk": 9,
+    "pk": 8,
     "fields": {
         "name": "Master-Abschluss MA/MSc/MEng"
     }
