@@ -251,8 +251,8 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
 
     def test_job_posting_step_1_invalid_workload_too_high(self):
         self._login('john@doe.com')
-        self._test_job_posting(self.query_step_1, self.variables_step_1_invalid_workload_too_high, 'jobPostingStep1', False,
-                               ['workload'])
+        self._test_job_posting(self.query_step_1, self.variables_step_1_invalid_workload_too_high, 'jobPostingStep1',
+                               False, ['workload'])
 
     def test_job_posting_step_2(self):
         self._login('john@doe.com')
