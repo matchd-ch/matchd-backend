@@ -109,7 +109,7 @@ class Company(DjangoObjectType):
 
     class Meta:
         model = CompanyModel
-        fields = ['uid', 'name', 'zip', 'city', 'street', 'phone', 'description', 'member_it_st_gallen',
+        fields = ['id', 'uid', 'name', 'zip', 'city', 'street', 'phone', 'description', 'member_it_st_gallen',
                   'services', 'website', 'job_positions', 'benefits']
 
     def resolve_employees(self: CompanyModel, info):
