@@ -276,6 +276,7 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             '''
             query{
                 company(slug:"%s"){
+                    id
                     uid
                     name
                     zip
