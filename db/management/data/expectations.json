@@ -29,28 +29,28 @@
 },
 {
     "model": "db.expectation",
-    "pk": 5,
+    "pk": 6,
     "fields": {
         "name": "gymnasiale Matura"
     }
 },
 {
     "model": "db.expectation",
-    "pk": 6,
+    "pk": 7,
     "fields": {
         "name": "Studium im Fachbereich oder verwandter Disziplin"
     }
 },
 {
     "model": "db.expectation",
-    "pk": 7,
+    "pk": 8,
     "fields": {
         "name": "Bachelor-Abschluss BA/BSc"
     }
 },
 {
     "model": "db.expectation",
-    "pk": 8,
+    "pk": 9,
     "fields": {
         "name": "Master-Abschluss MA/MSc/MEng"
     }
