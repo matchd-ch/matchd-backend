@@ -29,13 +29,6 @@
 },
 {
     "model": "db.expectation",
-    "pk": 5,
-    "fields": {
-        "name": "gute bis sehr gute Fachnoten"
-    }
-},
-{
-    "model": "db.expectation",
     "pk": 6,
     "fields": {
         "name": "gymnasiale Matura"
