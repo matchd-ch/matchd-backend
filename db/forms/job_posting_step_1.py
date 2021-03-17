@@ -11,7 +11,7 @@ from db.models import JobOption, JobPosting
 class JobPostingFormStep1(forms.Form):
     description = forms.CharField(max_length=1000, required=True)
     job_option = forms.ModelChoiceField(queryset=JobOption.objects.all(), required=True)
-    workload = forms.CharField(max_length=255, required=True)
+    workload = forms.IntegerField(required=True)
     job_from_date = forms.DateField(required=True)
     job_to_date = forms.DateField(required=False)
     url = forms.URLField(required=False)

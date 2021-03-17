@@ -55,7 +55,7 @@ class JobPostingQuery(ObjectType):
 class JobPostingInputStep1(graphene.InputObjectType):
     description = graphene.String(description=_('Description'), required=True)
     job_option = graphene.Field(JobOptionInputType, required=True)
-    workload = graphene.String(description=_('Workload'), required=True)
+    workload = graphene.Int(description=_('Workload'), required=True)
     job_from_date = graphene.String(required=True)
     job_to_date = graphene.String(required=False)
     url = graphene.String(required=False)
