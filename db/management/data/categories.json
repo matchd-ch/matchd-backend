@@ -1,0 +1,37 @@
+[
+  {
+    "model": "db.category",
+    "pk": 1,
+    "fields": {
+      "name": "Ausbildungen und Berufe bei uns"
+    }
+  },
+  {
+    "model": "db.category",
+    "pk": 2,
+    "fields": {
+      "name": "Voraussetzungen für eine Anstellung "
+    }
+  },
+  {
+    "model": "db.category",
+    "pk": 3,
+    "fields": {
+      "name": "Bewerbungsablauf"
+    }
+  },
+  {
+    "model": "db.category",
+    "pk": 4,
+    "fields": {
+      "name": "Alles rund um die Anstellung"
+    }
+  },
+  {
+    "model": "db.category",
+    "pk": 5,
+    "fields": {
+      "name": "Betreuung während deiner Ausbildung"
+    }
+  }
+]
