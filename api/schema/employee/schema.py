@@ -37,6 +37,7 @@ class AddEmployee(Output, graphene.Mutation):
         validate_form_data(form_data)
 
         errors = {}
+        company = user.company
         employee_data = None
         user_data = None
 
@@ -49,6 +50,7 @@ class AddEmployee(Output, graphene.Mutation):
 
         # copy email to username
         form_data['username'] = form_data.get('email')
+
         user_form = UserForm(form_data)
         user_form.full_clean()
         if user_form.is_valid():
@@ -64,7 +66,8 @@ class AddEmployee(Output, graphene.Mutation):
             first_name=user_data.get('first_name'),
             last_name=user_data.get('last_name'),
             email=user_data.get('email'),
-            username=user_data.get('username')
+            username=user_data.get('username'),
+            company=company
         )
 
         # create employee
