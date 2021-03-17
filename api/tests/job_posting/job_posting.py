@@ -78,6 +78,17 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
         }
     }
 
+    variables_step_1_invalid_workload_too_high = {
+        'step1': {
+            'description': 'Beschreibung',
+            'jobOption': {'id': 1},
+            'workload': 999,
+            'jobFromDate': '03.2021',
+            'jobToDate': '08.2021',
+            'url': 'www.google.ch'
+        }
+    }
+
     variables_step_2 = {
       'step2': {
         'id': 1,
@@ -231,12 +242,17 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
     def test_job_posting_step_1_invalid_data(self):
         self._login('john@doe.com')
         self._test_job_posting(self.query_step_1, self.variables_step_1_invalid_data, 'jobPostingStep1', False,
-                               ['description', 'jobOption', 'jobFromDate'])
+                               ['workload', 'description', 'jobOption', 'jobFromDate'])
 
     def test_job_posting_step_1_invalid_date_range(self):
         self._login('john@doe.com')
         self._test_job_posting(self.query_step_1, self.variables_step_1_invalid_date_range, 'jobPostingStep1', False,
                                ['jobToDate'])
+
+    def test_job_posting_step_1_invalid_workload_too_high(self):
+        self._login('john@doe.com')
+        self._test_job_posting(self.query_step_1, self.variables_step_1_invalid_workload_too_high, 'jobPostingStep1', False,
+                               ['workload'])
 
     def test_job_posting_step_2(self):
         self._login('john@doe.com')
