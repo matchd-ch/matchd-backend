@@ -2,6 +2,7 @@ import graphene
 
 from api.schema.benefit import BenefitQuery
 from api.schema.branch import BranchQuery
+from api.schema.category import CategoryQuery
 from api.schema.company import CompanyProfileMutation, CompanyQuery
 from api.schema.attachment import AttachmentMutation, AttachmentQuery
 from api.schema.expectation import ExpectationQuery
@@ -50,7 +51,8 @@ class Query(
     UploadConfigurationQuery,
     CompanyQuery,
     JobPostingQuery,
-    ExpectationQuery
+    ExpectationQuery,
+    CategoryQuery
 ):
     pass
 
