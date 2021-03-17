@@ -2,20 +2,32 @@ from db.models import UserState, UserType
 
 
 def has_access_to_attachments(user, owner):
+    # owner can be a user or a company
     # check if user has a public profile, or the user is the owner of the attachments
-    has_access = False
-    if user.id == owner.id:
-        has_access = True
-    else:
-        # show attachments for all companies
-        user_type = owner.type
-        # check if the user has a public profile
-        state = owner.state
+    owner_is_company = True
+    if hasattr(owner, 'username'):
+        owner_is_company = False
 
-        if user_type in UserType.valid_company_types():
-            if state != UserState.INCOMPLETE:
-                has_access = True
+    has_access = False
+
+    if owner_is_company:
+        # company
+        company_users = owner.users.all()
+        if user in company_users:
+            has_access = True
         else:
+            # check if the user has a public profile
+            state = company_users[0].state
             if state == UserState.PUBLIC:
                 has_access = True
+    else:
+        # user
+        if user.id == owner.id:
+            has_access = True
+        else:
+            # check if the user has a public profile
+            state = owner.state
+            if state == UserState.PUBLIC:
+                has_access = True
+
     return has_access
