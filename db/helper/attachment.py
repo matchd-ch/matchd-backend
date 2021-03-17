@@ -1,4 +1,4 @@
-from db.models import UserState, UserType
+from db.models import UserState
 
 
 def has_access_to_attachments(user, owner):
