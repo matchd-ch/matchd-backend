@@ -9,6 +9,7 @@ from api.schema.job_option import JobOptionInput
 from api.schema.job_position import JobPositionInput
 from api.schema.online_project import OnlineProjectInput
 from api.schema.profile_state import ProfileState
+from api.schema.soft_skill import SoftSkillInput
 from api.schema.skill import SkillInput
 from api.schema.user_language_relation.user_language_relation import UserLanguageRelationInput
 from db.exceptions import FormException, NicknameException
@@ -68,6 +69,7 @@ class StudentProfileInputStep2(graphene.InputObjectType):
     job_from_date = graphene.String(required=False)
     job_to_date = graphene.String(required=False)
     job_position = graphene.Field(JobPositionInput, required=False)
+    soft_skills = graphene.List(SoftSkillInput, required=False)
 
 
 class StudentProfileStep2(Output, graphene.Mutation):
