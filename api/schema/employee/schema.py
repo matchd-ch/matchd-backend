@@ -77,6 +77,8 @@ class AddEmployee(Output, graphene.Mutation):
             user=user
         )
 
+        user.status.send_password_reset_email(info)
+
         return AddEmployee(success=True, errors=None, employee=employee)
 
 
