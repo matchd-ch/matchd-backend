@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from graphene_django.utils import GraphQLTestCase
 from graphql_auth.models import UserStatus
 from api.schema import schema
-from db.models import Branch, Benefit, Employee, Company, JobPosition
+from db.models import Branch, Benefit, Employee, Company, JobPosition, Student, UserState
 
 
 # pylint:disable=R0913
@@ -114,11 +114,11 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             type='company',
             first_name='Johnny',
             last_name='Test',
-            company=self.company
+            company=self.company,
+            state=UserState.INCOMPLETE
         )
         self.user.set_password('asdf1234$')
         self.user.profile_step = 1
-        self.user.state = 'public'
         self.user.save()
 
         user_status = UserStatus.objects.get(user=self.user)
@@ -127,21 +127,21 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
 
         self.employee = Employee.objects.create(
             role='Trainer',
-            user=get_user_model().objects.get(pk=self.user.pk)
+            user=self.user
         )
-
         self.employee.save()
+
         self.branch = Branch.objects.create(
             id=1,
             name='software'
         )
         self.branch.save()
+
         self.benefit = Benefit.objects.create(
             id=1,
             icon='doge',
             name='Doge'
         )
-
         self.benefit = Benefit.objects.create(
             id=2,
             icon='sleep',
@@ -153,8 +153,22 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             name='worker'
         )
 
+        self.student = get_user_model().objects.create(
+            username='jane@doe.com',
+            email='jane@doe.com',
+            type='student'
+        )
+        self.student.set_password('asdf1234$')
+        self.student.save()
+
+        self.student_profile = Student.objects.create(user=self.student, mobile='+41771234568')
+
+        user_status = UserStatus.objects.get(user=self.student)
+        user_status.verified = True
+        user_status.save()
+
     def _test_and_get_step_response_content(self, query, variables, step, error, success=True):
-        self._login()
+        self._login('john@doe.com')
         self.user.profile_step = step
         self.user.save()
         response = self.query(query, variables=variables)
@@ -171,7 +185,7 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         return content
 
     def _test_with_invalid_data(self, step, query, variables, error_key, expected_errors):
-        self._login()
+        self._login('john@doe.com')
         self.user.profile_step = step
         self.user.save()
 
@@ -183,22 +197,37 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         for expected_error in expected_errors:
             self.assertIn(expected_error, errors)
 
-    def _login(self):
+    def _login(self, username):
         response = self.query(
             '''
             mutation TokenAuth {
-                tokenAuth(username: "john@doe.com", password: "asdf1234$") {
+                tokenAuth(username: "%s", password: "asdf1234$") {
                     success,
                     errors,
                     token
                 }
             }
-            '''
+            ''' % username
         )
         self.assertResponseNoErrors(response)
         content = json.loads(response.content)
         self.assertTrue(content['data'].get('tokenAuth').get('success'))
         self.assertIsNotNone(content['data'].get('tokenAuth').get('token'))
+
+    def _logout(self):
+        response = self.query(
+            '''
+            mutation Logout {
+              logout
+            }
+            '''
+        )
+
+        self.assertResponseNoErrors(response)
+        content = json.loads(response.content)
+
+        self.assertTrue(content['data'].get('logout'))
+        self.assertEqual(response.cookies['JWT'].value, '')
 
     def _test_me(self, success=True):
         response = self.query('''
@@ -222,6 +251,7 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                         type
                         firstName
                         lastName
+                        state
                     }
                 }
                 company {
@@ -301,7 +331,8 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                         firstName
                         lastName
                         email
-                        }
+                        state
+                      }
                     }
                 }
             }
@@ -336,7 +367,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         else:
             self.assertResponseHasErrors(response)
             self.assertIsNone(content['data'].get('company'))
-
 
     def test_company_step_1_valid_base(self):
         self._test_and_get_step_response_content(self.query_step_1, self.variables_step_1_base, 1,
@@ -412,18 +442,9 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         self._test_with_invalid_data(3, self.query_step_3, self.variables_step_3_invalid, 'companyProfileStep3',
                                      ['benefits', 'jobPositions'])
 
-    def test_company_query(self):
-        self._login()
-        self._test_and_get_step_response_content(self.query_step_1, self.variables_step_1_base, 1,
-                                                 'companyProfileStep1')
-        self._test_and_get_step_response_content(self.query_step_2, self.variables_step_2_base, 2,
-                                                 'companyProfileStep2')
-        self._test_and_get_step_response_content(self.query_step_3, self.variables_step_3_base, 3,
-                                                 'companyProfileStep3', True)
-        self._test_company_query('doe-unlimited')
 
     def test_company_query_invalid_company_id(self):
-        self._login()
+        self._login('john@doe.com')
         self._test_and_get_step_response_content(self.query_step_1, self.variables_step_1_base, 1,
                                                  'companyProfileStep1')
         self._test_and_get_step_response_content(self.query_step_2, self.variables_step_2_base, 2,
@@ -433,13 +454,35 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         self._test_company_query('a-wrong-slug', False)
 
     def test_company_query_not_completed(self):
-        self._login()
+        # company step 1
+        self._login('john@doe.com')
         self._test_and_get_step_response_content(self.query_step_1, self.variables_step_1_base, 1,
                                                  'companyProfileStep1')
+
+        # company should not be returned for other users
+        self._logout()
+        self._login('jane@doe.com')
+        self._test_company_query('doe-unlimited', False)
+
+        # company step 2
+        self._logout()
+        self._login('john@doe.com')
         self._test_and_get_step_response_content(self.query_step_2, self.variables_step_2_base, 2,
                                                  'companyProfileStep2')
+
+        # company should still not be returned for other users
+        self._logout()
+        self._login('jane@doe.com')
+        self._test_company_query('doe-unlimited', False)
+
+        # company step 3
+        self._logout()
+        self._login('john@doe.com')
+
         self._test_and_get_step_response_content(self.query_step_3, self.variables_step_3_base, 3,
                                                  'companyProfileStep3', True)
-        self.user.state = 'incomplete'
-        self.user.save()
-        self._test_company_query('doe-unlimited', False)
+
+        # company should be returned for other users
+        self._logout()
+        self._login('jane@doe.com')
+        self._test_company_query('doe-unlimited')
