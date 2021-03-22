@@ -110,7 +110,7 @@ class Company(DjangoObjectType):
     class Meta:
         model = CompanyModel
         fields = ['id', 'uid', 'name', 'zip', 'city', 'street', 'phone', 'description', 'member_it_st_gallen',
-                  'services', 'website', 'job_positions', 'benefits']
+                  'services', 'website', 'job_positions', 'benefits', 'state', 'profile_step', 'slug']
 
     def resolve_employees(self: CompanyModel, info):
         users = self.users.prefetch_related('employee').all()
@@ -130,8 +130,7 @@ class CompanyQuery(ObjectType):
         employee_users = company.users.all()
 
         # check if the state is public or the user is an employee of the company
-        if len(employee_users) >= 1:
-            if user in employee_users or employee_users[0].state == ProfileState.PUBLIC:
-                return company
+        if user in employee_users or company.state == ProfileState.PUBLIC:
+            return company
 
         raise Http404(_('Company not found'))
