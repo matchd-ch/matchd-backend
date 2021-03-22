@@ -8,3 +8,4 @@ from .branch import *
 from .benefit import *
 from .expectation import *
 from .category import *
+from .soft_skill import *
