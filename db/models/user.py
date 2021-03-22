@@ -3,36 +3,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.translation import gettext as _
 
-
-class UserType(models.TextChoices):
-    INTERNAL = 'internal', _('Internal')
-    STUDENT = 'student', _('Student')
-    COLLEGE_STUDENT = 'college-student', _('College Student')
-    JUNIOR = 'junior', _('Junior')
-    COMPANY = 'company', _('Company')
-    UNIVERSITY = 'university', _('University')
-    OTHER = 'other', _('Other')
-
-    @classmethod
-    def valid_student_types(cls):
-        return [
-            cls.STUDENT,
-            cls.COLLEGE_STUDENT,
-            cls.JUNIOR
-        ]
-
-    @classmethod
-    def valid_company_types(cls):
-        return [
-            cls.COMPANY,
-            cls.UNIVERSITY
-        ]
-
-
-class ProfileState(models.TextChoices):
-    INCOMPLETE = 'incomplete', _('Incomplete')
-    ANONYMOUS = 'anonymous', _('Anonymous')
-    PUBLIC = 'public', _('Public')
+from db.models.profile_state import ProfileState
+from db.models.user_type import UserType
 
 
 class User(AbstractUser):
@@ -63,7 +35,7 @@ class User(AbstractUser):
             # noinspection PyUnresolvedReferences
             # student is a reverse relation field
             return self.student.profile_step
-        if self.type in UserType.valid_company_types:
+        if self.type in UserType.valid_company_types():
             return self.company.profile_step
         return 0
 
@@ -72,6 +44,6 @@ class User(AbstractUser):
             # noinspection PyUnresolvedReferences
             # student is a reverse relation field
             return self.student.state
-        if self.type in UserType.valid_company_types:
+        if self.type in UserType.valid_company_types():
             return self.company.state
         return ProfileState.INCOMPLETE

@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.core.validators import RegexValidator
 from django.db import models
 
-from db.models import ProfileState
+from db.models.profile_state import ProfileState
 
 
 class Student(models.Model):

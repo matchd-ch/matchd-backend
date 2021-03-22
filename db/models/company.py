@@ -4,7 +4,7 @@ from django.db import models
 from django.conf import settings
 from django.utils.text import slugify
 
-from db.models import ProfileState
+from db.models.profile_state import ProfileState
 
 
 class Company(models.Model):
