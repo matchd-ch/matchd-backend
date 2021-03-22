@@ -41,7 +41,7 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
             'description': '',
             'jobOption': {'id': 999},
             'branch': {'id': 999},
-            'workload': 0,
+            'workload': 9,
             'jobFromDate': '',
             'jobToDate': '',
             'url': None
@@ -76,6 +76,7 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
         'step1': {
             'description': 'Beschreibung',
             'jobOption': {'id': 1},
+            'branch': {'id': 1},
             'workload': 999,
             'jobFromDate': '03.2021',
             'jobToDate': '08.2021',
