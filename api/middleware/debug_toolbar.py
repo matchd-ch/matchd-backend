@@ -43,29 +43,42 @@ def set_content_length(response):
 
 def get_payload(request, response, toolbar):
     content = force_text(response.content, encoding=response.charset)
-    payload = json.loads(content, object_pairs_hook=OrderedDict)
-    payload['debugToolbar'] = OrderedDict([('panels', OrderedDict())])
+    payloads = json.loads(content, object_pairs_hook=OrderedDict)
 
-    for panel in reversed(toolbar.enabled_panels):
-        if panel.panel_id == 'TemplatesPanel':
-            continue
+    # monkey patch
+    # https://github.com/graphql-python/graphene-django/issues/967
+    batch = isinstance(payloads, list)
 
-        panel.generate_stats(request, response)
-        panel.generate_server_timing(request, response)
+    def update_payload(data):
+        data['debugToolbar'] = OrderedDict([('panels', OrderedDict())])
 
-        if panel.has_content:
-            title = panel.title
-        else:
-            title = None
+        for panel in reversed(toolbar.enabled_panels):
+            if panel.panel_id == 'TemplatesPanel':
+                continue
 
-        payload['debugToolbar']['panels'][panel.panel_id] = {
-            'title': title,
-            'subtitle': panel.nav_subtitle,
-        }
+            panel.generate_stats(request, response)
+            panel.generate_server_timing(request, response)
 
-    toolbar.store()
-    payload['debugToolbar']['storeId'] = toolbar.store_id
-    return payload
+            if panel.has_content:
+                title = panel.title
+            else:
+                title = None
+
+            data['debugToolbar']['panels'][panel.panel_id] = {
+                'title': title,
+                'subtitle': panel.nav_subtitle,
+            }
+        toolbar.store()
+        data['debugToolbar']['storeId'] = toolbar.store_id
+
+    if batch:
+        for payload in payloads:
+            update_payload(payload)
+        return payloads
+
+    update_payload(payloads)
+    # monkey patch end
+    return payloads
 
 
 class DebugToolbarMiddleware(BaseMiddleware):

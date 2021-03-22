@@ -10,7 +10,8 @@ from db.models import Company, Student, Employee, UserType
 
 
 class EmployeeInput(graphene.InputObjectType):
-    role = graphene.String(description=_('Role'), required=True)
+    id = graphene.ID(required=False)
+    role = graphene.String(description=_('Role'), required=False)
 
 
 class CompanyInput(graphene.InputObjectType):
