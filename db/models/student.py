@@ -26,4 +26,3 @@ class Student(models.Model):
     state = models.CharField(choices=ProfileState.choices, max_length=255, blank=False, default=ProfileState.INCOMPLETE)
     profile_step = models.IntegerField(default=1)
     soft_skill = models.ManyToManyField('db.SoftSkill', blank=True, related_name='soft_skills')
-
