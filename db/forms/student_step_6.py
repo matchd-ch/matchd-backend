@@ -2,11 +2,11 @@ from django import forms
 
 from db.exceptions import FormException
 from db.helper import validate_student_user_type, validate_step, validate_form_data
-from db.models.user import UserState
+from db.models.user import ProfileState
 
 
 class StudentProfileFormStep6(forms.Form):
-    state = forms.ChoiceField(choices=UserState.choices)
+    state = forms.ChoiceField(choices=ProfileState.choices)
 
 
 def process_student_form_step_6(user, data):

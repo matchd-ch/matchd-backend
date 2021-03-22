@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from graphene_django.utils import GraphQLTestCase
 from graphql_auth.models import UserStatus
 from api.schema import schema
-from db.models import Branch, Benefit, Employee, Company, JobPosition, Student, UserState, UserType
+from db.models import Branch, Benefit, Employee, Company, JobPosition, Student, ProfileState, UserType
 
 
 # pylint:disable=R0913
@@ -116,7 +116,7 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             first_name='Johnny',
             last_name='Test',
             company=self.company,
-            state=UserState.INCOMPLETE
+            state=ProfileState.INCOMPLETE
         )
         self.user.set_password('asdf1234$')
         self.user.profile_step = 1
@@ -290,7 +290,7 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             self.assertEqual(me_data.get('username'), 'john@doe.com')
             self.assertEqual(me_data.get('firstName'), 'Johnny')
             self.assertEqual(me_data.get('lastName'), 'Test')
-            self.assertEqual(me_data.get('state'), UserState.INCOMPLETE.upper())
+            self.assertEqual(me_data.get('state'), ProfileState.INCOMPLETE.upper())
             self.assertEqual(me_data.get('profileStep'), 1)
             self.assertEqual(me_data.get('type'), UserType.COMPANY.upper())
 

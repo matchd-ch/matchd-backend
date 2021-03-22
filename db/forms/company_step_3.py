@@ -2,7 +2,7 @@ from django import forms
 
 from db.exceptions import FormException
 from db.helper.forms import validate_step, validate_form_data, validate_company_user_type
-from db.models import JobPosition, Benefit, UserState
+from db.models import JobPosition, Benefit, ProfileState
 
 
 class CompanyProfileFormStep3(forms.Form):
@@ -42,7 +42,7 @@ def process_company_form_step_3(user, data):
         user.profile_step = 4
 
     # save user / profile
-    user.state = UserState.PUBLIC
+    user.state = ProfileState.PUBLIC
     user.save()
     company.save()
     company.benefits.set(benefits_to_save)

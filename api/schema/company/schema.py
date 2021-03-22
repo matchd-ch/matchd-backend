@@ -14,7 +14,7 @@ from api.schema.user.schema import Employee
 from db.exceptions import FormException
 from db.forms import process_company_form_step_2, process_company_form_step_3
 from db.forms.company_step_1 import process_company_form_step_1
-from db.models import Company as CompanyModel, UserState
+from db.models import Company as CompanyModel, ProfileState
 
 
 class CompanyProfileInputStep1(graphene.InputObjectType):
@@ -131,7 +131,7 @@ class CompanyQuery(ObjectType):
 
         # check if the state is public or the user is an employee of the company
         if len(employee_users) >= 1:
-            if user in employee_users or employee_users[0].state == UserState.PUBLIC:
+            if user in employee_users or employee_users[0].state == ProfileState.PUBLIC:
                 return company
 
         raise Http404(_('Company not found'))

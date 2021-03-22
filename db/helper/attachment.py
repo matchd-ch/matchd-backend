@@ -1,4 +1,4 @@
-from db.models import UserState
+from db.models import ProfileState
 
 
 def has_access_to_attachments(user, owner):
@@ -18,7 +18,7 @@ def has_access_to_attachments(user, owner):
         else:
             # check if the company has a completed profile
             state = company_users[0].state
-            if state != UserState.INCOMPLETE:
+            if state != ProfileState.INCOMPLETE:
                 has_access = True
     else:
         # user
@@ -27,7 +27,7 @@ def has_access_to_attachments(user, owner):
         else:
             # check if the user has a public profile
             state = owner.state
-            if state == UserState.PUBLIC:
+            if state == ProfileState.PUBLIC:
                 has_access = True
 
     return has_access

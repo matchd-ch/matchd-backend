@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from graphql_auth.models import UserStatus
 
 from api.tests.base import BaseGraphQLTestCase
-from db.models import Company, UserState, Employee
+from db.models import Company, ProfileState, Employee
 
 
 class AddEmployeeGraphQLTestCase(BaseGraphQLTestCase):
@@ -22,7 +22,7 @@ class AddEmployeeGraphQLTestCase(BaseGraphQLTestCase):
             company=self.company
         )
         self.user.set_password('asdf1234$')
-        self.user.state = UserState.PUBLIC
+        self.user.state = ProfileState.PUBLIC
         self.user.save()
 
         self.employee = Employee.objects.create(

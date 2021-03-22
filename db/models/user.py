@@ -29,7 +29,7 @@ class UserType(models.TextChoices):
         ]
 
 
-class UserState(models.TextChoices):
+class ProfileState(models.TextChoices):
     INCOMPLETE = 'incomplete', _('Incomplete')
     ANONYMOUS = 'anonymous', _('Anonymous')
     PUBLIC = 'public', _('Public')
@@ -41,7 +41,7 @@ class User(AbstractUser):
     last_name = models.CharField(_('last name'), max_length=150, blank=False)
     company = models.ForeignKey('db.Company', on_delete=models.DO_NOTHING, blank=True, null=True,
                                 related_name='users')
-    state = models.CharField(choices=UserState.choices, max_length=255, blank=False, default=UserState.INCOMPLETE)
+    state = models.CharField(choices=ProfileState.choices, max_length=255, blank=False, default=ProfileState.INCOMPLETE)
     profile_step = models.IntegerField(default=1)
 
     def get_profile_content_type(self):

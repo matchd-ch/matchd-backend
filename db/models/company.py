@@ -4,6 +4,8 @@ from django.db import models
 from django.conf import settings
 from django.utils.text import slugify
 
+from db.models import ProfileState
+
 
 class Company(models.Model):
     uid = models.CharField(max_length=255, blank=False,
@@ -21,6 +23,7 @@ class Company(models.Model):
     benefits = models.ManyToManyField('db.Benefit', related_name='benefits')
     job_positions = models.ManyToManyField('db.JobPosition', related_name='job_positions')
     slug = models.SlugField(unique=True)
+    state = models.CharField(choices=ProfileState.choices, max_length=255, blank=False, default=ProfileState.INCOMPLETE)
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):

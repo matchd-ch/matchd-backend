@@ -3,6 +3,8 @@ from django.contrib.auth import get_user_model
 from django.core.validators import RegexValidator
 from django.db import models
 
+from db.models import ProfileState
+
 
 class Student(models.Model):
     user = models.OneToOneField(to=get_user_model(), on_delete=models.CASCADE, related_name='student')
@@ -21,3 +23,4 @@ class Student(models.Model):
     job_position = models.ForeignKey('db.JobPosition', blank=True, null=True, on_delete=models.SET_NULL)
     skills = models.ManyToManyField('db.Skill', related_name='skills')
     distinction = models.TextField(max_length=1000, blank=True)
+    state = models.CharField(choices=ProfileState.choices, max_length=255, blank=False, default=ProfileState.INCOMPLETE)
