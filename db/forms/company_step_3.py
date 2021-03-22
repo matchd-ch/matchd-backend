@@ -38,8 +38,8 @@ def process_company_form_step_3(user, data):
         raise FormException(errors=errors)
 
     # update step only if the user has step 3
-    if user.profile_step == 3:
-        user.profile_step = 4
+    if company.profile_step == 3:
+        company.profile_step = 4
 
     # save user / profile
     user.state = ProfileState.PUBLIC

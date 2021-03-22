@@ -93,7 +93,7 @@ def process_student_form_step_3(user, data):
     validate_step(user, 3)
     validate_form_data(data)
 
-    profile = user.student
+    student = user.student
     form = StudentProfileFormStep3(data)
     form.full_clean()
 
@@ -102,16 +102,16 @@ def process_student_form_step_3(user, data):
         cleaned_data = form.cleaned_data
 
         # required parameters
-        profile.job_option = cleaned_data.get('job_option')
+        student.job_option = cleaned_data.get('job_option')
 
         # optional parameters
-        profile.job_position = cleaned_data.get('job_position')
+        student.job_position = cleaned_data.get('job_position')
     else:
         errors.update(form.errors.get_json_data())
 
     if 'job_from_date' in data and data.get('job_from_date', None) is not None:
         try:
-            process_job_option_form(profile, data)
+            process_job_option_form(student, data)
         except FormException as exception:
             errors.update(exception.errors)
 
@@ -119,9 +119,9 @@ def process_student_form_step_3(user, data):
         raise FormException(errors=errors)
 
     # update step only if the user has step 2
-    if user.profile_step == 3:
-        user.profile_step = 4
+    if student.profile_step == 3:
+        student.profile_step = 4
 
     # save user / profile
     user.save()
-    profile.save()
+    student.save()

@@ -107,7 +107,7 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
 
     def setUp(self):
         self.company = Company.objects.create(id=1, uid='CHE-999.999.999', name='Doe Unlimited', zip='0000',
-                                              city='DoeCity', slug='doe-unlimited')
+                                              city='DoeCity', slug='doe-unlimited', profile_step=1)
         self.company.save()
         self.user = get_user_model().objects.create(
             username='john@doe.com',
@@ -119,7 +119,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             state=ProfileState.INCOMPLETE
         )
         self.user.set_password('asdf1234$')
-        self.user.profile_step = 1
         self.user.save()
 
         user_status = UserStatus.objects.get(user=self.user)
@@ -170,8 +169,8 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
 
     def _test_and_get_step_response_content(self, query, variables, step, error, success=True):
         self._login('john@doe.com')
-        self.user.profile_step = step
-        self.user.save()
+        self.company.profile_step = step
+        self.company.save()
         response = self.query(query, variables=variables)
 
         self.assertResponseNoErrors(response)
@@ -187,8 +186,8 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
 
     def _test_with_invalid_data(self, step, query, variables, error_key, expected_errors):
         self._login('john@doe.com')
-        self.user.profile_step = step
-        self.user.save()
+        self.company.profile_step = step
+        self.company.save()
 
         response = self.query(query, variables=variables)
         content = json.loads(response.content)

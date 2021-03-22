@@ -15,8 +15,6 @@
         "first_name": "admin",
         "last_name": "admin",
         "company": null,
-        "state": "incomplete",
-        "profile_step": 1,
         "groups": [],
         "user_permissions": []
     }
@@ -37,8 +35,6 @@
         "first_name": "John",
         "last_name": "Doe",
         "company": 1,
-        "state": "incomplete",
-        "profile_step": 1,
         "groups": [],
         "user_permissions": []
     }
@@ -59,8 +55,6 @@
         "first_name": "Jane",
         "last_name": "Doe",
         "company": null,
-        "state": "incomplete",
-        "profile_step": 1,
         "groups": [],
         "user_permissions": []
     }
@@ -81,8 +75,6 @@
         "first_name": "Joe",
         "last_name": "Doe",
         "company": 2,
-        "state": "incomplete",
-        "profile_step": 1,
         "groups": [],
         "user_permissions": []
     }
@@ -103,8 +95,6 @@
         "first_name": "Jane2",
         "last_name": "Doe",
         "company": null,
-        "state": "incomplete",
-        "profile_step": 1,
         "groups": [],
         "user_permissions": []
     }
@@ -117,7 +107,9 @@
         "name": "Doe Unlimited",
         "zip": "9000",
         "city": "St. Gallen",
-        "slug": "doe-unlimited"
+        "slug": "doe-unlimited",
+        "state": "incomplete",
+        "profile_step": 1
     }
 },
 {
@@ -128,7 +120,9 @@
         "name": "Doe University",
         "zip": "9000",
         "city": "St. Gallen",
-        "slug": "doe-university"
+        "slug": "doe-university",
+        "state": "incomplete",
+        "profile_step": 1
     }
 },
 {
@@ -149,7 +143,9 @@
         "job_from_date": null,
         "job_to_date": null,
         "job_position": null,
-        "skills": []
+        "skills": [],
+        "state": "incomplete",
+        "profile_step": 1
     }
 },
 {
@@ -170,7 +166,9 @@
         "job_from_date": null,
         "job_to_date": null,
         "job_position": null,
-        "skills": []
+        "skills": [],
+        "state": "incomplete",
+        "profile_step": 1
     }
 },
 {

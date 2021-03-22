@@ -133,18 +133,17 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     }
 
     def setUp(self):
-        self.student = get_user_model().objects.create(
+        self.user = get_user_model().objects.create(
             username='jane@doe.com',
             email='jane@doe.com',
             type='student'
         )
-        self.student.set_password('asdf1234$')
-        self.student.profile_step = 4
-        self.student.save()
+        self.user.set_password('asdf1234$')
+        self.user.save()
 
-        Student.objects.create(user=self.student, mobile='+41791234567')
+        Student.objects.create(user=self.user, mobile='+41791234567', profile_step=4)
 
-        user_status = UserStatus.objects.get(user=self.student)
+        user_status = UserStatus.objects.get(user=self.user)
         user_status.verified = True
         user_status.save()
 
@@ -205,7 +204,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
 
     def test_profile_step_4_valid_base(self):
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_base)
-        user = get_user_model().objects.get(pk=self.student.pk)
+        user = get_user_model().objects.get(pk=self.user.pk)
 
         profile = user.student
         self.assertEqual(profile.skills.all()[0].name, 'php')
@@ -218,7 +217,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
 
     def test_profile_step_4_valid_hobbies(self):
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_hobbies)
-        user = get_user_model().objects.get(pk=self.student.pk)
+        user = get_user_model().objects.get(pk=self.user.pk)
 
         profile = user.student
         self.assertEqual(profile.skills.all()[0].name, 'php')
@@ -233,7 +232,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
 
     def test_profile_step_4_valid_distinction(self):
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_distinction)
-        user = get_user_model().objects.get(pk=self.student.pk)
+        user = get_user_model().objects.get(pk=self.user.pk)
 
         profile = user.student
         self.assertEqual(profile.distinction, 'valid Text')
@@ -243,7 +242,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
 
     def test_profile_step_4_valid_multiple_languages(self):
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_multiple_language)
-        user = get_user_model().objects.get(pk=self.student.pk)
+        user = get_user_model().objects.get(pk=self.user.pk)
 
         profile = user.student
         self.assertEqual(profile.languages.all()[0].language.name, 'Deutsch')
@@ -254,7 +253,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
 
     def test_profile_step_4_valid_online_projects(self):
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_online_projects)
-        user = get_user_model().objects.get(pk=self.student.pk)
+        user = get_user_model().objects.get(pk=self.user.pk)
 
         profile = user.student
         self.assertEqual(profile.online_projects.all()[0].url, 'http://google.com')
@@ -266,7 +265,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
 
     def test_profile_step_4_valid_duplicated_languages(self):
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_duplicated_language)
-        user = get_user_model().objects.get(pk=self.student.pk)
+        user = get_user_model().objects.get(pk=self.user.pk)
 
         profile = user.student
         self.assertEqual(profile.languages.all()[0].language.name, 'Deutsch')
@@ -277,7 +276,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_hobbies)
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_hobbies_duplicated)
 
-        user = get_user_model().objects.get(pk=self.student.pk)
+        user = get_user_model().objects.get(pk=self.user.pk)
 
         profile = user.student
         self.assertEqual(profile.hobbies.all()[0].name, 'TV')
@@ -287,7 +286,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_online_projects)
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_online_projects_duplicated)
 
-        user = get_user_model().objects.get(pk=self.student.pk)
+        user = get_user_model().objects.get(pk=self.user.pk)
 
         profile = user.student
         self.assertEqual(profile.online_projects.all()[0].url, 'http://google.com')
@@ -296,7 +295,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     def test_profile_step_4_valid_base_but_not_logged_in(self):
         response = self.query(self.query_step_4, variables=self.variables_step_4_base)
         self.assertResponseHasErrors(response)
-        user = get_user_model().objects.get(pk=self.student.pk)
+        user = get_user_model().objects.get(pk=self.user.pk)
 
         profile = user.student
         self.assertEqual(profile.skills.all().count(), 0)
@@ -305,7 +304,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     def test_profile_step_4_valid_hobbies_but_not_logged_in(self):
         response = self.query(self.query_step_4, variables=self.variables_step_4_hobbies)
         self.assertResponseHasErrors(response)
-        user = get_user_model().objects.get(pk=self.student.pk)
+        user = get_user_model().objects.get(pk=self.user.pk)
 
         profile = user.student
         self.assertEqual(profile.hobbies.all().count(), 0)
@@ -313,7 +312,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     def test_profile_step_4_valid_distinction_but_not_logged_in(self):
         response = self.query(self.query_step_4, variables=self.variables_step_4_distinction)
         self.assertResponseHasErrors(response)
-        user = get_user_model().objects.get(pk=self.student.pk)
+        user = get_user_model().objects.get(pk=self.user.pk)
 
         profile = user.student
         self.assertEqual(profile.distinction, "")
@@ -321,7 +320,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     def test_profile_step_4_valid_online_projects_but_not_logged_in(self):
         response = self.query(self.query_step_4, variables=self.variables_step_4_online_projects)
         self.assertResponseHasErrors(response)
-        user = get_user_model().objects.get(pk=self.student.pk)
+        user = get_user_model().objects.get(pk=self.user.pk)
 
         profile = user.student
         self.assertEqual(profile.online_projects.all().count(), 0)
@@ -329,7 +328,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     def test_profile_step_4_update_distinction(self):
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_distinction)
         self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_distinction_update)
-        user = get_user_model().objects.get(pk=self.student.pk)
+        user = get_user_model().objects.get(pk=self.user.pk)
 
         profile = user.student
         self.assertEqual(profile.distinction, 'updated Text')
@@ -344,6 +343,6 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         self.assertEqual(content['data'].get('studentProfileStep4').get('errors').get('distinction')[0].get('code'),
                          'max_length')
 
-        user = get_user_model().objects.get(pk=self.student.pk)
+        user = get_user_model().objects.get(pk=self.user.pk)
         profile = user.student
         self.assertEqual(profile.distinction, '')

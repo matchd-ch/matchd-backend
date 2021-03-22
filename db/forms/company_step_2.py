@@ -49,8 +49,8 @@ def process_company_form_step_2(user, data):
         raise FormException(errors=errors)
 
     # update step only if the user has step 2
-    if user.profile_step == 2:
-        user.profile_step = 3
+    if company.profile_step == 2:
+        company.profile_step = 3
 
     # save user / profile
     user.save()

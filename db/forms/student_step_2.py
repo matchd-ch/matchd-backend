@@ -24,18 +24,18 @@ def process_student_form_step_2(user, data):
     validate_step(user, 2)
     validate_form_data(data)
 
-    profile = user.student
+    student = user.student
     form = StudentProfileFormStep2(data)
     form.full_clean()
     if form.is_valid():
         # update user / profile
-        profile = user.student
+        student = user.student
         cleaned_data = form.cleaned_data
 
         # optional parameters
-        profile.field_of_study = cleaned_data.get('field_of_study')
-        profile.school_name = cleaned_data.get('school_name')
-        profile.graduation = cleaned_data.get('graduation')
+        student.field_of_study = cleaned_data.get('field_of_study')
+        student.school_name = cleaned_data.get('school_name')
+        student.graduation = cleaned_data.get('graduation')
     else:
         errors.update(form.errors.get_json_data())
 
@@ -43,9 +43,9 @@ def process_student_form_step_2(user, data):
         raise FormException(errors=errors)
 
     # update step only if the user has step 2
-    if user.profile_step == 2:
-        user.profile_step = 3
+    if student.profile_step == 2:
+        student.profile_step = 3
 
     # save user / profile
     user.save()
-    profile.save()
+    student.save()

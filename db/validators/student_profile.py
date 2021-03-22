@@ -7,5 +7,5 @@ class StudentProfileFormStepValidator:
         self.min_required_step = min_required_step
 
     def validate(self, user):
-        if user.profile_step < self.min_required_step:
+        if user.student.profile_step < self.min_required_step:
             raise ValidationError(code='invalid_step', message='You must first complete the previous steps.')

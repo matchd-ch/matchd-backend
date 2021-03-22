@@ -57,3 +57,21 @@ class User(AbstractUser):
         if self.type in UserType.valid_company_types():
             return self.company.id
         return None
+
+    def get_profile_step(self):
+        if self.type in UserType.valid_student_types():
+            # noinspection PyUnresolvedReferences
+            # student is a reverse relation field
+            return self.student.profile_step
+        if self.type in UserType.valid_company_types:
+            return self.company.profile_step
+        return 0
+
+    def get_profile_state(self):
+        if self.type in UserType.valid_student_types():
+            # noinspection PyUnresolvedReferences
+            # student is a reverse relation field
+            return self.student.state
+        if self.type in UserType.valid_company_types:
+            return self.company.state
+        return ProfileState.INCOMPLETE
