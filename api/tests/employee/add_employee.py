@@ -67,7 +67,6 @@ class AddEmployeeGraphQLTestCase(BaseGraphQLTestCase):
                                     type
                                     firstName
                                     lastName
-                                    state
                                 }
                             }
                         }

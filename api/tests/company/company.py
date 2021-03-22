@@ -115,8 +115,7 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             type='company',
             first_name='Johnny',
             last_name='Test',
-            company=self.company,
-            state=ProfileState.INCOMPLETE
+            company=self.company
         )
         self.user.set_password('asdf1234$')
         self.user.save()
@@ -169,13 +168,14 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
 
     def _test_and_get_step_response_content(self, query, variables, step, error, success=True):
         self._login('john@doe.com')
+        # update company, otherwise multi step tests won't work
+        self.company = Company.objects.get(pk=self.company.id)
         self.company.profile_step = step
         self.company.save()
         response = self.query(query, variables=variables)
 
         self.assertResponseNoErrors(response)
         content = json.loads(response.content)
-
         if success:
             self.assertTrue(content['data'].get(error).get('success'))
             self.assertIsNone(content['data'].get(error).get('errors'))
@@ -239,8 +239,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                 type
                 firstName
                 lastName
-                state
-                profileStep
                 company {
                     uid
                     name
@@ -252,6 +250,8 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                     description
                     services
                     memberItStGallen
+                    state
+                    profileStep
                     benefits {
                         id
                         icon
@@ -270,7 +270,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                             type
                             firstName
                             lastName
-                            state
                         }
                     }
                 }
@@ -289,8 +288,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             self.assertEqual(me_data.get('username'), 'john@doe.com')
             self.assertEqual(me_data.get('firstName'), 'Johnny')
             self.assertEqual(me_data.get('lastName'), 'Test')
-            self.assertEqual(me_data.get('state'), ProfileState.INCOMPLETE.upper())
-            self.assertEqual(me_data.get('profileStep'), 1)
             self.assertEqual(me_data.get('type'), UserType.COMPANY.upper())
 
             self.assertEqual(employees[0].get('role'), 'Trainer')
@@ -299,6 +296,9 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             self.assertEqual(employees[0].get('user').get('type'), UserType.COMPANY.upper())
             self.assertEqual(employees[0].get('user').get('firstName'), 'Johnny')
             self.assertEqual(employees[0].get('user').get('lastName'), 'Test')
+
+            self.assertEqual(company.get('state'), ProfileState.INCOMPLETE.upper())
+            self.assertEqual(company.get('profileStep'), 1)
         else:
             self.assertResponseHasErrors(response)
             self.assertIsNone(content['data'].get('me'))
@@ -309,6 +309,7 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             query{
                 company(slug:"%s"){
                     id
+                    slug
                     uid
                     name
                     zip
@@ -318,6 +319,8 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                     website
                     description
                     services
+                    state
+                    profileStep
                     benefits{
                       id
                       icon
@@ -333,7 +336,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                         firstName
                         lastName
                         email
-                        state
                       }
                     }
                 }
@@ -359,10 +361,8 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             self.assertEqual(content['data'].get('company').get('benefits')[1].get('icon'), 'sleep')
             self.assertEqual(content['data'].get('company').get('jobPositions')[0].get('id'), '1')
             self.assertEqual(content['data'].get('company').get('jobPositions')[0].get('name'), 'worker')
-            self.assertEqual(content['data'].get('company').get('employees')[0].get('user').get('firstName'),
-                             'Johnny')
-            self.assertEqual(content['data'].get('company').get('employees')[0].get('user').get('lastName'),
-                             'Test')
+            self.assertEqual(content['data'].get('company').get('employees')[0].get('user').get('firstName'), 'John')
+            self.assertEqual(content['data'].get('company').get('employees')[0].get('user').get('lastName'), 'Doe')
             self.assertEqual(content['data'].get('company').get('employees')[0].get('user').get('email'),
                              'john@doe.com')
             self.assertEqual(content['data'].get('company').get('employees')[0].get('role'), 'Trainer')
@@ -479,9 +479,8 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         # company step 3
         self._logout()
         self._login('john@doe.com')
-
         self._test_and_get_step_response_content(self.query_step_3, self.variables_step_3_base, 3,
-                                                 'companyProfileStep3', True)
+                                                 'companyProfileStep3')
 
         # company should be returned for other users
         self._logout()

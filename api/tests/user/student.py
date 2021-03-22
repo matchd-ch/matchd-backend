@@ -187,17 +187,17 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     }
 
     def setUp(self):
-        self.student = get_user_model().objects.create(
+        self.user = get_user_model().objects.create(
             username='john@doe.com',
             email='john@doe.com',
             type='student'
         )
-        self.student.set_password('asdf1234$')
-        self.student.save()
+        self.user.set_password('asdf1234$')
+        self.user.save()
 
-        Student.objects.create(user=self.student, mobile='+41771234568')
+        self.student = Student.objects.create(user=self.user, mobile='+41771234568')
 
-        user_status = UserStatus.objects.get(user=self.student)
+        user_status = UserStatus.objects.get(user=self.user)
         user_status.verified = True
         user_status.save()
 
@@ -258,10 +258,10 @@ class StudentGraphQLTestCase(GraphQLTestCase):
                     username
                     firstName
                     lastName
-                    profileStep
-                    state
                     type
                     student {
+                      profileStep
+                      state
                       mobile
                       zip
                       street
@@ -307,10 +307,10 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         if success:
             self.assertResponseNoErrors(response)
             self.assertEqual(content['data'].get('me').get('username'), 'john@doe.com')
-            self.assertEqual(content['data'].get('me').get('state'), 'INCOMPLETE')
-            self.assertEqual(content['data'].get('me').get('profileStep'), 1)
             self.assertEqual(content['data'].get('me').get('type'), 'STUDENT')
             self.assertEqual(content['data'].get('me').get('student').get('mobile'), '+41771234568')
+            self.assertEqual(content['data'].get('me').get('student').get('state'), 'INCOMPLETE')
+            self.assertEqual(content['data'].get('me').get('student').get('profileStep'), 1)
         else:
             self.assertResponseHasErrors(response)
             self.assertIsNone(content['data'].get('me'))
@@ -443,7 +443,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     def test_profile_step_1(self):
         self._test_and_get_step_response_content(1, self.query_step_1, self.variables_step_1, 'studentProfileStep1')
         # reload user
-        user = get_user_model().objects.get(pk=self.student.pk)
+        user = get_user_model().objects.get(pk=self.user.pk)
         self.assertEqual('John2', user.first_name)
         self.assertEqual('Doe2', user.last_name)
 
@@ -454,26 +454,26 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         date_of_birth = datetime.strptime('01.01.2000', '%d.%m.%Y').date()
         self.assertEqual(profile.date_of_birth, date_of_birth)
         self.assertEqual(profile.mobile, '+41999999999')
-        self.assertEqual(user.profile_step, 2)
+        self.assertEqual(profile.profile_step, 2)
 
     def test_profile_step_2(self):
         self._test_and_get_step_response_content(2, self.query_step_2, self.variables_step_2, 'studentProfileStep2')
         # reload user
-        user = get_user_model().objects.get(pk=self.student.pk)
+        user = get_user_model().objects.get(pk=self.user.pk)
 
         profile = user.student
         self.assertEqual(profile.school_name, 'FH Winterthur')
         self.assertEqual(profile.field_of_study, 'Applikationsentwicklung')
         graduation = datetime.strptime('08.2022', '%m.%Y').date()
         self.assertEqual(profile.graduation, graduation)
-        self.assertEqual(user.profile_step, 3)
+        self.assertEqual(profile.profile_step, 3)
 
     def test_profile_step_3_date_range(self):
         self._test_and_get_step_response_content(3, self.query_step_3, self.variables_step_3_date_range,
                                                  'studentProfileStep3')
 
         # reload user
-        user = get_user_model().objects.get(pk=self.student.pk)
+        user = get_user_model().objects.get(pk=self.user.pk)
 
         profile = user.student
         self.assertEqual(profile.job_option.id, self.date_range_option.id)
@@ -482,14 +482,14 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         to_date = datetime.strptime('03.2020', '%m.%Y').date()
         self.assertEqual(profile.job_to_date, to_date)
         self.assertEqual(profile.job_position.id, self.job_position.id)
-        self.assertEqual(user.profile_step, 4)
+        self.assertEqual(profile.profile_step, 4)
 
     def test_profile_step_3_date_from(self):
         self._test_and_get_step_response_content(3, self.query_step_3, self.variables_step_3_date_from,
                                                  'studentProfileStep3')
 
         # reload user
-        user = get_user_model().objects.get(pk=self.student.pk)
+        user = get_user_model().objects.get(pk=self.user.pk)
 
         profile = user.student
         self.assertEqual(profile.job_option.id, self.date_from_option.id)
@@ -497,16 +497,16 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         self.assertEqual(profile.job_from_date, from_date)
         self.assertIsNone(profile.job_to_date)
         self.assertEqual(profile.job_position.id, self.job_position.id)
-        self.assertEqual(user.profile_step, 4)
+        self.assertEqual(profile.profile_step, 4)
 
     def test_profile_step_5(self):
         self._test_and_get_step_response_content(5, self.query_step_5, self.variables_step_5, 'studentProfileStep5')
 
         # reload user
-        user = get_user_model().objects.get(pk=self.student.pk)
+        user = get_user_model().objects.get(pk=self.user.pk)
         profile = user.student
         self.assertEqual(profile.nickname, 'jane_doe')
-        self.assertEqual(user.profile_step, 6)
+        self.assertEqual(profile.profile_step, 6)
 
     def test_profile_step_5_with_existing_nickname(self):
         content = self._test_and_get_step_response_content(5, self.query_step_5, self.invalid_variables_step_5_nickname,
@@ -516,12 +516,12 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         self.assertIsNotNone(content['data'].get('studentProfileStep5').get('nicknameSuggestions'))
 
         # reload user
-        user = get_user_model().objects.get(pk=self.student.pk)
-        self.assertEqual(user.profile_step, 5)
+        user = get_user_model().objects.get(pk=self.user.pk)
+        self.assertEqual(user.student.profile_step, 5)
 
     def test_profile_step_6(self):
         self._test_and_get_step_response_content(6, self.query_step_6, self.variables_step_6, 'studentProfileStep6')
         # reload user
-        user = get_user_model().objects.get(pk=self.student.pk)
-        self.assertEqual(user.state, 'anonymous')
-        self.assertEqual(user.profile_step, 7)
+        user = get_user_model().objects.get(pk=self.user.pk)
+        self.assertEqual(user.student.state, 'anonymous')
+        self.assertEqual(user.student.profile_step, 7)
