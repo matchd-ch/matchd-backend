@@ -29,7 +29,7 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
         'description': 'Beschreibung',
         'jobOption': {'id': 1},
         'branch': {'id': 1},
-        'workload': 'Arbeitspensum',
+        'workload': 100,
         'jobFromDate': '03.2021',
         'jobToDate': '08.2021',
         'url': 'www.google.ch'
@@ -41,7 +41,7 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
             'description': '',
             'jobOption': {'id': 999},
             'branch': {'id': 999},
-            'workload': '',
+            'workload': 9,
             'jobFromDate': '',
             'jobToDate': '',
             'url': None
@@ -53,7 +53,7 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
             'description': 'Description',
             'jobOption': {'id': 1},
             'branch': {'id': 1},
-            'workload': 'Workload',
+            'workload': 100,
             'jobFromDate': '03.2020',
             'jobToDate': '01.2020',
             'url': None
@@ -65,10 +65,22 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
             'description': 'Description',
             'jobOption': {'id': 1},
             'branch': {'id': 1},
-            'workload': 'Workload',
+            'workload': 100,
             'jobFromDate': '03.2020',
             'jobToDate': '04.2020',
             'url': None
+        }
+    }
+
+    variables_step_1_invalid_workload_too_high = {
+        'step1': {
+            'description': 'Beschreibung',
+            'jobOption': {'id': 1},
+            'branch': {'id': 1},
+            'workload': 999,
+            'jobFromDate': '03.2021',
+            'jobToDate': '08.2021',
+            'url': 'www.google.ch'
         }
     }
 
@@ -297,7 +309,7 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
         job_posting = content.get('data').get('jobPosting')
 
         self.assertEqual('Beschreibung', job_posting.get('description'))
-        self.assertEqual('Arbeitspensum', job_posting.get('workload'))
+        self.assertEqual(100, job_posting.get('workload'))
         self.assertEqual('2021-03-01', job_posting.get('jobFromDate'))
         self.assertEqual('2021-08-01', job_posting.get('jobToDate'))
         self.assertEqual('http://www.google.ch', job_posting.get('url'))
@@ -309,12 +321,17 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
     def test_job_posting_step_1_invalid_data(self):
         self._login('john@doe.com')
         self._test_job_posting(self.query_step_1, self.variables_step_1_invalid_data, 'jobPostingStep1', False,
-                               ['description', 'jobOption', 'jobFromDate', 'branch'])
+                               ['workload', 'description', 'jobOption', 'jobFromDate', 'branch'])
 
     def test_job_posting_step_1_invalid_date_range(self):
         self._login('john@doe.com')
         self._test_job_posting(self.query_step_1, self.variables_step_1_invalid_date_range, 'jobPostingStep1', False,
                                ['jobToDate'])
+
+    def test_job_posting_step_1_invalid_workload_too_high(self):
+        self._login('john@doe.com')
+        self._test_job_posting(self.query_step_1, self.variables_step_1_invalid_workload_too_high, 'jobPostingStep1',
+                               False, ['workload'])
 
     def test_job_posting_step_2(self):
         self.job_posting.form_step = 3
