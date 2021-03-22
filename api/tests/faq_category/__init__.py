@@ -1,1 +1,1 @@
-from .category import CategoryGraphQLTestCase
+from .faq_category import FAQCategoryGraphQLTestCase

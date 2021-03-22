@@ -12,12 +12,11 @@ class FAQCategoryGraphQLTestCase(GraphQLTestCase):
         FAQCategory.objects.create(id=1, name="Zweite Category")
         FAQCategory.objects.create(id=2, name="Erste Category")
 
-
-    def test_category_query(self):
+    def test_faq_category_query(self):
         response = self.query(
             '''
             query{
-                categories{
+                faqCategories{
                     id
                     name
                 }
@@ -35,11 +34,11 @@ class FAQCategoryGraphQLTestCase(GraphQLTestCase):
         # Test ordering
 
         self.assertEqual(
-            content['data'].get('faq_categories')[0].get('name'),
+            content['data'].get('faqCategories')[0].get('name'),
             'Erste Category'
         )
 
         self.assertEqual(
-            content['data'].get('faq_categories')[1].get('name'),
+            content['data'].get('faqCategories')[1].get('name'),
             'Zweite Category'
         )

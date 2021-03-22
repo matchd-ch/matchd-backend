@@ -14,5 +14,5 @@ class FAQCategoryType(DjangoObjectType):
 class FAQCategoryQuery(ObjectType):
     faq_categories = graphene.List(FAQCategoryType)
 
-    def resolve_categories(self, info, **kwargs):
+    def resolve_faq_categories(self, info, **kwargs):
         return FAQCategory.objects.all()
