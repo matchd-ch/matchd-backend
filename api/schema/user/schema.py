@@ -1,7 +1,6 @@
 import graphene
 from django.contrib.auth import get_user_model
 from graphene_django import DjangoObjectType
-from graphql_auth.schema import UserNode
 from graphql_auth.settings import graphql_auth_settings
 from graphql_jwt.decorators import login_required
 
@@ -16,14 +15,6 @@ class Student(DjangoObjectType):
                   'graduation', 'skills', 'hobbies', 'languages', 'distinction', 'online_projects',)
 
 
-class Employee(DjangoObjectType):
-    user = graphene.Field(UserNode)
-
-    class Meta:
-        model = EmployeeModel
-        fields = ('id', 'role', 'user',)
-
-
 class UserWithProfileNode(DjangoObjectType):
     class Meta:
         model = get_user_model()
@@ -31,6 +22,17 @@ class UserWithProfileNode(DjangoObjectType):
         exclude = graphql_auth_settings.USER_NODE_EXCLUDE_FIELDS
         interfaces = (graphene.relay.Node,)
         skip_registry = True
+
+
+class Employee(DjangoObjectType):
+    user = graphene.Field(UserWithProfileNode)
+
+    class Meta:
+        model = EmployeeModel
+        fields = ['id', 'role', 'user']
+
+    def resolve_user(self, info):
+        return self.user
 
 
 class UserQuery(graphene.ObjectType):
