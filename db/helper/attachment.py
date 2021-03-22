@@ -17,7 +17,8 @@ def has_access_to_attachments(user, owner):
             has_access = True
         else:
             # check if the company has a completed profile
-            state = company_users[0].state
+            # company attachment are accessible for anonymous and public profile
+            state = owner.state
             if state != ProfileState.INCOMPLETE:
                 has_access = True
     else:
@@ -26,7 +27,7 @@ def has_access_to_attachments(user, owner):
             has_access = True
         else:
             # check if the user has a public profile
-            state = owner.state
+            state = owner.student.state
             if state == ProfileState.PUBLIC:
                 has_access = True
 
