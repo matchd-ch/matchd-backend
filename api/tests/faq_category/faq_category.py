@@ -2,15 +2,15 @@ import json
 from graphene_django.utils import GraphQLTestCase
 
 from api.schema import schema
-from db.models import Category
+from db.models import FAQCategory
 
 
-class CategoryGraphQLTestCase(GraphQLTestCase):
+class FAQCategoryGraphQLTestCase(GraphQLTestCase):
     GRAPHQL_SCHEMA = schema
 
     def setUp(self):
-        Category.objects.create(id=1, name="Zweite Category")
-        Category.objects.create(id=2, name="Erste Category")
+        FAQCategory.objects.create(id=1, name="Zweite Category")
+        FAQCategory.objects.create(id=2, name="Erste Category")
 
 
     def test_category_query(self):
@@ -26,7 +26,7 @@ class CategoryGraphQLTestCase(GraphQLTestCase):
         )
         self.assertResponseNoErrors(response)
         content = json.loads(response.content)
-        num_entries = Category.objects.all().count()
+        num_entries = FAQCategory.objects.all().count()
         self.assertEqual(
             2,
             num_entries
@@ -35,11 +35,11 @@ class CategoryGraphQLTestCase(GraphQLTestCase):
         # Test ordering
 
         self.assertEqual(
-            content['data'].get('categories')[0].get('name'),
+            content['data'].get('faq_categories')[0].get('name'),
             'Erste Category'
         )
 
         self.assertEqual(
-            content['data'].get('categories')[1].get('name'),
+            content['data'].get('faq_categories')[1].get('name'),
             'Zweite Category'
         )

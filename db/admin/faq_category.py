@@ -1,12 +1,12 @@
 from django.utils.translation import gettext_lazy as _
 from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
 
-from db.models import Category
+from db.models import FAQCategory
 
 
-class CategoryAdmin(ModelAdmin):
-    model = Category
-    menu_label = _('Categories')
+class FAQCategoryAdmin(ModelAdmin):
+    model = FAQCategory
+    menu_label = _('FAQ Categories')
     menu_icon = 'folder-open-inverse'
     add_to_settings_menu = False
     exclude_from_explorer = False
@@ -14,4 +14,4 @@ class CategoryAdmin(ModelAdmin):
     search_fields = ('name',)
 
 
-modeladmin_register(CategoryAdmin)
+modeladmin_register(FAQCategoryAdmin)

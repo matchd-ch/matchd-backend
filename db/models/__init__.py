@@ -21,5 +21,5 @@ from .attachment import Attachment, upload_configurations, AttachmentKey, get_at
 from .job_posting import JobPosting, JobPostingState
 from .expectation import Expectation
 from .job_posting_language_relation import JobPostingLanguageRelation
-from .category import Category
+from .FAQCategory import FAQCategory
 from .soft_skill import SoftSkill
