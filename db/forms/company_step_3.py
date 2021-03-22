@@ -41,9 +41,8 @@ def process_company_form_step_3(user, data):
     if company.profile_step == 3:
         company.profile_step = 4
 
-    # save user / profile
-    user.state = ProfileState.PUBLIC
-    user.save()
+    # save company
+    company.state = ProfileState.PUBLIC
     company.save()
     company.benefits.set(benefits_to_save)
     company.job_positions.set(job_positions_to_save)
