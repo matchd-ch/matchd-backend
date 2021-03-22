@@ -24,3 +24,4 @@ class Student(models.Model):
     skills = models.ManyToManyField('db.Skill', related_name='skills')
     distinction = models.TextField(max_length=1000, blank=True)
     state = models.CharField(choices=ProfileState.choices, max_length=255, blank=False, default=ProfileState.INCOMPLETE)
+    profile_step = models.IntegerField(default=1)

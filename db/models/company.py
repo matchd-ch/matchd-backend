@@ -24,6 +24,7 @@ class Company(models.Model):
     job_positions = models.ManyToManyField('db.JobPosition', related_name='job_positions')
     slug = models.SlugField(unique=True)
     state = models.CharField(choices=ProfileState.choices, max_length=255, blank=False, default=ProfileState.INCOMPLETE)
+    profile_step = models.IntegerField(default=1)
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):

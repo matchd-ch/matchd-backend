@@ -11,18 +11,20 @@ def move_profile_state(apps, schema_editor):
     for user in users:
         if user.type in UserType.valid_company_types():
             user.company.state = user.state
+            user.company.profile_step = user.profile_step
             user.company.save()
         elif user.type in UserType.valid_student_types():
             user.student.state = user.state
+            user.student.profile_step = user.profile_step
             user.student.save()
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('db', '0062_auto_20210322_1358'),
+        ('db', '0062_auto_20210322_1409'),
     ]
 
     operations = [
-        migrations.RunPython(move_profile_state),
+        migrations.RunPython(move_profile_state, migrations.RunPython.noop),
     ]
