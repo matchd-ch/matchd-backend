@@ -7,13 +7,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('db', '0055_language_short_list'),
+        ('db', '0060_faqcategory'),
     ]
 
     operations = [
         migrations.AlterField(
             model_name='jobposting',
             name='workload',
-            field=models.IntegerField(blank=True, null=True, validators=[django.core.validators.MaxValueValidator(100), django.core.validators.MinValueValidator(1)]),
+            field=models.IntegerField(blank=True, null=True, validators=[django.core.validators.MaxValueValidator(100), django.core.validators.MinValueValidator(10)]),
         ),
     ]

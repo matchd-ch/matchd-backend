@@ -15,7 +15,7 @@ class JobPosting(models.Model):
     branch = models.ForeignKey('db.Branch', null=False, blank=False, on_delete=models.CASCADE, related_name='+')
     workload = models.IntegerField(blank=True, null=True,  validators=[
             MaxValueValidator(100),
-            MinValueValidator(1)
+            MinValueValidator(10)
         ])
     company = models.ForeignKey('db.Company', null=False, blank=False, on_delete=models.CASCADE)
     job_from_date = models.DateField(null=False, blank=False)
