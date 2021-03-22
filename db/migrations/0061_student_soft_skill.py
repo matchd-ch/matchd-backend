@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('db', '0056_softskill'),
+        ('db', '0060_faqcategory'),
     ]
 
     operations = [
