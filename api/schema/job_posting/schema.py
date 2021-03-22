@@ -7,25 +7,27 @@ from graphene_django import DjangoObjectType
 from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 
+from api.schema.branch import BranchInputType
 from api.schema.expectation import ExpectationInputType
 from api.schema.job_option import JobOptionInputType
 from api.schema.job_posting_language_relation import JobPostingLanguageRelationInputType
+from api.schema.registration import EmployeeInput
 from api.schema.skill import SkillInputType
 from db.exceptions import FormException
-from db.forms import process_job_posting_form_step_1, process_job_posting_form_step_2
-from db.models import JobPosting, Company
+from db.forms import process_job_posting_form_step_1, process_job_posting_form_step_2, process_job_posting_form_step_3
+from db.models import JobPosting, Company, JobPostingState
 
 
 class JobPostingType(DjangoObjectType):
     class Meta:
         model = JobPosting
         fields = ('id', 'description', 'job_option', 'workload', 'company', 'job_from_date', 'job_to_date', 'url',
-                  'form_step', 'skills', 'expectations', 'languages')
+                  'form_step', 'skills', 'expectations', 'languages', 'branch', 'state', 'employee', )
 
 
 class JobPostingQuery(ObjectType):
     job_postings = graphene.List(JobPostingType, company=graphene.Int(required=True))
-    job_posting = graphene.Field(JobPostingType, id=graphene.Int(required=True))
+    job_posting = graphene.Field(JobPostingType, id=graphene.ID(required=True))
 
     def resolve_job_postings(self, info, **kwargs):
         company_id = kwargs.get('company')
@@ -36,7 +38,7 @@ class JobPostingQuery(ObjectType):
             return JobPosting.objects.filter(company=company)
 
         # hide incomplete job postings for other users
-        return JobPosting.objects.filter(form_step=3, company=company)
+        return JobPosting.objects.filter(state=JobPostingState.PUBLIC, company=company)
 
     def resolve_job_posting(self, info, **kwargs):
         job_posting_id = kwargs.get('id')
@@ -47,15 +49,17 @@ class JobPostingQuery(ObjectType):
             return job_posting
 
         # hide incomplete job postings for other users
-        if job_posting.form_step < 3:
+        if job_posting.state != JobPostingState.PUBLIC:
             raise Http404(_('Job posting not found'))
         return job_posting
 
 
 class JobPostingInputStep1(graphene.InputObjectType):
+    id = graphene.ID(required=False)
     description = graphene.String(description=_('Description'), required=True)
     job_option = graphene.Field(JobOptionInputType, required=True)
-    workload = graphene.String(description=_('Workload'), required=True)
+    branch = graphene.Field(BranchInputType, required=True)
+    workload = graphene.String(description=_('Workload'), required=False)
     job_from_date = graphene.String(required=True)
     job_to_date = graphene.String(required=False)
     url = graphene.String(required=False)
@@ -111,6 +115,34 @@ class JobPostingStep2(Output, graphene.Mutation):
         return JobPostingStep2(success=True, errors=None, job_posting_id=job_posting.id)
 
 
+class JobPostingInputStep3(graphene.InputObjectType):
+    id = graphene.ID()
+    state = graphene.String(description=_('State'), required=True)
+    employee = graphene.Field(EmployeeInput, required=True)
+
+
+class JobPostingStep3(Output, graphene.Mutation):
+    job_posting_id = graphene.ID()
+
+    class Arguments:
+        step3 = JobPostingInputStep3(description=_('Job Posting Input Step 3 is required.'), required=True)
+
+    class Meta:
+        description = _('Updates a job posting')
+
+    @classmethod
+    @login_required
+    def mutate(cls, root, info, **data):
+        user = info.context.user
+        form_data = data.get('step3', None)
+        try:
+            job_posting = process_job_posting_form_step_3(user, form_data)
+        except FormException as exception:
+            return JobPostingStep3(success=False, errors=exception.errors)
+        return JobPostingStep3(success=True, errors=None, job_posting_id=job_posting.id)
+
+
 class JobPostingMutation(graphene.ObjectType):
     job_posting_step_1 = JobPostingStep1.Field()
     job_posting_step_2 = JobPostingStep2.Field()
+    job_posting_step_3 = JobPostingStep3.Field()

@@ -109,7 +109,7 @@ class Company(DjangoObjectType):
 
     class Meta:
         model = CompanyModel
-        fields = ['uid', 'name', 'zip', 'city', 'street', 'phone', 'description', 'member_it_st_gallen',
+        fields = ['id', 'uid', 'name', 'zip', 'city', 'street', 'phone', 'description', 'member_it_st_gallen',
                   'services', 'website', 'job_positions', 'benefits']
 
     def resolve_employees(self: CompanyModel, info):
@@ -124,9 +124,14 @@ class CompanyQuery(ObjectType):
     company = graphene.Field(Company, slug=graphene.String())
 
     def resolve_company(self, info, slug):
+        user = info.context.user
+
         company = get_object_or_404(CompanyModel, slug=slug)
-        if len(company.users.all()) >= 1:
-            if company.users.all()[0].state == UserState.PUBLIC:
+        employee_users = company.users.all()
+
+        # check if the state is public or the user is an employee of the company
+        if len(employee_users) >= 1:
+            if user in employee_users or employee_users[0].state == UserState.PUBLIC:
                 return company
 
         raise Http404(_('Company not found'))

@@ -4,6 +4,7 @@ from api.schema.benefit import BenefitQuery
 from api.schema.branch import BranchQuery
 from api.schema.company import CompanyProfileMutation, CompanyQuery
 from api.schema.attachment import AttachmentMutation, AttachmentQuery
+from api.schema.employee import EmployeeMutation
 from api.schema.expectation import ExpectationQuery
 from api.schema.job_option import JobOptionQuery
 from api.schema.job_position import JobPositionQuery
@@ -30,7 +31,8 @@ class Mutation(
     CompanyProfileMutation,
     UploadMutation,
     AttachmentMutation,
-    JobPostingMutation
+    JobPostingMutation,
+    EmployeeMutation
 ):
     pass
 
