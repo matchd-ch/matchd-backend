@@ -1,0 +1,122 @@
+[
+  {
+    "model": "db.softskill",
+    "pk": 1,
+    "fields": {
+      "student": "zu verstehen wie etwas funktioniert",
+      "company": "zu verstehen wie etwas funktioniert"
+    }
+  },
+   {
+    "model": "db.softskill",
+    "pk": 2,
+    "fields": {
+      "student": "mit anderen an etwas zu arbeiten",
+      "company": "mit anderen an etwas zu arbeiten"
+    }
+  },
+  {
+    "model": "db.softskill",
+    "pk": 3,
+    "fields": {
+      "student": "mich über etwas Neues zu informieren",
+      "company": "sich über etwas Neues zu informieren"
+    }
+  },
+  {
+    "model": "db.softskill",
+    "pk": 4,
+    "fields": {
+      "student": "Entscheidungen selber zu treffen",
+      "company": "Entscheidungen selber zu treffen"
+    }
+  },
+  {
+    "model": "db.softskill",
+    "pk": 5,
+    "fields": {
+      "student": "knifflige Probleme zu lösen",
+      "company": "knifflige Probleme zu lösen"
+    }
+  },
+  {
+    "model": "db.softskill",
+    "pk": 6,
+    "fields": {
+      "student": "herausgefordert zu werden",
+      "company": "herausgefordert zu werden"
+    }
+  },
+  {
+    "model": "db.softskill",
+    "pk": 7,
+    "fields": {
+      "student": "anderen bei etwas zu helfen",
+      "company": "anderen bei etwas zu helfen"
+    }
+  },
+  {
+    "model": "db.softskill",
+    "pk": 8,
+    "fields": {
+      "student": "nicht zu wissen wohin die Reise geht",
+      "company": "nicht zu wissen wohin die Reise geht"
+    }
+  },
+  {
+    "model": "db.softskill",
+    "pk": 9,
+    "fields": {
+      "student": "meine Arbeit selber einzuteilen",
+      "company": "die Arbeit selber einzuteilen"
+    }
+  },
+  {
+    "model": "db.softskill",
+    "pk": 10,
+    "fields": {
+      "student": "jemand anderem etwas zu erklären",
+      "company": "jemand anderem etwas zu erklären"
+    }
+  },
+  {
+    "model": "db.softskill",
+    "pk": 11,
+    "fields": {
+      "student": "wenn mich ein Thema fasziniert",
+      "company": "wenn sie/ihn ein Thema fasziniert"
+    }
+  },
+  {
+    "model": "db.softskill",
+    "pk": 12,
+    "fields": {
+      "student": "etwas richtig zu machen",
+      "company": "etwas richtig zu machen"
+    }
+  },
+  {
+    "model": "db.softskill",
+    "pk": 13,
+    "fields": {
+      "student": "für Ordnung zu sorgen",
+      "company": "für Ordnung zu sorgen"
+    }
+  },
+  {
+    "model": "db.softskill",
+    "pk": 14,
+    "fields": {
+      "student": "jemanden happy zu machen",
+      "company": "jemanden happy zu machen"
+    }
+  },
+  {
+    "model": "db.softskill",
+    "pk": 15,
+    "fields": {
+      "student": "an etwas lange dranzubleiben",
+      "company": "an etwas lange dranzubleiben"
+    }
+  }
+]

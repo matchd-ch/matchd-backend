@@ -13,6 +13,7 @@ from api.schema.language import LanguageQuery
 from api.schema.auth import AuthMutation, LogoutMutation, VerifyPasswordResetToken
 from api.schema.language_level import LanguageLevelQuery
 from api.schema.skill import SkillQuery
+from api.schema.soft_skill import SoftSkillQuery
 from api.schema.student import StudentProfileMutation
 from api.schema.registration import RegistrationMutation
 from api.schema.upload import UploadMutation
@@ -52,7 +53,8 @@ class Query(
     UploadConfigurationQuery,
     CompanyQuery,
     JobPostingQuery,
-    ExpectationQuery
+    ExpectationQuery,
+    SoftSkillQuery
 ):
     pass
 
