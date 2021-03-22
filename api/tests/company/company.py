@@ -8,6 +8,7 @@ from db.models import Branch, Benefit, Employee, Company, JobPosition, Student, 
 
 
 # pylint:disable=R0913
+# pylint:disable=R0902
 class CompanyGraphQLTestCase(GraphQLTestCase):
     GRAPHQL_SCHEMA = schema
 
@@ -282,16 +283,16 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         if success:
             self.assertResponseNoErrors(response)
 
-            me = content['data'].get('me')
-            company = me.get('company')
+            me_data = content['data'].get('me')
+            company = me_data.get('company')
             employees = company.get('employees')
 
-            self.assertEqual(me.get('username'), 'john@doe.com')
-            self.assertEqual(me.get('firstName'), 'Johnny')
-            self.assertEqual(me.get('lastName'), 'Test')
-            self.assertEqual(me.get('state'), UserState.INCOMPLETE.upper())
-            self.assertEqual(me.get('profileStep'), 1)
-            self.assertEqual(me.get('type'), UserType.COMPANY.upper())
+            self.assertEqual(me_data.get('username'), 'john@doe.com')
+            self.assertEqual(me_data.get('firstName'), 'Johnny')
+            self.assertEqual(me_data.get('lastName'), 'Test')
+            self.assertEqual(me_data.get('state'), UserState.INCOMPLETE.upper())
+            self.assertEqual(me_data.get('profileStep'), 1)
+            self.assertEqual(me_data.get('type'), UserType.COMPANY.upper())
 
             self.assertEqual(employees[0].get('role'), 'Trainer')
             self.assertEqual(employees[0].get('user').get('username'), 'john@doe.com')

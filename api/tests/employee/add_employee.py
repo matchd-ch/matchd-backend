@@ -107,7 +107,7 @@ class AddEmployeeGraphQLTestCase(BaseGraphQLTestCase):
         content = json.loads(response.content)
         self.assertTrue(content.get('data').get('addEmployee').get('success'))
 
-    def testAddEmployee(self):
+    def test_add_employee(self):
         self._login('john@doe.com')
         self._test_employees(1)
         self._add_employee('mock9@mock.com')
