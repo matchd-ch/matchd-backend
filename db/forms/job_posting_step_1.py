@@ -1,5 +1,6 @@
 import requests
 from django import forms
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext as _
 
@@ -13,7 +14,10 @@ class JobPostingFormStep1(forms.Form):
     description = forms.CharField(max_length=1000, required=True)
     job_option = forms.ModelChoiceField(queryset=JobOption.objects.all(), required=True)
     branch = forms.ModelChoiceField(queryset=Branch.objects.all(), required=True)
-    workload = forms.CharField(max_length=255, required=False)
+    workload = forms.IntegerField(required=True, validators=[
+            MaxValueValidator(100),
+            MinValueValidator(10)
+        ])
     job_from_date = forms.DateField(required=True)
     job_to_date = forms.DateField(required=False)
     url = forms.URLField(required=False)
