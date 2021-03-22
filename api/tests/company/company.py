@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from graphene_django.utils import GraphQLTestCase
 from graphql_auth.models import UserStatus
 from api.schema import schema
-from db.models import Branch, Benefit, Employee, Company, JobPosition, Student, UserState
+from db.models import Branch, Benefit, Employee, Company, JobPosition, Student, UserState, UserType
 
 
 # pylint:disable=R0913
@@ -241,19 +241,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                 lastName
                 state
                 profileStep
-                employees{
-                    id
-                    role
-                    user{
-                        id
-                        username
-                        email
-                        type
-                        firstName
-                        lastName
-                        state
-                    }
-                }
                 company {
                     uid
                     name
@@ -273,30 +260,45 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                         id
                         name
                     }
+                    employees {
+                        id
+                        role
+                        user {
+                            id
+                            username
+                            email
+                            type
+                            firstName
+                            lastName
+                            state
+                        }
+                    }
                 }
             }
         }
         ''')
-
         content = json.loads(response.content)
 
         if success:
             self.assertResponseNoErrors(response)
-            self.assertEqual(content['data'].get('me').get('username'), 'john@doe.com')
-            self.assertEqual(content['data'].get('me').get('first_name'), 'Johnny')
-            self.assertEqual(content['data'].get('me').get('last_name'), 'Test')
-            self.assertEqual(content['data'].get('me').get('state'), 'INCOMPLETE')
-            self.assertEqual(content['data'].get('me').get('profileStep'), 1)
-            self.assertEqual(content['data'].get('me').get('type'), 'COMPANY')
-            self.assertEqual(content['data'].get('me').get('company').get('mobile'), '+41791234567')
-            self.assertEqual(content['data'].get('me').get('employees').get('role'), '')
-            self.assertEqual(content['data'].get('me').get('employees').get('user').get('id'), '')
-            self.assertEqual(content['data'].get('me').get('employees').get('user').get('username'), '')
-            self.assertEqual(content['data'].get('me').get('employees').get('user').get('email'), '')
-            self.assertEqual(content['data'].get('me').get('employees').get('user').get('type'), '')
-            self.assertEqual(content['data'].get('me').get('employees').get('user').get('firstname'), '')
-            self.assertEqual(content['data'].get('me').get('employees').get('user').get('lastname'), '')
 
+            me = content['data'].get('me')
+            company = me.get('company')
+            employees = company.get('employees')
+
+            self.assertEqual(me.get('username'), 'john@doe.com')
+            self.assertEqual(me.get('firstName'), 'Johnny')
+            self.assertEqual(me.get('lastName'), 'Test')
+            self.assertEqual(me.get('state'), UserState.INCOMPLETE.upper())
+            self.assertEqual(me.get('profileStep'), 1)
+            self.assertEqual(me.get('type'), UserType.COMPANY.upper())
+
+            self.assertEqual(employees[0].get('role'), 'Trainer')
+            self.assertEqual(employees[0].get('user').get('username'), 'john@doe.com')
+            self.assertEqual(employees[0].get('user').get('email'), 'john@doe.com')
+            self.assertEqual(employees[0].get('user').get('type'), UserType.COMPANY.upper())
+            self.assertEqual(employees[0].get('user').get('firstName'), 'Johnny')
+            self.assertEqual(employees[0].get('user').get('lastName'), 'Test')
         else:
             self.assertResponseHasErrors(response)
             self.assertIsNone(content['data'].get('me'))
@@ -442,7 +444,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         self._test_with_invalid_data(3, self.query_step_3, self.variables_step_3_invalid, 'companyProfileStep3',
                                      ['benefits', 'jobPositions'])
 
-
     def test_company_query_invalid_company_id(self):
         self._login('john@doe.com')
         self._test_and_get_step_response_content(self.query_step_1, self.variables_step_1_base, 1,
@@ -486,3 +487,7 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         self._logout()
         self._login('jane@doe.com')
         self._test_company_query('doe-unlimited')
+
+    def test_me_company(self):
+        self._login('john@doe.com')
+        self._test_me(True)
