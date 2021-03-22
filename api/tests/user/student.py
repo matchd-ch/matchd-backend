@@ -112,6 +112,18 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     }
     '''
 
+    invalid_variables_step_2_soft_skills = '''
+        {
+             "step2": {
+                "jobOption": {"id": 1},
+                "jobFromDate": "01.2020",
+                "jobToDate": "03.2020",
+                "jobPosition": {"id": 1},
+                "softSkills": [{"id": 1337}]
+            }
+        }
+        '''
+
     query_step_5 = '''
     mutation StudentProfileMutation($step5: StudentProfileInputStep5!) {
         studentProfileStep5(step5: $step5) {
@@ -405,6 +417,10 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     def test_profile_step_2_with_invalid_data_date_from(self):
         self._test_step_with_invalid_data(2, self.query_step_2, self.invalid_variables_step_2_date_from,
                                           'studentProfileStep2', ['jobFromDate'])
+
+    def test_profile_step_2_with_invalid_data_soft_skill(self):
+        self._test_step_with_invalid_data(2, self.query_step_2, self.invalid_variables_step_2_soft_skills,
+                                          'studentProfileStep2', ['softSkills'])
 
     def test_profile_step_5_with_invalid_data(self):
         self._test_step_with_invalid_data(5, self.query_step_5, self.invalid_variables_step_5, 'studentProfileStep5',
