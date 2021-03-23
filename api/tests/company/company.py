@@ -241,6 +241,7 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                 lastName
                 company {
                     uid
+                    type
                     name
                     zip
                     city
@@ -311,6 +312,7 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             query{
                 company(slug:"%s"){
                     id
+                    type
                     slug
                     uid
                     name
