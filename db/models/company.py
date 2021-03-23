@@ -33,6 +33,9 @@ class Company(models.Model):
     # fields for university only
     top_level_organisation_description = models.TextField(max_length=1000, blank=True)
     top_level_organisation_website = models.URLField(max_length=2048, blank=True)
+    link_education = models.URLField(max_length=2048, blank=True, null=True)
+    link_projects = models.URLField(max_length=2048, blank=True, null=True)
+    link_thesis = models.URLField(max_length=2048, blank=True, null=True)
 
     def get_profile_content_type(self):
         return ContentType.objects.get(app_label='db', model='company')
