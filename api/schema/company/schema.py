@@ -115,7 +115,7 @@ class UniversityProfileInputStep1(graphene.InputObjectType):
     role = graphene.String(description=_('role'), required=True)
     website = graphene.String(description=_('website'), required=True)
     top_level_organisation_description = graphene.String(description=_('description'), required=False)
-    top_level_organisation_url = graphene.String(description=_('website dachorganisation'), required=False)
+    top_level_organisation_website = graphene.String(description=_('website dachorganisation'), required=False)
 
 
 class UniversityProfileStep1(Output, graphene.Mutation):
