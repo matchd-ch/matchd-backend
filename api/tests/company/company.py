@@ -254,6 +254,10 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                     memberItStGallen
                     state
                     profileStep
+                    branch {
+                        id
+                        name
+                    }
                     benefits {
                         id
                         icon
@@ -326,6 +330,10 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                     services
                     state
                     profileStep
+                    branch {
+                        id
+                        name
+                    }
                     benefits{
                       id
                       icon

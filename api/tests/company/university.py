@@ -177,6 +177,10 @@ class UniversityGraphQLTestCase(GraphQLTestCase):
                     website                
                     state
                     profileStep
+                    branch {
+                        id
+                        name
+                    }
                     employees {
                         id
                         role
@@ -238,6 +242,10 @@ class UniversityGraphQLTestCase(GraphQLTestCase):
                     website
                     state
                     profileStep
+                    branch {
+                        id
+                        name
+                    }
                     employees {
                       id
                       role
