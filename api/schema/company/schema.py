@@ -12,7 +12,7 @@ from api.schema.branch.schema import BranchInputType
 from api.schema.job_position import JobPositionInputType
 from api.schema.user.schema import Employee
 from db.exceptions import FormException
-from db.forms import process_company_form_step_2, process_company_form_step_3
+from db.forms import process_company_form_step_2, process_company_form_step_3, process_university_form_step_1
 from db.forms.company_step_1 import process_company_form_step_1
 from db.models import Company as CompanyModel, ProfileState
 
@@ -104,13 +104,51 @@ class CompanyProfileMutation(graphene.ObjectType):
     company_profile_step3 = CompanyProfileStep3.Field()
 
 
+class UniversityProfileInputStep1(graphene.InputObjectType):
+    first_name = graphene.String(description=_('First name'), required=True)
+    last_name = graphene.String(description=_('Last name'), required=True)
+    name = graphene.String(description=_('Name'), required=False)
+    street = graphene.String(description=_('Street'), required=True)
+    zip = graphene.String(description=_('Zip'), required=True)
+    city = graphene.String(description=_('City'), required=True)
+    phone = graphene.String(description=_('Phone Number'))
+    role = graphene.String(description=_('role'), required=True)
+    website = graphene.String(description=_('website'), required=True)
+    top_level_organisation_description = graphene.String(description=_('description'), required=False)
+    top_level_organisation_url = graphene.String(description=_('website dachorganisation'), required=False)
+
+
+class UniversityProfileStep1(Output, graphene.Mutation):
+    class Arguments:
+        step1 = UniversityProfileInputStep1(description=_('Profile Input Step 1 is required.'), required=True)
+
+    class Meta:
+        description = _('Updates the profile of a university')
+
+    @classmethod
+    @login_required
+    def mutate(cls, root, info, **data):
+        user = info.context.user
+        form_data = data.get('step1', None)
+        try:
+            process_university_form_step_1(user, form_data)
+        except FormException as exception:
+            return UniversityProfileStep1(success=False, errors=exception.errors)
+        return UniversityProfileStep1(success=True, errors=None)
+
+
+class UniversityProfileMutation(graphene.ObjectType):
+    university_profile_step1 = UniversityProfileStep1.Field()
+
+
 class Company(DjangoObjectType):
     employees = graphene.List(Employee)
 
     class Meta:
         model = CompanyModel
         fields = ['id', 'uid', 'name', 'zip', 'city', 'street', 'phone', 'description', 'member_it_st_gallen',
-                  'services', 'website', 'job_positions', 'benefits', 'state', 'profile_step', 'slug']
+                  'services', 'website', 'job_positions', 'benefits', 'state', 'profile_step', 'slug',
+                  'top_level_organisation_description', 'top_level_organisation_url']
 
     def resolve_employees(self: CompanyModel, info):
         users = self.users.prefetch_related('employee').all()
