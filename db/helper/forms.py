@@ -46,13 +46,17 @@ def convert_date(date, date_format='%d.%m.%Y'):
     return date
 
 
-def validate_company_user_type(user):
+def validate_company_user_type(user, sub_type=None):
     errors = {}
     validator = CompanyTypeValidator()
     try:
         validator.validate(user.type)
     except ValidationError as error:
         errors.update(validation_error_to_dict(error, 'type'))
+
+    if sub_type is not None:
+        if user.type != sub_type:
+            errors.update(generic_error_dict('type', _('Wrong user type'), 'invalid'))
 
     if errors:
         raise FormException(errors)

@@ -4,24 +4,24 @@ from django.contrib.auth import get_user_model
 from graphene_django.utils import GraphQLTestCase
 from graphql_auth.models import UserStatus
 from api.schema import schema
-from db.models import Branch, Benefit, Employee, Company, JobPosition, Student, ProfileState, UserType
+from db.models import Employee, Company, ProfileState, UserType, Branch
 
 
 # pylint:disable=R0913
 # pylint:disable=R0902
-class CompanyGraphQLTestCase(GraphQLTestCase):
+class UniversityGraphQLTestCase(GraphQLTestCase):
     GRAPHQL_SCHEMA = schema
 
     query_step_1 = '''
-    mutation CompanyProfileMutation($step1: CompanyProfileInputStep1!) {
-        companyProfileStep1(step1: $step1) {
+    mutation UniversityProfileMutation($step1: UniversityProfileInputStep1!) {
+        universityProfileStep1(step1: $step1) {
             success,
             errors
         }
     }
     '''
 
-    variables_step_1_base = {
+    variables_step_1_valid = {
         "step1": {
             "firstName": "John",
             "lastName": "Doe",
@@ -30,7 +30,10 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             "zip": "1337",
             "city": "ZooTown",
             "phone": "+41791234567",
-            "role": "Trainer"
+            "role": "Trainer",
+            "website": "www.unlimited.ch",
+            "topLevelOrganisationWebsite": "www.toplevel.ch",
+            "topLevelOrganisationDescription": "Top Level Description"
         }
     }
 
@@ -38,87 +41,95 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         "step1": {
             "firstName": "",
             "lastName": "",
+            "name": "",
             "street": "",
             "zip": "",
             "city": "",
             "phone": "",
-            "role": ""
+            "role": "",
+            "website": "",
+            "topLevelOrganisationWebsite": "",
+            "topLevelOrganisationDescription": ""
+        }
+    }
+
+    variables_step_1_invalid_data = {
+        "step1": {
+            "firstName": "John",
+            "lastName": "Doe",
+            "name": "Zoo",
+            "street": "ZooStreet",
+            "zip": "1337",
+            "city": "ZooTown",
+            "phone": "+41791234567",
+            "role": "Trainer",
+            "website": "www.unlimited.ch",
+            "topLevelOrganisationWebsite": "invalid_url",
+            "topLevelOrganisationDescription": 'a' * 1001
         }
     }
 
     query_step_2 = '''
-    mutation CompanyProfileMutation($step2: CompanyProfileInputStep2!) {
-        companyProfileStep2(step2: $step2) {
+    mutation UniversityProfileMutation($step2: UniversityProfileInputStep2!) {
+        universityProfileStep2(step2: $step2) {
             success,
             errors
         }
     }
     '''
 
-    variables_step_2_base = {
+    variables_step_2 = {
         "step2": {
-            "website": "www.google.com",
             "description": "A cool company",
-            "services": "creating cool stuff",
-            "memberItStGallen": True,
             "branch": {"id": 1}
         }
     }
 
     variables_step_2_invalid = {
         "step2": {
-            "website": "",
-            "description": "",
-            "services": "",
-            "memberItStGallen": "",
+            "description": "A cool company",
             "branch": {"id": 99}
         }
     }
 
-    variables_step_2_base_invalid_member = {
-        "step2": {
-            "website": "google.com",
-            "description": "",
-            "services": "",
-            "memberItStGallen": ""
-        }
-    }
-
     query_step_3 = '''
-    mutation CompanyProfileMutation($step3: CompanyProfileInputStep3!) {
-        companyProfileStep3(step3: $step3) {
+    mutation UniversityProfileMutation($step3: UniversityProfileInputStep3!) {
+        universityProfileStep3(step3: $step3) {
             success,
             errors
         }
     }
     '''
 
-    variables_step_3_base = {
+    variables_step_3 = {
         "step3": {
-            "jobPositions": [{"id": 1}],
-            "benefits": [{"id": 1, "icon": "doge"}, {"id": 2}],
+            "services": "services",
+            "linkEducation": "www.url.ch",
+            "linkProjects": "www.url2.ch",
+            "linkThesis": "www.url3.ch"
         }
     }
 
     variables_step_3_invalid = {
         "step3": {
-            "jobPositions": [{"id": 0}],
-            "benefits": [{"id": 99, "icon": "not valid"}],
+            "services": "a" * 301,
+            "linkEducation": "invalid_url",
+            "linkProjects": "invalid_url",
+            "linkThesis": "invalid_url"
         }
     }
 
-    def setUp(self):
-        self.company = Company.objects.create(id=1, uid='CHE-999.999.999', name='Doe Unlimited', zip='0000',
-                                              city='DoeCity', slug='doe-unlimited', profile_step=1,
-                                              type=UserType.COMPANY)
-        self.company.save()
+    def setUp(self) -> None:
+        self.university = Company.objects.create(id=1, name='Doe University', zip='0000', city='DoeCity',
+                                                 slug='doe-university', profile_step=1, type=UserType.UNIVERSITY)
+        self.university.save()
         self.user = get_user_model().objects.create(
             username='john@doe.com',
             email='john@doe.com',
-            type='company',
+            type=UserType.UNIVERSITY,
             first_name='Johnny',
             last_name='Test',
-            company=self.company
+            company=self.university
         )
         self.user.set_password('asdf1234$')
         self.user.save()
@@ -139,42 +150,12 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         )
         self.branch.save()
 
-        self.benefit = Benefit.objects.create(
-            id=1,
-            icon='doge',
-            name='Doge'
-        )
-        self.benefit = Benefit.objects.create(
-            id=2,
-            icon='sleep',
-            name='Sleep'
-        )
-
-        self.job_position = JobPosition.objects.create(
-            id=1,
-            name='worker'
-        )
-
-        self.student = get_user_model().objects.create(
-            username='jane@doe.com',
-            email='jane@doe.com',
-            type='student'
-        )
-        self.student.set_password('asdf1234$')
-        self.student.save()
-
-        self.student_profile = Student.objects.create(user=self.student, mobile='+41771234568')
-
-        user_status = UserStatus.objects.get(user=self.student)
-        user_status.verified = True
-        user_status.save()
-
     def _test_and_get_step_response_content(self, query, variables, step, error, success=True):
         self._login('john@doe.com')
         # update company, otherwise multi step tests won't work
-        self.company = Company.objects.get(pk=self.company.id)
-        self.company.profile_step = step
-        self.company.save()
+        self.university = Company.objects.get(pk=self.university.id)
+        self.university.profile_step = step
+        self.university.save()
         response = self.query(query, variables=variables)
 
         self.assertResponseNoErrors(response)
@@ -189,8 +170,8 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
 
     def _test_with_invalid_data(self, step, query, variables, error_key, expected_errors):
         self._login('john@doe.com')
-        self.company.profile_step = step
-        self.company.save()
+        self.university.profile_step = step
+        self.university.save()
 
         response = self.query(query, variables=variables)
         content = json.loads(response.content)
@@ -243,28 +224,16 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                 firstName
                 lastName
                 company {
-                    uid
                     type
                     name
                     zip
                     city
                     street
                     phone
-                    website
-                    description
-                    services
-                    memberItStGallen
+                    website                
                     state
                     profileStep
                     branch {
-                        id
-                        name
-                    }
-                    benefits {
-                        id
-                        icon
-                    }
-                    jobPositions {
                         id
                         name
                     }
@@ -280,6 +249,11 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                             lastName
                         }
                     }
+                    topLevelOrganisationDescription
+                    topLevelOrganisationWebsite
+                    linkEducation
+                    linkProjects
+                    linkThesis
                 }
             }
         }
@@ -315,42 +289,36 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         response = self.query(
             '''
             query{
-                company(slug:"%s"){
+                company(slug:"%s") {
                     id
                     type
                     slug
-                    uid
                     name
                     zip
                     city
                     street
                     phone
                     website
-                    description
-                    services
                     state
                     profileStep
                     branch {
                         id
                         name
                     }
-                    benefits{
-                      id
-                      icon
-                    }
-                    jobPositions{
-                      id
-                      name
-                    }
-                    employees{
+                    employees {
                       id
                       role
-                      user{
+                      user {
                         firstName
                         lastName
                         email
                       }
                     }
+                    topLevelOrganisationDescription
+                    topLevelOrganisationWebsite
+                    linkEducation
+                    linkProjects
+                    linkThesis
                 }
             }
             ''' % company_slug
@@ -368,12 +336,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             self.assertEqual(content['data'].get('company').get('website'), 'http://www.google.com')
             self.assertEqual(content['data'].get('company').get('description'), 'A cool company')
             self.assertEqual(content['data'].get('company').get('services'), 'creating cool stuff')
-            self.assertEqual(content['data'].get('company').get('benefits')[0].get('id'), '1')
-            self.assertEqual(content['data'].get('company').get('benefits')[0].get('icon'), 'doge')
-            self.assertEqual(content['data'].get('company').get('benefits')[1].get('id'), '2')
-            self.assertEqual(content['data'].get('company').get('benefits')[1].get('icon'), 'sleep')
-            self.assertEqual(content['data'].get('company').get('jobPositions')[0].get('id'), '1')
-            self.assertEqual(content['data'].get('company').get('jobPositions')[0].get('name'), 'worker')
             self.assertEqual(content['data'].get('company').get('employees')[0].get('user').get('firstName'), 'John')
             self.assertEqual(content['data'].get('company').get('employees')[0].get('user').get('lastName'), 'Doe')
             self.assertEqual(content['data'].get('company').get('employees')[0].get('user').get('email'),
@@ -383,9 +345,9 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             self.assertResponseHasErrors(response)
             self.assertIsNone(content['data'].get('company'))
 
-    def test_company_step_1_valid_base(self):
-        self._test_and_get_step_response_content(self.query_step_1, self.variables_step_1_base, 1,
-                                                 'companyProfileStep1')
+    def test_university_step_1_valid_data(self):
+        self._test_and_get_step_response_content(self.query_step_1, self.variables_step_1_valid, 1,
+                                                 'universityProfileStep1')
         user = get_user_model().objects.get(pk=self.user.pk)
         company = user.company
 
@@ -396,10 +358,12 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         self.assertEqual(company.street, 'ZooStreet')
         self.assertEqual(company.city, 'ZooTown')
         self.assertEqual(company.phone, '+41791234567')
+        self.assertEqual(company.top_level_organisation_website, 'http://www.toplevel.ch')
+        self.assertEqual(company.top_level_organisation_description, 'Top Level Description')
         self.assertEqual(user.employee.role, 'Trainer')
 
-    def test_company_step_1_invalid_data(self):
-        self._test_with_invalid_data(1, self.query_step_1, self.variables_step_1_invalid, 'companyProfileStep1',
+    def test_university_step_1_invalid_data(self):
+        self._test_with_invalid_data(1, self.query_step_1, self.variables_step_1_invalid, 'universityProfileStep1',
                                      ['firstName', 'lastName', 'name', 'zip', 'street', 'city', 'phone', 'role'])
 
         user = get_user_model().objects.get(pk=self.user.pk)
@@ -407,99 +371,45 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
 
         self.assertEqual(user.first_name, 'Johnny')
         self.assertEqual(user.last_name, 'Test')
-        self.assertEqual(company.name, 'Doe Unlimited')
+        self.assertEqual(company.name, 'Doe University')
         self.assertEqual(company.zip, '0000')
         self.assertEqual(company.city, 'DoeCity')
 
-    def test_company_step_2_valid_base(self):
-        self._test_and_get_step_response_content(self.query_step_2, self.variables_step_2_base, 2,
-                                                 'companyProfileStep2')
+    def test_university_step_1_invalid_data_top_level(self):
+        self._test_with_invalid_data(1, self.query_step_1, self.variables_step_1_invalid_data, 'universityProfileStep1',
+                                     ['topLevelOrganisationDescription', 'topLevelOrganisationWebsite'])
+
         user = get_user_model().objects.get(pk=self.user.pk)
         company = user.company
-        self.assertEqual(company.website, 'http://www.google.com')
+
+        self.assertEqual(user.first_name, 'Johnny')
+        self.assertEqual(user.last_name, 'Test')
+        self.assertEqual(company.name, 'Doe University')
+        self.assertEqual(company.zip, '0000')
+        self.assertEqual(company.city, 'DoeCity')
+
+    def test_university_step_2_valid(self):
+        self._test_and_get_step_response_content(self.query_step_2, self.variables_step_2, 2,
+                                                 'universityProfileStep2')
+        user = get_user_model().objects.get(pk=self.user.pk)
+        company = user.company
         self.assertEqual(company.description, 'A cool company')
-        self.assertEqual(company.services, 'creating cool stuff')
-        self.assertEqual(company.member_it_st_gallen, True)
+        self.assertEqual(company.branch_id, self.branch.id)
 
-    def test_company_step_2_invalid_data(self):
-        self._test_with_invalid_data(2, self.query_step_2, self.variables_step_2_invalid, 'companyProfileStep2',
-                                     ['website', 'branch'])
+    def test_university_step_2_invalid_data(self):
+        self._test_with_invalid_data(2, self.query_step_2, self.variables_step_2_invalid, 'universityProfileStep2',
+                                     ['branch'])
+
+    def test_university_step_3_valid(self):
+        self._test_and_get_step_response_content(self.query_step_3, self.variables_step_3, 3,
+                                                 'universityProfileStep3')
         user = get_user_model().objects.get(pk=self.user.pk)
         company = user.company
-        self.assertEqual(user.first_name, 'Johnny')
-        self.assertEqual(user.last_name, 'Test')
-        self.assertEqual(company.name, 'Doe Unlimited')
-        self.assertEqual(company.zip, '0000')
-        self.assertEqual(company.city, 'DoeCity')
+        self.assertEqual(company.services, 'services')
+        self.assertEqual(company.link_education, 'http://www.url.ch')
+        self.assertEqual(company.link_projects, 'http://www.url2.ch')
+        self.assertEqual(company.link_thesis, 'http://www.url3.ch')
 
-    def test_company_step_2_invalid_member(self):
-        self._test_and_get_step_response_content(self.query_step_2, self.variables_step_2_base_invalid_member, 2,
-                                                 'companyProfileStep2', True)
-        user = get_user_model().objects.get(pk=self.user.pk)
-        company = user.company
-        self.assertEqual(user.first_name, 'Johnny')
-        self.assertEqual(user.last_name, 'Test')
-        self.assertEqual(company.name, 'Doe Unlimited')
-        self.assertEqual(company.zip, '0000')
-        self.assertEqual(company.city, 'DoeCity')
-        self.assertEqual(company.member_it_st_gallen, False)
-
-    def test_company_step_3_valid_base(self):
-        self._test_and_get_step_response_content(self.query_step_3, self.variables_step_3_base, 3,
-                                                 'companyProfileStep3', True)
-        user = get_user_model().objects.get(pk=self.user.pk)
-        company = user.company
-        self.assertEqual(company.benefits.all()[0].icon, 'doge')
-        self.assertEqual(company.benefits.all()[1].icon, 'sleep')
-        self.assertEqual(company.job_positions.all()[0].name, 'worker')
-
-    def test_company_step_3_invalid_data(self):
-        self._test_with_invalid_data(3, self.query_step_3, self.variables_step_3_invalid, 'companyProfileStep3',
-                                     ['benefits', 'jobPositions'])
-
-    def test_company_query_invalid_company_id(self):
-        self._login('john@doe.com')
-        self._test_and_get_step_response_content(self.query_step_1, self.variables_step_1_base, 1,
-                                                 'companyProfileStep1')
-        self._test_and_get_step_response_content(self.query_step_2, self.variables_step_2_base, 2,
-                                                 'companyProfileStep2')
-        self._test_and_get_step_response_content(self.query_step_3, self.variables_step_3_base, 3,
-                                                 'companyProfileStep3', True)
-        self._test_company_query('a-wrong-slug', False)
-
-    def test_company_query_not_completed(self):
-        # company step 1
-        self._login('john@doe.com')
-        self._test_and_get_step_response_content(self.query_step_1, self.variables_step_1_base, 1,
-                                                 'companyProfileStep1')
-
-        # company should not be returned for other users
-        self._logout()
-        self._login('jane@doe.com')
-        self._test_company_query('doe-unlimited', False)
-
-        # company step 2
-        self._logout()
-        self._login('john@doe.com')
-        self._test_and_get_step_response_content(self.query_step_2, self.variables_step_2_base, 2,
-                                                 'companyProfileStep2')
-
-        # company should still not be returned for other users
-        self._logout()
-        self._login('jane@doe.com')
-        self._test_company_query('doe-unlimited', False)
-
-        # company step 3
-        self._logout()
-        self._login('john@doe.com')
-        self._test_and_get_step_response_content(self.query_step_3, self.variables_step_3_base, 3,
-                                                 'companyProfileStep3')
-
-        # company should be returned for other users
-        self._logout()
-        self._login('jane@doe.com')
-        self._test_company_query('doe-unlimited')
-
-    def test_me_company(self):
-        self._login('john@doe.com')
-        self._test_me(True)
+    def test_university_step_3_invalid_data(self):
+        self._test_with_invalid_data(3, self.query_step_3, self.variables_step_3_invalid, 'universityProfileStep3',
+                                     ['services', 'linkEducation', 'linkProjects', 'linkThesis'])
