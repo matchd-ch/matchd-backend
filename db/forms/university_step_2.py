@@ -30,10 +30,7 @@ def process_university_form_step_2(user, data):
         # update user / profile
         cleaned_data = form.cleaned_data
 
-        # required parameters
-        company.website = cleaned_data.get('website')
-
-        # optional parameters
+        company.branch = cleaned_data.get('branch')
         company.description = cleaned_data.get('description')
     else:
         errors.update(form.errors.get_json_data())
