@@ -6,7 +6,7 @@ from db.models import UserType, ProfileState
 
 
 class UniversityProfileFormStep3(forms.Form):
-    services = forms.CharField(max_length=1000, required=False)
+    services = forms.CharField(max_length=300, required=False)
     link_education = forms.URLField(max_length=2048, required=False)
     link_projects = forms.URLField(max_length=2048, required=False)
     link_thesis = forms.URLField(max_length=2048, required=False)
