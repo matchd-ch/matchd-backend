@@ -280,8 +280,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                             lastName
                         }
                     }
-                    topLevelOrganisationDescription
-                    topLevelOrganisationWebsite
                 }
             }
         }
@@ -353,8 +351,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                         email
                       }
                     }
-                    topLevelOrganisationDescription
-                    topLevelOrganisationWebsite
                 }
             }
             ''' % company_slug
