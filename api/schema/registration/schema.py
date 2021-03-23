@@ -4,7 +4,7 @@ from graphql_auth import mutations
 from graphql_auth.mutations import Register
 from django.utils.translation import gettext_lazy as _
 
-from db.helper import generic_error_dict
+from db.helper import generic_error_dict, get_company_slug
 from db.forms import CompanyForm, StudentForm, EmployeeForm, UniversityForm
 from db.models import Company, Student, Employee, UserType
 
@@ -57,6 +57,8 @@ class RegisterCompany(Register):
 
         # validate company
         company_data = data.pop('company')
+        company_data['slug'] = get_company_slug(company_data.get('name'))
+        company_data['type'] = user_type
         company = None
 
         if user_type == UserType.UNIVERSITY:

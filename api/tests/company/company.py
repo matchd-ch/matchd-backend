@@ -107,7 +107,8 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
 
     def setUp(self):
         self.company = Company.objects.create(id=1, uid='CHE-999.999.999', name='Doe Unlimited', zip='0000',
-                                              city='DoeCity', slug='doe-unlimited', profile_step=1)
+                                              city='DoeCity', slug='doe-unlimited', profile_step=1,
+                                              type=UserType.COMPANY)
         self.company.save()
         self.user = get_user_model().objects.create(
             username='john@doe.com',
@@ -274,7 +275,7 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                         }
                     }
                     topLevelOrganisationDescription
-                    topLevelOrganisationUrl
+                    topLevelOrganisationWebsite
                 }
             }
         }
@@ -343,7 +344,7 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                       }
                     }
                     topLevelOrganisationDescription
-                    topLevelOrganisationUrl
+                    topLevelOrganisationWebsite
                 }
             }
             ''' % company_slug

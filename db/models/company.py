@@ -2,7 +2,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.validators import RegexValidator
 from django.db import models
 from django.conf import settings
-from django.utils.text import slugify
 
 from db.models.user_type import UserType
 from db.models.profile_state import ProfileState
@@ -33,13 +32,7 @@ class Company(models.Model):
 
     # fields for university only
     top_level_organisation_description = models.TextField(max_length=1000, blank=True)
-    top_level_organisation_url = models.URLField(max_length=2048, blank=True)
-
-    def save(self, force_insert=False, force_update=False, using=None,
-             update_fields=None):
-        if self.slug is None:
-            self.slug = slugify(self.name)
-        super().save(force_insert, force_update, using, update_fields)
+    top_level_organisation_website = models.URLField(max_length=2048, blank=True)
 
     def get_profile_content_type(self):
         return ContentType.objects.get(app_label='db', model='company')

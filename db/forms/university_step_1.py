@@ -19,7 +19,7 @@ class UniversityProfileFormStep1(forms.Form):
     role = forms.CharField(max_length=255, required=True)
     website = forms.URLField(max_length=2048, required=True)
     top_level_organisation_description = forms.CharField(max_length=1000, required=False)
-    top_level_organisation_url = forms.URLField(max_length=2048, required=False)
+    top_level_organisation_website = forms.URLField(max_length=2048, required=False)
 
 
 def process_university_form_step_1(user, data):
@@ -48,7 +48,7 @@ def process_university_form_step_1(user, data):
         company.phone = cleaned_data.get('phone')
         company.website = cleaned_data.get('website')
         company.top_level_organisation_description = cleaned_data.get('top_level_organisation_description')
-        company.top_level_organisation_url = cleaned_data.get('top_level_organisation_url')
+        company.top_level_organisation_website = cleaned_data.get('top_level_organisation_website')
         employee.role = cleaned_data.get('role')
     else:
         errors.update(form.errors.get_json_data())

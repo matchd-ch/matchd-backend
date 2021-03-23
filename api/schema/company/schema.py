@@ -148,7 +148,7 @@ class Company(DjangoObjectType):
         model = CompanyModel
         fields = ['id', 'uid', 'name', 'zip', 'city', 'street', 'phone', 'description', 'member_it_st_gallen',
                   'services', 'website', 'job_positions', 'benefits', 'state', 'profile_step', 'slug',
-                  'top_level_organisation_description', 'top_level_organisation_url', 'type']
+                  'top_level_organisation_description', 'top_level_organisation_website', 'type']
 
     def resolve_employees(self: CompanyModel, info):
         users = self.users.prefetch_related('employee').all()
