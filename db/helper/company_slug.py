@@ -18,4 +18,3 @@ def get_company_slug(name):
         else:
             slug = slug_with_counter
     return slug
-

@@ -226,7 +226,7 @@ class UniversityGraphQLTestCase(GraphQLTestCase):
         response = self.query(
             '''
             query{
-                company(slug:"%s"){
+                company(slug:"%s") {
                     id
                     type
                     slug
@@ -235,13 +235,13 @@ class UniversityGraphQLTestCase(GraphQLTestCase):
                     city
                     street
                     phone
-                    website                    
+                    website
                     state
-                    profileStep                    
-                    employees{
+                    profileStep
+                    employees {
                       id
                       role
-                      user{
+                      user {
                         firstName
                         lastName
                         email
