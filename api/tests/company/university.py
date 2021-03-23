@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from graphene_django.utils import GraphQLTestCase
 from graphql_auth.models import UserStatus
 from api.schema import schema
-from db.models import Employee, Company, ProfileState, UserType
+from db.models import Employee, Company, ProfileState, UserType, Branch
 
 
 # pylint:disable=R0913
@@ -69,6 +69,29 @@ class UniversityGraphQLTestCase(GraphQLTestCase):
         }
     }
 
+    query_step_2 = '''
+    mutation UniversityProfileMutation($step2: UniversityProfileInputStep2!) {
+        universityProfileStep2(step2: $step2) {
+            success,
+            errors
+        }
+    }
+    '''
+
+    variables_step_2 = {
+        "step2": {
+            "description": "A cool company",
+            "branch": {"id": 1}
+        }
+    }
+
+    variables_step_2_invalid = {
+        "step2": {
+            "description": "A cool company",
+            "branch": {"id": 99}
+        }
+    }
+
     def setUp(self) -> None:
         self.university = Company.objects.create(id=1, name='Doe University', zip='0000', city='DoeCity',
                                                  slug='doe-university', profile_step=1, type=UserType.UNIVERSITY)
@@ -93,6 +116,12 @@ class UniversityGraphQLTestCase(GraphQLTestCase):
             user=self.user
         )
         self.employee.save()
+
+        self.branch = Branch.objects.create(
+            id=1,
+            name='software'
+        )
+        self.branch.save()
 
     def _test_and_get_step_response_content(self, query, variables, step, error, success=True):
         self._login('john@doe.com')
@@ -325,3 +354,16 @@ class UniversityGraphQLTestCase(GraphQLTestCase):
         self.assertEqual(company.name, 'Doe University')
         self.assertEqual(company.zip, '0000')
         self.assertEqual(company.city, 'DoeCity')
+
+    def test_university_step_2_valid_base(self):
+        self._test_and_get_step_response_content(self.query_step_2, self.variables_step_2, 2,
+                                                 'universityProfileStep2')
+        user = get_user_model().objects.get(pk=self.user.pk)
+        company = user.company
+        self.assertEqual(company.description, 'A cool company')
+        self.assertEqual(company.branch_id, self.branch.id)
+
+    def test_university_step_2_invalid_data(self):
+        self._test_with_invalid_data(2, self.query_step_2, self.variables_step_2_invalid, 'universityProfileStep2',
+                                     ['branch'])
+

@@ -60,7 +60,8 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             "website": "www.google.com",
             "description": "A cool company",
             "services": "creating cool stuff",
-            "memberItStGallen": True
+            "memberItStGallen": True,
+            "branch": {"id": 1}
         }
     }
 
@@ -69,7 +70,8 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             "website": "",
             "description": "",
             "services": "",
-            "memberItStGallen": ""
+            "memberItStGallen": "",
+            "branch": {"id": 99}
         }
     }
 
@@ -425,7 +427,7 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
 
     def test_company_step_2_invalid_data(self):
         self._test_with_invalid_data(2, self.query_step_2, self.variables_step_2_invalid, 'companyProfileStep2',
-                                     ['website'])
+                                     ['website', 'branch'])
         user = get_user_model().objects.get(pk=self.user.pk)
         company = user.company
         self.assertEqual(user.first_name, 'Johnny')
