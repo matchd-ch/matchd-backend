@@ -366,4 +366,3 @@ class UniversityGraphQLTestCase(GraphQLTestCase):
     def test_university_step_2_invalid_data(self):
         self._test_with_invalid_data(2, self.query_step_2, self.variables_step_2_invalid, 'universityProfileStep2',
                                      ['branch'])
-
