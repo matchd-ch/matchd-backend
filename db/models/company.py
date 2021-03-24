@@ -21,6 +21,7 @@ class Company(models.Model):
     website = models.URLField(max_length=2048, blank=True)
     branch = models.ForeignKey('db.Branch', blank=True, null=True, on_delete=models.DO_NOTHING)
     description = models.TextField(max_length=1000, blank=True)
+    soft_skills = models.ManyToManyField('db.SoftSkill', related_name='companies')
 
     # fields for company only
     uid = models.CharField(max_length=255, blank=False,
