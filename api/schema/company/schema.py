@@ -239,7 +239,7 @@ class Company(DjangoObjectType):
         fields = ['id', 'uid', 'name', 'zip', 'city', 'street', 'phone', 'description', 'member_it_st_gallen',
                   'services', 'website', 'job_positions', 'benefits', 'state', 'profile_step', 'slug',
                   'top_level_organisation_description', 'top_level_organisation_website', 'type', 'branch',
-                  'link_education', 'link_projects', 'link_thesis']
+                  'link_education', 'link_projects', 'link_thesis', 'soft_skills']
         convert_choices_to_enum = False
 
     def resolve_employees(self: CompanyModel, info):
