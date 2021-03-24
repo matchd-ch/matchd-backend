@@ -7,15 +7,24 @@ from django.utils.translation import gettext as _
 from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 
-from api.schema.benefit import BenefitInputType
-from api.schema.branch.schema import BranchInputType
-from api.schema.job_position import JobPositionInputType
-from api.schema.user.schema import Employee, ProfileType, ProfileState
+from api.schema.benefit import BenefitInput
+from api.schema.branch.schema import BranchInput
+from api.schema.employee import Employee
+from api.schema.job_position import JobPositionInput
+from api.schema.profile_state import ProfileState
+from api.schema.profile_type import ProfileType
 from db.exceptions import FormException
 from db.forms import process_company_form_step_2, process_company_form_step_3, process_university_form_step_1, \
     process_university_form_step_2, process_university_form_step_3
 from db.forms.company_step_1 import process_company_form_step_1
 from db.models import Company as CompanyModel, ProfileState as ProfileStateModel
+
+
+class CompanyInput(graphene.InputObjectType):
+    name = graphene.String(description=_('Name'), required=True)
+    uid = graphene.String(description=_('UID'))
+    zip = graphene.String(description=_('ZIP'), required=True)
+    city = graphene.String(description=_('City'), required=True)
 
 
 class CompanyProfileInputStep1(graphene.InputObjectType):
@@ -50,7 +59,7 @@ class CompanyProfileStep1(Output, graphene.Mutation):
 
 class CompanyProfileInputStep2(graphene.InputObjectType):
     website = graphene.String(description=_('website'), required=True)
-    branch = graphene.Field(BranchInputType, description=_('branch'), required=False)
+    branch = graphene.Field(BranchInput, description=_('branch'), required=False)
     description = graphene.String(description=_('description'), required=False)
     services = graphene.String(description=_('services'), required=False)
     member_it_st_gallen = graphene.Boolean(description=_('memeber IT St. Gallen'), required=True)
@@ -76,8 +85,8 @@ class CompanyProfileStep2(Output, graphene.Mutation):
 
 
 class CompanyProfileInputStep3(graphene.InputObjectType):
-    job_positions = graphene.List(JobPositionInputType, description=_('Job Position'))
-    benefits = graphene.List(BenefitInputType, description=_('Benefits'))
+    job_positions = graphene.List(JobPositionInput, description=_('Job Position'))
+    benefits = graphene.List(BenefitInput, description=_('Benefits'))
 
 
 class CompanyProfileStep3(Output, graphene.Mutation):
@@ -139,7 +148,7 @@ class UniversityProfileStep1(Output, graphene.Mutation):
 
 
 class UniversityProfileInputStep2(graphene.InputObjectType):
-    branch = graphene.Field(BranchInputType, description=_('branch'), required=False)
+    branch = graphene.Field(BranchInput, description=_('branch'), required=False)
     description = graphene.String(description=_('description'), required=False)
 
 

@@ -2,17 +2,17 @@ import graphene
 from graphene import ObjectType
 from graphene_django import DjangoObjectType
 
-from db.models import SoftSkill
+from db.models import SoftSkill as SoftSkillModel
 
 
-class SoftSkillType(DjangoObjectType):
+class SoftSkill(DjangoObjectType):
     class Meta:
-        model = SoftSkill
+        model = SoftSkillModel
         fields = ('id', 'student', 'company',)
 
 
 class SoftSkillQuery(ObjectType):
-    soft_skills = graphene.List(SoftSkillType)
+    soft_skills = graphene.List(SoftSkill)
 
     def resolve_soft_skills(self, info, **kwargs):
-        return SoftSkill.objects.all()
+        return SoftSkillModel.objects.all()

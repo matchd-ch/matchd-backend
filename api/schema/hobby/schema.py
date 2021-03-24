@@ -1,16 +1,16 @@
 import graphene
 from graphene_django import DjangoObjectType
 
-from db.models import Hobby
+from db.models import Hobby as HobbyModel
 
 
-class HobbyType(DjangoObjectType):
+class Hobby(DjangoObjectType):
     class Meta:
-        model = Hobby
+        model = HobbyModel
         fields = ('id', 'name',)
 
 
-class HobbyInputType(graphene.InputObjectType):
+class HobbyInput(graphene.InputObjectType):
     id = graphene.ID()
     name = graphene.String(required=False)
 

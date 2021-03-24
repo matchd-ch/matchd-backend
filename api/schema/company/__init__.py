@@ -1,1 +1,1 @@
-from .schema import CompanyProfileMutation, CompanyQuery, UniversityProfileMutation
+from .schema import CompanyProfileMutation, CompanyQuery, UniversityProfileMutation, CompanyInput

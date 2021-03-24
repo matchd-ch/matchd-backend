@@ -4,21 +4,12 @@ from graphql_auth import mutations
 from graphql_auth.mutations import Register
 from django.utils.translation import gettext_lazy as _
 
+from api.schema.company import CompanyInput
+from api.schema.employee import EmployeeInput
+from api.schema.student import StudentInput
 from db.helper import generic_error_dict, get_company_slug
 from db.forms import CompanyForm, StudentForm, EmployeeForm, UniversityForm
 from db.models import Company, Student, Employee, ProfileType
-
-
-class EmployeeInput(graphene.InputObjectType):
-    id = graphene.ID(required=False)
-    role = graphene.String(description=_('Role'), required=False)
-
-
-class CompanyInput(graphene.InputObjectType):
-    name = graphene.String(description=_('Name'), required=True)
-    uid = graphene.String(description=_('UID'))
-    zip = graphene.String(description=_('ZIP'), required=True)
-    city = graphene.String(description=_('City'), required=True)
 
 
 class RegisterCompany(Register):
@@ -94,10 +85,6 @@ class RegisterCompany(Register):
         employee.save()
 
         return result
-
-
-class StudentInput(graphene.InputObjectType):
-    mobile = graphene.String(description=_('Mobile'), required=True)
 
 
 class RegisterStudent(Register):

@@ -1,13 +1,30 @@
 import graphene
 from django.contrib.auth import get_user_model
+from graphene_django import DjangoObjectType
 from graphql_auth.bases import Output
 from django.utils.translation import gettext as _
 from graphql_jwt.decorators import login_required
 
-from api.schema.user.schema import Employee
+from api.schema.user.schema import User
 from db.forms import EmployeeForm, UserForm
 from db.helper.forms import validate_company_user_type, validate_form_data
 from db.models import Employee as EmployeeModel, ProfileType
+
+
+class Employee(DjangoObjectType):
+    user = graphene.Field(User)
+
+    class Meta:
+        model = EmployeeModel
+        fields = ['id', 'role', 'user']
+
+    def resolve_user(self, info):
+        return self.user
+
+
+class EmployeeInput(graphene.InputObjectType):
+    id = graphene.ID(required=False)
+    role = graphene.String(description=_('Role'), required=False)
 
 
 class AddEmployeeInput(graphene.InputObjectType):

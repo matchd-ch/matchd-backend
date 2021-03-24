@@ -1,17 +1,36 @@
 import graphene
+from graphene_django import DjangoObjectType
 from graphql_auth.bases import Output
 from django.utils.translation import gettext as _
 from graphql_jwt.decorators import login_required
 
-from api.schema.hobby import HobbyInputType
-from api.schema.job_option import JobOptionInputType
-from api.schema.job_position import JobPositionInputType
-from api.schema.online_project import OnlineProjectInputType
-from api.schema.skill import SkillInputType
-from api.schema.user_language_relation.user_language_relation import UserLanguageRelationInputType
+from api.schema.hobby import HobbyInput
+from api.schema.job_option import JobOptionInput
+from api.schema.job_position import JobPositionInput
+from api.schema.online_project import OnlineProjectInput
+from api.schema.profile_state import ProfileState
+from api.schema.skill import SkillInput
+from api.schema.user_language_relation.user_language_relation import UserLanguageRelationInput
 from db.exceptions import FormException, NicknameException
 from db.forms import process_student_form_step_1, process_student_form_step_2, process_student_form_step_3, \
     process_student_form_step_5, process_student_form_step_6, process_student_form_step_4
+
+from db.models import Student as StudentModel
+
+
+class StudentInput(graphene.InputObjectType):
+    mobile = graphene.String(description=_('Mobile'), required=True)
+
+
+class Student(DjangoObjectType):
+    state = graphene.Field(ProfileState)
+
+    class Meta:
+        model = StudentModel
+        fields = ('mobile', 'street', 'zip', 'city', 'date_of_birth', 'nickname', 'school_name', 'field_of_study',
+                  'graduation', 'skills', 'hobbies', 'languages', 'distinction', 'online_projects', 'state',
+                  'profile_step')
+        convert_choices_to_enum = False
 
 
 class StudentProfileInputStep1(graphene.InputObjectType):
@@ -71,10 +90,10 @@ class StudentProfileStep2(Output, graphene.Mutation):
 
 
 class StudentProfileInputStep3(graphene.InputObjectType):
-    job_option = graphene.Field(JobOptionInputType, required=True)
+    job_option = graphene.Field(JobOptionInput, required=True)
     job_from_date = graphene.String(required=False)
     job_to_date = graphene.String(required=False)
-    job_position = graphene.Field(JobPositionInputType, required=False)
+    job_position = graphene.Field(JobPositionInput, required=False)
 
 
 class StudentProfileStep3(Output, graphene.Mutation):
@@ -98,10 +117,10 @@ class StudentProfileStep3(Output, graphene.Mutation):
 
 
 class StudentProfileInputStep4(graphene.InputObjectType):
-    skills = graphene.List(SkillInputType, description=_('Skills'), required=False)
-    hobbies = graphene.List(HobbyInputType, description=_('Hobbies'), required=False)
-    online_projects = graphene.List(OnlineProjectInputType, description=_('Online_Projects'), required=False)
-    languages = graphene.List(UserLanguageRelationInputType, description=_('Languages'), required=True)
+    skills = graphene.List(SkillInput, description=_('Skills'), required=False)
+    hobbies = graphene.List(HobbyInput, description=_('Hobbies'), required=False)
+    online_projects = graphene.List(OnlineProjectInput, description=_('Online_Projects'), required=False)
+    languages = graphene.List(UserLanguageRelationInput, description=_('Languages'), required=True)
     distinction = graphene.String(description=_('Distinction'), required=False)
 
 

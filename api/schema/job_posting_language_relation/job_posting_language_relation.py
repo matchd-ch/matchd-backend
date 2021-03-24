@@ -1,13 +1,13 @@
 import graphene
 from graphene_django import DjangoObjectType
 
-from db.models import JobPostingLanguageRelation
+from db.models import JobPostingLanguageRelation as JobPostingLanguageRelationModel
 
 
-class JobPostingLanguageRelationType(DjangoObjectType):
+class JobPostingLanguageRelation(DjangoObjectType):
 
     class Meta:
-        model = JobPostingLanguageRelation
+        model = JobPostingLanguageRelationModel
         fields = ('id', 'language', 'language_level',)
 
     @classmethod
@@ -15,7 +15,7 @@ class JobPostingLanguageRelationType(DjangoObjectType):
         return queryset.select_related('language', 'language_level')
 
 
-class JobPostingLanguageRelationInputType(graphene.InputObjectType):
+class JobPostingLanguageRelationInput(graphene.InputObjectType):
     id = graphene.ID()
     language = graphene.ID()
     language_level = graphene.ID()
