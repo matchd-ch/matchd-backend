@@ -3,7 +3,7 @@ from django import forms
 from db.exceptions import FormException
 from db.helper.forms import validate_step, validate_form_data, validate_company_user_type, generic_error_dict
 from db.models import UserState, SoftSkill
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext as _
 
 
 class CompanyProfileFormStep4(forms.Form):
@@ -30,9 +30,7 @@ def process_company_form_step_4(user, data):
         # check if more than 6 soft skills has been selected
 
         if len(list(soft_skills_to_save)) > 6:
-            # errors.update(generic_error_dict('type', _('Too many Skills'), 'too_many_items'))
-            return
-
+            errors.update(generic_error_dict('type', _('Too many Skills'), 'too_many_items'))
 
     else:
         errors.update(form.errors.get_json_data())
