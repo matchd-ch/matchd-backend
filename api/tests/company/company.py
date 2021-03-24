@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from graphene_django.utils import GraphQLTestCase
 from graphql_auth.models import UserStatus
 from api.schema import schema
-from db.models import Branch, Benefit, Employee, Company, JobPosition, Student, ProfileState, ProfileType
+from db.models import Branch, Benefit, Employee, Company, JobPosition, Student, ProfileState, ProfileType, SoftSkill
 
 
 # pylint:disable=R0913
@@ -107,6 +107,21 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         }
     }
 
+    query_step_4 = '''
+        mutation CompanyProfileMutation($step4: CompanyProfileInputStep4!) {
+            companyProfileStep4(step4: $step4) {
+                success,
+                errors
+            }
+        }
+        '''
+
+    variables_step_4_base = {
+        "step4": {
+            "softSkills": [{"id": 1}],
+        }
+    }
+
     def setUp(self):
         self.company = Company.objects.create(id=1, uid='CHE-999.999.999', name='Doe Unlimited', zip='0000',
                                               city='DoeCity', slug='doe-unlimited', profile_step=1,
@@ -164,6 +179,43 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         self.student.save()
 
         self.student_profile = Student.objects.create(user=self.student, mobile='+41771234568')
+
+        self.soft_skills = SoftSkill.objects.create(
+            id=1,
+            student='Student 1',
+            company='Company 1'
+        )
+        self.soft_skills = SoftSkill.objects.create(
+            id=2,
+            student='Student 2',
+            company='Company 2'
+        )
+        self.soft_skills = SoftSkill.objects.create(
+            id=3,
+            student='Student 3',
+            company='Company 3'
+        )
+        self.soft_skills = SoftSkill.objects.create(
+            id=4,
+            student='Student 4',
+            company='Company 4'
+        )
+        self.soft_skills = SoftSkill.objects.create(
+            id=5,
+            student='Student 5',
+            company='Company 5'
+        )
+        self.soft_skills = SoftSkill.objects.create(
+            id=6,
+            student='Student 6',
+            company='Company 6'
+        )
+        self.soft_skills = SoftSkill.objects.create(
+            id=7,
+            student='Student 7',
+            company='Company 7'
+        )
+        self.soft_skills.save()
 
         user_status = UserStatus.objects.get(user=self.student)
         user_status.verified = True
@@ -351,6 +403,11 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                         email
                       }
                     }
+                    softSkills{
+                        id
+                        student
+                        company
+                    } 
                 }
             }
             ''' % company_slug
@@ -495,6 +552,13 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         self._test_and_get_step_response_content(self.query_step_3, self.variables_step_3_base, 3,
                                                  'companyProfileStep3')
 
+        # company step 4
+        self._logout()
+        self._login('john@doe.com')
+
+        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_base, 4,
+                                                 'companyProfileStep4', True)
+
         # company should be returned for other users
         self._logout()
         self._login('jane@doe.com')
@@ -503,3 +567,12 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
     def test_me_company(self):
         self._login('john@doe.com')
         self._test_me(True)
+
+    def test_company_step_4_valid_base(self):
+        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_base, 4,
+                                                 'companyProfileStep4')
+        user = get_user_model().objects.get(pk=self.user.pk)
+        company = user.company
+        self.assertEqual(company.soft_skills.all()[0].id, 1)
+        self.assertEqual(company.soft_skills.all()[0].student, 'Student 1')
+        self.assertEqual(company.soft_skills.all()[0].company, 'Company 1')
