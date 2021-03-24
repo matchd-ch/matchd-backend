@@ -204,9 +204,9 @@ class UniversityProfileMutation(graphene.ObjectType):
 
 
 class Company(DjangoObjectType):
-    employees = graphene.List(Employee)
-    type = graphene.Field(ProfileType)
-    state = graphene.Field(ProfileState)
+    employees = graphene.NonNull(graphene.List(graphene.NonNull(Employee)))
+    type = graphene.Field(graphene.NonNull(ProfileType))
+    state = graphene.Field(graphene.NonNull(ProfileState))
 
     class Meta:
         model = CompanyModel

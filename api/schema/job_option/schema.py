@@ -8,7 +8,7 @@ JobOptionMode = graphene.Enum.from_enum(JobOptionModeModel)
 
 
 class JobOption(DjangoObjectType):
-    mode = graphene.Field(JobOptionMode)
+    mode = graphene.Field(graphene.NonNull(JobOptionMode))
 
     class Meta:
         model = JobOptionModel

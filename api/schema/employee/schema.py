@@ -12,7 +12,7 @@ from db.models import Employee as EmployeeModel, ProfileType
 
 
 class Employee(DjangoObjectType):
-    user = graphene.Field(User)
+    user = graphene.Field(graphene.NonNull(User))
 
     class Meta:
         model = EmployeeModel

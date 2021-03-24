@@ -47,10 +47,10 @@ class AttachmentMutation(graphene.ObjectType):
 
 class Attachment(DjangoObjectType):
 
-    url = graphene.String()
-    mime_type = graphene.String()
-    file_size = graphene.Int()
-    file_name = graphene.String()
+    url = graphene.NonNull(graphene.String)
+    mime_type = graphene.NonNull(graphene.String)
+    file_size = graphene.NonNull(graphene.Int)
+    file_name = graphene.NonNull(graphene.String)
 
     class Meta:
         model = AttachmentModel

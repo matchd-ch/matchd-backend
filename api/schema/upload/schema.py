@@ -130,14 +130,14 @@ class UploadMutation(graphene.ObjectType):
 
 
 class UploadTypeConfiguration(ObjectType):
-    content_types = graphene.List(graphene.String)
-    max_size = graphene.Int()
+    content_types = graphene.NonNull(graphene.List(graphene.NonNull(graphene.String)))
+    max_size = graphene.NonNull(graphene.Int)
 
 
 class UploadConfiguration(ObjectType):
-    content_types_configuration = graphene.List(UploadTypeConfiguration)
-    max_files = graphene.Int()
-    key = AttachmentKey()
+    content_types_configuration = graphene.NonNull(graphene.List(graphene.NonNull(UploadTypeConfiguration)))
+    max_files = graphene.NonNull(graphene.Int)
+    key = graphene.NonNull(AttachmentKey)
 
 
 class UploadConfigurationQuery(ObjectType):

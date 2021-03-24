@@ -8,6 +8,7 @@ from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 
 from api.schema.branch import BranchInput
+from api.schema.employee import Employee
 from api.schema.expectation import ExpectationInput
 from api.schema.job_option import JobOptionInput
 from api.schema.job_posting_language_relation import JobPostingLanguageRelationInput
@@ -21,7 +22,9 @@ JobPostingState = graphene.Enum.from_enum(JobPostingStateModel)
 
 
 class JobPosting(DjangoObjectType):
-    state = graphene.Field(JobPostingState)
+    state = graphene.Field(graphene.NonNull(JobPostingState))
+    employee = graphene.Field(graphene.NonNull(Employee))
+    workload = graphene.Field(graphene.NonNull(graphene.Int))
 
     class Meta:
         model = JobPostingModel

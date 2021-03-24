@@ -23,7 +23,7 @@ class StudentInput(graphene.InputObjectType):
 
 
 class Student(DjangoObjectType):
-    state = graphene.Field(ProfileState)
+    state = graphene.Field(graphene.NonNull(ProfileState))
 
     class Meta:
         model = StudentModel

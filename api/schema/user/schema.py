@@ -8,7 +8,7 @@ from api.schema.profile_type import ProfileType
 
 
 class User(DjangoObjectType):
-    type = graphene.Field(ProfileType)
+    type = graphene.Field(graphene.NonNull(ProfileType))
 
     class Meta:
         model = get_user_model()
