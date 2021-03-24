@@ -451,16 +451,6 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         # reload user
         user = get_user_model().objects.get(pk=self.user.pk)
 
-        profile = user.student
-        self.assertEqual(profile.school_name, 'FH Winterthur')
-        self.assertEqual(profile.field_of_study, 'Applikationsentwicklung')
-        graduation = datetime.strptime('08.2022', '%m.%Y').date()
-        self.assertEqual(profile.graduation, graduation)
-        self.assertEqual(profile.profile_step, 3)
-
-    def test_profile_step_3_date_range(self):
-        self._test_and_get_step_response_content(3, self.query_step_3, self.variables_step_3_date_range,
-                                                 'studentProfileStep3')
     def test_profile_step_2_date_range(self):
         self._test_and_get_step_response_content(2, self.query_step_2, self.variables_step_2_date_range,
                                                  'studentProfileStep2')
@@ -475,8 +465,8 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         to_date = datetime.strptime('03.2020', '%m.%Y').date()
         self.assertEqual(profile.job_to_date, to_date)
         self.assertEqual(profile.job_position.id, self.job_position.id)
-        self.assertEqual(profile.profile_step, 4)
-        self.assertEqual(profile.soft_skill.all()[0].id, 1)
+        self.assertEqual(user.profile_step, 4)
+        self.assertEqual(profile.soft_skills.all()[0].id, 1)
 
     def test_profile_step_2_date_from(self):
         self._test_and_get_step_response_content(2, self.query_step_2, self.variables_step_2_date_from,
@@ -492,7 +482,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         self.assertIsNone(profile.job_to_date)
         self.assertEqual(profile.job_position.id, self.job_position.id)
         self.assertEqual(profile.profile_step, 4)
-        self.assertEqual(profile.soft_skill.all()[0].id, 1)
+        self.assertEqual(profile.soft_skills.all()[0].id, 1)
 
     def test_profile_step_5(self):
         self._test_and_get_step_response_content(5, self.query_step_5, self.variables_step_5, 'studentProfileStep5')

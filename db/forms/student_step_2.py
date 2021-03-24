@@ -122,7 +122,7 @@ def process_student_form_step_2(user, data):
     if errors:
         raise FormException(errors=errors)
 
-    student.soft_skill.set(soft_skills_to_save)
+    student.soft_skills.set(soft_skills_to_save)
     # update step only if the user has step 2
     if student.profile_step == 2:
         student.profile_step = 4
