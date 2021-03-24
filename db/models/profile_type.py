@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.translation import gettext as _
 
 
-class UserType(models.TextChoices):
+class ProfileType(models.TextChoices):
     INTERNAL = 'internal', _('Internal')
     STUDENT = 'student', _('Student')
     COLLEGE_STUDENT = 'college-student', _('College Student')

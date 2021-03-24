@@ -15,14 +15,19 @@ from api.schema.registration import EmployeeInput
 from api.schema.skill import SkillInputType
 from db.exceptions import FormException
 from db.forms import process_job_posting_form_step_1, process_job_posting_form_step_2, process_job_posting_form_step_3
-from db.models import JobPosting, Company, JobPostingState
+from db.models import JobPosting, Company, JobPostingState as JobPostingStateModel
+
+JobPostingState = graphene.Enum.from_enum(JobPostingStateModel)
 
 
 class JobPostingType(DjangoObjectType):
+    state = graphene.Field(JobPostingState)
+
     class Meta:
         model = JobPosting
         fields = ('id', 'description', 'job_option', 'workload', 'company', 'job_from_date', 'job_to_date', 'url',
                   'form_step', 'skills', 'expectations', 'languages', 'branch', 'state', 'employee', )
+        convert_choices_to_enum = False
 
 
 class JobPostingQuery(ObjectType):

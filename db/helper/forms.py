@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
 
 from db.exceptions import FormException
-from db.models import UserType
+from db.models import ProfileType
 from db.validators import ProfileFormStepValidator, StudentTypeValidator, CompanyTypeValidator, \
     JobPostingFormStepValidator
 
@@ -80,9 +80,9 @@ def validate_step(user, step):
     # validate step
     step_validator = ProfileFormStepValidator(step)
     profile = None
-    if user.type in UserType.valid_company_types():
+    if user.type in ProfileType.valid_company_types():
         profile = user.company
-    elif user.type in UserType.valid_student_types():
+    elif user.type in ProfileType.valid_student_types():
         profile = user.student
     try:
         step_validator.validate(profile)

@@ -5,7 +5,7 @@ from django.core.validators import RegexValidator
 from db.exceptions import FormException
 from db.helper import validate_step, validate_form_data
 from db.helper.forms import validate_company_user_type
-from db.models import UserType
+from db.models import ProfileType
 
 
 class UniversityProfileFormStep1(forms.Form):
@@ -24,7 +24,7 @@ class UniversityProfileFormStep1(forms.Form):
 
 def process_university_form_step_1(user, data):
     # validate user type, step and data
-    validate_company_user_type(user, UserType.UNIVERSITY)
+    validate_company_user_type(user, ProfileType.UNIVERSITY)
     validate_step(user, 1)
     validate_form_data(data)
     errors = {}

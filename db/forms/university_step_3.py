@@ -2,7 +2,7 @@ from django import forms
 
 from db.exceptions import FormException
 from db.helper.forms import validate_step, validate_form_data, validate_company_user_type
-from db.models import UserType, ProfileState
+from db.models import ProfileType, ProfileState
 
 
 class UniversityProfileFormStep3(forms.Form):
@@ -14,7 +14,7 @@ class UniversityProfileFormStep3(forms.Form):
 
 def process_university_form_step_3(user, data):
     # validate user type, step and data
-    validate_company_user_type(user, UserType.UNIVERSITY)
+    validate_company_user_type(user, ProfileType.UNIVERSITY)
     validate_step(user, 3)
     validate_form_data(data)
     errors = {}

@@ -2,13 +2,18 @@ import graphene
 from graphene import ObjectType
 from graphene_django import DjangoObjectType
 
-from db.models import JobOption
+from db.models import JobOption, JobOptionMode as JobOptionModeModel
+
+JobOptionMode = graphene.Enum.from_enum(JobOptionModeModel)
 
 
 class JobOptionType(DjangoObjectType):
+    mode = graphene.Field(JobOptionMode)
+
     class Meta:
         model = JobOption
         fields = ('id', 'name', 'mode',)
+        convert_choices_to_enum = False
 
 
 class JobOptionQuery(ObjectType):

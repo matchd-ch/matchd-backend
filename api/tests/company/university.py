@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from graphene_django.utils import GraphQLTestCase
 from graphql_auth.models import UserStatus
 from api.schema import schema
-from db.models import Employee, Company, ProfileState, UserType, Branch
+from db.models import Employee, Company, ProfileState, ProfileType, Branch
 
 
 # pylint:disable=R0913
@@ -121,12 +121,12 @@ class UniversityGraphQLTestCase(GraphQLTestCase):
 
     def setUp(self) -> None:
         self.university = Company.objects.create(id=1, name='Doe University', zip='0000', city='DoeCity',
-                                                 slug='doe-university', profile_step=1, type=UserType.UNIVERSITY)
+                                                 slug='doe-university', profile_step=1, type=ProfileType.UNIVERSITY)
         self.university.save()
         self.user = get_user_model().objects.create(
             username='john@doe.com',
             email='john@doe.com',
-            type=UserType.UNIVERSITY,
+            type=ProfileType.UNIVERSITY,
             first_name='Johnny',
             last_name='Test',
             company=self.university
@@ -270,12 +270,12 @@ class UniversityGraphQLTestCase(GraphQLTestCase):
             self.assertEqual(me_data.get('username'), 'john@doe.com')
             self.assertEqual(me_data.get('firstName'), 'Johnny')
             self.assertEqual(me_data.get('lastName'), 'Test')
-            self.assertEqual(me_data.get('type'), UserType.COMPANY.upper())
+            self.assertEqual(me_data.get('type'), ProfileType.COMPANY.upper())
 
             self.assertEqual(employees[0].get('role'), 'Trainer')
             self.assertEqual(employees[0].get('user').get('username'), 'john@doe.com')
             self.assertEqual(employees[0].get('user').get('email'), 'john@doe.com')
-            self.assertEqual(employees[0].get('user').get('type'), UserType.COMPANY.upper())
+            self.assertEqual(employees[0].get('user').get('type'), ProfileType.COMPANY.upper())
             self.assertEqual(employees[0].get('user').get('firstName'), 'Johnny')
             self.assertEqual(employees[0].get('user').get('lastName'), 'Test')
 

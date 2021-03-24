@@ -1,1 +1,1 @@
-from .schema import JobOptionQuery, JobOptionInputType
+from .schema import JobOptionQuery, JobOptionInputType, JobOptionMode

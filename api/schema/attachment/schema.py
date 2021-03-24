@@ -8,9 +8,9 @@ from graphql_jwt.decorators import login_required
 from django.utils.translation import gettext as _
 
 from db.helper import generic_error_dict, has_access_to_attachments
-from db.models import AttachmentKey, Attachment, Company
+from db.models import AttachmentKey as AttachmentKeyModel, Attachment, Company
 
-AttachmentKeyType = graphene.Enum.from_enum(AttachmentKey)
+AttachmentKey = graphene.Enum.from_enum(AttachmentKeyModel)
 
 
 class DeleteAttachment(Output, graphene.Mutation):
@@ -55,6 +55,7 @@ class AttachmentType(DjangoObjectType):
     class Meta:
         model = Attachment
         fields = ('id',)
+        convert_choices_to_enum = False
 
     def resolve_url(self: Attachment, info):
         return self.absolute_url
@@ -72,7 +73,7 @@ class AttachmentType(DjangoObjectType):
 class AttachmentQuery(ObjectType):
     attachments = graphene.List(
         AttachmentType,
-        key=AttachmentKeyType(required=True),
+        key=AttachmentKey(required=True),
         user_id=graphene.Int(required=False),
         slug=graphene.String(required=False)
     )

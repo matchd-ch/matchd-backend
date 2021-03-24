@@ -2,7 +2,7 @@ from django import forms
 
 from db.exceptions import FormException
 from db.helper.forms import validate_step, validate_form_data, validate_company_user_type, convert_object_to_id
-from db.models import Branch, UserType
+from db.models import Branch, ProfileType
 
 
 class CompanyProfileFormStep2(forms.Form):
@@ -21,7 +21,7 @@ class CompanyProfileFormStep2(forms.Form):
 
 def process_company_form_step_2(user, data):
     # validate user type, step and data
-    validate_company_user_type(user, UserType.COMPANY)
+    validate_company_user_type(user, ProfileType.COMPANY)
     validate_step(user, 2)
     validate_form_data(data)
     errors = {}

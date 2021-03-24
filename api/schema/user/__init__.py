@@ -1,1 +1,1 @@
-from .schema import UserQuery
+from .schema import UserQuery, ProfileType, ProfileState

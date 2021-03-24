@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 
 from db.helper import generic_error_dict, get_company_slug
 from db.forms import CompanyForm, StudentForm, EmployeeForm, UniversityForm
-from db.models import Company, Student, Employee, UserType
+from db.models import Company, Student, Employee, ProfileType
 
 
 class EmployeeInput(graphene.InputObjectType):
@@ -41,7 +41,7 @@ class RegisterCompany(Register):
         # allowed types: company, university
         user_type = data.get('type')
 
-        if user_type not in UserType.valid_company_types():
+        if user_type not in ProfileType.valid_company_types():
             errors.update(generic_error_dict('type', _('You are not a company'), 'invalid_type'))
 
         # validate employee
@@ -61,7 +61,7 @@ class RegisterCompany(Register):
         company_data['type'] = user_type
         company = None
 
-        if user_type == UserType.UNIVERSITY:
+        if user_type == ProfileType.UNIVERSITY:
             company_form = UniversityForm(company_data)
         else:
             company_form = CompanyForm(company_data)
@@ -119,7 +119,7 @@ class RegisterStudent(Register):
         # allowed types: student, college-student, junior
         user_type = data.get('type')
 
-        if user_type not in UserType.valid_student_types():
+        if user_type not in ProfileType.valid_student_types():
             errors.update(generic_error_dict('type', _('You are not a student'), 'invalid_type'))
 
         # validate student

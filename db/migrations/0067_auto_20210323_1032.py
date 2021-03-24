@@ -2,14 +2,14 @@
 from django.contrib.auth import get_user_model
 from django.db import migrations
 
-from db.models import UserType
+from db.models import ProfileType
 
 
 def copy_user_type(apps, schema_editor):
     users = get_user_model().objects.all()
 
     for user in users:
-        if user.type in UserType.valid_company_types():
+        if user.type in ProfileType.valid_company_types():
             user.company.type = user.type
             user.company.save()
 

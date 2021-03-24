@@ -7,7 +7,7 @@ from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 from django.utils.translation import gettext as _
 
-from api.schema.attachment import AttachmentKeyType
+from api.schema.attachment import AttachmentKey
 from db.forms import AttachmentForm
 from db.helper import generic_error_dict, validation_error_to_dict
 from db.models import upload_configurations, get_attachment_validator_map_for_key
@@ -17,7 +17,7 @@ from db.validators import AttachmentKeyValidator, AttachmentKeyNumFilesValidator
 class UserUpload(Output, graphene.Mutation):
     class Arguments:
         file = Upload(required=True)
-        key = AttachmentKeyType(required=True)
+        key = AttachmentKey(required=True)
 
     # pylint: disable=R0912
     # pylint: disable=R0915
@@ -137,7 +137,7 @@ class UploadTypeConfiguration(ObjectType):
 class UploadConfiguration(ObjectType):
     content_types_configuration = graphene.List(UploadTypeConfiguration)
     max_files = graphene.Int()
-    key = AttachmentKeyType()
+    key = AttachmentKey()
 
 
 class UploadConfigurationQuery(ObjectType):

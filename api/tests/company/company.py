@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from graphene_django.utils import GraphQLTestCase
 from graphql_auth.models import UserStatus
 from api.schema import schema
-from db.models import Branch, Benefit, Employee, Company, JobPosition, Student, ProfileState, UserType
+from db.models import Branch, Benefit, Employee, Company, JobPosition, Student, ProfileState, ProfileType
 
 
 # pylint:disable=R0913
@@ -110,7 +110,7 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
     def setUp(self):
         self.company = Company.objects.create(id=1, uid='CHE-999.999.999', name='Doe Unlimited', zip='0000',
                                               city='DoeCity', slug='doe-unlimited', profile_step=1,
-                                              type=UserType.COMPANY)
+                                              type=ProfileType.COMPANY)
         self.company.save()
         self.user = get_user_model().objects.create(
             username='john@doe.com',
@@ -296,12 +296,12 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             self.assertEqual(me_data.get('username'), 'john@doe.com')
             self.assertEqual(me_data.get('firstName'), 'Johnny')
             self.assertEqual(me_data.get('lastName'), 'Test')
-            self.assertEqual(me_data.get('type'), UserType.COMPANY.upper())
+            self.assertEqual(me_data.get('type'), ProfileType.COMPANY.upper())
 
             self.assertEqual(employees[0].get('role'), 'Trainer')
             self.assertEqual(employees[0].get('user').get('username'), 'john@doe.com')
             self.assertEqual(employees[0].get('user').get('email'), 'john@doe.com')
-            self.assertEqual(employees[0].get('user').get('type'), UserType.COMPANY.upper())
+            self.assertEqual(employees[0].get('user').get('type'), ProfileType.COMPANY.upper())
             self.assertEqual(employees[0].get('user').get('firstName'), 'Johnny')
             self.assertEqual(employees[0].get('user').get('lastName'), 'Test')
 

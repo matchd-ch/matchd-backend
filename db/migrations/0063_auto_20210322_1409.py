@@ -2,18 +2,18 @@
 from django.contrib.auth import get_user_model
 from django.db import migrations
 
-from db.models import UserType
+from db.models import ProfileType
 
 
 def move_profile_state(apps, schema_editor):
     users = get_user_model().objects.all()
 
     for user in users:
-        if user.type in UserType.valid_company_types():
+        if user.type in ProfileType.valid_company_types():
             user.company.state = user.state
             user.company.profile_step = user.profile_step
             user.company.save()
-        elif user.type in UserType.valid_student_types():
+        elif user.type in ProfileType.valid_student_types():
             user.student.state = user.state
             user.student.profile_step = user.profile_step
             user.student.save()
