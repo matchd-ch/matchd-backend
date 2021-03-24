@@ -16,7 +16,7 @@ class JobPosting(models.Model):
     workload = models.IntegerField(blank=True, null=True,  validators=[
             MaxValueValidator(100),
             MinValueValidator(10)
-        ])
+        ], default=100)
     company = models.ForeignKey('db.Company', null=False, blank=False, on_delete=models.CASCADE)
     job_from_date = models.DateField(null=False, blank=False)
     job_to_date = models.DateField(null=True, blank=True)
