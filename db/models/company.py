@@ -27,8 +27,8 @@ class Company(models.Model):
                            validators=[RegexValidator(regex=settings.UID_REGEX)])
     services = models.TextField(blank=True)
     member_it_st_gallen = models.BooleanField(blank=True, default=False)
-    benefits = models.ManyToManyField('db.Benefit', related_name='benefits')
-    job_positions = models.ManyToManyField('db.JobPosition', related_name='job_positions')
+    benefits = models.ManyToManyField('db.Benefit', related_name='companies')
+    job_positions = models.ManyToManyField('db.JobPosition', related_name='companies')
 
     # fields for university only
     top_level_organisation_description = models.TextField(max_length=1000, blank=True)
