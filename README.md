@@ -26,16 +26,18 @@ If you want to access user specific data you also need to include the authorizat
 
 | Type | Username | Password | Nickname |
 |---|---|---|---|
-| Company | john@doe.com | asdf1234$ | - |
-| University | joe@doe.com | asdf1234$ | - |
-| Student | jane@doe.com | asdf1234$ | jane_doe |
-| Student | jane2@doe.com | asdf1234$ | - |
+| Company | company-not-verified@matchd.lo | asdf1234$ | - |
+| Company | company-step-1@matchd.lo | asdf1234$ | - |
+| Company | company-step-2@matchd.lo | asdf1234$ | - |
+| Company | company-step-3@matchd.lo | asdf1234$ | - |
+| Company | company-step-4@matchd.lo | asdf1234$ | - |
+| Company | liip@matchd.lo | asdf1234$ | - |
 
 
 # Dump Fixtures
 
     docker-compose exec api bash 
-    ./manage.py dumpdata --indent 4 --exclude auth --exclude contenttypes --exclude wagtailcore.GroupCollectionPermission --exclude sessions --exclude wagtailcore --exclude refresh_token.refreshtoken > db/fixtures/initial_data.json
+    ./manage.py dumpdata --indent 4 --exclude auth --exclude contenttypes --exclude wagtailcore.GroupCollectionPermission --exclude sessions --exclude wagtailcore --exclude refresh_token.refreshtoken --exclude db.skill --exclude db.language --exclude db.languagelevel --exclude db.branch --exclude db.benefit --exclude db.expectation --exclude db.faqcategory --exclude db.softskill --exclude db.userrequest --exclude db.joboption > db/fixtures/initial_data.json
 
 # Zip / City
 

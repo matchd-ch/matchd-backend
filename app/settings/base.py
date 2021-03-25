@@ -227,6 +227,8 @@ WAGTAILIMAGES_IMAGE_MODEL = 'db.Image'
 
 # Image Stacks
 IMAGE_STACKS = {
+    'company-detail-media': 'fill-1280x1280',
+    'logo': 'width-800',
     'desktop': 'fill-800x600',
     'mobile': 'fill-640x480',
     'desktop-square': 'fill-400x400',
