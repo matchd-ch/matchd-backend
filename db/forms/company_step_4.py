@@ -1,9 +1,9 @@
 from django import forms
-
+from django.utils.translation import gettext as _
 from db.exceptions import FormException
 from db.helper.forms import validate_step, validate_form_data, validate_company_user_type, generic_error_dict
 from db.models import SoftSkill, ProfileState
-from django.utils.translation import gettext as _
+
 
 
 class CompanyProfileFormStep4(forms.Form):

@@ -429,7 +429,7 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                         id
                         student
                         company
-                    } 
+                    }
                 }
             }
             ''' % company_slug
