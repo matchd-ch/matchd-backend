@@ -387,6 +387,190 @@
     }
 },
 {
+    "model": "db.image",
+    "pk": 3,
+    "fields": {
+        "collection": 1,
+        "title": "",
+        "file": "company/6/images/eyJwYXRoIjoiZnJvbnRpZnlcL2FjY291bnRzXC84ZlwvNjc3MjVcL3Byb2plY3RzXC85NTE_T0btJ1v.png",
+        "width": 1300,
+        "height": 472,
+        "created_at": "2021-03-25T08:04:05.752Z",
+        "focal_point_x": null,
+        "focal_point_y": null,
+        "focal_point_width": null,
+        "focal_point_height": null,
+        "file_size": 12493,
+        "file_hash": "",
+        "uploaded_by_user": 7,
+        "mime_type": "image/png"
+    }
+},
+{
+    "model": "db.image",
+    "pk": 4,
+    "fields": {
+        "collection": 1,
+        "title": "",
+        "file": "company/6/images/SG_arena_3_digital.jpg",
+        "width": 2000,
+        "height": 1335,
+        "created_at": "2021-03-25T08:04:32.443Z",
+        "focal_point_x": null,
+        "focal_point_y": null,
+        "focal_point_width": null,
+        "focal_point_height": null,
+        "file_size": 1544244,
+        "file_hash": "",
+        "uploaded_by_user": 7,
+        "mime_type": "image/jpeg"
+    }
+},
+{
+    "model": "db.image",
+    "pk": 5,
+    "fields": {
+        "collection": 1,
+        "title": "",
+        "file": "company/6/images/SG_kitchen_2_digital.jpg",
+        "width": 2000,
+        "height": 2997,
+        "created_at": "2021-03-25T08:04:38.891Z",
+        "focal_point_x": null,
+        "focal_point_y": null,
+        "focal_point_width": null,
+        "focal_point_height": null,
+        "file_size": 3889878,
+        "file_hash": "",
+        "uploaded_by_user": 7,
+        "mime_type": "image/jpeg"
+    }
+},
+{
+    "model": "db.image",
+    "pk": 6,
+    "fields": {
+        "collection": 1,
+        "title": "",
+        "file": "company/6/images/Devs_2_digital.jpg",
+        "width": 2000,
+        "height": 1335,
+        "created_at": "2021-03-25T08:04:45.689Z",
+        "focal_point_x": null,
+        "focal_point_y": null,
+        "focal_point_width": null,
+        "focal_point_height": null,
+        "file_size": 1526878,
+        "file_hash": "",
+        "uploaded_by_user": 7,
+        "mime_type": "image/jpeg"
+    }
+},
+{
+    "model": "db.image",
+    "pk": 7,
+    "fields": {
+        "collection": 1,
+        "title": "",
+        "file": "company/6/images/Devicelab_1_digital.jpg",
+        "width": 2000,
+        "height": 1336,
+        "created_at": "2021-03-25T08:04:53.167Z",
+        "focal_point_x": null,
+        "focal_point_y": null,
+        "focal_point_width": null,
+        "focal_point_height": null,
+        "file_size": 2124085,
+        "file_hash": "",
+        "uploaded_by_user": 7,
+        "mime_type": "image/jpeg"
+    }
+},
+{
+    "model": "db.video",
+    "pk": 1,
+    "fields": {
+        "collection": 1,
+        "title": "",
+        "type": "",
+        "duration": 0.0,
+        "width": null,
+        "height": null,
+        "thumbnail": "",
+        "created_at": "2021-03-25T08:06:29.900Z",
+        "uploaded_by_user": 7,
+        "file_size": null,
+        "mime_type": null,
+        "file": "company/6/videos/loop.mp4"
+    }
+},
+{
+    "model": "db.attachment",
+    "pk": 3,
+    "fields": {
+        "content_type": 8,
+        "object_id": 6,
+        "attachment_type": 21,
+        "attachment_id": 3,
+        "key": "company_avatar"
+    }
+},
+{
+    "model": "db.attachment",
+    "pk": 4,
+    "fields": {
+        "content_type": 8,
+        "object_id": 6,
+        "attachment_type": 21,
+        "attachment_id": 4,
+        "key": "company_documents"
+    }
+},
+{
+    "model": "db.attachment",
+    "pk": 5,
+    "fields": {
+        "content_type": 8,
+        "object_id": 6,
+        "attachment_type": 21,
+        "attachment_id": 5,
+        "key": "company_documents"
+    }
+},
+{
+    "model": "db.attachment",
+    "pk": 6,
+    "fields": {
+        "content_type": 8,
+        "object_id": 6,
+        "attachment_type": 21,
+        "attachment_id": 6,
+        "key": "company_documents"
+    }
+},
+{
+    "model": "db.attachment",
+    "pk": 7,
+    "fields": {
+        "content_type": 8,
+        "object_id": 6,
+        "attachment_type": 21,
+        "attachment_id": 7,
+        "key": "company_documents"
+    }
+},
+{
+    "model": "db.attachment",
+    "pk": 8,
+    "fields": {
+        "content_type": 8,
+        "object_id": 6,
+        "attachment_type": 20,
+        "attachment_id": 1,
+        "key": "company_documents"
+    }
+},
+{
     "model": "graphql_auth.userstatus",
     "pk": 1,
     "fields": {
