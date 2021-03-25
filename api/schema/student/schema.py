@@ -15,6 +15,7 @@ from api.schema.user_language_relation.user_language_relation import UserLanguag
 from db.exceptions import FormException, NicknameException
 from db.forms import process_student_form_step_1, process_student_form_step_2, \
     process_student_form_step_5, process_student_form_step_6, process_student_form_step_4
+from db.forms.student_step_3 import process_student_form_step_3
 
 from db.models import Student as StudentModel
 
@@ -69,7 +70,6 @@ class StudentProfileInputStep2(graphene.InputObjectType):
     job_from_date = graphene.String(required=False)
     job_to_date = graphene.String(required=False)
     job_position = graphene.Field(JobPositionInput, required=False)
-    soft_skills = graphene.List(SoftSkillInput, required=False)
 
 
 class StudentProfileStep2(Output, graphene.Mutation):
@@ -90,6 +90,30 @@ class StudentProfileStep2(Output, graphene.Mutation):
         except FormException as exception:
             return StudentProfileStep2(success=False, errors=exception.errors)
         return StudentProfileStep2(success=True, errors=None)
+
+
+class StudentProfileInputStep3(graphene.InputObjectType):
+    soft_skills = graphene.List(SoftSkillInput, required=False)
+
+
+class StudentProfileStep3(Output, graphene.Mutation):
+
+    class Arguments:
+        step3 = StudentProfileInputStep3(description=_('Profile Input Step 3 is required.'), required=True)
+
+    class Meta:
+        description = _('Updates Soft Skill of a student')
+
+    @classmethod
+    @login_required
+    def mutate(cls, root, info, **data):
+        user = info.context.user
+        form_data = data.get('step3', None)
+        try:
+            process_student_form_step_3(user, form_data)
+        except FormException as exception:
+            return StudentProfileStep3(success=False, errors=exception.errors)
+        return StudentProfileStep3(success=True, errors=None)
 
 
 class StudentProfileInputStep4(graphene.InputObjectType):
@@ -175,6 +199,7 @@ class StudentProfileStep6(Output, graphene.Mutation):
 class StudentProfileMutation(graphene.ObjectType):
     student_profile_step1 = StudentProfileStep1.Field()
     student_profile_step2 = StudentProfileStep2.Field()
+    student_profile_step3 = StudentProfileStep3.Field()
     student_profile_step4 = StudentProfileStep4.Field()
     student_profile_step5 = StudentProfileStep5.Field()
     student_profile_step6 = StudentProfileStep6.Field()

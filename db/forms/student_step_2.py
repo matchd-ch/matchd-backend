@@ -4,13 +4,12 @@ from django.utils.translation import gettext as _
 from db.exceptions import FormException
 from db.helper.forms import convert_date, generic_error_dict, validate_student_user_type, validate_step,\
     validate_form_data, convert_object_to_id
-from db.models import JobOption, JobPosition, JobOptionMode, SoftSkill
+from db.models import JobOption, JobPosition, JobOptionMode
 
 
 class StudentProfileFormStep2(forms.Form):
     job_option = forms.ModelChoiceField(queryset=JobOption.objects.all(), required=True)
     job_position = forms.ModelChoiceField(queryset=JobPosition.objects.all(), required=False)
-    soft_skills = forms.ModelMultipleChoiceField(queryset=SoftSkill.objects.all(), required=False)
 
     def __init__(self, data=None, **kwargs):
         # due to a bug with ModelChoiceField and graphene_django
@@ -97,7 +96,6 @@ def process_student_form_step_2(user, data):
     student = user.student
     form = StudentProfileFormStep2(data)
     form.full_clean()
-    soft_skills_to_save = None
 
     if form.is_valid():
         # update user / profile
@@ -109,7 +107,6 @@ def process_student_form_step_2(user, data):
 
         # optional parameters
         student.job_position = cleaned_data.get('job_position')
-        soft_skills_to_save = cleaned_data.get('soft_skills')
     else:
         errors.update(form.errors.get_json_data())
 
@@ -122,10 +119,9 @@ def process_student_form_step_2(user, data):
     if errors:
         raise FormException(errors=errors)
 
-    student.soft_skills.set(soft_skills_to_save)
     # update step only if the user has step 2
     if student.profile_step == 2:
-        student.profile_step = 4
+        student.profile_step = 3
 
     # save user / profile
     user.save()
