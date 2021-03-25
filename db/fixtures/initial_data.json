@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
         "password": "pbkdf2_sha256$216000$zm5hbNyUj2u1$XOHZkfILbONSDhLZDu7q9RP/ZPN1yNlY5HRsxM5hk6o=",
-        "last_login": "2021-02-15T13:50:19.249Z",
+        "last_login": "2021-03-24T20:10:55.497Z",
         "is_superuser": true,
         "username": "admin",
         "email": "admin@example.com",
@@ -17,6 +17,359 @@
         "company": null,
         "groups": [],
         "user_permissions": []
+    }
+},
+{
+    "model": "db.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$F5UflwmfKMKD$UNtJiBfoeVd0SfJ+1ggwIfA/Tl3Cyj3gdm5YinX0PaU=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "company-not-verified@matchd.lo",
+        "email": "company-not-verified@matchd.lo",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-03-25T07:07:02.576Z",
+        "type": "company",
+        "first_name": "Xaver",
+        "last_name": "Siegert",
+        "company": 1,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "db.user",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$YIBFeUXBXCAV$zSSM36xjysA2kvzWb3FzXq/1eLKK/N84Jt5ulRmmDvo=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "company-step-1@matchd.lo",
+        "email": "company-step-1@matchd.lo",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-03-25T07:07:35.394Z",
+        "type": "company",
+        "first_name": "Moritz",
+        "last_name": "Schulze",
+        "company": 2,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "db.user",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$IzKsSV6wXx4Z$thcFkivJwuzf4sr8jyxrf9Lu6ObmMEba+gqZBs4pg6c=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "company-step-2@matchd.lo",
+        "email": "company-step-2@matchd.lo",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-03-25T07:08:52.764Z",
+        "type": "company",
+        "first_name": "Rupert",
+        "last_name": "Schneider",
+        "company": 3,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "db.user",
+    "pk": 5,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$qTcstcTqizQg$kUAM371ERm7qoAbJL/1Zn8VPLpb84PB+vVNb1JFU5YM=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "company-step-3@matchd.lo",
+        "email": "company-step-3@matchd.lo",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-03-25T07:12:04.501Z",
+        "type": "company",
+        "first_name": "Rafael",
+        "last_name": "Dirksen",
+        "company": 4,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "db.user",
+    "pk": 6,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$zYdISDArqORs$vMx2oVlJXSmnOkJhZdFwhkRYpXPpYHoqKm/xD7CMCXs=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "company-step-4@matchd.lo",
+        "email": "company-step-4@matchd.lo",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-03-25T07:16:16.062Z",
+        "type": "company",
+        "first_name": "Odelia",
+        "last_name": "Carl",
+        "company": 5,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "db.user",
+    "pk": 7,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$0Pi4gBFw62GI$xumtrhqXpDjPQsuEOVYN8ujQIzGfcQD8tAYMV2L0ilQ=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "liip@matchd.lo",
+        "email": "liip@matchd.lo",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-03-25T07:19:51.623Z",
+        "type": "company",
+        "first_name": "Kilian",
+        "last_name": "Schefer",
+        "company": 6,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "db.company",
+    "pk": 1,
+    "fields": {
+        "type": "company",
+        "state": "incomplete",
+        "profile_step": 1,
+        "slug": "siegert-ag",
+        "name": "Siegert AG",
+        "zip": "9000",
+        "city": "St. Gallen",
+        "street": "",
+        "phone": "",
+        "website": "",
+        "branch": null,
+        "description": "",
+        "uid": "CHE-999.999.999",
+        "services": "",
+        "member_it_st_gallen": false,
+        "top_level_organisation_description": "",
+        "top_level_organisation_website": "",
+        "link_education": null,
+        "link_projects": null,
+        "link_thesis": null,
+        "benefits": [],
+        "job_positions": []
+    }
+},
+{
+    "model": "db.company",
+    "pk": 2,
+    "fields": {
+        "type": "company",
+        "state": "incomplete",
+        "profile_step": 1,
+        "slug": "schulze-ag",
+        "name": "Schulze AG",
+        "zip": "9000",
+        "city": "St. Gallen",
+        "street": "",
+        "phone": "",
+        "website": "",
+        "branch": null,
+        "description": "",
+        "uid": "CHE-999.999.999",
+        "services": "",
+        "member_it_st_gallen": false,
+        "top_level_organisation_description": "",
+        "top_level_organisation_website": "",
+        "link_education": null,
+        "link_projects": null,
+        "link_thesis": null,
+        "benefits": [],
+        "job_positions": []
+    }
+},
+{
+    "model": "db.company",
+    "pk": 3,
+    "fields": {
+        "type": "company",
+        "state": "incomplete",
+        "profile_step": 2,
+        "slug": "schneider-ag",
+        "name": "Schneider AG",
+        "zip": "9000",
+        "city": "St. Gallen",
+        "street": "Vadianstrasse 25A",
+        "phone": "+41719876543",
+        "website": "",
+        "branch": null,
+        "description": "",
+        "uid": "CHE-999.999.999",
+        "services": "",
+        "member_it_st_gallen": false,
+        "top_level_organisation_description": "",
+        "top_level_organisation_website": "",
+        "link_education": null,
+        "link_projects": null,
+        "link_thesis": null,
+        "benefits": [],
+        "job_positions": []
+    }
+},
+{
+    "model": "db.company",
+    "pk": 4,
+    "fields": {
+        "type": "company",
+        "state": "incomplete",
+        "profile_step": 3,
+        "slug": "dirksen-ag",
+        "name": "Dirksen AG",
+        "zip": "9000",
+        "city": "St. Gallen",
+        "street": "Vadianstrasse 25A",
+        "phone": "+41719876543",
+        "website": "http://www.dirksen.lo",
+        "branch": 1,
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
+        "uid": "CHE-999.999.999",
+        "services": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
+        "member_it_st_gallen": true,
+        "top_level_organisation_description": "",
+        "top_level_organisation_website": "",
+        "link_education": null,
+        "link_projects": null,
+        "link_thesis": null,
+        "benefits": [],
+        "job_positions": []
+    }
+},
+{
+    "model": "db.company",
+    "pk": 5,
+    "fields": {
+        "type": "company",
+        "state": "public",
+        "profile_step": 4,
+        "slug": "carl-ag",
+        "name": "Carl AG",
+        "zip": "9000",
+        "city": "St. Gallen",
+        "street": "Vadianstrasse 25A",
+        "phone": "+41719876543",
+        "website": "http://www.carl.lo",
+        "branch": 2,
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
+        "uid": "CHE-999.999.999",
+        "services": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
+        "member_it_st_gallen": true,
+        "top_level_organisation_description": "",
+        "top_level_organisation_website": "",
+        "link_education": null,
+        "link_projects": null,
+        "link_thesis": null,
+        "benefits": [
+            1
+        ],
+        "job_positions": [
+            1
+        ]
+    }
+},
+{
+    "model": "db.company",
+    "pk": 6,
+    "fields": {
+        "type": "company",
+        "state": "public",
+        "profile_step": 4,
+        "slug": "liip-ag",
+        "name": "Liip AG",
+        "zip": "9000",
+        "city": "St. Gallen",
+        "street": "Vadianstrasse 25A",
+        "phone": "+41715771337",
+        "website": "https://www.liip.ch",
+        "branch": 1,
+        "description": "Wir machen innovatives und individuelles Web-Development und Mobile-Apps. Dank grosser Expertise, langjähriger Erfahrung und einer einzigartigen Kultur überzeugt dies nicht nur unsere Kunden – sondern auch viele Wettbewerbsjurys.",
+        "uid": "CHE-999.999.999",
+        "services": "Bei Liip bekommst du alles, was es für Digital Progress braucht: Von innovativer User Experience bis zu lupenreinem Development, von messbar gutem SEO und Analytics bis hin zu effizienter New Work. Wir begleiten dich mit unseren Expertisen bei deiner digitalen Herausforderung. Und zwar transparent, agil und immer auf Augenhöhe. Wo können wir dich unterstützen?",
+        "member_it_st_gallen": true,
+        "top_level_organisation_description": "",
+        "top_level_organisation_website": "",
+        "link_education": null,
+        "link_projects": null,
+        "link_thesis": null,
+        "benefits": [
+            8,
+            4,
+            6,
+            2,
+            10,
+            7,
+            9,
+            5,
+            3,
+            1
+        ],
+        "job_positions": [
+            1
+        ]
+    }
+},
+{
+    "model": "db.employee",
+    "pk": 1,
+    "fields": {
+        "user": 2,
+        "role": "Recruiter"
+    }
+},
+{
+    "model": "db.employee",
+    "pk": 2,
+    "fields": {
+        "user": 3,
+        "role": "Recruiter"
+    }
+},
+{
+    "model": "db.employee",
+    "pk": 3,
+    "fields": {
+        "user": 4,
+        "role": "Recruiter"
+    }
+},
+{
+    "model": "db.employee",
+    "pk": 4,
+    "fields": {
+        "user": 5,
+        "role": "Recruiter"
+    }
+},
+{
+    "model": "db.employee",
+    "pk": 5,
+    "fields": {
+        "user": 6,
+        "role": "Recruiter"
+    }
+},
+{
+    "model": "db.employee",
+    "pk": 6,
+    "fields": {
+        "user": 7,
+        "role": "Developer"
     }
 },
 {
@@ -38,6 +391,66 @@
     "pk": 1,
     "fields": {
         "user": 1,
+        "verified": true,
+        "archived": false,
+        "secondary_email": null
+    }
+},
+{
+    "model": "graphql_auth.userstatus",
+    "pk": 2,
+    "fields": {
+        "user": 2,
+        "verified": false,
+        "archived": false,
+        "secondary_email": null
+    }
+},
+{
+    "model": "graphql_auth.userstatus",
+    "pk": 3,
+    "fields": {
+        "user": 3,
+        "verified": true,
+        "archived": false,
+        "secondary_email": null
+    }
+},
+{
+    "model": "graphql_auth.userstatus",
+    "pk": 4,
+    "fields": {
+        "user": 4,
+        "verified": true,
+        "archived": false,
+        "secondary_email": null
+    }
+},
+{
+    "model": "graphql_auth.userstatus",
+    "pk": 5,
+    "fields": {
+        "user": 5,
+        "verified": true,
+        "archived": false,
+        "secondary_email": null
+    }
+},
+{
+    "model": "graphql_auth.userstatus",
+    "pk": 6,
+    "fields": {
+        "user": 6,
+        "verified": true,
+        "archived": false,
+        "secondary_email": null
+    }
+},
+{
+    "model": "graphql_auth.userstatus",
+    "pk": 7,
+    "fields": {
+        "user": 7,
         "verified": true,
         "archived": false,
         "secondary_email": null
