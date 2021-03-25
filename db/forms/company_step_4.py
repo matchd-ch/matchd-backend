@@ -2,7 +2,7 @@ from django import forms
 
 from db.exceptions import FormException
 from db.helper.forms import validate_step, validate_form_data, validate_company_user_type, generic_error_dict
-from db.models import UserState, SoftSkill
+from db.models import SoftSkill, ProfileState
 from django.utils.translation import gettext as _
 
 
@@ -28,9 +28,12 @@ def process_company_form_step_4(user, data):
         cleaned_data = form.cleaned_data
         soft_skills_to_save = cleaned_data.get('soft_skills')
         # check if more than 6 soft skills has been selected
-
         if len(list(soft_skills_to_save)) > 6:
-            errors.update(generic_error_dict('type', _('Too many Skills'), 'too_many_items'))
+            errors.update(generic_error_dict('softSkills', _('Too many Skills'), 'too_many_items'))
+
+        # check if less than 6 soft skills has been selected
+        if len(list(soft_skills_to_save)) < 6:
+            errors.update(generic_error_dict('softSkills', _('Too few Skills'), 'too_few_items'))
 
     else:
         errors.update(form.errors.get_json_data())
@@ -39,11 +42,11 @@ def process_company_form_step_4(user, data):
         raise FormException(errors=errors)
 
     # update step only if the user has step 4
-    if user.profile_step == 4:
-        user.profile_step = 5
+    if company.profile_step == 4:
+        company.profile_step = 5
 
     # save user / profile
-    user.state = UserState.PUBLIC
+    company.state = ProfileState.PUBLIC
     user.save()
     company.soft_skills.set(soft_skills_to_save)
     company.save()
