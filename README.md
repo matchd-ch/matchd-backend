@@ -31,6 +31,7 @@ If you want to access user specific data you also need to include the authorizat
 | Company | company-step-2@matchd.lo | asdf1234$ | - |
 | Company | company-step-3@matchd.lo | asdf1234$ | - |
 | Company | company-step-4@matchd.lo | asdf1234$ | - |
+| Company | liip@matchd.lo | asdf1234$ | - |
 
 
 # Dump Fixtures
