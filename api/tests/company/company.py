@@ -118,7 +118,31 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
 
     variables_step_4_base = {
         "step4": {
-            "softSkills": [{"id": 1}],
+            "softSkills": [{"id": 1}, {"id": 2}, {"id": 3}, {"id": 4}, {"id": 5}, {"id": 6}],
+        }
+    }
+
+    variables_step_4_no_soft_skills = {
+        "step4": {
+            "softSkills": [],
+        }
+    }
+
+    variables_step_4_too_few_soft_skills = {
+        "step4": {
+            "softSkills": [{"id": 1}, {"id": 2}, {"id": 3}, {"id": 4}, {"id": 5}],
+        }
+    }
+
+    variables_step_4_too_many_soft_skills = {
+        "step4": {
+            "softSkills": [{"id": 1}, {"id": 2}, {"id": 3}, {"id": 4}, {"id": 5}, {"id": 6}, {"id": 7}],
+        }
+    }
+
+    variables_step_4_invalid_id = {
+        "step4": {
+            "softSkills": [{"id": 1337}],
         }
     }
 
@@ -180,42 +204,41 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
 
         self.student_profile = Student.objects.create(user=self.student, mobile='+41771234568')
 
-        self.soft_skills = SoftSkill.objects.create(
+        SoftSkill.objects.create(
             id=1,
             student='Student 1',
             company='Company 1'
         )
-        self.soft_skills = SoftSkill.objects.create(
+        SoftSkill.objects.create(
             id=2,
             student='Student 2',
             company='Company 2'
         )
-        self.soft_skills = SoftSkill.objects.create(
+        SoftSkill.objects.create(
             id=3,
             student='Student 3',
             company='Company 3'
         )
-        self.soft_skills = SoftSkill.objects.create(
+        SoftSkill.objects.create(
             id=4,
             student='Student 4',
             company='Company 4'
         )
-        self.soft_skills = SoftSkill.objects.create(
+        SoftSkill.objects.create(
             id=5,
             student='Student 5',
             company='Company 5'
         )
-        self.soft_skills = SoftSkill.objects.create(
+        SoftSkill.objects.create(
             id=6,
             student='Student 6',
             company='Company 6'
         )
-        self.soft_skills = SoftSkill.objects.create(
+        SoftSkill.objects.create(
             id=7,
             student='Student 7',
             company='Company 7'
         )
-        self.soft_skills.save()
 
         user_status = UserStatus.objects.get(user=self.student)
         user_status.verified = True
@@ -246,7 +269,6 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
 
         response = self.query(query, variables=variables)
         content = json.loads(response.content)
-
         self.assertResponseNoErrors(response)
         errors = content['data'].get(error_key).get('errors')
         for expected_error in expected_errors:
@@ -576,3 +598,19 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         self.assertEqual(company.soft_skills.all()[0].id, 1)
         self.assertEqual(company.soft_skills.all()[0].student, 'Student 1')
         self.assertEqual(company.soft_skills.all()[0].company, 'Company 1')
+
+    def test_company_step_4_no_soft_skills(self):
+        self._test_with_invalid_data(4, self.query_step_4, self.variables_step_4_no_soft_skills,
+                                     'companyProfileStep4', ['softSkills'])
+
+    def test_company_step_4_too_few_soft_skills(self):
+        self._test_with_invalid_data(4, self.query_step_4, self.variables_step_4_too_few_soft_skills,
+                                     'companyProfileStep4', ['softSkills'])
+
+    def test_company_step_4_too_many_soft_skills(self):
+        self._test_with_invalid_data(4, self.query_step_4, self.variables_step_4_too_many_soft_skills,
+                                     'companyProfileStep4', ['softSkills'])
+
+    def test_company_step_4_invalid_id(self):
+        self._test_with_invalid_data(4, self.query_step_4, self.variables_step_4_invalid_id,
+                                     'companyProfileStep4', ['softSkills'])
