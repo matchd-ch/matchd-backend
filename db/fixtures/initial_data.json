@@ -140,6 +140,106 @@
     }
 },
 {
+    "model": "db.user",
+    "pk": 8,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$RCOcVodNexVh$kxzaiiZ6W0DzNAJn7svewg5DQ2mofVTTA/JiOd+3lbY=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "university-not-verified@matchd.lo",
+        "email": "university-not-verified@matchd.lo",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-03-25T08:41:38.241Z",
+        "type": "university",
+        "first_name": "Lukas",
+        "last_name": "Weiner",
+        "company": 7,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "db.user",
+    "pk": 9,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$iyBnTACyFpY9$0Zz2wgh4XnGf7zNcB+WBYR9+BYVMJWx577OPKfY6rmQ=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "university-step-1@matchd.lo",
+        "email": "university-step-1@matchd.lo",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-03-25T08:42:22.253Z",
+        "type": "university",
+        "first_name": "Ivonne",
+        "last_name": "Schwarz",
+        "company": 8,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "db.user",
+    "pk": 10,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$fe4y5ygqDIvd$ALcag4m5dYt7crVsLxnhxxtosyXZZKgG7Lv6BtsAK+A=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "university-step-2@matchd.lo",
+        "email": "university-step-2@matchd.lo",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-03-25T08:43:35.088Z",
+        "type": "university",
+        "first_name": "Valentin",
+        "last_name": "Becker",
+        "company": 9,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "db.user",
+    "pk": 11,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$GLk5aCp5fOaI$qJ+hIDVkSRH103d2xXMgvxg2FOfudVkY2jBvsnNPlzs=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "university-step-3@matchd.lo",
+        "email": "university-step-3@matchd.lo",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-03-25T09:33:07.603Z",
+        "type": "university",
+        "first_name": "Klara",
+        "last_name": "Ludwig",
+        "company": 10,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "db.user",
+    "pk": 12,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$fwU547DZUnnw$1A6AdO/KNnPIrr+xWp2viChV3MxhniQd8wxmusMekL4=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "university-step-4@matchd.lo",
+        "email": "university-step-4@matchd.lo",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-03-25T09:36:36.781Z",
+        "type": "university",
+        "first_name": "Belinda",
+        "last_name": "Luther",
+        "company": 11,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
     "model": "db.company",
     "pk": 1,
     "fields": {
@@ -325,6 +425,146 @@
     }
 },
 {
+    "model": "db.company",
+    "pk": 7,
+    "fields": {
+        "type": "university",
+        "state": "incomplete",
+        "profile_step": 1,
+        "slug": "meiner-university",
+        "name": "Meiner University",
+        "zip": "9000",
+        "city": "St. Gallen",
+        "street": "",
+        "phone": "",
+        "website": "",
+        "branch": null,
+        "description": "",
+        "uid": "",
+        "services": "",
+        "member_it_st_gallen": false,
+        "top_level_organisation_description": "",
+        "top_level_organisation_website": "",
+        "link_education": null,
+        "link_projects": null,
+        "link_thesis": null,
+        "benefits": [],
+        "job_positions": []
+    }
+},
+{
+    "model": "db.company",
+    "pk": 8,
+    "fields": {
+        "type": "university",
+        "state": "incomplete",
+        "profile_step": 1,
+        "slug": "schwarz-university",
+        "name": "Schwarz University",
+        "zip": "9000",
+        "city": "St. Gallen",
+        "street": "",
+        "phone": "",
+        "website": "",
+        "branch": null,
+        "description": "",
+        "uid": "",
+        "services": "",
+        "member_it_st_gallen": false,
+        "top_level_organisation_description": "",
+        "top_level_organisation_website": "",
+        "link_education": null,
+        "link_projects": null,
+        "link_thesis": null,
+        "benefits": [],
+        "job_positions": []
+    }
+},
+{
+    "model": "db.company",
+    "pk": 9,
+    "fields": {
+        "type": "university",
+        "state": "incomplete",
+        "profile_step": 2,
+        "slug": "becker-university",
+        "name": "Becker University",
+        "zip": "9000",
+        "city": "St. Gallen",
+        "street": "Vadianstrasse 25A",
+        "phone": "+41711234569",
+        "website": "http://www.becker.lo",
+        "branch": null,
+        "description": "",
+        "uid": "",
+        "services": "",
+        "member_it_st_gallen": false,
+        "top_level_organisation_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
+        "top_level_organisation_website": "http://www.toplevel.lo",
+        "link_education": null,
+        "link_projects": null,
+        "link_thesis": null,
+        "benefits": [],
+        "job_positions": []
+    }
+},
+{
+    "model": "db.company",
+    "pk": 10,
+    "fields": {
+        "type": "university",
+        "state": "incomplete",
+        "profile_step": 3,
+        "slug": "ludwig-university",
+        "name": "Ludwig University",
+        "zip": "9000",
+        "city": "St. Gallen",
+        "street": "Vadianstrasse 25A",
+        "phone": "+41711234569",
+        "website": "http://www.ludwig.lo",
+        "branch": 1,
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
+        "uid": "",
+        "services": "",
+        "member_it_st_gallen": false,
+        "top_level_organisation_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
+        "top_level_organisation_website": "http://www.toplevel.lo",
+        "link_education": null,
+        "link_projects": null,
+        "link_thesis": null,
+        "benefits": [],
+        "job_positions": []
+    }
+},
+{
+    "model": "db.company",
+    "pk": 11,
+    "fields": {
+        "type": "university",
+        "state": "public",
+        "profile_step": 4,
+        "slug": "luther-university",
+        "name": "Luther University",
+        "zip": "9000",
+        "city": "St. Gallen",
+        "street": "Vadianstrasse 25A",
+        "phone": "+41711234569",
+        "website": "http://www.luther.lo",
+        "branch": 1,
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
+        "uid": "",
+        "services": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem.",
+        "member_it_st_gallen": false,
+        "top_level_organisation_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
+        "top_level_organisation_website": "http://www.toplevel.lo",
+        "link_education": "http://www.education.lo",
+        "link_projects": "http://www.projects.lo",
+        "link_thesis": "http://www.thesis.lo",
+        "benefits": [],
+        "job_positions": []
+    }
+},
+{
     "model": "db.employee",
     "pk": 1,
     "fields": {
@@ -370,6 +610,46 @@
     "fields": {
         "user": 7,
         "role": "Developer"
+    }
+},
+{
+    "model": "db.employee",
+    "pk": 7,
+    "fields": {
+        "user": 8,
+        "role": "Dozent"
+    }
+},
+{
+    "model": "db.employee",
+    "pk": 8,
+    "fields": {
+        "user": 9,
+        "role": "Dozentin"
+    }
+},
+{
+    "model": "db.employee",
+    "pk": 9,
+    "fields": {
+        "user": 10,
+        "role": "Prorektor"
+    }
+},
+{
+    "model": "db.employee",
+    "pk": 10,
+    "fields": {
+        "user": 11,
+        "role": "Dozentin"
+    }
+},
+{
+    "model": "db.employee",
+    "pk": 11,
+    "fields": {
+        "user": 12,
+        "role": "Dozentin"
     }
 },
 {
@@ -635,6 +915,56 @@
     "pk": 7,
     "fields": {
         "user": 7,
+        "verified": true,
+        "archived": false,
+        "secondary_email": null
+    }
+},
+{
+    "model": "graphql_auth.userstatus",
+    "pk": 8,
+    "fields": {
+        "user": 8,
+        "verified": false,
+        "archived": false,
+        "secondary_email": null
+    }
+},
+{
+    "model": "graphql_auth.userstatus",
+    "pk": 9,
+    "fields": {
+        "user": 9,
+        "verified": true,
+        "archived": false,
+        "secondary_email": null
+    }
+},
+{
+    "model": "graphql_auth.userstatus",
+    "pk": 10,
+    "fields": {
+        "user": 10,
+        "verified": true,
+        "archived": false,
+        "secondary_email": null
+    }
+},
+{
+    "model": "graphql_auth.userstatus",
+    "pk": 11,
+    "fields": {
+        "user": 11,
+        "verified": true,
+        "archived": false,
+        "secondary_email": null
+    }
+},
+{
+    "model": "graphql_auth.userstatus",
+    "pk": 12,
+    "fields": {
+        "user": 12,
         "verified": true,
         "archived": false,
         "secondary_email": null
