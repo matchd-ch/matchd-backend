@@ -26,10 +26,11 @@ If you want to access user specific data you also need to include the authorizat
 
 | Type | Username | Password | Nickname |
 |---|---|---|---|
-| Company | john@doe.com | asdf1234$ | - |
-| University | joe@doe.com | asdf1234$ | - |
-| Student | jane@doe.com | asdf1234$ | jane_doe |
-| Student | jane2@doe.com | asdf1234$ | - |
+| Company | company-not-verified@matchd.lo | asdf1234$ | - |
+| Company | company-step-1@matchd.lo | asdf1234$ | - |
+| Company | company-step-2@matchd.lo | asdf1234$ | - |
+| Company | company-step-3@matchd.lo | asdf1234$ | - |
+| Company | company-step-4@matchd.lo | asdf1234$ | - |
 
 
 # Dump Fixtures
