@@ -236,6 +236,48 @@ class AttachmentGraphQLTestCase(GraphQLTestCase):
         data = content.get('data')
         self.assertEqual(len(data.get(key)), num_entries)
 
+    def _test_company_attachments(self, company_slug, key, num_entries):
+        response = self.query('''
+        {
+          studentAvatar: attachments (key:STUDENT_AVATAR, slug: "%s") {
+            id
+            url
+            mimeType
+            fileSize
+            fileName
+          }
+
+          studentDocuments: attachments (key:STUDENT_DOCUMENTS, slug: "%s") {
+            id
+            url
+            mimeType
+            fileSize
+            fileName
+          }
+
+          companyAvatar: attachments (key:COMPANY_AVATAR, slug: "%s") {
+            id
+            url
+            mimeType
+            fileSize
+            fileName
+          }
+
+          companyDocuments: attachments (key:COMPANY_DOCUMENTS, slug: "%s") {
+            id
+            url
+            mimeType
+            fileSize
+            fileName
+          }
+        }
+        ''' % (company_slug, company_slug, company_slug, company_slug))
+
+        key = camel_case(key)
+        content = json.loads(response.content)
+        data = content.get('data')
+        self.assertEqual(len(data.get(key)), num_entries)
+
     def test_upload_without_login(self):
         file = SimpleUploadedFile(name='image.jpg', content=get_image(extension='jpg'), content_type='image/jpeg')
         self._test_upload_without_login(AttachmentKey.STUDENT_AVATAR, file)
@@ -371,7 +413,6 @@ class AttachmentGraphQLTestCase(GraphQLTestCase):
         mime_type = 'image/jpeg'
         file = SimpleUploadedFile(name='image.jpg', content=get_image(extension='jpg'), content_type=mime_type)
         self._test_upload_with_login('john2@doe.com', AttachmentKey.COMPANY_AVATAR, file)
-        # self._test_attachments(num_entries=1, mime_types=[mime_type], key=AttachmentKey.COMPANY_AVATAR)
 
         # incomplete profile
         self.employee.state = UserState.INCOMPLETE
@@ -380,18 +421,18 @@ class AttachmentGraphQLTestCase(GraphQLTestCase):
         # login as student
         self._login('john@doe.com')
         # attachments not accessible
-        self._test_user_attachments(self.employee.id, AttachmentKey.COMPANY_AVATAR, 0)
+        self._test_company_attachments(self.company.slug, AttachmentKey.COMPANY_AVATAR, 0)
 
         # anonymous profile
         self.employee.state = UserState.ANONYMOUS
         self.employee.save()
 
         # attachments accessible
-        self._test_user_attachments(self.employee.id, AttachmentKey.COMPANY_AVATAR, 1)
+        self._test_company_attachments(self.company.slug, AttachmentKey.COMPANY_AVATAR, 1)
 
         # public profile
         self.employee.state = UserState.PUBLIC
         self.employee.save()
 
         # attachments accessible
-        self._test_user_attachments(self.employee.id, AttachmentKey.COMPANY_AVATAR, 1)
+        self._test_company_attachments(self.company.slug, AttachmentKey.COMPANY_AVATAR, 1)
