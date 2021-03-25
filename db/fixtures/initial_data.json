@@ -106,8 +106,8 @@
         "password": "pbkdf2_sha256$216000$zYdISDArqORs$vMx2oVlJXSmnOkJhZdFwhkRYpXPpYHoqKm/xD7CMCXs=",
         "last_login": null,
         "is_superuser": false,
-        "username": "company-step-4@matchd.lo",
-        "email": "company-step-4@matchd.lo",
+        "username": "company-public@matchd.lo",
+        "email": "company-public@matchd.lo",
         "is_staff": false,
         "is_active": true,
         "date_joined": "2021-03-25T07:16:16.062Z",
@@ -226,8 +226,8 @@
         "password": "pbkdf2_sha256$216000$fwU547DZUnnw$1A6AdO/KNnPIrr+xWp2viChV3MxhniQd8wxmusMekL4=",
         "last_login": null,
         "is_superuser": false,
-        "username": "university-step-4@matchd.lo",
-        "email": "university-step-4@matchd.lo",
+        "username": "university-public@matchd.lo",
+        "email": "university-public@matchd.lo",
         "is_staff": false,
         "is_active": true,
         "date_joined": "2021-03-25T09:36:36.781Z",
@@ -235,6 +235,186 @@
         "first_name": "Belinda",
         "last_name": "Luther",
         "company": 11,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "db.user",
+    "pk": 13,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$VYwDhTT7RtoR$AyZJN/bFtrJSLSVGT16luU1nURnflZU0EXLYPiUHBeo=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "student-not-verified@matchd.lo",
+        "email": "student-not-verified@matchd.lo",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-03-25T09:46:16.852Z",
+        "type": "student",
+        "first_name": "Katarina",
+        "last_name": "Frank",
+        "company": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "db.user",
+    "pk": 14,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$8WuxHv2GfuU6$7APC39QECYuuCgh3nw2/+J3sSEsK5OCMfNNnecuW7sE=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "student-step-1@matchd.lo",
+        "email": "student-step-1@matchd.lo",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-03-25T09:46:57.201Z",
+        "type": "student",
+        "first_name": "Zelda",
+        "last_name": "Blau",
+        "company": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "db.user",
+    "pk": 15,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$N0tzNPv1ayFo$MdsZUlcKJHaXJNZX43jL3xbJUrXT78omsTeaGK8Bxos=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "student-step-2@matchd.lo",
+        "email": "student-step-2@matchd.lo",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-03-25T09:47:13.751Z",
+        "type": "student",
+        "first_name": "Grete",
+        "last_name": "Fabel",
+        "company": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "db.user",
+    "pk": 16,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$zLvHQtwnKkOx$EZuuP8M21ZtTvqeQpq/ruU3PibClifMbaClAGrVS1Sc=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "student-step-3@matchd.lo",
+        "email": "student-step-3@matchd.lo",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-03-25T09:47:39.387Z",
+        "type": "student",
+        "first_name": "Frauke",
+        "last_name": "Warner",
+        "company": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "db.user",
+    "pk": 17,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$87iCEehFWhDS$pZpFL1TDQlCiMNo/IkyY5dxXb9J16YYhXauluC+9A28=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "student-step-4@matchd.lo",
+        "email": "student-step-4@matchd.lo",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-03-25T09:47:59.954Z",
+        "type": "student",
+        "first_name": "Immanuel",
+        "last_name": "Nagel",
+        "company": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "db.user",
+    "pk": 18,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$EE34d372ychW$fsZqQZRtPNYp9+dWMdlGleNsldB5AckHUz7ynYAYjms=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "student-step-5@matchd.lo",
+        "email": "student-step-5@matchd.lo",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-03-25T09:48:17.714Z",
+        "type": "student",
+        "first_name": "Horst",
+        "last_name": "Sander",
+        "company": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "db.user",
+    "pk": 19,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$tOhnJGYN5ycX$jD+mN8IpfhEpHo0xuMJlseYGLOy1vbWSWH11wVrZCkE=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "student-step-6@matchd.lo",
+        "email": "student-step-6@matchd.lo",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-03-25T09:48:36.712Z",
+        "type": "student",
+        "first_name": "Moritz",
+        "last_name": "Busch",
+        "company": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "db.user",
+    "pk": 20,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$QDF4CQM5xZCh$trKtTIPZs6OkDZbWtvvnm3GYhIK3zVgLdkAbky02Fa4=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "student-public@matchd.lo",
+        "email": "student-public@matchd.lo",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-03-25T10:27:19.023Z",
+        "type": "student",
+        "first_name": "Ima",
+        "last_name": "Kuhn",
+        "company": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "db.user",
+    "pk": 21,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$EAwfThRxj0KZ$hTL2etmNCG/INwDrrqEM8gsTKY1L5hJMU3CcXwYpc64=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "student-anonymous@matchd.lo",
+        "email": "student-anonymous@matchd.lo",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-03-25T10:32:29.182Z",
+        "type": "student",
+        "first_name": "Dirk",
+        "last_name": "Seidel",
+        "company": null,
         "groups": [],
         "user_permissions": []
     }
@@ -565,6 +745,238 @@
     }
 },
 {
+    "model": "db.student",
+    "pk": 1,
+    "fields": {
+        "user": 13,
+        "mobile": "+41791234567",
+        "street": "",
+        "zip": "",
+        "city": "",
+        "date_of_birth": null,
+        "nickname": null,
+        "school_name": null,
+        "field_of_study": "",
+        "graduation": null,
+        "job_option": null,
+        "job_from_date": null,
+        "job_to_date": null,
+        "job_position": null,
+        "distinction": "",
+        "state": "incomplete",
+        "profile_step": 1,
+        "skills": []
+    }
+},
+{
+    "model": "db.student",
+    "pk": 2,
+    "fields": {
+        "user": 14,
+        "mobile": "+41791234567",
+        "street": "",
+        "zip": "",
+        "city": "",
+        "date_of_birth": null,
+        "nickname": null,
+        "school_name": null,
+        "field_of_study": "",
+        "graduation": null,
+        "job_option": null,
+        "job_from_date": null,
+        "job_to_date": null,
+        "job_position": null,
+        "distinction": "",
+        "state": "incomplete",
+        "profile_step": 1,
+        "skills": []
+    }
+},
+{
+    "model": "db.student",
+    "pk": 3,
+    "fields": {
+        "user": 15,
+        "mobile": "+41791234567",
+        "street": "Davidstrasse 25",
+        "zip": "9000",
+        "city": "St. Gallen",
+        "date_of_birth": "1999-01-03",
+        "nickname": null,
+        "school_name": "",
+        "field_of_study": "",
+        "graduation": null,
+        "job_option": null,
+        "job_from_date": null,
+        "job_to_date": null,
+        "job_position": null,
+        "distinction": "",
+        "state": "incomplete",
+        "profile_step": 2,
+        "skills": []
+    }
+},
+{
+    "model": "db.student",
+    "pk": 4,
+    "fields": {
+        "user": 16,
+        "mobile": "+41791234567",
+        "street": "Davidstrasse 25",
+        "zip": "9000",
+        "city": "St. Gallen",
+        "date_of_birth": "1999-01-03",
+        "nickname": null,
+        "school_name": "FH Winterthur",
+        "field_of_study": "Applikationsentwicklung",
+        "graduation": "2022-08-01",
+        "job_option": null,
+        "job_from_date": null,
+        "job_to_date": null,
+        "job_position": null,
+        "distinction": "",
+        "state": "incomplete",
+        "profile_step": 3,
+        "skills": []
+    }
+},
+{
+    "model": "db.student",
+    "pk": 5,
+    "fields": {
+        "user": 17,
+        "mobile": "+41791234567",
+        "street": "Davidstrasse 25",
+        "zip": "9000",
+        "city": "St. Gallen",
+        "date_of_birth": "1999-01-03",
+        "nickname": null,
+        "school_name": "FH Winterthur",
+        "field_of_study": "Applikationsentwicklung",
+        "graduation": "2022-08-01",
+        "job_option": 2,
+        "job_from_date": "2021-03-01",
+        "job_to_date": "2021-04-01",
+        "job_position": 1,
+        "distinction": "",
+        "state": "incomplete",
+        "profile_step": 4,
+        "skills": []
+    }
+},
+{
+    "model": "db.student",
+    "pk": 6,
+    "fields": {
+        "user": 18,
+        "mobile": "+41791234567",
+        "street": "Davidstrasse 25",
+        "zip": "9000",
+        "city": "St. Gallen",
+        "date_of_birth": "1999-01-03",
+        "nickname": null,
+        "school_name": "FH Winterthur",
+        "field_of_study": "Applikationsentwicklung",
+        "graduation": "2022-08-01",
+        "job_option": 2,
+        "job_from_date": "2021-03-01",
+        "job_to_date": "2021-04-01",
+        "job_position": 1,
+        "distinction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
+        "state": "incomplete",
+        "profile_step": 5,
+        "skills": [
+            2,
+            1,
+            3
+        ]
+    }
+},
+{
+    "model": "db.student",
+    "pk": 7,
+    "fields": {
+        "user": 19,
+        "mobile": "+41791234567",
+        "street": "Davidstrasse 25",
+        "zip": "9000",
+        "city": "St. Gallen",
+        "date_of_birth": "1999-01-03",
+        "nickname": "darth_vader",
+        "school_name": "FH Winterthur",
+        "field_of_study": "Applikationsentwicklung",
+        "graduation": "2022-08-01",
+        "job_option": 2,
+        "job_from_date": "2021-03-01",
+        "job_to_date": "2021-04-01",
+        "job_position": 1,
+        "distinction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
+        "state": "incomplete",
+        "profile_step": 6,
+        "skills": [
+            2,
+            1,
+            3
+        ]
+    }
+},
+{
+    "model": "db.student",
+    "pk": 8,
+    "fields": {
+        "user": 20,
+        "mobile": "+41791234567",
+        "street": "Davidstrasse 25",
+        "zip": "9000",
+        "city": "St. Gallen",
+        "date_of_birth": "1999-01-03",
+        "nickname": "lara_croft",
+        "school_name": "FH Winterthur",
+        "field_of_study": "Applikationsentwicklung",
+        "graduation": "2022-08-01",
+        "job_option": 2,
+        "job_from_date": "2021-03-01",
+        "job_to_date": "2021-04-01",
+        "job_position": 1,
+        "distinction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
+        "state": "public",
+        "profile_step": 7,
+        "skills": [
+            2,
+            1,
+            3
+        ]
+    }
+},
+{
+    "model": "db.student",
+    "pk": 9,
+    "fields": {
+        "user": 21,
+        "mobile": "+41781234567",
+        "street": "Davidstrasse 25",
+        "zip": "9000",
+        "city": "St. Gallen",
+        "date_of_birth": "1999-01-03",
+        "nickname": "tyler_durden",
+        "school_name": "FH Winterthur",
+        "field_of_study": "Applikationsentwicklung",
+        "graduation": "2022-08-01",
+        "job_option": 2,
+        "job_from_date": "2021-03-01",
+        "job_to_date": "2021-04-01",
+        "job_position": 1,
+        "distinction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
+        "state": "anonymous",
+        "profile_step": 7,
+        "skills": [
+            2,
+            1,
+            3
+        ]
+    }
+},
+{
     "model": "db.employee",
     "pk": 1,
     "fields": {
@@ -653,6 +1065,134 @@
     }
 },
 {
+    "model": "db.hobby",
+    "pk": 3,
+    "fields": {
+        "name": "Gamen",
+        "student": 6
+    }
+},
+{
+    "model": "db.hobby",
+    "pk": 4,
+    "fields": {
+        "name": "Wandern",
+        "student": 6
+    }
+},
+{
+    "model": "db.hobby",
+    "pk": 5,
+    "fields": {
+        "name": "Gamen",
+        "student": 7
+    }
+},
+{
+    "model": "db.hobby",
+    "pk": 6,
+    "fields": {
+        "name": "Wandern",
+        "student": 7
+    }
+},
+{
+    "model": "db.hobby",
+    "pk": 7,
+    "fields": {
+        "name": "Gamen",
+        "student": 8
+    }
+},
+{
+    "model": "db.hobby",
+    "pk": 8,
+    "fields": {
+        "name": "Gamen",
+        "student": 9
+    }
+},
+{
+    "model": "db.hobby",
+    "pk": 9,
+    "fields": {
+        "name": "Wandern",
+        "student": 8
+    }
+},
+{
+    "model": "db.hobby",
+    "pk": 10,
+    "fields": {
+        "name": "Wandern",
+        "student": 9
+    }
+},
+{
+    "model": "db.onlineproject",
+    "pk": 3,
+    "fields": {
+        "url": "http://www.project1.lo",
+        "student": 6
+    }
+},
+{
+    "model": "db.onlineproject",
+    "pk": 4,
+    "fields": {
+        "url": "http://www.project2.lo",
+        "student": 6
+    }
+},
+{
+    "model": "db.onlineproject",
+    "pk": 5,
+    "fields": {
+        "url": "http://www.project2.lo",
+        "student": 7
+    }
+},
+{
+    "model": "db.onlineproject",
+    "pk": 6,
+    "fields": {
+        "url": "http://www.project1.lo",
+        "student": 7
+    }
+},
+{
+    "model": "db.onlineproject",
+    "pk": 7,
+    "fields": {
+        "url": "http://www.project1.lo",
+        "student": 8
+    }
+},
+{
+    "model": "db.onlineproject",
+    "pk": 8,
+    "fields": {
+        "url": "http://www.project2.lo",
+        "student": 8
+    }
+},
+{
+    "model": "db.onlineproject",
+    "pk": 9,
+    "fields": {
+        "url": "http://www.project1.lo",
+        "student": 9
+    }
+},
+{
+    "model": "db.onlineproject",
+    "pk": 10,
+    "fields": {
+        "url": "http://www.project2.lo",
+        "student": 9
+    }
+},
+{
     "model": "db.jobposition",
     "pk": 1,
     "fields": {
@@ -664,6 +1204,78 @@
     "pk": 2,
     "fields": {
         "name": "Systemtechniker*in"
+    }
+},
+{
+    "model": "db.userlanguagerelation",
+    "pk": 3,
+    "fields": {
+        "student": 6,
+        "language": 5,
+        "language_level": 8
+    }
+},
+{
+    "model": "db.userlanguagerelation",
+    "pk": 4,
+    "fields": {
+        "student": 6,
+        "language": 7,
+        "language_level": 4
+    }
+},
+{
+    "model": "db.userlanguagerelation",
+    "pk": 5,
+    "fields": {
+        "student": 7,
+        "language": 5,
+        "language_level": 8
+    }
+},
+{
+    "model": "db.userlanguagerelation",
+    "pk": 6,
+    "fields": {
+        "student": 7,
+        "language": 7,
+        "language_level": 4
+    }
+},
+{
+    "model": "db.userlanguagerelation",
+    "pk": 7,
+    "fields": {
+        "student": 8,
+        "language": 5,
+        "language_level": 8
+    }
+},
+{
+    "model": "db.userlanguagerelation",
+    "pk": 8,
+    "fields": {
+        "student": 8,
+        "language": 7,
+        "language_level": 4
+    }
+},
+{
+    "model": "db.userlanguagerelation",
+    "pk": 9,
+    "fields": {
+        "student": 9,
+        "language": 5,
+        "language_level": 8
+    }
+},
+{
+    "model": "db.userlanguagerelation",
+    "pk": 10,
+    "fields": {
+        "student": 9,
+        "language": 7,
+        "language_level": 4
     }
 },
 {
@@ -965,6 +1577,96 @@
     "pk": 12,
     "fields": {
         "user": 12,
+        "verified": true,
+        "archived": false,
+        "secondary_email": null
+    }
+},
+{
+    "model": "graphql_auth.userstatus",
+    "pk": 13,
+    "fields": {
+        "user": 13,
+        "verified": false,
+        "archived": false,
+        "secondary_email": null
+    }
+},
+{
+    "model": "graphql_auth.userstatus",
+    "pk": 14,
+    "fields": {
+        "user": 14,
+        "verified": true,
+        "archived": false,
+        "secondary_email": null
+    }
+},
+{
+    "model": "graphql_auth.userstatus",
+    "pk": 15,
+    "fields": {
+        "user": 15,
+        "verified": true,
+        "archived": false,
+        "secondary_email": null
+    }
+},
+{
+    "model": "graphql_auth.userstatus",
+    "pk": 16,
+    "fields": {
+        "user": 16,
+        "verified": true,
+        "archived": false,
+        "secondary_email": null
+    }
+},
+{
+    "model": "graphql_auth.userstatus",
+    "pk": 17,
+    "fields": {
+        "user": 17,
+        "verified": true,
+        "archived": false,
+        "secondary_email": null
+    }
+},
+{
+    "model": "graphql_auth.userstatus",
+    "pk": 18,
+    "fields": {
+        "user": 18,
+        "verified": true,
+        "archived": false,
+        "secondary_email": null
+    }
+},
+{
+    "model": "graphql_auth.userstatus",
+    "pk": 19,
+    "fields": {
+        "user": 19,
+        "verified": true,
+        "archived": false,
+        "secondary_email": null
+    }
+},
+{
+    "model": "graphql_auth.userstatus",
+    "pk": 20,
+    "fields": {
+        "user": 20,
+        "verified": true,
+        "archived": false,
+        "secondary_email": null
+    }
+},
+{
+    "model": "graphql_auth.userstatus",
+    "pk": 21,
+    "fields": {
+        "user": 21,
         "verified": true,
         "archived": false,
         "secondary_email": null

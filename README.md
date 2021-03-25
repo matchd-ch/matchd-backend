@@ -30,13 +30,22 @@ If you want to access user specific data you also need to include the authorizat
 | Company | company-step-1@matchd.lo | asdf1234$ | - |
 | Company | company-step-2@matchd.lo | asdf1234$ | - |
 | Company | company-step-3@matchd.lo | asdf1234$ | - |
-| Company | company-step-4@matchd.lo | asdf1234$ | - |
+| Company | company-public@matchd.lo | asdf1234$ | - |
 | Company | liip@matchd.lo | asdf1234$ | - |
 | University | university-not-verified@matchd.lo | asdf1234$ | - |
 | University | university-step-1@matchd.lo | asdf1234$ | - |
 | University | university-step-2@matchd.lo | asdf1234$ | - |
 | University | university-step-3@matchd.lo | asdf1234$ | - |
-| University | university-step-4@matchd.lo | asdf1234$ | - |
+| University | university-public@matchd.lo | asdf1234$ | - |
+| Student | student-not-verified@matchd.lo | asdf1234$ | - |
+| Student | student-step-1@matchd.lo | asdf1234$ | - |
+| Student | student-step-2@matchd.lo | asdf1234$ | - |
+| Student | student-step-3@matchd.lo | asdf1234$ | - |
+| Student | student-step-4@matchd.lo | asdf1234$ | - |
+| Student | student-step-5@matchd.lo | asdf1234$ | - |
+| Student | student-step-6@matchd.lo | asdf1234$ | - |
+| Student | student-public@matchd.lo | asdf1234$ | - |
+| Student | student-anonymous@matchd.lo | asdf1234$ | - |
 
 
 # Dump Fixtures
