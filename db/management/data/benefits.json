@@ -3,80 +3,120 @@
     "model": "db.benefit",
     "pk": 1,
     "fields": {
-      "icon": "spa",
-      "name": "Wellness"
+      "icon": "local_parking",
+      "name": "Parkplatz"
     }
   },
   {
     "model": "db.benefit",
     "pk": 2,
     "fields": {
-      "icon": "sports_bar",
-      "name": "Getränke"
+      "icon": "tram",
+      "name": "Nähe zum ÖV (Bahn, Bus)"
     }
   },
   {
     "model": "db.benefit",
     "pk": 3,
     "fields": {
-      "icon": "free_breakfast",
-      "name": "Verpflegung"
+      "icon": "alarm_off",
+      "name": "Flexible Arbeitszeiten"
     }
   },
   {
     "model": "db.benefit",
     "pk": 4,
     "fields": {
-      "icon": "pedal_bike",
-      "name": "Freizeitangebot"
+      "icon": "home",
+      "name": "Homeoffice"
     }
   },
   {
     "model": "db.benefit",
     "pk": 5,
     "fields": {
-      "icon": "dinner_dining",
-      "name": "Restaurant"
+      "icon": "celebration" ,
+      "name": "Mitarbeiter-Events"
     }
   },
   {
     "model": "db.benefit",
     "pk": 6,
     "fields": {
-      "icon": "sports_esports",
-      "name": "Gaming"
+      "icon": "accessible",
+      "name": "Barrierefreiheit"
     }
   },
   {
     "model": "db.benefit",
     "pk": 7,
     "fields": {
-      "icon": "commute",
-      "name": "Guter Verkehrsanschluss"
+      "icon": "local_cafe",
+      "name": "Food & Drinks (Café, Bistro, Kantine)"
     }
   },
   {
     "model": "db.benefit",
     "pk": 8,
     "fields": {
-      "icon": "fitness_center",
-      "name": "Fitness"
+      "icon": "school",
+      "name": "Weiterbildungsangebot"
     }
   },
   {
     "model": "db.benefit",
     "pk": 9,
     "fields": {
-      "icon": "laptop",
-      "name": "Laptop"
+      "icon": "hardware",
+      "name": "Coaching"
     }
   },
   {
     "model": "db.benefit",
     "pk": 10,
     "fields": {
-      "icon": "outdoor_grill",
-      "name": "Grillplatz"
+      "icon": "pets",
+      "name": "Hunde erlaubt"
+    }
+  },
+  {
+    "model": "db.benefit",
+    "pk": 11,
+    "fields": {
+      "icon": "sport_baskets",
+      "name": "Sport- und Fitnessangebot"
+    }
+  },
+  {
+    "model": "db.benefit",
+    "pk": 12,
+    "fields": {
+      "icon": "toll",
+      "name": "Mitarbeiterbeteiligung (monetär)"
+    }
+  },
+  {
+    "model": "db.benefit",
+    "pk": 12,
+    "fields": {
+      "icon": "child_care",
+      "name": "Kinderbetreuung"
+    }
+  },
+  {
+    "model": "db.benefit",
+    "pk": 13,
+    "fields": {
+      "icon": "self_improvement",
+      "name": "Ruheraum"
+    }
+  },
+  {
+    "model": "db.benefit",
+    "pk": 14,
+    "fields": {
+      "icon": "sports_esports",
+      "name": "Gaming"
     }
   }
 ]
