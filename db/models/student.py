@@ -22,7 +22,7 @@ class Student(models.Model):
     job_from_date = models.DateField(null=True, blank=True)
     job_to_date = models.DateField(null=True, blank=True)
     job_position = models.ForeignKey('db.JobPosition', blank=True, null=True, on_delete=models.SET_NULL)
-    skills = models.ManyToManyField('db.Skill', related_name='skills')
+    skills = models.ManyToManyField('db.Skill', related_name='students')
     distinction = models.TextField(max_length=1000, blank=True)
     state = models.CharField(choices=ProfileState.choices, max_length=255, blank=False, default=ProfileState.INCOMPLETE)
     profile_step = models.IntegerField(default=1)
