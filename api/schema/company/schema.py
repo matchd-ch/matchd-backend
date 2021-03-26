@@ -11,7 +11,7 @@ from api.schema.benefit import BenefitInput
 from api.schema.branch.schema import BranchInput
 from api.schema.employee import Employee
 from api.schema.job_position import JobPositionInput
-from api.schema.soft_skill import SoftSkillInputType
+from api.schema.soft_skill import SoftSkillInput
 from api.schema.profile_state import ProfileState
 from api.schema.profile_type import ProfileType
 from db.exceptions import FormException
@@ -111,7 +111,7 @@ class CompanyProfileStep3(Output, graphene.Mutation):
 
 
 class CompanyProfileInputStep4(graphene.InputObjectType):
-    soft_skills = graphene.List(SoftSkillInputType, description=_('Soft Skills'))
+    soft_skills = graphene.List(SoftSkillInput, description=_('Soft Skills'))
 
 
 class CompanyProfileStep4(Output, graphene.Mutation):

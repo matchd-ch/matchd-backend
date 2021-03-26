@@ -18,7 +18,7 @@ class SoftSkillQuery(ObjectType):
         return SoftSkillModel.objects.all()
 
 
-class SoftSkillInputType(graphene.InputObjectType):
+class SoftSkillInput(graphene.InputObjectType):
     id = graphene.ID(required=True)
 
     # pylint: disable=C0103
