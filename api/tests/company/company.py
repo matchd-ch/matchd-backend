@@ -354,6 +354,11 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                             lastName
                         }
                     }
+                    softSkills {
+                        id
+                        student
+                        company
+                    }
                 }
             }
         }
@@ -408,24 +413,24 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                         id
                         name
                     }
-                    benefits{
+                    benefits {
                       id
                       icon
                     }
-                    jobPositions{
+                    jobPositions {
                       id
                       name
                     }
-                    employees{
+                    employees {
                       id
                       role
-                      user{
+                      user {
                         firstName
                         lastName
                         email
                       }
                     }
-                    softSkills{
+                    softSkills {
                         id
                         student
                         company
