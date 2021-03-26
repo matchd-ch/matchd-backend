@@ -50,5 +50,4 @@ def process_student_form_step_3(user, data):
         student.profile_step = 4
 
     # save user / profile
-    user.save()
     student.save()
