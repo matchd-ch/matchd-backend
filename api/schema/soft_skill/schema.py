@@ -16,3 +16,12 @@ class SoftSkillQuery(ObjectType):
 
     def resolve_soft_skills(self, info, **kwargs):
         return SoftSkillModel.objects.all()
+
+
+class SoftSkillInput(graphene.InputObjectType):
+    id = graphene.ID(required=True)
+
+    # pylint: disable=C0103
+    @property
+    def pk(self):
+        return self.id
