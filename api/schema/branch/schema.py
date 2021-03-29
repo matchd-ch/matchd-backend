@@ -2,22 +2,22 @@ import graphene
 from graphene import ObjectType
 from graphene_django import DjangoObjectType
 
-from db.models import Branch
+from db.models import Branch as BranchModel
 
 
-class BranchType(DjangoObjectType):
+class Branch(DjangoObjectType):
     class Meta:
-        model = Branch
+        model = BranchModel
         fields = ('id', 'name',)
 
 
 class BranchQuery(ObjectType):
-    branches = graphene.List(BranchType)
+    branches = graphene.List(Branch)
 
     def resolve_branches(self, info, **kwargs):
-        return Branch.objects.all()
+        return BranchModel.objects.all()
 
 
-class BranchInputType(graphene.InputObjectType):
+class BranchInput(graphene.InputObjectType):
     id = graphene.ID(required=True)
     name = graphene.String(required=False)

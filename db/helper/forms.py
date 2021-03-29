@@ -3,7 +3,8 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
 
 from db.exceptions import FormException
-from db.validators import StudentProfileFormStepValidator, StudentTypeValidator, CompanyTypeValidator, \
+from db.models import ProfileType
+from db.validators import ProfileFormStepValidator, StudentTypeValidator, CompanyTypeValidator, \
     JobPostingFormStepValidator
 
 
@@ -45,13 +46,17 @@ def convert_date(date, date_format='%d.%m.%Y'):
     return date
 
 
-def validate_company_user_type(user):
+def validate_company_user_type(user, sub_type=None):
     errors = {}
     validator = CompanyTypeValidator()
     try:
         validator.validate(user.type)
     except ValidationError as error:
         errors.update(validation_error_to_dict(error, 'type'))
+
+    if sub_type is not None:
+        if user.type != sub_type:
+            errors.update(generic_error_dict('type', _('Wrong user type'), 'invalid'))
 
     if errors:
         raise FormException(errors)
@@ -73,9 +78,14 @@ def validate_step(user, step):
     errors = {}
 
     # validate step
-    step_validator = StudentProfileFormStepValidator(step)
+    step_validator = ProfileFormStepValidator(step)
+    profile = None
+    if user.type in ProfileType.valid_company_types():
+        profile = user.company
+    elif user.type in ProfileType.valid_student_types():
+        profile = user.student
     try:
-        step_validator.validate(user)
+        step_validator.validate(profile)
     except ValidationError as error:
         errors.update(validation_error_to_dict(error, 'profile_step'))
 

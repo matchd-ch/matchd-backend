@@ -1,4 +1,6 @@
-from .user import User, UserType, UserState
+from .profile_state import ProfileState
+from .profile_type import ProfileType
+from .user import User
 from .company import Company
 from .student import Student
 from .user_request import UserRequest

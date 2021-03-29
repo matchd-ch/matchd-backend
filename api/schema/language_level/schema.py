@@ -2,17 +2,17 @@ import graphene
 from graphene import ObjectType
 from graphene_django import DjangoObjectType
 
-from db.models import LanguageLevel
+from db.models import LanguageLevel as LanguageLevelModel
 
 
-class LevelType(DjangoObjectType):
+class LanguageLevel(DjangoObjectType):
     class Meta:
-        model = LanguageLevel
+        model = LanguageLevelModel
         fields = ('id', 'level', 'description',)
 
 
 class LanguageLevelQuery(ObjectType):
-    language_levels = graphene.List(LevelType)
+    language_levels = graphene.List(LanguageLevel)
 
     def resolve_language_levels(self, info, **kwargs):
-        return LanguageLevel.objects.all()
+        return LanguageLevelModel.objects.all()
