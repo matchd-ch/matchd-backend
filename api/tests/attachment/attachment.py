@@ -8,7 +8,7 @@ from graphene_django.utils import GraphQLTestCase
 from graphql_auth.models import UserStatus
 
 from api.schema import schema
-from db.models import Student, AttachmentKey, Company, ProfileState
+from db.models import Student, AttachmentKey, Company, ProfileState, ProfileType
 from db.models.attachment import get_config_for_key
 
 # pylint: disable=W0612
@@ -48,7 +48,7 @@ class AttachmentGraphQLTestCase(GraphQLTestCase):
         self.user = get_user_model().objects.create(
             username='john@doe.com',
             email='john@doe.com',
-            type='student'
+            type=ProfileType.STUDENT
         )
         self.user.set_password('asdf1234$')
         self.user.save()
@@ -64,7 +64,7 @@ class AttachmentGraphQLTestCase(GraphQLTestCase):
         self.employee = get_user_model().objects.create(
             username='john2@doe.com',
             email='john2@doe.com',
-            type='company',
+            type=ProfileType.COMPANY,
             company=self.company
         )
         self.employee.set_password('asdf1234$')
