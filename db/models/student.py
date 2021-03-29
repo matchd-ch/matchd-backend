@@ -25,3 +25,4 @@ class Student(models.Model):
     distinction = models.TextField(max_length=1000, blank=True)
     state = models.CharField(choices=ProfileState.choices, max_length=255, blank=False, default=ProfileState.INCOMPLETE)
     profile_step = models.IntegerField(default=1)
+    soft_skills = models.ManyToManyField('db.SoftSkill', blank=True, related_name='students')

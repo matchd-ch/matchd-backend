@@ -9,11 +9,13 @@ from api.schema.job_option import JobOptionInput
 from api.schema.job_position import JobPositionInput
 from api.schema.online_project import OnlineProjectInput
 from api.schema.profile_state import ProfileState
+from api.schema.soft_skill import SoftSkillInput
 from api.schema.skill import SkillInput
 from api.schema.user_language_relation.user_language_relation import UserLanguageRelationInput
 from db.exceptions import FormException, NicknameException
-from db.forms import process_student_form_step_1, process_student_form_step_2, process_student_form_step_3, \
+from db.forms import process_student_form_step_1, process_student_form_step_2, \
     process_student_form_step_5, process_student_form_step_6, process_student_form_step_4
+from db.forms.student_step_3 import process_student_form_step_3
 
 from db.models import Student as StudentModel
 
@@ -29,7 +31,7 @@ class Student(DjangoObjectType):
         model = StudentModel
         fields = ('mobile', 'street', 'zip', 'city', 'date_of_birth', 'nickname', 'school_name', 'field_of_study',
                   'graduation', 'skills', 'hobbies', 'languages', 'distinction', 'online_projects', 'state',
-                  'profile_step')
+                  'profile_step', 'soft_skills')
         convert_choices_to_enum = False
 
 
@@ -64,9 +66,10 @@ class StudentProfileStep1(Output, graphene.Mutation):
 
 
 class StudentProfileInputStep2(graphene.InputObjectType):
-    school_name = graphene.String(description=_('School name'))
-    field_of_study = graphene.String(description=_('Field of study'))
-    graduation = graphene.String(description=_('Graduation'))
+    job_option = graphene.Field(JobOptionInput, required=True)
+    job_from_date = graphene.String(required=False)
+    job_to_date = graphene.String(required=False)
+    job_position = graphene.Field(JobPositionInput, required=False)
 
 
 class StudentProfileStep2(Output, graphene.Mutation):
@@ -75,7 +78,7 @@ class StudentProfileStep2(Output, graphene.Mutation):
         step2 = StudentProfileInputStep2(description=_('Profile Input Step 2 is required.'), required=True)
 
     class Meta:
-        description = _('Updates school name, field of study and graduation')
+        description = _('Updates job option, date (start or range) and job position of a student')
 
     @classmethod
     @login_required
@@ -90,10 +93,7 @@ class StudentProfileStep2(Output, graphene.Mutation):
 
 
 class StudentProfileInputStep3(graphene.InputObjectType):
-    job_option = graphene.Field(JobOptionInput, required=True)
-    job_from_date = graphene.String(required=False)
-    job_to_date = graphene.String(required=False)
-    job_position = graphene.Field(JobPositionInput, required=False)
+    soft_skills = graphene.List(SoftSkillInput, required=False)
 
 
 class StudentProfileStep3(Output, graphene.Mutation):
@@ -102,7 +102,7 @@ class StudentProfileStep3(Output, graphene.Mutation):
         step3 = StudentProfileInputStep3(description=_('Profile Input Step 3 is required.'), required=True)
 
     class Meta:
-        description = _('Updates job option, date (start or range) and job position of a student')
+        description = _('Updates Soft Skill of a student')
 
     @classmethod
     @login_required
