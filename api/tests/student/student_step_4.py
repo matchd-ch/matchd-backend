@@ -7,7 +7,7 @@ from api.schema import schema
 from db.models import Student, Skill, Language, LanguageLevel
 
 
-class StudentGraphQLTestCase(GraphQLTestCase):
+class StudentStep4GraphQLTestCase(GraphQLTestCase):
     GRAPHQL_SCHEMA = schema
 
     query_step_4 = '''
