@@ -5,7 +5,6 @@ from db.helper.forms import validate_step, validate_form_data, validate_company_
 from db.models import SoftSkill, ProfileState
 
 
-
 class CompanyProfileFormStep4(forms.Form):
     soft_skills = forms.ModelMultipleChoiceField(queryset=SoftSkill.objects.all(), required=True)
 
