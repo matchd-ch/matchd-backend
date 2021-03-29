@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.contrib.contenttypes.models import ContentType
 from django.core.validators import RegexValidator
 from django.db import models
 
@@ -26,3 +27,9 @@ class Student(models.Model):
     state = models.CharField(choices=ProfileState.choices, max_length=255, blank=False, default=ProfileState.INCOMPLETE)
     profile_step = models.IntegerField(default=1)
     soft_skills = models.ManyToManyField('db.SoftSkill', blank=True, related_name='students')
+
+    def get_profile_content_type(self):
+        return ContentType.objects.get(app_label='db', model='student')
+
+    def get_profile_id(self):
+        return self.id

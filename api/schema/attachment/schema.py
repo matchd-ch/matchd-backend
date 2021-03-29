@@ -7,7 +7,7 @@ from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 from django.utils.translation import gettext as _
 
-from db.helper import generic_error_dict, has_access_to_attachments
+from db.helper import generic_error_dict, has_access_to_attachments, get_company_or_student
 from db.models import AttachmentKey as AttachmentKeyModel, Attachment as AttachmentModel, Company
 
 AttachmentKey = graphene.Enum.from_enum(AttachmentKeyModel)
@@ -86,9 +86,10 @@ class AttachmentQuery(ObjectType):
         # if user id is None, we assume to return the list of the currently logged in user
         user_id = kwargs.get('user_id', None)
         slug = kwargs.get('slug', None)
-        attachment_owner = user
+        attachment_owner = get_company_or_student(user)
         if user_id is not None:
             attachment_owner = get_object_or_404(get_user_model(), pk=user_id)
+            attachment_owner = get_company_or_student(attachment_owner)
         elif slug is not None:
             attachment_owner = get_object_or_404(Company, slug=slug)
 
