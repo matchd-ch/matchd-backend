@@ -5,6 +5,7 @@ from django.core.validators import RegexValidator
 from db.exceptions import FormException
 from db.helper import validate_step, validate_form_data
 from db.helper.forms import validate_company_user_type
+from db.models import ProfileType
 
 
 class CompanyProfileFormStep1(forms.Form):
@@ -20,7 +21,7 @@ class CompanyProfileFormStep1(forms.Form):
 
 def process_company_form_step_1(user, data):
     # validate user type, step and data
-    validate_company_user_type(user)
+    validate_company_user_type(user, ProfileType.COMPANY)
     validate_step(user, 1)
     validate_form_data(data)
     errors = {}
@@ -50,8 +51,8 @@ def process_company_form_step_1(user, data):
         raise FormException(errors=errors)
 
     # update step only if the user has step 1
-    if user.profile_step == 1:
-        user.profile_step = 2
+    if company.profile_step == 1:
+        company.profile_step = 2
 
     # save user / company / employee
     user.save()

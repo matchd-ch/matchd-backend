@@ -7,7 +7,7 @@ from graphene_django.utils import GraphQLTestCase
 from graphql_auth.models import UserStatus
 
 from api.schema import schema
-from db.models import UserType, Student
+from db.models import ProfileType, Student
 
 
 class StudentRegistrationGraphQLTestCase(GraphQLTestCase):
@@ -51,7 +51,7 @@ class StudentRegistrationGraphQLTestCase(GraphQLTestCase):
         self._check_model_entries(Student, 1)
 
         user = get_user_model().objects.get(email='rudolph@doe.com')
-        self.assertEqual(user.type, UserType.STUDENT)
+        self.assertEqual(user.type, ProfileType.STUDENT)
 
     def _register_twice(self):
         self._check_model_entries(get_user_model(), 1)

@@ -2,17 +2,17 @@ import graphene
 from graphene import ObjectType
 from graphene_django import DjangoObjectType
 
-from db.models import FAQCategory
+from db.models import FAQCategory as FAQCategoryModel
 
 
-class FAQCategoryType(DjangoObjectType):
+class FAQCategory(DjangoObjectType):
     class Meta:
-        model = FAQCategory
+        model = FAQCategoryModel
         fields = ('id', 'name',)
 
 
 class FAQCategoryQuery(ObjectType):
-    faq_categories = graphene.List(FAQCategoryType)
+    faq_categories = graphene.List(FAQCategory)
 
     def resolve_faq_categories(self, info, **kwargs):
-        return FAQCategory.objects.all()
+        return FAQCategoryModel.objects.all()
