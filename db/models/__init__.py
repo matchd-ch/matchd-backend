@@ -21,7 +21,7 @@ from .file import File
 from .attachment import Attachment, upload_configurations, AttachmentKey, get_attachment_validator_map_for_key, \
     get_max_files_for_key
 from .job_posting import JobPosting, JobPostingState
-from .expectation import Expectation
+from .job_requirement import JobRequirement
 from .job_posting_language_relation import JobPostingLanguageRelation
 from .faq_category import FAQCategory
 from .soft_skill import SoftSkill

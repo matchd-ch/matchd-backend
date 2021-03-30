@@ -6,6 +6,6 @@ from .job_option import *
 from .job_position import *
 from .branch import *
 from .benefit import *
-from .expectation import *
+from .job_requirement import *
 from .faq_category import *
 from .soft_skill import *

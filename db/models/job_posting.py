@@ -21,7 +21,7 @@ class JobPosting(models.Model):
     job_from_date = models.DateField(null=False, blank=False)
     job_to_date = models.DateField(null=True, blank=True)
     url = models.URLField(null=True, blank=True)
-    expectations = models.ManyToManyField('db.Expectation')
+    job_requirements = models.ManyToManyField('db.JobRequirement')
     skills = models.ManyToManyField('db.Skill')
     form_step = models.IntegerField(default=2)  # since we save the job posting in step 1 the default value is 2
     state = models.CharField(choices=JobPostingState.choices, default=JobPostingState.DRAFT, max_length=255)
