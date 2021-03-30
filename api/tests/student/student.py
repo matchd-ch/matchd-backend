@@ -6,7 +6,7 @@ from graphene_django.utils import GraphQLTestCase
 from graphql_auth.models import UserStatus
 
 from api.schema import schema
-from db.models import Student, JobOption, JobOptionMode, JobPosition, SoftSkill
+from db.models import Student, JobType, DateMode, JobPosition, SoftSkill
 
 
 # pylint:disable=R0913
@@ -60,7 +60,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     variables_step_2_date_range = '''
     {
         "step2": {
-            "jobOption": {"id": 1},
+            "jobType": {"id": 1},
             "jobFromDate": "01.2020",
             "jobToDate": "03.2020",
             "jobPosition": {"id": 1}
@@ -71,7 +71,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     variables_step_2_date_from = '''
     {
         "step2": {
-            "jobOption": {"id": 2},
+            "jobType": {"id": 2},
             "jobFromDate": "01.2020",
             "jobToDate": "",
             "jobPosition": {"id": 1}
@@ -82,9 +82,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     invalid_variables_step_2_date_range = '''
     {
         "step2": {
-            "jobOption": {
-                "id": 1
-            },
+            "jobType": {"id": 1},
             "jobFromDate": "01.2020",
             "jobToDate": "",
             "jobPosition": {
@@ -97,9 +95,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     invalid_variables_step_2_date_from = '''
     {
         "step2": {
-            "jobOption": {
-                "id": 2
-            },
+            "jobType": {"id": 2},
             "jobFromDate": "18.2020",
             "jobToDate": "",
             "jobPosition": {
@@ -268,8 +264,8 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         user_status.verified = True
         user_status.save()
 
-        self.date_range_option = JobOption.objects.create(name='Date range', mode=JobOptionMode.DATE_RANGE, id=1)
-        self.date_from_option = JobOption.objects.create(name='Date from', mode=JobOptionMode.DATE_FROM, id=2)
+        self.date_range_option = JobType.objects.create(name='Date range', mode=DateMode.DATE_RANGE, id=1)
+        self.date_from_option = JobType.objects.create(name='Date from', mode=DateMode.DATE_FROM, id=2)
 
         self.job_position = JobPosition.objects.create(name='Job position', id=1)
 
@@ -471,7 +467,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         user = get_user_model().objects.get(pk=self.user.pk)
 
         profile = user.student
-        self.assertEqual(profile.job_option.id, self.date_range_option.id)
+        self.assertEqual(profile.job_type.id, self.date_range_option.id)
         from_date = datetime.strptime('01.2020', '%m.%Y').date()
         self.assertEqual(profile.job_from_date, from_date)
         to_date = datetime.strptime('03.2020', '%m.%Y').date()
@@ -487,7 +483,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         user = get_user_model().objects.get(pk=self.user.pk)
 
         profile = user.student
-        self.assertEqual(profile.job_option.id, self.date_from_option.id)
+        self.assertEqual(profile.job_type.id, self.date_from_option.id)
         from_date = datetime.strptime('01.2020', '%m.%Y').date()
         self.assertEqual(profile.job_from_date, from_date)
         self.assertIsNone(profile.job_to_date)

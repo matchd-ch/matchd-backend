@@ -2,21 +2,21 @@ import json
 from graphene_django.utils import GraphQLTestCase
 
 from api.schema import schema
-from db.models import JobOption, JobOptionMode
+from db.models import JobType, DateMode
 
 
-class JobOptionGraphQLTestCase(GraphQLTestCase):
+class JobTypeGraphQLTestCase(GraphQLTestCase):
     GRAPHQL_SCHEMA = schema
 
     def setUp(self):
-        JobOption.objects.create(name="Praktikum", mode=JobOptionMode.DATE_FROM)
-        JobOption.objects.create(name="Lehrstelle", mode=JobOptionMode.DATE_RANGE)
+        JobType.objects.create(name="Praktikum", mode=DateMode.DATE_FROM)
+        JobType.objects.create(name="Lehrstelle", mode=DateMode.DATE_RANGE)
 
-    def test_job_option_query(self):
+    def test_job_type_query(self):
         response = self.query(
             '''
             query{
-               jobOptions{
+               jobTypes{
                     id
                     name
                     mode
@@ -26,7 +26,7 @@ class JobOptionGraphQLTestCase(GraphQLTestCase):
         )
         self.assertResponseNoErrors(response)
         content = json.loads(response.content)
-        num_entries = JobOption.objects.all().count()
+        num_entries = JobType.objects.all().count()
         self.assertEqual(
             2,
             num_entries
@@ -35,10 +35,10 @@ class JobOptionGraphQLTestCase(GraphQLTestCase):
         # Test ordering
 
         self.assertEqual(
-            content['data'].get('jobOptions')[0].get('name'),
+            content['data'].get('jobTypes')[0].get('name'),
             'Lehrstelle'
         )
         self.assertEqual(
-            content['data'].get('jobOptions')[1].get('name'),
+            content['data'].get('jobTypes')[1].get('name'),
             'Praktikum'
         )

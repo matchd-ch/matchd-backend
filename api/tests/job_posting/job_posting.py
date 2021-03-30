@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from graphql_auth.models import UserStatus
 
 from api.tests.base import BaseGraphQLTestCase
-from db.models import JobOption, JobOptionMode, Company, ProfileState, JobPosting, Skill, JobRequirement, Language, \
+from db.models import JobType, DateMode, Company, ProfileState, JobPosting, Skill, JobRequirement, Language, \
     LanguageLevel, Branch, Employee, JobPostingState
 
 
@@ -27,7 +27,7 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
     variables_step_1 = {
       'step1': {
         'description': 'Beschreibung',
-        'jobOption': {'id': 1},
+        'jobType': {'id': 1},
         'branch': {'id': 1},
         'workload': 100,
         'jobFromDate': '03.2021',
@@ -39,7 +39,7 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
     variables_step_1_invalid_data = {
         'step1': {
             'description': '',
-            'jobOption': {'id': 999},
+            'jobType': {'id': 999},
             'branch': {'id': 999},
             'workload': 9,
             'jobFromDate': '',
@@ -51,7 +51,7 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
     variables_step_1_invalid_date_range = {
         'step1': {
             'description': 'Description',
-            'jobOption': {'id': 1},
+            'jobType': {'id': 1},
             'branch': {'id': 1},
             'workload': 100,
             'jobFromDate': '03.2020',
@@ -63,7 +63,7 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
     variables_step_1_invalid_pdf_url = {
         'step1': {
             'description': 'Description',
-            'jobOption': {'id': 1},
+            'jobType': {'id': 1},
             'branch': {'id': 1},
             'workload': 100,
             'jobFromDate': '03.2020',
@@ -75,7 +75,7 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
     variables_step_1_invalid_workload_too_high = {
         'step1': {
             'description': 'Beschreibung',
-            'jobOption': {'id': 1},
+            'jobType': {'id': 1},
             'branch': {'id': 1},
             'workload': 999,
             'jobFromDate': '03.2021',
@@ -147,8 +147,8 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
     }
 
     def setUp(self):
-        self.date_range_option = JobOption.objects.create(name='Date range', mode=JobOptionMode.DATE_RANGE, id=1)
-        self.date_from_option = JobOption.objects.create(name='Date from', mode=JobOptionMode.DATE_FROM, id=2)
+        self.date_range_option = JobType.objects.create(name='Date range', mode=DateMode.DATE_RANGE, id=1)
+        self.date_from_option = JobType.objects.create(name='Date from', mode=DateMode.DATE_FROM, id=2)
 
         self.skill = Skill.objects.create(id=1, name='Test')
         self.job_requirement = JobRequirement.objects.create(id=1, name='Test')
@@ -186,7 +186,7 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
         self.job_posting = JobPosting.objects.create(
             id=1,
             company=self.company,
-            job_option=self.date_range_option,
+            job_type=self.date_range_option,
             job_from_date=datetime.now(),
             branch=self.branch
         )
@@ -259,7 +259,7 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
           jobPosting(id: %s) {
             id
             description
-            jobOption {
+            jobType {
               id
               name
               mode
@@ -313,15 +313,15 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
         self.assertEqual('2021-03-01', job_posting.get('jobFromDate'))
         self.assertEqual('2021-08-01', job_posting.get('jobToDate'))
         self.assertEqual('http://www.google.ch', job_posting.get('url'))
-        job_option = job_posting.get('jobOption')
-        self.assertEqual('1', job_option.get('id'))
+        job_type = job_posting.get('jobType')
+        self.assertEqual('1', job_type.get('id'))
         branch = job_posting.get('branch')
         self.assertEqual('1', branch.get('id'))
 
     def test_job_posting_step_1_invalid_data(self):
         self._login('john@doe.com')
         self._test_job_posting(self.query_step_1, self.variables_step_1_invalid_data, 'jobPostingStep1', False,
-                               ['workload', 'description', 'jobOption', 'jobFromDate', 'branch'])
+                               ['workload', 'description', 'jobType', 'jobFromDate', 'branch'])
 
     def test_job_posting_step_1_invalid_date_range(self):
         self._login('john@doe.com')
