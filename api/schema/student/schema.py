@@ -5,7 +5,7 @@ from django.utils.translation import gettext as _
 from graphql_jwt.decorators import login_required
 
 from api.schema.hobby import HobbyInput
-from api.schema.job_option import JobOptionInput
+from api.schema.job_type import JobTypeInput
 from api.schema.job_position import JobPositionInput
 from api.schema.online_project import OnlineProjectInput
 from api.schema.profile_state import ProfileState
@@ -66,7 +66,7 @@ class StudentProfileStep1(Output, graphene.Mutation):
 
 
 class StudentProfileInputStep2(graphene.InputObjectType):
-    job_option = graphene.Field(JobOptionInput, required=True)
+    job_type = graphene.Field(JobTypeInput, required=True)
     job_from_date = graphene.String(required=False)
     job_to_date = graphene.String(required=False)
     job_position = graphene.Field(JobPositionInput, required=False)

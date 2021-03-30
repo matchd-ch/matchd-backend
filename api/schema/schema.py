@@ -7,7 +7,7 @@ from api.schema.company import CompanyProfileMutation, CompanyQuery, UniversityP
 from api.schema.attachment import AttachmentMutation, AttachmentQuery
 from api.schema.employee import EmployeeMutation
 from api.schema.job_requirement import JobRequirementQuery
-from api.schema.job_option import JobOptionQuery
+from api.schema.job_type import JobTypeQuery
 from api.schema.job_position import JobPositionQuery
 from api.schema.job_posting import JobPostingMutation, JobPostingQuery
 from api.schema.language import LanguageQuery
@@ -46,7 +46,7 @@ class Query(
     LanguageQuery,
     LanguageLevelQuery,
     ZipCityQuery,
-    JobOptionQuery,
+    JobTypeQuery,
     JobPositionQuery,
     SkillQuery,
     BenefitQuery,

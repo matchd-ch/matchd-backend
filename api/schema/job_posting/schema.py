@@ -10,7 +10,7 @@ from graphql_jwt.decorators import login_required
 from api.schema.branch import BranchInput
 from api.schema.employee import Employee
 from api.schema.job_requirement import JobRequirementInput
-from api.schema.job_option import JobOptionInput
+from api.schema.job_type import JobTypeInput
 from api.schema.job_posting_language_relation import JobPostingLanguageRelationInput
 from api.schema.registration import EmployeeInput
 from api.schema.skill import SkillInput
@@ -28,7 +28,7 @@ class JobPosting(DjangoObjectType):
 
     class Meta:
         model = JobPostingModel
-        fields = ('id', 'description', 'job_option', 'workload', 'company', 'job_from_date', 'job_to_date', 'url',
+        fields = ('id', 'description', 'job_type', 'workload', 'company', 'job_from_date', 'job_to_date', 'url',
                   'form_step', 'skills', 'job_requirements', 'languages', 'branch', 'state', 'employee', )
         convert_choices_to_enum = False
 
@@ -65,7 +65,7 @@ class JobPostingQuery(ObjectType):
 class JobPostingInputStep1(graphene.InputObjectType):
     id = graphene.ID(required=False)
     description = graphene.String(description=_('Description'), required=True)
-    job_option = graphene.Field(JobOptionInput, required=True)
+    job_type = graphene.Field(JobTypeInput, required=True)
     branch = graphene.Field(BranchInput, required=True)
     workload = graphene.Int(description=_('Workload'), required=True)
     job_from_date = graphene.String(required=True)
