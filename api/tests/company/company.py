@@ -4,7 +4,8 @@ from django.contrib.auth import get_user_model
 from graphene_django.utils import GraphQLTestCase
 from graphql_auth.models import UserStatus
 from api.schema import schema
-from db.models import Branch, Benefit, Employee, Company, JobPosition, Student, ProfileState, ProfileType, SoftSkill
+from db.models import Branch, Benefit, Employee, Company, JobPosition, Student, ProfileState, ProfileType, SoftSkill, \
+    CulturalFit
 
 
 # pylint:disable=R0913
@@ -116,33 +117,38 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         }
         '''
 
-    variables_step_4_base = {
+    variables_step_4 = {
         "step4": {
             "softSkills": [{"id": 1}, {"id": 2}, {"id": 3}, {"id": 4}, {"id": 5}, {"id": 6}],
+            "culturalFits": [{"id": 1}, {"id": 2}, {"id": 3}, {"id": 4}, {"id": 5}, {"id": 6}]
         }
     }
 
     variables_step_4_no_soft_skills = {
         "step4": {
             "softSkills": [],
+            "culturalFits": []
         }
     }
 
     variables_step_4_too_few_soft_skills = {
         "step4": {
             "softSkills": [{"id": 1}, {"id": 2}, {"id": 3}, {"id": 4}, {"id": 5}],
+            "culturalFits": [{"id": 1}, {"id": 2}, {"id": 3}, {"id": 4}, {"id": 5}]
         }
     }
 
     variables_step_4_too_many_soft_skills = {
         "step4": {
             "softSkills": [{"id": 1}, {"id": 2}, {"id": 3}, {"id": 4}, {"id": 5}, {"id": 6}, {"id": 7}],
+            "culturalFits": [{"id": 1}, {"id": 2}, {"id": 3}, {"id": 4}, {"id": 5}, {"id": 6}, {"id": 7}]
         }
     }
 
     variables_step_4_invalid_id = {
         "step4": {
             "softSkills": [{"id": 1337}],
+            "culturalFits": [{"id": 1337}]
         }
     }
 
@@ -235,6 +241,42 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             company='Company 6'
         )
         SoftSkill.objects.create(
+            id=7,
+            student='Student 7',
+            company='Company 7'
+        )
+
+        CulturalFit.objects.create(
+            id=1,
+            student='Student 1',
+            company='Company 1'
+        )
+        CulturalFit.objects.create(
+            id=2,
+            student='Student 2',
+            company='Company 2'
+        )
+        CulturalFit.objects.create(
+            id=3,
+            student='Student 3',
+            company='Company 3'
+        )
+        CulturalFit.objects.create(
+            id=4,
+            student='Student 4',
+            company='Company 4'
+        )
+        CulturalFit.objects.create(
+            id=5,
+            student='Student 5',
+            company='Company 5'
+        )
+        CulturalFit.objects.create(
+            id=6,
+            student='Student 6',
+            company='Company 6'
+        )
+        CulturalFit.objects.create(
             id=7,
             student='Student 7',
             company='Company 7'
@@ -551,6 +593,30 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         self._test_with_invalid_data(3, self.query_step_3, self.variables_step_3_invalid, 'companyProfileStep3',
                                      ['benefits', 'jobPositions'])
 
+    def test_company_step_4(self):
+        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4, 4,
+                                                 'companyProfileStep4')
+        user = get_user_model().objects.get(pk=self.user.pk)
+        company = user.company
+        self.assertEqual(len(company.soft_skills.all()), 6)
+        self.assertEqual(len(company.cultural_fits.all()), 6)
+
+    def test_company_step_4_no_soft_skills(self):
+        self._test_with_invalid_data(4, self.query_step_4, self.variables_step_4_no_soft_skills,
+                                     'companyProfileStep4', ['softSkills'])
+
+    def test_company_step_4_too_few_soft_skills(self):
+        self._test_with_invalid_data(4, self.query_step_4, self.variables_step_4_too_few_soft_skills,
+                                     'companyProfileStep4', ['softSkills'])
+
+    def test_company_step_4_too_many_soft_skills(self):
+        self._test_with_invalid_data(4, self.query_step_4, self.variables_step_4_too_many_soft_skills,
+                                     'companyProfileStep4', ['softSkills'])
+
+    def test_company_step_4_invalid_id(self):
+        self._test_with_invalid_data(4, self.query_step_4, self.variables_step_4_invalid_id,
+                                     'companyProfileStep4', ['softSkills'])
+
     def test_company_query_invalid_company_id(self):
         self._login('john@doe.com')
         self._test_and_get_step_response_content(self.query_step_1, self.variables_step_1_base, 1,
@@ -593,7 +659,7 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         self._logout()
         self._login('john@doe.com')
 
-        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_base, 4,
+        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4, 4,
                                                  'companyProfileStep4', True)
 
         # company should be returned for other users
@@ -604,28 +670,3 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
     def test_me_company(self):
         self._login('john@doe.com')
         self._test_me(True)
-
-    def test_company_step_4_valid_base(self):
-        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_base, 4,
-                                                 'companyProfileStep4')
-        user = get_user_model().objects.get(pk=self.user.pk)
-        company = user.company
-        self.assertEqual(company.soft_skills.all()[0].id, 1)
-        self.assertEqual(company.soft_skills.all()[0].student, 'Student 1')
-        self.assertEqual(company.soft_skills.all()[0].company, 'Company 1')
-
-    def test_company_step_4_no_soft_skills(self):
-        self._test_with_invalid_data(4, self.query_step_4, self.variables_step_4_no_soft_skills,
-                                     'companyProfileStep4', ['softSkills'])
-
-    def test_company_step_4_too_few_soft_skills(self):
-        self._test_with_invalid_data(4, self.query_step_4, self.variables_step_4_too_few_soft_skills,
-                                     'companyProfileStep4', ['softSkills'])
-
-    def test_company_step_4_too_many_soft_skills(self):
-        self._test_with_invalid_data(4, self.query_step_4, self.variables_step_4_too_many_soft_skills,
-                                     'companyProfileStep4', ['softSkills'])
-
-    def test_company_step_4_invalid_id(self):
-        self._test_with_invalid_data(4, self.query_step_4, self.variables_step_4_invalid_id,
-                                     'companyProfileStep4', ['softSkills'])
