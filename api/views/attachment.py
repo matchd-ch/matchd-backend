@@ -9,7 +9,7 @@ from django.views.generic import View
 from wagtail.images.exceptions import InvalidFilterSpecError
 from wagtail.images.models import SourceImageIOError
 
-from db.helper import has_access_to_attachments
+from db.helper import has_access_to_attachments, get_company_or_student
 from db.models import Attachment
 
 
@@ -23,8 +23,7 @@ class AttachmentServeView(View):
         attachment = get_object_or_404(self.model, id=attachment_id)
 
         user = request.user
-        owner = attachment.attachment_object.uploaded_by_user
-
+        owner = get_company_or_student(attachment.attachment_object.uploaded_by_user)
         has_permission = has_access_to_attachments(user, owner)
 
         if not has_permission:

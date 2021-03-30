@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from django import forms
 from django.utils.translation import gettext as _
 
-from api.schema.job_posting_language_relation import JobPostingLanguageRelationInputType
+from api.schema.job_posting_language_relation import JobPostingLanguageRelationInput
 from db.exceptions import FormException
 from db.forms.job_posting_language_relation import JobPostingLanguageRelationForm
 from db.helper.forms import validate_company_user_type, validate_form_data, validate_job_posting_step, silent_fail
@@ -13,7 +13,7 @@ from db.models import JobPosting, Expectation, Skill, JobPostingLanguageRelation
 class JobPostingFormStep2(forms.Form):
     expectations = forms.ModelMultipleChoiceField(queryset=Expectation.objects.all(), required=False)
     skills = forms.ModelMultipleChoiceField(queryset=Skill.objects.all(), required=False)
-    languages = graphene.List(JobPostingLanguageRelationInputType, description=_('Languages'), required=False)
+    languages = graphene.List(JobPostingLanguageRelationInput, description=_('Languages'), required=False)
 
 
 def get_unique_languages(data):

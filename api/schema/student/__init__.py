@@ -1,1 +1,1 @@
-from .schema import StudentProfileMutation
+from .schema import StudentProfileMutation, StudentInput

@@ -1,1 +1,1 @@
-from .schema import AttachmentKeyType, AttachmentMutation, AttachmentQuery
+from .schema import AttachmentKey, AttachmentMutation, AttachmentQuery

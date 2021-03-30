@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from graphene_django.utils import GraphQLTestCase
 from graphql_auth.models import UserStatus
 from api.schema import schema
-from db.models import Branch, Benefit, Employee, Company, JobPosition, Student, UserState, UserType
+from db.models import Branch, Benefit, Employee, Company, JobPosition, Student, ProfileState, ProfileType, SoftSkill
 
 
 # pylint:disable=R0913
@@ -60,7 +60,8 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             "website": "www.google.com",
             "description": "A cool company",
             "services": "creating cool stuff",
-            "memberItStGallen": True
+            "memberItStGallen": True,
+            "branch": {"id": 1}
         }
     }
 
@@ -69,7 +70,8 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             "website": "",
             "description": "",
             "services": "",
-            "memberItStGallen": ""
+            "memberItStGallen": "",
+            "branch": {"id": 99}
         }
     }
 
@@ -105,9 +107,49 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         }
     }
 
+    query_step_4 = '''
+        mutation CompanyProfileMutation($step4: CompanyProfileInputStep4!) {
+            companyProfileStep4(step4: $step4) {
+                success,
+                errors
+            }
+        }
+        '''
+
+    variables_step_4_base = {
+        "step4": {
+            "softSkills": [{"id": 1}, {"id": 2}, {"id": 3}, {"id": 4}, {"id": 5}, {"id": 6}],
+        }
+    }
+
+    variables_step_4_no_soft_skills = {
+        "step4": {
+            "softSkills": [],
+        }
+    }
+
+    variables_step_4_too_few_soft_skills = {
+        "step4": {
+            "softSkills": [{"id": 1}, {"id": 2}, {"id": 3}, {"id": 4}, {"id": 5}],
+        }
+    }
+
+    variables_step_4_too_many_soft_skills = {
+        "step4": {
+            "softSkills": [{"id": 1}, {"id": 2}, {"id": 3}, {"id": 4}, {"id": 5}, {"id": 6}, {"id": 7}],
+        }
+    }
+
+    variables_step_4_invalid_id = {
+        "step4": {
+            "softSkills": [{"id": 1337}],
+        }
+    }
+
     def setUp(self):
         self.company = Company.objects.create(id=1, uid='CHE-999.999.999', name='Doe Unlimited', zip='0000',
-                                              city='DoeCity', slug='doe-unlimited')
+                                              city='DoeCity', slug='doe-unlimited', profile_step=1,
+                                              type=ProfileType.COMPANY)
         self.company.save()
         self.user = get_user_model().objects.create(
             username='john@doe.com',
@@ -115,11 +157,9 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             type='company',
             first_name='Johnny',
             last_name='Test',
-            company=self.company,
-            state=UserState.INCOMPLETE
+            company=self.company
         )
         self.user.set_password('asdf1234$')
-        self.user.profile_step = 1
         self.user.save()
 
         user_status = UserStatus.objects.get(user=self.user)
@@ -164,19 +204,56 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
 
         self.student_profile = Student.objects.create(user=self.student, mobile='+41771234568')
 
+        SoftSkill.objects.create(
+            id=1,
+            student='Student 1',
+            company='Company 1'
+        )
+        SoftSkill.objects.create(
+            id=2,
+            student='Student 2',
+            company='Company 2'
+        )
+        SoftSkill.objects.create(
+            id=3,
+            student='Student 3',
+            company='Company 3'
+        )
+        SoftSkill.objects.create(
+            id=4,
+            student='Student 4',
+            company='Company 4'
+        )
+        SoftSkill.objects.create(
+            id=5,
+            student='Student 5',
+            company='Company 5'
+        )
+        SoftSkill.objects.create(
+            id=6,
+            student='Student 6',
+            company='Company 6'
+        )
+        SoftSkill.objects.create(
+            id=7,
+            student='Student 7',
+            company='Company 7'
+        )
+
         user_status = UserStatus.objects.get(user=self.student)
         user_status.verified = True
         user_status.save()
 
     def _test_and_get_step_response_content(self, query, variables, step, error, success=True):
         self._login('john@doe.com')
-        self.user.profile_step = step
-        self.user.save()
+        # update company, otherwise multi step tests won't work
+        self.company = Company.objects.get(pk=self.company.id)
+        self.company.profile_step = step
+        self.company.save()
         response = self.query(query, variables=variables)
 
         self.assertResponseNoErrors(response)
         content = json.loads(response.content)
-
         if success:
             self.assertTrue(content['data'].get(error).get('success'))
             self.assertIsNone(content['data'].get(error).get('errors'))
@@ -187,12 +264,11 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
 
     def _test_with_invalid_data(self, step, query, variables, error_key, expected_errors):
         self._login('john@doe.com')
-        self.user.profile_step = step
-        self.user.save()
+        self.company.profile_step = step
+        self.company.save()
 
         response = self.query(query, variables=variables)
         content = json.loads(response.content)
-
         self.assertResponseNoErrors(response)
         errors = content['data'].get(error_key).get('errors')
         for expected_error in expected_errors:
@@ -240,10 +316,9 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                 type
                 firstName
                 lastName
-                state
-                profileStep
                 company {
                     uid
+                    type
                     name
                     zip
                     city
@@ -253,6 +328,12 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                     description
                     services
                     memberItStGallen
+                    state
+                    profileStep
+                    branch {
+                        id
+                        name
+                    }
                     benefits {
                         id
                         icon
@@ -271,8 +352,12 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                             type
                             firstName
                             lastName
-                            state
                         }
+                    }
+                    softSkills {
+                        id
+                        student
+                        company
                     }
                 }
             }
@@ -290,16 +375,17 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             self.assertEqual(me_data.get('username'), 'john@doe.com')
             self.assertEqual(me_data.get('firstName'), 'Johnny')
             self.assertEqual(me_data.get('lastName'), 'Test')
-            self.assertEqual(me_data.get('state'), UserState.INCOMPLETE.upper())
-            self.assertEqual(me_data.get('profileStep'), 1)
-            self.assertEqual(me_data.get('type'), UserType.COMPANY.upper())
+            self.assertEqual(me_data.get('type'), ProfileType.COMPANY.upper())
 
             self.assertEqual(employees[0].get('role'), 'Trainer')
             self.assertEqual(employees[0].get('user').get('username'), 'john@doe.com')
             self.assertEqual(employees[0].get('user').get('email'), 'john@doe.com')
-            self.assertEqual(employees[0].get('user').get('type'), UserType.COMPANY.upper())
+            self.assertEqual(employees[0].get('user').get('type'), ProfileType.COMPANY.upper())
             self.assertEqual(employees[0].get('user').get('firstName'), 'Johnny')
             self.assertEqual(employees[0].get('user').get('lastName'), 'Test')
+
+            self.assertEqual(company.get('state'), ProfileState.INCOMPLETE.upper())
+            self.assertEqual(company.get('profileStep'), 1)
         else:
             self.assertResponseHasErrors(response)
             self.assertIsNone(content['data'].get('me'))
@@ -310,6 +396,8 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             query{
                 company(slug:"%s"){
                     id
+                    type
+                    slug
                     uid
                     name
                     zip
@@ -319,23 +407,33 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                     website
                     description
                     services
-                    benefits{
+                    state
+                    profileStep
+                    branch {
+                        id
+                        name
+                    }
+                    benefits {
                       id
                       icon
                     }
-                    jobPositions{
+                    jobPositions {
                       id
                       name
                     }
-                    employees{
+                    employees {
                       id
                       role
-                      user{
+                      user {
                         firstName
                         lastName
                         email
-                        state
                       }
+                    }
+                    softSkills {
+                        id
+                        student
+                        company
                     }
                 }
             }
@@ -360,10 +458,8 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
             self.assertEqual(content['data'].get('company').get('benefits')[1].get('icon'), 'sleep')
             self.assertEqual(content['data'].get('company').get('jobPositions')[0].get('id'), '1')
             self.assertEqual(content['data'].get('company').get('jobPositions')[0].get('name'), 'worker')
-            self.assertEqual(content['data'].get('company').get('employees')[0].get('user').get('firstName'),
-                             'Johnny')
-            self.assertEqual(content['data'].get('company').get('employees')[0].get('user').get('lastName'),
-                             'Test')
+            self.assertEqual(content['data'].get('company').get('employees')[0].get('user').get('firstName'), 'John')
+            self.assertEqual(content['data'].get('company').get('employees')[0].get('user').get('lastName'), 'Doe')
             self.assertEqual(content['data'].get('company').get('employees')[0].get('user').get('email'),
                              'john@doe.com')
             self.assertEqual(content['data'].get('company').get('employees')[0].get('role'), 'Trainer')
@@ -411,7 +507,7 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
 
     def test_company_step_2_invalid_data(self):
         self._test_with_invalid_data(2, self.query_step_2, self.variables_step_2_invalid, 'companyProfileStep2',
-                                     ['website'])
+                                     ['website', 'branch'])
         user = get_user_model().objects.get(pk=self.user.pk)
         company = user.company
         self.assertEqual(user.first_name, 'Johnny')
@@ -480,9 +576,15 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
         # company step 3
         self._logout()
         self._login('john@doe.com')
-
         self._test_and_get_step_response_content(self.query_step_3, self.variables_step_3_base, 3,
-                                                 'companyProfileStep3', True)
+                                                 'companyProfileStep3')
+
+        # company step 4
+        self._logout()
+        self._login('john@doe.com')
+
+        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_base, 4,
+                                                 'companyProfileStep4', True)
 
         # company should be returned for other users
         self._logout()
@@ -492,3 +594,28 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
     def test_me_company(self):
         self._login('john@doe.com')
         self._test_me(True)
+
+    def test_company_step_4_valid_base(self):
+        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_base, 4,
+                                                 'companyProfileStep4')
+        user = get_user_model().objects.get(pk=self.user.pk)
+        company = user.company
+        self.assertEqual(company.soft_skills.all()[0].id, 1)
+        self.assertEqual(company.soft_skills.all()[0].student, 'Student 1')
+        self.assertEqual(company.soft_skills.all()[0].company, 'Company 1')
+
+    def test_company_step_4_no_soft_skills(self):
+        self._test_with_invalid_data(4, self.query_step_4, self.variables_step_4_no_soft_skills,
+                                     'companyProfileStep4', ['softSkills'])
+
+    def test_company_step_4_too_few_soft_skills(self):
+        self._test_with_invalid_data(4, self.query_step_4, self.variables_step_4_too_few_soft_skills,
+                                     'companyProfileStep4', ['softSkills'])
+
+    def test_company_step_4_too_many_soft_skills(self):
+        self._test_with_invalid_data(4, self.query_step_4, self.variables_step_4_too_many_soft_skills,
+                                     'companyProfileStep4', ['softSkills'])
+
+    def test_company_step_4_invalid_id(self):
+        self._test_with_invalid_data(4, self.query_step_4, self.variables_step_4_invalid_id,
+                                     'companyProfileStep4', ['softSkills'])

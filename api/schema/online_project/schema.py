@@ -1,16 +1,16 @@
 import graphene
 from graphene_django import DjangoObjectType
 
-from db.models import OnlineProject
+from db.models import OnlineProject as OnlineProjectModel
 
 
-class OnlineProjectType(DjangoObjectType):
+class OnlineProject(DjangoObjectType):
     class Meta:
-        model = OnlineProject
+        model = OnlineProjectModel
         fields = ('id', 'url',)
 
 
-class OnlineProjectInputType(graphene.InputObjectType):
+class OnlineProjectInput(graphene.InputObjectType):
     id = graphene.ID()
     url = graphene.String(required=False)
 

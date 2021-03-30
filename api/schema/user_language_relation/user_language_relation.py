@@ -1,13 +1,13 @@
 import graphene
 from graphene_django import DjangoObjectType
 
-from db.models import UserLanguageRelation
+from db.models import UserLanguageRelation as UserLanguageRelationModel
 
 
-class UserLanguageRelationType(DjangoObjectType):
+class UserLanguageRelation(DjangoObjectType):
 
     class Meta:
-        model = UserLanguageRelation
+        model = UserLanguageRelationModel
         fields = ('id', 'language', 'language_level',)
 
     @classmethod
@@ -15,7 +15,7 @@ class UserLanguageRelationType(DjangoObjectType):
         return queryset.select_related('language', 'language_level')
 
 
-class UserLanguageRelationInputType(graphene.InputObjectType):
+class UserLanguageRelationInput(graphene.InputObjectType):
     id = graphene.ID()
     language = graphene.ID()
     language_level = graphene.ID()

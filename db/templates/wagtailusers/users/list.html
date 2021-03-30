@@ -54,12 +54,11 @@
                 </td>
                 <td class="username" valign="top">{{ user.get_username }}</td>
                 <td class="status" valign="top">
-                    {% if user.state == 'incomplete' %}
+                    {% if user.get_profile_state == 'incomplete' %}
                         <i class="icon icon-fa-circle-o" style="font-size: 30px; color: #007d7e"></i>
-                        {% trans 'Schritt' %} {{ user.profile_step }}
+                        {% trans 'Schritt' %} {{ user.get_profile_step }}
                     {% else %}
                         <i class="icon icon-fa-check-circle" style="font-size: 30px; color: #007d7e"></i>
-                        {{ user.state }}
                     {% endif %}
                 </td>
                 <td {% if user.last_login %} class="human-readable-date" title="{{ user.last_login|date:"d M Y H:i" }}"{% endif %}>{% if user.last_login %}{% blocktrans with time_period=user.last_login|timesince %}{{ time_period }} ago{% endblocktrans %}{% endif %}</td>

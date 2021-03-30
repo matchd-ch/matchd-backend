@@ -8,7 +8,7 @@ from graphene_django.utils import GraphQLTestCase
 from graphql_auth.models import UserStatus
 
 from api.schema import schema
-from db.models import Student, AttachmentKey, Company, UserState
+from db.models import Student, AttachmentKey, Company, ProfileState, ProfileType
 from db.models.attachment import get_config_for_key
 
 # pylint: disable=W0612
@@ -45,17 +45,17 @@ class AttachmentGraphQLTestCase(GraphQLTestCase):
     GRAPHQL_SCHEMA = schema
 
     def setUp(self) -> None:
-        self.student = get_user_model().objects.create(
+        self.user = get_user_model().objects.create(
             username='john@doe.com',
             email='john@doe.com',
-            type='student'
+            type=ProfileType.STUDENT
         )
-        self.student.set_password('asdf1234$')
-        self.student.save()
+        self.user.set_password('asdf1234$')
+        self.user.save()
 
-        self.student_profile = Student.objects.create(user=self.student, mobile='+41771234568')
+        self.student = Student.objects.create(user=self.user, mobile='+41771234568')
 
-        user_status = UserStatus.objects.get(user=self.student)
+        user_status = UserStatus.objects.get(user=self.user)
         user_status.verified = True
         user_status.save()
 
@@ -64,7 +64,7 @@ class AttachmentGraphQLTestCase(GraphQLTestCase):
         self.employee = get_user_model().objects.create(
             username='john2@doe.com',
             email='john2@doe.com',
-            type='company',
+            type=ProfileType.COMPANY,
             company=self.company
         )
         self.employee.set_password('asdf1234$')
@@ -387,27 +387,27 @@ class AttachmentGraphQLTestCase(GraphQLTestCase):
         self._test_attachments(num_entries=1, mime_types=[mime_type], key=AttachmentKey.STUDENT_AVATAR)
 
         # incomplete profile
-        self.student.state = UserState.INCOMPLETE
+        self.student.state = ProfileState.INCOMPLETE
         self.student.save()
 
         # login as company
         self._login('john2@doe.com')
         # attachments not accessible
-        self._test_user_attachments(self.student.id, AttachmentKey.STUDENT_AVATAR, 0)
+        self._test_user_attachments(self.user.id, AttachmentKey.STUDENT_AVATAR, 0)
 
         # anonymous profile
-        self.student.state = UserState.ANONYMOUS
+        self.student.state = ProfileState.ANONYMOUS
         self.student.save()
 
         # attachments not accessible
-        self._test_user_attachments(self.student.id, AttachmentKey.STUDENT_AVATAR, 0)
+        self._test_user_attachments(self.user.id, AttachmentKey.STUDENT_AVATAR, 0)
 
         # public profile
-        self.student.state = UserState.PUBLIC
+        self.student.state = ProfileState.PUBLIC
         self.student.save()
 
         # attachments accessible
-        self._test_user_attachments(self.student.id, AttachmentKey.STUDENT_AVATAR, 1)
+        self._test_user_attachments(self.user.id, AttachmentKey.STUDENT_AVATAR, 1)
 
     def test_student_has_access_to_company_attachments(self):
         mime_type = 'image/jpeg'
@@ -415,8 +415,8 @@ class AttachmentGraphQLTestCase(GraphQLTestCase):
         self._test_upload_with_login('john2@doe.com', AttachmentKey.COMPANY_AVATAR, file)
 
         # incomplete profile
-        self.employee.state = UserState.INCOMPLETE
-        self.employee.save()
+        self.company.state = ProfileState.INCOMPLETE
+        self.company.save()
 
         # login as student
         self._login('john@doe.com')
@@ -424,15 +424,15 @@ class AttachmentGraphQLTestCase(GraphQLTestCase):
         self._test_company_attachments(self.company.slug, AttachmentKey.COMPANY_AVATAR, 0)
 
         # anonymous profile
-        self.employee.state = UserState.ANONYMOUS
-        self.employee.save()
+        self.company.state = ProfileState.ANONYMOUS
+        self.company.save()
 
         # attachments accessible
         self._test_company_attachments(self.company.slug, AttachmentKey.COMPANY_AVATAR, 1)
 
         # public profile
-        self.employee.state = UserState.PUBLIC
-        self.employee.save()
+        self.company.state = ProfileState.PUBLIC
+        self.company.save()
 
         # attachments accessible
         self._test_company_attachments(self.company.slug, AttachmentKey.COMPANY_AVATAR, 1)
