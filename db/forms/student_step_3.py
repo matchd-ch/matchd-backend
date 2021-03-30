@@ -32,19 +32,21 @@ def process_student_form_step_3(user, data):
         # required parameters
         soft_skills_to_save = cleaned_data.get('soft_skills')
 
+        # check if more than 6 soft skills has been selected
         if len(list(soft_skills_to_save)) > 6:
             errors.update(generic_error_dict('softSkills', _('Too many skills'), 'too_many_items'))
 
-            # check if less than 6 soft skills has been selected
+        # check if less than 6 soft skills has been selected
         if len(list(soft_skills_to_save)) < 6:
             errors.update(generic_error_dict('softSkills', _('Too few skills'), 'too_few_items'))
 
         cultural_fits_to_save = cleaned_data.get('cultural_fits')
 
+        # check if more than 6 cultural fits has been selected
         if len(list(cultural_fits_to_save)) > 6:
             errors.update(generic_error_dict('culturalFits', _('Too many cultural fits'), 'too_many_items'))
 
-            # check if less than 6 soft skills has been selected
+        # check if less than 6 cultural fits has been selected
         if len(list(cultural_fits_to_save)) < 6:
             errors.update(generic_error_dict('culturalFits', _('Too few cultural fits'), 'too_few_items'))
 
