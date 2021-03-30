@@ -359,6 +359,11 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                         student
                         company
                     }
+                    culturalFits {
+                        id
+                        student
+                        company
+                    }
                 }
             }
         }
@@ -431,6 +436,11 @@ class CompanyGraphQLTestCase(GraphQLTestCase):
                       }
                     }
                     softSkills {
+                        id
+                        student
+                        company
+                    }
+                    culturalFits {
                         id
                         student
                         company
