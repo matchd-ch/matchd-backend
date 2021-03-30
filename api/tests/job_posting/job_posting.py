@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from graphql_auth.models import UserStatus
 
 from api.tests.base import BaseGraphQLTestCase
-from db.models import JobOption, JobOptionMode, Company, ProfileState, JobPosting, Skill, Expectation, Language, \
+from db.models import JobOption, JobOptionMode, Company, ProfileState, JobPosting, Skill, JobRequirement, Language, \
     LanguageLevel, Branch, Employee, JobPostingState
 
 
@@ -97,7 +97,7 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
     variables_step_2 = {
       'step2': {
         'id': 1,
-        'expectations': [{'id': 1}],
+        'jobRequirements': [{'id': 1}],
         'skills': [{'id': 1}],
         'languages': [{'language': 1, 'languageLevel': 1}, {'language': 2, 'languageLevel': 1}]
       }
@@ -106,7 +106,7 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
     variables_step_2_invalid = {
         'step2': {
             'id': 1,
-            'expectations': [{'id': 999}],
+            'jobRequirements': [{'id': 999}],
             'skills': [{'id': 999}],
             'languages': [{'language': 999, 'languageLevel': 999}]
         }
@@ -151,7 +151,7 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
         self.date_from_option = JobOption.objects.create(name='Date from', mode=JobOptionMode.DATE_FROM, id=2)
 
         self.skill = Skill.objects.create(id=1, name='Test')
-        self.expectation = Expectation.objects.create(id=1, name='Test')
+        self.job_requirement = JobRequirement.objects.create(id=1, name='Test')
         self.branch = Branch.objects.create(id=1, name='Test')
 
         self.language = Language.objects.create(id=1, name='Test', short_list=True)
@@ -273,7 +273,7 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
             jobToDate
             formStep
             url
-            expectations {
+            jobRequirements {
               id
               name
             }
@@ -342,8 +342,8 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
         content = self._test_get_job_posting(1)
         job_posting = content.get('data').get('jobPosting')
 
-        expectations = job_posting.get('expectations')
-        self.assertEqual(1, len(expectations))
+        job_requirements = job_posting.get('jobRequirements')
+        self.assertEqual(1, len(job_requirements))
         skills = job_posting.get('skills')
         self.assertEqual(1, len(skills))
         languages = job_posting.get('languages')
@@ -357,7 +357,7 @@ class JobPostingGraphQLTestCase(BaseGraphQLTestCase):
     def test_job_posting_step_2_invalid_data(self):
         self._login('john@doe.com')
         self._test_job_posting(self.query_step_2, self.variables_step_2_invalid, 'jobPostingStep2', False,
-                               ['expectations', 'skills'])
+                               ['jobRequirements', 'skills'])
 
     def test_job_posting_step_3(self):
         self.job_posting.form_step = 3

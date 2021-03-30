@@ -1,0 +1,1 @@
+from .job_requirement import JobRequirementGraphQLTestCase
