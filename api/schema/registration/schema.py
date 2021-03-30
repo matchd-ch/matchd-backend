@@ -4,21 +4,12 @@ from graphql_auth import mutations
 from graphql_auth.mutations import Register
 from django.utils.translation import gettext_lazy as _
 
-from db.helper import generic_error_dict
+from api.schema.company import CompanyInput
+from api.schema.employee import EmployeeInput
+from api.schema.student import StudentInput
+from db.helper import generic_error_dict, get_company_slug
 from db.forms import CompanyForm, StudentForm, EmployeeForm, UniversityForm
-from db.models import Company, Student, Employee, UserType
-
-
-class EmployeeInput(graphene.InputObjectType):
-    id = graphene.ID(required=False)
-    role = graphene.String(description=_('Role'), required=False)
-
-
-class CompanyInput(graphene.InputObjectType):
-    name = graphene.String(description=_('Name'), required=True)
-    uid = graphene.String(description=_('UID'))
-    zip = graphene.String(description=_('ZIP'), required=True)
-    city = graphene.String(description=_('City'), required=True)
+from db.models import Company, Student, Employee, ProfileType
 
 
 class RegisterCompany(Register):
@@ -41,7 +32,7 @@ class RegisterCompany(Register):
         # allowed types: company, university
         user_type = data.get('type')
 
-        if user_type not in UserType.valid_company_types():
+        if user_type not in ProfileType.valid_company_types():
             errors.update(generic_error_dict('type', _('You are not a company'), 'invalid_type'))
 
         # validate employee
@@ -57,9 +48,11 @@ class RegisterCompany(Register):
 
         # validate company
         company_data = data.pop('company')
+        company_data['slug'] = get_company_slug(company_data.get('name'))
+        company_data['type'] = user_type
         company = None
 
-        if user_type == UserType.UNIVERSITY:
+        if user_type == ProfileType.UNIVERSITY:
             company_form = UniversityForm(company_data)
         else:
             company_form = CompanyForm(company_data)
@@ -94,10 +87,6 @@ class RegisterCompany(Register):
         return result
 
 
-class StudentInput(graphene.InputObjectType):
-    mobile = graphene.String(description=_('Mobile'), required=True)
-
-
 class RegisterStudent(Register):
 
     class Arguments:
@@ -117,7 +106,7 @@ class RegisterStudent(Register):
         # allowed types: student, college-student, junior
         user_type = data.get('type')
 
-        if user_type not in UserType.valid_student_types():
+        if user_type not in ProfileType.valid_student_types():
             errors.update(generic_error_dict('type', _('You are not a student'), 'invalid_type'))
 
         # validate student

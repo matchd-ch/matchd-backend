@@ -6,11 +6,12 @@ from graphene_django.utils import GraphQLTestCase
 from graphql_auth.models import UserStatus
 
 from api.schema import schema
-from db.models import Student, JobOption, JobOptionMode, JobPosition
+from db.models import Student, JobOption, JobOptionMode, JobPosition, SoftSkill
 
 
 # pylint:disable=R0913
 # pylint:disable=R0904
+# pylint:disable=R0902
 class StudentGraphQLTestCase(GraphQLTestCase):
     GRAPHQL_SCHEMA = schema
 
@@ -32,7 +33,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
             'city': 'St. Gallen',
             'dateOfBirth': '01.01.2000',
             'mobile': '+41999999999'
-      }
+        }
     }
 
     invalid_variables_step_1 = {
@@ -44,8 +45,8 @@ class StudentGraphQLTestCase(GraphQLTestCase):
             'city': '',
             'dateOfBirth': '',
             'mobile': ''
-          }
         }
+    }
 
     query_step_2 = '''
     mutation StudentProfileMutation($step2: StudentProfileInputStep2!) {
@@ -56,38 +57,9 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     }
     '''
 
-    variables_step_2 = '''
+    variables_step_2_date_range = '''
     {
         "step2": {
-            "schoolName": "FH Winterthur",
-            "fieldOfStudy": "Applikationsentwicklung",
-            "graduation": "08.2022"
-        }
-    }
-    '''
-
-    invalid_variables_step_2 = '''
-    {
-        "step2": {
-            "schoolName": "",
-            "fieldOfStudy": "",
-            "graduation": "15.2022"
-        }
-    }
-    '''
-
-    query_step_3 = '''
-    mutation StudentProfileMutation($step3: StudentProfileInputStep3!) {
-        studentProfileStep3(step3: $step3) {
-            success,
-            errors
-        }
-    }
-    '''
-
-    variables_step_3_date_range = '''
-    {
-        "step3": {
             "jobOption": {"id": 1},
             "jobFromDate": "01.2020",
             "jobToDate": "03.2020",
@@ -96,9 +68,9 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     }
     '''
 
-    variables_step_3_date_from = '''
+    variables_step_2_date_from = '''
     {
-        "step3": {
+        "step2": {
             "jobOption": {"id": 2},
             "jobFromDate": "01.2020",
             "jobToDate": "",
@@ -107,9 +79,9 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     }
     '''
 
-    invalid_variables_step_3_date_range = '''
+    invalid_variables_step_2_date_range = '''
     {
-        "step3": {
+        "step2": {
             "jobOption": {
                 "id": 1
             },
@@ -122,9 +94,9 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     }
     '''
 
-    invalid_variables_step_3_date_from = '''
+    invalid_variables_step_2_date_from = '''
     {
-        "step3": {
+        "step2": {
             "jobOption": {
                 "id": 2
             },
@@ -136,6 +108,39 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         }
     }
     '''
+
+    query_step_3 = '''
+        mutation StudentProfileMutation($step3: StudentProfileInputStep3!) {
+            studentProfileStep3(step3: $step3) {
+                success,
+                errors
+            }
+        }
+        '''
+
+    variables_step_3 = {
+        "step3": {
+            "softSkills": [{"id": 1}, {"id": 2}, {"id": 3}, {"id": 4}, {"id": 5}, {"id": 6}]
+        }
+    }
+
+    invalid_variables_step_3 = {
+        "step3": {
+            "softSkills": [{"id": 1337}, {"id": 2}, {"id": 3}, {"id": 4}, {"id": 5}, {"id": 6}]
+        }
+    }
+
+    invalid_variables_step_3_too_few_soft_skills = {
+        "step3": {
+            "softSkills": [{"id": 1}]
+        }
+    }
+
+    invalid_variables_step_3_too_many_soft_skills = {
+        "step3": {
+            "softSkills": [{"id": 1}, {"id": 2}, {"id": 3}, {"id": 4}, {"id": 5}, {"id": 6}, {"id": 7}]
+        }
+    }
 
     query_step_5 = '''
     mutation StudentProfileMutation($step5: StudentProfileInputStep5!) {
@@ -187,17 +192,17 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     }
 
     def setUp(self):
-        self.student = get_user_model().objects.create(
+        self.user = get_user_model().objects.create(
             username='john@doe.com',
             email='john@doe.com',
             type='student'
         )
-        self.student.set_password('asdf1234$')
-        self.student.save()
+        self.user.set_password('asdf1234$')
+        self.user.save()
 
-        Student.objects.create(user=self.student, mobile='+41771234568')
+        self.student = Student.objects.create(user=self.user, mobile='+41771234568')
 
-        user_status = UserStatus.objects.get(user=self.student)
+        user_status = UserStatus.objects.get(user=self.user)
         user_status.verified = True
         user_status.save()
 
@@ -220,6 +225,42 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         )
         self.student_with_nickname.set_password('asdf1234$')
         self.student_with_nickname.save()
+
+        SoftSkill.objects.create(
+            id=1,
+            student='Student 1',
+            company='Company 1'
+        )
+        SoftSkill.objects.create(
+            id=2,
+            student='Student 2',
+            company='Company 2'
+        )
+        SoftSkill.objects.create(
+            id=3,
+            student='Student 3',
+            company='Company 3'
+        )
+        SoftSkill.objects.create(
+            id=4,
+            student='Student 4',
+            company='Company 4'
+        )
+        SoftSkill.objects.create(
+            id=5,
+            student='Student 5',
+            company='Company 5'
+        )
+        SoftSkill.objects.create(
+            id=6,
+            student='Student 6',
+            company='Company 6'
+        )
+        SoftSkill.objects.create(
+            id=7,
+            student='Student 7',
+            company='Company 7'
+        )
 
         Student.objects.create(user=self.student_with_nickname, mobile='+41771234568', nickname='john_doe')
 
@@ -258,10 +299,10 @@ class StudentGraphQLTestCase(GraphQLTestCase):
                     username
                     firstName
                     lastName
-                    profileStep
-                    state
                     type
                     student {
+                      profileStep
+                      state
                       mobile
                       zip
                       street
@@ -292,9 +333,14 @@ class StudentGraphQLTestCase(GraphQLTestCase):
                           description
                         }
                       }
-                      onlineProjects{
+                      onlineProjects {
                         id
                         url
+                      }
+                      softSkills {
+                        id
+                        student
+                        company
                       }
                     }
                 }
@@ -307,10 +353,10 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         if success:
             self.assertResponseNoErrors(response)
             self.assertEqual(content['data'].get('me').get('username'), 'john@doe.com')
-            self.assertEqual(content['data'].get('me').get('state'), 'INCOMPLETE')
-            self.assertEqual(content['data'].get('me').get('profileStep'), 1)
             self.assertEqual(content['data'].get('me').get('type'), 'STUDENT')
             self.assertEqual(content['data'].get('me').get('student').get('mobile'), '+41771234568')
+            self.assertEqual(content['data'].get('me').get('student').get('state'), 'INCOMPLETE')
+            self.assertEqual(content['data'].get('me').get('student').get('profileStep'), 1)
         else:
             self.assertResponseHasErrors(response)
             self.assertIsNone(content['data'].get('me'))
@@ -374,76 +420,20 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     def test_profile_step_1_without_login(self):
         self._test_step_without_login(self.query_step_1, self.variables_step_1, 'studentProfileStep1')
 
-    def test_profile_step_2_without_login(self):
-        self._test_step_without_login(self.query_step_2, self.variables_step_2, 'studentProfileStep2')
-
-    def test_profile_step_3_without_login(self):
-        self._test_step_without_login(self.query_step_3, self.variables_step_3_date_range, 'studentProfileStep3')
-
-    def test_profile_step_5_without_login(self):
-        self._test_step_without_login(self.query_step_5, self.variables_step_5, 'studentProfileStep5')
-
-    def test_profile_step_6_without_login(self):
-        self._test_step_without_login(self.query_step_6, self.variables_step_6, 'studentProfileStep6')
-
     def test_profile_step_1_as_company(self):
         self._test_step_as_company(self.query_step_1, self.variables_step_1, 'studentProfileStep1')
 
-    def test_profile_step_2_as_company(self):
-        self._test_step_as_company(self.query_step_2, self.variables_step_2, 'studentProfileStep2')
-
-    def test_profile_step_3_as_company(self):
-        self._test_step_as_company(self.query_step_3, self.variables_step_3_date_range, 'studentProfileStep3')
-
-    def test_profile_step_5_as_company(self):
-        self._test_step_as_company(self.query_step_5, self.variables_step_5, 'studentProfileStep5')
-
-    def test_profile_step_6_as_company(self):
-        self._test_step_as_company(self.query_step_6, self.variables_step_6, 'studentProfileStep6')
-
     def test_profile_step_1_with_invalid_step(self):
         self._test_step_with_invalid_step(0, self.query_step_1, self.variables_step_1, 'studentProfileStep1')
-
-    def test_profile_step_2_with_invalid_step(self):
-        self._test_step_with_invalid_step(1, self.query_step_2, self.variables_step_2, 'studentProfileStep2')
-
-    def test_profile_step_3_with_invalid_step(self):
-        self._test_step_with_invalid_step(2, self.query_step_3, self.variables_step_3_date_range, 'studentProfileStep3')
-
-    def test_profile_step_5_with_invalid_step(self):
-        self._test_step_with_invalid_step(4, self.query_step_5, self.variables_step_5, 'studentProfileStep5')
-
-    def test_profile_step_6_with_invalid_step(self):
-        self._test_step_with_invalid_step(5, self.query_step_6, self.variables_step_6, 'studentProfileStep6')
 
     def test_profile_step_1_with_invalid_data(self):
         self._test_step_with_invalid_data(1, self.query_step_1, self.invalid_variables_step_1, 'studentProfileStep1',
                                           ['firstName', 'lastName', 'dateOfBirth'])
 
-    def test_profile_step_2_with_invalid_data(self):
-        self._test_step_with_invalid_data(2, self.query_step_2, self.invalid_variables_step_2, 'studentProfileStep2',
-                                          ['graduation'])
-
-    def test_profile_step_3_with_invalid_data_date_range(self):
-        self._test_step_with_invalid_data(3, self.query_step_3, self.invalid_variables_step_3_date_range,
-                                          'studentProfileStep3', ['jobToDate'])
-
-    def test_profile_step_3_with_invalid_data_date_from(self):
-        self._test_step_with_invalid_data(3, self.query_step_3, self.invalid_variables_step_3_date_from,
-                                          'studentProfileStep3', ['jobFromDate'])
-
-    def test_profile_step_5_with_invalid_data(self):
-        self._test_step_with_invalid_data(5, self.query_step_5, self.invalid_variables_step_5, 'studentProfileStep5',
-                                          ['nickname'])
-
-    def test_profile_step_6_with_invalid_data(self):
-        self._test_step_with_invalid_data(6, self.query_step_6, self.invalid_variables_step_6, 'studentProfileStep6',
-                                          ['state'])
-
     def test_profile_step_1(self):
         self._test_and_get_step_response_content(1, self.query_step_1, self.variables_step_1, 'studentProfileStep1')
         # reload user
-        user = get_user_model().objects.get(pk=self.student.pk)
+        user = get_user_model().objects.get(pk=self.user.pk)
         self.assertEqual('John2', user.first_name)
         self.assertEqual('Doe2', user.last_name)
 
@@ -454,26 +444,31 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         date_of_birth = datetime.strptime('01.01.2000', '%d.%m.%Y').date()
         self.assertEqual(profile.date_of_birth, date_of_birth)
         self.assertEqual(profile.mobile, '+41999999999')
-        self.assertEqual(user.profile_step, 2)
+        self.assertEqual(profile.profile_step, 2)
 
-    def test_profile_step_2(self):
-        self._test_and_get_step_response_content(2, self.query_step_2, self.variables_step_2, 'studentProfileStep2')
+    def test_profile_step_2_without_login(self):
+        self._test_step_without_login(self.query_step_2, self.variables_step_2_date_range, 'studentProfileStep2')
+
+    def test_profile_step_2_as_company(self):
+        self._test_step_as_company(self.query_step_2, self.variables_step_2_date_range, 'studentProfileStep2')
+
+    def test_profile_step_2_with_invalid_step(self):
+        self._test_step_with_invalid_step(1, self.query_step_2, self.variables_step_2_date_range, 'studentProfileStep2')
+
+    def test_profile_step_2_with_invalid_data_date_range(self):
+        self._test_step_with_invalid_data(2, self.query_step_2, self.invalid_variables_step_2_date_range,
+                                          'studentProfileStep2', ['jobToDate'])
+
+    def test_profile_step_2_with_invalid_data_date_from(self):
+        self._test_step_with_invalid_data(2, self.query_step_2, self.invalid_variables_step_2_date_from,
+                                          'studentProfileStep2', ['jobFromDate'])
+
+    def test_profile_step_2_date_range(self):
+        self._test_and_get_step_response_content(2, self.query_step_2, self.variables_step_2_date_range,
+                                                 'studentProfileStep2')
+
         # reload user
-        user = get_user_model().objects.get(pk=self.student.pk)
-
-        profile = user.student
-        self.assertEqual(profile.school_name, 'FH Winterthur')
-        self.assertEqual(profile.field_of_study, 'Applikationsentwicklung')
-        graduation = datetime.strptime('08.2022', '%m.%Y').date()
-        self.assertEqual(profile.graduation, graduation)
-        self.assertEqual(user.profile_step, 3)
-
-    def test_profile_step_3_date_range(self):
-        self._test_and_get_step_response_content(3, self.query_step_3, self.variables_step_3_date_range,
-                                                 'studentProfileStep3')
-
-        # reload user
-        user = get_user_model().objects.get(pk=self.student.pk)
+        user = get_user_model().objects.get(pk=self.user.pk)
 
         profile = user.student
         self.assertEqual(profile.job_option.id, self.date_range_option.id)
@@ -482,14 +477,14 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         to_date = datetime.strptime('03.2020', '%m.%Y').date()
         self.assertEqual(profile.job_to_date, to_date)
         self.assertEqual(profile.job_position.id, self.job_position.id)
-        self.assertEqual(user.profile_step, 4)
+        self.assertEqual(profile.profile_step, 3)
 
-    def test_profile_step_3_date_from(self):
-        self._test_and_get_step_response_content(3, self.query_step_3, self.variables_step_3_date_from,
-                                                 'studentProfileStep3')
+    def test_profile_step_2_date_from(self):
+        self._test_and_get_step_response_content(2, self.query_step_2, self.variables_step_2_date_from,
+                                                 'studentProfileStep2')
 
         # reload user
-        user = get_user_model().objects.get(pk=self.student.pk)
+        user = get_user_model().objects.get(pk=self.user.pk)
 
         profile = user.student
         self.assertEqual(profile.job_option.id, self.date_from_option.id)
@@ -497,16 +492,50 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         self.assertEqual(profile.job_from_date, from_date)
         self.assertIsNone(profile.job_to_date)
         self.assertEqual(profile.job_position.id, self.job_position.id)
-        self.assertEqual(user.profile_step, 4)
+        self.assertEqual(profile.profile_step, 3)
+
+    def test_profile_step_3_without_login(self):
+        self._test_step_without_login(self.query_step_3, self.variables_step_3, 'studentProfileStep3')
+
+    def test_profile_step_3_as_company(self):
+        self._test_step_as_company(self.query_step_3, self.variables_step_3, 'studentProfileStep3')
+
+    def test_profile_step_3_with_invalid_step(self):
+        self._test_step_with_invalid_step(2, self.query_step_3, self.variables_step_3, 'studentProfileStep3')
+
+    def test_profile_step_3_with_invalid_data_soft_skill(self):
+        self._test_step_with_invalid_data(3, self.query_step_3, self.invalid_variables_step_3,
+                                          'studentProfileStep3', ['softSkills'])
+
+    def test_profile_step_3_with_invalid_data_soft_skill_too_few(self):
+        self._test_step_with_invalid_data(3, self.query_step_3, self.invalid_variables_step_3_too_few_soft_skills,
+                                          'studentProfileStep3', ['softSkills'])
+
+    def test_profile_step_3_with_invalid_data_soft_skill_too_many(self):
+        self._test_step_with_invalid_data(3, self.query_step_3, self.invalid_variables_step_3_too_many_soft_skills,
+                                          'studentProfileStep3', ['softSkills'])
+
+    def test_profile_step_5_without_login(self):
+        self._test_step_without_login(self.query_step_5, self.variables_step_5, 'studentProfileStep5')
+
+    def test_profile_step_5_as_company(self):
+        self._test_step_as_company(self.query_step_5, self.variables_step_5, 'studentProfileStep5')
+
+    def test_profile_step_5_with_invalid_step(self):
+        self._test_step_with_invalid_step(4, self.query_step_5, self.variables_step_5, 'studentProfileStep5')
+
+    def test_profile_step_5_with_invalid_data(self):
+        self._test_step_with_invalid_data(5, self.query_step_5, self.invalid_variables_step_5, 'studentProfileStep5',
+                                          ['nickname'])
 
     def test_profile_step_5(self):
         self._test_and_get_step_response_content(5, self.query_step_5, self.variables_step_5, 'studentProfileStep5')
 
         # reload user
-        user = get_user_model().objects.get(pk=self.student.pk)
+        user = get_user_model().objects.get(pk=self.user.pk)
         profile = user.student
         self.assertEqual(profile.nickname, 'jane_doe')
-        self.assertEqual(user.profile_step, 6)
+        self.assertEqual(profile.profile_step, 6)
 
     def test_profile_step_5_with_existing_nickname(self):
         content = self._test_and_get_step_response_content(5, self.query_step_5, self.invalid_variables_step_5_nickname,
@@ -516,12 +545,25 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         self.assertIsNotNone(content['data'].get('studentProfileStep5').get('nicknameSuggestions'))
 
         # reload user
-        user = get_user_model().objects.get(pk=self.student.pk)
-        self.assertEqual(user.profile_step, 5)
+        user = get_user_model().objects.get(pk=self.user.pk)
+        self.assertEqual(user.student.profile_step, 5)
+
+    def test_profile_step_6_without_login(self):
+        self._test_step_without_login(self.query_step_6, self.variables_step_6, 'studentProfileStep6')
+
+    def test_profile_step_6_as_company(self):
+        self._test_step_as_company(self.query_step_6, self.variables_step_6, 'studentProfileStep6')
+
+    def test_profile_step_6_with_invalid_step(self):
+        self._test_step_with_invalid_step(5, self.query_step_6, self.variables_step_6, 'studentProfileStep6')
+
+    def test_profile_step_6_with_invalid_data(self):
+        self._test_step_with_invalid_data(6, self.query_step_6, self.invalid_variables_step_6, 'studentProfileStep6',
+                                          ['state'])
 
     def test_profile_step_6(self):
         self._test_and_get_step_response_content(6, self.query_step_6, self.variables_step_6, 'studentProfileStep6')
         # reload user
-        user = get_user_model().objects.get(pk=self.student.pk)
-        self.assertEqual(user.state, 'anonymous')
-        self.assertEqual(user.profile_step, 7)
+        user = get_user_model().objects.get(pk=self.user.pk)
+        self.assertEqual(user.student.state, 'anonymous')
+        self.assertEqual(user.student.profile_step, 7)

@@ -119,7 +119,7 @@ def process_student_form_step_4(user, data):
 
     errors = {}
 
-    profile = user.student
+    student = user.student
 
     # validate profile data
     profile_form = StudentProfileFormStep4(data)
@@ -130,17 +130,17 @@ def process_student_form_step_4(user, data):
         # update user / profile
         profile_data_for_update = profile_form.cleaned_data
         skills_to_save = profile_data_for_update.get('skills')
-        profile.distinction = profile_data_for_update.get('distinction')
+        student.distinction = profile_data_for_update.get('distinction')
     else:
         errors.update(profile_form.errors.get_json_data())
 
     # validate hobbies
     hobbies = data.get('hobbies', None)
-    hobbies_to_delete = get_hobbies_to_delete(profile, hobbies)
+    hobbies_to_delete = get_hobbies_to_delete(student, hobbies)
     valid_hobby_forms = []
     if hobbies is not None:
         for hobby in hobbies:
-            hobby['student'] = profile.id
+            hobby['student'] = student.id
             try:
                 valid_hobby_forms.append(process_hobby(hobby))
             except FormException as exception:
@@ -148,26 +148,26 @@ def process_student_form_step_4(user, data):
 
     # validate online projects
     online_projects = data.get('online_projects', None)
-    online_projects_to_delete = get_online_projects_to_delete(profile, online_projects)
+    online_projects_to_delete = get_online_projects_to_delete(student, online_projects)
     valid_online_project_forms = []
     if online_projects is not None:
         for online_project in online_projects:
-            online_project['student'] = profile.id
+            online_project['student'] = student.id
             try:
-                valid_online_project_forms.append(process_online_project(profile, online_project))
+                valid_online_project_forms.append(process_online_project(student, online_project))
             except FormException as exception:
                 errors.update(exception.errors)
 
     # validate languages
     languages = data.get('languages', None)
     languages = get_unique_languages(languages)
-    languages_to_delete = get_languages_to_delete(profile, languages)
+    languages_to_delete = get_languages_to_delete(student, languages)
     valid_languages_forms = []
     if languages is not None:
         for language in languages:
-            language['student'] = profile.id
+            language['student'] = student.id
             try:
-                valid_languages_forms.append(process_language(profile, language))
+                valid_languages_forms.append(process_language(student, language))
             except FormException as exception:
                 errors.update(exception.errors)
 
@@ -185,12 +185,12 @@ def process_student_form_step_4(user, data):
     for form in valid_forms:
         form.save()
 
-    profile.skills.set(skills_to_save)
+    student.skills.set(skills_to_save)
 
     # update step only if the user has step 4
-    if user.profile_step == 4:
-        user.profile_step = 5
+    if student.profile_step == 4:
+        student.profile_step = 5
 
     # save user
     user.save()
-    profile.save()
+    student.save()

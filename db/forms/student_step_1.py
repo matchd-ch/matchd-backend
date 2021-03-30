@@ -29,7 +29,7 @@ def process_student_form_step_1(user, data):
 
     errors = {}
 
-    profile = user.student
+    student = user.student
 
     # validate profile data
     form = StudentProfileFormStep1(data)
@@ -41,13 +41,13 @@ def process_student_form_step_1(user, data):
         # required parameters
         user.first_name = cleaned_data.get('first_name')
         user.last_name = cleaned_data.get('last_name')
-        profile.date_of_birth = cleaned_data.get('date_of_birth')
+        student.date_of_birth = cleaned_data.get('date_of_birth')
 
         # optional parameters
-        profile.street = cleaned_data.get('street')
-        profile.zip = cleaned_data.get('zip')
-        profile.city = cleaned_data.get('city')
-        profile.mobile = cleaned_data.get('mobile')
+        student.street = cleaned_data.get('street')
+        student.zip = cleaned_data.get('zip')
+        student.city = cleaned_data.get('city')
+        student.mobile = cleaned_data.get('mobile')
     else:
         errors.update(form.errors.get_json_data())
 
@@ -55,9 +55,9 @@ def process_student_form_step_1(user, data):
         raise FormException(errors=errors)
 
     # update step only if the user has step 1
-    if user.profile_step == 1:
-        user.profile_step = 2
+    if student.profile_step == 1:
+        student.profile_step = 2
 
     # save user / profile
     user.save()
-    profile.save()
+    student.save()

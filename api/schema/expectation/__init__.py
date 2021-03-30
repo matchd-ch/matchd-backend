@@ -1,1 +1,1 @@
-from .schema import ExpectationQuery, ExpectationType, ExpectationInputType
+from .schema import ExpectationQuery, Expectation, ExpectationInput

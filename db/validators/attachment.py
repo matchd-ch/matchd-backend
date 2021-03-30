@@ -4,7 +4,7 @@ from django.template.defaultfilters import filesizeformat
 from django.utils.deconstruct import deconstructible
 from django.utils.translation import gettext as _
 
-from db.models import UserType, AttachmentKey, get_max_files_for_key, Attachment
+from db.models import ProfileType, AttachmentKey, get_max_files_for_key, Attachment
 
 
 @deconstructible
@@ -12,10 +12,10 @@ class AttachmentKeyValidator:
 
     def validate(self, key, user):
         valid = True
-        if user.type in UserType.valid_student_types():
+        if user.type in ProfileType.valid_student_types():
             if key not in AttachmentKey.valid_student_keys():
                 valid = False
-        elif user.type in UserType.valid_company_types():
+        elif user.type in ProfileType.valid_company_types():
             if key not in AttachmentKey.valid_company_keys():
                 valid = False
 

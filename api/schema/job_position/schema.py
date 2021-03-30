@@ -2,23 +2,23 @@ import graphene
 from graphene import ObjectType
 from graphene_django import DjangoObjectType
 
-from db.models import JobPosition
+from db.models import JobPosition as JobPositionModel
 
 
-class JobPositionType(DjangoObjectType):
+class JobPosition(DjangoObjectType):
     class Meta:
-        model = JobPosition
+        model = JobPositionModel
         fields = ('id', 'name',)
 
 
 class JobPositionQuery(ObjectType):
-    job_positions = graphene.List(JobPositionType)
+    job_positions = graphene.List(JobPosition)
 
     def resolve_job_positions(self, info, **kwargs):
-        return JobPosition.objects.all()
+        return JobPositionModel.objects.all()
 
 
-class JobPositionInputType(graphene.InputObjectType):
+class JobPositionInput(graphene.InputObjectType):
     id = graphene.ID(required=True)
     name = graphene.String(required=False)
 

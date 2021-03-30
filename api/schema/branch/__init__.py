@@ -1,1 +1,1 @@
-from .schema import BranchInputType, BranchQuery
+from .schema import BranchInput, BranchQuery

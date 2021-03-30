@@ -4,14 +4,14 @@ from graphene import ObjectType
 from api.data import zip_city_datasource
 
 
-class ZipCityType(ObjectType):
-    zip = graphene.String()
-    city = graphene.String()
-    canton = graphene.String()
+class ZipCity(ObjectType):
+    zip = graphene.NonNull(graphene.String)
+    city = graphene.NonNull(graphene.String)
+    canton = graphene.NonNull(graphene.String)
 
 
 class ZipCityQuery(ObjectType):
-    zip_city = graphene.List(ZipCityType)
+    zip_city = graphene.NonNull(graphene.List(graphene.NonNull(ZipCity)))
 
     def resolve_zip_city(self, info, **kwargs):
         return zip_city_datasource.data

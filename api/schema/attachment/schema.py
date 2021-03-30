@@ -7,10 +7,10 @@ from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 from django.utils.translation import gettext as _
 
-from db.helper import generic_error_dict, has_access_to_attachments
-from db.models import AttachmentKey, Attachment, Company
+from db.helper import generic_error_dict, has_access_to_attachments, get_company_or_student
+from db.models import AttachmentKey as AttachmentKeyModel, Attachment as AttachmentModel, Company
 
-AttachmentKeyType = graphene.Enum.from_enum(AttachmentKey)
+AttachmentKey = graphene.Enum.from_enum(AttachmentKeyModel)
 
 
 class DeleteAttachment(Output, graphene.Mutation):
@@ -26,8 +26,8 @@ class DeleteAttachment(Output, graphene.Mutation):
 
         # check if the attachment exists and the user is owner of the attachment
         try:
-            attachment = Attachment.objects.get(pk=attachment_id, object_id=profile_id)
-        except Attachment.DoesNotExist:
+            attachment = AttachmentModel.objects.get(pk=attachment_id, object_id=profile_id)
+        except AttachmentModel.DoesNotExist:
             return DeleteAttachment(success=False, errors=generic_error_dict('id', _('Attachment does not exist'),
                                                                              'not_found'))
         # delete file and attachment
@@ -45,34 +45,35 @@ class AttachmentMutation(graphene.ObjectType):
     deleteAttachment = DeleteAttachment.Field()
 
 
-class AttachmentType(DjangoObjectType):
+class Attachment(DjangoObjectType):
 
-    url = graphene.String()
-    mime_type = graphene.String()
-    file_size = graphene.Int()
-    file_name = graphene.String()
+    url = graphene.NonNull(graphene.String)
+    mime_type = graphene.NonNull(graphene.String)
+    file_size = graphene.NonNull(graphene.Int)
+    file_name = graphene.NonNull(graphene.String)
 
     class Meta:
-        model = Attachment
+        model = AttachmentModel
         fields = ('id',)
+        convert_choices_to_enum = False
 
-    def resolve_url(self: Attachment, info):
+    def resolve_url(self: AttachmentModel, info):
         return self.absolute_url
 
-    def resolve_file_size(self: Attachment, info):
+    def resolve_file_size(self: AttachmentModel, info):
         return self.attachment_object.get_file_size()
 
-    def resolve_mime_type(self: Attachment, info):
+    def resolve_mime_type(self: AttachmentModel, info):
         return self.attachment_object.get_mime_type()
 
-    def resolve_file_name(self: Attachment, info):
+    def resolve_file_name(self: AttachmentModel, info):
         return self.attachment_object.filename
 
 
 class AttachmentQuery(ObjectType):
     attachments = graphene.List(
-        AttachmentType,
-        key=AttachmentKeyType(required=True),
+        Attachment,
+        key=AttachmentKey(required=True),
         user_id=graphene.Int(required=False),
         slug=graphene.String(required=False)
     )
@@ -85,9 +86,10 @@ class AttachmentQuery(ObjectType):
         # if user id is None, we assume to return the list of the currently logged in user
         user_id = kwargs.get('user_id', None)
         slug = kwargs.get('slug', None)
-        attachment_owner = user
+        attachment_owner = get_company_or_student(user)
         if user_id is not None:
             attachment_owner = get_object_or_404(get_user_model(), pk=user_id)
+            attachment_owner = get_company_or_student(attachment_owner)
         elif slug is not None:
             attachment_owner = get_object_or_404(Company, slug=slug)
 
@@ -101,7 +103,7 @@ class AttachmentQuery(ObjectType):
         profile_content_type = attachment_owner.get_profile_content_type()
         profile_id = attachment_owner.get_profile_id()
 
-        return Attachment.objects.filter(
+        return AttachmentModel.objects.filter(
             key=key,
             content_type=profile_content_type,
             object_id=profile_id).\

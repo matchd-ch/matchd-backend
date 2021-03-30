@@ -2,23 +2,23 @@ import graphene
 from graphene import ObjectType
 from graphene_django import DjangoObjectType
 
-from db.models import Expectation
+from db.models import Expectation as ExpectationModel
 
 
-class ExpectationType(DjangoObjectType):
+class Expectation(DjangoObjectType):
     class Meta:
-        model = Expectation
+        model = ExpectationModel
         fields = ('id', 'name',)
 
 
 class ExpectationQuery(ObjectType):
-    expectations = graphene.List(ExpectationType)
+    expectations = graphene.List(Expectation)
 
     def resolve_expectations(self, info, **kwargs):
-        return Expectation.objects.all()
+        return ExpectationModel.objects.all()
 
 
-class ExpectationInputType(graphene.InputObjectType):
+class ExpectationInput(graphene.InputObjectType):
     id = graphene.ID(required=True)
     name = graphene.String(required=False)
 

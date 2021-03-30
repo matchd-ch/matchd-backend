@@ -1,0 +1,2 @@
+from .student import StudentGraphQLTestCase
+from .student_step_4 import StudentStep4GraphQLTestCase

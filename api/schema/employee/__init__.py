@@ -1,1 +1,1 @@
-from .schema import EmployeeMutation
+from .schema import EmployeeMutation, EmployeeInput, Employee

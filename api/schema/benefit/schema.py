@@ -2,23 +2,23 @@ import graphene
 from graphene import ObjectType
 from graphene_django import DjangoObjectType
 
-from db.models import Benefit
+from db.models import Benefit as BenefitModel
 
 
-class BenefitType(DjangoObjectType):
+class Benefit(DjangoObjectType):
     class Meta:
-        model = Benefit
+        model = BenefitModel
         fields = ('id', 'icon', 'name',)
 
 
 class BenefitQuery(ObjectType):
-    benefits = graphene.List(BenefitType)
+    benefits = graphene.List(Benefit)
 
     def resolve_benefits(self, info, **kwargs):
-        return Benefit.objects.all()
+        return BenefitModel.objects.all()
 
 
-class BenefitInputType(graphene.InputObjectType):
+class BenefitInput(graphene.InputObjectType):
     id = graphene.ID(required=True)
     icon = graphene.String()
 
