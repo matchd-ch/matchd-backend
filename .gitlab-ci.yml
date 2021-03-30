@@ -6,6 +6,29 @@ stages:
   - "Build"
   - "Deploy"
 
+dependency_scanning:
+  image:
+    docker.gitlab.liip.ch/matchd/docker-images/python-38-centos7:latest
+  script:
+    - pip install --upgrade pip && pip install -r requirements.txt
+    - npm install -g npm@latest
+    - npm install -g snyk
+    - npm install snyk-to-html -g
+    - snyk auth $SNYK_TOKEN
+    - snyk test --json | snyk-to-html -o snyk_results.html
+  artifacts:
+    when: always
+    paths:
+      - snyk_results.html
+  stage: "Test"
+  only:
+    - branches
+    - tags
+  tags:
+    - docker
+    - swiss
+    - not-roadrunner
+
 pylint:
   image:
     docker.gitlab.liip.ch/matchd/docker-images/python-38-centos7:latest
