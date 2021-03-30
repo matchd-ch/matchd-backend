@@ -6,7 +6,7 @@ from api.schema.faq_category import FAQCategoryQuery
 from api.schema.company import CompanyProfileMutation, CompanyQuery, UniversityProfileMutation
 from api.schema.attachment import AttachmentMutation, AttachmentQuery
 from api.schema.employee import EmployeeMutation
-from api.schema.expectation import ExpectationQuery
+from api.schema.job_requirement import JobRequirementQuery
 from api.schema.job_option import JobOptionQuery
 from api.schema.job_position import JobPositionQuery
 from api.schema.job_posting import JobPostingMutation, JobPostingQuery
@@ -55,7 +55,7 @@ class Query(
     UploadConfigurationQuery,
     CompanyQuery,
     JobPostingQuery,
-    ExpectationQuery,
+    JobRequirementQuery,
     FAQCategoryQuery,
     SoftSkillQuery
 ):
