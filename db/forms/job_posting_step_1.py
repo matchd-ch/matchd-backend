@@ -7,12 +7,12 @@ from django.utils.translation import gettext as _
 from db.exceptions import FormException
 from db.helper.forms import convert_object_to_id, validate_company_user_type, validate_form_data, convert_date, \
     generic_error_dict
-from db.models import JobOption, JobPosting, Branch
+from db.models import JobType, JobPosting, Branch
 
 
 class JobPostingFormStep1(forms.Form):
     description = forms.CharField(max_length=1000, required=True)
-    job_option = forms.ModelChoiceField(queryset=JobOption.objects.all(), required=True)
+    job_type = forms.ModelChoiceField(queryset=JobType.objects.all(), required=True)
     branch = forms.ModelChoiceField(queryset=Branch.objects.all(), required=True)
     workload = forms.IntegerField(required=True, validators=[
             MaxValueValidator(100),
@@ -24,7 +24,7 @@ class JobPostingFormStep1(forms.Form):
 
     def __init__(self, data=None, **kwargs):
         # due to a bug with ModelChoiceField and graphene_django
-        data['job_option'] = convert_object_to_id(data.get('job_option', None))
+        data['job_type'] = convert_object_to_id(data.get('job_type', None))
         data['branch'] = convert_object_to_id(data.get('branch', None))
         data['job_from_date'] = convert_date(data.get('job_from_date', None), '%m.%Y')
         to_date = data.get('job_to_date', None)
@@ -82,7 +82,7 @@ def process_job_posting_form_step_1(user, data):
         job_posting = JobPosting()
 
     job_posting.description = cleaned_data.get('description')
-    job_posting.job_option = cleaned_data.get('job_option')
+    job_posting.job_type = cleaned_data.get('job_type')
     job_posting.branch = cleaned_data.get('branch')
     job_posting.workload = cleaned_data.get('workload', None)
     job_posting.job_from_date = cleaned_data.get('job_from_date')

@@ -18,7 +18,7 @@ class Student(models.Model):
     school_name = models.CharField(blank=True, null=True, max_length=255)
     field_of_study = models.CharField(blank=False, null=False, max_length=255)
     graduation = models.DateField(blank=True, null=True)
-    job_option = models.ForeignKey('db.JobOption', blank=True, null=True, on_delete=models.SET_NULL)
+    job_type = models.ForeignKey('db.JobType', blank=True, null=True, on_delete=models.SET_NULL)
     job_from_date = models.DateField(null=True, blank=True)
     job_to_date = models.DateField(null=True, blank=True)
     job_position = models.ForeignKey('db.JobPosition', blank=True, null=True, on_delete=models.SET_NULL)
