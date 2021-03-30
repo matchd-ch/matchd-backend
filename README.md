@@ -21,7 +21,9 @@ If you want to access user specific data you also need to include the authorizat
 
     Authorization: JWT <YOUR JWT TOKEN HERE>
 
-# Registered / Verified users
+# Test Accounts
+
+## Registered / Verified users
 
 
 | Type | Username | Password | Nickname |
@@ -48,6 +50,20 @@ If you want to access user specific data you also need to include the authorizat
 | Student | student-public@matchd.lo | asdf1234$ | - |
 | Student | student-anonymous@matchd.lo | asdf1234$ | - |
 
+## Accounts with complete profiles
+
+| Type | Username | Password | Nickname |
+|---|---|---|---|
+| Student | student-1@matchd.lo | asdf1234$ | melissa.cianciolo |
+| Student | student-2@matchd.lo | asdf1234$ | andy.jackson |
+| Student | student-3@matchd.lo | asdf1234$ | talia.hart |
+| Student | student-4@matchd.lo | asdf1234$ | kevin.graves |
+| Student | student-5@matchd.lo | asdf1234$ | timothy.wilson |
+| Student | student-6@matchd.lo | asdf1234$ | charlie.jencks |
+| Student | student-7@matchd.lo | asdf1234$ | mark.avery |
+| Student | student-8@matchd.lo | asdf1234$ | misty.hernandez |
+| Student | student-9@matchd.lo | asdf1234$ | mary.polite |
+| Student | student-10@matchd.lo | asdf1234$ | jessica.salazar |
 
 # Dump Fixtures
 
