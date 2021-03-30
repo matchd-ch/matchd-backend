@@ -19,7 +19,8 @@
     "distinction": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
     "state": "public",
     "profile_step": 7,
-    "soft_skills": [1, 2, 3, 4, 5, 6]
+    "soft_skills": [1, 2, 3, 4, 5, 6],
+    "cultural_fits": [1, 2, 3, 4, 5, 6]
   },
   {
     "first_name": "Andy",
@@ -41,7 +42,8 @@
     "distinction": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
     "state": "public",
     "profile_step": 7,
-    "soft_skills": [2, 3, 4, 5, 6, 7]
+    "soft_skills": [2, 3, 4, 5, 6, 7],
+    "cultural_fits": [2, 3, 4, 5, 6, 7]
   },
   {
     "first_name": "Talia",
@@ -63,7 +65,8 @@
     "distinction": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
     "state": "public",
     "profile_step": 7,
-    "soft_skills": [3, 4, 5, 6, 7, 8]
+    "soft_skills": [3, 4, 5, 6, 7, 8],
+    "cultural_fits": [3, 4, 5, 6, 7, 8]
   },
   {
     "first_name": "Kevin",
@@ -85,7 +88,8 @@
     "distinction": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
     "state": "public",
     "profile_step": 7,
-    "soft_skills": [4, 5, 6, 7, 8, 9]
+    "soft_skills": [4, 5, 6, 7, 8, 9],
+    "cultural_fits": [4, 5, 6, 7, 8, 9]
   },
   {
     "first_name": "Timothy",
@@ -107,7 +111,8 @@
     "distinction": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
     "state": "public",
     "profile_step": 7,
-    "soft_skills": [5, 6, 7, 8, 9, 10]
+    "soft_skills": [5, 6, 7, 8, 9, 10],
+    "cultural_fits": [5, 6, 7, 8, 9, 10]
   },
   {
     "first_name": "Charlie",
@@ -129,7 +134,8 @@
     "distinction": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
     "state": "public",
     "profile_step": 7,
-    "soft_skills": [6, 7, 8, 9, 10, 11]
+    "soft_skills": [6, 7, 8, 9, 10, 11],
+    "cultural_fits": [6, 7, 8, 9, 10, 11]
   },
   {
     "first_name": "Mark",
@@ -151,7 +157,8 @@
     "distinction": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
     "state": "public",
     "profile_step": 7,
-    "soft_skills": [7, 8, 9, 10, 11, 12]
+    "soft_skills": [7, 8, 9, 10, 11, 12],
+    "cultural_fits": [7, 8, 9, 10, 11, 12]
   },
   {
     "first_name": "Misty",
@@ -173,7 +180,8 @@
     "distinction": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
     "state": "public",
     "profile_step": 7,
-    "soft_skills": [8, 9, 10, 11, 12, 13]
+    "soft_skills": [8, 9, 10, 11, 12, 13],
+    "cultural_fits": [1, 2, 3, 4, 5, 6]
   },
   {
     "first_name": "Mary",
@@ -195,7 +203,8 @@
     "distinction": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
     "state": "public",
     "profile_step": 7,
-    "soft_skills": [9, 10, 11, 12, 13, 14]
+    "soft_skills": [9, 10, 11, 12, 13, 14],
+    "cultural_fits": [2, 3, 4, 5, 6, 7]
   },
   {
     "first_name": "Jessica",
@@ -217,6 +226,7 @@
     "distinction": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
     "state": "public",
     "profile_step": 7,
-    "soft_skills": [10, 11, 12, 13, 14, 15]
+    "soft_skills": [10, 11, 12, 13, 14, 15],
+    "cultural_fits": [3, 4, 5, 6, 7, 8]
   }
 ]

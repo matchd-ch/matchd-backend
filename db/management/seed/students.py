@@ -77,6 +77,7 @@ class Student:
         student.state = user_data.get('state')
         student.profile_step = user_data.get('profile_step')
         student.soft_skills.set(user_data.get('soft_skills'))
+        student.cultural_fits.set(user_data.get('cultural_fits'))
         student.save()
 
         return user
