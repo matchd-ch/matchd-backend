@@ -27,6 +27,7 @@ class Student(models.Model):
     state = models.CharField(choices=ProfileState.choices, max_length=255, blank=False, default=ProfileState.INCOMPLETE)
     profile_step = models.IntegerField(default=1)
     soft_skills = models.ManyToManyField('db.SoftSkill', blank=True, related_name='students')
+    cultural_fits = models.ManyToManyField('db.CulturalFit', blank=True, related_name='students')
 
     def get_profile_content_type(self):
         return ContentType.objects.get(app_label='db', model='student')
