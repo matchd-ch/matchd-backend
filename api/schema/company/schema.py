@@ -9,6 +9,7 @@ from graphql_jwt.decorators import login_required
 
 from api.schema.benefit import BenefitInput
 from api.schema.branch.schema import BranchInput
+from api.schema.cultural_fit import CulturalFitInput
 from api.schema.employee import Employee
 from api.schema.job_position import JobPositionInput
 from api.schema.soft_skill import SoftSkillInput
@@ -112,6 +113,7 @@ class CompanyProfileStep3(Output, graphene.Mutation):
 
 class CompanyProfileInputStep4(graphene.InputObjectType):
     soft_skills = graphene.List(SoftSkillInput, description=_('Soft Skills'))
+    cultural_fits = graphene.List(CulturalFitInput, description=_('Cultural Fit'))
 
 
 class CompanyProfileStep4(Output, graphene.Mutation):
@@ -119,7 +121,7 @@ class CompanyProfileStep4(Output, graphene.Mutation):
         step4 = CompanyProfileInputStep4(description=_('Profile Input Step 4 is required.'), required=True)
 
     class Meta:
-        description = _('Updates the Company Profile with Soft Skills')
+        description = _('Updates a company profile with soft skills and cultural fit')
 
     @classmethod
     @login_required
