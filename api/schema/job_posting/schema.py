@@ -23,7 +23,7 @@ JobPostingState = graphene.Enum.from_enum(JobPostingStateModel)
 
 class JobPosting(DjangoObjectType):
     state = graphene.Field(graphene.NonNull(JobPostingState))
-    employee = graphene.Field(graphene.NonNull(Employee))
+    employee = graphene.Field(Employee)
     workload = graphene.Field(graphene.NonNull(graphene.Int))
 
     class Meta:
