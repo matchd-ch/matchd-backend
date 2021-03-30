@@ -338,6 +338,11 @@ class StudentGraphQLTestCase(GraphQLTestCase):
                         student
                         company
                       }
+                      culturalFits {
+                        id
+                        student
+                        company
+                      }
                     }
                 }
             }
