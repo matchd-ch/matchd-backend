@@ -64,6 +64,16 @@ If you want to access user specific data you also need to include the authorizat
 | Student | student-8@matchd.lo | asdf1234$ | misty.hernandez |
 | Student | student-9@matchd.lo | asdf1234$ | mary.polite |
 | Student | student-10@matchd.lo | asdf1234$ | jessica.salazar |
+| Student | student-11@matchd.lo | asdf1234$ | grete.weber |
+| Student | student-12@matchd.lo | asdf1234$ | franz.haas |
+| Student | student-13@matchd.lo | asdf1234$ | amala.volk |
+| Student | student-14@matchd.lo | asdf1234$ | emil.schaefer |
+| Student | student-15@matchd.lo | asdf1234$ | waldo.wegener |
+| Student | student-16@matchd.lo | asdf1234$ | heinz.kraus |
+| Student | student-17@matchd.lo | asdf1234$ | wilfried.vogt |
+| Student | student-18@matchd.lo | asdf1234$ | emeline.fabel |
+| Student | student-19@matchd.lo | asdf1234$ | ima.richter |
+| Student | student-20@matchd.lo | asdf1234$ | uschi.mayer |
 
 # Dump Fixtures
 
