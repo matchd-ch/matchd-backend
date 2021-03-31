@@ -160,4 +160,3 @@ class Student:
 
         attachment.key = AttachmentKey.STUDENT_AVATAR
         attachment.save()
-
