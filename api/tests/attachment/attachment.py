@@ -59,7 +59,8 @@ class AttachmentGraphQLTestCase(GraphQLTestCase):
         user_status.verified = True
         user_status.save()
 
-        self.company = Company.objects.create(uid='CHE-000.000.000', name='Doe Unlimited', zip='0000', city='DoeCity')
+        self.company = Company.objects.create(uid='CHE-000.000.000', name='Doe Unlimited', zip='0000', city='DoeCity',
+                                              type=ProfileType.COMPANY, slug='doe-unlimited')
 
         self.employee = get_user_model().objects.create(
             username='john2@doe.com',
@@ -71,6 +72,22 @@ class AttachmentGraphQLTestCase(GraphQLTestCase):
         self.employee.save()
 
         user_status = UserStatus.objects.get(user=self.employee)
+        user_status.verified = True
+        user_status.save()
+
+        self.university = Company.objects.create(name='Doe University', zip='0000', city='DoeCity',
+                                                 type=ProfileType.UNIVERSITY, slug='doe-university')
+
+        self.employee2 = get_user_model().objects.create(
+            username='john-uni@doe.com',
+            email='john-uni@doe.com',
+            type=ProfileType.UNIVERSITY,
+            company=self.university
+        )
+        self.employee2.set_password('asdf1234$')
+        self.employee2.save()
+
+        user_status = UserStatus.objects.get(user=self.employee2)
         user_status.verified = True
         user_status.save()
 
@@ -315,6 +332,19 @@ class AttachmentGraphQLTestCase(GraphQLTestCase):
         self._test_upload_with_login('john2@doe.com', AttachmentKey.COMPANY_AVATAR, file, False, ['key'])
         self._test_attachments(num_entries=len(mime_types), mime_types=mime_types, key=AttachmentKey.COMPANY_AVATAR)
 
+    def test_upload_company_avatar_as_university(self):
+        mime_type = 'image/jpeg'
+        file = SimpleUploadedFile(name='image.jpg', content=get_image(extension='jpg'), content_type=mime_type)
+        self._test_upload_with_login('john-uni@doe.com', AttachmentKey.COMPANY_AVATAR, file)
+        # test max files
+        mime_types = [mime_type]
+        for i in get_range_for_key(AttachmentKey.COMPANY_AVATAR):
+            self._test_upload_with_login('john-uni@doe.com', AttachmentKey.COMPANY_AVATAR, file)
+            mime_types.append(mime_type)
+        # too many files
+        self._test_upload_with_login('john-uni@doe.com', AttachmentKey.COMPANY_AVATAR, file, False, ['key'])
+        self._test_attachments(num_entries=len(mime_types), mime_types=mime_types, key=AttachmentKey.COMPANY_AVATAR)
+
     def test_upload_company_with_student_key(self):
         file = SimpleUploadedFile(name='image.jpg', content=get_image(extension='jpg'), content_type='image/jpeg')
         self._test_upload_with_login('john2@doe.com', AttachmentKey.STUDENT_AVATAR, file, False, ['key'])
@@ -348,6 +378,21 @@ class AttachmentGraphQLTestCase(GraphQLTestCase):
         # too many files
         file.seek(0)
         self._test_upload_with_login('john2@doe.com', AttachmentKey.COMPANY_DOCUMENTS, file, False, ['key'])
+        self._test_attachments(num_entries=len(mime_types), mime_types=mime_types, key=AttachmentKey.COMPANY_DOCUMENTS)
+
+    def test_upload_company_documents_as_university(self):
+        mime_type = 'application/pdf'
+        file = SimpleUploadedFile(name='document.pdf', content=get_document(), content_type=mime_type)
+        self._test_upload_with_login('john-uni@doe.com', AttachmentKey.COMPANY_DOCUMENTS, file)
+        # test max files
+        mime_types = [mime_type]
+        for i in get_range_for_key(AttachmentKey.COMPANY_DOCUMENTS):
+            file.seek(0)
+            self._test_upload_with_login('john-uni@doe.com', AttachmentKey.COMPANY_DOCUMENTS, file)
+            mime_types.append(mime_type)
+        # too many files
+        file.seek(0)
+        self._test_upload_with_login('john-uni@doe.com', AttachmentKey.COMPANY_DOCUMENTS, file, False, ['key'])
         self._test_attachments(num_entries=len(mime_types), mime_types=mime_types, key=AttachmentKey.COMPANY_DOCUMENTS)
 
     def test_upload_student_video(self):
