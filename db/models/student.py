@@ -18,7 +18,7 @@ class Student(models.Model):
     school_name = models.CharField(blank=True, null=True, max_length=255)
     field_of_study = models.CharField(blank=False, null=False, max_length=255)
     graduation = models.DateField(blank=True, null=True)
-    job_option = models.ForeignKey('db.JobOption', blank=True, null=True, on_delete=models.SET_NULL)
+    job_type = models.ForeignKey('db.JobType', blank=True, null=True, on_delete=models.SET_NULL)
     job_from_date = models.DateField(null=True, blank=True)
     job_to_date = models.DateField(null=True, blank=True)
     job_position = models.ForeignKey('db.JobPosition', blank=True, null=True, on_delete=models.SET_NULL)
@@ -27,6 +27,7 @@ class Student(models.Model):
     state = models.CharField(choices=ProfileState.choices, max_length=255, blank=False, default=ProfileState.INCOMPLETE)
     profile_step = models.IntegerField(default=1)
     soft_skills = models.ManyToManyField('db.SoftSkill', blank=True, related_name='students')
+    cultural_fits = models.ManyToManyField('db.CulturalFit', blank=True, related_name='students')
 
     def get_profile_content_type(self):
         return ContentType.objects.get(app_label='db', model='student')

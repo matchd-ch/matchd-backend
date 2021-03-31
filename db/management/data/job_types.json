@@ -1,6 +1,6 @@
 [
   {
-    "model": "db.joboption",
+    "model": "db.jobtype",
     "pk": 1,
     "fields": {
         "name": "Jahrespraktikum",
@@ -8,7 +8,7 @@
     }
 },
 {
-    "model": "db.joboption",
+    "model": "db.jobtype",
     "pk": 2,
     "fields": {
         "name": "Kurzpraktikum",
@@ -16,7 +16,7 @@
     }
 },
 {
-    "model": "db.joboption",
+    "model": "db.jobtype",
     "pk": 3,
     "fields": {
         "name": "Trainee für Hochschulabgänger",
@@ -24,7 +24,7 @@
     }
 },
 {
-    "model": "db.joboption",
+    "model": "db.jobtype",
     "pk": 4,
     "fields": {
         "name": "Teilzeitstelle für Studierende FH/Uni",
@@ -32,7 +32,7 @@
     }
 },
 {
-    "model": "db.joboption",
+    "model": "db.jobtype",
     "pk": 5,
     "fields": {
         "name": "Lehrstelle",
@@ -40,7 +40,7 @@
     }
 },
 {
-    "model": "db.joboption",
+    "model": "db.jobtype",
     "pk": 6,
     "fields": {
         "name": "Thema für Abschlussarbeit FH/Uni",
@@ -48,7 +48,7 @@
     }
 },
 {
-    "model": "db.joboption",
+    "model": "db.jobtype",
     "pk": 7,
     "fields": {
         "name": "Thema für Projektarbeit (Gruppe/Einzel)",

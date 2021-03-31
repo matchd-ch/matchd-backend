@@ -4,8 +4,9 @@ from graphql_auth.bases import Output
 from django.utils.translation import gettext as _
 from graphql_jwt.decorators import login_required
 
+from api.schema.cultural_fit import CulturalFitInput
 from api.schema.hobby import HobbyInput
-from api.schema.job_option import JobOptionInput
+from api.schema.job_type import JobTypeInput
 from api.schema.job_position import JobPositionInput
 from api.schema.online_project import OnlineProjectInput
 from api.schema.profile_state import ProfileState
@@ -31,7 +32,7 @@ class Student(DjangoObjectType):
         model = StudentModel
         fields = ('mobile', 'street', 'zip', 'city', 'date_of_birth', 'nickname', 'school_name', 'field_of_study',
                   'graduation', 'skills', 'hobbies', 'languages', 'distinction', 'online_projects', 'state',
-                  'profile_step', 'soft_skills')
+                  'profile_step', 'soft_skills', 'cultural_fits')
         convert_choices_to_enum = False
 
 
@@ -66,7 +67,7 @@ class StudentProfileStep1(Output, graphene.Mutation):
 
 
 class StudentProfileInputStep2(graphene.InputObjectType):
-    job_option = graphene.Field(JobOptionInput, required=True)
+    job_type = graphene.Field(JobTypeInput, required=True)
     job_from_date = graphene.String(required=False)
     job_to_date = graphene.String(required=False)
     job_position = graphene.Field(JobPositionInput, required=False)
@@ -94,6 +95,7 @@ class StudentProfileStep2(Output, graphene.Mutation):
 
 class StudentProfileInputStep3(graphene.InputObjectType):
     soft_skills = graphene.List(SoftSkillInput, required=False)
+    cultural_fits = graphene.List(CulturalFitInput, required=False)
 
 
 class StudentProfileStep3(Output, graphene.Mutation):
@@ -102,7 +104,7 @@ class StudentProfileStep3(Output, graphene.Mutation):
         step3 = StudentProfileInputStep3(description=_('Profile Input Step 3 is required.'), required=True)
 
     class Meta:
-        description = _('Updates Soft Skill of a student')
+        description = _('Updates soft skills and cultural fits of a student')
 
     @classmethod
     @login_required
