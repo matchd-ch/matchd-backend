@@ -1,9 +1,11 @@
 import os
 
 from db.management.seed.base import BaseSeed
-from db.models import Company as CompanyModel, ProfileState, Employee as EmployeeModel, Image, Attachment, AttachmentKey
+from db.models import Company as CompanyModel, ProfileState, Employee as EmployeeModel, AttachmentKey
 
 
+# pylint: disable=W0221
+# pylint: disable=W0511
 class Company(BaseSeed):
 
     def handle_item(self, company_data, index):

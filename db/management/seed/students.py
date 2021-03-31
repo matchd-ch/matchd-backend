@@ -1,11 +1,12 @@
 import os
-from django.contrib.contenttypes.models import ContentType
 
 from db.helper.forms import convert_date
 from db.management.seed.base import BaseSeed
-from db.models import ProfileType, Student as StudentModel, Image, Attachment, AttachmentKey
+from db.models import ProfileType, Student as StudentModel, AttachmentKey
 
 
+# pylint: disable=W0221
+# pylint: disable=W0511
 class Student(BaseSeed):
 
     def handle_item(self, user_data, index):

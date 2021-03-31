@@ -12,6 +12,7 @@ from PIL import Image as PILImage
 from db.models import Image, Attachment, Video, File
 
 
+# pylint: disable=R0913
 class BaseSeed:
 
     data = None
@@ -34,7 +35,6 @@ class BaseSeed:
 
     def handle_item(self, data, index):
         self.stdout.write('You should customize handle_item in your sub-class')
-        pass
 
     def create_user(self, username, user_type, first_name, last_name, company=None):
         user_model = get_user_model()
