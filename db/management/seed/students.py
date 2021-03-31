@@ -46,13 +46,16 @@ class Student:
         user.save()
 
         try:
-            UserStatus.objects.get(user=user)
+            status = UserStatus.objects.get(user=user)
         except UserStatus.DoesNotExist:
-            UserStatus.objects.create(
+            status = UserStatus.objects.create(
                 user=user,
                 verified=True,
                 archived=False
             )
+
+        status.verified = True
+        status.save()
 
         try:
             student = StudentModel.objects.get(user=user)
