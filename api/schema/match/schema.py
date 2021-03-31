@@ -30,8 +30,6 @@ class MatchQuery(ObjectType):
         matches = []
         for student in students:
             name = '%s %s' % (student.user.first_name, student.user.last_name)
-            if student.state == ProfileState.ANONYMOUS:
-                name = student.nickname
 
             attachment = Attachment.objects.filter(
                 key=AttachmentKey.STUDENT_AVATAR,
@@ -42,6 +40,10 @@ class MatchQuery(ObjectType):
             if len(attachment) > 0:
                 attachment = attachment[0].absolute_url
             else:
+                attachment = None
+
+            if student.state == ProfileState.ANONYMOUS:
+                name = student.nickname
                 attachment = None
 
             match = {
