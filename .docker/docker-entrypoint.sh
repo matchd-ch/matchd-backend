@@ -19,9 +19,6 @@ if [ "$1" = '/usr/libexec/s2i/run' ] || [ "$3" = '/usr/libexec/s2i/run' ] || [ "
     ./manage.py load_initial_data
     ./manage.py loaddata db/fixtures/initial_data.json
 
-    echo "Load test data"
-    ./manage.py seed
-
     echo "Reindex elastic"
     python ./manage.py update_index
 fi
