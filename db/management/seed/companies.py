@@ -1,13 +1,4 @@
-import json
 import os
-import shutil
-
-import magic
-from PIL import Image as PILImage
-from django.conf import settings
-from django.contrib.auth import get_user_model
-from django.contrib.contenttypes.models import ContentType
-from graphql_auth.models import UserStatus
 
 from db.management.seed.base import BaseSeed
 from db.models import Company as CompanyModel, ProfileState, Employee as EmployeeModel, Image, Attachment, AttachmentKey
@@ -39,10 +30,20 @@ class Company(BaseSeed):
         company.branch = company_data.get('branch')
         company.description = company_data.get('description')
         company.soft_skills.set(company_data.get('soft_skills'))
-        company.uid = company_data.get('uid')
-        company.services = company_data.get('services')
-        company.member_it_st_gallen = company_data.get('member_it_st_gallen')
-        company.cultural_fits.set(company_data.get('cultural_fits'))
+
+        # company only fields
+        company.uid = company_data.get('uid', '')
+        company.services = company_data.get('services', '')
+        company.member_it_st_gallen = company_data.get('member_it_st_gallen', 0)
+        # TODO add job positions
+        company.cultural_fits.set(company_data.get('cultural_fits', []))
+
+        # university only fields
+        company.top_level_organisation_website = company_data.get('top_level_organisation_website', '')
+        company.top_level_organisation_description = company_data.get('top_level_organisation_description', '')
+        company.link_education = company_data.get('link_education', None)
+        company.link_projects = company_data.get('link_projects', None)
+        company.link_thesis = company_data.get('link_thesis', None)
 
         company.save()
 
@@ -56,7 +57,6 @@ class Company(BaseSeed):
             self.create_employee(user, employee_data)
             employee_index += 1
 
-        # TODO add images
         self.add_images(company)
         # TODO create job postings
 
