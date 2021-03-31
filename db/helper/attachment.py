@@ -2,6 +2,9 @@ from db.models import ProfileState, Student, ProfileType
 
 
 def has_access_to_attachments(user, owner):
+    # this could happen if the owner is an internal user (eg. ProfileType.INTERNAL). See get_company_or_student()
+    if owner is None:
+        return False
     # owner is an instance of company or student
     # check if user has a public profile, or the user is the owner of the attachments
     owner_is_company = True
@@ -36,4 +39,6 @@ def has_access_to_attachments(user, owner):
 def get_company_or_student(user):
     if user.type in ProfileType.valid_company_types():
         return user.company
-    return user.student
+    if user.type in ProfileType.valid_student_types():
+        return user.student
+    return None
