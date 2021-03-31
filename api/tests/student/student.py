@@ -6,7 +6,7 @@ from graphene_django.utils import GraphQLTestCase
 from graphql_auth.models import UserStatus
 
 from api.schema import schema
-from db.models import Student, JobOption, JobOptionMode, JobPosition, SoftSkill
+from db.models import Student, JobType, DateMode, JobPosition, SoftSkill, CulturalFit
 
 
 # pylint:disable=R0913
@@ -60,7 +60,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     variables_step_2_date_range = '''
     {
         "step2": {
-            "jobOption": {"id": 1},
+            "jobType": {"id": 1},
             "jobFromDate": "01.2020",
             "jobToDate": "03.2020",
             "jobPosition": {"id": 1}
@@ -71,7 +71,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     variables_step_2_date_from = '''
     {
         "step2": {
-            "jobOption": {"id": 2},
+            "jobType": {"id": 2},
             "jobFromDate": "01.2020",
             "jobToDate": "",
             "jobPosition": {"id": 1}
@@ -82,9 +82,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     invalid_variables_step_2_date_range = '''
     {
         "step2": {
-            "jobOption": {
-                "id": 1
-            },
+            "jobType": {"id": 1},
             "jobFromDate": "01.2020",
             "jobToDate": "",
             "jobPosition": {
@@ -97,9 +95,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     invalid_variables_step_2_date_from = '''
     {
         "step2": {
-            "jobOption": {
-                "id": 2
-            },
+            "jobType": {"id": 2},
             "jobFromDate": "18.2020",
             "jobToDate": "",
             "jobPosition": {
@@ -120,25 +116,29 @@ class StudentGraphQLTestCase(GraphQLTestCase):
 
     variables_step_3 = {
         "step3": {
-            "softSkills": [{"id": 1}, {"id": 2}, {"id": 3}, {"id": 4}, {"id": 5}, {"id": 6}]
+            "softSkills": [{"id": 1}, {"id": 2}, {"id": 3}, {"id": 4}, {"id": 5}, {"id": 6}],
+            "culturalFits": [{"id": 1}, {"id": 2}, {"id": 3}, {"id": 4}, {"id": 5}, {"id": 6}]
         }
     }
 
     invalid_variables_step_3 = {
         "step3": {
-            "softSkills": [{"id": 1337}, {"id": 2}, {"id": 3}, {"id": 4}, {"id": 5}, {"id": 6}]
+            "softSkills": [{"id": 1337}, {"id": 2}, {"id": 3}, {"id": 4}, {"id": 5}, {"id": 6}],
+            "culturalFits": [{"id": 1337}, {"id": 2}, {"id": 3}, {"id": 4}, {"id": 5}, {"id": 6}]
         }
     }
 
     invalid_variables_step_3_too_few_soft_skills = {
         "step3": {
-            "softSkills": [{"id": 1}]
+            "softSkills": [{"id": 1}],
+            "culturalFits": [{"id": 1}]
         }
     }
 
     invalid_variables_step_3_too_many_soft_skills = {
         "step3": {
-            "softSkills": [{"id": 1}, {"id": 2}, {"id": 3}, {"id": 4}, {"id": 5}, {"id": 6}, {"id": 7}]
+            "softSkills": [{"id": 1}, {"id": 2}, {"id": 3}, {"id": 4}, {"id": 5}, {"id": 6}, {"id": 7}],
+            "culturalFits": [{"id": 1}, {"id": 2}, {"id": 3}, {"id": 4}, {"id": 5}, {"id": 6}, {"id": 7}]
         }
     }
 
@@ -262,14 +262,50 @@ class StudentGraphQLTestCase(GraphQLTestCase):
             company='Company 7'
         )
 
+        CulturalFit.objects.create(
+            id=1,
+            student='Student 1',
+            company='Company 1'
+        )
+        CulturalFit.objects.create(
+            id=2,
+            student='Student 2',
+            company='Company 2'
+        )
+        CulturalFit.objects.create(
+            id=3,
+            student='Student 3',
+            company='Company 3'
+        )
+        CulturalFit.objects.create(
+            id=4,
+            student='Student 4',
+            company='Company 4'
+        )
+        CulturalFit.objects.create(
+            id=5,
+            student='Student 5',
+            company='Company 5'
+        )
+        CulturalFit.objects.create(
+            id=6,
+            student='Student 6',
+            company='Company 6'
+        )
+        CulturalFit.objects.create(
+            id=7,
+            student='Student 7',
+            company='Company 7'
+        )
+
         Student.objects.create(user=self.student_with_nickname, mobile='+41771234568', nickname='john_doe')
 
         user_status = UserStatus.objects.get(user=self.student_with_nickname)
         user_status.verified = True
         user_status.save()
 
-        self.date_range_option = JobOption.objects.create(name='Date range', mode=JobOptionMode.DATE_RANGE, id=1)
-        self.date_from_option = JobOption.objects.create(name='Date from', mode=JobOptionMode.DATE_FROM, id=2)
+        self.date_range_option = JobType.objects.create(name='Date range', mode=DateMode.DATE_RANGE, id=1)
+        self.date_from_option = JobType.objects.create(name='Date from', mode=DateMode.DATE_FROM, id=2)
 
         self.job_position = JobPosition.objects.create(name='Job position', id=1)
 
@@ -338,6 +374,11 @@ class StudentGraphQLTestCase(GraphQLTestCase):
                         url
                       }
                       softSkills {
+                        id
+                        student
+                        company
+                      }
+                      culturalFits {
                         id
                         student
                         company
@@ -471,7 +512,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         user = get_user_model().objects.get(pk=self.user.pk)
 
         profile = user.student
-        self.assertEqual(profile.job_option.id, self.date_range_option.id)
+        self.assertEqual(profile.job_type.id, self.date_range_option.id)
         from_date = datetime.strptime('01.2020', '%m.%Y').date()
         self.assertEqual(profile.job_from_date, from_date)
         to_date = datetime.strptime('03.2020', '%m.%Y').date()
@@ -487,7 +528,7 @@ class StudentGraphQLTestCase(GraphQLTestCase):
         user = get_user_model().objects.get(pk=self.user.pk)
 
         profile = user.student
-        self.assertEqual(profile.job_option.id, self.date_from_option.id)
+        self.assertEqual(profile.job_type.id, self.date_from_option.id)
         from_date = datetime.strptime('01.2020', '%m.%Y').date()
         self.assertEqual(profile.job_from_date, from_date)
         self.assertIsNone(profile.job_to_date)
@@ -500,20 +541,30 @@ class StudentGraphQLTestCase(GraphQLTestCase):
     def test_profile_step_3_as_company(self):
         self._test_step_as_company(self.query_step_3, self.variables_step_3, 'studentProfileStep3')
 
+    def test_profile_step_3(self):
+        self._test_and_get_step_response_content(3, self.query_step_3, self.variables_step_3, 'studentProfileStep3')
+
+        # reload user
+        user = get_user_model().objects.get(pk=self.user.pk)
+
+        profile = user.student
+        self.assertEqual(len(profile.soft_skills.all()), 6)
+        self.assertEqual(len(profile.cultural_fits.all()), 6)
+
     def test_profile_step_3_with_invalid_step(self):
         self._test_step_with_invalid_step(2, self.query_step_3, self.variables_step_3, 'studentProfileStep3')
 
-    def test_profile_step_3_with_invalid_data_soft_skill(self):
+    def test_profile_step_3_with_invalid_data_soft_skill_and_cultural_fit(self):
         self._test_step_with_invalid_data(3, self.query_step_3, self.invalid_variables_step_3,
-                                          'studentProfileStep3', ['softSkills'])
+                                          'studentProfileStep3', ['softSkills', 'culturalFits'])
 
-    def test_profile_step_3_with_invalid_data_soft_skill_too_few(self):
+    def test_profile_step_3_with_invalid_data_soft_skill_too_few_and_cultural_fit_too_few(self):
         self._test_step_with_invalid_data(3, self.query_step_3, self.invalid_variables_step_3_too_few_soft_skills,
-                                          'studentProfileStep3', ['softSkills'])
+                                          'studentProfileStep3', ['softSkills', 'culturalFits'])
 
-    def test_profile_step_3_with_invalid_data_soft_skill_too_many(self):
+    def test_profile_step_3_with_invalid_data_soft_skill_too_many_and_cultural_fit_too_many(self):
         self._test_step_with_invalid_data(3, self.query_step_3, self.invalid_variables_step_3_too_many_soft_skills,
-                                          'studentProfileStep3', ['softSkills'])
+                                          'studentProfileStep3', ['softSkills', 'culturalFits'])
 
     def test_profile_step_5_without_login(self):
         self._test_step_without_login(self.query_step_5, self.variables_step_5, 'studentProfileStep5')

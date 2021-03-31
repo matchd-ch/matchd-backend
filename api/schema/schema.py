@@ -2,12 +2,13 @@ import graphene
 
 from api.schema.benefit import BenefitQuery
 from api.schema.branch import BranchQuery
+from api.schema.cultural_fit import CulturalFitQuery
 from api.schema.faq_category import FAQCategoryQuery
 from api.schema.company import CompanyProfileMutation, CompanyQuery, UniversityProfileMutation
 from api.schema.attachment import AttachmentMutation, AttachmentQuery
 from api.schema.employee import EmployeeMutation
-from api.schema.expectation import ExpectationQuery
-from api.schema.job_option import JobOptionQuery
+from api.schema.job_requirement import JobRequirementQuery
+from api.schema.job_type import JobTypeQuery
 from api.schema.job_position import JobPositionQuery
 from api.schema.job_posting import JobPostingMutation, JobPostingQuery
 from api.schema.language import LanguageQuery
@@ -46,7 +47,7 @@ class Query(
     LanguageQuery,
     LanguageLevelQuery,
     ZipCityQuery,
-    JobOptionQuery,
+    JobTypeQuery,
     JobPositionQuery,
     SkillQuery,
     BenefitQuery,
@@ -55,9 +56,10 @@ class Query(
     UploadConfigurationQuery,
     CompanyQuery,
     JobPostingQuery,
-    ExpectationQuery,
+    JobRequirementQuery,
     FAQCategoryQuery,
-    SoftSkillQuery
+    SoftSkillQuery,
+    CulturalFitQuery
 ):
     pass
 
