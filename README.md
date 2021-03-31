@@ -74,6 +74,46 @@ If you want to access user specific data you also need to include the authorizat
 | Student | student-18@matchd.lo | asdf1234$ | emeline.fabel | public |
 | Student | student-19@matchd.lo | asdf1234$ | ima.richter | anonymous |
 | Student | student-20@matchd.lo | asdf1234$ | uschi.mayer | public |
+| Company | company-1-1@matchd.lo | asdf1234$ | - | public |
+| Company | company-1-2@matchd.lo | asdf1234$ | - | public |
+| Company | company-2-1@matchd.lo | asdf1234$ | - | public |
+| Company | company-2-2@matchd.lo | asdf1234$ | - | public |
+| Company | company-3-1@matchd.lo | asdf1234$ | - | public |
+| Company | company-3-2@matchd.lo | asdf1234$ | - | public |
+| Company | company-4-1@matchd.lo | asdf1234$ | - | public |
+| Company | company-4-2@matchd.lo | asdf1234$ | - | public |
+| Company | company-5-1@matchd.lo | asdf1234$ | - | public |
+| Company | company-5-2@matchd.lo | asdf1234$ | - | public |
+| Company | company-6-1@matchd.lo | asdf1234$ | - | public |
+| Company | company-6-2@matchd.lo | asdf1234$ | - | public |
+| Company | company-7-1@matchd.lo | asdf1234$ | - | public |
+| Company | company-7-2@matchd.lo | asdf1234$ | - | public |
+| Company | company-8-1@matchd.lo | asdf1234$ | - | public |
+| Company | company-8-2@matchd.lo | asdf1234$ | - | public |
+| Company | company-9-1@matchd.lo | asdf1234$ | - | public |
+| Company | company-9-2@matchd.lo | asdf1234$ | - | public |
+| Company | company-10-1@matchd.lo | asdf1234$ | - | public |
+| Company | company-10-2@matchd.lo | asdf1234$ | - | public |
+| University | company-11-1@matchd.lo | asdf1234$ | - | public |
+| University | company-11-2@matchd.lo | asdf1234$ | - | public |
+| University | company-12-1@matchd.lo | asdf1234$ | - | public |
+| University | company-12-2@matchd.lo | asdf1234$ | - | public |
+| University | company-13-1@matchd.lo | asdf1234$ | - | public |
+| University | company-13-2@matchd.lo | asdf1234$ | - | public |
+| University | company-14-1@matchd.lo | asdf1234$ | - | public |
+| University | company-14-2@matchd.lo | asdf1234$ | - | public |
+| University | company-15-1@matchd.lo | asdf1234$ | - | public |
+| University | company-15-2@matchd.lo | asdf1234$ | - | public |
+| University | company-16-1@matchd.lo | asdf1234$ | - | public |
+| University | company-16-2@matchd.lo | asdf1234$ | - | public |
+| University | company-17-1@matchd.lo | asdf1234$ | - | public |
+| University | company-17-2@matchd.lo | asdf1234$ | - | public |
+| University | company-18-1@matchd.lo | asdf1234$ | - | public |
+| University | company-18-2@matchd.lo | asdf1234$ | - | public |
+| University | company-19-1@matchd.lo | asdf1234$ | - | public |
+| University | company-19-2@matchd.lo | asdf1234$ | - | public |
+| University | company-20-1@matchd.lo | asdf1234$ | - | public |
+| University | company-20-2@matchd.lo | asdf1234$ | - | public |
 
 # Dump Fixtures
 
