@@ -8,12 +8,12 @@ class Command(BaseCommand):
 
     # noinspection PyUnresolvedReferences
     def handle(self, *args, **options):
-
+        self.stdout.write('Adding test data...')
         seeds = [
-            Student(stdout=self.stdout, file='students.json'),
-            Company(stdout=self.stdout, file='companies.json')
+            Student(stdout=self.stdout, style=self.style, file='students.json'),
+            Company(stdout=self.stdout, style=self.style, file='companies.json')
         ]
 
         for seed in seeds:
             seed.run()
-        self.stdout.write(self.style.SUCCESS('Seed finished'))
+        self.stdout.write(self.style.SUCCESS('Adding test data completed'))

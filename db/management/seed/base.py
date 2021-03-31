@@ -14,14 +14,24 @@ from db.models import Image, Attachment, Video, File
 
 # pylint: disable=R0913
 class BaseSeed:
-
+    name = None
     data = None
 
-    def __init__(self, stdout, file):
+    skipped_files = 0
+    created_files = 0
+
+    def __init__(self, stdout, style, file):
+        self.style = style
         self.stdout = stdout
         self.file = file
         self.data = None
         self.load_data()
+
+    def log(self, message, style=None, ending=None):
+        if style is None:
+            self.stdout.write(message, ending=ending)
+        else:
+            self.stdout.write(style(message), ending=ending)
 
     def load_data(self):
         with open('db/management/seed/%s' % self.file) as json_file:
@@ -29,9 +39,13 @@ class BaseSeed:
 
     def run(self):
         index = 1
+        self.log('Creating %i object(s) of type %s' % (len(self.data), self.name))
         for user in self.data:
             self.handle_item(user, index)
             index += 1
+            self.log('.', ending='')
+        self.log('\n')
+        self.log('Files created: %i | Files skipped: %i ' % (self.created_files, self.skipped_files))
 
     def handle_item(self, data, index):
         self.stdout.write('You should customize handle_item in your sub-class')
@@ -82,16 +96,19 @@ class BaseSeed:
             print('Ensure media_fixtures are up to date. Run ./init.sh')
             raise Exception('Missing media fixtures')
 
-        # delete existing folder
-        if generated_folder_exists:
-            shutil.rmtree(generated_folder)
-
-        # copy or rename folder
-        if copy_folder:
-            shutil.copytree(origin_folder, generated_folder)
-        else:
-            os.rename(origin_folder, generated_folder)
-
+        for directory in os.listdir(origin_folder):
+            if directory[0] != '.':
+                for file in os.listdir(os.path.join(origin_folder, directory)):
+                    if file[0] != '.':
+                        origin_file = os.path.join(origin_folder, directory, file)
+                        destination_directory = os.path.join(generated_folder, directory)
+                        destination_file = os.path.join(destination_directory, file)
+                        if not os.path.exists(destination_file):
+                            os.makedirs(destination_directory, exist_ok=True)
+                            shutil.copy2(origin_file, destination_file)
+                            self.created_files += 1
+                        else:
+                            self.skipped_files += 1
         return generated_folder
 
     def create_image(self, user, image_path, relative_path):
