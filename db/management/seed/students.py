@@ -1,10 +1,15 @@
 import json
+import os
 
+import magic
+from PIL import Image as PILImage
+from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.contrib.contenttypes.models import ContentType
 from graphql_auth.models import UserStatus
 
 from db.helper.forms import convert_date
-from db.models import ProfileType, Student as StudentModel
+from db.models import ProfileType, Student as StudentModel, Image, Attachment, AttachmentKey
 
 
 class Student:
@@ -83,4 +88,76 @@ class Student:
         student.cultural_fits.set(user_data.get('cultural_fits'))
         student.save()
 
+        self.add_profile_image(user, user_data)
+
         return user
+
+    def add_profile_image(self, user, user_data):
+        # check if original folder still exists
+        origin_folder = os.path.join(settings.MEDIA_ROOT, 'student', user.username)
+        origin_folder_exists = os.path.exists(origin_folder)
+        generated_folder = os.path.join(settings.MEDIA_ROOT, 'student', str(user.id))
+        generated_folder_exists = os.path.exists(generated_folder)
+
+        # raise exception if the original folder and the generated folder do not exist
+        if not origin_folder_exists and not generated_folder_exists:
+            print('Missing media_fixtures: ', origin_folder)
+            print('Ensure media_fixtures are up to date. Run ./init.sh')
+            raise Exception('Missing media fixtures')
+
+        # rename folder if destination does not exist
+        if origin_folder_exists and not generated_folder_exists:
+            os.rename(origin_folder, generated_folder)
+        elif origin_folder_exists and generated_folder_exists:
+            print('copy files...')
+
+        avatar = user_data.get('avatar')
+
+        profile_image_path = os.path.join(generated_folder, 'images', avatar)
+        if not os.path.exists(profile_image_path):
+            print('Missing media_fixtures: ', profile_image_path)
+            print('Ensure media_fixtures are up to date. Run ./init.sh')
+            raise Exception('Missing media_fixtures')
+
+        relative_image_path = os.path.join('student', str(user.id), 'images', avatar)
+
+        # create image
+        try:
+            image = Image.objects.get(file=relative_image_path)
+        except Image.DoesNotExist:
+            image = Image.objects.create(
+                file=relative_image_path,
+                collection_id=1,
+                uploaded_by_user_id=user.id
+            )
+
+        mime = magic.Magic(mime=True)
+        mime_type = mime.from_file(profile_image_path)
+        image.mime_type = mime_type
+
+        with PILImage.open(profile_image_path) as img:
+            width, height = img.size
+
+        image.width = width
+        image.height = height
+
+        image.save()
+
+        # create attachment
+        student_content_type = user.get_profile_content_type()
+        student_id = user.get_profile_id()
+
+        image_content_type = ContentType.objects.get(model='image', app_label='db')
+
+        try:
+            attachment = Attachment.objects.get(attachment_type=image_content_type, content_type=student_content_type,
+                                                object_id=student_id, attachment_id=image.id)
+        except Attachment.DoesNotExist:
+            attachment = Attachment.objects.create(
+                attachment_type=image_content_type, content_type=student_content_type,
+                object_id=student_id, attachment_id=image.id
+            )
+
+        attachment.key = AttachmentKey.STUDENT_AVATAR
+        attachment.save()
+

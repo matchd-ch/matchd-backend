@@ -20,7 +20,8 @@
     "state": "public",
     "profile_step": 7,
     "soft_skills": [1, 2, 3, 4, 5, 6],
-    "cultural_fits": [1, 2, 3, 4, 5, 6]
+    "cultural_fits": [1, 2, 3, 4, 5, 6],
+    "avatar": "profilbild_1.png"
   },
   {
     "first_name": "Andy",
@@ -43,7 +44,8 @@
     "state": "public",
     "profile_step": 7,
     "soft_skills": [2, 3, 4, 5, 6, 7],
-    "cultural_fits": [2, 3, 4, 5, 6, 7]
+    "cultural_fits": [2, 3, 4, 5, 6, 7],
+    "avatar": "profilbild_2.png"
   },
   {
     "first_name": "Talia",
@@ -66,7 +68,8 @@
     "state": "public",
     "profile_step": 7,
     "soft_skills": [3, 4, 5, 6, 7, 8],
-    "cultural_fits": [3, 4, 5, 6, 7, 8]
+    "cultural_fits": [3, 4, 5, 6, 7, 8],
+    "avatar": "profilbild_3.png"
   },
   {
     "first_name": "Kevin",
@@ -89,7 +92,8 @@
     "state": "public",
     "profile_step": 7,
     "soft_skills": [4, 5, 6, 7, 8, 9],
-    "cultural_fits": [4, 5, 6, 7, 8, 9]
+    "cultural_fits": [4, 5, 6, 7, 8, 9],
+    "avatar": "profilbild_4.png"
   },
   {
     "first_name": "Timothy",
@@ -112,7 +116,8 @@
     "state": "public",
     "profile_step": 7,
     "soft_skills": [5, 6, 7, 8, 9, 10],
-    "cultural_fits": [5, 6, 7, 8, 9, 10]
+    "cultural_fits": [5, 6, 7, 8, 9, 10],
+    "avatar": "profilbild_5.png"
   },
   {
     "first_name": "Charlie",
@@ -135,7 +140,8 @@
     "state": "public",
     "profile_step": 7,
     "soft_skills": [6, 7, 8, 9, 10, 11],
-    "cultural_fits": [6, 7, 8, 9, 10, 11]
+    "cultural_fits": [6, 7, 8, 9, 10, 11],
+    "avatar": "profilbild_6.png"
   },
   {
     "first_name": "Mark",
@@ -158,7 +164,8 @@
     "state": "public",
     "profile_step": 7,
     "soft_skills": [7, 8, 9, 10, 11, 12],
-    "cultural_fits": [7, 8, 9, 10, 11, 12]
+    "cultural_fits": [7, 8, 9, 10, 11, 12],
+    "avatar": "profilbild_7.png"
   },
   {
     "first_name": "Misty",
@@ -181,7 +188,8 @@
     "state": "public",
     "profile_step": 7,
     "soft_skills": [8, 9, 10, 11, 12, 13],
-    "cultural_fits": [1, 2, 3, 4, 5, 6]
+    "cultural_fits": [1, 2, 3, 4, 5, 6],
+    "avatar": "profilbild_8.png"
   },
   {
     "first_name": "Mary",
@@ -204,7 +212,8 @@
     "state": "public",
     "profile_step": 7,
     "soft_skills": [9, 10, 11, 12, 13, 14],
-    "cultural_fits": [2, 3, 4, 5, 6, 7]
+    "cultural_fits": [2, 3, 4, 5, 6, 7],
+    "avatar": "profilbild_9.jpg"
   },
   {
     "first_name": "Jessica",
@@ -227,7 +236,8 @@
     "state": "public",
     "profile_step": 7,
     "soft_skills": [10, 11, 12, 13, 14, 15],
-    "cultural_fits": [3, 4, 5, 6, 7, 8]
+    "cultural_fits": [3, 4, 5, 6, 7, 8],
+    "avatar": "profilbild_10.jpg"
   },
   {
     "first_name": "Grete",
@@ -250,7 +260,8 @@
     "state": "public",
     "profile_step": 7,
     "soft_skills": [1, 2, 7, 4, 5, 6],
-    "cultural_fits": [1, 2, 7, 4, 5, 6]
+    "cultural_fits": [1, 2, 7, 4, 5, 6],
+    "avatar": "profilbild_11.jpg"
   },
   {
     "first_name": "Franz",
@@ -273,7 +284,8 @@
     "state": "public",
     "profile_step": 7,
     "soft_skills": [2, 3, 10, 15, 6, 9],
-    "cultural_fits": [2, 3, 4, 1, 6, 12]
+    "cultural_fits": [2, 3, 4, 1, 6, 12],
+    "avatar": "profilbild_12.png"
   },
   {
     "first_name": "Amala",
@@ -296,7 +308,8 @@
     "state": "public",
     "profile_step": 7,
     "soft_skills": [3, 4, 10, 16, 7, 8],
-    "cultural_fits": [3, 4, 15, 14, 7, 8]
+    "cultural_fits": [3, 4, 15, 14, 7, 8],
+    "avatar": "profilbild_13.jpg"
   },
   {
     "first_name": "Emil",
@@ -319,7 +332,8 @@
     "state": "public",
     "profile_step": 7,
     "soft_skills": [4, 15, 6, 7, 11, 10],
-    "cultural_fits": [4, 5, 10, 11, 12, 9]
+    "cultural_fits": [4, 5, 10, 11, 12, 9],
+    "avatar": "profilbild_14.jpg"
   },
   {
     "first_name": "Waldo",
@@ -342,7 +356,8 @@
     "state": "public",
     "profile_step": 7,
     "soft_skills": [5, 6, 12, 11, 9, 10],
-    "cultural_fits": [5, 15, 12, 13, 9, 10]
+    "cultural_fits": [5, 15, 12, 13, 9, 10],
+    "avatar": "profilbild_15.jpg"
   },
   {
     "first_name": "Heinz",
@@ -365,7 +380,8 @@
     "state": "public",
     "profile_step": 7,
     "soft_skills": [6, 7, 8, 12, 13, 11],
-    "cultural_fits": [6, 7, 12, 9, 10, 11]
+    "cultural_fits": [6, 7, 12, 9, 10, 11],
+    "avatar": "profilbild_16.jpg"
   },
   {
     "first_name": "Wilfried",
@@ -388,7 +404,8 @@
     "state": "public",
     "profile_step": 7,
     "soft_skills": [7, 8, 3, 5, 11, 12],
-    "cultural_fits": [7, 1, 2, 3, 11, 12]
+    "cultural_fits": [7, 1, 2, 3, 11, 12],
+    "avatar": "profilbild_17.jpg"
   },
   {
     "first_name": "Emeline",
@@ -411,7 +428,8 @@
     "state": "public",
     "profile_step": 7,
     "soft_skills": [1, 2, 3, 11, 12, 13],
-    "cultural_fits": [1, 8, 3, 12, 11, 6]
+    "cultural_fits": [1, 8, 3, 12, 11, 6],
+    "avatar": "profilbild_18.jpg"
   },
   {
     "first_name": "Ima",
@@ -434,7 +452,8 @@
     "state": "public",
     "profile_step": 7,
     "soft_skills": [9, 1, 2, 3, 13, 14],
-    "cultural_fits": [2, 8, 9, 10, 6, 7]
+    "cultural_fits": [2, 8, 9, 10, 6, 7],
+    "avatar": "profilbild_19.jpg"
   },
   {
     "first_name": "Uschi",
@@ -457,6 +476,7 @@
     "state": "public",
     "profile_step": 7,
     "soft_skills": [1, 2, 3, 13, 14, 15],
-    "cultural_fits": [3, 4, 9, 10, 11, 8]
+    "cultural_fits": [3, 4, 9, 10, 11, 8],
+    "avatar": "profilbild_20.jpg"
   }
 ]
