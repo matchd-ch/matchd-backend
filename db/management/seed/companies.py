@@ -72,11 +72,19 @@ class Company(BaseSeed):
     def add_images(self, company):
         generated_folder = self.prepare_fixtures(True, 'company', 'company', company.id)
 
+        company_user = company.users.all()[0]
+
         # images
         for i in range(1, 5):
             image_name = 'image_%s.jpg' % str(i)
             image_path = os.path.join(generated_folder, 'images', image_name)
             relative_image_path = os.path.join('company', str(company.id), 'images', image_name)
 
-            image = self.create_image(company.users.all()[0], image_path, relative_image_path)
+            image = self.create_image(company_user, image_path, relative_image_path)
             self.create_attachment(company, image, AttachmentKey.COMPANY_DOCUMENTS)
+
+        profile_image_path = os.path.join(generated_folder, 'images', 'logo.png')
+        relative_image_path = os.path.join('company', str(company.id), 'images', 'logo.png')
+
+        image = self.create_image(company_user, profile_image_path, relative_image_path)
+        self.create_attachment(company, image, AttachmentKey.COMPANY_AVATAR)

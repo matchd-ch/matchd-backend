@@ -82,15 +82,15 @@ class BaseSeed:
             print('Ensure media_fixtures are up to date. Run ./init.sh')
             raise Exception('Missing media fixtures')
 
-        # rename folder if destination does not exist
-        if origin_folder_exists and not generated_folder_exists:
-            if copy_folder:
-                shutil.copytree(origin_folder, generated_folder)
-            else:
-                os.rename(origin_folder, generated_folder)
-        elif origin_folder_exists and generated_folder_exists:
-            # TODO copy files
-            print('copy files...')
+        # delete existing folder
+        if generated_folder_exists:
+            shutil.rmtree(generated_folder)
+
+        # copy or rename folder
+        if copy_folder:
+            shutil.copytree(origin_folder, generated_folder)
+        else:
+            os.rename(origin_folder, generated_folder)
 
         return generated_folder
 

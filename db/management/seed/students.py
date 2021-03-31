@@ -14,7 +14,7 @@ class Student(BaseSeed):
         username = 'student-%s@matchd.lo' % str(index)
         user = self.create_user(username, ProfileType.STUDENT, first_name, last_name)
         self.create_student(user, user_data)
-        self.add_profile_image(user, user_data)
+        self.add_images(user, user_data)
 
     def create_student(self, user, user_data):
         try:
@@ -43,7 +43,7 @@ class Student(BaseSeed):
         student.cultural_fits.set(user_data.get('cultural_fits'))
         student.save()
 
-    def add_profile_image(self, user, user_data):
+    def add_images(self, user, user_data):
         generated_folder = self.prepare_fixtures(False, 'student', user.username, user.id)
 
         avatar = user_data.get('avatar')
