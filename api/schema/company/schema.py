@@ -9,6 +9,7 @@ from graphql_jwt.decorators import login_required
 
 from api.schema.benefit import BenefitInput
 from api.schema.branch.schema import BranchInput
+from api.schema.cultural_fit import CulturalFitInput
 from api.schema.employee import Employee
 from api.schema.job_position import JobPositionInput
 from api.schema.soft_skill import SoftSkillInput
@@ -112,6 +113,7 @@ class CompanyProfileStep3(Output, graphene.Mutation):
 
 class CompanyProfileInputStep4(graphene.InputObjectType):
     soft_skills = graphene.List(SoftSkillInput, description=_('Soft Skills'))
+    cultural_fits = graphene.List(CulturalFitInput, description=_('Cultural Fit'))
 
 
 class CompanyProfileStep4(Output, graphene.Mutation):
@@ -119,7 +121,7 @@ class CompanyProfileStep4(Output, graphene.Mutation):
         step4 = CompanyProfileInputStep4(description=_('Profile Input Step 4 is required.'), required=True)
 
     class Meta:
-        description = _('Updates the Company Profile with Soft Skills')
+        description = _('Updates a company profile with soft skills and cultural fit')
 
     @classmethod
     @login_required
@@ -239,7 +241,7 @@ class Company(DjangoObjectType):
         fields = ['id', 'uid', 'name', 'zip', 'city', 'street', 'phone', 'description', 'member_it_st_gallen',
                   'services', 'website', 'job_positions', 'benefits', 'state', 'profile_step', 'slug',
                   'top_level_organisation_description', 'top_level_organisation_website', 'type', 'branch',
-                  'link_education', 'link_projects', 'link_thesis', 'soft_skills']
+                  'link_education', 'link_projects', 'link_thesis', 'soft_skills', 'cultural_fits']
         convert_choices_to_enum = False
 
     def resolve_employees(self: CompanyModel, info):
