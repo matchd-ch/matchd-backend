@@ -9,3 +9,4 @@ from .benefit import *
 from .job_requirement import *
 from .faq_category import *
 from .soft_skill import *
+from .cultural_fit import *

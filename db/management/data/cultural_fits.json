@@ -1,0 +1,98 @@
+[
+{
+    "model": "db.culturalfit",
+    "pk": 1,
+    "fields": {
+        "student": "ich mich bei Entscheidungen einbringen darf.",
+        "company": "sich Mitarbeitende bei Entscheidungen einbringen wollen."
+    }
+},
+{
+    "model": "db.culturalfit",
+    "pk": 2,
+    "fields": {
+        "student": "alle Menschen gleich behandelt werden und gleiche Chancen erhalten.",
+        "company": "alle Mitarbeitenden gleich behandelt werden und gleiche Chancen erhalten."
+    }
+},
+{
+    "model": "db.culturalfit",
+    "pk": 3,
+    "fields": {
+        "student": "mir die Chance gegeben wird, aus Fehlern zu lernen.",
+        "company": "wir die Chance geben können, aus Fehlern zu lernen."
+    }
+},
+{
+    "model": "db.culturalfit",
+    "pk": 4,
+    "fields": {
+        "student": "alle an einem grossen, gemeinsamen Ziel arbeiten.",
+        "company": "alle an einem grossen, gemeinsamen Ziel arbeiten."
+    }
+},
+{
+    "model": "db.culturalfit",
+    "pk": 5,
+    "fields": {
+        "student": "meine Arbeit etwas Positives bewirkt.",
+        "company": "unsere Arbeit etwas Positives bewirkt."
+    }
+},
+{
+    "model": "db.culturalfit",
+    "pk": 6,
+    "fields": {
+        "student": "ich neues lernen und mich weiterentwickeln kann.",
+        "company": "unsere Mitarbeitenden sich weiterentwickeln können."
+    }
+},
+{
+    "model": "db.culturalfit",
+    "pk": 7,
+    "fields": {
+        "student": "ich bei der Arbeit auch Spass haben kann.",
+        "company": "wir bei der Arbeit auch Spass haben."
+    }
+},
+{
+    "model": "db.culturalfit",
+    "pk": 8,
+    "fields": {
+        "student": "ich meine Ideen verwirklichen kann.",
+        "company": "unsere Mitarbeitenden ihre Ideen verwirklichen können."
+    }
+},
+{
+    "model": "db.culturalfit",
+    "pk": 9,
+    "fields": {
+        "student": "alle einen fairen Lohn erhalten.",
+        "company": "unsere Mitarbeitenden einen fairen Lohn erhalten."
+    }
+},
+{
+    "model": "db.culturalfit",
+    "pk": 10,
+    "fields": {
+        "student": "ich für eine umweltbewusste Unternehmung arbeite.",
+        "company": "wir ein umweltbewusstes Unternehmen sind."
+    }
+},
+{
+    "model": "db.culturalfit",
+    "pk": 11,
+    "fields": {
+        "student": "ich Unterstützung vom Team erhalte.",
+        "company": "sich unser Team gegenseitig unterstützt."
+    }
+},
+{
+    "model": "db.culturalfit",
+    "pk": 12,
+    "fields": {
+        "student": "meine Arbeit geschätzt wird.",
+        "company": "die Arbeit unserer Mitarbeitenden zu schätzen."
+    }
+}
+]
