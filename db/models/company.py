@@ -30,6 +30,7 @@ class Company(models.Model):
     member_it_st_gallen = models.BooleanField(blank=True, default=False)
     benefits = models.ManyToManyField('db.Benefit', related_name='companies')
     job_positions = models.ManyToManyField('db.JobPosition', related_name='companies')
+    cultural_fits = models.ManyToManyField('db.CulturalFit', related_name='companies')
 
     # fields for university only
     top_level_organisation_description = models.TextField(max_length=1000, blank=True)

@@ -3,21 +3,357 @@
     "model": "db.skill",
     "pk": 1,
     "fields": {
-      "name": "php"
+      "name": "Javascript"
     }
   },
   {
     "model": "db.skill",
     "pk": 2,
     "fields": {
-      "name": "java"
+      "name": "Java"
     }
   },
   {
     "model": "db.skill",
     "pk": 3,
     "fields": {
-      "name": "python"
+      "name": "C"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 4,
+    "fields": {
+      "name": "C++"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 5,
+    "fields": {
+      "name": "C#"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 6,
+    "fields": {
+      "name": "Visual Basic"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 7,
+    "fields": {
+      "name": "PHP"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 8,
+    "fields": {
+      "name": "Python"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 9,
+    "fields": {
+      "name": "Scratch"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 10,
+    "fields": {
+      "name": "Delphi"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 11,
+    "fields": {
+      "name": "Object Pascal"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 12,
+    "fields": {
+      "name": "Swift"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 13,
+    "fields": {
+      "name": "SQL"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 14,
+    "fields": {
+      "name": "HTML"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 15,
+    "fields": {
+      "name": "CSS"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 16,
+    "fields": {
+      "name": "React"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 17,
+    "fields": {
+      "name": "Angular"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 18,
+    "fields": {
+      "name": "Django"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 19,
+    "fields": {
+      "name": "Laravel"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 20,
+    "fields": {
+      "name": "Ruby on Rails"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 21,
+    "fields": {
+      "name": "Vue.js"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 22,
+    "fields": {
+      "name": "Spring"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 23,
+    "fields": {
+      "name": "Express"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 24,
+    "fields": {
+      "name": "ASP.NET"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 25,
+    "fields": {
+      "name": "Meteor"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 26,
+    "fields": {
+      "name": "Aerospike"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 27,
+    "fields": {
+      "name": "Amazon DynamoDB"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 28,
+    "fields": {
+      "name": "Apache Cassandra/DataStax"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 29,
+    "fields": {
+      "name": "EnterpriseDB/PostgreSQL"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 30,
+    "fields": {
+      "name": "IBM DB2"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 31,
+    "fields": {
+      "name": "MarkLogic Server"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 32,
+    "fields": {
+      "name": "Microsoft SQL Server"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 33,
+    "fields": {
+      "name": "MongoDB"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 34,
+    "fields": {
+      "name": "MySQL"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 35,
+    "fields": {
+      "name": "Neo4j"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 36,
+    "fields": {
+      "name": "Oracle Database 12c"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 37,
+    "fields": {
+      "name": "Redis"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 38,
+    "fields": {
+      "name": "Riak"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 39,
+    "fields": {
+      "name": "SAP HANA"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 40,
+    "fields": {
+      "name": "Agile Software Development"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 41,
+    "fields": {
+      "name": "DevOps"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 42,
+    "fields": {
+      "name": "Scrum Development"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 43,
+    "fields": {
+      "name": "Waterfall Model"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 44,
+    "fields": {
+      "name": "Prototype"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 45,
+    "fields": {
+      "name": "Feature Driven Development"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 46,
+    "fields": {
+      "name": "Rapid Application Development (RAD)"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 47,
+    "fields": {
+      "name": "Spiral Model"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 48,
+    "fields": {
+      "name": "Dynamic Systems Development Model"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 49,
+    "fields": {
+      "name": "Extreme Programming"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 50,
+    "fields": {
+      "name": "Joint Application Development"
+    }
+  },
+  {
+    "model": "db.skill",
+    "pk": 51,
+    "fields": {
+      "name": "Lean Development"
     }
   }
 ]
