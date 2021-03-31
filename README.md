@@ -21,7 +21,9 @@ If you want to access user specific data you also need to include the authorizat
 
     Authorization: JWT <YOUR JWT TOKEN HERE>
 
-# Registered / Verified users
+# Test Accounts
+
+## Registered / Verified users
 
 
 | Type | Username | Password | Nickname |
@@ -48,6 +50,30 @@ If you want to access user specific data you also need to include the authorizat
 | Student | student-public@matchd.lo | asdf1234$ | - |
 | Student | student-anonymous@matchd.lo | asdf1234$ | - |
 
+## Accounts with complete profiles
+
+| Type | Username | Password | Nickname | Status |
+|---|---|---|---|---|
+| Student | student-1@matchd.lo | asdf1234$ | melissa.cianciolo | public |
+| Student | student-2@matchd.lo | asdf1234$ | andy.jackson | public |
+| Student | student-3@matchd.lo | asdf1234$ | talia.hart | public |
+| Student | student-4@matchd.lo | asdf1234$ | kevin.graves | public |
+| Student | student-5@matchd.lo | asdf1234$ | timothy.wilson | public |
+| Student | student-6@matchd.lo | asdf1234$ | charlie.jencks | public |
+| Student | student-7@matchd.lo | asdf1234$ | mark.avery | public |
+| Student | student-8@matchd.lo | asdf1234$ | misty.hernandez | public |
+| Student | student-9@matchd.lo | asdf1234$ | mary.polite | public |
+| Student | student-10@matchd.lo | asdf1234$ | jessica.salazar | public |
+| Student | student-11@matchd.lo | asdf1234$ | grete.weber | public |
+| Student | student-12@matchd.lo | asdf1234$ | franz.haas | public |
+| Student | student-13@matchd.lo | asdf1234$ | amala.volk | public |
+| Student | student-14@matchd.lo | asdf1234$ | emil.schaefer | anonymous |
+| Student | student-15@matchd.lo | asdf1234$ | waldo.wegener | public |
+| Student | student-16@matchd.lo | asdf1234$ | heinz.kraus | public |
+| Student | student-17@matchd.lo | asdf1234$ | wilfried.vogt | public |
+| Student | student-18@matchd.lo | asdf1234$ | emeline.fabel | public |
+| Student | student-19@matchd.lo | asdf1234$ | ima.richter | anonymous |
+| Student | student-20@matchd.lo | asdf1234$ | uschi.mayer | public |
 
 # Dump Fixtures
 
