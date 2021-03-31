@@ -1,16 +1,17 @@
 from django.core.management.base import BaseCommand
 
-from db.management.seed import Student
+from db.management.seed import Student, Company
 
 
 class Command(BaseCommand):
-    help = 'loads initial data in DB'
-
-    seeds = [
-        Student
-    ]
+    help = 'Generates test data'
 
     def handle(self, *args, **options):
-        for seed in self.seeds:
-            seed().run()
+        seeds = [
+            Student(stdout=self.stdout, file='students.json'),
+            Company(stdout=self.stdout, file='companies.json')
+        ]
+
+        for seed in seeds:
+            seed.run()
         self.stdout.write(self.style.SUCCESS('Seed finished'))

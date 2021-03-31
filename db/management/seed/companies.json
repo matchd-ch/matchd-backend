@@ -1,0 +1,302 @@
+[
+  {
+    "employees": [
+      {
+        "first_name": "Jochen",
+        "last_name": "Dietrich",
+        "role": "Recruiter"
+      },
+      {
+        "first_name": "Lorenz",
+        "last_name": "Weber",
+        "role": "Recruiter"
+      }
+    ],
+    "type": "company",
+    "profile_step": 5,
+    "name": "Dietrich AG",
+    "zip": "",
+    "city": "",
+    "street": "",
+    "phone": "+712345678",
+    "website": "https://www.dietrich.lo",
+    "branch": null,
+    "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
+    "soft_skills": [],
+    "uid": "CHE-000.000.000",
+    "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
+    "member_it_st_gallen": true,
+    "benefits": [],
+    "cultural_fits": []
+  },
+  {
+    "employees": [
+      {
+        "first_name": "Magdalena",
+        "last_name": "Schmitz",
+        "role": "Recruiter"
+      },
+      {
+        "first_name": "Clothilde",
+        "last_name": "Stumpf",
+        "role": "Recruiter"
+      }
+    ],
+    "type": "company",
+    "profile_step": 5,
+    "name": "Stumpf AG",
+    "zip": "",
+    "city": "",
+    "street": "",
+    "phone": "+712345678",
+    "website": "https://www.stumpf.lo",
+    "branch": null,
+    "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
+    "soft_skills": [],
+    "uid": "CHE-000.000.000",
+    "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
+    "member_it_st_gallen": true,
+    "benefits": [],
+    "cultural_fits": []
+  },
+  {
+    "employees": [
+      {
+        "first_name": "Rupert",
+        "last_name": "Foehrkolb",
+        "role": "Recruiter"
+      },
+      {
+        "first_name": "Severin",
+        "last_name": "Leitz",
+        "role": "Recruiter"
+      }
+    ],
+    "type": "company",
+    "profile_step": 5,
+    "name": "Stumpf AG",
+    "zip": "",
+    "city": "",
+    "street": "",
+    "phone": "+712345678",
+    "website": "https://www.foehrkolb.lo",
+    "branch": null,
+    "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
+    "soft_skills": [],
+    "uid": "CHE-000.000.000",
+    "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
+    "member_it_st_gallen": true,
+    "benefits": [],
+    "cultural_fits": []
+  },
+  {
+    "employees": [
+      {
+        "first_name": "Gitta",
+        "last_name": "Schneider",
+        "role": "Recruiter"
+      },
+      {
+        "first_name": "Katinka",
+        "last_name": "Lorenz",
+        "role": "Recruiter"
+      }
+    ],
+    "type": "company",
+    "profile_step": 5,
+    "name": "Gitta AG",
+    "zip": "",
+    "city": "",
+    "street": "",
+    "phone": "+712345678",
+    "website": "https://www.Gitta.lo",
+    "branch": null,
+    "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
+    "soft_skills": [],
+    "uid": "CHE-000.000.000",
+    "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
+    "member_it_st_gallen": true,
+    "benefits": [],
+    "cultural_fits": []
+  },
+  {
+    "employees": [
+      {
+        "first_name": "Pankraz",
+        "last_name": "Möller",
+        "role": "Recruiter"
+      },
+      {
+        "first_name": "Wotan",
+        "last_name": "Heinrich",
+        "role": "Recruiter"
+      }
+    ],
+    "type": "company",
+    "profile_step": 5,
+    "name": "Pankraz AG",
+    "zip": "",
+    "city": "",
+    "street": "",
+    "phone": "+712345678",
+    "website": "https://www.pankraz.lo",
+    "branch": null,
+    "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
+    "soft_skills": [],
+    "uid": "CHE-000.000.000",
+    "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
+    "member_it_st_gallen": true,
+    "benefits": [],
+    "cultural_fits": []
+  },
+  {
+    "employees": [
+      {
+        "first_name": "Meta",
+        "last_name": "Schmitz",
+        "role": "Recruiter"
+      },
+      {
+        "first_name": "Reginhard",
+        "last_name": "Berger",
+        "role": "Recruiter"
+      }
+    ],
+    "type": "company",
+    "profile_step": 5,
+    "name": "Berger AG",
+    "zip": "",
+    "city": "",
+    "street": "",
+    "phone": "+712345678",
+    "website": "https://www.berger.lo",
+    "branch": null,
+    "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
+    "soft_skills": [],
+    "uid": "CHE-000.000.000",
+    "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
+    "member_it_st_gallen": true,
+    "benefits": [],
+    "cultural_fits": []
+  },
+  {
+    "employees": [
+      {
+        "first_name": "Bathilda",
+        "last_name": "Volk",
+        "role": "Recruiter"
+      },
+      {
+        "first_name": "Wiebke",
+        "last_name": "Baasch",
+        "role": "Recruiter"
+      }
+    ],
+    "type": "company",
+    "profile_step": 5,
+    "name": "Baasch AG",
+    "zip": "",
+    "city": "",
+    "street": "",
+    "phone": "+712345678",
+    "website": "https://www.baasch.lo",
+    "branch": null,
+    "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
+    "soft_skills": [],
+    "uid": "CHE-000.000.000",
+    "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
+    "member_it_st_gallen": true,
+    "benefits": [],
+    "cultural_fits": []
+  },
+  {
+    "employees": [
+      {
+        "first_name": "Hagan",
+        "last_name": "Klossner",
+        "role": "Recruiter"
+      },
+      {
+        "first_name": "Emeline",
+        "last_name": "Bauer",
+        "role": "Recruiter"
+      }
+    ],
+    "type": "company",
+    "profile_step": 5,
+    "name": "Klossner AG",
+    "zip": "",
+    "city": "",
+    "street": "",
+    "phone": "+712345678",
+    "website": "https://www.klossner.lo",
+    "branch": null,
+    "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
+    "soft_skills": [],
+    "uid": "CHE-000.000.000",
+    "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
+    "member_it_st_gallen": true,
+    "benefits": [],
+    "cultural_fits": []
+  },
+  {
+    "employees": [
+      {
+        "first_name": "Guntram",
+        "last_name": "Kunze",
+        "role": "Recruiter"
+      },
+      {
+        "first_name": "Athala",
+        "last_name": "Kunkel",
+        "role": "Recruiter"
+      }
+    ],
+    "type": "company",
+    "profile_step": 5,
+    "name": "Kunkel AG",
+    "zip": "",
+    "city": "",
+    "street": "",
+    "phone": "+712345678",
+    "website": "https://www.kunkel.lo",
+    "branch": null,
+    "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
+    "soft_skills": [],
+    "uid": "CHE-000.000.000",
+    "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
+    "member_it_st_gallen": true,
+    "benefits": [],
+    "cultural_fits": []
+  },
+  {
+    "employees": [
+      {
+        "first_name": "Alric",
+        "last_name": "Schulte",
+        "role": "Recruiter"
+      },
+      {
+        "first_name": "Anneke",
+        "last_name": "Wagner",
+        "role": "Recruiter"
+      }
+    ],
+    "type": "company",
+    "profile_step": 5,
+    "name": "KunkWagnerel AG",
+    "zip": "",
+    "city": "",
+    "street": "",
+    "phone": "+712345678",
+    "website": "https://www.wagner.lo",
+    "branch": null,
+    "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
+    "soft_skills": [],
+    "uid": "CHE-000.000.000",
+    "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
+    "member_it_st_gallen": true,
+    "benefits": [],
+    "cultural_fits": []
+  }
+]
