@@ -63,7 +63,7 @@ def process_online_project(profile, data):
         # This is why we do a manual check
         if not project_url_already_exists(profile, cleaned_data.get('url'), instance):
             return form
-        elif instance is not None:
+        if instance is not None:
             raise FormException(errors=generic_error_dict('nonFieldErrors',
                                                           'A project with the same url already exists',
                                                           'unique_together'))

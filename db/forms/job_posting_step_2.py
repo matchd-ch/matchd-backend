@@ -104,6 +104,7 @@ def process_job_posting_form_step_2(user, data):
     if errors:
         raise FormException(errors=errors)
 
+    # pylint: disable=W0511
     # TODO create validator
     # check if employee belongs to the same company
     user_company = user.company.id

@@ -31,7 +31,7 @@ def process_student_form_step_6(user, data):
         # update user profile
         cleaned_data = form.cleaned_data
         new_state = cleaned_data.get('state')
-        if new_state != ProfileState.PUBLIC and new_state != ProfileState.ANONYMOUS:
+        if new_state not in (ProfileState.PUBLIC, ProfileState.ANONYMOUS):
             errors.update(generic_error_dict('state', 'Only public and anonymous are allowed', 'invalid'))
         student.state = new_state
     else:

@@ -50,6 +50,7 @@ def process_job_posting_form_step_1(user, data):
 
     cleaned_data = None
 
+    # pylint: disable=W0511
     # TODO create validator
     url = data.get('url')
     if url is not None and url != '':
