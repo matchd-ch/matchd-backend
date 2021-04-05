@@ -1,7 +1,10 @@
-import pytest
 from datetime import datetime
+import pytest
 
 from db.models import JobPosting
+
+# pylint: disable=W0621
+# pylint: disable=R0913
 
 
 def job_posting_mutation(step):

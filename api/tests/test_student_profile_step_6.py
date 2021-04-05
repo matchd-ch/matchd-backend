@@ -85,7 +85,7 @@ def test_step_6_invalid_data(login, user_student, student_step_6):
 
 
 @pytest.mark.django_db
-def test_step_6_invalid_data(login, user_student, student_step_6):
+def test_step_6_invalid_state(login, user_student, student_step_6):
     user_student.student.profile_step = 6
     user_student.student.save()
     login(user_student)

@@ -2,6 +2,8 @@ import pytest
 
 from db.models import Language
 
+# pylint: disable=W0621
+
 
 def languages_query():
     return '''

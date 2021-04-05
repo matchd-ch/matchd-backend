@@ -4,6 +4,8 @@ from django.contrib.auth.models import AnonymousUser
 from db.helper.forms import convert_date
 from db.models import JobPosting, JobType, Branch
 
+# pylint: disable=R0913
+
 
 @pytest.mark.django_db
 def test_step_1(requests_mock, user_employee, login, job_posting_step_1, job_type_objects, branch_objects):

@@ -11,10 +11,10 @@ def test_query(query_languages, language_objects):
     objects = data.get('languages')
     assert objects is not None
     assert len(objects) == len(language_objects)
-    assert 'Deutsch' == objects[0].get('name')
-    assert 'Englisch' == objects[1].get('name')
-    assert 'Spanisch' == objects[2].get('name')
-    assert 'Zulu' == objects[3].get('name')
+    assert objects[0].get('name') == 'Deutsch'
+    assert objects[1].get('name') == 'Englisch'
+    assert objects[2].get('name') == 'Spanisch'
+    assert objects[3].get('name') == 'Zulu'
 
 
 @pytest.mark.django_db
@@ -26,5 +26,5 @@ def test_shortlist_query(query_languages_shortlist, language_shortlist_objects):
     objects = data.get('languages')
     assert objects is not None
     assert len(objects) == len(language_shortlist_objects)
-    assert 'Deutsch' == objects[0].get('name')
-    assert 'Spanisch' == objects[1].get('name')
+    assert objects[0].get('name') == 'Deutsch'
+    assert objects[1].get('name') == 'Spanisch'

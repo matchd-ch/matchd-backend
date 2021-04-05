@@ -30,12 +30,14 @@ def test_login_logout(login, logout, user_student):
     assert data.get('tokenAuth') is not None
     assert data.get('tokenAuth').get('success')
     assert data.get('tokenAuth').get('token') is not None
+    # pylint: disable=W0511
     # TODO test JWT cookie
 
     data, errors = logout()
     assert errors is None
     assert data is not None
     assert data.get('logout')
+    # pylint: disable=W0511
     # TODO test JWT cookie
 
 

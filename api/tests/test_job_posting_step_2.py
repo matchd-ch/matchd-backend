@@ -4,6 +4,9 @@ from django.contrib.auth.models import AnonymousUser
 from db.models import JobPosting, JobRequirement, Skill, Language, LanguageLevel
 
 
+# pylint: disable=R0913
+
+
 @pytest.mark.django_db
 def test_step_2(user_employee, job_posting_object, login, job_posting_step_2, job_requirement_objects, skill_objects,
                 language_shortlist_objects, language_no_shortlist_objects, language_level_objects):
@@ -28,7 +31,7 @@ def test_step_2(user_employee, job_posting_object, login, job_posting_step_2, jo
     for obj in skill_objects:
         assert obj in skills
     languages = job_posting.languages.all()
-    assert 2 == len(languages)
+    assert len(languages) == 2
     for language in languages:
         assert language.language in language_shortlist_objects
     assert job_posting.form_step == 3
@@ -102,9 +105,10 @@ def test_step_2_with_invalid_data(user_employee, job_posting_object, login, job_
     login(user_employee)
     job_posting_object.form_step = 2
     job_posting_object.save()
-    data, errors = job_posting_step_2(user_employee, job_posting_object.id, [JobRequirement(id=1337)], [Skill(id=1337)], (
-        (Language(id=1337, short_list=True), LanguageLevel(id=1337)),
-    ))
+    data, errors = job_posting_step_2(user_employee, job_posting_object.id, [JobRequirement(id=1337)], [Skill(id=1337)],
+                                      (
+                                          (Language(id=1337, short_list=True), LanguageLevel(id=1337)),
+                                      ))
     assert errors is None
     assert data is not None
     assert data.get('jobPostingStep2') is not None

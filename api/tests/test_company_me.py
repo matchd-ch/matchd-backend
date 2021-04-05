@@ -3,6 +3,8 @@ from django.contrib.auth.models import AnonymousUser
 
 from db.models import ProfileType
 
+# pylint: disable=C0103
+
 
 @pytest.mark.django_db
 def test_me_company(login, me, user_employee, company_object_complete):

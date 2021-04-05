@@ -2,6 +2,8 @@ import pytest
 
 from db.models import AttachmentKey, ProfileState
 
+# pylint: disable=R0913
+
 
 @pytest.mark.django_db
 def test_incomplete_attachments(login, user_student, upload, file_image_jpg, attachments_for_user, logout,

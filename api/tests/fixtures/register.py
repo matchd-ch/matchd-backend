@@ -1,5 +1,8 @@
 import pytest
 
+# pylint: disable=W0621
+# pylint: disable=R0913
+
 
 @pytest.fixture
 def register_student_query(default_password):

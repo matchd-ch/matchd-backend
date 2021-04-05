@@ -11,5 +11,5 @@ def test_query(query_benefits, benefit_objects):
     objects = data.get('benefits')
     assert objects is not None
     assert len(objects) == len(benefit_objects)
-    assert 'Laptop' == objects[0].get('name')
-    assert 'Massage' == objects[1].get('name')
+    assert objects[0].get('name') == 'Laptop'
+    assert objects[1].get('name') == 'Massage'

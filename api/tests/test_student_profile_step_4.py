@@ -4,6 +4,8 @@ from django.contrib.auth.models import AnonymousUser
 
 from db.models import Skill, Language, LanguageLevel, Hobby, OnlineProject, UserLanguageRelation
 
+# pylint: disable=R0913
+
 
 @pytest.mark.django_db
 def test_step_4(login, user_student, student_step_4, skill_objects, language_objects, language_level_objects):
@@ -26,11 +28,11 @@ def test_step_4(login, user_student, student_step_4, skill_objects, language_obj
         assert obj in skills
     # test if only two languages was added (third language is duplicate)
     languages = user.student.languages.all()
-    assert 2 == len(languages)
+    assert len(languages) == 2
     hobbies = user.student.hobbies.all()
-    assert 2 == len(hobbies)
+    assert len(hobbies) == 2
     online_projects = user.student.online_projects.all()
-    assert 2 == len(online_projects)
+    assert len(online_projects) == 2
     assert user.student.distinction == 'distinction'
     assert user_student.student.profile_step == 5
 
@@ -64,7 +66,8 @@ def test_step_4_as_company(login, user_employee, student_step_4, skill_objects, 
 
 
 @pytest.mark.django_db
-def test_step_4_invalid_step(login, user_student, student_step_4, skill_objects, language_objects, language_level_objects):
+def test_step_4_invalid_step(login, user_student, student_step_4, skill_objects, language_objects,
+                             language_level_objects):
     user_student.student.profile_step = 0
     user_student.student.save()
     login(user_student)
@@ -115,7 +118,7 @@ def test_step_4_update_delete_hobbies(login, user_student, student_step_4, skill
     Hobby.objects.create(id=1, name='hobby 1', student=user_student.student)
     Hobby.objects.create(id=2, name='hobby 2', student=user_student.student)
     user_student.student.save()
-    assert 2 == len(user_student.student.hobbies.all())
+    assert len(user_student.student.hobbies.all()) == 2
 
     login(user_student)
     data, errors = student_step_4(user_student, skill_objects, [], [{'id': 1, 'name': 'hobby edited'}], [], '')
@@ -126,7 +129,7 @@ def test_step_4_update_delete_hobbies(login, user_student, student_step_4, skill
 
     user = get_user_model().objects.get(pk=user_student.id)
     hobbies = user.student.hobbies.all()
-    assert 1 == len(hobbies)
+    assert len(hobbies) == 1
     assert hobbies[0].id == 1
     assert hobbies[0].name == 'hobby edited'
     assert user_student.student.profile_step == 5
@@ -138,11 +141,11 @@ def test_step_4_update_delete_online_projects(login, user_student, student_step_
     OnlineProject.objects.create(id=1, url='http://www.project1.lo', student=user_student.student)
     OnlineProject.objects.create(id=2, url='http://www.project2.lo', student=user_student.student)
     user_student.student.save()
-    assert 2 == len(user_student.student.online_projects.all())
+    assert len(user_student.student.online_projects.all()) == 2
 
     login(user_student)
-    data, errors = student_step_4(user_student, skill_objects, [], [], [{'id': 1, 'url': 'http://www.project1-edited.lo'}],
-                                  '')
+    data, errors = student_step_4(user_student, skill_objects, [], [],
+                                  [{'id': 1, 'url': 'http://www.project1-edited.lo'}], '')
     assert errors is None
     assert data is not None
     assert data.get('studentProfileStep4') is not None
@@ -150,7 +153,7 @@ def test_step_4_update_delete_online_projects(login, user_student, student_step_
 
     user = get_user_model().objects.get(pk=user_student.id)
     online_projects = user.student.online_projects.all()
-    assert 1 == len(online_projects)
+    assert len(online_projects) == 1
     assert online_projects[0].id == 1
     assert online_projects[0].url == 'http://www.project1-edited.lo'
     assert user_student.student.profile_step == 5
@@ -165,7 +168,7 @@ def test_step_4_update_delete_languages(login, user_student, student_step_4, ski
     UserLanguageRelation.objects.create(id=2, student=user_student.student, language=language_objects[1],
                                         language_level=language_level_objects[0])
     user_student.student.save()
-    assert 2 == len(user_student.student.languages.all())
+    assert len(user_student.student.languages.all()) == 2
 
     login(user_student)
     data, errors = student_step_4(user_student, skill_objects, (
@@ -178,7 +181,7 @@ def test_step_4_update_delete_languages(login, user_student, student_step_4, ski
 
     user = get_user_model().objects.get(pk=user_student.id)
     languages = user.student.languages.all()
-    assert 1 == len(languages)
+    assert len(languages) == 1
     assert languages[0].language.id == 1
     assert languages[0].language_level.id == 1
     assert user_student.student.profile_step == 5
@@ -190,7 +193,7 @@ def test_step_4_unique_hobbies_update(login, user_student, student_step_4, skill
     Hobby.objects.create(id=1, name='hobby 1', student=user_student.student)
     Hobby.objects.create(id=2, name='hobby 2', student=user_student.student)
     user_student.student.save()
-    assert 2 == len(user_student.student.hobbies.all())
+    assert len(user_student.student.hobbies.all()) == 2
 
     login(user_student)
     data, errors = student_step_4(user_student, skill_objects, [],
@@ -211,7 +214,7 @@ def test_step_4_unique_hobbies_create(login, user_student, student_step_4, skill
     user_student.student.profile_step = 4
     Hobby.objects.create(id=1, name='hobby 1', student=user_student.student)
     user_student.student.save()
-    assert 1 == len(user_student.student.hobbies.all())
+    assert len(user_student.student.hobbies.all()) == 1
 
     login(user_student)
     # new hobby should be ignored
@@ -224,7 +227,7 @@ def test_step_4_unique_hobbies_create(login, user_student, student_step_4, skill
 
     user = get_user_model().objects.get(pk=user_student.id)
     hobbies = user.student.hobbies.all()
-    assert 1 == len(hobbies)
+    assert len(hobbies) == 1
     assert hobbies[0].id == 1
     assert hobbies[0].name == 'hobby 1'
     assert user_student.student.profile_step == 5
@@ -236,7 +239,7 @@ def test_step_4_unique_online_projects_update(login, user_student, student_step_
     OnlineProject.objects.create(id=1, url='http://www.project1.lo', student=user_student.student)
     OnlineProject.objects.create(id=2, url='http://www.project2.lo', student=user_student.student)
     user_student.student.save()
-    assert 2 == len(user_student.student.online_projects.all())
+    assert len(user_student.student.online_projects.all()) == 2
 
     login(user_student)
     data, errors = student_step_4(user_student, skill_objects, [], [],
@@ -258,7 +261,7 @@ def test_step_4_unique_online_projects_create(login, user_student, student_step_
     user_student.student.profile_step = 4
     OnlineProject.objects.create(id=1, url='http://www.project1.lo', student=user_student.student)
     user_student.student.save()
-    assert 1 == len(user_student.student.online_projects.all())
+    assert len(user_student.student.online_projects.all()) == 1
 
     login(user_student)
     data, errors = student_step_4(user_student, skill_objects, [], [],
@@ -271,7 +274,7 @@ def test_step_4_unique_online_projects_create(login, user_student, student_step_
 
     user = get_user_model().objects.get(pk=user_student.id)
     online_projects = user.student.online_projects.all()
-    assert 1 == len(online_projects)
+    assert len(online_projects) == 1
     assert online_projects[0].id == 1
     assert online_projects[0].url == 'http://www.project1.lo'
     assert user_student.student.profile_step == 5

@@ -11,5 +11,5 @@ def test_query(query_job_types, job_type_objects):
     objects = data.get('jobTypes')
     assert objects is not None
     assert len(objects) == len(job_type_objects)
-    assert 'Lehrstelle' == objects[0].get('name')
-    assert 'Praktikum' == objects[1].get('name')
+    assert objects[0].get('name') == 'Lehrstelle'
+    assert objects[1].get('name') == 'Praktikum'

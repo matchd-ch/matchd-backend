@@ -4,6 +4,10 @@ from django.contrib.auth.models import AnonymousUser
 from db.helper.forms import convert_date
 from db.models import ProfileType, ProfileState, Hobby, OnlineProject
 
+# pylint: disable=C0103
+# pylint: disable=R0913
+# pylint: disable=R0915
+
 
 @pytest.mark.django_db
 def test_me_student(login, me, user_student, skill_objects, soft_skill_objects, cultural_fit_objects):

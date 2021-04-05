@@ -11,5 +11,5 @@ def test_query(query_faq_categories, faq_category_objects):
     objects = data.get('faqCategories')
     assert objects is not None
     assert len(objects) == len(faq_category_objects)
-    assert 'First category' == objects[0].get('name')
-    assert 'Second category' == objects[1].get('name')
+    assert objects[0].get('name') == 'First category'
+    assert objects[1].get('name') == 'Second category'

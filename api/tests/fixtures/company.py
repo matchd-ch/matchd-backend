@@ -2,6 +2,9 @@ import pytest
 
 from db.models import Company, ProfileState, ProfileType, Employee
 
+# pylint: disable=W0621
+# pylint: disable=R0913
+
 
 def company_query(slug):
     return '''

@@ -11,5 +11,5 @@ def test_query(query_branches, branch_objects):
     objects = data.get('branches')
     assert objects is not None
     assert len(objects) == len(branch_objects)
-    assert 'Applikationsentwicklung' == objects[0].get('name')
-    assert 'Systemtechnik' == objects[1].get('name')
+    assert objects[0].get('name') == 'Applikationsentwicklung'
+    assert objects[1].get('name') == 'Systemtechnik'

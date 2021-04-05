@@ -1,6 +1,9 @@
 import pytest
 
 
+# pylint: disable=W0621
+
+
 @pytest.fixture
 def default_password():
     return 'asdf1234$'
@@ -143,4 +146,3 @@ def weak_passwords():
         ('$$$$$//////()()()()$1234567', 'no_letter'),
         ('veryComplicatedPasswordButStillWeak123456789', 'no_specialchars'),
     )
-

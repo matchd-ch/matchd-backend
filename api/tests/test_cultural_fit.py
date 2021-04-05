@@ -11,7 +11,7 @@ def test_query(query_cultural_fits, cultural_fit_objects):
     objects = data.get('culturalFits')
     assert objects is not None
     assert len(objects) == len(cultural_fit_objects)
-    assert 'I like working' == objects[0].get('student')
-    assert 'You like working' == objects[0].get('company')
-    assert 'I like things' == objects[1].get('student')
-    assert 'You like things' == objects[1].get('company')
+    assert objects[0].get('student') == 'I like working'
+    assert objects[0].get('company') == 'You like working'
+    assert objects[1].get('student') == 'I like things'
+    assert objects[1].get('company') == 'You like things'

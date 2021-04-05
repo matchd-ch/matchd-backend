@@ -35,4 +35,3 @@ def add_employee(execute):
             }, **{'user': employee}
         )
     return closure
-

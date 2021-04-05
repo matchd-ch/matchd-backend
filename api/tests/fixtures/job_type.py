@@ -2,6 +2,8 @@ import pytest
 
 from db.models import JobType, DateMode
 
+# pylint: disable=W0621
+
 
 def job_types_query():
     return '''

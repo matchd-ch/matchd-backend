@@ -1,5 +1,7 @@
 import pytest
 
+# pylint: disable=C0103
+
 
 def me_query():
     return '''

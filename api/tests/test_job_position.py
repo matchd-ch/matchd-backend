@@ -11,5 +11,5 @@ def test_query(query_job_positions, job_position_objects):
     objects = data.get('jobPositions')
     assert objects is not None
     assert len(objects) == len(job_position_objects)
-    assert 'Applikationsentwickler*in' == objects[0].get('name')
-    assert 'Systemtechniker*in' == objects[1].get('name')
+    assert objects[0].get('name') == 'Applikationsentwickler*in'
+    assert objects[1].get('name') == 'Systemtechniker*in'

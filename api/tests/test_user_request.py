@@ -14,14 +14,14 @@ def test_user_request(user_request):
     assert data.get('userRequest').get('success')
 
     entries = UserRequest.objects.all()
-    assert 1 == len(entries)
+    assert len(entries) == 1
     assert entries[0].email == 'test@matchd.test'
     assert entries[0].name == 'John Doe'
     assert entries[0].message == 'Some message'
 
     request_email_copy = mail.outbox[0]
     assert 'test@matchd.test' in request_email_copy.recipients()
-    assert 'John Doe', request_email_copy.body
+    assert 'John Doe' in request_email_copy.body
     assert 'test@matchd.test' in request_email_copy.body
     assert 'Some message' in request_email_copy.body
     assert settings.EMAIL_SUBJECT_PREFIX, request_email_copy.subject
@@ -29,7 +29,7 @@ def test_user_request(user_request):
     request_email = mail.outbox[1]
     for recipient in settings.USER_REQUEST_FORM_RECIPIENTS:
         assert recipient in request_email.recipients()
-    assert 'John Doe', request_email.body
+    assert 'John Doe' in request_email.body
     assert 'test@matchd.test' in request_email.body
     assert 'Some message' in request_email.body
     assert settings.EMAIL_SUBJECT_PREFIX, request_email.subject

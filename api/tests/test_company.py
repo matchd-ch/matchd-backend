@@ -8,6 +8,7 @@ from db.models import ProfileState
 def test_company(company_object_complete, query_company):
     data, errors = query_company(AnonymousUser(), company_object_complete.slug)
     company = data.get('company')
+    assert errors is None
     assert company is not None
     assert company.get('type') == company_object_complete.type.upper()
     assert company.get('state') == company_object_complete.state.upper()
@@ -54,6 +55,7 @@ def test_company_incomplete_as_employee(login, company_object_complete, query_co
     login(employee)
     data, errors = query_company(employee, company_object_complete.slug)
     company = data.get('company')
+    assert errors is None
     assert company is not None
     assert company.get('type') == company_object_complete.type.upper()
     assert company.get('state') == company_object_complete.state.upper()

@@ -1,5 +1,7 @@
 import pytest
 
+# pylint: disable=R0913
+
 
 def university_profile_mutation(step):
     step = str(step)
@@ -15,7 +17,7 @@ def university_profile_mutation(step):
 
 @pytest.fixture
 def university_step_1(execute):
-    def closure(user, first_name, last_name, name, street, zip, city, phone, role, website,
+    def closure(user, first_name, last_name, name, street, zip_value, city, phone, role, website,
                 top_level_organisation_website, top_level_organisation_description):
         return execute(university_profile_mutation(1), variables={
             'step1': {
@@ -23,7 +25,7 @@ def university_step_1(execute):
                 'lastName': last_name,
                 'name': name,
                 'street': street,
-                'zip': zip,
+                'zip': zip_value,
                 'city': city,
                 'phone': phone,
                 'role': role,

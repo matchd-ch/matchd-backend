@@ -11,6 +11,6 @@ def test_query(query_skills, skill_objects):
     objects = data.get('skills')
     assert objects is not None
     assert len(objects) == len(skill_objects)
-    assert 'css' == objects[0].get('name')
-    assert 'java' == objects[1].get('name')
-    assert 'php' == objects[2].get('name')
+    assert objects[0].get('name') == 'css'
+    assert objects[1].get('name') == 'java'
+    assert objects[2].get('name') == 'php'
