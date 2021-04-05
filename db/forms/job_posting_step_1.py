@@ -50,6 +50,14 @@ def process_job_posting_form_step_1(user, data):
 
     cleaned_data = None
 
+    # TODO create validator
+    url = data.get('url')
+    if url is not None and url != '':
+        if 'http' not in url:
+            url = 'http://%s' % url
+        if not validate_html_url(url):
+            errors.update(generic_error_dict('url', _('URL must point to a html page'), 'invalid'))
+
     if form.is_valid():
         cleaned_data = form.cleaned_data
 
@@ -57,10 +65,6 @@ def process_job_posting_form_step_1(user, data):
         from_date = cleaned_data.get('job_from_date')
         to_date = cleaned_data.get('job_to_date', None)
         url = cleaned_data.get('url', None)
-
-        if url is not None and url != '':
-            if not validate_html_url(url):
-                errors.update(generic_error_dict('url', _('URL must point to a html page'), 'invalid'))
 
         if to_date is not None and from_date >= to_date:
             errors.update(generic_error_dict('job_to_date', _('Date must be after from date'),
