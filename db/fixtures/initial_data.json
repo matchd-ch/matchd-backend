@@ -1288,20 +1288,6 @@
     }
 },
 {
-    "model": "db.jobposition",
-    "pk": 1,
-    "fields": {
-        "name": "Applikationsentwickler*in"
-    }
-},
-{
-    "model": "db.jobposition",
-    "pk": 2,
-    "fields": {
-        "name": "Systemtechniker*in"
-    }
-},
-{
     "model": "db.userlanguagerelation",
     "pk": 3,
     "fields": {
