@@ -3,7 +3,6 @@ from .skill import *
 from .language import *
 from .language_level import *
 from .job_type import *
-from .job_position import *
 from .branch import *
 from .benefit import *
 from .job_requirement import *

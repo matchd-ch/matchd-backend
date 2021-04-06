@@ -35,14 +35,13 @@ def company_step_1(execute):
 
 @pytest.fixture
 def company_step_2(execute):
-    def closure(user, website, description, services, member_it_st_gallen, branch):
+    def closure(user, website, description, services, member_it_st_gallen):
         return execute(company_profile_mutation(2), variables={
             'step2': {
                 'website': website,
                 'description': description,
                 'services': services,
-                'memberItStGallen': member_it_st_gallen,
-                'branch': {'id': branch.id}
+                'memberItStGallen': member_it_st_gallen
             }
         }, **{'user': user})
     return closure
@@ -50,10 +49,10 @@ def company_step_2(execute):
 
 @pytest.fixture
 def company_step_3(execute):
-    def closure(user, job_positions, benefits):
+    def closure(user, branches, benefits):
         return execute(company_profile_mutation(3), variables={
             'step3': {
-                'jobPositions': [{'id': obj.id} for obj in job_positions],
+                'branches': [{'id': obj.id} for obj in branches],
                 'benefits': [{'id': obj.id} for obj in benefits],
             }
         }, **{'user': user})

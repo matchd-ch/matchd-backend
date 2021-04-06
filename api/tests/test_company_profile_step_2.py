@@ -2,16 +2,13 @@ import pytest
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 
-from db.models import Branch
-
 
 @pytest.mark.django_db
-def test_step_2(login, user_employee, company_step_2, branch_objects):
+def test_step_2(login, user_employee, company_step_2):
     user_employee.company.profile_step = 2
     user_employee.company.save()
     login(user_employee)
-    data, errors = company_step_2(user_employee, 'http://www.1337.lo', 'description', 'services', True,
-                                  branch_objects[0])
+    data, errors = company_step_2(user_employee, 'http://www.1337.lo', 'description', 'services', True)
     assert errors is None
     assert data is not None
     assert data.get('companyProfileStep2') is not None
@@ -22,15 +19,12 @@ def test_step_2(login, user_employee, company_step_2, branch_objects):
     assert user.company.description == 'description'
     assert user.company.services == 'services'
     assert user.company.member_it_st_gallen
-    assert user.company.branch == branch_objects[0]
     assert user.company.profile_step == 3
 
 
 @pytest.mark.django_db
-def test_step_2_without_login(user_employee, company_step_2, branch_objects):
-    data, errors = company_step_2(AnonymousUser(), 'http://www.1337.lo', 'description', 'services', True,
-                                  branch_objects[0])
-
+def test_step_2_without_login(user_employee, company_step_2):
+    data, errors = company_step_2(AnonymousUser(), 'http://www.1337.lo', 'description', 'services', True)
     assert errors is not None
     assert data is not None
     assert data.get('companyProfileStep2') is None
@@ -40,15 +34,13 @@ def test_step_2_without_login(user_employee, company_step_2, branch_objects):
     assert user.company.description == ''
     assert user.company.services == ''
     assert user.company.member_it_st_gallen is False
-    assert user.company.branch is None
     assert user.company.profile_step == 1
 
 
 @pytest.mark.django_db
-def test_step_2_as_student(login, user_student, company_step_2, branch_objects):
+def test_step_2_as_student(login, user_student, company_step_2):
     login(user_student)
-    data, errors = company_step_2(user_student, 'http://www.1337.lo', 'description', 'services', True,
-                                  branch_objects[0])
+    data, errors = company_step_2(user_student, 'http://www.1337.lo', 'description', 'services', True)
     assert errors is None
     assert data is not None
     assert data.get('companyProfileStep2') is not None
@@ -59,12 +51,11 @@ def test_step_2_as_student(login, user_student, company_step_2, branch_objects):
 
 
 @pytest.mark.django_db
-def test_step_2_invalid_step(login, user_employee, company_step_2, branch_objects):
+def test_step_2_invalid_step(login, user_employee, company_step_2):
     user_employee.company.profile_step = 0
     user_employee.company.save()
     login(user_employee)
-    data, errors = company_step_2(user_employee, 'http://www.1337.lo', 'description', 'services', True,
-                                  branch_objects[0])
+    data, errors = company_step_2(user_employee, 'http://www.1337.lo', 'description', 'services', True)
     assert errors is None
     assert data is not None
     assert data.get('companyProfileStep2') is not None
@@ -83,7 +74,7 @@ def test_step_2_invalid_data(login, user_employee, company_step_2):
     user_employee.company.profile_step = 2
     user_employee.company.save()
     login(user_employee)
-    data, errors = company_step_2(user_employee, '', '', '', '', Branch(id=1337))
+    data, errors = company_step_2(user_employee, '', '', '', '')
     assert errors is None
     assert data is not None
     assert data.get('companyProfileStep2') is not None
@@ -92,7 +83,6 @@ def test_step_2_invalid_data(login, user_employee, company_step_2):
     errors = data.get('companyProfileStep2').get('errors')
     assert errors is not None
     assert 'website' in errors
-    assert 'branch' in errors
 
     user = get_user_model().objects.get(pk=user_employee.id)
     assert user.company.profile_step == 2

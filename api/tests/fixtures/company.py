@@ -25,15 +25,11 @@ def company_query(slug):
             memberItStGallen
             state
             profileStep
-            branch {
-                id
-                name
-            }
             benefits {
               id
               icon
             }
-            jobPositions {
+            branches {
               id
               name
             }
@@ -90,7 +86,7 @@ def company_object(company_objects):
 
 
 @pytest.fixture
-def company_object_complete(user_employee, branch_objects, soft_skill_objects, benefit_objects, job_position_objects,
+def company_object_complete(user_employee, branch_objects, soft_skill_objects, benefit_objects,
                             cultural_fit_objects):
     company = user_employee.company
     company.state = ProfileState.PUBLIC
@@ -102,14 +98,13 @@ def company_object_complete(user_employee, branch_objects, soft_skill_objects, b
     company.street = 'street 1337'
     company.phone = '+41711234567'
     company.website = 'https://www.1337.lo'
-    company.branch = branch_objects[0]
     company.description = 'description'
     company.soft_skills.set(soft_skill_objects[:6])
     company.uid = 'CHE-000.000.000'
     company.services = 'services'
     company.member_it_st_gallen = True
     company.benefits.set(benefit_objects)
-    company.job_positions.set(job_position_objects)
+    company.branches.set(branch_objects)
     company.cultural_fits.set(cultural_fit_objects[:6])
     company.top_level_organisation_description = 'top level description'
     company.top_level_organisation_website = 'https://www.top-level.lo'

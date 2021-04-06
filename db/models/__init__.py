@@ -11,7 +11,6 @@ from .language import Language
 from .language_level import LanguageLevel
 from .online_project import OnlineProject
 from .job_type import JobType, DateMode
-from .job_position import JobPosition
 from .user_language_relation import UserLanguageRelation
 from .branch import Branch
 from .benefit import Benefit
