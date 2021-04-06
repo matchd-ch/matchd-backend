@@ -8,7 +8,6 @@ from .company_add_employee import *
 from .company_profile import *
 from .cultural_fit import *
 from .faq_category import *
-from .job_position import *
 from .job_posting import *
 from .job_requirement import *
 from .job_type import *

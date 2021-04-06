@@ -61,10 +61,10 @@ def test_step_2_without_login(user_student, student_step_2, job_type_objects_dat
 
 
 @pytest.mark.django_db
-def test_step_2_as_company(login, user_employee, student_step_2, job_type_objects_date_range, job_position_objects):
+def test_step_2_as_company(login, user_employee, student_step_2, job_type_objects_date_range, branch_objects):
     login(user_employee)
     data, errors = student_step_2(user_employee, job_type_objects_date_range[0], '01.1337', '02.1337',
-                                  job_position_objects[0])
+                                  branch_objects[0])
 
     assert errors is None
     assert data is not None

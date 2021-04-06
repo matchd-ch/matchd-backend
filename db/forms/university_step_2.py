@@ -1,18 +1,13 @@
 from django import forms
 
 from db.exceptions import FormException
-from db.helper.forms import validate_step, validate_form_data, validate_company_user_type, convert_object_to_id
+from db.helper.forms import validate_step, validate_form_data, validate_company_user_type
 from db.models import Branch, ProfileType
 
 
 class UniversityProfileFormStep2(forms.Form):
     branches = forms.ModelMultipleChoiceField(queryset=Branch.objects.all(), required=False)
     description = forms.CharField(max_length=1000, required=False)
-
-    def __init__(self, data=None, **kwargs):
-        # due to a bug with ModelChoiceField and graphene_django
-        data['branches'] = convert_object_to_id(data.get('branches', None))
-        super().__init__(data=data, **kwargs)
 
 
 def process_university_form_step_2(user, data):

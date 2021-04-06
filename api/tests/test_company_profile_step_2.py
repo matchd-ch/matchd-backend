@@ -51,7 +51,7 @@ def test_step_2_as_student(login, user_student, company_step_2):
 
 
 @pytest.mark.django_db
-def test_step_2_invalid_step(login, user_employee, company_step_2, branch_objects):
+def test_step_2_invalid_step(login, user_employee, company_step_2):
     user_employee.company.profile_step = 0
     user_employee.company.save()
     login(user_employee)

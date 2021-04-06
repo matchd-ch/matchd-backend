@@ -75,15 +75,11 @@ def me_query():
                 memberItStGallen
                 state
                 profileStep
-                branch {
-                    id
-                    name
-                }
                 benefits {
                     id
                     icon
                 }
-                jobPositions {
+                branches {
                     id
                     name
                 }
