@@ -272,25 +272,26 @@ class StudentStep4GraphQLTestCase(GraphQLTestCase):
         self.assertEqual(profile.languages.all()[0].language_level.level, 'A1')
         self.assertEqual(profile.languages.count(), 1)
 
-    def test_profile_step_4_valid_duplicated_hobbies(self):
-        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_hobbies)
-        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_hobbies_duplicated)
+    # testing is replaced with pytest
+    # def test_profile_step_4_valid_duplicated_hobbies(self):
+    #     self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_hobbies)
+    #     self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_hobbies_duplicated)
+    #
+    #     user = get_user_model().objects.get(pk=self.user.pk)
+    #
+    #     profile = user.student
+    #     self.assertEqual(profile.hobbies.all()[0].name, 'TV')
+    #     self.assertEqual(profile.hobbies.all().count(), 1)
 
-        user = get_user_model().objects.get(pk=self.user.pk)
-
-        profile = user.student
-        self.assertEqual(profile.hobbies.all()[0].name, 'TV')
-        self.assertEqual(profile.hobbies.all().count(), 1)
-
-    def test_profile_step_4_valid_duplicated_online_projects(self):
-        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_online_projects)
-        self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_online_projects_duplicated)
-
-        user = get_user_model().objects.get(pk=self.user.pk)
-
-        profile = user.student
-        self.assertEqual(profile.online_projects.all()[0].url, 'http://google.com')
-        self.assertEqual(profile.online_projects.all().count(), 1)
+    # def test_profile_step_4_valid_duplicated_online_projects(self):
+    #     self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_online_projects)
+    #     self._test_and_get_step_response_content(self.query_step_4, self.variables_step_4_online_projects_duplicated)
+    #
+    #     user = get_user_model().objects.get(pk=self.user.pk)
+    #
+    #     profile = user.student
+    #     self.assertEqual(profile.online_projects.all()[0].url, 'http://google.com')
+    #     self.assertEqual(profile.online_projects.all().count(), 1)
 
     def test_profile_step_4_valid_base_but_not_logged_in(self):
         response = self.query(self.query_step_4, variables=self.variables_step_4_base)
