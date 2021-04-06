@@ -80,12 +80,14 @@ class MatchQuery(ObjectType):
 
         if user.type in ProfileTypeModel.valid_company_types():
             matching = Matching()
-            matches = matching.find_talents(branch_id=branch)
+            matches = matching.find_talents(branch_id=branch, cultural_fits=user.company.cultural_fits.all(),
+                                            soft_skills=user.company.soft_skills.all())
             matches = map_students(matches)
             return matches
 
         if user.type in ProfileTypeModel.valid_student_types():
             matching = Matching()
-            matches = matching.find_companies(branch_id=branch)
+            matches = matching.find_companies(branch_id=branch, cultural_fits=user.student.cultural_fits.all(),
+                                              soft_skills=user.student.soft_skills.all())
             matches = map_companies(matches)
             return matches

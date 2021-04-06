@@ -20,4 +20,7 @@ class HitResolver:
             obj_id = str(obj.id)
             if obj_id in scores:
                 setattr(obj, 'score', scores[obj_id])
-        return result
+
+        def sort_by_score(x):
+            return x.score
+        return sorted(list(result), key=sort_by_score, reverse=True)

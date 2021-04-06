@@ -56,4 +56,10 @@ class Company(models.Model, index.Indexed):
         index.RelatedFields('branches', [
             index.FilterField('id'),
         ]),
+        index.RelatedFields('cultural_fits', [
+            index.FilterField('id'),
+        ]),
+        index.RelatedFields('soft_skills', [
+            index.FilterField('id'),
+        ])
     ]

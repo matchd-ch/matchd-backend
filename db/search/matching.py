@@ -8,22 +8,30 @@ from db.search.resolvers import HitResolver
 class Matching:
     search_backend = get_search_backend()
 
-    def find_talents(self, branch_id=None):
+    def find_talents(self, branch_id=None, cultural_fits=None, soft_skills=None):
         queryset = Student.get_indexed_objects()
         index = self.search_backend.get_index_for_model(queryset.model).name
         builder = StudentParamBuilder(queryset, index)
         if branch_id is not None:
             builder.set_branch(branch_id)
+        if cultural_fits is not None:
+            builder.set_cultural_fits(cultural_fits)
+        if soft_skills is not None:
+            builder.set_soft_skills(soft_skills)
         hits = self.search_backend.es.search(**builder.get_params())
         resolver = HitResolver(queryset, hits)
         return resolver.resolve()
 
-    def find_companies(self, branch_id=None):
+    def find_companies(self, branch_id=None, cultural_fits=None, soft_skills=None):
         queryset = Company.get_indexed_objects()
         index = self.search_backend.get_index_for_model(queryset.model).name
         builder = CompanyParamBuilder(queryset, index)
         if branch_id is not None:
             builder.set_branch(branch_id)
+        if cultural_fits is not None:
+            builder.set_cultural_fits(cultural_fits)
+        if soft_skills is not None:
+            builder.set_soft_skills(soft_skills)
         hits = self.search_backend.es.search(**builder.get_params())
         resolver = HitResolver(queryset, hits)
         return resolver.resolve()
