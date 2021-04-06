@@ -21,3 +21,8 @@ class BranchQuery(ObjectType):
 class BranchInput(graphene.InputObjectType):
     id = graphene.ID(required=True)
     name = graphene.String(required=False)
+
+    # pylint: disable=C0103
+    @property
+    def pk(self):
+        return self.id

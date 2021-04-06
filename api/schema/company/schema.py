@@ -86,7 +86,7 @@ class CompanyProfileStep2(Output, graphene.Mutation):
 
 
 class CompanyProfileInputStep3(graphene.InputObjectType):
-    branches = graphene.List(JobPositionInput, description=_('Branches'))
+    branches = graphene.List(BranchInput, description=_('Branches'))
     benefits = graphene.List(BenefitInput, description=_('Benefits'))
 
 
@@ -174,7 +174,7 @@ class UniversityProfileStep1(Output, graphene.Mutation):
 
 
 class UniversityProfileInputStep2(graphene.InputObjectType):
-    branch = graphene.Field(BranchInput, description=_('branch'), required=False)
+    branches = graphene.List(BranchInput, description=_('Branches'), required=False)
     description = graphene.String(description=_('description'), required=False)
 
 
@@ -183,7 +183,7 @@ class UniversityProfileStep2(Output, graphene.Mutation):
         step2 = UniversityProfileInputStep2(description=_('Profile Input Step 2 is required.'), required=True)
 
     class Meta:
-        description = _('Updates website branch and description')
+        description = _('Updates branches and description')
 
     @classmethod
     @login_required
@@ -237,8 +237,8 @@ class Company(DjangoObjectType):
     class Meta:
         model = CompanyModel
         fields = ['id', 'uid', 'name', 'zip', 'city', 'street', 'phone', 'description', 'member_it_st_gallen',
-                  'services', 'website', 'job_positions', 'benefits', 'state', 'profile_step', 'slug',
-                  'top_level_organisation_description', 'top_level_organisation_website', 'type', 'branch',
+                  'services', 'website', 'benefits', 'state', 'profile_step', 'slug',
+                  'top_level_organisation_description', 'top_level_organisation_website', 'type', 'branches',
                   'link_education', 'link_projects', 'link_thesis', 'soft_skills', 'cultural_fits']
         convert_choices_to_enum = False
 
