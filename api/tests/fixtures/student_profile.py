@@ -47,13 +47,13 @@ def student_step_1(execute):
 
 @pytest.fixture
 def student_step_2(execute):
-    def closure(user, job_type, job_from_date, job_to_date, job_position):
+    def closure(user, job_type, job_from_date, job_to_date, branch):
         return execute(student_profile_mutation(2), variables={
             'step2': {
                 'jobType': {'id': job_type.id},
                 'jobFromDate': job_from_date,
                 'jobToDate': job_to_date,
-                'jobPosition': {'id': job_position.id}
+                'branch': {'id': branch.id}
             }
         }, **{'user': user})
     return closure
