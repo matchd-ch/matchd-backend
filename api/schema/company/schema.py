@@ -11,7 +11,6 @@ from api.schema.benefit import BenefitInput
 from api.schema.branch.schema import BranchInput
 from api.schema.cultural_fit import CulturalFitInput
 from api.schema.employee import Employee
-from api.schema.job_position import JobPositionInput
 from api.schema.soft_skill import SoftSkillInput
 from api.schema.profile_state import ProfileState
 from api.schema.profile_type import ProfileType
@@ -62,7 +61,6 @@ class CompanyProfileStep1(Output, graphene.Mutation):
 
 class CompanyProfileInputStep2(graphene.InputObjectType):
     website = graphene.String(description=_('website'), required=True)
-    branch = graphene.Field(BranchInput, description=_('branch'), required=False)
     description = graphene.String(description=_('description'), required=False)
     services = graphene.String(description=_('services'), required=False)
     member_it_st_gallen = graphene.Boolean(description=_('memeber IT St. Gallen'), required=True)
@@ -73,7 +71,7 @@ class CompanyProfileStep2(Output, graphene.Mutation):
         step2 = CompanyProfileInputStep2(description=_('Profile Input Step 2 is required.'), required=True)
 
     class Meta:
-        description = _('Updates website url, branch, description, services, member IT St.Gallen')
+        description = _('Updates website url, description, services, member IT St.Gallen')
 
     @classmethod
     @login_required
@@ -88,7 +86,7 @@ class CompanyProfileStep2(Output, graphene.Mutation):
 
 
 class CompanyProfileInputStep3(graphene.InputObjectType):
-    job_positions = graphene.List(JobPositionInput, description=_('Job Position'))
+    branches = graphene.List(JobPositionInput, description=_('Branches'))
     benefits = graphene.List(BenefitInput, description=_('Benefits'))
 
 
@@ -97,7 +95,7 @@ class CompanyProfileStep3(Output, graphene.Mutation):
         step3 = CompanyProfileInputStep3(description=_('Profile Input Step 3 is required.'), required=True)
 
     class Meta:
-        description = _('Updates the Company Profile with benefits and Job Positions')
+        description = _('Updates the Company Profile with benefits and branches')
 
     @classmethod
     @login_required
