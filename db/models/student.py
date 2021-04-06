@@ -3,11 +3,13 @@ from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.core.validators import RegexValidator
 from django.db import models
+from django.db.models import Q
+from wagtail.search import index
 
 from db.models.profile_state import ProfileState
 
 
-class Student(models.Model):
+class Student(models.Model, index.Indexed):
     user = models.OneToOneField(to=get_user_model(), on_delete=models.CASCADE, related_name='student')
     mobile = models.CharField(max_length=12, blank=True, validators=[RegexValidator(regex=settings.PHONE_REGEX)])
     street = models.CharField(max_length=255, blank=True)
@@ -34,3 +36,15 @@ class Student(models.Model):
 
     def get_profile_id(self):
         return self.id
+
+    @classmethod
+    def get_indexed_objects(cls):
+        query = Q(state=ProfileState.PUBLIC)
+        query |= Q(state=ProfileState.ANONYMOUS)
+        return cls.objects.filter(query)
+
+    search_fields = [
+        index.RelatedFields('branch', [
+            index.FilterField('id'),
+        ]),
+    ]

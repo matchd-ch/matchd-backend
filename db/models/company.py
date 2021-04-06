@@ -2,12 +2,14 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.validators import RegexValidator
 from django.db import models
 from django.conf import settings
+from django.db.models import Q
+from wagtail.search import index
 
 from db.models.profile_type import ProfileType
 from db.models.profile_state import ProfileState
 
 
-class Company(models.Model):
+class Company(models.Model, index.Indexed):
     # fields for company / university
     type = models.CharField(choices=ProfileType.choices, max_length=255, blank=True)
     state = models.CharField(choices=ProfileState.choices, max_length=255, blank=False, default=ProfileState.INCOMPLETE)
@@ -43,3 +45,15 @@ class Company(models.Model):
 
     def get_profile_id(self):
         return self.id
+
+    @classmethod
+    def get_indexed_objects(cls):
+        query = Q(state=ProfileState.PUBLIC)
+        query |= Q(state=ProfileState.ANONYMOUS)
+        return cls.objects.filter(query)
+
+    search_fields = [
+        index.RelatedFields('branches', [
+            index.FilterField('id'),
+        ]),
+    ]
