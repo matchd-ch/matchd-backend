@@ -7,6 +7,7 @@ from db.models import Company as CompanyModel, ProfileState, Employee as Employe
 # pylint: disable=W0221
 # pylint: disable=W0511
 class Company(BaseSeed):
+    name = 'Company'
 
     def handle_item(self, company_data, index):
         company_type = company_data.get('type')

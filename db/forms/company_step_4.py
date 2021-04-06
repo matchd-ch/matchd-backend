@@ -40,11 +40,11 @@ def process_company_form_step_4(user, data):
         cultural_fits_to_save = cleaned_data.get('cultural_fits')
         # check if more than 6 cultural fits has been selected
         if len(list(cultural_fits_to_save)) > 6:
-            errors.update(generic_error_dict('softSkills', _('Too many cultural fits'), 'too_many_items'))
+            errors.update(generic_error_dict('culturalFits', _('Too many cultural fits'), 'too_many_items'))
 
         # check if less than 6 cultural fits has been selected
         if len(list(cultural_fits_to_save)) < 6:
-            errors.update(generic_error_dict('softSkills', _('Too few cultural fits'), 'too_few_items'))
+            errors.update(generic_error_dict('culturalFits', _('Too few cultural fits'), 'too_few_items'))
 
     else:
         errors.update(form.errors.get_json_data())

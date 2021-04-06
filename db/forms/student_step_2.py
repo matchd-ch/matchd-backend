@@ -110,11 +110,20 @@ def process_student_form_step_2(user, data):
     else:
         errors.update(form.errors.get_json_data())
 
-    if 'job_from_date' in data and data.get('job_from_date', None) is not None:
-        try:
-            process_job_type_form(student, data)
-        except FormException as exception:
-            errors.update(exception.errors)
+    # job type can be correct, but if the form is invalid, the student has no
+    # job type set
+    try:
+        job_type = JobType.objects.get(pk=data.get('job_type'))
+        student.job_type = job_type
+    except JobType.DoesNotExist:
+        student.job_type = None
+
+    if student.job_type is not None:
+        if 'job_from_date' in data and data.get('job_from_date', None) is not None:
+            try:
+                process_job_type_form(student, data)
+            except FormException as exception:
+                errors.update(exception.errors)
 
     if errors:
         raise FormException(errors=errors)

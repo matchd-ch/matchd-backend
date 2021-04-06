@@ -1,1 +1,0 @@
-from .branch import BranchGraphQLTestCase

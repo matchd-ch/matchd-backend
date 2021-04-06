@@ -14,6 +14,7 @@ from api.schema.job_posting import JobPostingMutation, JobPostingQuery
 from api.schema.language import LanguageQuery
 from api.schema.auth import AuthMutation, LogoutMutation, VerifyPasswordResetToken
 from api.schema.language_level import LanguageLevelQuery
+from api.schema.match import MatchQuery
 from api.schema.skill import SkillQuery
 from api.schema.soft_skill import SoftSkillQuery
 from api.schema.student import StudentProfileMutation
@@ -59,7 +60,8 @@ class Query(
     JobRequirementQuery,
     FAQCategoryQuery,
     SoftSkillQuery,
-    CulturalFitQuery
+    CulturalFitQuery,
+    MatchQuery
 ):
     pass
 
