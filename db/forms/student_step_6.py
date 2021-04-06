@@ -1,7 +1,7 @@
 from django import forms
 
 from db.exceptions import FormException
-from db.helper import validate_student_user_type, validate_step, validate_form_data
+from db.helper import validate_student_user_type, validate_step, validate_form_data, generic_error_dict
 from db.models.user import ProfileState
 
 
@@ -30,7 +30,10 @@ def process_student_form_step_6(user, data):
     if form.is_valid():
         # update user profile
         cleaned_data = form.cleaned_data
-        student.state = cleaned_data.get('state')
+        new_state = cleaned_data.get('state')
+        if new_state not in (ProfileState.PUBLIC, ProfileState.ANONYMOUS):
+            errors.update(generic_error_dict('state', 'Only public and anonymous are allowed', 'invalid'))
+        student.state = new_state
     else:
         errors.update(form.errors.get_json_data())
 

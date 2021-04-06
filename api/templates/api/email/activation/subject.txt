@@ -1,1 +1,1 @@
-{{ email_subject_prefix }}MATCHD Registration {% if user.type == 'company' %}Company{% elif user.type == 'university' %}Universität{% else %}Student{% endif %}
+{{ email_subject_prefix }}MATCHD Registration {% if user.type == 'company' %}Company{% elif user.type == 'university' %}University{% else %}Student{% endif %}

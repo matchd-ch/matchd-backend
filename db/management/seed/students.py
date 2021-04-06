@@ -8,6 +8,7 @@ from db.models import ProfileType, Student as StudentModel, AttachmentKey
 # pylint: disable=W0221
 # pylint: disable=W0511
 class Student(BaseSeed):
+    name = 'Student'
 
     def handle_item(self, user_data, index):
         first_name = user_data.get('first_name')

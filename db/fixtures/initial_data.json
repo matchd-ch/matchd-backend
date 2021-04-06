@@ -1497,7 +1497,7 @@
     "fields": {
         "content_type": 8,
         "object_id": 6,
-        "attachment_type": 21,
+        "attachment_type": 20,
         "attachment_id": 3,
         "key": "company_avatar"
     }
@@ -1508,7 +1508,7 @@
     "fields": {
         "content_type": 8,
         "object_id": 6,
-        "attachment_type": 21,
+        "attachment_type": 20,
         "attachment_id": 4,
         "key": "company_documents"
     }
@@ -1519,7 +1519,7 @@
     "fields": {
         "content_type": 8,
         "object_id": 6,
-        "attachment_type": 21,
+        "attachment_type": 20,
         "attachment_id": 5,
         "key": "company_documents"
     }
@@ -1530,7 +1530,7 @@
     "fields": {
         "content_type": 8,
         "object_id": 6,
-        "attachment_type": 21,
+        "attachment_type": 20,
         "attachment_id": 6,
         "key": "company_documents"
     }
@@ -1541,7 +1541,7 @@
     "fields": {
         "content_type": 8,
         "object_id": 6,
-        "attachment_type": 21,
+        "attachment_type": 20,
         "attachment_id": 7,
         "key": "company_documents"
     }

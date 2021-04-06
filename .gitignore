@@ -2,6 +2,7 @@
 .idea
 .bash_history
 .pylint.d
+.coverage
 __pycache__
 *.pyc
 .env

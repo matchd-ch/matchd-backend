@@ -23,6 +23,11 @@ If you want to access user specific data you also need to include the authorizat
 
 # Test Accounts
 
+Run following command to seed test data:
+
+    docker-compose exec api bash
+    ./manage.py seed
+
 ## Registered / Verified users
 
 
