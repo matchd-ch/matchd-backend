@@ -21,7 +21,7 @@ class Company(models.Model, index.Indexed):
     street = models.CharField(max_length=255, blank=True)
     phone = models.CharField(max_length=12, blank=True, validators=[RegexValidator(regex=settings.PHONE_REGEX)])
     website = models.URLField(max_length=2048, blank=True)
-    branches = models.ManyToManyField('db.Branch', blank=True, null=True, related_name='companies')
+    branches = models.ManyToManyField('db.Branch', related_name='companies')
     description = models.TextField(max_length=1000, blank=True)
     soft_skills = models.ManyToManyField('db.SoftSkill', related_name='companies')
 
