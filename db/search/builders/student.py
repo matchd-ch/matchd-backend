@@ -1,7 +1,4 @@
-from dateutil.relativedelta import relativedelta
-
 from .base import BaseParamBuilder
-from ...helper.forms import convert_date
 
 
 class StudentParamBuilder(BaseParamBuilder):
@@ -10,7 +7,7 @@ class StudentParamBuilder(BaseParamBuilder):
         self.must_conditions.append(self.get_condition('branch', 'id_filter', [branch_id], boost))
         
     def set_job_type(self, job_type_id, boost=1):
-        self.must_conditions.append(self.get_condition('job_type', 'id_filter', [job_type_id], boost))
+        self.should_conditions.append(self.get_condition('job_type', 'id_filter', [job_type_id], boost))
 
     def set_cultural_fits(self, cultural_fits, boost=1):
         for obj in cultural_fits:
@@ -38,7 +35,7 @@ class StudentParamBuilder(BaseParamBuilder):
                 "bool": {
                     "should": [
                         {
-                            # we need to include matches without a job start date set, but without boosting
+                            # we need to include matches without a job start date set, but without boosting it
                             # null values are set to 01.01.1970 see db.models.Student (search_fields)
                             "exists": {
                                 "field": "job_from_date_filter",
@@ -62,33 +59,22 @@ class StudentParamBuilder(BaseParamBuilder):
                 "bool": {
                     "should": [
                         {
-                            # we need to include matches without a job start date set, but without boosting
+                            # we need to include matches without a job start/end date set, but without boosting it
                             # null values are set to 01.01.1970 see db.models.Student (search_fields)
                             "exists": {
                                 "field": "job_from_date_filter",
                                 "boost": 0
                             }
                         },
-                        {
-                            # boost start date within range
-                            "range": {
-                                "job_from_date_filter": {
-                                    "gte": date_from.strftime('%Y-%m-%d'),
-                                    "lte": date_to.strftime('%Y-%m-%d'),
-                                    "boost": boost
-                                }
-                            }
-                        },
-                        {
-                            # boost end date within range
-                            "range": {
-                                "job_from_to_filter": {
-                                    "gte": date_from.strftime('%Y-%m-%d'),
-                                    "lte": date_to.strftime('%Y-%m-%d'),
-                                    "boost": boost
-                                }
-                            }
-                        }
+                        # boost exact dates
+                        self.get_nested_range_query('job_from_date_filter', 'job_to_date_filter', date_from, date_to, 0,
+                                                    boost),
+                        # boost dates within 2 months
+                        self.get_nested_range_query('job_from_date_filter', 'job_to_date_filter', date_from, date_to, 2,
+                                                    boost),
+                        # boost dates within 6 months
+                        self.get_nested_range_query('job_from_date_filter', 'job_to_date_filter', date_from, date_to, 6,
+                                                    boost)
                     ]
                 }
             }
@@ -101,11 +87,11 @@ class StudentParamBuilder(BaseParamBuilder):
                 'query': {
                     'bool': {
                         "must": self.must_conditions,
-                        "should": self.should_conditions,
-                        "must_not": self.must_not_conditions
+                        "should": self.should_conditions
                     },
                 }
             },
             '_source': 'pk',
-            'stored_fields': 'pk'
+            'stored_fields': 'pk',
+            'size': '100'
         }

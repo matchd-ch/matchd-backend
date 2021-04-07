@@ -6,7 +6,6 @@ from graphene import ObjectType, InputObjectType
 
 from api.schema.job_posting import JobPostingInput
 from api.schema.profile_type import ProfileType
-from db.helper.forms import convert_date
 from db.models import ProfileState, AttachmentKey, Attachment, ProfileType as ProfileTypeModel, Skill, \
     UserLanguageRelation, Language, LanguageLevel
 from db.search import Matching
@@ -93,19 +92,21 @@ class MatchQuery(ObjectType):
 
         if user.type in ProfileTypeModel.valid_company_types():
             matching = Matching()
-            # matches = matching.find_talents(branch_id=branch, cultural_fits=user.company.cultural_fits.all(),
-            #                                 soft_skills=user.company.soft_skills.all())
-            # matches = matching.find_talents(job_type_id=1)
-            # matches = matching.find_talents(skills=Skill.objects.filter(id__in=[1, 4, 6, 8, 10, 12]))
-            # matches = matching.find_talents(languages=[
-            #     UserLanguageRelation(language=Language.objects.get(pk=5), language_level=LanguageLevel.objects.get(pk=7))
-            # ])
-            matches = matching.find_talents(date_from=datetime.strptime('01.08.2021', '%d.%m.%Y').date())
-            # matches = matching.find_talents(
-            #     date_from=datetime.strptime('01.08.2021', '%d.%m.%Y').date(),
-            #     date_to=datetime.strptime('01.10.2021', '%d.%m.%Y').date()
-            # )
+            matches = matching.find_talents(
+                branch_id=branch,
+                job_type_id=1,
+                cultural_fits=user.company.cultural_fits.all(),
+                soft_skills=user.company.soft_skills.all(),
+                skills=Skill.objects.filter(id__in=[1, 4, 6, 8, 10, 12]),
+                languages=[UserLanguageRelation(language=Language.objects.get(pk=5),
+                                                language_level=LanguageLevel.objects.get(pk=7))],
+                date_from=datetime.strptime('01.08.2021', '%d.%m.%Y').date(),
+                date_to=datetime.strptime('02.10.2021', '%d.%m.%Y').date()
+            )
             matches = map_students(matches)
+            print('*' * 100)
+            print(len(matches))
+            print('*' * 100)
             return matches
 
         if user.type in ProfileTypeModel.valid_student_types():

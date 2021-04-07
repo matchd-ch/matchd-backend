@@ -14,9 +14,9 @@ class Matching:
         index = self.search_backend.get_index_for_model(queryset.model).name
         builder = StudentParamBuilder(queryset, index)
         if branch_id is not None:
-            builder.set_branch(branch_id)
+            builder.set_branch(branch_id, 10)
         if job_type_id is not None:
-            builder.set_job_type(job_type_id)
+            builder.set_job_type(job_type_id, 10)
         if cultural_fits is not None:
             builder.set_cultural_fits(cultural_fits)
         if soft_skills is not None:

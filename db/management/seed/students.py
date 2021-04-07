@@ -26,7 +26,7 @@ class Student(BaseSeed):
 
         student.mobile = user_data.get('mobile')
         student.street = user_data.get('street')
-        student.zip = user_data.get('street')
+        student.zip = user_data.get('zip')
         student.city = user_data.get('city')
         student.date_of_birth = convert_date(user_data.get('date_of_birth'), '%d.%m.%Y')
         student.nickname = user_data.get('nickname')

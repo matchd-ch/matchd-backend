@@ -7,7 +7,6 @@ from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models import Q
 from wagtail.search import index
-from wagtail.search.index import BaseField
 
 from db.models.profile_state import ProfileState
 
@@ -44,17 +43,6 @@ class Student(models.Model, index.Indexed):
     def get_profile_id(self):
         return self.id
 
-    @property
-    def date_range(self):
-        from_date = self.job_from_date or default_date()
-        to_date = self.job_to_date or from_date
-        value = f'{from_date}||{to_date}'
-        print(value)
-        return {
-            'from': from_date,
-            'to': to_date
-        }
-
     @classmethod
     def get_indexed_objects(cls):
         query = Q(state=ProfileState.PUBLIC)
@@ -62,6 +50,7 @@ class Student(models.Model, index.Indexed):
         return cls.objects.filter(query)
 
     search_fields = [
+        index.FilterField('id'),
         index.RelatedFields('branch', [
             index.FilterField('id'),
         ]),
