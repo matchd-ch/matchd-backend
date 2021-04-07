@@ -21,6 +21,15 @@ from db.models import JobPosting as JobPostingModel, Company, JobPostingState as
 JobPostingState = graphene.Enum.from_enum(JobPostingStateModel)
 
 
+class JobPostingInput(graphene.InputObjectType):
+    id = graphene.ID(required=True)
+
+    # pylint: disable=C0103
+    @property
+    def pk(self):
+        return self.id
+
+
 class JobPosting(DjangoObjectType):
     state = graphene.Field(graphene.NonNull(JobPostingState))
     employee = graphene.Field(Employee)

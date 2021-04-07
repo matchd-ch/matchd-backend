@@ -1,9 +1,14 @@
+from datetime import datetime
+
 import graphene
 from graphql_jwt.decorators import login_required
-from graphene import ObjectType
+from graphene import ObjectType, InputObjectType
 
+from api.schema.job_posting import JobPostingInput
 from api.schema.profile_type import ProfileType
-from db.models import ProfileState, AttachmentKey, Attachment, ProfileType as ProfileTypeModel
+from db.helper.forms import convert_date
+from db.models import ProfileState, AttachmentKey, Attachment, ProfileType as ProfileTypeModel, Skill, \
+    UserLanguageRelation, Language, LanguageLevel
 from db.search import Matching
 
 
@@ -67,21 +72,39 @@ class Match(ObjectType):
     score = graphene.NonNull(graphene.Float)
 
 
+class TalentMatchingInput(InputObjectType):
+    job_posting = graphene.Field(JobPostingInput, required=True)
+    tech_boost = graphene.Int(required=True)
+    soft_boost = graphene.Int(required=True)
+
+
 class MatchQuery(ObjectType):
     matches = graphene.List(
         Match,
-        branch=graphene.ID(required=False)
+        talent_matching=graphene.Argument(TalentMatchingInput, required=False)
     )
 
     @login_required
     def resolve_matches(self, info, **kwargs):
         user = info.context.user
-        branch = kwargs.get('branch', None)
+
+        talent_matching = kwargs.get('talent_matching', None)
+        branch = 1
 
         if user.type in ProfileTypeModel.valid_company_types():
             matching = Matching()
-            matches = matching.find_talents(branch_id=branch, cultural_fits=user.company.cultural_fits.all(),
-                                            soft_skills=user.company.soft_skills.all())
+            # matches = matching.find_talents(branch_id=branch, cultural_fits=user.company.cultural_fits.all(),
+            #                                 soft_skills=user.company.soft_skills.all())
+            # matches = matching.find_talents(job_type_id=1)
+            # matches = matching.find_talents(skills=Skill.objects.filter(id__in=[1, 4, 6, 8, 10, 12]))
+            # matches = matching.find_talents(languages=[
+            #     UserLanguageRelation(language=Language.objects.get(pk=5), language_level=LanguageLevel.objects.get(pk=7))
+            # ])
+            matches = matching.find_talents(date_from=datetime.strptime('01.08.2021', '%d.%m.%Y').date())
+            # matches = matching.find_talents(
+            #     date_from=datetime.strptime('01.08.2021', '%d.%m.%Y').date(),
+            #     date_to=datetime.strptime('01.10.2021', '%d.%m.%Y').date()
+            # )
             matches = map_students(matches)
             return matches
 

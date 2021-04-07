@@ -8,3 +8,9 @@ class UserLanguageRelation(models.Model):
 
     class Meta:
         unique_together = ('language', 'student',)
+
+    def language_id(self):
+        return self.language.id
+
+    def language_level_concat(self):
+        return f'{self.language.id}-{self.language_level.id}'

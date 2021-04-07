@@ -2,7 +2,7 @@ import os
 
 from db.helper.forms import convert_date
 from db.management.seed.base import BaseSeed
-from db.models import ProfileType, Student as StudentModel, AttachmentKey
+from db.models import ProfileType, Student as StudentModel, AttachmentKey, UserLanguageRelation
 
 
 # pylint: disable=W0221
@@ -33,8 +33,8 @@ class Student(BaseSeed):
         student.school_name = user_data.get('school_name')
         student.field_of_study = user_data.get('field_of_study')
         student.graduation = convert_date(user_data.get('graduation'), '%m.%Y')
-        student.job_option = user_data.get('job_option')
-        student.job_from_date = user_data.get('job_from_date')
+        student.job_type_id = user_data.get('job_type')
+        student.job_from_date = convert_date(user_data.get('job_from_date'), '%m.%Y')
         student.job_to_date = user_data.get('job_to_date')
         student.branch_id = user_data.get('branch')
         student.skills.set(user_data.get('skills'))
@@ -43,6 +43,13 @@ class Student(BaseSeed):
         student.profile_step = user_data.get('profile_step')
         student.soft_skills.set(user_data.get('soft_skills'))
         student.cultural_fits.set(user_data.get('cultural_fits'))
+
+        languages = user_data.get('languages')
+        if languages is not None:
+            for language in languages:
+                UserLanguageRelation.objects.get_or_create(student=student, language_id=language.get('language'),
+                                                    language_level_id=language.get('level'))
+
         student.save()
 
     def add_images(self, user, user_data):

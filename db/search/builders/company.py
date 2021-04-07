@@ -4,7 +4,7 @@ from .base import BaseParamBuilder
 class CompanyParamBuilder(BaseParamBuilder):
 
     def set_branch(self, branch_id, boost=1):
-        self.must.append({
+        self.must_conditions.append({
             'nested': {
                 "path": "branches",
                 'query': {
@@ -20,7 +20,7 @@ class CompanyParamBuilder(BaseParamBuilder):
 
     def set_cultural_fits(self, cultural_fits, boost=1):
         for obj in cultural_fits:
-            self.should.append({
+            self.should_conditions.append({
                 'nested': {
                     "path": "cultural_fits",
                     'query': {
@@ -36,7 +36,7 @@ class CompanyParamBuilder(BaseParamBuilder):
 
     def set_soft_skills(self, soft_skills, boost=1):
         for obj in soft_skills:
-            self.should.append({
+            self.should_conditions.append({
                 'nested': {
                     "path": "soft_skills",
                     'query': {
@@ -56,8 +56,8 @@ class CompanyParamBuilder(BaseParamBuilder):
             'body': {
                 'query': {
                     'bool': {
-                        "filter": self.must,
-                        "should": self.should
+                        "filter": self.must_conditions,
+                        "should": self.should_conditions
                     },
                 }
             },
