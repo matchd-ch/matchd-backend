@@ -78,6 +78,7 @@ class Command(BaseCommand):
 
         # create users first
         for user_data in self.data:
+            self.stdout.write('.', ending='')
             user = self.create_user(user_data)
             self.create_employee(user, user_data.get('employee'))
             student = self.create_student(user, user_data.get('student'))
@@ -90,6 +91,7 @@ class Command(BaseCommand):
             if student is not None:
                 self.create_attachments_for_student(student, user_data)
 
+        self.stdout.write('', ending='\n')
         self.stdout.write(self.style.SUCCESS('Adding test data completed'))
 
     def create_user(self, data):
@@ -272,8 +274,14 @@ class Command(BaseCommand):
                 index += 1
         else:
             for language in languages:
-                UserLanguageRelation.objects.get_or_create(student=student, language_id=language.get('language'),
-                                                           language_level_id=language.get('language_level'))
+                try:
+                    rel = UserLanguageRelation.objects.get(student=student, language_id=language.get('language'))
+                    rel.language_level_id = language.get('language_level')
+                    rel.save()
+                except UserLanguageRelation.DoesNotExist:
+                    UserLanguageRelation.objects.create(student=student, language_id=language.get('language'),
+                                                        language_level_id=language.get('language_level'))
+
         student.mobile = data.get('mobile')
         student.nickname = data.get('nickname')
         online_projects = data.get('online_projects')

@@ -82,6 +82,10 @@ class Command(BaseCommand):
         dumped_companies = []
 
         for user in users:
+            # do not dump dummy users
+            if 'dummy' in user.email:
+                continue
+            self.stdout.write('.', ending='')
             user_obj = {
                 'first_name': user.first_name,
                 'last_name': user.last_name,
@@ -172,4 +176,5 @@ class Command(BaseCommand):
         with open('db/management/seed/fixtures.json', 'w') as json_file:
             json_file.write(json_string)
 
+        self.stdout.write('', ending='\n')
         self.stdout.write(self.style.SUCCESS('Dumping test data completed'))
