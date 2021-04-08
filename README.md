@@ -31,6 +31,7 @@ Run following command to seed test data:
     ./manage.py seed
 
 Loads all user data from `db/management/data/fixtures.json`
+
 See `ACCOUNTS.md` for all available user accounts
 
 # Dump Fixtures
@@ -39,6 +40,7 @@ See `ACCOUNTS.md` for all available user accounts
     ./manage.py dump_seed
 
 Creates a dump of all user data including attachments (`db/management/data/fixtures.json`)
+
 Updates the file `ACCOUNTS.md` with all users
 
 # Create test students
