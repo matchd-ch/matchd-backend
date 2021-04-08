@@ -93,5 +93,6 @@ class StudentParamBuilder(BaseParamBuilder):
             },
             '_source': 'pk',
             'stored_fields': 'pk',
-            'size': '100'
+            'size': self.first,
+            'from_': self.skip
         }

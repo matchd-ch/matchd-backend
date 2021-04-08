@@ -31,19 +31,23 @@ class JobPostingMatchingInput(InputObjectType):
 class MatchQuery(ObjectType):
     matches = graphene.List(
         Match,
+        first=graphene.Int(required=False, default_value=100),
+        skip=graphene.Int(required=False, default_value=0),
         job_posting_matching=graphene.Argument(JobPostingMatchingInput, required=False)
     )
 
     @login_required
     def resolve_matches(self, info, **kwargs):
         user = info.context.user
+        first = kwargs.get('first')
+        skip = kwargs.get('skip')
         job_posting_matching = kwargs.get('job_posting_matching', None)
         if job_posting_matching is not None:
-            return MatchQuery.job_posting_matching(user, job_posting_matching)
+            return MatchQuery.job_posting_matching(user, job_posting_matching, first, skip)
         return []
 
     @classmethod
-    def job_posting_matching(cls, user, data):
+    def job_posting_matching(cls, user, data, first, skip):
         job_posting_id = data.get('job_posting').get('id')
         try:
             job_posting = JobPostingModel.objects.prefetch_related(
@@ -63,6 +67,8 @@ class MatchQuery(ObjectType):
         matching = Matching()
         date_mode = job_posting.job_type.mode
         params = {
+            'first': first,
+            'skip': skip,
             'soft_boost': soft_boost,
             'tech_boost': tech_boost,
             'branch_id': job_posting.branch_id,
@@ -81,10 +87,10 @@ class MatchQuery(ObjectType):
         return matches
 
     @classmethod
-    def student_matching(cls, user, data):
+    def student_matching(cls, user, data, first, skip):
         # matching = Matching()
         # matches = matching.find_companies(branch_id=branch, cultural_fits=user.student.cultural_fits.all(),
-        #                                   soft_skills=user.student.soft_skills.all())
+        #                                   soft_skills=user.student.soft_skills.all(), first=first, skip=skip)
         # matches = MatchMapper.map_companies(matches)
         # return matches
         return []

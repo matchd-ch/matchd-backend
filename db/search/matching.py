@@ -9,10 +9,10 @@ class Matching:
     search_backend = get_search_backend()
 
     def find_talents(self, branch_id=None, job_type_id=None, cultural_fits=None, soft_skills=None, skills=None,
-                     languages=None, date_from=None, date_to=None, soft_boost=1, tech_boost=1):
+                     languages=None, date_from=None, date_to=None, soft_boost=1, tech_boost=1, first=100, skip=0):
         queryset = Student.get_indexed_objects().prefetch_related('user')
         index = self.search_backend.get_index_for_model(queryset.model).name
-        builder = StudentParamBuilder(queryset, index)
+        builder = StudentParamBuilder(queryset, index, first, skip)
         if branch_id is not None:
             builder.set_branch(branch_id, 10)
         if job_type_id is not None:

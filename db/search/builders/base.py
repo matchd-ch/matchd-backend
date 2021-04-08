@@ -3,9 +3,11 @@ from dateutil.relativedelta import relativedelta
 
 class BaseParamBuilder:
 
-    def __init__(self, queryset, index):
+    def __init__(self, queryset, index, first, skip):
         self.queryset = queryset
         self.index = index
+        self.first = first
+        self.skip = skip
         self.must_conditions = []
         self.should_conditions = []
         self.filter_conditions = []
