@@ -36,7 +36,7 @@ class Student(BaseSeed):
         student.job_option = user_data.get('job_option')
         student.job_from_date = user_data.get('job_from_date')
         student.job_to_date = user_data.get('job_to_date')
-        student.job_position = user_data.get('job_position')
+        student.branch_id = user_data.get('branch')
         student.skills.set(user_data.get('skills'))
         student.distinction = user_data.get('distinction')
         student.state = user_data.get('state')

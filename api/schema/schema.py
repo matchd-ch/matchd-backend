@@ -9,7 +9,6 @@ from api.schema.attachment import AttachmentMutation, AttachmentQuery
 from api.schema.employee import EmployeeMutation
 from api.schema.job_requirement import JobRequirementQuery
 from api.schema.job_type import JobTypeQuery
-from api.schema.job_position import JobPositionQuery
 from api.schema.job_posting import JobPostingMutation, JobPostingQuery
 from api.schema.language import LanguageQuery
 from api.schema.auth import AuthMutation, LogoutMutation, VerifyPasswordResetToken
@@ -49,7 +48,6 @@ class Query(
     LanguageLevelQuery,
     ZipCityQuery,
     JobTypeQuery,
-    JobPositionQuery,
     SkillQuery,
     BenefitQuery,
     BranchQuery,

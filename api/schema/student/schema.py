@@ -4,10 +4,10 @@ from graphql_auth.bases import Output
 from django.utils.translation import gettext as _
 from graphql_jwt.decorators import login_required
 
+from api.schema.branch import BranchInput
 from api.schema.cultural_fit import CulturalFitInput
 from api.schema.hobby import HobbyInput
 from api.schema.job_type import JobTypeInput
-from api.schema.job_position import JobPositionInput
 from api.schema.online_project import OnlineProjectInput
 from api.schema.profile_state import ProfileState
 from api.schema.soft_skill import SoftSkillInput
@@ -32,7 +32,7 @@ class Student(DjangoObjectType):
         model = StudentModel
         fields = ('mobile', 'street', 'zip', 'city', 'date_of_birth', 'nickname', 'school_name', 'field_of_study',
                   'graduation', 'skills', 'hobbies', 'languages', 'distinction', 'online_projects', 'state',
-                  'profile_step', 'soft_skills', 'cultural_fits')
+                  'profile_step', 'soft_skills', 'cultural_fits', 'branch')
         convert_choices_to_enum = False
 
 
@@ -70,7 +70,7 @@ class StudentProfileInputStep2(graphene.InputObjectType):
     job_type = graphene.Field(JobTypeInput, required=True)
     job_from_date = graphene.String(required=False)
     job_to_date = graphene.String(required=False)
-    job_position = graphene.Field(JobPositionInput, required=False)
+    branch = graphene.Field(BranchInput, required=False)
 
 
 class StudentProfileStep2(Output, graphene.Mutation):
@@ -79,7 +79,7 @@ class StudentProfileStep2(Output, graphene.Mutation):
         step2 = StudentProfileInputStep2(description=_('Profile Input Step 2 is required.'), required=True)
 
     class Meta:
-        description = _('Updates job option, date (start or range) and job position of a student')
+        description = _('Updates job option, date (start or range) and branch of a student')
 
     @classmethod
     @login_required

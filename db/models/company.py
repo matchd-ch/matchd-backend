@@ -19,7 +19,7 @@ class Company(models.Model):
     street = models.CharField(max_length=255, blank=True)
     phone = models.CharField(max_length=12, blank=True, validators=[RegexValidator(regex=settings.PHONE_REGEX)])
     website = models.URLField(max_length=2048, blank=True)
-    branch = models.ForeignKey('db.Branch', blank=True, null=True, on_delete=models.DO_NOTHING)
+    branches = models.ManyToManyField('db.Branch', blank=True, null=True, related_name='companies')
     description = models.TextField(max_length=1000, blank=True)
     soft_skills = models.ManyToManyField('db.SoftSkill', related_name='companies')
 
@@ -29,7 +29,6 @@ class Company(models.Model):
     services = models.TextField(blank=True)
     member_it_st_gallen = models.BooleanField(blank=True, default=False)
     benefits = models.ManyToManyField('db.Benefit', related_name='companies')
-    job_positions = models.ManyToManyField('db.JobPosition', related_name='companies')
     cultural_fits = models.ManyToManyField('db.CulturalFit', related_name='companies')
 
     # fields for university only
