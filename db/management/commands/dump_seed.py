@@ -15,6 +15,31 @@ from db.models import Attachment, ProfileType
 class Command(BaseCommand):
     help = 'Dumps test data'
 
+    def get_job_postings_for_company(self, company):
+        job_posting_objs = []
+
+        for job_posting in company.job_postings.all():
+            obj = {
+                'description': job_posting.description,
+                'job_type': job_posting.job_type.id,
+                'branch': job_posting.branch.id,
+                'workload': job_posting.workload,
+                'job_from_date': job_posting.job_from_date.strftime('%Y-%m-%d'),
+                'job_to_date': job_posting.job_to_date.strftime('%Y-%m-%d'),
+                'url': job_posting.url,
+                'job_requirements': [obj.id for obj in job_posting.job_requirements.all()],
+                'skills': [obj.id for obj in job_posting.skills.all()],
+                'languages': [
+                        {'language': obj.language.id, 'language_level': obj.language_level.id}
+                        for obj in job_posting.languages.all()
+                    ],
+                'form_step': job_posting.form_step,
+                'state': job_posting.state,
+                'employee': job_posting.employee.user.email
+            }
+            job_posting_objs.append(obj)
+        return job_posting_objs
+
     def get_attachments_for_company(self, company):
         content_type = ContentType.objects.get(app_label='db', model='company')
         return self.get_attachments(content_type, company.id, company.slug, 'company_fixtures')
@@ -65,7 +90,7 @@ class Command(BaseCommand):
                 'verified': user.status.verified
             }
 
-            if user.type == ProfileType.COMPANY:
+            if user.type in ProfileType.valid_company_types():
                 user_obj['employee'] = {
                     'role': user.employee.role
                 }
@@ -99,7 +124,8 @@ class Command(BaseCommand):
                         'branches': [obj.id for obj in company.branches.all()],
                         'cultural_fits': [obj.id for obj in company.cultural_fits.all()],
                         'soft_skills': [obj.id for obj in company.soft_skills.all()],
-                        'attachments': self.get_attachments_for_company(company)
+                        'attachments': self.get_attachments_for_company(company),
+                        'job_postings': self.get_job_postings_for_company(company)
                     })
                     dumped_companies.append(company.slug)
                 user_obj['company'] = company_obj
