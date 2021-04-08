@@ -68,4 +68,4 @@ Copy the file to api/data/data.xlsx and run the following command:
 ## Tests
 
     docker-compose exec api bash
-    ./manage.py test --settings=app.settings.test
+    ./manage.py pytest
