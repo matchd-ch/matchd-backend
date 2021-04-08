@@ -1,11 +1,11 @@
 import os
 import shutil
+import json
 
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.management.base import BaseCommand
 from django.contrib.auth import get_user_model
-import json
 
 from django.utils.text import slugify
 

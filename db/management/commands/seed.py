@@ -12,9 +12,14 @@ from graphql_auth.models import UserStatus
 from PIL import Image as PILImage
 
 from db.models import Employee, Student, Hobby, OnlineProject, UserLanguageRelation, CulturalFit, Skill, SoftSkill, \
-    Branch, JobType, ProfileState, Language, LanguageLevel, Company, Image, Video, Attachment, AttachmentKey
+    Branch, JobType, ProfileState, Language, LanguageLevel, Company, Image, Video, Attachment
 
 
+# pylint: disable=W0612
+# pylint: disable=R0902
+# pylint: disable=R0912
+# pylint: disable=R0913
+# pylint: disable=R0915
 class Command(BaseCommand):
     help = 'Generates test data'
     data = []
