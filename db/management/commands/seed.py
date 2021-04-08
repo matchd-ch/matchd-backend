@@ -12,7 +12,8 @@ from graphql_auth.models import UserStatus
 from PIL import Image as PILImage
 
 from db.models import Employee, Student, Hobby, OnlineProject, UserLanguageRelation, CulturalFit, Skill, SoftSkill, \
-    Branch, JobType, ProfileState, Language, LanguageLevel, Company, Image, Video, Attachment
+    Branch, JobType, ProfileState, Language, LanguageLevel, Company, Image, Video, Attachment, JobPosting, \
+    JobRequirement, JobPostingState, JobPostingLanguageRelation
 
 
 # pylint: disable=W0612
@@ -44,6 +45,12 @@ class Command(BaseCommand):
     random_job_types = []
     random_languages = []
     random_language_levels = []
+    random_job_names = [
+        'Applikations-Entwickler*in', 'Backend-Entwickler*in', 'Frontend-Entwickler*in', 'Systemtechniker*in',
+        'Mediamatiker*in', 'Designer*in', 'Kurz-Praktikant Applikationsentwicklung',
+        'Praktikant Applications-Entwicklung'
+    ]
+    random_requirements = []
 
     def load_data(self):
         with open('db/management/seed/fixtures.json') as json_file:
@@ -56,6 +63,7 @@ class Command(BaseCommand):
         self.random_job_types = list(JobType.objects.all().values_list('id', flat=True))
         self.random_languages = list(Language.objects.all().values_list('id', flat=True))
         self.random_language_levels = list(LanguageLevel.objects.all().values_list('id', flat=True))
+        self.random_requirements = list(JobRequirement.objects.all().values_list('id', flat=True))
 
     def random_items(self, items, count):
         random.shuffle(items)
@@ -77,7 +85,7 @@ class Command(BaseCommand):
 
             if company is not None:
                 self.create_attachments_for_company(company, user_data)
-                self.create_job_postings_for_company(company, user_data)
+                self.create_job_postings_for_company(company, user, user_data)
 
             if student is not None:
                 self.create_attachments_for_student(student, user_data)
@@ -99,8 +107,62 @@ class Command(BaseCommand):
         user_status.save()
         return user
 
-    def create_job_postings_for_company(self, company, user_data):
-        pass
+    def create_job_postings_for_company(self, company, user, user_data):
+        if len(user_data.get('company').keys()) == 1:
+            return
+        job_postings = user_data.get('company').get('job_postings', [])
+        if len(job_postings) == 0 and company.state != ProfileState.INCOMPLETE:
+            description = 'Ut dignissim ante quis euismod fermentum. Pellentesque at lorem eget orci cursus aliquam ' \
+                          'vitae at felis. Vestibulum at nulla eget urna malesuada tincidunt ac vitae elit. Maecenas ' \
+                          'laoreet ac nibh in bibendum. Nunc commodo vehicula ornare. Nullam vel purus magna. ' \
+                          'Nam efficitur varius lorem, ut condimentum nunc venenatis vitae. Vivamus pellentesque ' \
+                          'nec diam sed commodo. Aenean pulvinar dignissim nisl a mollis. In mattis purus massa, ' \
+                          'nec pretium turpis suscipit ultricies. Praesent eu turpis eu tellus placerat faucibus ' \
+                          'nec in urna.'
+
+            branches = self.random_items(self.random_branches, 5)
+            job_types = self.random_items(self.random_job_types, 5)
+
+            for i in range(0, 5):
+                job_posting = JobPosting(
+                    description=description,
+                    job_type_id=job_types[i],
+                    branch_id=branches[i],
+                    workload=100,
+                    company=company,
+                    job_from_date='2021-08-01',
+                    job_to_date='2022-08-01',
+                    url='http://www.job.lo',
+                    form_step=4,
+                    state=JobPostingState.PUBLIC,
+                    employee=Employee.objects.get(user=user)
+                )
+                job_posting.save()
+                job_posting.job_requirements.set(self.random_items(self.random_requirements, 4))
+                job_posting.skills.set(self.random_items(self.random_skills, 5))
+                random_languages = self.random_items(self.random_languages, 3)
+                random_language_levels = self.random_items(self.random_language_levels, 3)
+                index = 0
+                for language in random_languages:
+                    JobPostingLanguageRelation.objects.create(job_posting=job_posting, language_id=language,
+                                                              language_level_id=random_language_levels[index])
+                    index += 1
+        elif company.state != ProfileState.INCOMPLETE:
+            for obj in job_postings:
+                job_posting = JobPosting.objects.get(branch_id=obj.get('branch'), job_type_id=obj.get('job_type'),
+                                                     company=company)
+                job_posting.description = obj.get('description')
+                job_posting.workload = obj.get('workload')
+                job_posting.job_from_date = obj.get('job_from_date')
+                job_posting.job_to_date = obj.get('job_to_date')
+                job_posting.url = obj.get('url')
+                job_posting.url = obj.get('url')
+                job_posting.job_requirements.set(obj.get('job_requirements'))
+                job_posting.skills.set(obj.get('skills'))
+                job_posting.form_step = obj.get('form_step')
+                job_posting.state = obj.get('state')
+                job_posting.employee = get_user_model().objects.get(email=obj.get('employee')).employee
+                job_posting.save()
 
     def create_company(self, user, data):
         if data is None:
