@@ -151,20 +151,36 @@ class Command(BaseCommand):
                     index += 1
         elif company.state != ProfileState.INCOMPLETE:
             for obj in job_postings:
-                job_posting = JobPosting.objects.get(branch_id=obj.get('branch'), job_type_id=obj.get('job_type'),
-                                                     company=company)
+                try:
+                    job_posting = JobPosting.objects.get(branch_id=obj.get('branch'), job_type_id=obj.get('job_type'),
+                                                         company=company)
+                except JobPosting.DoesNotExist:
+                    job_posting = JobPosting(branch_id=obj.get('branch'), job_type_id=obj.get('job_type'),
+                                             company=company)
                 job_posting.description = obj.get('description')
                 job_posting.workload = obj.get('workload')
                 job_posting.job_from_date = obj.get('job_from_date')
                 job_posting.job_to_date = obj.get('job_to_date')
                 job_posting.url = obj.get('url')
                 job_posting.url = obj.get('url')
-                job_posting.job_requirements.set(obj.get('job_requirements'))
-                job_posting.skills.set(obj.get('skills'))
                 job_posting.form_step = obj.get('form_step')
                 job_posting.state = obj.get('state')
                 job_posting.employee = get_user_model().objects.get(email=obj.get('employee')).employee
                 job_posting.save()
+                job_posting.skills.set(obj.get('skills'))
+                job_posting.job_requirements.set(obj.get('job_requirements'))
+
+                languages = obj.get('languages')
+                for language in languages:
+                    try:
+                        rel = JobPostingLanguageRelation.objects.get(job_posting=job_posting,
+                                                                     language_id=language.get('language'))
+                        rel.language_level_id = language.get('language_level')
+                        rel.save()
+                    except JobPostingLanguageRelation.DoesNotExist:
+                        JobPostingLanguageRelation.objects.create(job_posting=job_posting,
+                                                                  language_id=language.get('language'),
+                                                                  language_level_id=language.get('language_level'))
 
     def create_company(self, user, data):
         if data is None:
