@@ -1,3 +1,5 @@
+from django.contrib.contenttypes.models import ContentType
+
 from db.models import Attachment, AttachmentKey, ProfileState
 
 
@@ -5,18 +7,22 @@ class MatchMapper:
 
     @classmethod
     def map_students(cls, students):
+        # prefetch student avatars
+        student_ids = [obj.id for obj in students]
+        attachments = Attachment.objects.filter(
+            key=AttachmentKey.STUDENT_AVATAR,
+            object_id__in=student_ids
+        ).select_related('content_type', 'attachment_type')
+        attachment_map = {}
+        for attachment in attachments:
+            attachment_map[attachment.object_id] = attachment
+
         matches = []
         for student in students:
             name = '%s %s' % (student.user.first_name, student.user.last_name)
-            attachment = Attachment.objects.filter(
-                key=AttachmentKey.STUDENT_AVATAR,
-                content_type=student.get_profile_content_type(),
-                object_id=student.get_profile_id()
-            ).prefetch_related('content_object', 'attachment_object')
-            if len(attachment) > 0:
-                attachment = attachment[0].absolute_url
-            else:
-                attachment = None
+            attachment = attachment_map.get(student.id, None)
+            if attachment is not None:
+                attachment = attachment.absolute_url
             if student.state == ProfileState.ANONYMOUS:
                 name = student.nickname
                 attachment = None

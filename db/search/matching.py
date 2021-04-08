@@ -10,7 +10,7 @@ class Matching:
 
     def find_talents(self, branch_id=None, job_type_id=None, cultural_fits=None, soft_skills=None, skills=None,
                      languages=None, date_from=None, date_to=None, soft_boost=1, tech_boost=1):
-        queryset = Student.get_indexed_objects()
+        queryset = Student.get_indexed_objects().prefetch_related('user')
         index = self.search_backend.get_index_for_model(queryset.model).name
         builder = StudentParamBuilder(queryset, index)
         if branch_id is not None:
@@ -30,7 +30,6 @@ class Matching:
                 builder.set_date_range(date_from, date_to)
             else:
                 builder.set_date_from(date_from)
-        print(builder.get_params())
         hits = self.search_backend.es.search(**builder.get_params())
         resolver = HitResolver(queryset, hits)
         return resolver.resolve()

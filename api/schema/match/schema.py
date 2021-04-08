@@ -2,15 +2,15 @@ from datetime import datetime
 
 import graphene
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import get_object_or_404
+from django.db.models import Prefetch
+from django.http import Http404
 from graphql_jwt.decorators import login_required
 from graphene import ObjectType, InputObjectType
 
 from api.mapper import MatchMapper
 from api.schema.job_posting import JobPostingInput
 from api.schema.profile_type import ProfileType
-from db.models import ProfileType as ProfileTypeModel, Skill, UserLanguageRelation, Language, LanguageLevel, \
-    JobPosting as JobPostingModel, DateMode
+from db.models import JobPosting as JobPostingModel, DateMode, JobPostingLanguageRelation
 from db.search import Matching
 
 
@@ -45,7 +45,16 @@ class MatchQuery(ObjectType):
     @classmethod
     def job_posting_matching(cls, user, data):
         job_posting_id = data.get('job_posting').get('id')
-        job_posting = get_object_or_404(JobPostingModel, pk=job_posting_id)
+        try:
+            job_posting = JobPostingModel.objects.prefetch_related(
+                Prefetch(
+                    'languages',
+                    queryset=JobPostingLanguageRelation.objects.filter(job_posting_id=job_posting_id).select_related(
+                        'language', 'language_level')
+                )
+            ).select_related('company').get(pk=job_posting_id)
+        except JobPostingModel.DoesNotExist:
+            raise Http404('Job posting does not exist')
         job_posting_company = job_posting.company
         if user.company != job_posting_company:
             raise PermissionDenied('You do not have permission to search with this job posting')
