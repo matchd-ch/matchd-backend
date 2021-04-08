@@ -61,6 +61,7 @@ class Command(BaseCommand):
                 'last_name': user.last_name,
                 'email': user.email,
                 'type': user.type,
+                'verified': user.status.verified
             }
 
             if user.type == ProfileType.COMPANY:

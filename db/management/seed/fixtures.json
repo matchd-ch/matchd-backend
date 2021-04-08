@@ -32,7 +32,8 @@
         },
         "first_name": "Xaver",
         "last_name": "Siegert",
-        "type": "company"
+        "type": "company",
+        "verified": false
     },
     {
         "company": {
@@ -67,7 +68,8 @@
         },
         "first_name": "Moritz",
         "last_name": "Schulze",
-        "type": "company"
+        "type": "company",
+        "verified": true
     },
     {
         "company": {
@@ -102,7 +104,8 @@
         },
         "first_name": "Rupert",
         "last_name": "Schneider",
-        "type": "company"
+        "type": "company",
+        "verified": true
     },
     {
         "company": {
@@ -139,7 +142,8 @@
         },
         "first_name": "Rafael",
         "last_name": "Dirksen",
-        "type": "company"
+        "type": "company",
+        "verified": true
     },
     {
         "company": {
@@ -185,7 +189,8 @@
         },
         "first_name": "Odelia",
         "last_name": "Carl",
-        "type": "company"
+        "type": "company",
+        "verified": true
     },
     {
         "company": {
@@ -271,7 +276,8 @@
         },
         "first_name": "Kilian",
         "last_name": "Schefer",
-        "type": "company"
+        "type": "company",
+        "verified": true
     },
     {
         "company": {
@@ -303,7 +309,8 @@
         "email": "university-not-verified@matchd.lo",
         "first_name": "Lukas",
         "last_name": "Weiner",
-        "type": "university"
+        "type": "university",
+        "verified": false
     },
     {
         "company": {
@@ -335,7 +342,8 @@
         "email": "university-step-1@matchd.lo",
         "first_name": "Ivonne",
         "last_name": "Schwarz",
-        "type": "university"
+        "type": "university",
+        "verified": true
     },
     {
         "company": {
@@ -367,7 +375,8 @@
         "email": "university-step-2@matchd.lo",
         "first_name": "Valentin",
         "last_name": "Becker",
-        "type": "university"
+        "type": "university",
+        "verified": true
     },
     {
         "company": {
@@ -401,7 +410,8 @@
         "email": "university-step-3@matchd.lo",
         "first_name": "Klara",
         "last_name": "Ludwig",
-        "type": "university"
+        "type": "university",
+        "verified": true
     },
     {
         "company": {
@@ -435,7 +445,8 @@
         "email": "university-public@matchd.lo",
         "first_name": "Belinda",
         "last_name": "Luther",
-        "type": "university"
+        "type": "university",
+        "verified": true
     },
     {
         "email": "student-not-verified@matchd.lo",
@@ -466,7 +477,8 @@
             "street": "",
             "zip": ""
         },
-        "type": "student"
+        "type": "student",
+        "verified": false
     },
     {
         "email": "student-step-1@matchd.lo",
@@ -497,7 +509,8 @@
             "street": "",
             "zip": ""
         },
-        "type": "student"
+        "type": "student",
+        "verified": true
     },
     {
         "email": "student-step-2@matchd.lo",
@@ -528,7 +541,8 @@
             "street": "Davidstrasse 25",
             "zip": "9000"
         },
-        "type": "student"
+        "type": "student",
+        "verified": true
     },
     {
         "email": "student-step-3@matchd.lo",
@@ -559,7 +573,8 @@
             "street": "Davidstrasse 25",
             "zip": "9000"
         },
-        "type": "student"
+        "type": "student",
+        "verified": true
     },
     {
         "email": "student-step-4@matchd.lo",
@@ -590,7 +605,8 @@
             "street": "Davidstrasse 25",
             "zip": "9000"
         },
-        "type": "student"
+        "type": "student",
+        "verified": true
     },
     {
         "email": "student-step-5@matchd.lo",
@@ -640,7 +656,8 @@
             "street": "Davidstrasse 25",
             "zip": "9000"
         },
-        "type": "student"
+        "type": "student",
+        "verified": true
     },
     {
         "email": "student-step-6@matchd.lo",
@@ -690,7 +707,8 @@
             "street": "Davidstrasse 25",
             "zip": "9000"
         },
-        "type": "student"
+        "type": "student",
+        "verified": true
     },
     {
         "email": "student-public@matchd.lo",
@@ -740,7 +758,8 @@
             "street": "Davidstrasse 25",
             "zip": "9000"
         },
-        "type": "student"
+        "type": "student",
+        "verified": true
     },
     {
         "email": "student-anonymous@matchd.lo",
@@ -790,7 +809,8 @@
             "street": "Davidstrasse 25",
             "zip": "9000"
         },
-        "type": "student"
+        "type": "student",
+        "verified": true
     },
     {
         "company": {
@@ -829,7 +849,8 @@
         },
         "first_name": "Elli",
         "last_name": "Peters",
-        "type": "company"
+        "type": "company",
+        "verified": true
     },
     {
         "email": "student-1@matchd.lo",
@@ -889,7 +910,8 @@
             "street": "Katharinengasse 1",
             "zip": "Katharinengasse 1"
         },
-        "type": "student"
+        "type": "student",
+        "verified": true
     },
     {
         "email": "student-2@matchd.lo",
@@ -949,7 +971,8 @@
             "street": "Engelgasse 1",
             "zip": "Engelgasse 1"
         },
-        "type": "student"
+        "type": "student",
+        "verified": true
     },
     {
         "email": "student-3@matchd.lo",
@@ -1009,7 +1032,8 @@
             "street": "Spisergasse 1",
             "zip": "Spisergasse 1"
         },
-        "type": "student"
+        "type": "student",
+        "verified": true
     },
     {
         "email": "student-4@matchd.lo",
@@ -1069,7 +1093,8 @@
             "street": "Hubstrasse 10",
             "zip": "Hubstrasse 10"
         },
-        "type": "student"
+        "type": "student",
+        "verified": true
     },
     {
         "email": "student-5@matchd.lo",
@@ -1129,7 +1154,8 @@
             "street": "Winkelriedstrasse 10",
             "zip": "Winkelriedstrasse 10"
         },
-        "type": "student"
+        "type": "student",
+        "verified": true
     },
     {
         "email": "student-6@matchd.lo",
@@ -1189,7 +1215,8 @@
             "street": "Weststrasse 20",
             "zip": "Weststrasse 20"
         },
-        "type": "student"
+        "type": "student",
+        "verified": true
     },
     {
         "email": "student-7@matchd.lo",
@@ -1249,7 +1276,8 @@
             "street": "Rebb\u00fcelstrasse 1",
             "zip": "Rebb\u00fcelstrasse 1"
         },
-        "type": "student"
+        "type": "student",
+        "verified": true
     },
     {
         "email": "student-8@matchd.lo",
@@ -1309,7 +1337,8 @@
             "street": "Hembergerstrasse 10",
             "zip": "Hembergerstrasse 10"
         },
-        "type": "student"
+        "type": "student",
+        "verified": true
     },
     {
         "email": "student-9@matchd.lo",
@@ -1369,7 +1398,8 @@
             "street": "Sch\u00fctzenstrasse 1",
             "zip": "Sch\u00fctzenstrasse 1"
         },
-        "type": "student"
+        "type": "student",
+        "verified": true
     },
     {
         "email": "student-10@matchd.lo",
@@ -1429,7 +1459,8 @@
             "street": "Gm\u00fcndstrasse 1",
             "zip": "Gm\u00fcndstrasse 1"
         },
-        "type": "student"
+        "type": "student",
+        "verified": true
     },
     {
         "email": "student-11@matchd.lo",
@@ -1489,7 +1520,8 @@
             "street": "Katharinengasse 1",
             "zip": "Katharinengasse 1"
         },
-        "type": "student"
+        "type": "student",
+        "verified": true
     },
     {
         "email": "student-12@matchd.lo",
@@ -1549,7 +1581,8 @@
             "street": "Engelgasse 1",
             "zip": "Engelgasse 1"
         },
-        "type": "student"
+        "type": "student",
+        "verified": true
     },
     {
         "email": "student-13@matchd.lo",
@@ -1606,7 +1639,8 @@
             "street": "Spisergasse 1",
             "zip": "Spisergasse 1"
         },
-        "type": "student"
+        "type": "student",
+        "verified": true
     },
     {
         "email": "student-14@matchd.lo",
@@ -1666,7 +1700,8 @@
             "street": "Hubstrasse 10",
             "zip": "Hubstrasse 10"
         },
-        "type": "student"
+        "type": "student",
+        "verified": true
     },
     {
         "email": "student-15@matchd.lo",
@@ -1724,7 +1759,8 @@
             "street": "Winkelriedstrasse 10",
             "zip": "Winkelriedstrasse 10"
         },
-        "type": "student"
+        "type": "student",
+        "verified": true
     },
     {
         "email": "student-16@matchd.lo",
@@ -1784,7 +1820,8 @@
             "street": "Weststrasse 20",
             "zip": "Weststrasse 20"
         },
-        "type": "student"
+        "type": "student",
+        "verified": true
     },
     {
         "email": "student-17@matchd.lo",
@@ -1844,7 +1881,8 @@
             "street": "Rebb\u00fcelstrasse 1",
             "zip": "Rebb\u00fcelstrasse 1"
         },
-        "type": "student"
+        "type": "student",
+        "verified": true
     },
     {
         "email": "student-18@matchd.lo",
@@ -1903,7 +1941,8 @@
             "street": "Hembergerstrasse 10",
             "zip": "Hembergerstrasse 10"
         },
-        "type": "student"
+        "type": "student",
+        "verified": true
     },
     {
         "email": "student-19@matchd.lo",
@@ -1961,7 +2000,8 @@
             "street": "Sch\u00fctzenstrasse 1",
             "zip": "Sch\u00fctzenstrasse 1"
         },
-        "type": "student"
+        "type": "student",
+        "verified": true
     },
     {
         "email": "student-20@matchd.lo",
@@ -2020,7 +2060,8 @@
             "street": "Gm\u00fcndstrasse 1",
             "zip": "Gm\u00fcndstrasse 1"
         },
-        "type": "student"
+        "type": "student",
+        "verified": true
     },
     {
         "company": {
@@ -2081,7 +2122,8 @@
         },
         "first_name": "Jochen",
         "last_name": "Dietrich",
-        "type": "company"
+        "type": "company",
+        "verified": true
     },
     {
         "company": {
@@ -2093,7 +2135,8 @@
         },
         "first_name": "Lorenz",
         "last_name": "Weber",
-        "type": "company"
+        "type": "company",
+        "verified": true
     },
     {
         "company": {
@@ -2154,7 +2197,8 @@
         },
         "first_name": "Magdalena",
         "last_name": "Schmitz",
-        "type": "company"
+        "type": "company",
+        "verified": true
     },
     {
         "company": {
@@ -2166,7 +2210,8 @@
         },
         "first_name": "Clothilde",
         "last_name": "Stumpf",
-        "type": "company"
+        "type": "company",
+        "verified": true
     },
     {
         "company": {
@@ -2227,7 +2272,8 @@
         },
         "first_name": "Rupert",
         "last_name": "Foehrkolb",
-        "type": "company"
+        "type": "company",
+        "verified": true
     },
     {
         "company": {
@@ -2239,7 +2285,8 @@
         },
         "first_name": "Severin",
         "last_name": "Leitz",
-        "type": "company"
+        "type": "company",
+        "verified": true
     },
     {
         "company": {
@@ -2300,7 +2347,8 @@
         },
         "first_name": "Gitta",
         "last_name": "Schneider",
-        "type": "company"
+        "type": "company",
+        "verified": true
     },
     {
         "company": {
@@ -2312,7 +2360,8 @@
         },
         "first_name": "Katinka",
         "last_name": "Lorenz",
-        "type": "company"
+        "type": "company",
+        "verified": true
     },
     {
         "company": {
@@ -2373,7 +2422,8 @@
         },
         "first_name": "Pankraz",
         "last_name": "M\u00f6ller",
-        "type": "company"
+        "type": "company",
+        "verified": true
     },
     {
         "company": {
@@ -2385,7 +2435,8 @@
         },
         "first_name": "Wotan",
         "last_name": "Heinrich",
-        "type": "company"
+        "type": "company",
+        "verified": true
     },
     {
         "company": {
@@ -2446,7 +2497,8 @@
         },
         "first_name": "Meta",
         "last_name": "Schmitz",
-        "type": "company"
+        "type": "company",
+        "verified": true
     },
     {
         "company": {
@@ -2458,7 +2510,8 @@
         },
         "first_name": "Reginhard",
         "last_name": "Berger",
-        "type": "company"
+        "type": "company",
+        "verified": true
     },
     {
         "company": {
@@ -2519,7 +2572,8 @@
         },
         "first_name": "Bathilda",
         "last_name": "Volk",
-        "type": "company"
+        "type": "company",
+        "verified": true
     },
     {
         "company": {
@@ -2531,7 +2585,8 @@
         },
         "first_name": "Wiebke",
         "last_name": "Baasch",
-        "type": "company"
+        "type": "company",
+        "verified": true
     },
     {
         "company": {
@@ -2592,7 +2647,8 @@
         },
         "first_name": "Hagan",
         "last_name": "Klossner",
-        "type": "company"
+        "type": "company",
+        "verified": true
     },
     {
         "company": {
@@ -2604,7 +2660,8 @@
         },
         "first_name": "Emeline",
         "last_name": "Bauer",
-        "type": "company"
+        "type": "company",
+        "verified": true
     },
     {
         "company": {
@@ -2665,7 +2722,8 @@
         },
         "first_name": "Guntram",
         "last_name": "Kunze",
-        "type": "company"
+        "type": "company",
+        "verified": true
     },
     {
         "company": {
@@ -2677,7 +2735,8 @@
         },
         "first_name": "Athala",
         "last_name": "Kunkel",
-        "type": "company"
+        "type": "company",
+        "verified": true
     },
     {
         "company": {
@@ -2738,7 +2797,8 @@
         },
         "first_name": "Alric",
         "last_name": "Schulte",
-        "type": "company"
+        "type": "company",
+        "verified": true
     },
     {
         "company": {
@@ -2750,7 +2810,8 @@
         },
         "first_name": "Anneke",
         "last_name": "Wagner",
-        "type": "company"
+        "type": "company",
+        "verified": true
     },
     {
         "company": {
@@ -2808,7 +2869,8 @@
         "email": "company-11-1@matchd.lo",
         "first_name": "Mareike",
         "last_name": "Schumacher",
-        "type": "university"
+        "type": "university",
+        "verified": true
     },
     {
         "company": {
@@ -2817,7 +2879,8 @@
         "email": "company-11-2@matchd.lo",
         "first_name": "Moritz",
         "last_name": "Carl",
-        "type": "university"
+        "type": "university",
+        "verified": true
     },
     {
         "company": {
@@ -2875,7 +2938,8 @@
         "email": "company-12-1@matchd.lo",
         "first_name": "Elisabeth",
         "last_name": "Fischer",
-        "type": "university"
+        "type": "university",
+        "verified": true
     },
     {
         "company": {
@@ -2884,7 +2948,8 @@
         "email": "company-12-2@matchd.lo",
         "first_name": "Ilma",
         "last_name": "Wolf",
-        "type": "university"
+        "type": "university",
+        "verified": true
     },
     {
         "company": {
@@ -2942,7 +3007,8 @@
         "email": "company-13-1@matchd.lo",
         "first_name": "Friedrich",
         "last_name": "Tiedemann",
-        "type": "university"
+        "type": "university",
+        "verified": true
     },
     {
         "company": {
@@ -2951,7 +3017,8 @@
         "email": "company-13-2@matchd.lo",
         "first_name": "Valentin",
         "last_name": "Lanz",
-        "type": "university"
+        "type": "university",
+        "verified": true
     },
     {
         "company": {
@@ -3009,7 +3076,8 @@
         "email": "company-14-1@matchd.lo",
         "first_name": "Engelbert",
         "last_name": "Brauer",
-        "type": "university"
+        "type": "university",
+        "verified": true
     },
     {
         "company": {
@@ -3018,7 +3086,8 @@
         "email": "company-14-2@matchd.lo",
         "first_name": "Georg",
         "last_name": "Schubert",
-        "type": "university"
+        "type": "university",
+        "verified": true
     },
     {
         "company": {
@@ -3076,7 +3145,8 @@
         "email": "company-15-1@matchd.lo",
         "first_name": "Ranulf",
         "last_name": "Esser",
-        "type": "university"
+        "type": "university",
+        "verified": true
     },
     {
         "company": {
@@ -3085,7 +3155,8 @@
         "email": "company-15-2@matchd.lo",
         "first_name": "Willafried",
         "last_name": "Schmid",
-        "type": "university"
+        "type": "university",
+        "verified": true
     },
     {
         "company": {
@@ -3143,7 +3214,8 @@
         "email": "company-16-1@matchd.lo",
         "first_name": "Astor",
         "last_name": "Vonnegut",
-        "type": "university"
+        "type": "university",
+        "verified": true
     },
     {
         "company": {
@@ -3152,7 +3224,8 @@
         "email": "company-16-2@matchd.lo",
         "first_name": "Jakob",
         "last_name": "J\u00e4ger",
-        "type": "university"
+        "type": "university",
+        "verified": true
     },
     {
         "company": {
@@ -3210,7 +3283,8 @@
         "email": "company-17-1@matchd.lo",
         "first_name": "Anke",
         "last_name": "Schreiber",
-        "type": "university"
+        "type": "university",
+        "verified": true
     },
     {
         "company": {
@@ -3219,7 +3293,8 @@
         "email": "company-17-2@matchd.lo",
         "first_name": "Klara",
         "last_name": "Sachs",
-        "type": "university"
+        "type": "university",
+        "verified": true
     },
     {
         "company": {
@@ -3277,7 +3352,8 @@
         "email": "company-18-1@matchd.lo",
         "first_name": "Renate",
         "last_name": "K\u00f6nig",
-        "type": "university"
+        "type": "university",
+        "verified": true
     },
     {
         "company": {
@@ -3286,7 +3362,8 @@
         "email": "company-18-2@matchd.lo",
         "first_name": "Elise",
         "last_name": "Pfeiffer",
-        "type": "university"
+        "type": "university",
+        "verified": true
     },
     {
         "company": {
@@ -3344,7 +3421,8 @@
         "email": "company-19-1@matchd.lo",
         "first_name": "Dachs",
         "last_name": "Bohn",
-        "type": "university"
+        "type": "university",
+        "verified": true
     },
     {
         "company": {
@@ -3353,7 +3431,8 @@
         "email": "company-19-2@matchd.lo",
         "first_name": "Liesl",
         "last_name": "Warner",
-        "type": "university"
+        "type": "university",
+        "verified": true
     },
     {
         "company": {
@@ -3411,7 +3490,8 @@
         "email": "company-20-1@matchd.lo",
         "first_name": "Svenja",
         "last_name": "Feld",
-        "type": "university"
+        "type": "university",
+        "verified": true
     },
     {
         "company": {
@@ -3420,6 +3500,7 @@
         "email": "company-20-2@matchd.lo",
         "first_name": "Alois",
         "last_name": "Krause",
-        "type": "university"
+        "type": "university",
+        "verified": true
     }
 ]
