@@ -24,6 +24,14 @@ class Command(BaseCommand):
         'mit dem Hund spazieren', 'Kollegen treffen', 'Ausgang', 'Bowling', 'Malen', 'Zeichnen'
     ]
 
+    content_types = {
+        'company': ContentType.objects.get(app_label='db', model='company'),
+        'student': ContentType.objects.get(app_label='db', model='student'),
+        'video': ContentType.objects.get(app_label='db', model='video'),
+        'image': ContentType.objects.get(app_label='db', model='image'),
+        'file': ContentType.objects.get(app_label='db', model='file')
+    }
+
     random_cultural_fits = []
     random_skills = []
     random_soft_skills = []
@@ -59,11 +67,14 @@ class Command(BaseCommand):
         for user_data in self.data:
             user = self.create_user(user_data)
             self.create_employee(user, user_data.get('employee'))
-            self.create_student(user, user_data.get('student'))
+            student = self.create_student(user, user_data.get('student'))
             company = self.create_company(user, user_data.get('company'))
 
             if company is not None:
                 self.create_attachments_for_company(company, user_data)
+
+            if student is not None:
+                self.create_attachments_for_student(student, user_data)
 
         self.stdout.write(self.style.SUCCESS('Adding test data completed'))
 
@@ -144,7 +155,7 @@ class Command(BaseCommand):
 
     def create_student(self, user, data):
         if data is None:
-            return
+            return None
         student, created = Student.objects.get_or_create(user=user)
         is_complete = user.student.state != ProfileState.INCOMPLETE
 
@@ -219,46 +230,55 @@ class Command(BaseCommand):
         student.state = data.get('state')
         student.zip = data.get('street')
         student.save()
+        return student
+
+    def create_attachments_for_student(self, student, user_data):
+        attachments = user_data.get('student').get('attachments')
+        if attachments is None:
+            return
+        fixtures_path = os.path.join(settings.MEDIA_ROOT, 'student_fixtures')
+
+        for attachment in attachments:
+            user = student.user
+            self.create_attachment(fixtures_path, student, attachment, user, 'student')
 
     def create_attachments_for_company(self, company, user_data):
         attachments = user_data.get('company').get('attachments')
         if attachments is None:
             return
         fixtures_path = os.path.join(settings.MEDIA_ROOT, 'company_fixtures')
-        media_path = os.path.join(settings.MEDIA_ROOT)
-
-        content_types = {
-            'company': ContentType.objects.get(app_label='db', model='company'),
-            'video': ContentType.objects.get(app_label='db', model='video'),
-            'image': ContentType.objects.get(app_label='db', model='image'),
-            'file': ContentType.objects.get(app_label='db', model='file')
-        }
 
         for attachment in attachments:
             # print(attachment)
             user = get_user_model().objects.get(email=attachment.get('user'))
-            app_label, model = attachment.get('type').split('.')
-            file_path = os.path.join(fixtures_path, attachment.get('file'))
-            relative_path = os.path.join('company', str(company.id), 'images' if model == 'image' else 'video')
-            relative_file_path = os.path.join('company', str(company.id), 'images' if model == 'image' else 'video',
-                                              attachment.get('file'))
+            self.create_attachment(fixtures_path, company, attachment, user, 'company')
 
-            destination_path = os.path.join(media_path, relative_path)
-            os.makedirs(destination_path, exist_ok=True)
-            destination_path = os.path.join(destination_path, attachment.get('file'))
+    def create_attachment(self, fixtures_path, company_or_student, attachment_data, user, content_type_key):
+        media_path = os.path.join(settings.MEDIA_ROOT)
 
-            if not os.path.exists(destination_path):
-                shutil.copy(file_path, destination_path)
+        app_label, model = attachment_data.get('type').split('.')
+        file_path = os.path.join(fixtures_path, attachment_data.get('file'))
+        relative_path = os.path.join('company', str(company_or_student.id), 'images' if model == 'image' else 'video')
+        relative_file_path = os.path.join('company', str(company_or_student.id), 'images' if model == 'image' else 'video',
+                                          attachment_data.get('file'))
 
-            attachment_instance = None
-            if model == 'image':
-                attachment_instance = self.create_image(destination_path, relative_file_path, user)
-            elif model == 'video':
-                attachment_instance = self.create_video(relative_file_path, user)
+        destination_path = os.path.join(media_path, relative_path)
+        os.makedirs(destination_path, exist_ok=True)
+        destination_path = os.path.join(destination_path, attachment_data.get('file'))
 
-            Attachment.objects.get_or_create(attachment_type=content_types[model], attachment_id=attachment_instance.id,
-                                             content_type=content_types['company'], object_id=company.id,
-                                             key=attachment.get('key'))
+        if not os.path.exists(destination_path):
+            shutil.copy(file_path, destination_path)
+
+        attachment_instance = None
+        if model == 'image':
+            attachment_instance = self.create_image(destination_path, relative_file_path, user)
+        elif model == 'video':
+            attachment_instance = self.create_video(relative_file_path, user)
+
+        Attachment.objects.get_or_create(
+            attachment_type=self.content_types[model], attachment_id=attachment_instance.id,
+            content_type=self.content_types[content_type_key], object_id=company_or_student.id,
+            key=attachment_data.get('key'))
 
     def create_image(self, image_path, relative_path, user):
         image, created = Image.objects.get_or_create(file=relative_path)
