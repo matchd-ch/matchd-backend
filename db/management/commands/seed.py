@@ -258,9 +258,10 @@ class Command(BaseCommand):
 
         app_label, model = attachment_data.get('type').split('.')
         file_path = os.path.join(fixtures_path, attachment_data.get('file'))
-        relative_path = os.path.join('company', str(company_or_student.id), 'images' if model == 'image' else 'video')
-        relative_file_path = os.path.join('company', str(company_or_student.id), 'images' if model == 'image' else 'video',
-                                          attachment_data.get('file'))
+        relative_path = os.path.join(content_type_key, str(company_or_student.id),
+                                     'images' if model == 'image' else 'video')
+        relative_file_path = os.path.join(content_type_key, str(company_or_student.id),
+                                          'images' if model == 'image' else 'video', attachment_data.get('file'))
 
         destination_path = os.path.join(media_path, relative_path)
         os.makedirs(destination_path, exist_ok=True)
