@@ -9,7 +9,7 @@ class Matching:
     search_backend = get_search_backend()
 
     def find_talents(self, branch_id=None, job_type_id=None, cultural_fits=None, soft_skills=None, skills=None,
-                     languages=None, date_from=None, date_to=None):
+                     languages=None, date_from=None, date_to=None, soft_boost=1, tech_boost=1):
         queryset = Student.get_indexed_objects()
         index = self.search_backend.get_index_for_model(queryset.model).name
         builder = StudentParamBuilder(queryset, index)
@@ -18,11 +18,11 @@ class Matching:
         if job_type_id is not None:
             builder.set_job_type(job_type_id, 10)
         if cultural_fits is not None:
-            builder.set_cultural_fits(cultural_fits)
+            builder.set_cultural_fits(cultural_fits, soft_boost)
         if soft_skills is not None:
-            builder.set_soft_skills(soft_skills)
+            builder.set_soft_skills(soft_skills, soft_boost)
         if skills is not None:
-            builder.set_skills(skills)
+            builder.set_skills(skills, tech_boost)
         if languages is not None:
             builder.set_languages(languages)
         if date_from is not None:

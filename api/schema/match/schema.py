@@ -1,66 +1,17 @@
 from datetime import datetime
 
 import graphene
+from django.core.exceptions import PermissionDenied
+from django.shortcuts import get_object_or_404
 from graphql_jwt.decorators import login_required
 from graphene import ObjectType, InputObjectType
 
+from api.mapper import MatchMapper
 from api.schema.job_posting import JobPostingInput
 from api.schema.profile_type import ProfileType
-from db.models import ProfileState, AttachmentKey, Attachment, ProfileType as ProfileTypeModel, Skill, \
-    UserLanguageRelation, Language, LanguageLevel
+from db.models import ProfileType as ProfileTypeModel, Skill, UserLanguageRelation, Language, LanguageLevel, \
+    JobPosting as JobPostingModel, DateMode
 from db.search import Matching
-
-
-def map_students(students):
-    matches = []
-    for student in students:
-        name = '%s %s' % (student.user.first_name, student.user.last_name)
-        attachment = Attachment.objects.filter(
-            key=AttachmentKey.STUDENT_AVATAR,
-            content_type=student.get_profile_content_type(),
-            object_id=student.get_profile_id()
-        ).prefetch_related('content_object', 'attachment_object')
-        if len(attachment) > 0:
-            attachment = attachment[0].absolute_url
-        else:
-            attachment = None
-        if student.state == ProfileState.ANONYMOUS:
-            name = student.nickname
-            attachment = None
-        match = {
-            'name': name,
-            'avatar': attachment,
-            'type': student.user.type,
-            'slug': student.nickname,
-            'score': student.score
-        }
-        matches.append(match)
-    return matches
-
-
-def map_companies(companies):
-    matches = []
-    for company in companies:
-        name = company.name
-        attachment = Attachment.objects.prefetch_related('content_object', 'attachment_object').\
-            select_related('attachment_type').filter(
-                key=AttachmentKey.COMPANY_AVATAR,
-                content_type=company.get_profile_content_type(),
-                object_id=company.get_profile_id()
-            )
-        if len(attachment) > 0:
-            attachment = attachment[0].absolute_url
-        else:
-            attachment = None
-        match = {
-            'name': name,
-            'avatar': attachment,
-            'type': company.type,
-            'slug': company.slug,
-            'score': company.score
-        }
-        matches.append(match)
-    return matches
 
 
 class Match(ObjectType):
@@ -71,7 +22,7 @@ class Match(ObjectType):
     score = graphene.NonNull(graphene.Float)
 
 
-class TalentMatchingInput(InputObjectType):
+class JobPostingMatchingInput(InputObjectType):
     job_posting = graphene.Field(JobPostingInput, required=True)
     tech_boost = graphene.Int(required=True)
     soft_boost = graphene.Int(required=True)
@@ -80,38 +31,51 @@ class TalentMatchingInput(InputObjectType):
 class MatchQuery(ObjectType):
     matches = graphene.List(
         Match,
-        talent_matching=graphene.Argument(TalentMatchingInput, required=False)
+        job_posting_matching=graphene.Argument(JobPostingMatchingInput, required=False)
     )
 
     @login_required
     def resolve_matches(self, info, **kwargs):
         user = info.context.user
+        job_posting_matching = kwargs.get('job_posting_matching', None)
+        if job_posting_matching is not None:
+            return MatchQuery.job_posting_matching(user, job_posting_matching)
+        return []
 
-        talent_matching = kwargs.get('talent_matching', None)
-        branch = 1
+    @classmethod
+    def job_posting_matching(cls, user, data):
+        job_posting_id = data.get('job_posting').get('id')
+        job_posting = get_object_or_404(JobPostingModel, pk=job_posting_id)
+        job_posting_company = job_posting.company
+        if user.company != job_posting_company:
+            raise PermissionDenied('You do not have permission to search with this job posting')
+        soft_boost = max(min(data.get('soft_boost', 1), 5), 1)
+        tech_boost = max(min(data.get('tech_boost', 1), 5), 1)
+        matching = Matching()
+        date_mode = job_posting.job_type.mode
+        params = {
+            'soft_boost': soft_boost,
+            'tech_boost': tech_boost,
+            'branch_id': job_posting.branch_id,
+            'job_type_id': job_posting.job_type_id,
+            'cultural_fits': job_posting_company.cultural_fits.all(),
+            'soft_skills': job_posting_company.soft_skills.all(),
+            'skills': job_posting.skills.all(),
+            'languages': job_posting.languages.all(),
+            'date_from': job_posting.job_from_date
+        }
+        if date_mode == DateMode.DATE_RANGE:
+            params['date_to'] = job_posting.job_to_date
 
-        if user.type in ProfileTypeModel.valid_company_types():
-            matching = Matching()
-            matches = matching.find_talents(
-                branch_id=branch,
-                job_type_id=1,
-                cultural_fits=user.company.cultural_fits.all(),
-                soft_skills=user.company.soft_skills.all(),
-                skills=Skill.objects.filter(id__in=[1, 4, 6, 8, 10, 12]),
-                languages=[UserLanguageRelation(language=Language.objects.get(pk=5),
-                                                language_level=LanguageLevel.objects.get(pk=7))],
-                date_from=datetime.strptime('01.08.2021', '%d.%m.%Y').date(),
-                date_to=datetime.strptime('02.10.2021', '%d.%m.%Y').date()
-            )
-            matches = map_students(matches)
-            print('*' * 100)
-            print(len(matches))
-            print('*' * 100)
-            return matches
+        matches = matching.find_talents(**params)
+        matches = MatchMapper.map_students(matches)
+        return matches
 
-        if user.type in ProfileTypeModel.valid_student_types():
-            matching = Matching()
-            matches = matching.find_companies(branch_id=branch, cultural_fits=user.student.cultural_fits.all(),
-                                              soft_skills=user.student.soft_skills.all())
-            matches = map_companies(matches)
-            return matches
+    @classmethod
+    def student_matching(cls, user, data):
+        # matching = Matching()
+        # matches = matching.find_companies(branch_id=branch, cultural_fits=user.student.cultural_fits.all(),
+        #                                   soft_skills=user.student.soft_skills.all())
+        # matches = MatchMapper.map_companies(matches)
+        # return matches
+        return []
