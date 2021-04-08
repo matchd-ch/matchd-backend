@@ -77,6 +77,7 @@ class Command(BaseCommand):
 
             if company is not None:
                 self.create_attachments_for_company(company, user_data)
+                self.create_job_postings_for_company(company, user_data)
 
             if student is not None:
                 self.create_attachments_for_student(student, user_data)
@@ -97,6 +98,9 @@ class Command(BaseCommand):
         user_status.verified = data.get('verified')
         user_status.save()
         return user
+
+    def create_job_postings_for_company(self, company, user_data):
+        pass
 
     def create_company(self, user, data):
         if data is None:
@@ -233,7 +237,8 @@ class Command(BaseCommand):
             student.soft_skills.set(soft_skills)
 
         student.state = data.get('state')
-        student.zip = data.get('street')
+        student.street = data.get('street')
+        student.zip = data.get('zip')
         student.save()
         return student
 
