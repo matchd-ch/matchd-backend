@@ -18,7 +18,8 @@ class JobPosting(models.Model, index.Indexed):
             MaxValueValidator(100),
             MinValueValidator(10)
         ], default=100)
-    company = models.ForeignKey('db.Company', null=False, blank=False, on_delete=models.CASCADE)
+    company = models.ForeignKey('db.Company', null=False, blank=False, on_delete=models.CASCADE,
+                                related_name='job_postings')
     job_from_date = models.DateField(null=False, blank=False)
     job_to_date = models.DateField(null=True, blank=True)
     url = models.URLField(null=True, blank=True)

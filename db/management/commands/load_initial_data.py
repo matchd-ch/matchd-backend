@@ -10,6 +10,8 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         files = self.get_all_json()
         for file in files:
+            if 'fixtures.json' in file:
+                continue
             data_set = self.read_json(file)
             for data in data_set:
                 self.get_fields(data)
