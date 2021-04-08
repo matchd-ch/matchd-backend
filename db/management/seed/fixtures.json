@@ -300,6 +300,9 @@
             "zip": "9000"
         },
         "email": "university-not-verified@matchd.lo",
+        "employee": {
+            "role": "Rector"
+        },
         "first_name": "Lukas",
         "last_name": "Weiner",
         "type": "university",
@@ -333,6 +336,9 @@
             "zip": "9000"
         },
         "email": "university-step-1@matchd.lo",
+        "employee": {
+            "role": "Rector"
+        },
         "first_name": "Ivonne",
         "last_name": "Schwarz",
         "type": "university",
@@ -366,6 +372,9 @@
             "zip": "9000"
         },
         "email": "university-step-2@matchd.lo",
+        "employee": {
+            "role": "Rector"
+        },
         "first_name": "Valentin",
         "last_name": "Becker",
         "type": "university",
@@ -401,6 +410,9 @@
             "zip": "9000"
         },
         "email": "university-step-3@matchd.lo",
+        "employee": {
+            "role": "Rector"
+        },
         "first_name": "Klara",
         "last_name": "Ludwig",
         "type": "university",
@@ -441,6 +453,9 @@
             "zip": "9000"
         },
         "email": "university-public@matchd.lo",
+        "employee": {
+            "role": "Rector"
+        },
         "first_name": "Belinda",
         "last_name": "Luther",
         "type": "university",
@@ -3557,6 +3572,9 @@
             "zip": ""
         },
         "email": "company-11-1@matchd.lo",
+        "employee": {
+            "role": "Rector"
+        },
         "first_name": "Mareike",
         "last_name": "Schumacher",
         "type": "university",
@@ -3567,6 +3585,9 @@
             "slug": "company-11"
         },
         "email": "company-11-2@matchd.lo",
+        "employee": {
+            "role": "Rector"
+        },
         "first_name": "Moritz",
         "last_name": "Carl",
         "type": "university",
@@ -3650,6 +3671,9 @@
             "zip": ""
         },
         "email": "company-12-1@matchd.lo",
+        "employee": {
+            "role": "Rector"
+        },
         "first_name": "Elisabeth",
         "last_name": "Fischer",
         "type": "university",
@@ -3660,6 +3684,9 @@
             "slug": "company-12"
         },
         "email": "company-12-2@matchd.lo",
+        "employee": {
+            "role": "Rector"
+        },
         "first_name": "Ilma",
         "last_name": "Wolf",
         "type": "university",
@@ -3743,6 +3770,9 @@
             "zip": ""
         },
         "email": "company-13-1@matchd.lo",
+        "employee": {
+            "role": "Rector"
+        },
         "first_name": "Friedrich",
         "last_name": "Tiedemann",
         "type": "university",
@@ -3753,6 +3783,9 @@
             "slug": "company-13"
         },
         "email": "company-13-2@matchd.lo",
+        "employee": {
+            "role": "Rector"
+        },
         "first_name": "Valentin",
         "last_name": "Lanz",
         "type": "university",
@@ -3836,6 +3869,9 @@
             "zip": ""
         },
         "email": "company-14-1@matchd.lo",
+        "employee": {
+            "role": "Rector"
+        },
         "first_name": "Engelbert",
         "last_name": "Brauer",
         "type": "university",
@@ -3846,6 +3882,9 @@
             "slug": "company-14"
         },
         "email": "company-14-2@matchd.lo",
+        "employee": {
+            "role": "Rector"
+        },
         "first_name": "Georg",
         "last_name": "Schubert",
         "type": "university",
@@ -3929,6 +3968,9 @@
             "zip": ""
         },
         "email": "company-15-1@matchd.lo",
+        "employee": {
+            "role": "Rector"
+        },
         "first_name": "Ranulf",
         "last_name": "Esser",
         "type": "university",
@@ -3939,6 +3981,9 @@
             "slug": "company-15"
         },
         "email": "company-15-2@matchd.lo",
+        "employee": {
+            "role": "Rector"
+        },
         "first_name": "Willafried",
         "last_name": "Schmid",
         "type": "university",
@@ -4022,6 +4067,9 @@
             "zip": ""
         },
         "email": "company-16-1@matchd.lo",
+        "employee": {
+            "role": "Rector"
+        },
         "first_name": "Astor",
         "last_name": "Vonnegut",
         "type": "university",
@@ -4032,6 +4080,9 @@
             "slug": "company-16"
         },
         "email": "company-16-2@matchd.lo",
+        "employee": {
+            "role": "Rector"
+        },
         "first_name": "Jakob",
         "last_name": "J\u00e4ger",
         "type": "university",
@@ -4115,6 +4166,9 @@
             "zip": ""
         },
         "email": "company-17-1@matchd.lo",
+        "employee": {
+            "role": "Rector"
+        },
         "first_name": "Anke",
         "last_name": "Schreiber",
         "type": "university",
@@ -4125,6 +4179,9 @@
             "slug": "company-17"
         },
         "email": "company-17-2@matchd.lo",
+        "employee": {
+            "role": "Rector"
+        },
         "first_name": "Klara",
         "last_name": "Sachs",
         "type": "university",
@@ -4208,6 +4265,9 @@
             "zip": ""
         },
         "email": "company-18-1@matchd.lo",
+        "employee": {
+            "role": "Rector"
+        },
         "first_name": "Renate",
         "last_name": "K\u00f6nig",
         "type": "university",
@@ -4218,6 +4278,9 @@
             "slug": "company-18"
         },
         "email": "company-18-2@matchd.lo",
+        "employee": {
+            "role": "Rector"
+        },
         "first_name": "Elise",
         "last_name": "Pfeiffer",
         "type": "university",
@@ -4301,6 +4364,9 @@
             "zip": ""
         },
         "email": "company-19-1@matchd.lo",
+        "employee": {
+            "role": "Rector"
+        },
         "first_name": "Dachs",
         "last_name": "Bohn",
         "type": "university",
@@ -4311,6 +4377,9 @@
             "slug": "company-19"
         },
         "email": "company-19-2@matchd.lo",
+        "employee": {
+            "role": "Rector"
+        },
         "first_name": "Liesl",
         "last_name": "Warner",
         "type": "university",
@@ -4394,6 +4463,9 @@
             "zip": ""
         },
         "email": "company-20-1@matchd.lo",
+        "employee": {
+            "role": "Rector"
+        },
         "first_name": "Svenja",
         "last_name": "Feld",
         "type": "university",
@@ -4404,6 +4476,9 @@
             "slug": "company-20"
         },
         "email": "company-20-2@matchd.lo",
+        "employee": {
+            "role": "Rector"
+        },
         "first_name": "Alois",
         "last_name": "Krause",
         "type": "university",
