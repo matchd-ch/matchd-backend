@@ -42,7 +42,8 @@ class Command(BaseCommand):
             attachment_obj = {
                 'type': f'{attachment.attachment_type.app_label}.{attachment.attachment_type.model}',
                 'file': file_name,
-                'user': attachment.attachment_object.uploaded_by_user.email
+                'user': attachment.attachment_object.uploaded_by_user.email,
+                'key': attachment.key
             }
             attachment_objs.append(attachment_obj)
         return attachment_objs

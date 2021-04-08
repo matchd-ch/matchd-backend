@@ -197,7 +197,7 @@ class Command(BaseCommand):
             index = 0
             for language in random_languages:
                 UserLanguageRelation.objects.create(student=student, language_id=language,
-                                                           language_level_id=random_language_levels[index])
+                                                    language_level_id=random_language_levels[index])
                 index += 1
         else:
             for language in languages:
