@@ -12,6 +12,8 @@ from django.utils.text import slugify
 from db.models import Attachment, ProfileType, ProfileState
 
 
+# pylint: disable=R0912
+# pylint: disable=R0915
 class Command(BaseCommand):
     help = 'Dumps test data'
 
