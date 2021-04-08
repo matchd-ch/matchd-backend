@@ -10,16 +10,21 @@ class HitResolver:
     def resolve(self):
         scores = {}
         ids = []
+        max_score = 0
         for hit in self.hits.get('hits'):
             obj_id = hit.get('_source').get('pk')
             ids.append(obj_id)
-            scores[obj_id] = hit.get('_score')
+            score = hit.get('_score')
+            scores[obj_id] = score
+            if float(score) > max_score:
+                max_score = score
+        multiplier = 100 / max_score / 100
         query = Q(id__in=ids)
         result = self.queryset.filter(query)
         for obj in result:
             obj_id = str(obj.id)
             if obj_id in scores:
-                setattr(obj, 'score', scores[obj_id])
+                setattr(obj, 'score', round(float(scores[obj_id]) * multiplier, 2))
 
         def sort_by_score(x):
             return x.score
