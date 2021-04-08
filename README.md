@@ -123,7 +123,7 @@ Run following command to seed test data:
 # Dump Fixtures
 
     docker-compose exec api bash 
-    ./manage.py dumpdata --indent 4 --exclude auth --exclude contenttypes --exclude wagtailcore.GroupCollectionPermission --exclude sessions --exclude wagtailcore --exclude refresh_token.refreshtoken --exclude db.skill --exclude db.language --exclude db.languagelevel --exclude db.branch --exclude db.benefit --exclude db.expectation --exclude db.faqcategory --exclude db.softskill --exclude db.userrequest --exclude db.joboption > db/fixtures/initial_data.json
+    ./manage.py dump_seed
 
 # Zip / City
 
