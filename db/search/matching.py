@@ -34,16 +34,19 @@ class Matching:
         resolver = HitResolver(queryset, hits)
         return resolver.resolve()
 
-    def find_companies(self, branch_id=None, cultural_fits=None, soft_skills=None):
+    def find_companies(self, branch_id=None, cultural_fits=None, soft_skills=None, job_type_id=None, soft_boost=1,
+                       tech_boost=1, first=100, skip=0):
         queryset = Company.get_indexed_objects()
         index = self.search_backend.get_index_for_model(queryset.model).name
-        builder = CompanyParamBuilder(queryset, index)
+        builder = CompanyParamBuilder(queryset, index, first, skip)
         if branch_id is not None:
-            builder.set_branch(branch_id)
+            builder.set_branch(branch_id, 10)
+        if job_type_id is not None:
+            builder.set_job_type(job_type_id, 10)
         if cultural_fits is not None:
-            builder.set_cultural_fits(cultural_fits)
+            builder.set_cultural_fits(cultural_fits, soft_boost)
         if soft_skills is not None:
-            builder.set_soft_skills(soft_skills)
+            builder.set_soft_skills(soft_skills, soft_boost)
         hits = self.search_backend.es.search(**builder.get_params())
         resolver = HitResolver(queryset, hits)
         return resolver.resolve()

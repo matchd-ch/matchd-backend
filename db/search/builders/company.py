@@ -18,6 +18,9 @@ class CompanyParamBuilder(BaseParamBuilder):
             },
         })
 
+    def set_job_type(self, job_type_id, boost=1):
+        self.should_conditions.append(self.get_condition('job_type', 'id_filter', [job_type_id], boost))
+
     def set_cultural_fits(self, cultural_fits, boost=1):
         for obj in cultural_fits:
             self.should_conditions.append({

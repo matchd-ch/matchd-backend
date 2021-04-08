@@ -38,19 +38,21 @@ class MatchMapper:
 
     @classmethod
     def map_companies(cls, companies):
+        company_ids = [obj.id for obj in companies]
+        attachments = Attachment.objects.filter(
+            key=AttachmentKey.COMPANY_AVATAR,
+            object_id__in=company_ids
+        ).select_related('content_type', 'attachment_type')
+        attachment_map = {}
+        for attachment in attachments:
+            attachment_map[attachment.object_id] = attachment
+
         matches = []
         for company in companies:
             name = company.name
-            attachment = Attachment.objects.prefetch_related('content_object', 'attachment_object'). \
-                select_related('attachment_type').filter(
-                key=AttachmentKey.COMPANY_AVATAR,
-                content_type=company.get_profile_content_type(),
-                object_id=company.get_profile_id()
-            )
-            if len(attachment) > 0:
-                attachment = attachment[0].absolute_url
-            else:
-                attachment = None
+            attachment = attachment_map.get(company.id, None)
+            if attachment is not None:
+                attachment = attachment.absolute_url
             match = {
                 'name': name,
                 'avatar': attachment,

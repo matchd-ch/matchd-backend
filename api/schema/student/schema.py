@@ -22,6 +22,7 @@ from db.models import Student as StudentModel
 
 
 class StudentInput(graphene.InputObjectType):
+    id = graphene.ID(required=False)
     mobile = graphene.String(description=_('Mobile'), required=True)
 
 
