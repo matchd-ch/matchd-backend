@@ -9,7 +9,7 @@ from django.contrib.auth import get_user_model
 
 from django.utils.text import slugify
 
-from db.models import Attachment, ProfileType
+from db.models import Attachment, ProfileType, ProfileState
 
 
 class Command(BaseCommand):
@@ -77,7 +77,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.stdout.write('Dumping test data...')
 
-        users = get_user_model().objects.select_related('student').all().exclude(username='admin')
+        users = get_user_model().objects.all().exclude(username='admin')
         user_dump = []
         dumped_companies = []
 
@@ -173,8 +173,43 @@ class Command(BaseCommand):
 
         json_string = json.dumps(user_dump, indent=4, sort_keys=True)
 
-        with open('db/management/seed/fixtures.json', 'w') as json_file:
+        with open('db/management/data/fixtures.json', 'w') as json_file:
             json_file.write(json_string)
+
+        users = get_user_model().objects.all().exclude(username='admin')
+        lines = [
+            'Matchd Test Accounts',
+            '==============',
+            ''
+            '| Type | Username | Password | Nickname | Status | Attachments |',
+            '|---|---|---|---|---|---|'
+        ]
+        for user in users:
+            if 'dummy' in user.email:
+                continue
+            nickname = '-'
+            state = '-'
+            attachments = '-'
+            if user.type in ProfileType.valid_student_types():
+                nickname = user.student.nickname
+                if nickname == '':
+                    nickname = '-'
+                state = user.student.state
+                if user.student.state in (ProfileState.PUBLIC, ProfileState.ANONYMOUS):
+                    attachments = 'yes'
+            elif user.type in ProfileType.valid_company_types():
+                state = user.company.state
+                if user.company.state in (ProfileState.PUBLIC, ProfileState.ANONYMOUS) \
+                        and user.email != 'company-public@matchd.lo':
+                    attachments = 'yes'
+
+            line = f'| {user.type} | {user.email} | asdf1234$ | {nickname} | {state} | {attachments} |'
+            lines.append(line)
+
+        content = '\n'.join(lines)
+
+        with open('ACCOUNTS.md', 'w') as json_file:
+            json_file.write(content)
 
         self.stdout.write('', ending='\n')
         self.stdout.write(self.style.SUCCESS('Dumping test data completed'))

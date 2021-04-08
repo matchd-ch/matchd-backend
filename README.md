@@ -21,109 +21,32 @@ If you want to access user specific data you also need to include the authorizat
 
     Authorization: JWT <YOUR JWT TOKEN HERE>
 
-# Test Accounts
+# Test Data
+
+*! Do not use dump_data / load_data command from django !*
 
 Run following command to seed test data:
 
     docker-compose exec api bash
     ./manage.py seed
 
-## Registered / Verified users
-
-
-| Type | Username | Password | Nickname |
-|---|---|---|---|
-| Company | company-not-verified@matchd.lo | asdf1234$ | - |
-| Company | company-step-1@matchd.lo | asdf1234$ | - |
-| Company | company-step-2@matchd.lo | asdf1234$ | - |
-| Company | company-step-3@matchd.lo | asdf1234$ | - |
-| Company | company-step-4@matchd.lo | asdf1234$ | - |
-| Company | company-public@matchd.lo | asdf1234$ | - |
-| Company | liip@matchd.lo | asdf1234$ | - |
-| University | university-not-verified@matchd.lo | asdf1234$ | - |
-| University | university-step-1@matchd.lo | asdf1234$ | - |
-| University | university-step-2@matchd.lo | asdf1234$ | - |
-| University | university-step-3@matchd.lo | asdf1234$ | - |
-| University | university-public@matchd.lo | asdf1234$ | - |
-| Student | student-not-verified@matchd.lo | asdf1234$ | - |
-| Student | student-step-1@matchd.lo | asdf1234$ | - |
-| Student | student-step-2@matchd.lo | asdf1234$ | - |
-| Student | student-step-3@matchd.lo | asdf1234$ | - |
-| Student | student-step-4@matchd.lo | asdf1234$ | - |
-| Student | student-step-5@matchd.lo | asdf1234$ | - |
-| Student | student-step-6@matchd.lo | asdf1234$ | - |
-| Student | student-public@matchd.lo | asdf1234$ | - |
-| Student | student-anonymous@matchd.lo | asdf1234$ | - |
-
-## Accounts with complete profiles
-
-| Type | Username | Password | Nickname | Status |
-|---|---|---|---|---|
-| Student | student-1@matchd.lo | asdf1234$ | melissa.cianciolo | public |
-| Student | student-2@matchd.lo | asdf1234$ | andy.jackson | public |
-| Student | student-3@matchd.lo | asdf1234$ | talia.hart | public |
-| Student | student-4@matchd.lo | asdf1234$ | kevin.graves | public |
-| Student | student-5@matchd.lo | asdf1234$ | timothy.wilson | public |
-| Student | student-6@matchd.lo | asdf1234$ | charlie.jencks | public |
-| Student | student-7@matchd.lo | asdf1234$ | mark.avery | public |
-| Student | student-8@matchd.lo | asdf1234$ | misty.hernandez | public |
-| Student | student-9@matchd.lo | asdf1234$ | mary.polite | public |
-| Student | student-10@matchd.lo | asdf1234$ | jessica.salazar | public |
-| Student | student-11@matchd.lo | asdf1234$ | grete.weber | public |
-| Student | student-12@matchd.lo | asdf1234$ | franz.haas | public |
-| Student | student-13@matchd.lo | asdf1234$ | amala.volk | public |
-| Student | student-14@matchd.lo | asdf1234$ | emil.schaefer | anonymous |
-| Student | student-15@matchd.lo | asdf1234$ | waldo.wegener | public |
-| Student | student-16@matchd.lo | asdf1234$ | heinz.kraus | public |
-| Student | student-17@matchd.lo | asdf1234$ | wilfried.vogt | public |
-| Student | student-18@matchd.lo | asdf1234$ | emeline.fabel | public |
-| Student | student-19@matchd.lo | asdf1234$ | ima.richter | anonymous |
-| Student | student-20@matchd.lo | asdf1234$ | uschi.mayer | public |
-| Company | company-1-1@matchd.lo | asdf1234$ | - | public |
-| Company | company-1-2@matchd.lo | asdf1234$ | - | public |
-| Company | company-2-1@matchd.lo | asdf1234$ | - | public |
-| Company | company-2-2@matchd.lo | asdf1234$ | - | public |
-| Company | company-3-1@matchd.lo | asdf1234$ | - | public |
-| Company | company-3-2@matchd.lo | asdf1234$ | - | public |
-| Company | company-4-1@matchd.lo | asdf1234$ | - | public |
-| Company | company-4-2@matchd.lo | asdf1234$ | - | public |
-| Company | company-5-1@matchd.lo | asdf1234$ | - | public |
-| Company | company-5-2@matchd.lo | asdf1234$ | - | public |
-| Company | company-6-1@matchd.lo | asdf1234$ | - | public |
-| Company | company-6-2@matchd.lo | asdf1234$ | - | public |
-| Company | company-7-1@matchd.lo | asdf1234$ | - | public |
-| Company | company-7-2@matchd.lo | asdf1234$ | - | public |
-| Company | company-8-1@matchd.lo | asdf1234$ | - | public |
-| Company | company-8-2@matchd.lo | asdf1234$ | - | public |
-| Company | company-9-1@matchd.lo | asdf1234$ | - | public |
-| Company | company-9-2@matchd.lo | asdf1234$ | - | public |
-| Company | company-10-1@matchd.lo | asdf1234$ | - | public |
-| Company | company-10-2@matchd.lo | asdf1234$ | - | public |
-| University | company-11-1@matchd.lo | asdf1234$ | - | public |
-| University | company-11-2@matchd.lo | asdf1234$ | - | public |
-| University | company-12-1@matchd.lo | asdf1234$ | - | public |
-| University | company-12-2@matchd.lo | asdf1234$ | - | public |
-| University | company-13-1@matchd.lo | asdf1234$ | - | public |
-| University | company-13-2@matchd.lo | asdf1234$ | - | public |
-| University | company-14-1@matchd.lo | asdf1234$ | - | public |
-| University | company-14-2@matchd.lo | asdf1234$ | - | public |
-| University | company-15-1@matchd.lo | asdf1234$ | - | public |
-| University | company-15-2@matchd.lo | asdf1234$ | - | public |
-| University | company-16-1@matchd.lo | asdf1234$ | - | public |
-| University | company-16-2@matchd.lo | asdf1234$ | - | public |
-| University | company-17-1@matchd.lo | asdf1234$ | - | public |
-| University | company-17-2@matchd.lo | asdf1234$ | - | public |
-| University | company-18-1@matchd.lo | asdf1234$ | - | public |
-| University | company-18-2@matchd.lo | asdf1234$ | - | public |
-| University | company-19-1@matchd.lo | asdf1234$ | - | public |
-| University | company-19-2@matchd.lo | asdf1234$ | - | public |
-| University | company-20-1@matchd.lo | asdf1234$ | - | public |
-| University | company-20-2@matchd.lo | asdf1234$ | - | public |
+Loads all user data from `db/management/data/fixtures.json`
+See `ACCOUNTS.md` for all available user accounts
 
 # Dump Fixtures
 
     docker-compose exec api bash 
     ./manage.py dump_seed
+
+Creates a dump of all user data including attachments (`db/management/data/fixtures.json`)
+Updates the file `ACCOUNTS.md` with all users
+
+# Create test students
+
+    docker-compose exec api bash 
+    ./manage.py dummy_students 100
+
+All users generated with this command will be ignored if you dump fixtures with `dump_seed`
 
 # Zip / City
 

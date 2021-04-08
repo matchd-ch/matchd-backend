@@ -53,7 +53,7 @@ class Command(BaseCommand):
     random_requirements = []
 
     def load_data(self):
-        with open('db/management/seed/fixtures.json') as json_file:
+        with open('db/management/data/fixtures.json') as json_file:
             self.data = json.load(json_file)
 
         self.random_cultural_fits = list(CulturalFit.objects.all().values_list('id', flat=True))
