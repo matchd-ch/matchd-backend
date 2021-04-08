@@ -27,6 +27,9 @@
             "zip": "9000"
         },
         "email": "company-not-verified@matchd.lo",
+        "employee": {
+            "role": "Recruiter"
+        },
         "first_name": "Xaver",
         "last_name": "Siegert",
         "type": "company"
@@ -59,6 +62,9 @@
             "zip": "9000"
         },
         "email": "company-step-1@matchd.lo",
+        "employee": {
+            "role": "Recruiter"
+        },
         "first_name": "Moritz",
         "last_name": "Schulze",
         "type": "company"
@@ -91,6 +97,9 @@
             "zip": "9000"
         },
         "email": "company-step-2@matchd.lo",
+        "employee": {
+            "role": "Recruiter"
+        },
         "first_name": "Rupert",
         "last_name": "Schneider",
         "type": "company"
@@ -125,6 +134,9 @@
             "zip": "9000"
         },
         "email": "company-step-3@matchd.lo",
+        "employee": {
+            "role": "Recruiter"
+        },
         "first_name": "Rafael",
         "last_name": "Dirksen",
         "type": "company"
@@ -168,6 +180,9 @@
             "zip": "9000"
         },
         "email": "company-public@matchd.lo",
+        "employee": {
+            "role": "Recruiter"
+        },
         "first_name": "Odelia",
         "last_name": "Carl",
         "type": "company"
@@ -251,6 +266,9 @@
             "zip": "9000"
         },
         "email": "liip@matchd.lo",
+        "employee": {
+            "role": "Developer"
+        },
         "first_name": "Kilian",
         "last_name": "Schefer",
         "type": "company"
@@ -432,12 +450,14 @@
             "distinction": "",
             "field_of_study": "",
             "graduation": null,
+            "hobbies": [],
             "job_from_date": null,
             "job_to_date": null,
             "job_type": null,
             "languages": [],
             "mobile": "+41791234567",
             "nickname": null,
+            "online_projects": [],
             "profile_step": 1,
             "school_name": null,
             "skills": [],
@@ -461,12 +481,14 @@
             "distinction": "",
             "field_of_study": "",
             "graduation": null,
+            "hobbies": [],
             "job_from_date": null,
             "job_to_date": null,
             "job_type": null,
             "languages": [],
             "mobile": "+41791234567",
             "nickname": null,
+            "online_projects": [],
             "profile_step": 1,
             "school_name": null,
             "skills": [],
@@ -490,12 +512,14 @@
             "distinction": "",
             "field_of_study": "",
             "graduation": null,
+            "hobbies": [],
             "job_from_date": null,
             "job_to_date": null,
             "job_type": null,
             "languages": [],
             "mobile": "+41791234567",
             "nickname": null,
+            "online_projects": [],
             "profile_step": 2,
             "school_name": "",
             "skills": [],
@@ -519,12 +543,14 @@
             "distinction": "",
             "field_of_study": "Applikationsentwicklung",
             "graduation": "2022-08-01",
+            "hobbies": [],
             "job_from_date": null,
             "job_to_date": null,
             "job_type": null,
             "languages": [],
             "mobile": "+41791234567",
             "nickname": null,
+            "online_projects": [],
             "profile_step": 3,
             "school_name": "FH Winterthur",
             "skills": [],
@@ -548,12 +574,14 @@
             "distinction": "",
             "field_of_study": "Applikationsentwicklung",
             "graduation": "2022-08-01",
+            "hobbies": [],
             "job_from_date": "2021-03-01",
             "job_to_date": "2021-04-01",
             "job_type": 2,
             "languages": [],
             "mobile": "+41791234567",
             "nickname": null,
+            "online_projects": [],
             "profile_step": 4,
             "school_name": "FH Winterthur",
             "skills": [],
@@ -577,6 +605,10 @@
             "distinction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
             "field_of_study": "Applikationsentwicklung",
             "graduation": "2022-08-01",
+            "hobbies": [
+                "Gamen",
+                "Wandern"
+            ],
             "job_from_date": "2021-03-01",
             "job_to_date": "2021-04-01",
             "job_type": 2,
@@ -592,6 +624,10 @@
             ],
             "mobile": "+41791234567",
             "nickname": null,
+            "online_projects": [
+                "http://www.project1.lo",
+                "http://www.project2.lo"
+            ],
             "profile_step": 5,
             "school_name": "FH Winterthur",
             "skills": [
@@ -619,6 +655,10 @@
             "distinction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
             "field_of_study": "Applikationsentwicklung",
             "graduation": "2022-08-01",
+            "hobbies": [
+                "Gamen",
+                "Wandern"
+            ],
             "job_from_date": "2021-03-01",
             "job_to_date": "2021-04-01",
             "job_type": 2,
@@ -634,6 +674,10 @@
             ],
             "mobile": "+41791234567",
             "nickname": "darth_vader",
+            "online_projects": [
+                "http://www.project2.lo",
+                "http://www.project1.lo"
+            ],
             "profile_step": 6,
             "school_name": "FH Winterthur",
             "skills": [
@@ -661,6 +705,10 @@
             "distinction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
             "field_of_study": "Applikationsentwicklung",
             "graduation": "2022-08-01",
+            "hobbies": [
+                "Gamen",
+                "Wandern"
+            ],
             "job_from_date": "2021-03-01",
             "job_to_date": "2021-04-01",
             "job_type": 2,
@@ -676,6 +724,10 @@
             ],
             "mobile": "+41791234567",
             "nickname": "lara_croft",
+            "online_projects": [
+                "http://www.project1.lo",
+                "http://www.project2.lo"
+            ],
             "profile_step": 7,
             "school_name": "FH Winterthur",
             "skills": [
@@ -703,6 +755,10 @@
             "distinction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
             "field_of_study": "Applikationsentwicklung",
             "graduation": "2022-08-01",
+            "hobbies": [
+                "Gamen",
+                "Wandern"
+            ],
             "job_from_date": "2021-03-01",
             "job_to_date": "2021-04-01",
             "job_type": 2,
@@ -718,6 +774,10 @@
             ],
             "mobile": "+41781234567",
             "nickname": "tyler_durden",
+            "online_projects": [
+                "http://www.project1.lo",
+                "http://www.project2.lo"
+            ],
             "profile_step": 7,
             "school_name": "FH Winterthur",
             "skills": [
@@ -764,6 +824,9 @@
             "zip": "9000"
         },
         "email": "company-step-4@matchd.lo",
+        "employee": {
+            "role": "Recruiter"
+        },
         "first_name": "Elli",
         "last_name": "Peters",
         "type": "company"
@@ -794,12 +857,14 @@
             "distinction": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "field_of_study": "Applikationsentwicklung",
             "graduation": "2022-08-01",
+            "hobbies": [],
             "job_from_date": null,
             "job_to_date": null,
             "job_type": null,
             "languages": [],
             "mobile": "+791234567",
             "nickname": "melissa.cianciolo",
+            "online_projects": [],
             "profile_step": 7,
             "school_name": "FH Winterthur",
             "skills": [
@@ -852,12 +917,14 @@
             "distinction": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "field_of_study": "Applikationsentwicklung",
             "graduation": "2022-08-01",
+            "hobbies": [],
             "job_from_date": null,
             "job_to_date": null,
             "job_type": null,
             "languages": [],
             "mobile": "+791234567",
             "nickname": "andy.jackson",
+            "online_projects": [],
             "profile_step": 7,
             "school_name": "FH Winterthur",
             "skills": [
@@ -910,12 +977,14 @@
             "distinction": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "field_of_study": "Applikationsentwicklung",
             "graduation": "2022-08-01",
+            "hobbies": [],
             "job_from_date": null,
             "job_to_date": null,
             "job_type": null,
             "languages": [],
             "mobile": "+791234567",
             "nickname": "talia.hart",
+            "online_projects": [],
             "profile_step": 7,
             "school_name": "FH Winterthur",
             "skills": [
@@ -968,12 +1037,14 @@
             "distinction": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "field_of_study": "Applikationsentwicklung",
             "graduation": "2022-08-01",
+            "hobbies": [],
             "job_from_date": null,
             "job_to_date": null,
             "job_type": null,
             "languages": [],
             "mobile": "+791234567",
             "nickname": "kevin.graves",
+            "online_projects": [],
             "profile_step": 7,
             "school_name": "FH Winterthur",
             "skills": [
@@ -1026,12 +1097,14 @@
             "distinction": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "field_of_study": "Applikationsentwicklung",
             "graduation": "2022-08-01",
+            "hobbies": [],
             "job_from_date": null,
             "job_to_date": null,
             "job_type": null,
             "languages": [],
             "mobile": "+791234567",
             "nickname": "timothy.wilson",
+            "online_projects": [],
             "profile_step": 7,
             "school_name": "FH Winterthur",
             "skills": [
@@ -1084,12 +1157,14 @@
             "distinction": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "field_of_study": "Applikationsentwicklung",
             "graduation": "2022-08-01",
+            "hobbies": [],
             "job_from_date": null,
             "job_to_date": null,
             "job_type": null,
             "languages": [],
             "mobile": "+791234567",
             "nickname": "charlie.jencks",
+            "online_projects": [],
             "profile_step": 7,
             "school_name": "FH Winterthur",
             "skills": [
@@ -1142,12 +1217,14 @@
             "distinction": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "field_of_study": "Applikationsentwicklung",
             "graduation": "2022-08-01",
+            "hobbies": [],
             "job_from_date": null,
             "job_to_date": null,
             "job_type": null,
             "languages": [],
             "mobile": "+791234567",
             "nickname": "mark.avery",
+            "online_projects": [],
             "profile_step": 7,
             "school_name": "FH Winterthur",
             "skills": [
@@ -1200,12 +1277,14 @@
             "distinction": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "field_of_study": "Applikationsentwicklung",
             "graduation": "2022-08-01",
+            "hobbies": [],
             "job_from_date": null,
             "job_to_date": null,
             "job_type": null,
             "languages": [],
             "mobile": "+791234567",
             "nickname": "misty.hernandez",
+            "online_projects": [],
             "profile_step": 7,
             "school_name": "FH Winterthur",
             "skills": [
@@ -1258,12 +1337,14 @@
             "distinction": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "field_of_study": "Applikationsentwicklung",
             "graduation": "2022-08-01",
+            "hobbies": [],
             "job_from_date": null,
             "job_to_date": null,
             "job_type": null,
             "languages": [],
             "mobile": "+791234567",
             "nickname": "mary.polite",
+            "online_projects": [],
             "profile_step": 7,
             "school_name": "FH Winterthur",
             "skills": [
@@ -1316,12 +1397,14 @@
             "distinction": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "field_of_study": "Applikationsentwicklung",
             "graduation": "2022-08-01",
+            "hobbies": [],
             "job_from_date": null,
             "job_to_date": null,
             "job_type": null,
             "languages": [],
             "mobile": "+791234567",
             "nickname": "jessica.salazar",
+            "online_projects": [],
             "profile_step": 7,
             "school_name": "FH Winterthur",
             "skills": [
@@ -1374,12 +1457,14 @@
             "distinction": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "field_of_study": "Applikationsentwicklung",
             "graduation": "2022-08-01",
+            "hobbies": [],
             "job_from_date": null,
             "job_to_date": null,
             "job_type": null,
             "languages": [],
             "mobile": "+791234567",
             "nickname": "grete.weber",
+            "online_projects": [],
             "profile_step": 7,
             "school_name": "FH Winterthur",
             "skills": [
@@ -1432,12 +1517,14 @@
             "distinction": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "field_of_study": "Applikationsentwicklung",
             "graduation": "2022-08-01",
+            "hobbies": [],
             "job_from_date": null,
             "job_to_date": null,
             "job_type": null,
             "languages": [],
             "mobile": "+791234567",
             "nickname": "franz.haas",
+            "online_projects": [],
             "profile_step": 7,
             "school_name": "FH Winterthur",
             "skills": [
@@ -1488,12 +1575,14 @@
             "distinction": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "field_of_study": "Applikationsentwicklung",
             "graduation": "2022-08-01",
+            "hobbies": [],
             "job_from_date": null,
             "job_to_date": null,
             "job_type": null,
             "languages": [],
             "mobile": "+791234567",
             "nickname": "amala.volk",
+            "online_projects": [],
             "profile_step": 7,
             "school_name": "FH Winterthur",
             "skills": [
@@ -1545,12 +1634,14 @@
             "distinction": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "field_of_study": "Applikationsentwicklung",
             "graduation": "2022-08-01",
+            "hobbies": [],
             "job_from_date": null,
             "job_to_date": null,
             "job_type": null,
             "languages": [],
             "mobile": "+791234567",
             "nickname": "emil.schaefer",
+            "online_projects": [],
             "profile_step": 7,
             "school_name": "FH Winterthur",
             "skills": [
@@ -1601,12 +1692,14 @@
             "distinction": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "field_of_study": "Applikationsentwicklung",
             "graduation": "2022-08-01",
+            "hobbies": [],
             "job_from_date": null,
             "job_to_date": null,
             "job_type": null,
             "languages": [],
             "mobile": "+791234567",
             "nickname": "waldo.wegener",
+            "online_projects": [],
             "profile_step": 7,
             "school_name": "FH Winterthur",
             "skills": [
@@ -1659,12 +1752,14 @@
             "distinction": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "field_of_study": "Applikationsentwicklung",
             "graduation": "2022-08-01",
+            "hobbies": [],
             "job_from_date": null,
             "job_to_date": null,
             "job_type": null,
             "languages": [],
             "mobile": "+791234567",
             "nickname": "heinz.kraus",
+            "online_projects": [],
             "profile_step": 7,
             "school_name": "FH Winterthur",
             "skills": [
@@ -1717,12 +1812,14 @@
             "distinction": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "field_of_study": "Applikationsentwicklung",
             "graduation": "2022-08-01",
+            "hobbies": [],
             "job_from_date": null,
             "job_to_date": null,
             "job_type": null,
             "languages": [],
             "mobile": "+791234567",
             "nickname": "wilfried.vogt",
+            "online_projects": [],
             "profile_step": 7,
             "school_name": "FH Winterthur",
             "skills": [
@@ -1775,12 +1872,14 @@
             "distinction": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "field_of_study": "Applikationsentwicklung",
             "graduation": "2022-08-01",
+            "hobbies": [],
             "job_from_date": null,
             "job_to_date": null,
             "job_type": null,
             "languages": [],
             "mobile": "+791234567",
             "nickname": "emeline.fabel",
+            "online_projects": [],
             "profile_step": 7,
             "school_name": "FH Winterthur",
             "skills": [
@@ -1832,12 +1931,14 @@
             "distinction": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "field_of_study": "Applikationsentwicklung",
             "graduation": "2022-08-01",
+            "hobbies": [],
             "job_from_date": null,
             "job_to_date": null,
             "job_type": null,
             "languages": [],
             "mobile": "+791234567",
             "nickname": "ima.richter",
+            "online_projects": [],
             "profile_step": 7,
             "school_name": "FH Winterthur",
             "skills": [
@@ -1888,12 +1989,14 @@
             "distinction": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "field_of_study": "Applikationsentwicklung",
             "graduation": "2022-08-01",
+            "hobbies": [],
             "job_from_date": null,
             "job_to_date": null,
             "job_type": null,
             "languages": [],
             "mobile": "+791234567",
             "nickname": "uschi.mayer",
+            "online_projects": [],
             "profile_step": 7,
             "school_name": "FH Winterthur",
             "skills": [
@@ -1973,6 +2076,9 @@
             "zip": ""
         },
         "email": "company-1-1@matchd.lo",
+        "employee": {
+            "role": "Recruiter"
+        },
         "first_name": "Jochen",
         "last_name": "Dietrich",
         "type": "company"
@@ -1982,6 +2088,9 @@
             "slug": "company-1"
         },
         "email": "company-1-2@matchd.lo",
+        "employee": {
+            "role": "Recruiter"
+        },
         "first_name": "Lorenz",
         "last_name": "Weber",
         "type": "company"
@@ -2040,6 +2149,9 @@
             "zip": ""
         },
         "email": "company-2-1@matchd.lo",
+        "employee": {
+            "role": "Recruiter"
+        },
         "first_name": "Magdalena",
         "last_name": "Schmitz",
         "type": "company"
@@ -2049,6 +2161,9 @@
             "slug": "company-2"
         },
         "email": "company-2-2@matchd.lo",
+        "employee": {
+            "role": "Recruiter"
+        },
         "first_name": "Clothilde",
         "last_name": "Stumpf",
         "type": "company"
@@ -2107,6 +2222,9 @@
             "zip": ""
         },
         "email": "company-3-1@matchd.lo",
+        "employee": {
+            "role": "Recruiter"
+        },
         "first_name": "Rupert",
         "last_name": "Foehrkolb",
         "type": "company"
@@ -2116,6 +2234,9 @@
             "slug": "company-3"
         },
         "email": "company-3-2@matchd.lo",
+        "employee": {
+            "role": "Recruiter"
+        },
         "first_name": "Severin",
         "last_name": "Leitz",
         "type": "company"
@@ -2174,6 +2295,9 @@
             "zip": ""
         },
         "email": "company-4-1@matchd.lo",
+        "employee": {
+            "role": "Recruiter"
+        },
         "first_name": "Gitta",
         "last_name": "Schneider",
         "type": "company"
@@ -2183,6 +2307,9 @@
             "slug": "company-4"
         },
         "email": "company-4-2@matchd.lo",
+        "employee": {
+            "role": "Recruiter"
+        },
         "first_name": "Katinka",
         "last_name": "Lorenz",
         "type": "company"
@@ -2241,6 +2368,9 @@
             "zip": ""
         },
         "email": "company-5-1@matchd.lo",
+        "employee": {
+            "role": "Recruiter"
+        },
         "first_name": "Pankraz",
         "last_name": "M\u00f6ller",
         "type": "company"
@@ -2250,6 +2380,9 @@
             "slug": "company-5"
         },
         "email": "company-5-2@matchd.lo",
+        "employee": {
+            "role": "Recruiter"
+        },
         "first_name": "Wotan",
         "last_name": "Heinrich",
         "type": "company"
@@ -2308,6 +2441,9 @@
             "zip": ""
         },
         "email": "company-6-1@matchd.lo",
+        "employee": {
+            "role": "Recruiter"
+        },
         "first_name": "Meta",
         "last_name": "Schmitz",
         "type": "company"
@@ -2317,6 +2453,9 @@
             "slug": "company-6"
         },
         "email": "company-6-2@matchd.lo",
+        "employee": {
+            "role": "Recruiter"
+        },
         "first_name": "Reginhard",
         "last_name": "Berger",
         "type": "company"
@@ -2375,6 +2514,9 @@
             "zip": ""
         },
         "email": "company-7-1@matchd.lo",
+        "employee": {
+            "role": "Recruiter"
+        },
         "first_name": "Bathilda",
         "last_name": "Volk",
         "type": "company"
@@ -2384,6 +2526,9 @@
             "slug": "company-7"
         },
         "email": "company-7-2@matchd.lo",
+        "employee": {
+            "role": "Recruiter"
+        },
         "first_name": "Wiebke",
         "last_name": "Baasch",
         "type": "company"
@@ -2442,6 +2587,9 @@
             "zip": ""
         },
         "email": "company-8-1@matchd.lo",
+        "employee": {
+            "role": "Recruiter"
+        },
         "first_name": "Hagan",
         "last_name": "Klossner",
         "type": "company"
@@ -2451,6 +2599,9 @@
             "slug": "company-8"
         },
         "email": "company-8-2@matchd.lo",
+        "employee": {
+            "role": "Recruiter"
+        },
         "first_name": "Emeline",
         "last_name": "Bauer",
         "type": "company"
@@ -2509,6 +2660,9 @@
             "zip": ""
         },
         "email": "company-9-1@matchd.lo",
+        "employee": {
+            "role": "Recruiter"
+        },
         "first_name": "Guntram",
         "last_name": "Kunze",
         "type": "company"
@@ -2518,6 +2672,9 @@
             "slug": "company-9"
         },
         "email": "company-9-2@matchd.lo",
+        "employee": {
+            "role": "Recruiter"
+        },
         "first_name": "Athala",
         "last_name": "Kunkel",
         "type": "company"
@@ -2576,6 +2733,9 @@
             "zip": ""
         },
         "email": "company-10-1@matchd.lo",
+        "employee": {
+            "role": "Recruiter"
+        },
         "first_name": "Alric",
         "last_name": "Schulte",
         "type": "company"
@@ -2585,6 +2745,9 @@
             "slug": "company-10"
         },
         "email": "company-10-2@matchd.lo",
+        "employee": {
+            "role": "Recruiter"
+        },
         "first_name": "Anneke",
         "last_name": "Wagner",
         "type": "company"

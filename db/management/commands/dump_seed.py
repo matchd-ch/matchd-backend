@@ -9,7 +9,7 @@ import json
 
 from django.utils.text import slugify
 
-from db.models import Attachment
+from db.models import Attachment, ProfileType
 
 
 class Command(BaseCommand):
@@ -62,6 +62,11 @@ class Command(BaseCommand):
                 'email': user.email,
                 'type': user.type,
             }
+
+            if user.type == ProfileType.COMPANY:
+                user_obj['employee'] = {
+                    'role': user.employee.role
+                }
 
             company = user.company
             if company is not None:
@@ -122,6 +127,8 @@ class Command(BaseCommand):
                     'cultural_fits': [obj.id for obj in student.cultural_fits.all()],
                     'soft_skills': [obj.id for obj in student.soft_skills.all()],
                     'skills': [obj.id for obj in student.skills.all()],
+                    'hobbies': [obj.name for obj in student.hobbies.all()],
+                    'online_projects': [obj.url for obj in student.online_projects.all()],
                     'languages': [
                         {'language': obj.language.id, 'language_level': obj.language_level.id}
                         for obj in student.languages.all()
