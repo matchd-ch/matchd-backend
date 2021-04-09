@@ -31,7 +31,7 @@ class HitResolver:
             return round(origin_score * m, 2)
 
         def shift_raw_score(origin_score, m):
-            return origin_score * m
+            return round(origin_score * m, 2)
 
         for obj in result:
             obj_id = str(obj.id)
