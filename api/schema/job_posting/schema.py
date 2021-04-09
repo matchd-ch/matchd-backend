@@ -49,6 +49,7 @@ class JobPostingQuery(ObjectType):
 
     def resolve_job_postings(self, info, **kwargs):
         company_id = kwargs.get('company')
+        company = None
         if company_id is None:
             user = info.context.user
             if user.type not in ProfileType.valid_company_types():
@@ -56,6 +57,9 @@ class JobPostingQuery(ObjectType):
             company = user.company
         else:
             company = get_object_or_404(Company, pk=company_id)
+
+        if company is None:
+            raise Http404('No job postings found')
 
         # hide incomplete job postings
         return JobPostingModel.objects.filter(state=JobPostingState.PUBLIC, company=company)
