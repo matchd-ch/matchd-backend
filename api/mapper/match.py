@@ -31,7 +31,8 @@ class MatchMapper:
                 'avatar': attachment,
                 'type': student.user.type,
                 'slug': student.nickname,
-                'score': student.score
+                'score': student.score,
+                'raw_score': student.raw_score
             }
             matches.append(match)
         return matches
@@ -58,7 +59,8 @@ class MatchMapper:
                 'avatar': attachment,
                 'type': company.type,
                 'slug': company.slug,
-                'score': company.score
+                'score': company.score,
+                'raw_score': company.raw_score
             }
             matches.append(match)
         return matches

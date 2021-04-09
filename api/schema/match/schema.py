@@ -22,6 +22,7 @@ class Match(ObjectType):
     type = graphene.Field(ProfileType)
     slug = graphene.NonNull(graphene.String)
     score = graphene.NonNull(graphene.Float)
+    raw_score = graphene.NonNull(graphene.Float)
 
 
 class JobPostingMatchingInput(InputObjectType):
