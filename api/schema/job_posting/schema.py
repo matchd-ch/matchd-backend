@@ -1,4 +1,5 @@
 import graphene
+from django.core.exceptions import PermissionDenied
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext as _
@@ -16,7 +17,7 @@ from api.schema.registration import EmployeeInput
 from api.schema.skill import SkillInput
 from db.exceptions import FormException
 from db.forms import process_job_posting_form_step_1, process_job_posting_form_step_2, process_job_posting_form_step_3
-from db.models import JobPosting as JobPostingModel, Company, JobPostingState as JobPostingStateModel
+from db.models import JobPosting as JobPostingModel, Company, JobPostingState as JobPostingStateModel, ProfileType
 
 JobPostingState = graphene.Enum.from_enum(JobPostingStateModel)
 
@@ -43,18 +44,20 @@ class JobPosting(DjangoObjectType):
 
 
 class JobPostingQuery(ObjectType):
-    job_postings = graphene.List(JobPosting, company=graphene.Int(required=True))
+    job_postings = graphene.List(JobPosting, company=graphene.Int(required=False))
     job_posting = graphene.Field(JobPosting, id=graphene.ID(required=True))
 
     def resolve_job_postings(self, info, **kwargs):
         company_id = kwargs.get('company')
-        company = get_object_or_404(Company, pk=company_id)
+        if company_id is None:
+            user = info.context.user
+            if user.type not in ProfileType.valid_company_types():
+                raise PermissionDenied('You do not have permission to perform this action')
+            company = user.company
+        else:
+            company = get_object_or_404(Company, pk=company_id)
 
-        # show incomplete job postings for owner
-        if info.context.user.company == company:
-            return JobPostingModel.objects.filter(company=company)
-
-        # hide incomplete job postings for other users
+        # hide incomplete job postings
         return JobPostingModel.objects.filter(state=JobPostingState.PUBLIC, company=company)
 
     def resolve_job_posting(self, info, **kwargs):
