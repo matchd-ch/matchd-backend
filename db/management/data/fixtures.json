@@ -669,7 +669,7 @@
                         22,
                         13
                     ],
-                    "state": "public",
+                    "state": "draft",
                     "title": "Praktikant*in Applikationsentwicklung",
                     "url": "http://www.job.lo",
                     "workload": 100
@@ -1152,7 +1152,7 @@
             "profile_step": 1,
             "school_name": null,
             "skills": [],
-            "slug": "william-hawkins-1",
+            "slug": "",
             "soft_skills": [],
             "state": "incomplete",
             "street": "B\u00fcelweg",
@@ -1192,7 +1192,7 @@
             "profile_step": 1,
             "school_name": null,
             "skills": [],
-            "slug": "josephine-thomas-2",
+            "slug": "",
             "soft_skills": [],
             "state": "incomplete",
             "street": "Romanshornerstrasse",
@@ -1232,7 +1232,7 @@
             "profile_step": 2,
             "school_name": "",
             "skills": [],
-            "slug": "charles-robison-3",
+            "slug": "",
             "soft_skills": [],
             "state": "incomplete",
             "street": "Widenstrasse",
@@ -1272,7 +1272,7 @@
             "profile_step": 3,
             "school_name": "FH Winterthur",
             "skills": [],
-            "slug": "steve-hollar-4",
+            "slug": "",
             "soft_skills": [],
             "state": "incomplete",
             "street": "Schwand-Wintersbergweg",
@@ -1312,7 +1312,7 @@
             "profile_step": 4,
             "school_name": "FH Winterthur",
             "skills": [],
-            "slug": "william-herauf-5",
+            "slug": "",
             "soft_skills": [],
             "state": "incomplete",
             "street": "Bendelverbindungsweg",
@@ -3263,13 +3263,13 @@
                     "user": "student-20@matchd.lo"
                 }
             ],
-            "branch": 15,
+            "branch": 8,
             "city": "Ebnat-Kappel",
             "cultural_fits": [
-                3,
+                1,
+                2,
                 4,
-                8,
-                9,
+                7,
                 10,
                 11
             ],
@@ -3282,21 +3282,21 @@
                 "Fl\u00f6te",
                 "Fussball"
             ],
-            "job_from_date": null,
-            "job_to_date": null,
+            "job_from_date": "2021-08-01",
+            "job_to_date": "2022-08-01",
             "job_type": 5,
             "languages": [
                 {
-                    "language": 21,
+                    "language": 19,
+                    "language_level": 8
+                },
+                {
+                    "language": 8,
                     "language_level": 5
                 },
                 {
-                    "language": 10,
+                    "language": 1,
                     "language_level": 2
-                },
-                {
-                    "language": 12,
-                    "language_level": 6
                 }
             ],
             "mobile": "+791234567",
@@ -3308,22 +3308,20 @@
             "profile_step": 7,
             "school_name": "FH Winterthur",
             "skills": [
-                19,
-                31,
-                33,
-                35,
-                37,
-                39,
-                21
+                24,
+                49,
+                2,
+                51,
+                11
             ],
             "slug": "lillian-lalk-29",
             "soft_skills": [
                 1,
-                2,
                 3,
-                13,
-                14,
-                15
+                6,
+                8,
+                9,
+                13
             ],
             "state": "public",
             "street": "Bendel",
