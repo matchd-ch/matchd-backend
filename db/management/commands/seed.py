@@ -25,6 +25,8 @@ class Command(BaseCommand):
     help = 'Generates test data'
     data = []
 
+    random_address = []
+
     random_hobbies = [
         'Gamen', 'Fussball', 'Programmieren', 'Kochen', 'Jodeln', 'Wandern', 'Handball', 'Lego', 'Gitarre', 'Flöte',
         'mit dem Hund spazieren', 'Kollegen treffen', 'Ausgang', 'Bowling', 'Malen', 'Zeichnen'
@@ -64,6 +66,16 @@ class Command(BaseCommand):
     def load_data(self):
         with open('db/management/data/fixtures.json') as json_file:
             self.data = json.load(json_file)
+
+        with open('db/management/commands/address_list.txt') as address_file:
+            lines = address_file.readlines()
+            for line in lines:
+                parts = line.split(',')
+                address = parts[0].strip()
+                parts2 = parts[1].split(' - ')
+                self.random_address.append(
+                    (address, parts2[0].strip(), parts2[1].strip())
+                )
 
         self.random_cultural_fits = list(CulturalFit.objects.all().values_list('id', flat=True))
         self.random_benefits = list(Benefit.objects.all().values_list('id', flat=True))
@@ -242,7 +254,6 @@ class Command(BaseCommand):
             company.cultural_fits.set([])
             company.soft_skills.set([])
 
-        company.city = data.get('city')
         company.description = data.get('description')
         company.link_education = data.get('link_education', None)
         company.link_projects = data.get('link_projects', None)
@@ -252,13 +263,21 @@ class Command(BaseCommand):
         company.phone = data.get('phone')
         company.profile_step = data.get('profile_step')
         company.services = data.get('services', '')
-        company.street = data.get('street')
         company.top_level_organisation_description = data.get('top_level_organisation_description', '')
         company.top_level_organisation_website = data.get('top_level_organisation_website', '')
         company.type = data.get('type')
         company.uid = data.get('uid', '')
         company.website = data.get('website')
-        company.zip = data.get('zip')
+        street = data.get('street')
+        if street is None or street == '':
+            street, zip_value, city = self.random_items(self.random_address, 1)
+            company.street = street
+            company.zip = zip_value
+            company.city = city
+        else:
+            company.street = street
+            company.zip = data.get('zip')
+            company.city = data.get('city')
 
         company.save()
         return company
@@ -282,7 +301,6 @@ class Command(BaseCommand):
             student.branch_id = self.random_items(self.random_branches, 1)
         else:
             student.branch_id = branch
-        student.city = data.get('city')
         cultural_fits = data.get('cultural_fits')
         if len(cultural_fits) == 0 and is_complete and len(user.student.cultural_fits.all()) == 0:
             student.cultural_fits.set(self.random_items(self.random_cultural_fits, 6))
@@ -352,8 +370,18 @@ class Command(BaseCommand):
             student.soft_skills.set(soft_skills)
 
         student.state = data.get('state')
-        student.street = data.get('street')
-        student.zip = data.get('zip')
+
+        street = data.get('street')
+        if street is None or street == '':
+            street, zip_value, city = self.random_items(self.random_address, 1)
+            student.street = street
+            student.city = city
+            student.zip = zip_value
+        else:
+            student.street = data.get('street')
+            student.city = data.get('city')
+            student.zip = data.get('zip')
+
         student.save()
         return student
 

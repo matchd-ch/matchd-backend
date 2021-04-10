@@ -1,0 +1,225 @@
+Auf dem Damm, 9000 - St. Gallen, Sankt Gallen, Wahlkreis St. Gallen
+Berneggstollen, 9000 - St. Gallen, Sankt Gallen, Wahlkreis St. Gallen
+Girtannerstrasse, 9000 - St. Gallen, Sankt Gallen, Wahlkreis St. Gallen
+St. Georgenstrasse, 9000 - St. Gallen, Sankt Gallen, Wahlkreis St. Gallen
+St. Leonhard-Weg, 9000 - St. Gallen, Sankt Gallen, Wahlkreis St. Gallen
+Falkensteinstrasse, 9000 - St. Gallen, Sankt Fiden, Sankt Gallen
+Gübsenweg, 9015 - St. Gallen, Sankt Gallen, Wahlkreis St. Gallen
+Geissbergstrasse, 9015 - St. Gallen, Sankt Gallen, Wahlkreis St. Gallen
+Herisauer Strasse, 9015 - St. Gallen, Sankt Gallen, Wahlkreis St. Gallen
+Herisauerstrasse, 9015 - St. Gallen, Sankt Gallen Winkeln, Sankt Gallen
+Arvenstrasse, 9200 - Gossau SG, Gossau (SG), Wahlkreis St. Gallen
+Brunnenstrasse, 9200 - Gossau SG, Gossau (SG), Wahlkreis St. Gallen
+Gruebstrasse, 9200 - Gossau SG, Gossau (SG), Wahlkreis St. Gallen
+Haldenhofweg, 9200 - Gossau SG, Gossau (SG), Wahlkreis St. Gallen
+Hirschbergstrasse, 9200 - Gossau SG, Gossau (SG), Wahlkreis St. Gallen
+Im Park, 9200 - Gossau SG, Gossau (SG), Wahlkreis St. Gallen
+Jägerstrasse, 9200 - Gossau SG, Gossau (SG), Wahlkreis St. Gallen
+Jägerweg, 9200 - Gossau SG, Gossau (SG), Wahlkreis St. Gallen
+Kirchstrasse, 9200 - Gossau SG, Gossau (SG), Wahlkreis St. Gallen
+Langfeldstrasse, 9200 - Gossau SG, Gossau (SG), Wahlkreis St. Gallen
+Lärchensteig, 9200 - Gossau SG, Gossau (SG), Wahlkreis St. Gallen
+Moosgartenstrasse, 9200 - Gossau SG, Gossau (SG), Wahlkreis St. Gallen
+Narzissenweg, 9200 - Gossau SG, Gossau (SG), Wahlkreis St. Gallen
+Neuchlensteig, 9200 - Gossau SG, Gossau (SG), Wahlkreis St. Gallen
+Neuchlenweg, 9200 - Gossau SG, Gossau (SG), Wahlkreis St. Gallen
+Notkerweg, 9200 - Gossau SG, Gossau (SG), Wahlkreis St. Gallen
+Oberdorfstrasse, 9200 - Gossau SG, Gossau (SG), Wahlkreis St. Gallen
+Quellenhofstrasse, 9200 - Gossau SG, Gossau (SG), Wahlkreis St. Gallen
+Rosenaustrasse, 9200 - Gossau SG, Gossau (SG), Wahlkreis St. Gallen
+Rosenauweg, 9200 - Gossau SG, Gossau (SG), Wahlkreis St. Gallen
+Schulstrasse, 9200 - Gossau SG, Gossau (SG), Wahlkreis St. Gallen
+Ulmenstrasse, 9200 - Gossau SG, Gossau (SG), Wahlkreis St. Gallen
+Widenstrasse, 9200 - Gossau SG, Gossau (SG), Wahlkreis St. Gallen
+Winkelstrasse, 9200 - Gossau SG, Gossau (SG), Wahlkreis St. Gallen
+Bahnhofplatz, 9200 - Gossau SG, Gossau, Gossau (SG)
+Herisauerstrasse, 9200 - Gossau SG, Gossau, Gossau (SG)
+Hirschenstrasse, 9200 - Gossau SG, Gossau, Gossau (SG)
+St. Gallerstrasse, 9200 - Gossau SG, Gossau, Gossau (SG)
+Weinburgstrasse, 9200 - Gossau SG, Gossau, Gossau (SG)
+Abacus-Platz, 9300 - Wittenbach, Wittenbach, Wahlkreis St. Gallen
+Adlerstrasse, 9300 - Wittenbach, Wittenbach, Wahlkreis St. Gallen
+Bahnhofstrasse, 9300 - Wittenbach, Wittenbach, Wahlkreis St. Gallen
+Erlenholzstrasse, 9300 - Wittenbach, Wittenbach, Wahlkreis St. Gallen
+Falkenweg, 9300 - Wittenbach, Wittenbach, Wahlkreis St. Gallen
+Höflistrasse, 9300 - Wittenbach, Wittenbach, Wahlkreis St. Gallen
+Leestrasse, 9300 - Wittenbach, Wittenbach, Wahlkreis St. Gallen
+Oberrütiweg, 9300 - Wittenbach, Wittenbach, Wahlkreis St. Gallen
+Oedenhofstrasse, 9300 - Wittenbach, Wittenbach, Wahlkreis St. Gallen
+Passerelle, 9300 - Wittenbach, Wittenbach, Wahlkreis St. Gallen
+Studentreppenweg, 9300 - Wittenbach, Wittenbach, Wahlkreis St. Gallen
+Studerswilerweg, 9300 - Wittenbach, Wittenbach, Wahlkreis St. Gallen
+Tannenweg, 9300 - Wittenbach, Wittenbach, Wahlkreis St. Gallen
+Widenbachstrasse, 9300 - Wittenbach, Wittenbach, Wahlkreis St. Gallen
+Zum Erlacker, 9300 - Wittenbach, Wittenbach, Wahlkreis St. Gallen
+Romanshornerstrasse, 9300 - Wittenbach, Hurliberg, Wittenbach
+Pfauenmoosstrasse, 9300 - Wittenbach, Städeli, Berg (SG)
+Arbonerstrasse, 9300 - Wittenbach, Dürrenmühle, Wittenbach
+Amriswilerstrasse, 9320 - Arbon, Arbon, Bezirk Arbon
+Fischmarktplatz, 9320 - Arbon, Arbon, Bezirk Arbon
+Lehweg, 9320 - Arbon, Arbon, Bezirk Arbon
+Pestalozzistrasse, 9320 - Arbon, Arbon, Bezirk Arbon
+Säntisstrasse, 9320 - Arbon, Arbon, Bezirk Arbon
+St. Gallerstrasse, 9320 - Arbon, Arbon, Bezirk Arbon
+Stacherholzstrasse, 9320 - Arbon, Arbon, Bezirk Arbon
+Hochkreuzweg, 9320 - Arbon, Bergli, Arbon
+Romanshornerstrasse, 9320 - Arbon, Bergli, Arbon
+Hilternstrasse, 9320 - Arbon, Bleiche, Arbon
+Alte Roggwilerstrasse, 9325 - Roggwil TG, Arbon, Bezirk Arbon
+Hubgasse, 9325 - Roggwil TG, Roggwil (TG), Bezirk Arbon
+Vorderau, 9325 - Roggwil TG, Roggwil (TG), Bezirk Arbon
+Waldhofstrasse, 9325 - Roggwil TG, Roggwil (TG), Bezirk Arbon
+Fetzislohstrasse, 9325 - Roggwil TG, Frasnacht, Arbon
+Neukircherstrasse, 9325 - Roggwil TG, Riedern, Roggwil (TG)
+Riedern, 9325 - Roggwil TG, Riedern, Roggwil (TG)
+Klösterlistrasse, 9325 - Roggwil TG, Betenwil, Roggwil (TG)
+Häuslen, 9325 - Roggwil TG, Häuslen, Roggwil (TG)
+Erbel, 9325 - Roggwil TG, Erbel, Roggwil (TG)
+Florapark, 9500 - Wil SG, Wil (SG), Wahlkreis Wil
+Friedhofstrasse, 9500 - Wil SG, Wil (SG), Wahlkreis Wil
+Känzeliweg, 9500 - Wil SG, Wil (SG), Wahlkreis Wil
+Lotti Ruckstuhl-Thalmessinger Weg, 9500 - Wil SG, Wil (SG), Wahlkreis Wil
+Schützenheimweg, 9500 - Wil SG, Wil (SG), Wahlkreis Wil
+Theresienweg, 9500 - Wil SG, Wil (SG), Wahlkreis Wil
+Underdorfweg, 9500 - Wil SG, Wil (SG), Wahlkreis Wil
+Unterer Rebweg, 9500 - Wil SG, Wil (SG), Wahlkreis Wil
+Zelgliweg, 9500 - Wil SG, Wil (SG), Wahlkreis Wil
+Känzelistrasse, 9500 - Wil SG, Zuzwil (SG), Wahlkreis Wil
+Alleeweg, 9500 - Wil SG, Wil, Wil (SG)
+Altstattweg, 9500 - Wil SG, Wil, Wil (SG)
+Dufourstrasse, 9500 - Wil SG, Wil, Wil (SG)
+Entlibrücke, 9500 - Wil SG, Wil, Wil (SG)
+Tennisweg, 9500 - Wil SG, Wil, Wil (SG)
+Terrasse, 9500 - Wil SG, Wil, Wil (SG)
+Werkstrasse, 9500 - Wil SG, Wil, Wil (SG)
+Weststrasse, 9500 - Wil SG, Wil, Wil (SG)
+Bäumlistorkelstrasse, 9400 - Rorschach, Rorschach, Wahlkreis Rorschach
+Eisenbahnstrasse, 9400 - Rorschach, Rorschach, Wahlkreis Rorschach
+Feuergässchen, 9400 - Rorschach, Rorschach, Wahlkreis Rorschach
+Müller-Friedbergstrasse, 9400 - Rorschach, Chrüzweg, Rorschacherberg
+Büelweg, 9036 - Grub SG, Eggersriet, Wahlkreis St. Gallen
+Fürschwendistrasse, 9036 - Grub SG, Eggersriet, Wahlkreis St. Gallen
+Rossbüchelstrasse, 9036 - Grub SG, Eggersriet, Wahlkreis St. Gallen
+Speggelstrasse, 9036 - Grub SG, Eggersriet, Wahlkreis St. Gallen
+Rorschacherstrasse, 9036 - Grub SG, Grub (SG), Eggersriet
+Rütistrasse, 9032 - Engelburg, Gaiserwald, Wahlkreis St. Gallen
+Chapfhaldenstrasse, 9032 - Engelburg, Chapf, Gaiserwald
+Eschenstrasse, 9032 - Engelburg, Chapf, Gaiserwald
+Erlenholzstrasse 1, 9032 - Engelburg, Erlenholz, Wittenbach
+Chapfstrasse, 9032 - Engelburg, Silberbach, Gaiserwald
+Aachmüli, 9122 - Ebersol, Mogelsberg, Neckertal, Wahlkreis Toggenburg, Kanton Sankt Gallen
+Aesch, 9122 - Ebersol, Mogelsberg, Neckertal, Wahlkreis Toggenburg, Kanton Sankt Gallen
+Aeschstrasse, 9122 - Ebersol, Mogelsberg, Neckertal, Wahlkreis Toggenburg, Kanton Sankt Gallen
+Böschenbach, 9122 - Ebersol, Mogelsberg, Neckertal, Wahlkreis Toggenburg, Kanton Sankt Gallen
+Hauptstrasse, 9122 - Ebersol, Mogelsberg, Neckertal, Wahlkreis Toggenburg, Kanton Sankt Gallen
+Lettenweg, 9122 - Ebersol, Mogelsberg, Neckertal, Wahlkreis Toggenburg, Kanton Sankt Gallen
+Neckersteig, 9123 - Nassen, Mogelsberg, Neckertal, Wahlkreis Toggenburg, Kanton Sankt Gallen
+Neckerstrasse, 9122 - Ebersol, Mogelsberg, Neckertal, Wahlkreis Toggenburg, Kanton Sankt Gallen
+Niderwil, 9122 - Ebersol, Mogelsberg, Neckertal, Wahlkreis Toggenburg, Kanton Sankt Gallen
+Rössliweg, 9122 - Ebersol, Mogelsberg, Neckertal, Wahlkreis Toggenburg, Kanton Sankt Gallen
+Unterdorfweg, 9122 - Ebersol, Mogelsberg, Neckertal, Wahlkreis Toggenburg, Kanton Sankt Gallen
+Haldenbergstrasse, 9122 - Ebersol, Ebersol, Neckertal
+Löffelsbergstrasse, 9122 - Ebersol, Ebersol, Neckertal
+Rössliwiesstrasse, 9122 - Ebersol, Ebersol, Neckertal
+Schäfliwiesstrasse, 9122 - Ebersol, Ebersol, Neckertal
+Rotenflue, 9122 - Ebersol, Rotenflue, Neckertal
+Büelenstrasse, 9203 - Niederwil SG, Oberbüren, Wahlkreis Wil
+Moosstrasse, 9203 - Niederwil SG, Oberbüren, Wahlkreis Wil
+Schmiedstrasse, 9203 - Niederwil SG, Oberbüren, Wahlkreis Wil
+Wiesenweg, 9203 - Niederwil SG, Oberbüren, Wahlkreis Wil
+Bildzelg, 9323 - Steinach, Steinach, Wahlkreis Rorschach
+Salwiesenstrasse, 9323 - Steinach, Steinach, Wahlkreis Rorschach
+Steinacherwiesen, 9323 - Steinach, Steinach, Wahlkreis Rorschach
+Stickereistrasse, 9323 - Steinach, Steinach, Wahlkreis Rorschach
+Strandweg, 9323 - Steinach, Steinach, Wahlkreis Rorschach
+Haldenstrasse, 9247 - Henau, Henau, Uzwil
+Stettenstrasse, 9247 - Henau, Henau, Uzwil
+Arvenweg, 9470 - Buchs SG, Buchs (SG), Wahlkreis Werdenberg
+Brunnenweg, 9470 - Buchs SG, Buchs (SG), Wahlkreis Werdenberg
+Enzianweg, 9470 - Buchs SG, Buchs (SG), Wahlkreis Werdenberg
+Felbenweg, 9470 - Buchs SG, Buchs (SG), Wahlkreis Werdenberg
+Feldeggstrasse, 9470 - Buchs SG, Buchs (SG), Wahlkreis Werdenberg
+Güterstrasse, 9470 - Buchs SG, Buchs (SG), Wahlkreis Werdenberg
+Im Giessen, 9470 - Buchs SG, Buchs (SG), Wahlkreis Werdenberg
+Kreisel Birkenau, 9470 - Buchs SG, Buchs (SG), Wahlkreis Werdenberg
+Lilienweg, 9470 - Buchs SG, Buchs (SG), Wahlkreis Werdenberg
+Marsweg, 9470 - Buchs SG, Buchs (SG), Wahlkreis Werdenberg
+Merkurweg, 9470 - Buchs SG, Buchs (SG), Wahlkreis Werdenberg
+Nelkenweg, 9470 - Buchs SG, Buchs (SG), Wahlkreis Werdenberg
+Räfiser Feld, 9470 - Buchs SG, Buchs (SG), Wahlkreis Werdenberg
+Sandweg, 9470 - Buchs SG, Buchs (SG), Wahlkreis Werdenberg
+Schützenhausweg, 9470 - Buchs SG, Buchs (SG), Wahlkreis Werdenberg
+Untere Gasse, 9470 - Buchs SG, Buchs (SG), Wahlkreis Werdenberg
+Valgurg, 9470 - Buchs SG, Buchs (SG), Wahlkreis Werdenberg
+Veilchenweg, 9470 - Buchs SG, Buchs (SG), Wahlkreis Werdenberg
+Am Logner, 9470 - Buchs SG, Grabs, Wahlkreis Werdenberg
+Drosselweg, 9470 - Buchs SG, Grabs, Wahlkreis Werdenberg
+Haldenstrasse, 9470 - Buchs SG, Grabs, Wahlkreis Werdenberg
+Hochhausweg, 9470 - Buchs SG, Grabs, Wahlkreis Werdenberg
+Meisenweg, 9470 - Buchs SG, Grabs, Wahlkreis Werdenberg
+Nesslenbühlweg, 9470 - Buchs SG, Grabs, Wahlkreis Werdenberg
+Tränkeweg, 9470 - Buchs SG, Grabs, Wahlkreis Werdenberg
+Bachwiesenstrasse, 9565 - Oppikon, Bussnang, Bezirk Weinfelden
+Bahnhofstrasse, 9565 - Oppikon, Bussnang, Bezirk Weinfelden
+Furtbachstrasse, 9565 - Oppikon, Bussnang, Bezirk Weinfelden
+Mühleweg, 9565 - Oppikon, Bussnang, Bezirk Weinfelden
+Am Furtbach, 9565 - Oppikon, Oberbussnang, Bussnang
+Hauptstrasse, 9565 - Oppikon, Oberbussnang, Bussnang
+Ara-Strasse, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Böden-Käsernweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Bendel-Rellenweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Bitzi-Pfingstmoosweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Bitzi-Verbindungsweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Brandholzbrücke, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Dollenweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Gsässweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Guggenlochstrasse, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Häxebrüggli, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Hürnliweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Hüsliberg-Nassschwendiweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Hohlweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Hundsrückweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Hundsruckweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Käsern-Schwandweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Kesseltobel-Guggenlochweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Kesseltobelweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Lei-Hüslibergweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Nassschwendi-Käfereggweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Nassschwendi-Kellenweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Nassschwendi-Schafbüchelweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Nassschwendi-Schofbüchelweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Nassschwendiwaldweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Nassschwendiweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Pfingstmoosweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Rellenweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Runkel-Fuchsfallen, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Sabelweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Schafbüchel-Bendelstrasse, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Schluecht-Kesseltobelweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Schuflen-Bürzelweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Schwand-Hundsruckweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Schwand-Käsernweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Schwand-Wintersbergweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Schwandtobelweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Schwarzer Steg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Stofel-Bitziweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Stofel-Schofbüchelweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Studenweidlistrasse, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Sumpfstrasse, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Zübli-Rietweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
+Bendel, 9642 - Ebnat-Kappel, Bendel, Ebnat-Kappel
+Bendel-Rellenweg, 9642 - Ebnat-Kappel, Bendel, Ebnat-Kappel
+Bendelverbindungsweg, 9642 - Ebnat-Kappel, Bendel, Ebnat-Kappel
+Oberer Hohlverbindungsweg, 9642 - Ebnat-Kappel, Bendel, Ebnat-Kappel
+Runckelweg, 9642 - Ebnat-Kappel, Bendel, Ebnat-Kappel
+Runkelweg, 9642 - Ebnat-Kappel, Bendel, Ebnat-Kappel
+Unterer Hohlverbindungsweg, 9642 - Ebnat-Kappel, Bendel, Ebnat-Kappel
+Wintersbergstrasse, 9642 - Ebnat-Kappel, Bendel, Ebnat-Kappel
+Alpenstrasse, 9479 - Malans SG, Wartau, Wahlkreis Werdenberg
+Burghaldenweg, 9479 - Malans SG, Wartau, Wahlkreis Werdenberg
+Gallein, 9479 - Malans SG, Wartau, Wahlkreis Werdenberg
+Kirchweg, 9479 - Malans SG, Wartau, Wahlkreis Werdenberg
+Schulhausweg, 9479 - Malans SG, Wartau, Wahlkreis Werdenberg
+Dorfstrasse, 9479 - Malans SG, Oberschan, Wartau
+Rufen, 9479 - Malans SG, Oberschan, Wartau
+Kirchweg, 9479 - Malans SG, Gretschins, Wartau
