@@ -414,32 +414,32 @@
         "company": {
             "attachments": [
                 {
+                    "file": "liip_1.jpg",
+                    "key": "company_documents",
+                    "type": "db.image",
+                    "user": "liip@matchd.lo"
+                },
+                {
+                    "file": "liip_2.jpg",
+                    "key": "company_documents",
+                    "type": "db.image",
+                    "user": "liip@matchd.lo"
+                },
+                {
+                    "file": "liip_3.jpg",
+                    "key": "company_documents",
+                    "type": "db.image",
+                    "user": "liip@matchd.lo"
+                },
+                {
+                    "file": "liip_4.jpg",
+                    "key": "company_documents",
+                    "type": "db.image",
+                    "user": "liip@matchd.lo"
+                },
+                {
                     "file": "liip-ag_logo.png",
                     "key": "company_avatar",
-                    "type": "db.image",
-                    "user": "liip@matchd.lo"
-                },
-                {
-                    "file": "liip-ag_SG_arena_3_digital.jpg",
-                    "key": "company_documents",
-                    "type": "db.image",
-                    "user": "liip@matchd.lo"
-                },
-                {
-                    "file": "liip-ag_SG_kitchen_2_digital.jpg",
-                    "key": "company_documents",
-                    "type": "db.image",
-                    "user": "liip@matchd.lo"
-                },
-                {
-                    "file": "liip-ag_Devs_2_digital.jpg",
-                    "key": "company_documents",
-                    "type": "db.image",
-                    "user": "liip@matchd.lo"
-                },
-                {
-                    "file": "liip-ag_Devicelab_1_digital.jpg",
-                    "key": "company_documents",
                     "type": "db.image",
                     "user": "liip@matchd.lo"
                 },
@@ -1126,14 +1126,7 @@
         "first_name": "William",
         "last_name": "Hawkins",
         "student": {
-            "attachments": [
-                {
-                    "file": "m-12.jpg",
-                    "key": "student_avatar",
-                    "type": "db.image",
-                    "user": "student-not-verified@matchd.lo"
-                }
-            ],
+            "attachments": [],
             "branch": null,
             "city": "Grub SG",
             "cultural_fits": [],
@@ -1625,7 +1618,7 @@
         "student": {
             "attachments": [
                 {
-                    "file": "m-8.jpg",
+                    "file": "m-8.jpeg",
                     "key": "student_avatar",
                     "type": "db.image",
                     "user": "student-1@matchd.lo"
@@ -3334,31 +3327,31 @@
         "company": {
             "attachments": [
                 {
-                    "file": "bloomfield-ag-13_company-1_image_1.jpg",
+                    "file": "liip_1.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-1-1@matchd.lo"
                 },
                 {
-                    "file": "bloomfield-ag-13_company-1_image_2.jpg",
+                    "file": "liip_2.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-1-1@matchd.lo"
                 },
                 {
-                    "file": "bloomfield-ag-13_company-1_image_3.jpg",
+                    "file": "liip_3.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-1-1@matchd.lo"
                 },
                 {
-                    "file": "bloomfield-ag-13_company-1_image_4.jpg",
+                    "file": "liip_4.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-1-1@matchd.lo"
                 },
                 {
-                    "file": "bloomfield-ag-13_company-1_logo.png",
+                    "file": "liip-ag_logo.png",
                     "key": "company_avatar",
                     "type": "db.image",
                     "user": "company-1-1@matchd.lo"
@@ -3641,31 +3634,31 @@
         "company": {
             "attachments": [
                 {
-                    "file": "miller-ag-14_company-2_image_1.jpg",
+                    "file": "liip_1.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-2-1@matchd.lo"
                 },
                 {
-                    "file": "miller-ag-14_company-2_image_2.jpg",
+                    "file": "liip_2.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-2-1@matchd.lo"
                 },
                 {
-                    "file": "miller-ag-14_company-2_image_3.jpg",
+                    "file": "liip_3.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-2-1@matchd.lo"
                 },
                 {
-                    "file": "miller-ag-14_company-2_image_4.jpg",
+                    "file": "liip_4.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-2-1@matchd.lo"
                 },
                 {
-                    "file": "miller-ag-14_company-2_logo.png",
+                    "file": "liip-ag_logo.png",
                     "key": "company_avatar",
                     "type": "db.image",
                     "user": "company-2-1@matchd.lo"
@@ -3948,31 +3941,31 @@
         "company": {
             "attachments": [
                 {
-                    "file": "politi-ag-15_company-3_image_1.jpg",
+                    "file": "liip_1.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-3-1@matchd.lo"
                 },
                 {
-                    "file": "politi-ag-15_company-3_image_2.jpg",
+                    "file": "liip_2.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-3-1@matchd.lo"
                 },
                 {
-                    "file": "politi-ag-15_company-3_image_3.jpg",
+                    "file": "liip_3.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-3-1@matchd.lo"
                 },
                 {
-                    "file": "politi-ag-15_company-3_image_4.jpg",
+                    "file": "liip_4.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-3-1@matchd.lo"
                 },
                 {
-                    "file": "politi-ag-15_company-3_logo.png",
+                    "file": "liip-ag_logo.png",
                     "key": "company_avatar",
                     "type": "db.image",
                     "user": "company-3-1@matchd.lo"
@@ -4255,31 +4248,31 @@
         "company": {
             "attachments": [
                 {
-                    "file": "gismondi-ag-16_company-4_image_1.jpg",
+                    "file": "liip_1.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-4-1@matchd.lo"
                 },
                 {
-                    "file": "gismondi-ag-16_company-4_image_2.jpg",
+                    "file": "liip_2.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-4-1@matchd.lo"
                 },
                 {
-                    "file": "gismondi-ag-16_company-4_image_3.jpg",
+                    "file": "liip_3.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-4-1@matchd.lo"
                 },
                 {
-                    "file": "gismondi-ag-16_company-4_image_4.jpg",
+                    "file": "liip_4.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-4-1@matchd.lo"
                 },
                 {
-                    "file": "gismondi-ag-16_company-4_logo.png",
+                    "file": "liip-ag_logo.png",
                     "key": "company_avatar",
                     "type": "db.image",
                     "user": "company-4-1@matchd.lo"
@@ -4562,31 +4555,31 @@
         "company": {
             "attachments": [
                 {
-                    "file": "ahner-ag-17_company-5_image_1.jpg",
+                    "file": "liip_1.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-5-1@matchd.lo"
                 },
                 {
-                    "file": "ahner-ag-17_company-5_image_2.jpg",
+                    "file": "liip_2.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-5-1@matchd.lo"
                 },
                 {
-                    "file": "ahner-ag-17_company-5_image_3.jpg",
+                    "file": "liip_3.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-5-1@matchd.lo"
                 },
                 {
-                    "file": "ahner-ag-17_company-5_image_4.jpg",
+                    "file": "liip_4.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-5-1@matchd.lo"
                 },
                 {
-                    "file": "ahner-ag-17_company-5_logo.png",
+                    "file": "liip-ag_logo.png",
                     "key": "company_avatar",
                     "type": "db.image",
                     "user": "company-5-1@matchd.lo"
@@ -4869,31 +4862,31 @@
         "company": {
             "attachments": [
                 {
-                    "file": "coulter-ag-18_company-6_image_1.jpg",
+                    "file": "liip_1.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-6-1@matchd.lo"
                 },
                 {
-                    "file": "coulter-ag-18_company-6_image_2.jpg",
+                    "file": "liip_2.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-6-1@matchd.lo"
                 },
                 {
-                    "file": "coulter-ag-18_company-6_image_3.jpg",
+                    "file": "liip_3.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-6-1@matchd.lo"
                 },
                 {
-                    "file": "coulter-ag-18_company-6_image_4.jpg",
+                    "file": "liip_4.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-6-1@matchd.lo"
                 },
                 {
-                    "file": "coulter-ag-18_company-6_logo.png",
+                    "file": "liip-ag_logo.png",
                     "key": "company_avatar",
                     "type": "db.image",
                     "user": "company-6-1@matchd.lo"
@@ -5176,31 +5169,31 @@
         "company": {
             "attachments": [
                 {
-                    "file": "waterman-ag-19_company-7_image_1.jpg",
+                    "file": "liip_1.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-7-1@matchd.lo"
                 },
                 {
-                    "file": "waterman-ag-19_company-7_image_2.jpg",
+                    "file": "liip_2.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-7-1@matchd.lo"
                 },
                 {
-                    "file": "waterman-ag-19_company-7_image_3.jpg",
+                    "file": "liip_3.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-7-1@matchd.lo"
                 },
                 {
-                    "file": "waterman-ag-19_company-7_image_4.jpg",
+                    "file": "liip_4.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-7-1@matchd.lo"
                 },
                 {
-                    "file": "waterman-ag-19_company-7_logo.png",
+                    "file": "liip-ag_logo.png",
                     "key": "company_avatar",
                     "type": "db.image",
                     "user": "company-7-1@matchd.lo"
@@ -5483,31 +5476,31 @@
         "company": {
             "attachments": [
                 {
-                    "file": "mckinley-ag-20_company-8_image_1.jpg",
+                    "file": "liip_1.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-8-1@matchd.lo"
                 },
                 {
-                    "file": "mckinley-ag-20_company-8_image_2.jpg",
+                    "file": "liip_2.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-8-1@matchd.lo"
                 },
                 {
-                    "file": "mckinley-ag-20_company-8_image_3.jpg",
+                    "file": "liip_3.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-8-1@matchd.lo"
                 },
                 {
-                    "file": "mckinley-ag-20_company-8_image_4.jpg",
+                    "file": "liip_4.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-8-1@matchd.lo"
                 },
                 {
-                    "file": "mckinley-ag-20_company-8_logo.png",
+                    "file": "liip-ag_logo.png",
                     "key": "company_avatar",
                     "type": "db.image",
                     "user": "company-8-1@matchd.lo"
@@ -5790,31 +5783,31 @@
         "company": {
             "attachments": [
                 {
-                    "file": "gautam-ag-21_company-9_image_1.jpg",
+                    "file": "liip_1.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-9-1@matchd.lo"
                 },
                 {
-                    "file": "gautam-ag-21_company-9_image_2.jpg",
+                    "file": "liip_2.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-9-1@matchd.lo"
                 },
                 {
-                    "file": "gautam-ag-21_company-9_image_3.jpg",
+                    "file": "liip_3.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-9-1@matchd.lo"
                 },
                 {
-                    "file": "gautam-ag-21_company-9_image_4.jpg",
+                    "file": "liip_4.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-9-1@matchd.lo"
                 },
                 {
-                    "file": "gautam-ag-21_company-9_logo.png",
+                    "file": "liip-ag_logo.png",
                     "key": "company_avatar",
                     "type": "db.image",
                     "user": "company-9-1@matchd.lo"
@@ -6097,31 +6090,31 @@
         "company": {
             "attachments": [
                 {
-                    "file": "farley-ag-22_company-10_image_1.jpg",
+                    "file": "liip_1.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-10-1@matchd.lo"
                 },
                 {
-                    "file": "farley-ag-22_company-10_image_2.jpg",
+                    "file": "liip_2.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-10-1@matchd.lo"
                 },
                 {
-                    "file": "farley-ag-22_company-10_image_3.jpg",
+                    "file": "liip_3.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-10-1@matchd.lo"
                 },
                 {
-                    "file": "farley-ag-22_company-10_image_4.jpg",
+                    "file": "liip_4.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-10-1@matchd.lo"
                 },
                 {
-                    "file": "farley-ag-22_company-10_logo.png",
+                    "file": "liip-ag_logo.png",
                     "key": "company_avatar",
                     "type": "db.image",
                     "user": "company-10-1@matchd.lo"
@@ -6404,31 +6397,31 @@
         "company": {
             "attachments": [
                 {
-                    "file": "dery-ag-23_company-11_image_1.jpg",
+                    "file": "liip_1.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-11-1@matchd.lo"
                 },
                 {
-                    "file": "dery-ag-23_company-11_image_2.jpg",
+                    "file": "liip_2.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-11-1@matchd.lo"
                 },
                 {
-                    "file": "dery-ag-23_company-11_image_3.jpg",
+                    "file": "liip_3.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-11-1@matchd.lo"
                 },
                 {
-                    "file": "dery-ag-23_company-11_image_4.jpg",
+                    "file": "liip_4.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-11-1@matchd.lo"
                 },
                 {
-                    "file": "dery-ag-23_company-11_logo.png",
+                    "file": "liip-ag_logo.png",
                     "key": "company_avatar",
                     "type": "db.image",
                     "user": "company-11-1@matchd.lo"
@@ -6711,31 +6704,31 @@
         "company": {
             "attachments": [
                 {
-                    "file": "aguirre-ag-24_company-12_image_1.jpg",
+                    "file": "liip_1.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-12-1@matchd.lo"
                 },
                 {
-                    "file": "aguirre-ag-24_company-12_image_2.jpg",
+                    "file": "liip_2.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-12-1@matchd.lo"
                 },
                 {
-                    "file": "aguirre-ag-24_company-12_image_3.jpg",
+                    "file": "liip_3.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-12-1@matchd.lo"
                 },
                 {
-                    "file": "aguirre-ag-24_company-12_image_4.jpg",
+                    "file": "liip_4.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-12-1@matchd.lo"
                 },
                 {
-                    "file": "aguirre-ag-24_company-12_logo.png",
+                    "file": "liip-ag_logo.png",
                     "key": "company_avatar",
                     "type": "db.image",
                     "user": "company-12-1@matchd.lo"
@@ -7018,31 +7011,31 @@
         "company": {
             "attachments": [
                 {
-                    "file": "henry-ag-25_company-13_image_1.jpg",
+                    "file": "liip_1.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-13-1@matchd.lo"
                 },
                 {
-                    "file": "henry-ag-25_company-13_image_2.jpg",
+                    "file": "liip_2.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-13-1@matchd.lo"
                 },
                 {
-                    "file": "henry-ag-25_company-13_image_3.jpg",
+                    "file": "liip_3.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-13-1@matchd.lo"
                 },
                 {
-                    "file": "henry-ag-25_company-13_image_4.jpg",
+                    "file": "liip_4.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-13-1@matchd.lo"
                 },
                 {
-                    "file": "henry-ag-25_company-13_logo.png",
+                    "file": "liip-ag_logo.png",
                     "key": "company_avatar",
                     "type": "db.image",
                     "user": "company-13-1@matchd.lo"
@@ -7325,31 +7318,31 @@
         "company": {
             "attachments": [
                 {
-                    "file": "farmer-ag-26_company-14_image_1.jpg",
+                    "file": "liip_1.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-14-1@matchd.lo"
                 },
                 {
-                    "file": "farmer-ag-26_company-14_image_2.jpg",
+                    "file": "liip_2.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-14-1@matchd.lo"
                 },
                 {
-                    "file": "farmer-ag-26_company-14_image_3.jpg",
+                    "file": "liip_3.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-14-1@matchd.lo"
                 },
                 {
-                    "file": "farmer-ag-26_company-14_image_4.jpg",
+                    "file": "liip_4.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-14-1@matchd.lo"
                 },
                 {
-                    "file": "farmer-ag-26_company-14_logo.png",
+                    "file": "liip-ag_logo.png",
                     "key": "company_avatar",
                     "type": "db.image",
                     "user": "company-14-1@matchd.lo"
@@ -7632,31 +7625,31 @@
         "company": {
             "attachments": [
                 {
-                    "file": "perry-ag-27_company-15_image_1.jpg",
+                    "file": "liip_1.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-15-1@matchd.lo"
                 },
                 {
-                    "file": "perry-ag-27_company-15_image_2.jpg",
+                    "file": "liip_2.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-15-1@matchd.lo"
                 },
                 {
-                    "file": "perry-ag-27_company-15_image_3.jpg",
+                    "file": "liip_3.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-15-1@matchd.lo"
                 },
                 {
-                    "file": "perry-ag-27_company-15_image_4.jpg",
+                    "file": "liip_4.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-15-1@matchd.lo"
                 },
                 {
-                    "file": "perry-ag-27_company-15_logo.png",
+                    "file": "liip-ag_logo.png",
                     "key": "company_avatar",
                     "type": "db.image",
                     "user": "company-15-1@matchd.lo"
@@ -7939,31 +7932,31 @@
         "company": {
             "attachments": [
                 {
-                    "file": "magee-ag-28_company-16_image_1.jpg",
+                    "file": "liip_1.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-16-1@matchd.lo"
                 },
                 {
-                    "file": "magee-ag-28_company-16_image_2.jpg",
+                    "file": "liip_2.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-16-1@matchd.lo"
                 },
                 {
-                    "file": "magee-ag-28_company-16_image_3.jpg",
+                    "file": "liip_3.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-16-1@matchd.lo"
                 },
                 {
-                    "file": "magee-ag-28_company-16_image_4.jpg",
+                    "file": "liip_4.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-16-1@matchd.lo"
                 },
                 {
-                    "file": "magee-ag-28_company-16_logo.png",
+                    "file": "liip-ag_logo.png",
                     "key": "company_avatar",
                     "type": "db.image",
                     "user": "company-16-1@matchd.lo"
@@ -8246,31 +8239,31 @@
         "company": {
             "attachments": [
                 {
-                    "file": "desalvo-ag-29_company-17_image_1.jpg",
+                    "file": "liip_1.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-17-1@matchd.lo"
                 },
                 {
-                    "file": "desalvo-ag-29_company-17_image_2.jpg",
+                    "file": "liip_2.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-17-1@matchd.lo"
                 },
                 {
-                    "file": "desalvo-ag-29_company-17_image_3.jpg",
+                    "file": "liip_3.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-17-1@matchd.lo"
                 },
                 {
-                    "file": "desalvo-ag-29_company-17_image_4.jpg",
+                    "file": "liip_4.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-17-1@matchd.lo"
                 },
                 {
-                    "file": "desalvo-ag-29_company-17_logo.png",
+                    "file": "liip-ag_logo.png",
                     "key": "company_avatar",
                     "type": "db.image",
                     "user": "company-17-1@matchd.lo"
@@ -8553,31 +8546,31 @@
         "company": {
             "attachments": [
                 {
-                    "file": "lewis-ag-30_company-18_image_1.jpg",
+                    "file": "liip_1.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-18-1@matchd.lo"
                 },
                 {
-                    "file": "lewis-ag-30_company-18_image_2.jpg",
+                    "file": "liip_2.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-18-1@matchd.lo"
                 },
                 {
-                    "file": "lewis-ag-30_company-18_image_3.jpg",
+                    "file": "liip_3.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-18-1@matchd.lo"
                 },
                 {
-                    "file": "lewis-ag-30_company-18_image_4.jpg",
+                    "file": "liip_4.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-18-1@matchd.lo"
                 },
                 {
-                    "file": "lewis-ag-30_company-18_logo.png",
+                    "file": "liip-ag_logo.png",
                     "key": "company_avatar",
                     "type": "db.image",
                     "user": "company-18-1@matchd.lo"
@@ -8860,31 +8853,31 @@
         "company": {
             "attachments": [
                 {
-                    "file": "curry-ag-31_company-19_image_1.jpg",
+                    "file": "liip_1.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-19-1@matchd.lo"
                 },
                 {
-                    "file": "curry-ag-31_company-19_image_2.jpg",
+                    "file": "liip_2.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-19-1@matchd.lo"
                 },
                 {
-                    "file": "curry-ag-31_company-19_image_3.jpg",
+                    "file": "liip_3.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-19-1@matchd.lo"
                 },
                 {
-                    "file": "curry-ag-31_company-19_image_4.jpg",
+                    "file": "liip_4.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-19-1@matchd.lo"
                 },
                 {
-                    "file": "curry-ag-31_company-19_logo.png",
+                    "file": "liip-ag_logo.png",
                     "key": "company_avatar",
                     "type": "db.image",
                     "user": "company-19-1@matchd.lo"
@@ -9167,31 +9160,31 @@
         "company": {
             "attachments": [
                 {
-                    "file": "mitchell-ag-32_company-20_image_1.jpg",
+                    "file": "liip_1.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-20-1@matchd.lo"
                 },
                 {
-                    "file": "mitchell-ag-32_company-20_image_2.jpg",
+                    "file": "liip_2.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-20-1@matchd.lo"
                 },
                 {
-                    "file": "mitchell-ag-32_company-20_image_3.jpg",
+                    "file": "liip_3.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-20-1@matchd.lo"
                 },
                 {
-                    "file": "mitchell-ag-32_company-20_image_4.jpg",
+                    "file": "liip_4.jpg",
                     "key": "company_documents",
                     "type": "db.image",
                     "user": "company-20-1@matchd.lo"
                 },
                 {
-                    "file": "mitchell-ag-32_company-20_logo.png",
+                    "file": "liip-ag_logo.png",
                     "key": "company_avatar",
                     "type": "db.image",
                     "user": "company-20-1@matchd.lo"
