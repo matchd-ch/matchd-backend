@@ -38,6 +38,8 @@ class BaseParamBuilder:
     def get_range_query(self, key, value, shift, boost):
         shifted_start = value - shift
         shifted_end = value + shift
+        shifted_start = max(0, shifted_start)
+        shifted_end = min(100, shifted_end)
         return {
             # boost dates within the shifted range
             "range": {

@@ -23,8 +23,7 @@ class StudentParamBuilder(BaseParamBuilder):
 
     def set_languages(self, languages, boost=1):
         for obj in languages:
-            self.should_conditions.append(self.get_condition('languages', 'language_id_filter',
-                                                             [obj.language.id], boost))
+            self.should_conditions.append(self.get_condition('languages', 'language_id_filter', [obj.language.id], boost))
             # matching on language level is disabled for now,
             # see db.search.matching (calculate_talent_matching_max_score)
             # self.should_conditions.append(
