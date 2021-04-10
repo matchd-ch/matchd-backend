@@ -2,18 +2,20 @@ import json
 import os
 import random
 import shutil
+import names
 
 import magic
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.core.management.base import BaseCommand
+from django.utils.text import slugify
 from graphql_auth.models import UserStatus
 from PIL import Image as PILImage
 
 from db.models import Employee, Student, Hobby, OnlineProject, UserLanguageRelation, CulturalFit, Skill, SoftSkill, \
     Branch, JobType, ProfileState, Language, LanguageLevel, Company, Image, Video, Attachment, JobPosting, \
-    JobRequirement, JobPostingState, JobPostingLanguageRelation, Benefit
+    JobRequirement, JobPostingState, JobPostingLanguageRelation, Benefit, ProfileType
 
 
 # pylint: disable=W0612
@@ -62,6 +64,12 @@ class Command(BaseCommand):
         'Praktikant Applications-Entwicklung'
     ]
     random_requirements = []
+    random_gender = []
+
+    def random_name(self):
+        gender = self.random_items(self.random_gender, 1)
+        name = names.get_full_name(gender=gender)
+        return name, gender
 
     def load_data(self):
         with open('db/management/data/fixtures.json') as json_file:
@@ -77,6 +85,7 @@ class Command(BaseCommand):
         self.random_languages = list(Language.objects.all().values_list('id', flat=True))
         self.random_language_levels = list(LanguageLevel.objects.all().values_list('id', flat=True))
         self.random_requirements = list(JobRequirement.objects.all().values_list('id', flat=True))
+        self.random_gender = ['male', 'female']
 
     def load_address_list(self):
         with open('db/management/commands/address_list.txt') as address_file:
@@ -349,6 +358,10 @@ class Command(BaseCommand):
 
         student.mobile = data.get('mobile')
         student.nickname = data.get('nickname')
+        slug = data.get('slug')
+        if slug is None or slug == '':
+            slug = slugify(student.nickname)
+        student.slug = slug
         online_projects = data.get('online_projects')
         if len(online_projects) == 0 and is_complete and len(user.student.online_projects.all()) == 0:
             OnlineProject.objects.create(student=student, url='http://www.project.lo')
