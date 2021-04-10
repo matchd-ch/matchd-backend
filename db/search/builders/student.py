@@ -26,7 +26,7 @@ class StudentParamBuilder(BaseParamBuilder):
             self.should_conditions.append(self.get_condition('languages', 'language_id_filter',
                                                              [obj.language.id], boost))
             # matching on language level is disabled for now,
-            # see db.search.matching (calculate_maximum_job_posting_score)
+            # see db.search.matching (calculate_talent_matching_max_score)
             # self.should_conditions.append(
             #     self.get_condition('languages', 'language_level_concat_filter',
             #                        [f'{obj.language.id}-{obj.language_level.id}'], boost))
@@ -45,11 +45,11 @@ class StudentParamBuilder(BaseParamBuilder):
                             }
                         },
                         # boost exact dates
-                        self.get_range_query('job_from_date_filter', date_from, date_from, 0, boost),
+                        self.get_date_range_query('job_from_date_filter', date_from, date_from, 0, boost),
                         # boost dates within 2 months
-                        self.get_range_query('job_from_date_filter', date_from, date_from, 2, boost),
+                        self.get_date_range_query('job_from_date_filter', date_from, date_from, 2, boost),
                         # boost dates within 6 months
-                        self.get_range_query('job_from_date_filter', date_from, date_from, 6, boost)
+                        self.get_date_range_query('job_from_date_filter', date_from, date_from, 6, boost)
                     ]
                 }
             }
@@ -69,14 +69,14 @@ class StudentParamBuilder(BaseParamBuilder):
                             }
                         },
                         # boost exact dates
-                        self.get_nested_range_query('job_from_date_filter', 'job_to_date_filter', date_from, date_to, 0,
-                                                    boost),
+                        self.get_nested_date_range_query('job_from_date_filter', 'job_to_date_filter', date_from, date_to, 0,
+                                                         boost),
                         # boost dates within 2 months
-                        self.get_nested_range_query('job_from_date_filter', 'job_to_date_filter', date_from, date_to, 2,
-                                                    boost),
+                        self.get_nested_date_range_query('job_from_date_filter', 'job_to_date_filter', date_from, date_to, 2,
+                                                         boost),
                         # boost dates within 6 months
-                        self.get_nested_range_query('job_from_date_filter', 'job_to_date_filter', date_from, date_to, 6,
-                                                    boost)
+                        self.get_nested_date_range_query('job_from_date_filter', 'job_to_date_filter', date_from, date_to, 6,
+                                                         boost)
                     ]
                 }
             }

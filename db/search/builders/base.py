@@ -35,7 +35,21 @@ class BaseParamBuilder:
             },
         }
 
-    def get_range_query(self, key, date_from, date_to, months, boost):
+    def get_range_query(self, key, value, shift, boost):
+        shifted_start = value - shift
+        shifted_end = value + shift
+        return {
+            # boost dates within the shifted range
+            "range": {
+                key: {
+                    "gte": shifted_start,
+                    "lte": shifted_end,
+                    "boost": boost
+                }
+            }
+        }
+
+    def get_date_range_query(self, key, date_from, date_to, months, boost):
         shifted_start = self.get_shifted_date(date_from, -months)
         shifted_end = self.get_shifted_date(date_to, +months)
         return {
@@ -49,7 +63,7 @@ class BaseParamBuilder:
             }
         }
 
-    def get_nested_range_query(self, from_key, to_key, date_from, date_to, months, boost):
+    def get_nested_date_range_query(self, from_key, to_key, date_from, date_to, months, boost):
         shifted_start = self.get_shifted_date(date_from, -months)
         shifted_end = self.get_shifted_date(date_to, +months)
         return {
