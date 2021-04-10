@@ -11,8 +11,8 @@ from api.schema.branch import BranchInput
 from api.schema.job_posting import JobPostingInput
 from api.schema.job_type import JobTypeInput
 from api.schema.profile_type import ProfileType
-from db.models import JobPosting as JobPostingModel, DateMode, JobPostingLanguageRelation, JobType as JobTypeModel, \
-    Branch as BranchModel, ProfileType as ProfileTypeModel
+from db.models import JobPosting as JobPostingModel, JobPostingLanguageRelation, JobType as JobTypeModel,  \
+    Branch as BranchModel, ProfileType as ProfileTypeModel, JobPostingState
 from db.search import Matching
 
 
@@ -23,8 +23,6 @@ class Match(ObjectType):
     slug = graphene.NonNull(graphene.String)
     score = graphene.NonNull(graphene.Float)
     raw_score = graphene.NonNull(graphene.Float)
-    effective_score = graphene.NonNull(graphene.Float)
-    max_score = graphene.NonNull(graphene.Float)
 
 
 class JobPostingMatchingInput(InputObjectType):
@@ -64,6 +62,8 @@ class MatchQuery(ObjectType):
             return MatchQuery.student_matching(user, student_matching, first, skip, tech_boost, soft_boost)
         return []
 
+    # pylint: disable=R0913
+    # pylint: disable=W0707
     @classmethod
     def job_posting_matching(cls, user, data, first, skip, tech_boost, soft_boost):
         if user.type not in ProfileTypeModel.valid_company_types():
@@ -81,6 +81,9 @@ class MatchQuery(ObjectType):
         except JobPostingModel.DoesNotExist:
             raise Http404('Job posting does not exist')
 
+        if job_posting.state != JobPostingState.PUBLIC:
+            raise PermissionDenied('You do not have the permission to perform this action')
+
         job_posting_company = job_posting.company
         if user.company != job_posting_company:
             raise PermissionDenied('You do not have the permission to perform this action')
@@ -89,6 +92,7 @@ class MatchQuery(ObjectType):
         matches = matching.find_talents_by_job_posting(job_posting, first, skip, soft_boost, tech_boost)
         return MatchMapper.map_students(matches)
 
+    # pylint: disable=R0913
     @classmethod
     def student_matching(cls, user, data, first, skip, tech_boost, soft_boost):
         if user.type not in ProfileTypeModel.valid_student_types():

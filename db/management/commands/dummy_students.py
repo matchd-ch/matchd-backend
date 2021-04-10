@@ -1,7 +1,6 @@
 import os
 import shutil
 
-import names
 from django.conf import settings
 from django.utils.text import slugify
 
@@ -13,13 +12,11 @@ from .seed import Command as SeedCommand
 # pylint: disable=R0912
 # pylint: disable=R0913
 # pylint: disable=R0915
-from ...models import CulturalFit, Skill, SoftSkill, Branch, JobType, Language, LanguageLevel, Attachment
+from ...models import Attachment
 
 
 class Command(SeedCommand):
     help = 'Generates a lot of dummy students'
-
-    random_gender = []
 
     def add_arguments(self, parser):
         parser.add_argument('num', type=int, help='Indicates the number of students to be created', default=0)
@@ -33,21 +30,6 @@ class Command(SeedCommand):
         months = ['02', '03', '04', '05', '06', '07']
         month = self.random_items(months, 1)
         return f'2022-{month}-01'
-
-    def load_data(self):
-        self.random_cultural_fits = list(CulturalFit.objects.all().values_list('id', flat=True))
-        self.random_skills = list(Skill.objects.all().values_list('id', flat=True))
-        self.random_soft_skills = list(SoftSkill.objects.all().values_list('id', flat=True))
-        self.random_branches = list(Branch.objects.all().values_list('id', flat=True))
-        self.random_job_types = list(JobType.objects.all().values_list('id', flat=True))
-        self.random_languages = list(Language.objects.all().values_list('id', flat=True))
-        self.random_language_levels = list(LanguageLevel.objects.all().values_list('id', flat=True))
-        self.random_gender = ['male', 'female']
-
-    def random_name(self):
-        gender = self.random_items(self.random_gender, 1)
-        name = names.get_full_name(gender=gender)
-        return name
 
     # noinspection PyUnresolvedReferences
     def handle(self, *args, **options):
@@ -67,9 +49,15 @@ class Command(SeedCommand):
                 }
                 languages.append(obj)
 
-            name = self.random_name()
+            name, gender = self.random_name()
             nickname = f'{slugify(name)}-{str(i)}'
             first_name, last_name = name.split(' ')
+
+            street, zip_value, city = self.random_items(self.random_address, 1)
+
+            avatar = self.random_items(self.random_male_avatars, 1)
+            if gender == 'female':
+                avatar = self.random_items(self.random_female_avatars, 1)
 
             dummy = {
                 "email": email,
@@ -78,14 +66,14 @@ class Command(SeedCommand):
                 "student": {
                     "attachments": [
                         {
-                            "file": "dummy.png",
+                            "file": avatar,
                             "key": "student_avatar",
                             "type": "db.image",
                             "user": email
                         }
                     ],
                     "branch": self.random_items(self.random_branches, 1),
-                    "city": "St. Gallen",
+                    "city": city,
                     "cultural_fits": self.random_items(self.random_cultural_fits, 6),
                     "date_of_birth": "2002-04-05",
                     "distinction": "Distinction",
@@ -98,6 +86,7 @@ class Command(SeedCommand):
                     "languages": languages,
                     "mobile": "+791234567",
                     "nickname": nickname,
+                    "slug": slugify(nickname),
                     "online_projects": [
                         "http://www.project.lo",
                         "http://www.project2.lo"
@@ -107,8 +96,8 @@ class Command(SeedCommand):
                     "skills": self.random_items(self.random_skills, 4),
                     "soft_skills": self.random_items(self.random_soft_skills, 6),
                     "state": "public",
-                    "street": "",
-                    "zip": ""
+                    "street": street,
+                    "zip": zip_value
                 },
                 "type": "student",
                 "verified": 1
@@ -142,7 +131,15 @@ class Command(SeedCommand):
         elif model == 'video':
             attachment_instance = self.create_video(relative_file_path, user)
 
-        Attachment.objects.get_or_create(
-            attachment_type=self.content_types[model], attachment_id=attachment_instance.id,
-            content_type=self.content_types[content_type_key], object_id=company_or_student.id,
-            key=attachment_data.get('key'))
+        try:
+            data = Attachment.objects.get(
+                attachment_type=self.content_types[model],
+                content_type=self.content_types[content_type_key], object_id=company_or_student.id,
+                key=attachment_data.get('key'))
+            data.attachment_id = attachment_instance.id
+            data.save()
+        except Attachment.DoesNotExist:
+            Attachment.objects.create(
+                attachment_type=self.content_types[model], attachment_id=attachment_instance.id,
+                content_type=self.content_types[content_type_key], object_id=company_or_student.id,
+                key=attachment_data.get('key'))

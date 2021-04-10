@@ -1,5 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from django.utils.text import slugify
 
 from db.exceptions import FormException, NicknameException
 from db.helper import validation_error_to_dict, \
@@ -36,6 +37,7 @@ def process_student_form_step_5(user, data):
             raise NicknameException(errors=errors, suggestions=suggestions)
 
         student.nickname = cleaned_data.get('nickname')
+        student.slug = slugify(student.nickname)
     else:
         errors.update(form.errors.get_json_data())
 

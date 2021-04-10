@@ -8,8 +8,6 @@ from db.models import ProfileState
 def test_company(company_object_complete, query_company):
     data, errors = query_company(AnonymousUser(), company_object_complete.slug)
 
-    print(data, errors)
-
     company = data.get('company')
     assert errors is None
     assert company is not None
@@ -24,13 +22,13 @@ def test_company(company_object_complete, query_company):
     assert company.get('phone') == company_object_complete.phone
     assert company.get('website') == company_object_complete.website
     assert company.get('description') == company_object_complete.description
-    assert len(company.get('softSkills')) == len(company_object_complete.soft_skills.all())
+    assert len(company.get('softSkills')) == 0  # soft skills should not be public
     assert company.get('uid') == company_object_complete.uid
     assert company.get('services') == company_object_complete.services
     assert company.get('memberItStGallen') == company_object_complete.member_it_st_gallen
     assert len(company.get('benefits')) == len(company_object_complete.benefits.all())
     assert len(company.get('branches')) == len(company_object_complete.branches.all())
-    assert len(company.get('culturalFits')) == len(company_object_complete.cultural_fits.all())
+    assert len(company.get('culturalFits')) == 0  # cultural fits should not be public
     assert company.get('topLevelOrganisationDescription') == company_object_complete.top_level_organisation_description
     assert company.get('topLevelOrganisationWebsite') == company_object_complete.top_level_organisation_website
     assert company.get('linkEducation') == company_object_complete.link_education
@@ -70,13 +68,13 @@ def test_company_incomplete_as_employee(login, company_object_complete, query_co
     assert company.get('phone') == company_object_complete.phone
     assert company.get('website') == company_object_complete.website
     assert company.get('description') == company_object_complete.description
-    assert len(company.get('softSkills')) == len(company_object_complete.soft_skills.all())
+    assert len(company.get('softSkills')) == 0  # soft skills should not be public
     assert company.get('uid') == company_object_complete.uid
     assert company.get('services') == company_object_complete.services
     assert company.get('memberItStGallen') == company_object_complete.member_it_st_gallen
     assert len(company.get('benefits')) == len(company_object_complete.benefits.all())
     assert len(company.get('branches')) == len(company_object_complete.branches.all())
-    assert len(company.get('culturalFits')) == len(company_object_complete.cultural_fits.all())
+    assert len(company.get('culturalFits')) == 0  # cultural fits should not be public
     assert company.get('topLevelOrganisationDescription') == company_object_complete.top_level_organisation_description
     assert company.get('topLevelOrganisationWebsite') == company_object_complete.top_level_organisation_website
     assert company.get('linkEducation') == company_object_complete.link_education

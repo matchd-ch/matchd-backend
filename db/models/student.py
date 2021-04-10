@@ -36,6 +36,7 @@ class Student(models.Model, index.Indexed):
     profile_step = models.IntegerField(default=1)
     soft_skills = models.ManyToManyField('db.SoftSkill', blank=True, related_name='students')
     cultural_fits = models.ManyToManyField('db.CulturalFit', blank=True, related_name='students')
+    slug = models.CharField(max_length=200, blank=True)
 
     def get_profile_content_type(self):
         return ContentType.objects.get(app_label='db', model='student')
