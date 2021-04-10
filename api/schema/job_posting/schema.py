@@ -1,12 +1,10 @@
 import graphene
-from django.core.exceptions import PermissionDenied
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext as _
 from graphene import ObjectType
 from graphene_django import DjangoObjectType
 from graphql_auth.bases import Output
-from graphql_jwt.decorators import login_required
 
 from api.schema.branch import BranchInput
 from api.schema.employee import Employee
@@ -17,7 +15,7 @@ from api.schema.registration import EmployeeInput
 from api.schema.skill import SkillInput
 from db.exceptions import FormException
 from db.forms import process_job_posting_form_step_1, process_job_posting_form_step_2, process_job_posting_form_step_3
-from db.models import JobPosting as JobPostingModel, Company, JobPostingState as JobPostingStateModel, ProfileType
+from db.models import JobPosting as JobPostingModel, Company, JobPostingState as JobPostingStateModel
 from graphql_jwt.decorators import login_required
 
 JobPostingState = graphene.Enum.from_enum(JobPostingStateModel)

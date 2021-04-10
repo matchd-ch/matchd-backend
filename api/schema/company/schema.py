@@ -231,6 +231,7 @@ class UniversityProfileMutation(graphene.ObjectType):
 
 class Company(DjangoObjectType):
     employees = graphene.NonNull(graphene.List(graphene.NonNull(Employee)))
+    job_postings = graphene.NonNull(graphene.List(graphene.NonNull('api.schema.job_posting.schema.JobPosting')))
     type = graphene.Field(graphene.NonNull(ProfileType))
     state = graphene.Field(graphene.NonNull(ProfileState))
 
@@ -239,7 +240,7 @@ class Company(DjangoObjectType):
         fields = ['id', 'uid', 'name', 'zip', 'city', 'street', 'phone', 'description', 'member_it_st_gallen',
                   'services', 'website', 'benefits', 'state', 'profile_step', 'slug',
                   'top_level_organisation_description', 'top_level_organisation_website', 'type', 'branches',
-                  'link_education', 'link_projects', 'link_thesis', 'soft_skills', 'cultural_fits']
+                  'link_education', 'link_projects', 'link_thesis', 'soft_skills', 'cultural_fits', 'job_postings']
         convert_choices_to_enum = False
 
     def resolve_employees(self: CompanyModel, info):
@@ -248,6 +249,9 @@ class Company(DjangoObjectType):
         for user in users:
             employees.append(user.employee)
         return employees
+
+    def resolve_job_postings(self: CompanyModel, info):
+        return self.job_postings.filter(state='public')
 
 
 class CompanyQuery(ObjectType):
