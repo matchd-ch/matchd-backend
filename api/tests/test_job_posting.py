@@ -126,3 +126,25 @@ def test_job_posting_is_draft(login, query_job_posting, job_posting_object: JobP
     assert errors is not None
     assert data is not None
     assert data.get('jobPosting') is None
+
+
+@pytest.mark.django_db
+def test_job_postings(query_job_postings, job_posting_objects, company_object, user_employee):
+
+    for job_posting_object in job_posting_objects:
+        job_posting_object.company = company_object
+        job_posting_object.state = JobPostingState.PUBLIC
+        job_posting_object.employee = user_employee.employee
+        job_posting_object.save()
+
+    job_posting_objects[0].state = JobPostingState.DRAFT
+    job_posting_objects[0].save()
+
+    data, errors = query_job_postings(user_employee, user_employee.company.slug)
+
+    assert errors is None
+    assert data is not None
+    job_postings = data.get('jobPostings')
+
+    assert job_postings is not None
+    assert len(job_postings) == len(job_posting_objects) - 1

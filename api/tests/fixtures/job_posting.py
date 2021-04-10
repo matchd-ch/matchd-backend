@@ -68,10 +68,78 @@ def job_posting_query(slug):
     ''' % slug
 
 
+def job_postings_query(slug):
+    return '''
+    query {
+        jobPostings(slug: "%s") {
+            id
+            slug
+            title
+            formStep
+            state
+            description
+            jobType {
+                id
+                name
+                mode
+            }
+            branch {
+                id
+                name
+            }
+            employee {
+                id
+                role
+                user {
+                    id
+                    firstName
+                    lastName
+                    email
+                    username
+                }
+            }
+            company {
+                id
+            }
+            workload
+            jobFromDate
+            jobToDate
+            formStep
+            url
+            jobRequirements {
+                id
+                name
+            }
+            skills {
+                id
+                name
+            }
+            languages {
+                language {
+                    id
+                    name
+                }
+                languageLevel {
+                    id
+                    description
+                }
+            }
+        }
+    }
+    ''' % slug
+
+
 @pytest.fixture
 def query_job_posting(execute):
     def closure(user, slug):
         return execute(job_posting_query(slug), **{'user': user})
+    return closure
+
+
+@pytest.fixture
+def query_job_postings(execute):
+    def closure(user, slug):
+        return execute(job_postings_query(slug), **{'user': user})
     return closure
 
 
