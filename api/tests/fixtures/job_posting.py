@@ -22,9 +22,10 @@ def job_posting_mutation(step):
 
 @pytest.fixture
 def job_posting_step_1(execute):
-    def closure(user, description, job_type, branch, workload, job_from_date, job_to_date, url):
+    def closure(user, title, description, job_type, branch, workload, job_from_date, job_to_date, url):
         return execute(job_posting_mutation(1), variables={
             'step1': {
+                'title': title,
                 'description': description,
                 'jobType': None if job_type is None else {'id': job_type.id},
                 'branch': None if branch is None else {'id': branch.id},
