@@ -64,3 +64,34 @@ class MatchMapper:
             }
             matches.append(match)
         return matches
+
+    @classmethod
+    def map_job_postings(cls, job_postings):
+        # prefetch company avatars
+        company_ids = [obj.company.id for obj in job_postings]
+        attachments = Attachment.objects.filter(
+            key=AttachmentKey.COMPANY_AVATAR,
+            object_id__in=company_ids
+        ).select_related('content_type', 'attachment_type')
+        attachment_map = {}
+        for attachment in attachments:
+            attachment_map[attachment.object_id] = attachment
+
+        matches = []
+        for job_posting in job_postings:
+            name = job_posting.company.name
+            attachment = attachment_map.get(job_posting.company.id, None)
+            if attachment is not None:
+                attachment = attachment.absolute_url
+            match = {
+                'id': job_posting.id,
+                'name': name,
+                'avatar': attachment,
+                'type': MatchType.JOB_POSTING,
+                'slug': job_posting.slug,
+                'score': job_posting.score,
+                'raw_score': job_posting.raw_score,
+                'job_posting_title': job_posting.title
+            }
+            matches.append(match)
+        return matches
