@@ -94,8 +94,7 @@ class JobPostingInputStep1(graphene.InputObjectType):
 
 
 class JobPostingStep1(Output, graphene.Mutation):
-
-    job_posting_id = graphene.ID()
+    slug = graphene.String()
 
     class Arguments:
         step1 = JobPostingInputStep1(description=_('Job Posting Input Step 1 is required.'), required=True)
@@ -112,7 +111,7 @@ class JobPostingStep1(Output, graphene.Mutation):
             job_posting = process_job_posting_form_step_1(user, form_data)
         except FormException as exception:
             return JobPostingStep1(success=False, errors=exception.errors)
-        return JobPostingStep1(success=True, errors=None, job_posting_id=job_posting.id)
+        return JobPostingStep1(success=True, errors=None, slug=job_posting.slug)
 
 
 class JobPostingInputStep2(graphene.InputObjectType):
@@ -123,7 +122,7 @@ class JobPostingInputStep2(graphene.InputObjectType):
 
 
 class JobPostingStep2(Output, graphene.Mutation):
-    job_posting_id = graphene.ID()
+    slug = graphene.String()
 
     class Arguments:
         step2 = JobPostingInputStep2(description=_('Job Posting Input Step 2 is required.'), required=True)
@@ -140,7 +139,7 @@ class JobPostingStep2(Output, graphene.Mutation):
             job_posting = process_job_posting_form_step_2(user, form_data)
         except FormException as exception:
             return JobPostingStep2(success=False, errors=exception.errors)
-        return JobPostingStep2(success=True, errors=None, job_posting_id=job_posting.id)
+        return JobPostingStep2(success=True, errors=None, slug=job_posting.slug)
 
 
 class JobPostingInputStep3(graphene.InputObjectType):
@@ -150,7 +149,7 @@ class JobPostingInputStep3(graphene.InputObjectType):
 
 
 class JobPostingStep3(Output, graphene.Mutation):
-    job_posting_id = graphene.ID()
+    slug = graphene.String()
 
     class Arguments:
         step3 = JobPostingInputStep3(description=_('Job Posting Input Step 3 is required.'), required=True)
@@ -167,7 +166,7 @@ class JobPostingStep3(Output, graphene.Mutation):
             job_posting = process_job_posting_form_step_3(user, form_data)
         except FormException as exception:
             return JobPostingStep3(success=False, errors=exception.errors)
-        return JobPostingStep3(success=True, errors=None, job_posting_id=job_posting.id)
+        return JobPostingStep3(success=True, errors=None, slug=job_posting.slug)
 
 
 class JobPostingMutation(graphene.ObjectType):
