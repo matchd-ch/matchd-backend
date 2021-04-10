@@ -192,6 +192,7 @@ class Command(BaseCommand):
                 )
                 job_posting.save()
                 job_posting.slug = f'{slugify(job_posting.title)}-{str(job_posting.id)}'
+                job_posting.save()
                 job_posting.job_requirements.set(self.random_items(self.random_requirements, 4))
                 job_posting.skills.set(self.random_items(self.random_skills, 5))
                 random_languages = self.random_items(self.random_languages, 3)
@@ -224,6 +225,7 @@ class Command(BaseCommand):
                 job_posting.employee = get_user_model().objects.get(email=obj.get('employee')).employee
                 job_posting.save()
                 job_posting.slug = f'{slugify(job_posting.title)}-{str(job_posting.id)}'
+                job_posting.save()
                 job_posting.skills.set(obj.get('skills'))
                 job_posting.job_requirements.set(obj.get('job_requirements'))
 
