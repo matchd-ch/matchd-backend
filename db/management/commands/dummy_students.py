@@ -1,7 +1,6 @@
 import os
 import shutil
 
-import names
 from django.conf import settings
 from django.utils.text import slugify
 
@@ -18,8 +17,6 @@ from ...models import CulturalFit, Skill, SoftSkill, Branch, JobType, Language, 
 
 class Command(SeedCommand):
     help = 'Generates a lot of dummy students'
-
-    random_gender = []
 
     def add_arguments(self, parser):
         parser.add_argument('num', type=int, help='Indicates the number of students to be created', default=0)
@@ -45,11 +42,6 @@ class Command(SeedCommand):
         self.random_language_levels = list(LanguageLevel.objects.all().values_list('id', flat=True))
         self.random_gender = ['male', 'female']
 
-    def random_name(self):
-        gender = self.random_items(self.random_gender, 1)
-        name = names.get_full_name(gender=gender)
-        return name
-
     # noinspection PyUnresolvedReferences
     def handle(self, *args, **options):
         number_of_students = options.get('num')
@@ -68,7 +60,7 @@ class Command(SeedCommand):
                 }
                 languages.append(obj)
 
-            name = self.random_name()
+            name, gender = self.random_name()
             nickname = f'{slugify(name)}-{str(i)}'
             first_name, last_name = name.split(' ')
 
@@ -101,6 +93,7 @@ class Command(SeedCommand):
                     "languages": languages,
                     "mobile": "+791234567",
                     "nickname": nickname,
+                    "slug": slugify(nickname),
                     "online_projects": [
                         "http://www.project.lo",
                         "http://www.project2.lo"
