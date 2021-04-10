@@ -8,3 +8,6 @@ class JobPostingLanguageRelation(models.Model):
 
     class Meta:
         unique_together = ('language', 'job_posting',)
+
+    def language_level_concat(self):
+        return f'{self.language.id}-{self.language_level.id}'

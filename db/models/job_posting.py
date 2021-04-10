@@ -30,13 +30,19 @@ class JobPosting(models.Model, index.Indexed):
     form_step = models.IntegerField(default=2)  # since we save the job posting in step 1 the default value is 2
     state = models.CharField(choices=JobPostingState.choices, default=JobPostingState.DRAFT, max_length=255)
     employee = models.ForeignKey('db.Employee', on_delete=models.CASCADE, blank=True, null=True)
+    soft_skills = None
 
     @classmethod
     def get_indexed_objects(cls):
         return cls.objects.filter(state=JobPostingState.PUBLIC)
 
     search_fields = [
-        index.RelatedFields('branch', [
+        index.RelatedFields('job_type', [
             index.FilterField('id'),
+        ]),
+        index.FilterField('workload'),
+        index.RelatedFields('languages', [
+            index.FilterField('id'),
+            index.FilterField('language_level_concat')  # see JobPostingLanguageRelation
         ]),
     ]
