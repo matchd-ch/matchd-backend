@@ -1,5 +1,3 @@
-from django.contrib.contenttypes.models import ContentType
-
 from db.models import Attachment, AttachmentKey, ProfileState
 
 
@@ -32,13 +30,16 @@ class MatchMapper:
                 'type': student.user.type,
                 'slug': student.nickname,
                 'score': student.score,
-                'raw_score': student.raw_score
+                'raw_score': student.raw_score,
+                'effective_score': student.effective_score,
+                'max_score': student.max_score
             }
             matches.append(match)
         return matches
 
     @classmethod
     def map_companies(cls, companies):
+        # prefetch company avatars
         company_ids = [obj.id for obj in companies]
         attachments = Attachment.objects.filter(
             key=AttachmentKey.COMPANY_AVATAR,

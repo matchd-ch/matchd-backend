@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404
 from graphql_jwt.decorators import login_required
 from graphene import ObjectType, InputObjectType
 
-from api.mapper import MatchMapper
+from db.search.mapper import MatchMapper
 from api.schema.branch import BranchInput
 from api.schema.job_posting import JobPostingInput
 from api.schema.job_type import JobTypeInput
@@ -23,6 +23,8 @@ class Match(ObjectType):
     slug = graphene.NonNull(graphene.String)
     score = graphene.NonNull(graphene.Float)
     raw_score = graphene.NonNull(graphene.Float)
+    effective_score = graphene.NonNull(graphene.Float)
+    max_score = graphene.NonNull(graphene.Float)
 
 
 class JobPostingMatchingInput(InputObjectType):
@@ -84,24 +86,7 @@ class MatchQuery(ObjectType):
             raise PermissionDenied('You do not have the permission to perform this action')
 
         matching = Matching()
-        date_mode = job_posting.job_type.mode
-        params = {
-            'first': first,
-            'skip': skip,
-            'soft_boost': soft_boost,
-            'tech_boost': tech_boost,
-            'branch_id': job_posting.branch_id,
-            'job_type_id': job_posting.job_type_id,
-            'cultural_fits': job_posting_company.cultural_fits.all(),
-            'soft_skills': job_posting_company.soft_skills.all(),
-            'skills': job_posting.skills.all(),
-            'languages': job_posting.languages.all(),
-            'date_from': job_posting.job_from_date
-        }
-        if date_mode == DateMode.DATE_RANGE:
-            params['date_to'] = job_posting.job_to_date
-
-        matches = matching.find_talents(**params)
+        matches = matching.find_talents_by_job_posting(job_posting, first, skip, soft_boost, tech_boost)
         return MatchMapper.map_students(matches)
 
     @classmethod

@@ -3,11 +3,13 @@ from django.db.models import Q
 
 class HitResolver:
 
-    def __init__(self, queryset, hits):
+    def __init__(self, queryset, hits, maximum_possible_score):
         self.queryset = queryset
         self.hits = hits.get('hits')
         self.score_multiplier = 1
         self.raw_score_multiplier = 1
+        self.maximum_possible_score = maximum_possible_score
+        self.calculate_raw_score_multiplier()
 
     def resolve(self):
         scores = {}
@@ -24,7 +26,6 @@ class HitResolver:
             if float(score) < min_score:
                 min_score = score
         self.calculate_score_multiplier(max_score, min_score)
-        self.calculate_raw_score_multiplier(max_score)
         query = Q(id__in=ids)
         result = self.queryset.filter(query)
 
@@ -33,6 +34,8 @@ class HitResolver:
             if obj_id in scores:
                 setattr(obj, 'score', self.shift_score(float(scores[obj_id]), min_score))
                 setattr(obj, 'raw_score', self.shift_raw_score(round(float(scores[obj_id]), 2)))
+                setattr(obj, 'effective_score', round(float(scores[obj_id]), 2))
+                setattr(obj, 'max_score', self.maximum_possible_score)
 
         def sort_by_score(x):
             return x.score
@@ -41,8 +44,8 @@ class HitResolver:
     def calculate_score_multiplier(self, max_score, min_score):
         self.score_multiplier = 100 / (max_score - min_score) / 100
 
-    def calculate_raw_score_multiplier(self, max_score):
-        self.raw_score_multiplier = 100 / max_score / 100
+    def calculate_raw_score_multiplier(self):
+        self.raw_score_multiplier = 100 / self.maximum_possible_score / 100
 
     def shift_score(self, origin_score, minimum):
         origin_score = origin_score - minimum
