@@ -23,7 +23,6 @@ class Match(ObjectType):
     name = graphene.NonNull(graphene.String)
     type = graphene.NonNull(MatchType)
     avatar = graphene.String()
-    slug = graphene.NonNull(graphene.String)
     score = graphene.NonNull(graphene.Float)
     raw_score = graphene.NonNull(graphene.Float)
     job_posting_title = graphene.String()
@@ -34,8 +33,8 @@ class JobPostingMatchingInput(InputObjectType):
 
 
 class StudentMatchingInput(InputObjectType):
-    job_type = graphene.Field(JobTypeInput, required=False)
-    branch = graphene.Field(BranchInput, required=False)
+    job_type = graphene.Field(JobTypeInput, required=True)
+    work_load = graphene.Int(required=False)
 
 
 class MatchQuery(ObjectType):
@@ -54,6 +53,8 @@ class MatchQuery(ObjectType):
         user = info.context.user
         first = kwargs.get('first')
         skip = kwargs.get('skip')
+
+        # normalize boost
         soft_boost = max(min(kwargs.get('soft_boost', 1), 5), 1)
         tech_boost = max(min(kwargs.get('tech_boost', 1), 5), 1)
 
@@ -103,30 +104,15 @@ class MatchQuery(ObjectType):
             raise PermissionDenied('You do not have the permission to perform this action')
 
         job_type_id = data.get('job_type', None)
-        branch_id = data.get('branch', None)
         if job_type_id is not None:
             job_type_id = job_type_id.get('id')
-        if branch_id is not None:
-            branch_id = branch_id.get('id')
+
         job_type = None
-        branch = None
         if job_type_id is not None:
             job_type = get_object_or_404(JobTypeModel, pk=job_type_id)
-        if branch_id is not None:
-            branch = get_object_or_404(BranchModel, pk=branch_id)
+
+        workload = data.get('workload', None)
 
         matching = Matching()
-        params = {
-            'first': first,
-            'skip': skip,
-            'soft_boost': soft_boost,
-            'tech_boost': tech_boost,
-            'cultural_fits': user.student.cultural_fits.all(),
-            'soft_skills': user.student.soft_skills.all()
-        }
-        if job_type is not None:
-            params['job_type_id'] = job_type.id
-        if branch is not None:
-            params['branch_id'] = branch.id
-        matches = matching.find_companies(**params)
-        return MatchMapper.map_companies(matches)
+        matches = matching.find_job_postings(user, job_type, workload, first, skip, soft_boost, tech_boost)
+        return MatchMapper.map_job_postings(matches)
