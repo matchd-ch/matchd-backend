@@ -25,6 +25,7 @@ def me_query():
                 fieldOfStudy
                 graduation
                 distinction
+                slug
                 skills {
                     id
                     name

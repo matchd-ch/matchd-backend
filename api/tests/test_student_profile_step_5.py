@@ -17,6 +17,7 @@ def test_step_5(login, user_student, student_step_5):
 
     user = get_user_model().objects.get(pk=user_student.id)
     assert user.student.nickname == 'nickname'
+    assert user.student.slug == 'nickname'
     assert user_student.student.profile_step == 6
 
 
