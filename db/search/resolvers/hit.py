@@ -6,6 +6,8 @@ class HitResolver:
     def __init__(self, queryset, hits):
         self.queryset = queryset
         self.hits = hits.get('hits')
+        self.score_multiplier = 1
+        self.raw_score_multiplier = 1
 
     def resolve(self):
         scores = {}
@@ -21,24 +23,30 @@ class HitResolver:
                 max_score = score
             if float(score) < min_score:
                 min_score = score
-        multiplier = 100 / (max_score - min_score) / 100
-        raw_multiplier = 100 / max_score / 100
+        self.calculate_score_multiplier(max_score, min_score)
+        self.calculate_raw_score_multiplier(max_score)
         query = Q(id__in=ids)
         result = self.queryset.filter(query)
-
-        def shift_score(origin_score, m, minimum):
-            origin_score = origin_score - minimum
-            return round(origin_score * m, 2)
-
-        def shift_raw_score(origin_score, m):
-            return round(origin_score * m, 2)
 
         for obj in result:
             obj_id = str(obj.id)
             if obj_id in scores:
-                setattr(obj, 'score', shift_score(float(scores[obj_id]), multiplier, min_score))
-                setattr(obj, 'raw_score', shift_raw_score(round(float(scores[obj_id]), 2), raw_multiplier))
+                setattr(obj, 'score', self.shift_score(float(scores[obj_id]), min_score))
+                setattr(obj, 'raw_score', self.shift_raw_score(round(float(scores[obj_id]), 2)))
 
         def sort_by_score(x):
             return x.score
         return sorted(list(result), key=sort_by_score, reverse=True)
+
+    def calculate_score_multiplier(self, max_score, min_score):
+        self.score_multiplier = 100 / (max_score - min_score) / 100
+
+    def calculate_raw_score_multiplier(self, max_score):
+        self.raw_score_multiplier = 100 / max_score / 100
+
+    def shift_score(self, origin_score, minimum):
+        origin_score = origin_score - minimum
+        return round(origin_score * self.score_multiplier, 2)
+
+    def shift_raw_score(self, origin_score):
+        return round(origin_score * self.raw_score_multiplier, 2)
