@@ -168,7 +168,8 @@ class Command(BaseCommand):
                         {'language': obj.language.id, 'language_level': obj.language_level.id}
                         for obj in student.languages.all()
                     ],
-                    'attachments': self.get_attachments_for_student(student)
+                    'attachments': self.get_attachments_for_student(student),
+                    'slug': student.slug
                 }
                 user_obj['student'] = student_obj
 
