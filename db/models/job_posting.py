@@ -1,7 +1,13 @@
+from datetime import datetime
+
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import gettext as _
 from wagtail.search import index
+
+
+def default_date():
+    return datetime.strptime('01.01.1970', '%m.%d.%Y').date()
 
 
 class JobPostingState(models.TextChoices):
@@ -42,7 +48,20 @@ class JobPosting(models.Model, index.Indexed):
         ]),
         index.FilterField('workload'),
         index.RelatedFields('languages', [
-            index.FilterField('id'),
+            index.FilterField('language_id'),
             index.FilterField('language_level_concat')  # see JobPostingLanguageRelation
+        ]),
+        index.FilterField('job_from_date', es_extra={
+            'type': 'date',
+            'format': 'yyyy-MM-dd',
+            'null_value': default_date()
+        }),
+        index.FilterField('job_to_date', es_extra={
+            'type': 'date',
+            'format': 'yyyy-MM-dd',
+            'null_value': default_date()
+        }),
+        index.RelatedFields('skills', [
+            index.FilterField('id'),
         ]),
     ]
