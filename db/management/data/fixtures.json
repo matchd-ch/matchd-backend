@@ -1123,10 +1123,17 @@
     },
     {
         "email": "student-not-verified@matchd.lo",
-        "first_name": "Katarina",
-        "last_name": "Frank",
+        "first_name": "William",
+        "last_name": "Hawkins",
         "student": {
-            "attachments": [],
+            "attachments": [
+                {
+                    "file": "william-hawkins_m-12.jpg",
+                    "key": "student_avatar",
+                    "type": "db.image",
+                    "user": "student-not-verified@matchd.lo"
+                }
+            ],
             "branch": null,
             "city": "Grub SG",
             "cultural_fits": [],
@@ -1140,12 +1147,12 @@
             "job_type": null,
             "languages": [],
             "mobile": "+41791234567",
-            "nickname": null,
+            "nickname": "william-hawkins-1",
             "online_projects": [],
             "profile_step": 1,
             "school_name": null,
             "skills": [],
-            "slug": "",
+            "slug": "william-hawkins-1",
             "soft_skills": [],
             "state": "incomplete",
             "street": "B\u00fcelweg",
@@ -1156,10 +1163,17 @@
     },
     {
         "email": "student-step-1@matchd.lo",
-        "first_name": "Zelda",
-        "last_name": "Blau",
+        "first_name": "Josephine",
+        "last_name": "Thomas",
         "student": {
-            "attachments": [],
+            "attachments": [
+                {
+                    "file": "josephine-thomas_f-33.jpg",
+                    "key": "student_avatar",
+                    "type": "db.image",
+                    "user": "student-step-1@matchd.lo"
+                }
+            ],
             "branch": null,
             "city": "Arbon",
             "cultural_fits": [],
@@ -1173,12 +1187,12 @@
             "job_type": null,
             "languages": [],
             "mobile": "+41791234567",
-            "nickname": null,
+            "nickname": "josephine-thomas-2",
             "online_projects": [],
             "profile_step": 1,
             "school_name": null,
             "skills": [],
-            "slug": "",
+            "slug": "josephine-thomas-2",
             "soft_skills": [],
             "state": "incomplete",
             "street": "Romanshornerstrasse",
@@ -1189,10 +1203,17 @@
     },
     {
         "email": "student-step-2@matchd.lo",
-        "first_name": "Grete",
-        "last_name": "Fabel",
+        "first_name": "Charles",
+        "last_name": "Robison",
         "student": {
-            "attachments": [],
+            "attachments": [
+                {
+                    "file": "charles-robison_m-37.jpg",
+                    "key": "student_avatar",
+                    "type": "db.image",
+                    "user": "student-step-2@matchd.lo"
+                }
+            ],
             "branch": null,
             "city": "Gossau SG",
             "cultural_fits": [],
@@ -1206,12 +1227,12 @@
             "job_type": null,
             "languages": [],
             "mobile": "+41791234567",
-            "nickname": null,
+            "nickname": "charles-robison-3",
             "online_projects": [],
             "profile_step": 2,
             "school_name": "",
             "skills": [],
-            "slug": "",
+            "slug": "charles-robison-3",
             "soft_skills": [],
             "state": "incomplete",
             "street": "Widenstrasse",
@@ -1222,10 +1243,17 @@
     },
     {
         "email": "student-step-3@matchd.lo",
-        "first_name": "Frauke",
-        "last_name": "Warner",
+        "first_name": "Steve",
+        "last_name": "Hollar",
         "student": {
-            "attachments": [],
+            "attachments": [
+                {
+                    "file": "steve-hollar_m-29.jpg",
+                    "key": "student_avatar",
+                    "type": "db.image",
+                    "user": "student-step-3@matchd.lo"
+                }
+            ],
             "branch": null,
             "city": "Ebnat-Kappel",
             "cultural_fits": [],
@@ -1239,12 +1267,12 @@
             "job_type": null,
             "languages": [],
             "mobile": "+41791234567",
-            "nickname": null,
+            "nickname": "steve-hollar-4",
             "online_projects": [],
             "profile_step": 3,
             "school_name": "FH Winterthur",
             "skills": [],
-            "slug": "",
+            "slug": "steve-hollar-4",
             "soft_skills": [],
             "state": "incomplete",
             "street": "Schwand-Wintersbergweg",
@@ -1255,10 +1283,17 @@
     },
     {
         "email": "student-step-4@matchd.lo",
-        "first_name": "Immanuel",
-        "last_name": "Nagel",
+        "first_name": "William",
+        "last_name": "Herauf",
         "student": {
-            "attachments": [],
+            "attachments": [
+                {
+                    "file": "william-herauf_m-49.jpg",
+                    "key": "student_avatar",
+                    "type": "db.image",
+                    "user": "student-step-4@matchd.lo"
+                }
+            ],
             "branch": 1,
             "city": "Ebnat-Kappel",
             "cultural_fits": [],
@@ -1272,12 +1307,12 @@
             "job_type": 2,
             "languages": [],
             "mobile": "+41791234567",
-            "nickname": null,
+            "nickname": "william-herauf-5",
             "online_projects": [],
             "profile_step": 4,
             "school_name": "FH Winterthur",
             "skills": [],
-            "slug": "",
+            "slug": "william-herauf-5",
             "soft_skills": [],
             "state": "incomplete",
             "street": "Bendelverbindungsweg",
@@ -1288,10 +1323,17 @@
     },
     {
         "email": "student-step-5@matchd.lo",
-        "first_name": "Horst",
-        "last_name": "Sander",
+        "first_name": "Barbara",
+        "last_name": "Maxey",
         "student": {
-            "attachments": [],
+            "attachments": [
+                {
+                    "file": "barbara-maxey_f-21.jpg",
+                    "key": "student_avatar",
+                    "type": "db.image",
+                    "user": "student-step-5@matchd.lo"
+                }
+            ],
             "branch": 1,
             "city": "Ebersol",
             "cultural_fits": [],
@@ -1317,7 +1359,7 @@
                 }
             ],
             "mobile": "+41791234567",
-            "nickname": null,
+            "nickname": "barbara-maxey-6",
             "online_projects": [
                 "http://www.project1.lo",
                 "http://www.project2.lo"
@@ -1329,7 +1371,7 @@
                 2,
                 1
             ],
-            "slug": "",
+            "slug": "barbara-maxey-6",
             "soft_skills": [],
             "state": "incomplete",
             "street": "Niderwil",
@@ -1340,10 +1382,17 @@
     },
     {
         "email": "student-step-6@matchd.lo",
-        "first_name": "Moritz",
-        "last_name": "Busch",
+        "first_name": "Anthony",
+        "last_name": "Johnson",
         "student": {
-            "attachments": [],
+            "attachments": [
+                {
+                    "file": "anthony-johnson_m-44.jpeg",
+                    "key": "student_avatar",
+                    "type": "db.image",
+                    "user": "student-step-6@matchd.lo"
+                }
+            ],
             "branch": 1,
             "city": "Buchs SG",
             "cultural_fits": [],
@@ -1369,7 +1418,7 @@
                 }
             ],
             "mobile": "+41791234567",
-            "nickname": "darth_vader",
+            "nickname": "anthony-johnson-7",
             "online_projects": [
                 "http://www.project2.lo",
                 "http://www.project1.lo"
@@ -1381,7 +1430,7 @@
                 2,
                 1
             ],
-            "slug": "",
+            "slug": "anthony-johnson-7",
             "soft_skills": [],
             "state": "incomplete",
             "street": "G\u00fcterstrasse",
@@ -1392,10 +1441,17 @@
     },
     {
         "email": "student-public@matchd.lo",
-        "first_name": "Ima",
-        "last_name": "Kuhn",
+        "first_name": "Charles",
+        "last_name": "Kirby",
         "student": {
-            "attachments": [],
+            "attachments": [
+                {
+                    "file": "charles-kirby_m-29.jpg",
+                    "key": "student_avatar",
+                    "type": "db.image",
+                    "user": "student-public@matchd.lo"
+                }
+            ],
             "branch": 1,
             "city": "St. Gallen",
             "cultural_fits": [
@@ -1428,7 +1484,7 @@
                 }
             ],
             "mobile": "+41791234567",
-            "nickname": "lara_croft",
+            "nickname": "charles-kirby-8",
             "online_projects": [
                 "http://www.project1.lo",
                 "http://www.project2.lo"
@@ -1440,7 +1496,7 @@
                 2,
                 1
             ],
-            "slug": "",
+            "slug": "charles-kirby-8",
             "soft_skills": [
                 3,
                 4,
@@ -1456,10 +1512,17 @@
     },
     {
         "email": "student-anonymous@matchd.lo",
-        "first_name": "Dirk",
-        "last_name": "Seidel",
+        "first_name": "Salley",
+        "last_name": "Couch",
         "student": {
-            "attachments": [],
+            "attachments": [
+                {
+                    "file": "salley-couch_f-27.jpg",
+                    "key": "student_avatar",
+                    "type": "db.image",
+                    "user": "student-anonymous@matchd.lo"
+                }
+            ],
             "branch": 1,
             "city": "Buchs SG",
             "cultural_fits": [
@@ -1492,7 +1555,7 @@
                 }
             ],
             "mobile": "+41781234567",
-            "nickname": "tyler_durden",
+            "nickname": "salley-couch-9",
             "online_projects": [
                 "http://www.project1.lo",
                 "http://www.project2.lo"
@@ -1504,7 +1567,7 @@
                 2,
                 1
             ],
-            "slug": "",
+            "slug": "salley-couch-9",
             "soft_skills": [
                 3,
                 5,
@@ -1557,10 +1620,17 @@
     },
     {
         "email": "student-1@matchd.lo",
-        "first_name": "Melissa",
-        "last_name": "Cianciolo",
+        "first_name": "David",
+        "last_name": "Shapiro",
         "student": {
-            "attachments": [],
+            "attachments": [
+                {
+                    "file": "david-shapiro_m-8.jpg",
+                    "key": "student_avatar",
+                    "type": "db.image",
+                    "user": "student-1@matchd.lo"
+                }
+            ],
             "branch": 1,
             "city": "St. Gallen",
             "cultural_fits": [
@@ -1621,7 +1691,7 @@
                 }
             ],
             "mobile": "+791234567",
-            "nickname": "melissa.cianciolo",
+            "nickname": "david-shapiro-10",
             "online_projects": [
                 "http://www.project.lo",
                 "http://www.project2.lo"
@@ -1638,7 +1708,7 @@
                 12,
                 6
             ],
-            "slug": "",
+            "slug": "david-shapiro-10",
             "soft_skills": [
                 1,
                 2,
@@ -1656,10 +1726,17 @@
     },
     {
         "email": "student-2@matchd.lo",
-        "first_name": "Andy",
-        "last_name": "Jackson",
+        "first_name": "Stephen",
+        "last_name": "Tynes",
         "student": {
-            "attachments": [],
+            "attachments": [
+                {
+                    "file": "stephen-tynes_m-29.jpg",
+                    "key": "student_avatar",
+                    "type": "db.image",
+                    "user": "student-2@matchd.lo"
+                }
+            ],
             "branch": 2,
             "city": "Gossau SG",
             "cultural_fits": [
@@ -1712,7 +1789,7 @@
                 }
             ],
             "mobile": "+791234567",
-            "nickname": "andy.jackson",
+            "nickname": "stephen-tynes-11",
             "online_projects": [
                 "http://www.project.lo",
                 "http://www.project2.lo"
@@ -1729,7 +1806,7 @@
                 9,
                 13
             ],
-            "slug": "",
+            "slug": "stephen-tynes-11",
             "soft_skills": [
                 2,
                 3,
@@ -1747,10 +1824,17 @@
     },
     {
         "email": "student-3@matchd.lo",
-        "first_name": "Talia",
-        "last_name": "Hart",
+        "first_name": "Keitha",
+        "last_name": "Patton",
         "student": {
-            "attachments": [],
+            "attachments": [
+                {
+                    "file": "keitha-patton_f-1.jpg",
+                    "key": "student_avatar",
+                    "type": "db.image",
+                    "user": "student-3@matchd.lo"
+                }
+            ],
             "branch": 3,
             "city": "Niederwil SG",
             "cultural_fits": [
@@ -1803,7 +1887,7 @@
                 }
             ],
             "mobile": "+791234567",
-            "nickname": "talia.hart",
+            "nickname": "keitha-patton-12",
             "online_projects": [
                 "http://www.project.lo",
                 "http://www.project2.lo"
@@ -1820,7 +1904,7 @@
                 12,
                 6
             ],
-            "slug": "",
+            "slug": "keitha-patton-12",
             "soft_skills": [
                 3,
                 4,
@@ -1838,10 +1922,17 @@
     },
     {
         "email": "student-4@matchd.lo",
-        "first_name": "Kevin",
-        "last_name": "Graves",
+        "first_name": "Brenda",
+        "last_name": "Mosby",
         "student": {
-            "attachments": [],
+            "attachments": [
+                {
+                    "file": "brenda-mosby_f-40.jpg",
+                    "key": "student_avatar",
+                    "type": "db.image",
+                    "user": "student-4@matchd.lo"
+                }
+            ],
             "branch": 4,
             "city": "Niederwil SG",
             "cultural_fits": [
@@ -1889,7 +1980,7 @@
                 }
             ],
             "mobile": "+791234567",
-            "nickname": "kevin.graves",
+            "nickname": "brenda-mosby-13",
             "online_projects": [
                 "http://www.project.lo",
                 "http://www.project2.lo"
@@ -1906,7 +1997,7 @@
                 13,
                 21
             ],
-            "slug": "",
+            "slug": "brenda-mosby-13",
             "soft_skills": [
                 4,
                 5,
@@ -1924,10 +2015,17 @@
     },
     {
         "email": "student-5@matchd.lo",
-        "first_name": "Timothy",
-        "last_name": "Wilson",
+        "first_name": "Lenard",
+        "last_name": "Meigs",
         "student": {
-            "attachments": [],
+            "attachments": [
+                {
+                    "file": "lenard-meigs_m-49.jpg",
+                    "key": "student_avatar",
+                    "type": "db.image",
+                    "user": "student-5@matchd.lo"
+                }
+            ],
             "branch": 5,
             "city": "Buchs SG",
             "cultural_fits": [
@@ -1965,7 +2063,7 @@
                 }
             ],
             "mobile": "+791234567",
-            "nickname": "timothy.wilson",
+            "nickname": "lenard-meigs-14",
             "online_projects": [
                 "http://www.project.lo",
                 "http://www.project2.lo"
@@ -1982,7 +2080,7 @@
                 22,
                 12
             ],
-            "slug": "",
+            "slug": "lenard-meigs-14",
             "soft_skills": [
                 5,
                 6,
@@ -2000,10 +2098,17 @@
     },
     {
         "email": "student-6@matchd.lo",
-        "first_name": "Charlie",
-        "last_name": "Jencks",
+        "first_name": "Keith",
+        "last_name": "Burton",
         "student": {
-            "attachments": [],
+            "attachments": [
+                {
+                    "file": "keith-burton_m-21.jpg",
+                    "key": "student_avatar",
+                    "type": "db.image",
+                    "user": "student-6@matchd.lo"
+                }
+            ],
             "branch": 1,
             "city": "Buchs SG",
             "cultural_fits": [
@@ -2041,7 +2146,7 @@
                 }
             ],
             "mobile": "+791234567",
-            "nickname": "charlie.jencks",
+            "nickname": "keith-burton-15",
             "online_projects": [
                 "http://www.project.lo",
                 "http://www.project2.lo"
@@ -2058,7 +2163,7 @@
                 13,
                 21
             ],
-            "slug": "",
+            "slug": "keith-burton-15",
             "soft_skills": [
                 6,
                 7,
@@ -2076,10 +2181,17 @@
     },
     {
         "email": "student-7@matchd.lo",
-        "first_name": "Mark",
-        "last_name": "Avery",
+        "first_name": "Miguelina",
+        "last_name": "Padilla",
         "student": {
-            "attachments": [],
+            "attachments": [
+                {
+                    "file": "miguelina-padilla_f-50.jpg",
+                    "key": "student_avatar",
+                    "type": "db.image",
+                    "user": "student-7@matchd.lo"
+                }
+            ],
             "branch": 2,
             "city": "Ebnat-Kappel",
             "cultural_fits": [
@@ -2117,7 +2229,7 @@
                 }
             ],
             "mobile": "+791234567",
-            "nickname": "mark.avery",
+            "nickname": "miguelina-padilla-16",
             "online_projects": [
                 "http://www.project.lo",
                 "http://www.project2.lo"
@@ -2134,7 +2246,7 @@
                 20,
                 22
             ],
-            "slug": "",
+            "slug": "miguelina-padilla-16",
             "soft_skills": [
                 7,
                 8,
@@ -2152,10 +2264,17 @@
     },
     {
         "email": "student-8@matchd.lo",
-        "first_name": "Misty",
-        "last_name": "Hernandez",
+        "first_name": "Corey",
+        "last_name": "Hoffman",
         "student": {
-            "attachments": [],
+            "attachments": [
+                {
+                    "file": "corey-hoffman_f-19.jpg",
+                    "key": "student_avatar",
+                    "type": "db.image",
+                    "user": "student-8@matchd.lo"
+                }
+            ],
             "branch": 3,
             "city": "Ebersol",
             "cultural_fits": [
@@ -2193,7 +2312,7 @@
                 }
             ],
             "mobile": "+791234567",
-            "nickname": "misty.hernandez",
+            "nickname": "corey-hoffman-17",
             "online_projects": [
                 "http://www.project.lo",
                 "http://www.project2.lo"
@@ -2210,7 +2329,7 @@
                 25,
                 21
             ],
-            "slug": "",
+            "slug": "corey-hoffman-17",
             "soft_skills": [
                 8,
                 9,
@@ -2229,9 +2348,16 @@
     {
         "email": "student-9@matchd.lo",
         "first_name": "Mary",
-        "last_name": "Polite",
+        "last_name": "Bender",
         "student": {
-            "attachments": [],
+            "attachments": [
+                {
+                    "file": "mary-bender_f-31.jpg",
+                    "key": "student_avatar",
+                    "type": "db.image",
+                    "user": "student-9@matchd.lo"
+                }
+            ],
             "branch": 4,
             "city": "Steinach",
             "cultural_fits": [
@@ -2269,7 +2395,7 @@
                 }
             ],
             "mobile": "+791234567",
-            "nickname": "mary.polite",
+            "nickname": "mary-bender-18",
             "online_projects": [
                 "http://www.project.lo",
                 "http://www.project2.lo"
@@ -2286,7 +2412,7 @@
                 20,
                 22
             ],
-            "slug": "",
+            "slug": "mary-bender-18",
             "soft_skills": [
                 9,
                 10,
@@ -2304,10 +2430,17 @@
     },
     {
         "email": "student-10@matchd.lo",
-        "first_name": "Jessica",
-        "last_name": "Salazar",
+        "first_name": "Lee",
+        "last_name": "Sigler",
         "student": {
-            "attachments": [],
+            "attachments": [
+                {
+                    "file": "lee-sigler_m-17.jpg",
+                    "key": "student_avatar",
+                    "type": "db.image",
+                    "user": "student-10@matchd.lo"
+                }
+            ],
             "branch": 5,
             "city": "Ebersol",
             "cultural_fits": [
@@ -2345,7 +2478,7 @@
                 }
             ],
             "mobile": "+791234567",
-            "nickname": "jessica.salazar",
+            "nickname": "lee-sigler-19",
             "online_projects": [
                 "http://www.project.lo",
                 "http://www.project2.lo"
@@ -2362,7 +2495,7 @@
                 33,
                 21
             ],
-            "slug": "",
+            "slug": "lee-sigler-19",
             "soft_skills": [
                 10,
                 11,
@@ -2380,10 +2513,17 @@
     },
     {
         "email": "student-11@matchd.lo",
-        "first_name": "Grete",
-        "last_name": "Weber",
+        "first_name": "Nathaniel",
+        "last_name": "Olivarez",
         "student": {
-            "attachments": [],
+            "attachments": [
+                {
+                    "file": "nathaniel-olivarez_m-47.jpg",
+                    "key": "student_avatar",
+                    "type": "db.image",
+                    "user": "student-11@matchd.lo"
+                }
+            ],
             "branch": 6,
             "city": "Gossau SG",
             "cultural_fits": [
@@ -2421,7 +2561,7 @@
                 }
             ],
             "mobile": "+791234567",
-            "nickname": "grete.weber",
+            "nickname": "nathaniel-olivarez-20",
             "online_projects": [
                 "http://www.project.lo",
                 "http://www.project2.lo"
@@ -2438,7 +2578,7 @@
                 12,
                 6
             ],
-            "slug": "",
+            "slug": "nathaniel-olivarez-20",
             "soft_skills": [
                 1,
                 2,
@@ -2456,10 +2596,17 @@
     },
     {
         "email": "student-12@matchd.lo",
-        "first_name": "Franz",
-        "last_name": "Haas",
+        "first_name": "Anne",
+        "last_name": "Sullivan",
         "student": {
-            "attachments": [],
+            "attachments": [
+                {
+                    "file": "anne-sullivan_f-22.jpg",
+                    "key": "student_avatar",
+                    "type": "db.image",
+                    "user": "student-12@matchd.lo"
+                }
+            ],
             "branch": 7,
             "city": "Ebnat-Kappel",
             "cultural_fits": [
@@ -2497,7 +2644,7 @@
                 }
             ],
             "mobile": "+791234567",
-            "nickname": "franz.haas",
+            "nickname": "anne-sullivan-21",
             "online_projects": [
                 "http://www.project.lo",
                 "http://www.project2.lo"
@@ -2514,7 +2661,7 @@
                 7,
                 9
             ],
-            "slug": "",
+            "slug": "anne-sullivan-21",
             "soft_skills": [
                 2,
                 3,
@@ -2532,10 +2679,17 @@
     },
     {
         "email": "student-13@matchd.lo",
-        "first_name": "Amala",
-        "last_name": "Volk",
+        "first_name": "Homer",
+        "last_name": "Floyd",
         "student": {
-            "attachments": [],
+            "attachments": [
+                {
+                    "file": "homer-floyd_m-47.jpg",
+                    "key": "student_avatar",
+                    "type": "db.image",
+                    "user": "student-13@matchd.lo"
+                }
+            ],
             "branch": 8,
             "city": "Ebnat-Kappel",
             "cultural_fits": [
@@ -2571,7 +2725,7 @@
                 }
             ],
             "mobile": "+791234567",
-            "nickname": "amala.volk",
+            "nickname": "homer-floyd-22",
             "online_projects": [
                 "http://www.project.lo",
                 "http://www.project2.lo"
@@ -2588,7 +2742,7 @@
                 12,
                 6
             ],
-            "slug": "",
+            "slug": "homer-floyd-22",
             "soft_skills": [
                 3,
                 4,
@@ -2605,10 +2759,17 @@
     },
     {
         "email": "student-14@matchd.lo",
-        "first_name": "Emil",
-        "last_name": "Sch\u00e4fer",
+        "first_name": "Gerald",
+        "last_name": "Ridley",
         "student": {
-            "attachments": [],
+            "attachments": [
+                {
+                    "file": "gerald-ridley_m-39.jpg",
+                    "key": "student_avatar",
+                    "type": "db.image",
+                    "user": "student-14@matchd.lo"
+                }
+            ],
             "branch": 9,
             "city": "Ebersol",
             "cultural_fits": [
@@ -2646,7 +2807,7 @@
                 }
             ],
             "mobile": "+791234567",
-            "nickname": "emil.schaefer",
+            "nickname": "gerald-ridley-23",
             "online_projects": [
                 "http://www.project.lo",
                 "http://www.project2.lo"
@@ -2663,7 +2824,7 @@
                 13,
                 21
             ],
-            "slug": "",
+            "slug": "gerald-ridley-23",
             "soft_skills": [
                 4,
                 6,
@@ -2681,10 +2842,17 @@
     },
     {
         "email": "student-15@matchd.lo",
-        "first_name": "Waldo",
-        "last_name": "Wegener",
+        "first_name": "Mary",
+        "last_name": "Dorsey",
         "student": {
-            "attachments": [],
+            "attachments": [
+                {
+                    "file": "mary-dorsey_f-7.png",
+                    "key": "student_avatar",
+                    "type": "db.image",
+                    "user": "student-15@matchd.lo"
+                }
+            ],
             "branch": 10,
             "city": "Gossau SG",
             "cultural_fits": [
@@ -2720,7 +2888,7 @@
                 }
             ],
             "mobile": "+791234567",
-            "nickname": "waldo.wegener",
+            "nickname": "mary-dorsey-24",
             "online_projects": [
                 "http://www.project.lo",
                 "http://www.project2.lo"
@@ -2737,7 +2905,7 @@
                 34,
                 12
             ],
-            "slug": "",
+            "slug": "mary-dorsey-24",
             "soft_skills": [
                 5,
                 6,
@@ -2755,10 +2923,17 @@
     },
     {
         "email": "student-16@matchd.lo",
-        "first_name": "Heinz",
-        "last_name": "Kraus",
+        "first_name": "Richard",
+        "last_name": "Coleman",
         "student": {
-            "attachments": [],
+            "attachments": [
+                {
+                    "file": "richard-coleman_m-28.jpg",
+                    "key": "student_avatar",
+                    "type": "db.image",
+                    "user": "student-16@matchd.lo"
+                }
+            ],
             "branch": 11,
             "city": "Ebnat-Kappel",
             "cultural_fits": [
@@ -2796,7 +2971,7 @@
                 }
             ],
             "mobile": "+791234567",
-            "nickname": "heinz.kraus",
+            "nickname": "richard-coleman-25",
             "online_projects": [
                 "http://www.project.lo",
                 "http://www.project2.lo"
@@ -2813,7 +2988,7 @@
                 11,
                 13
             ],
-            "slug": "",
+            "slug": "richard-coleman-25",
             "soft_skills": [
                 6,
                 7,
@@ -2831,10 +3006,17 @@
     },
     {
         "email": "student-17@matchd.lo",
-        "first_name": "Wilfried",
-        "last_name": "Vogt",
+        "first_name": "Anne",
+        "last_name": "Ramsey",
         "student": {
-            "attachments": [],
+            "attachments": [
+                {
+                    "file": "anne-ramsey_f-31.jpg",
+                    "key": "student_avatar",
+                    "type": "db.image",
+                    "user": "student-17@matchd.lo"
+                }
+            ],
             "branch": 12,
             "city": "Ebnat-Kappel",
             "cultural_fits": [
@@ -2872,7 +3054,7 @@
                 }
             ],
             "mobile": "+791234567",
-            "nickname": "wilfried.vogt",
+            "nickname": "anne-ramsey-26",
             "online_projects": [
                 "http://www.project.lo",
                 "http://www.project2.lo"
@@ -2889,7 +3071,7 @@
                 36,
                 38
             ],
-            "slug": "",
+            "slug": "anne-ramsey-26",
             "soft_skills": [
                 3,
                 5,
@@ -2907,10 +3089,17 @@
     },
     {
         "email": "student-18@matchd.lo",
-        "first_name": "Emeline",
-        "last_name": "Fabel",
+        "first_name": "Melissa",
+        "last_name": "Hem",
         "student": {
-            "attachments": [],
+            "attachments": [
+                {
+                    "file": "melissa-hem_f-1.jpg",
+                    "key": "student_avatar",
+                    "type": "db.image",
+                    "user": "student-18@matchd.lo"
+                }
+            ],
             "branch": 13,
             "city": "Arbon",
             "cultural_fits": [
@@ -2948,7 +3137,7 @@
                 }
             ],
             "mobile": "+791234567",
-            "nickname": "emeline.fabel",
+            "nickname": "melissa-hem-27",
             "online_projects": [
                 "http://www.project.lo",
                 "http://www.project2.lo"
@@ -2964,7 +3153,7 @@
                 33,
                 35
             ],
-            "slug": "",
+            "slug": "melissa-hem-27",
             "soft_skills": [
                 1,
                 2,
@@ -2982,10 +3171,17 @@
     },
     {
         "email": "student-19@matchd.lo",
-        "first_name": "Ima",
-        "last_name": "Richter",
+        "first_name": "Christine",
+        "last_name": "Harding",
         "student": {
-            "attachments": [],
+            "attachments": [
+                {
+                    "file": "christine-harding_f-48.jpg",
+                    "key": "student_avatar",
+                    "type": "db.image",
+                    "user": "student-19@matchd.lo"
+                }
+            ],
             "branch": 14,
             "city": "Buchs SG",
             "cultural_fits": [
@@ -3023,7 +3219,7 @@
                 }
             ],
             "mobile": "+791234567",
-            "nickname": "ima.richter",
+            "nickname": "christine-harding-28",
             "online_projects": [
                 "http://www.project.lo",
                 "http://www.project2.lo"
@@ -3038,7 +3234,7 @@
                 36,
                 38
             ],
-            "slug": "",
+            "slug": "christine-harding-28",
             "soft_skills": [
                 1,
                 2,
@@ -3056,10 +3252,17 @@
     },
     {
         "email": "student-20@matchd.lo",
-        "first_name": "Uschi",
-        "last_name": "Mayer",
+        "first_name": "Lillian",
+        "last_name": "Lalk",
         "student": {
-            "attachments": [],
+            "attachments": [
+                {
+                    "file": "lillian-lalk_f-30.jpg",
+                    "key": "student_avatar",
+                    "type": "db.image",
+                    "user": "student-20@matchd.lo"
+                }
+            ],
             "branch": 15,
             "city": "Ebnat-Kappel",
             "cultural_fits": [
@@ -3097,7 +3300,7 @@
                 }
             ],
             "mobile": "+791234567",
-            "nickname": "uschi.mayer",
+            "nickname": "lillian-lalk-29",
             "online_projects": [
                 "http://www.project.lo",
                 "http://www.project2.lo"
@@ -3113,7 +3316,7 @@
                 39,
                 21
             ],
-            "slug": "",
+            "slug": "lillian-lalk-29",
             "soft_skills": [
                 1,
                 2,
