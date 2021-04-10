@@ -60,8 +60,6 @@ def test_step_1_as_student(login, user_student, university_step_1):
     assert data is not None
     assert data.get('universityProfileStep1') is not None
 
-    print(data)
-
     errors = data.get('universityProfileStep1').get('errors')
     assert errors is not None
     assert 'type' in errors

@@ -22,6 +22,7 @@ def test_me_student(login, me, user_student, skill_objects, soft_skill_objects, 
     user_student.student.street = 'street 1337'
     user_student.student.date_of_birth = convert_date('01.03.1337')
     user_student.student.nickname = 'nickname'
+    user_student.student.slug = 'nickname'
     user_student.student.school_name = 'school name'
     user_student.student.field_of_study = 'field of study'
     user_student.student.graduation = convert_date('03.1337', '%m.%Y')
@@ -64,6 +65,7 @@ def test_me_student(login, me, user_student, skill_objects, soft_skill_objects, 
     assert student.get('street') == 'street 1337'
     assert student.get('dateOfBirth') == '1337-03-01'
     assert student.get('nickname') == 'nickname'
+    assert student.get('slug') == 'nickname'
     assert student.get('schoolName') == 'school name'
     assert student.get('fieldOfStudy') == 'field of study'
     assert student.get('graduation') == '1337-03-01'

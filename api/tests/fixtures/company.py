@@ -55,6 +55,9 @@ def company_query(slug):
                 student
                 company
             }
+            jobPostings {
+                id
+            }
             topLevelOrganisationDescription
             topLevelOrganisationWebsite
             linkEducation
