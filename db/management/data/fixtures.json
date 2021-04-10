@@ -114,9 +114,7 @@
         "company": {
             "attachments": [],
             "benefits": [],
-            "branches": [
-                1
-            ],
+            "branches": [],
             "city": "St. Gallen",
             "cultural_fits": [],
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
@@ -152,12 +150,28 @@
     {
         "company": {
             "attachments": [],
-            "benefits": [],
+            "benefits": [
+                3,
+                14,
+                10,
+                5,
+                2,
+                13
+            ],
             "branches": [
-                2
+                12,
+                9,
+                15
             ],
             "city": "St. Gallen",
-            "cultural_fits": [],
+            "cultural_fits": [
+                2,
+                3,
+                5,
+                6,
+                8,
+                9
+            ],
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
             "job_postings": [
                 {
@@ -436,12 +450,28 @@
                     "user": "liip@matchd.lo"
                 }
             ],
-            "benefits": [],
+            "benefits": [
+                9,
+                7,
+                14,
+                4,
+                5,
+                2
+            ],
             "branches": [
-                1
+                2,
+                5,
+                6
             ],
             "city": "St. Gallen",
-            "cultural_fits": [],
+            "cultural_fits": [
+                1,
+                2,
+                4,
+                7,
+                9,
+                11
+            ],
             "description": "Wir machen innovatives und individuelles Web-Development und Mobile-Apps. Dank grosser Expertise, langj\u00e4hriger Erfahrung und einer einzigartigen Kultur \u00fcberzeugt dies nicht nur unsere Kunden \u2013 sondern auch viele Wettbewerbsjurys.",
             "job_postings": [
                 {
@@ -795,9 +825,7 @@
         "company": {
             "attachments": [],
             "benefits": [],
-            "branches": [
-                1
-            ],
+            "branches": [],
             "city": "St. Gallen",
             "cultural_fits": [],
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
@@ -833,12 +861,28 @@
     {
         "company": {
             "attachments": [],
-            "benefits": [],
+            "benefits": [
+                14,
+                12,
+                2,
+                1,
+                13,
+                8
+            ],
             "branches": [
-                1
+                5,
+                6,
+                3
             ],
             "city": "St. Gallen",
-            "cultural_fits": [],
+            "cultural_fits": [
+                1,
+                2,
+                4,
+                5,
+                6,
+                12
+            ],
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
             "job_postings": [
                 {
@@ -1052,10 +1096,12 @@
             "services": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem.",
             "slug": "luther-university",
             "soft_skills": [
-                1,
-                5,
-                7,
-                10
+                3,
+                6,
+                9,
+                11,
+                13,
+                14
             ],
             "state": "public",
             "street": "Vadianstrasse 25A",
@@ -1467,9 +1513,7 @@
         "company": {
             "attachments": [],
             "benefits": [],
-            "branches": [
-                1
-            ],
+            "branches": [],
             "city": "St. Gallen",
             "cultural_fits": [],
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a scelerisque elit. Praesent accumsan mi id mauris scelerisque, sagittis tristique sem facilisis. Mauris in tempor risus. Integer ornare, leo placerat mollis molestie, urna ipsum volutpat lectus, quis vestibulum lorem sem quis urna. Vestibulum finibus, quam eu laoreet facilisis, lectus dolor vehicula orci, consequat feugiat orci enim eu orci. Ut sed urna quis augue gravida tempus. Fusce sed orci et lacus congue gravida. Integer leo arcu, mattis vitae egestas non, fermentum nec justo. Integer in consequat metus. Phasellus tempus, mauris et pharetra tempor, orci eros venenatis orci, in eleifend erat elit ut leo. Maecenas hendrerit eu ipsum at viverra. Mauris auctor sapien eu turpis maximus, eget tincidunt ligula pretium. Nullam at elit ac elit iaculis tincidunt. Nam massa risus, hendrerit ut eros sit amet, aliquam feugiat ante. Donec aliquet nisi a maximus molestie.",
@@ -3230,7 +3274,14 @@
                     "user": "company-1-1@matchd.lo"
                 }
             ],
-            "benefits": [],
+            "benefits": [
+                6,
+                9,
+                3,
+                7,
+                1,
+                11
+            ],
             "branches": [
                 2,
                 13,
@@ -3240,7 +3291,14 @@
                 4
             ],
             "city": "",
-            "cultural_fits": [],
+            "cultural_fits": [
+                1,
+                5,
+                7,
+                9,
+                10,
+                12
+            ],
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
                 {
@@ -3454,10 +3512,12 @@
             "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "slug": "company-1",
             "soft_skills": [
-                7,
-                8,
-                10,
-                13
+                2,
+                3,
+                5,
+                6,
+                13,
+                14
             ],
             "state": "public",
             "street": "",
@@ -3524,7 +3584,14 @@
                     "user": "company-2-1@matchd.lo"
                 }
             ],
-            "benefits": [],
+            "benefits": [
+                6,
+                9,
+                7,
+                2,
+                13,
+                8
+            ],
             "branches": [
                 5,
                 3,
@@ -3534,7 +3601,14 @@
                 4
             ],
             "city": "",
-            "cultural_fits": [],
+            "cultural_fits": [
+                2,
+                3,
+                7,
+                8,
+                9,
+                11
+            ],
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
                 {
@@ -3748,8 +3822,10 @@
             "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "slug": "company-2",
             "soft_skills": [
-                3,
-                10,
+                5,
+                6,
+                7,
+                8,
                 12,
                 15
             ],
@@ -3818,7 +3894,14 @@
                     "user": "company-3-1@matchd.lo"
                 }
             ],
-            "benefits": [],
+            "benefits": [
+                6,
+                9,
+                14,
+                12,
+                13,
+                11
+            ],
             "branches": [
                 2,
                 13,
@@ -3828,7 +3911,14 @@
                 1
             ],
             "city": "",
-            "cultural_fits": [],
+            "cultural_fits": [
+                3,
+                5,
+                6,
+                9,
+                10,
+                12
+            ],
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
                 {
@@ -4042,10 +4132,12 @@
             "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "slug": "company-3",
             "soft_skills": [
-                3,
+                5,
                 6,
+                9,
+                10,
                 11,
-                13
+                12
             ],
             "state": "public",
             "street": "",
@@ -4112,7 +4204,14 @@
                     "user": "company-4-1@matchd.lo"
                 }
             ],
-            "benefits": [],
+            "benefits": [
+                6,
+                14,
+                10,
+                1,
+                13,
+                11
+            ],
             "branches": [
                 2,
                 13,
@@ -4122,7 +4221,14 @@
                 15
             ],
             "city": "",
-            "cultural_fits": [],
+            "cultural_fits": [
+                1,
+                2,
+                7,
+                9,
+                10,
+                11
+            ],
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
                 {
@@ -4336,10 +4442,12 @@
             "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "slug": "company-4",
             "soft_skills": [
-                3,
-                4,
+                2,
+                6,
+                10,
                 11,
-                15
+                12,
+                13
             ],
             "state": "public",
             "street": "",
@@ -4406,7 +4514,14 @@
                     "user": "company-5-1@matchd.lo"
                 }
             ],
-            "benefits": [],
+            "benefits": [
+                3,
+                7,
+                10,
+                5,
+                2,
+                13
+            ],
             "branches": [
                 3,
                 12,
@@ -4416,7 +4531,14 @@
                 4
             ],
             "city": "",
-            "cultural_fits": [],
+            "cultural_fits": [
+                3,
+                5,
+                6,
+                7,
+                8,
+                11
+            ],
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
                 {
@@ -4630,10 +4752,12 @@
             "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "slug": "company-5",
             "soft_skills": [
-                6,
-                8,
-                9,
-                11
+                1,
+                2,
+                3,
+                4,
+                11,
+                14
             ],
             "state": "public",
             "street": "",
@@ -4700,7 +4824,14 @@
                     "user": "company-6-1@matchd.lo"
                 }
             ],
-            "benefits": [],
+            "benefits": [
+                3,
+                12,
+                5,
+                2,
+                1,
+                8
+            ],
             "branches": [
                 13,
                 16,
@@ -4710,7 +4841,14 @@
                 4
             ],
             "city": "",
-            "cultural_fits": [],
+            "cultural_fits": [
+                2,
+                4,
+                6,
+                8,
+                9,
+                12
+            ],
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
                 {
@@ -4925,9 +5063,11 @@
             "slug": "company-6",
             "soft_skills": [
                 3,
-                4,
-                5,
-                10
+                7,
+                10,
+                11,
+                12,
+                15
             ],
             "state": "public",
             "street": "",
@@ -4994,7 +5134,14 @@
                     "user": "company-7-1@matchd.lo"
                 }
             ],
-            "benefits": [],
+            "benefits": [
+                9,
+                4,
+                12,
+                5,
+                13,
+                11
+            ],
             "branches": [
                 13,
                 6,
@@ -5004,7 +5151,14 @@
                 4
             ],
             "city": "",
-            "cultural_fits": [],
+            "cultural_fits": [
+                1,
+                2,
+                6,
+                7,
+                10,
+                12
+            ],
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
                 {
@@ -5218,9 +5372,11 @@
             "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "slug": "company-7",
             "soft_skills": [
-                1,
-                12,
-                13,
+                3,
+                4,
+                5,
+                9,
+                11,
                 14
             ],
             "state": "public",
@@ -5288,7 +5444,14 @@
                     "user": "company-8-1@matchd.lo"
                 }
             ],
-            "benefits": [],
+            "benefits": [
+                6,
+                9,
+                7,
+                1,
+                13,
+                8
+            ],
             "branches": [
                 2,
                 5,
@@ -5298,7 +5461,14 @@
                 4
             ],
             "city": "",
-            "cultural_fits": [],
+            "cultural_fits": [
+                3,
+                4,
+                5,
+                8,
+                10,
+                12
+            ],
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
                 {
@@ -5512,10 +5682,12 @@
             "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "slug": "company-8",
             "soft_skills": [
-                4,
-                12,
-                13,
-                15
+                5,
+                6,
+                7,
+                8,
+                9,
+                12
             ],
             "state": "public",
             "street": "",
@@ -5582,7 +5754,14 @@
                     "user": "company-9-1@matchd.lo"
                 }
             ],
-            "benefits": [],
+            "benefits": [
+                6,
+                3,
+                14,
+                4,
+                13,
+                8
+            ],
             "branches": [
                 7,
                 11,
@@ -5592,7 +5771,14 @@
                 4
             ],
             "city": "",
-            "cultural_fits": [],
+            "cultural_fits": [
+                1,
+                2,
+                3,
+                6,
+                9,
+                10
+            ],
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
                 {
@@ -5807,7 +5993,9 @@
             "slug": "company-9",
             "soft_skills": [
                 5,
+                6,
                 7,
+                10,
                 12,
                 14
             ],
@@ -5876,7 +6064,14 @@
                     "user": "company-10-1@matchd.lo"
                 }
             ],
-            "benefits": [],
+            "benefits": [
+                4,
+                10,
+                12,
+                1,
+                13,
+                8
+            ],
             "branches": [
                 2,
                 5,
@@ -5886,7 +6081,14 @@
                 4
             ],
             "city": "",
-            "cultural_fits": [],
+            "cultural_fits": [
+                4,
+                5,
+                6,
+                8,
+                9,
+                11
+            ],
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
                 {
@@ -6100,10 +6302,12 @@
             "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "slug": "company-10",
             "soft_skills": [
+                4,
+                5,
                 6,
-                7,
-                9,
-                11
+                8,
+                10,
+                12
             ],
             "state": "public",
             "street": "",
@@ -6170,7 +6374,14 @@
                     "user": "company-11-1@matchd.lo"
                 }
             ],
-            "benefits": [],
+            "benefits": [
+                6,
+                14,
+                4,
+                10,
+                12,
+                8
+            ],
             "branches": [
                 2,
                 13,
@@ -6180,7 +6391,14 @@
                 11
             ],
             "city": "",
-            "cultural_fits": [],
+            "cultural_fits": [
+                5,
+                6,
+                9,
+                10,
+                11,
+                12
+            ],
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
                 {
@@ -6394,10 +6612,12 @@
             "services": "",
             "slug": "company-11",
             "soft_skills": [
-                2,
-                4,
+                1,
+                3,
+                6,
                 7,
-                8
+                14,
+                15
             ],
             "state": "public",
             "street": "",
@@ -6464,7 +6684,14 @@
                     "user": "company-12-1@matchd.lo"
                 }
             ],
-            "benefits": [],
+            "benefits": [
+                9,
+                7,
+                4,
+                12,
+                5,
+                1
+            ],
             "branches": [
                 13,
                 14,
@@ -6695,10 +6922,12 @@
             "services": "",
             "slug": "company-12",
             "soft_skills": [
+                1,
                 3,
-                8,
+                4,
                 10,
-                13
+                11,
+                15
             ],
             "state": "public",
             "street": "",
@@ -6765,7 +6994,14 @@
                     "user": "company-13-1@matchd.lo"
                 }
             ],
-            "benefits": [],
+            "benefits": [
+                3,
+                7,
+                12,
+                2,
+                13,
+                11
+            ],
             "branches": [
                 13,
                 7,
@@ -6996,9 +7232,11 @@
             "services": "",
             "slug": "company-13",
             "soft_skills": [
-                3,
+                1,
+                4,
                 5,
-                7,
+                10,
+                11,
                 13
             ],
             "state": "public",
@@ -7066,7 +7304,14 @@
                     "user": "company-14-1@matchd.lo"
                 }
             ],
-            "benefits": [],
+            "benefits": [
+                9,
+                4,
+                1,
+                13,
+                11,
+                8
+            ],
             "branches": [
                 2,
                 5,
@@ -7298,9 +7543,11 @@
             "slug": "company-14",
             "soft_skills": [
                 1,
-                9,
-                14,
-                15
+                4,
+                6,
+                8,
+                11,
+                12
             ],
             "state": "public",
             "street": "",
@@ -7367,7 +7614,14 @@
                     "user": "company-15-1@matchd.lo"
                 }
             ],
-            "benefits": [],
+            "benefits": [
+                7,
+                14,
+                4,
+                10,
+                2,
+                8
+            ],
             "branches": [
                 6,
                 3,
@@ -7598,10 +7852,12 @@
             "services": "",
             "slug": "company-15",
             "soft_skills": [
-                6,
-                8,
-                14,
-                15
+                4,
+                9,
+                10,
+                12,
+                13,
+                14
             ],
             "state": "public",
             "street": "",
@@ -7668,7 +7924,14 @@
                     "user": "company-16-1@matchd.lo"
                 }
             ],
-            "benefits": [],
+            "benefits": [
+                3,
+                4,
+                10,
+                2,
+                1,
+                13
+            ],
             "branches": [
                 13,
                 6,
@@ -7899,10 +8162,12 @@
             "services": "",
             "slug": "company-16",
             "soft_skills": [
+                1,
                 3,
-                7,
-                9,
-                10
+                6,
+                8,
+                10,
+                12
             ],
             "state": "public",
             "street": "",
@@ -7969,7 +8234,14 @@
                     "user": "company-17-1@matchd.lo"
                 }
             ],
-            "benefits": [],
+            "benefits": [
+                6,
+                10,
+                2,
+                1,
+                11,
+                8
+            ],
             "branches": [
                 13,
                 5,
@@ -8200,10 +8472,12 @@
             "services": "",
             "slug": "company-17",
             "soft_skills": [
-                2,
-                3,
-                7,
-                13
+                6,
+                8,
+                9,
+                10,
+                12,
+                15
             ],
             "state": "public",
             "street": "",
@@ -8270,7 +8544,14 @@
                     "user": "company-18-1@matchd.lo"
                 }
             ],
-            "benefits": [],
+            "benefits": [
+                6,
+                9,
+                14,
+                4,
+                10,
+                11
+            ],
             "branches": [
                 6,
                 7,
@@ -8501,10 +8782,12 @@
             "services": "",
             "slug": "company-18",
             "soft_skills": [
-                1,
-                4,
-                9,
-                12
+                5,
+                7,
+                11,
+                13,
+                14,
+                15
             ],
             "state": "public",
             "street": "",
@@ -8571,7 +8854,14 @@
                     "user": "company-19-1@matchd.lo"
                 }
             ],
-            "benefits": [],
+            "benefits": [
+                9,
+                4,
+                5,
+                2,
+                13,
+                8
+            ],
             "branches": [
                 2,
                 3,
@@ -8802,8 +9092,10 @@
             "services": "",
             "slug": "company-19",
             "soft_skills": [
-                1,
+                7,
                 9,
+                10,
+                11,
                 12,
                 13
             ],
@@ -8872,7 +9164,14 @@
                     "user": "company-20-1@matchd.lo"
                 }
             ],
-            "benefits": [],
+            "benefits": [
+                9,
+                3,
+                7,
+                2,
+                11,
+                8
+            ],
             "branches": [
                 16,
                 7,
@@ -9103,10 +9402,12 @@
             "services": "",
             "slug": "company-20",
             "soft_skills": [
-                1,
+                2,
                 5,
+                8,
                 9,
-                10
+                11,
+                14
             ],
             "state": "public",
             "street": "",
