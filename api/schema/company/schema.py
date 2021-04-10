@@ -4,9 +4,11 @@ from django.shortcuts import get_object_or_404
 from graphene import ObjectType
 from graphene_django import DjangoObjectType
 from django.utils.translation import gettext as _
+from graphql import ResolveInfo
 from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 
+from api.helper import is_me_query
 from api.schema.benefit import BenefitInput
 from api.schema.branch.schema import BranchInput
 from api.schema.cultural_fit import CulturalFitInput
@@ -19,7 +21,7 @@ from db.forms import process_company_form_step_2, process_company_form_step_3, p
     process_university_form_step_2, process_university_form_step_3
 from db.forms.company_step_1 import process_company_form_step_1
 from db.forms.company_step_4 import process_company_form_step_4
-from db.models import Company as CompanyModel, ProfileState as ProfileStateModel
+from db.models import Company as CompanyModel, ProfileState as ProfileStateModel, JobPostingState
 
 
 class CompanyInput(graphene.InputObjectType):
@@ -234,6 +236,8 @@ class Company(DjangoObjectType):
     job_postings = graphene.NonNull(graphene.List(graphene.NonNull('api.schema.job_posting.schema.JobPosting')))
     type = graphene.Field(graphene.NonNull(ProfileType))
     state = graphene.Field(graphene.NonNull(ProfileState))
+    soft_skills = graphene.NonNull(graphene.List(graphene.NonNull('api.schema.soft_skill.schema.SoftSkill')))
+    cultural_fits = graphene.NonNull(graphene.List(graphene.NonNull('api.schema.cultural_fit.schema.CulturalFit')))
 
     class Meta:
         model = CompanyModel
@@ -250,8 +254,20 @@ class Company(DjangoObjectType):
             employees.append(user.employee)
         return employees
 
-    def resolve_job_postings(self: CompanyModel, info):
-        return self.job_postings.filter(state='public')
+    def resolve_job_postings(self: CompanyModel, info: ResolveInfo):
+        if is_me_query(info):
+            return self.job_postings.all()
+        return self.job_postings.filter(state=JobPostingState.PUBLIC)
+
+    def resolve_soft_skills(self: CompanyModel, info: ResolveInfo):
+        if is_me_query(info):
+            return self.soft_skills.all()
+        return []
+
+    def resolve_cultural_fits(self: CompanyModel, info: ResolveInfo):
+        if is_me_query(info):
+            return self.cultural_fits.all()
+        return []
 
 
 class CompanyQuery(ObjectType):

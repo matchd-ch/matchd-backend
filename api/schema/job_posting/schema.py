@@ -6,6 +6,7 @@ from graphene import ObjectType
 from graphene_django import DjangoObjectType
 from graphql_auth.bases import Output
 
+from api.helper import is_me_query
 from api.schema.branch import BranchInput
 from api.schema.employee import Employee
 from api.schema.job_requirement import JobRequirementInput
@@ -34,12 +35,25 @@ class JobPosting(DjangoObjectType):
     state = graphene.Field(graphene.NonNull(JobPostingState))
     employee = graphene.Field(Employee)
     workload = graphene.Field(graphene.NonNull(graphene.Int))
+    skills = graphene.NonNull(graphene.List(graphene.NonNull('api.schema.skill.schema.Skill')))
+    languages = graphene.NonNull(graphene.List(graphene.NonNull(
+        'api.schema.job_posting_language_relation.JobPostingLanguageRelation')))
 
     class Meta:
         model = JobPostingModel
         fields = ('id', 'title', 'description', 'job_type', 'workload', 'company', 'job_from_date', 'job_to_date',
                   'url', 'form_step', 'skills', 'job_requirements', 'languages', 'branch', 'state', 'employee', 'slug')
         convert_choices_to_enum = False
+
+    def resolve_skills(self: JobPostingModel, info):
+        if is_me_query(info):
+            return self.skills.all()
+        return []
+
+    def resolve_languages(self: JobPostingModel, info):
+        if is_me_query(info):
+            return self.languages.all()
+        return []
 
 
 class JobPostingQuery(ObjectType):
