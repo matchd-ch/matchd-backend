@@ -2,6 +2,7 @@ import json
 import os
 import random
 import shutil
+
 import names
 
 import magic
@@ -65,6 +66,8 @@ class Command(BaseCommand):
     ]
     random_requirements = []
     random_gender = []
+    random_male_avatars = []
+    random_female_avatars = []
 
     def random_name(self):
         gender = self.random_items(self.random_gender, 1)
@@ -86,6 +89,16 @@ class Command(BaseCommand):
         self.random_language_levels = list(LanguageLevel.objects.all().values_list('id', flat=True))
         self.random_requirements = list(JobRequirement.objects.all().values_list('id', flat=True))
         self.random_gender = ['male', 'female']
+
+        path = os.path.join(settings.MEDIA_ROOT, 'student_fixtures')
+        student_avatars = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
+        for f in student_avatars:
+            if f[0] == '.':
+                continue
+            elif f[0] == 'f':
+                self.random_female_avatars.append(f)
+            elif f[0] == 'm':
+                self.random_male_avatars.append(f)
 
     def load_address_list(self):
         with open('db/management/commands/address_list.txt') as address_file:
@@ -405,9 +418,8 @@ class Command(BaseCommand):
         if attachments is None:
             return
         fixtures_path = os.path.join(settings.MEDIA_ROOT, 'student_fixtures')
-
+        user = student.user
         for attachment in attachments:
-            user = student.user
             self.create_attachment(fixtures_path, student, attachment, user, 'student')
 
     def create_attachments_for_company(self, company, user_data):
