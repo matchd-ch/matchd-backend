@@ -45,26 +45,25 @@ class JobPosting(DjangoObjectType):
 
 
 class JobPostingQuery(ObjectType):
-    job_postings = graphene.List(JobPosting, company=graphene.Int(required=False))
+    job_postings = graphene.List(JobPosting, slug=graphene.String(required=False))
     job_posting = graphene.Field(JobPosting, slug=graphene.String(required=True))
 
     @login_required
     def resolve_job_postings(self, info, **kwargs):
-        company_id = kwargs.get('company')
-        company = None
-        if company_id is None:
+        slug = kwargs.get('slug')
+        if slug is None:
             user = info.context.user
             if user.type not in ProfileType.valid_company_types():
                 raise PermissionDenied('You do not have permission to perform this action')
-            company = user.company
+            company = get_object_or_404(Company, slug=slug)
+            if company == user.company:
+                # show incomplete job postings
+                return JobPostingModel.objects.filter(company=company)
+            raise PermissionDenied('You do not have permission to perform this action')
         else:
-            company = get_object_or_404(Company, pk=company_id)
-
-        if company is None:
-            raise Http404('No job postings found')
-
-        # hide incomplete job postings
-        return JobPostingModel.objects.filter(state=JobPostingState.PUBLIC, company=company)
+            company = get_object_or_404(Company, slug=slug)
+            # hide incomplete job postings
+            return JobPostingModel.objects.filter(state=JobPostingState.PUBLIC, company=company)
 
     @login_required
     def resolve_job_posting(self, info, **kwargs):
