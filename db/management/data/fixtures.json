@@ -1145,6 +1145,7 @@
             "profile_step": 1,
             "school_name": null,
             "skills": [],
+            "slug": "",
             "soft_skills": [],
             "state": "incomplete",
             "street": "B\u00fcelweg",
@@ -1177,6 +1178,7 @@
             "profile_step": 1,
             "school_name": null,
             "skills": [],
+            "slug": "",
             "soft_skills": [],
             "state": "incomplete",
             "street": "Romanshornerstrasse",
@@ -1209,6 +1211,7 @@
             "profile_step": 2,
             "school_name": "",
             "skills": [],
+            "slug": "",
             "soft_skills": [],
             "state": "incomplete",
             "street": "Widenstrasse",
@@ -1241,6 +1244,7 @@
             "profile_step": 3,
             "school_name": "FH Winterthur",
             "skills": [],
+            "slug": "",
             "soft_skills": [],
             "state": "incomplete",
             "street": "Schwand-Wintersbergweg",
@@ -1273,6 +1277,7 @@
             "profile_step": 4,
             "school_name": "FH Winterthur",
             "skills": [],
+            "slug": "",
             "soft_skills": [],
             "state": "incomplete",
             "street": "Bendelverbindungsweg",
@@ -1324,6 +1329,7 @@
                 2,
                 1
             ],
+            "slug": "",
             "soft_skills": [],
             "state": "incomplete",
             "street": "Niderwil",
@@ -1375,6 +1381,7 @@
                 2,
                 1
             ],
+            "slug": "",
             "soft_skills": [],
             "state": "incomplete",
             "street": "G\u00fcterstrasse",
@@ -1433,6 +1440,7 @@
                 2,
                 1
             ],
+            "slug": "",
             "soft_skills": [
                 3,
                 4,
@@ -1496,6 +1504,7 @@
                 2,
                 1
             ],
+            "slug": "",
             "soft_skills": [
                 3,
                 5,
@@ -1629,6 +1638,7 @@
                 12,
                 6
             ],
+            "slug": "",
             "soft_skills": [
                 1,
                 2,
@@ -1719,6 +1729,7 @@
                 9,
                 13
             ],
+            "slug": "",
             "soft_skills": [
                 2,
                 3,
@@ -1809,6 +1820,7 @@
                 12,
                 6
             ],
+            "slug": "",
             "soft_skills": [
                 3,
                 4,
@@ -1894,6 +1906,7 @@
                 13,
                 21
             ],
+            "slug": "",
             "soft_skills": [
                 4,
                 5,
@@ -1969,6 +1982,7 @@
                 22,
                 12
             ],
+            "slug": "",
             "soft_skills": [
                 5,
                 6,
@@ -2044,6 +2058,7 @@
                 13,
                 21
             ],
+            "slug": "",
             "soft_skills": [
                 6,
                 7,
@@ -2119,6 +2134,7 @@
                 20,
                 22
             ],
+            "slug": "",
             "soft_skills": [
                 7,
                 8,
@@ -2194,6 +2210,7 @@
                 25,
                 21
             ],
+            "slug": "",
             "soft_skills": [
                 8,
                 9,
@@ -2269,6 +2286,7 @@
                 20,
                 22
             ],
+            "slug": "",
             "soft_skills": [
                 9,
                 10,
@@ -2344,6 +2362,7 @@
                 33,
                 21
             ],
+            "slug": "",
             "soft_skills": [
                 10,
                 11,
@@ -2419,6 +2438,7 @@
                 12,
                 6
             ],
+            "slug": "",
             "soft_skills": [
                 1,
                 2,
@@ -2494,6 +2514,7 @@
                 7,
                 9
             ],
+            "slug": "",
             "soft_skills": [
                 2,
                 3,
@@ -2567,6 +2588,7 @@
                 12,
                 6
             ],
+            "slug": "",
             "soft_skills": [
                 3,
                 4,
@@ -2641,6 +2663,7 @@
                 13,
                 21
             ],
+            "slug": "",
             "soft_skills": [
                 4,
                 6,
@@ -2714,6 +2737,7 @@
                 34,
                 12
             ],
+            "slug": "",
             "soft_skills": [
                 5,
                 6,
@@ -2789,6 +2813,7 @@
                 11,
                 13
             ],
+            "slug": "",
             "soft_skills": [
                 6,
                 7,
@@ -2864,6 +2889,7 @@
                 36,
                 38
             ],
+            "slug": "",
             "soft_skills": [
                 3,
                 5,
@@ -2938,6 +2964,7 @@
                 33,
                 35
             ],
+            "slug": "",
             "soft_skills": [
                 1,
                 2,
@@ -3011,6 +3038,7 @@
                 36,
                 38
             ],
+            "slug": "",
             "soft_skills": [
                 1,
                 2,
@@ -3085,6 +3113,7 @@
                 39,
                 21
             ],
+            "slug": "",
             "soft_skills": [
                 1,
                 2,
