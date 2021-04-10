@@ -18,6 +18,7 @@ from api.schema.skill import SkillInput
 from db.exceptions import FormException
 from db.forms import process_job_posting_form_step_1, process_job_posting_form_step_2, process_job_posting_form_step_3
 from db.models import JobPosting as JobPostingModel, Company, JobPostingState as JobPostingStateModel, ProfileType
+from graphql_jwt.decorators import login_required
 
 JobPostingState = graphene.Enum.from_enum(JobPostingStateModel)
 
@@ -38,15 +39,16 @@ class JobPosting(DjangoObjectType):
 
     class Meta:
         model = JobPostingModel
-        fields = ('id', 'title', 'description', 'job_type', 'workload', 'company', 'job_from_date', 'job_to_date', 'url',
-                  'form_step', 'skills', 'job_requirements', 'languages', 'branch', 'state', 'employee', )
+        fields = ('id', 'title', 'description', 'job_type', 'workload', 'company', 'job_from_date', 'job_to_date',
+                  'url', 'form_step', 'skills', 'job_requirements', 'languages', 'branch', 'state', 'employee', 'slug')
         convert_choices_to_enum = False
 
 
 class JobPostingQuery(ObjectType):
     job_postings = graphene.List(JobPosting, company=graphene.Int(required=False))
-    job_posting = graphene.Field(JobPosting, id=graphene.ID(required=True))
+    job_posting = graphene.Field(JobPosting, slug=graphene.String(required=True))
 
+    @login_required
     def resolve_job_postings(self, info, **kwargs):
         company_id = kwargs.get('company')
         company = None
@@ -64,9 +66,10 @@ class JobPostingQuery(ObjectType):
         # hide incomplete job postings
         return JobPostingModel.objects.filter(state=JobPostingState.PUBLIC, company=company)
 
+    @login_required
     def resolve_job_posting(self, info, **kwargs):
-        job_posting_id = kwargs.get('id')
-        job_posting = get_object_or_404(JobPostingModel, id=job_posting_id)
+        slug = kwargs.get('slug')
+        job_posting = get_object_or_404(JobPostingModel, slug=slug)
 
         # show incomplete job postings for owner
         if info.context.user.company == job_posting.company:
