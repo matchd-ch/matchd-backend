@@ -82,7 +82,7 @@ def job_posting_mutation(step):
       jobPostingStep%s(step%s: $step%s) {
         success,
         errors,
-        jobPostingId
+        slug
       }
     }
     ''' % (step, step, step, step, step)

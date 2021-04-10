@@ -18,7 +18,9 @@ def test_step_1(requests_mock, user_employee, login, job_posting_step_1, job_typ
     assert data.get('jobPostingStep1') is not None
     assert data.get('jobPostingStep1').get('success')
 
-    job_posting = JobPosting.objects.get(pk=data.get('jobPostingStep1').get('jobPostingId'))
+    job_posting = JobPosting.objects.get(slug=data.get('jobPostingStep1').get('slug'))
+    assert job_posting.title == 'title'
+    assert job_posting.slug == f'title-{str(job_posting.id)}'
     assert job_posting.description == 'description'
     assert job_posting.job_type == job_type_objects[0]
     assert job_posting.branch == branch_objects[0]
@@ -46,7 +48,7 @@ def test_step_1_as_student(user_student, login, job_posting_step_1, job_type_obj
     assert errors is None
     assert data is not None
     assert data.get('jobPostingStep1') is not None
-    assert data.get('jobPostingStep1').get('jobPostingId') is None
+    assert data.get('jobPostingStep1').get('slug') is None
 
     errors = data.get('jobPostingStep1').get('errors')
     assert errors is not None
@@ -63,7 +65,7 @@ def test_step_1_with_invalid_data(requests_mock, user_employee, login, job_posti
     assert data is not None
     assert data.get('jobPostingStep1') is not None
     assert data.get('jobPostingStep1').get('success') is False
-    assert data.get('jobPostingStep1').get('jobPostingId') is None
+    assert data.get('jobPostingStep1').get('slug') is None
 
     errors = data.get('jobPostingStep1').get('errors')
     assert errors is not None
@@ -88,7 +90,7 @@ def test_step_1_with_invalid_date_range(requests_mock, user_employee, login, job
     assert data is not None
     assert data.get('jobPostingStep1') is not None
     assert data.get('jobPostingStep1').get('success') is False
-    assert data.get('jobPostingStep1').get('jobPostingId') is None
+    assert data.get('jobPostingStep1').get('slug') is None
 
     errors = data.get('jobPostingStep1').get('errors')
     assert errors is not None

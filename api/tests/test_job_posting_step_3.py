@@ -15,7 +15,7 @@ def test_step_3(user_employee, job_posting_object, login, job_posting_step_3):
     assert data.get('jobPostingStep3') is not None
     assert data.get('jobPostingStep3').get('success')
 
-    job_posting = JobPosting.objects.get(pk=data.get('jobPostingStep3').get('jobPostingId'))
+    job_posting = JobPosting.objects.get(slug=data.get('jobPostingStep3').get('slug'))
     assert job_posting.employee.id == user_employee.employee.id
     assert job_posting.state == ProfileState.PUBLIC
     assert job_posting.form_step == 4
@@ -46,7 +46,7 @@ def test_step_3_as_student(user_student, login, user_employee, job_posting_objec
     assert errors is None
     assert data is not None
     assert data.get('jobPostingStep3') is not None
-    assert data.get('jobPostingStep3').get('jobPostingId') is None
+    assert data.get('jobPostingStep3').get('slug') is None
 
     errors = data.get('jobPostingStep3').get('errors')
     assert errors is not None
@@ -64,7 +64,7 @@ def test_step_3_as_employee_from_another_company(user_employee_2, job_posting_ob
     assert data is not None
     assert data.get('jobPostingStep3') is not None
     assert data.get('jobPostingStep3').get('success') is False
-    assert data.get('jobPostingStep3').get('jobPostingId') is None
+    assert data.get('jobPostingStep3').get('slug') is None
 
     errors = data.get('jobPostingStep3').get('errors')
     assert errors is not None
