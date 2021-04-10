@@ -152,25 +152,25 @@
             "attachments": [],
             "benefits": [
                 3,
-                14,
                 10,
+                12,
                 5,
                 2,
-                13
+                8
             ],
             "branches": [
-                12,
-                9,
-                15
+                10,
+                11,
+                9
             ],
             "city": "Ebnat-Kappel",
             "cultural_fits": [
+                1,
                 2,
-                3,
-                5,
-                6,
-                8,
-                9
+                4,
+                10,
+                11,
+                12
             ],
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
             "job_postings": [
@@ -385,12 +385,12 @@
             "services": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
             "slug": "hankins-ag-5",
             "soft_skills": [
-                1,
-                2,
                 3,
                 4,
-                5,
-                6
+                9,
+                10,
+                12,
+                15
             ],
             "state": "public",
             "street": "Sabelweg",
@@ -451,17 +451,17 @@
                 }
             ],
             "benefits": [
-                9,
                 7,
-                14,
                 4,
-                5,
-                2
+                2,
+                1,
+                13,
+                11
             ],
             "branches": [
-                2,
-                5,
-                6
+                16,
+                9,
+                4
             ],
             "city": "St. Gallen",
             "cultural_fits": [
@@ -469,7 +469,7 @@
                 2,
                 4,
                 7,
-                9,
+                10,
                 11
             ],
             "description": "Wir machen innovatives und individuelles Web-Development und Mobile-Apps. Dank grosser Expertise, langj\u00e4hriger Erfahrung und einer einzigartigen Kultur \u00fcberzeugt dies nicht nur unsere Kunden \u2013 sondern auch viele Wettbewerbsjurys.",
@@ -686,11 +686,11 @@
             "slug": "liip-ag",
             "soft_skills": [
                 1,
-                2,
                 3,
-                4,
-                5,
-                6
+                6,
+                8,
+                9,
+                13
             ],
             "state": "public",
             "street": "Vadianstrasse 25A",
@@ -862,25 +862,25 @@
         "company": {
             "attachments": [],
             "benefits": [
-                14,
+                9,
+                3,
+                7,
                 12,
-                2,
                 1,
-                13,
-                8
+                13
             ],
             "branches": [
-                5,
-                6,
-                3
+                2,
+                13,
+                8
             ],
             "city": "Roggwil TG",
             "cultural_fits": [
                 1,
                 2,
-                4,
-                5,
-                6,
+                7,
+                9,
+                10,
                 12
             ],
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
@@ -1096,12 +1096,12 @@
             "services": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem.",
             "slug": "neill-ag-11",
             "soft_skills": [
-                3,
-                6,
+                1,
+                4,
+                8,
                 9,
-                11,
-                13,
-                14
+                10,
+                11
             ],
             "state": "public",
             "street": "Waldhofstrasse",
@@ -3367,29 +3367,26 @@
                 }
             ],
             "benefits": [
-                6,
                 9,
-                3,
-                7,
+                10,
+                2,
                 1,
+                13,
                 11
             ],
             "branches": [
-                2,
-                13,
                 14,
                 16,
-                3,
-                4
+                7
             ],
             "city": "Arbon",
             "cultural_fits": [
                 1,
+                2,
+                3,
                 5,
                 7,
-                9,
-                10,
-                12
+                10
             ],
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
@@ -3604,12 +3601,12 @@
             "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "slug": "bloomfield-ag-13",
             "soft_skills": [
-                2,
+                1,
                 3,
-                5,
-                6,
-                13,
-                14
+                4,
+                7,
+                9,
+                10
             ],
             "state": "public",
             "street": "Fischmarktplatz",
@@ -3677,29 +3674,26 @@
                 }
             ],
             "benefits": [
-                6,
-                9,
-                7,
+                3,
+                14,
+                10,
+                12,
                 2,
-                13,
-                8
+                11
             ],
             "branches": [
+                2,
                 5,
-                3,
-                11,
-                9,
-                8,
-                4
+                11
             ],
             "city": "Buchs SG",
             "cultural_fits": [
                 2,
                 3,
+                4,
+                6,
                 7,
-                8,
-                9,
-                11
+                9
             ],
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
@@ -3914,11 +3908,11 @@
             "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "slug": "miller-ag-14",
             "soft_skills": [
-                5,
-                6,
-                7,
-                8,
-                12,
+                3,
+                9,
+                10,
+                13,
+                14,
                 15
             ],
             "state": "public",
@@ -3987,29 +3981,26 @@
                 }
             ],
             "benefits": [
-                6,
                 9,
+                3,
                 14,
-                12,
                 13,
-                11
+                11,
+                8
             ],
             "branches": [
                 2,
-                13,
-                7,
-                12,
-                9,
-                1
+                15,
+                4
             ],
             "city": "Buchs SG",
             "cultural_fits": [
-                3,
-                5,
-                6,
-                9,
-                10,
-                12
+                1,
+                2,
+                4,
+                7,
+                8,
+                9
             ],
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
@@ -4224,12 +4215,12 @@
             "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "slug": "politi-ag-15",
             "soft_skills": [
+                2,
                 5,
-                6,
-                9,
+                7,
                 10,
-                11,
-                12
+                12,
+                13
             ],
             "state": "public",
             "street": "Hochhausweg",
@@ -4298,28 +4289,25 @@
             ],
             "benefits": [
                 6,
-                14,
-                10,
-                1,
-                13,
-                11
+                3,
+                7,
+                4,
+                2,
+                1
             ],
             "branches": [
-                2,
-                13,
                 6,
-                14,
-                3,
-                15
+                1,
+                8
             ],
             "city": "Ebnat-Kappel",
             "cultural_fits": [
                 1,
-                2,
-                7,
-                9,
+                5,
+                8,
                 10,
-                11
+                11,
+                12
             ],
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
@@ -4534,11 +4522,11 @@
             "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "slug": "gismondi-ag-16",
             "soft_skills": [
+                1,
                 2,
-                6,
-                10,
-                11,
-                12,
+                4,
+                5,
+                7,
                 13
             ],
             "state": "public",
@@ -4607,29 +4595,26 @@
                 }
             ],
             "benefits": [
+                6,
                 3,
                 7,
+                4,
                 10,
-                5,
-                2,
-                13
+                8
             ],
             "branches": [
-                3,
-                12,
-                10,
-                11,
-                15,
-                4
+                13,
+                9,
+                1
             ],
             "city": "Arbon",
             "cultural_fits": [
                 3,
+                4,
                 5,
-                6,
                 7,
-                8,
-                11
+                11,
+                12
             ],
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
@@ -4845,10 +4830,10 @@
             "slug": "ahner-ag-17",
             "soft_skills": [
                 1,
-                2,
-                3,
-                4,
+                9,
                 11,
+                12,
+                13,
                 14
             ],
             "state": "public",
@@ -4917,28 +4902,25 @@
                 }
             ],
             "benefits": [
-                3,
-                12,
+                6,
+                10,
                 5,
                 2,
-                1,
+                13,
                 8
             ],
             "branches": [
-                13,
-                16,
+                3,
                 11,
-                9,
-                1,
-                4
+                9
             ],
             "city": "Ebnat-Kappel",
             "cultural_fits": [
-                2,
-                4,
-                6,
+                3,
+                7,
                 8,
                 9,
+                11,
                 12
             ],
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
@@ -5154,12 +5136,12 @@
             "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "slug": "coulter-ag-18",
             "soft_skills": [
-                3,
-                7,
-                10,
+                1,
+                6,
+                9,
                 11,
                 12,
-                15
+                14
             ],
             "state": "public",
             "street": "Wintersbergstrasse",
@@ -5227,28 +5209,25 @@
                 }
             ],
             "benefits": [
-                9,
-                4,
-                12,
+                14,
+                10,
                 5,
-                13,
+                2,
+                1,
                 11
             ],
             "branches": [
-                13,
-                6,
-                14,
-                16,
-                11,
-                4
+                2,
+                10,
+                15
             ],
             "city": "Buchs SG",
             "cultural_fits": [
-                1,
-                2,
-                6,
+                4,
+                5,
                 7,
-                10,
+                8,
+                9,
                 12
             ],
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
@@ -5464,12 +5443,12 @@
             "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "slug": "waterman-ag-19",
             "soft_skills": [
-                3,
-                4,
+                2,
                 5,
+                6,
+                8,
                 9,
-                11,
-                14
+                15
             ],
             "state": "public",
             "street": "Arvenweg",
@@ -5540,25 +5519,22 @@
                 6,
                 9,
                 7,
-                1,
-                13,
-                8
+                10,
+                2,
+                1
             ],
             "branches": [
                 2,
-                5,
-                16,
-                11,
-                9,
-                4
+                3,
+                1
             ],
             "city": "Gossau SG",
             "cultural_fits": [
+                1,
                 3,
                 4,
                 5,
-                8,
-                10,
+                7,
                 12
             ],
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
@@ -5774,12 +5750,12 @@
             "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "slug": "mckinley-ag-20",
             "soft_skills": [
+                3,
                 5,
-                6,
                 7,
-                8,
-                9,
-                12
+                11,
+                14,
+                15
             ],
             "state": "public",
             "street": "Bahnhofplatz",
@@ -5848,28 +5824,25 @@
             ],
             "benefits": [
                 6,
-                3,
-                14,
-                4,
-                13,
+                12,
+                5,
+                2,
+                11,
                 8
             ],
             "branches": [
-                7,
-                11,
-                9,
+                13,
                 1,
-                15,
-                4
+                8
             ],
             "city": "Ebnat-Kappel",
             "cultural_fits": [
-                1,
-                2,
-                3,
+                5,
                 6,
+                8,
                 9,
-                10
+                10,
+                11
             ],
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
@@ -6084,12 +6057,12 @@
             "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "slug": "gautam-ag-21",
             "soft_skills": [
+                1,
+                2,
+                3,
                 5,
-                6,
-                7,
-                10,
-                12,
-                14
+                8,
+                13
             ],
             "state": "public",
             "street": "Runkelweg",
@@ -6157,29 +6130,26 @@
                 }
             ],
             "benefits": [
-                4,
-                10,
-                12,
-                1,
-                13,
+                6,
+                9,
+                3,
+                14,
+                11,
                 8
             ],
             "branches": [
-                2,
-                5,
-                6,
-                14,
-                15,
+                7,
+                10,
                 4
             ],
             "city": "Oppikon",
             "cultural_fits": [
+                1,
+                3,
                 4,
                 5,
-                6,
-                8,
-                9,
-                11
+                10,
+                12
             ],
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
@@ -6394,12 +6364,12 @@
             "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "slug": "farley-ag-22",
             "soft_skills": [
-                4,
+                3,
                 5,
-                6,
-                8,
+                7,
                 10,
-                12
+                11,
+                14
             ],
             "state": "public",
             "street": "Hauptstrasse",
@@ -6468,28 +6438,25 @@
             ],
             "benefits": [
                 6,
-                14,
-                4,
+                3,
                 10,
-                12,
+                13,
+                11,
                 8
             ],
             "branches": [
-                2,
-                13,
                 5,
-                6,
-                7,
-                11
+                3,
+                1
             ],
             "city": "Gossau SG",
             "cultural_fits": [
+                2,
                 5,
                 6,
-                9,
-                10,
-                11,
-                12
+                7,
+                8,
+                10
             ],
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
@@ -6704,12 +6671,12 @@
             "services": "",
             "slug": "dery-ag-23",
             "soft_skills": [
-                1,
-                3,
                 6,
                 7,
-                14,
-                15
+                9,
+                11,
+                12,
+                14
             ],
             "state": "public",
             "street": "St. Gallerstrasse",
@@ -6778,28 +6745,25 @@
             ],
             "benefits": [
                 9,
-                7,
                 4,
                 12,
                 5,
-                1
+                1,
+                8
             ],
             "branches": [
-                13,
-                14,
-                16,
-                7,
+                2,
                 3,
-                8
+                11
             ],
             "city": "Ebnat-Kappel",
             "cultural_fits": [
                 1,
-                3,
+                2,
                 4,
-                7,
+                5,
                 8,
-                12
+                10
             ],
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
@@ -7014,12 +6978,12 @@
             "services": "",
             "slug": "aguirre-ag-24",
             "soft_skills": [
-                1,
-                3,
                 4,
-                10,
-                11,
-                15
+                6,
+                7,
+                8,
+                9,
+                10
             ],
             "state": "public",
             "street": "Kesseltobelweg",
@@ -7087,28 +7051,25 @@
                 }
             ],
             "benefits": [
-                3,
-                7,
+                9,
+                14,
+                4,
                 12,
-                2,
-                13,
+                5,
                 11
             ],
             "branches": [
-                13,
-                7,
                 3,
                 12,
-                9,
-                4
+                11
             ],
             "city": "Gossau SG",
             "cultural_fits": [
                 2,
                 4,
                 6,
-                7,
-                10,
+                9,
+                11,
                 12
             ],
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
@@ -7324,12 +7285,12 @@
             "services": "",
             "slug": "henry-ag-25",
             "soft_skills": [
-                1,
+                3,
                 4,
-                5,
+                8,
                 10,
-                11,
-                13
+                13,
+                14
             ],
             "state": "public",
             "street": "Rosenaustrasse",
@@ -7397,29 +7358,26 @@
                 }
             ],
             "benefits": [
-                9,
                 4,
+                12,
+                2,
                 1,
-                13,
                 11,
                 8
             ],
             "branches": [
                 2,
-                5,
                 16,
-                3,
-                9,
                 15
             ],
             "city": "Ebnat-Kappel",
             "cultural_fits": [
-                3,
+                2,
                 4,
-                7,
+                6,
                 8,
                 9,
-                10
+                12
             ],
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
@@ -7634,12 +7592,12 @@
             "services": "",
             "slug": "farmer-ag-26",
             "soft_skills": [
-                1,
                 4,
-                6,
+                5,
+                7,
                 8,
-                11,
-                12
+                9,
+                13
             ],
             "state": "public",
             "street": "Nassschwendiweg",
@@ -7707,29 +7665,26 @@
                 }
             ],
             "benefits": [
-                7,
                 14,
-                4,
                 10,
-                2,
+                1,
+                13,
+                11,
                 8
             ],
             "branches": [
-                6,
-                3,
-                12,
-                11,
-                8,
-                4
+                2,
+                16,
+                12
             ],
             "city": "Ebersol",
             "cultural_fits": [
                 1,
-                4,
+                2,
+                3,
+                6,
                 7,
-                9,
-                10,
-                12
+                11
             ],
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
@@ -7944,12 +7899,12 @@
             "services": "",
             "slug": "perry-ag-27",
             "soft_skills": [
-                4,
-                9,
-                10,
-                12,
-                13,
-                14
+                2,
+                3,
+                6,
+                7,
+                8,
+                12
             ],
             "state": "public",
             "street": "Lettenweg",
@@ -8017,29 +7972,26 @@
                 }
             ],
             "benefits": [
-                3,
+                6,
+                7,
                 4,
                 10,
-                2,
-                1,
-                13
+                11,
+                8
             ],
             "branches": [
                 13,
-                6,
-                14,
-                1,
-                8,
-                4
+                12,
+                11
             ],
             "city": "Oppikon",
             "cultural_fits": [
-                1,
                 2,
+                3,
                 5,
-                10,
-                11,
-                12
+                8,
+                9,
+                11
             ],
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
@@ -8254,12 +8206,12 @@
             "services": "",
             "slug": "magee-ag-28",
             "soft_skills": [
-                1,
-                3,
+                4,
+                5,
                 6,
-                8,
                 10,
-                12
+                14,
+                15
             ],
             "state": "public",
             "street": "Furtbachstrasse",
@@ -8328,27 +8280,24 @@
             ],
             "benefits": [
                 6,
+                9,
+                3,
+                14,
                 10,
-                2,
-                1,
-                11,
                 8
             ],
             "branches": [
-                13,
-                5,
                 6,
-                14,
-                11,
-                15
+                3,
+                4
             ],
             "city": "Ebnat-Kappel",
             "cultural_fits": [
                 2,
+                3,
                 5,
-                8,
+                7,
                 9,
-                10,
                 11
             ],
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
@@ -8564,10 +8513,10 @@
             "services": "",
             "slug": "desalvo-ag-29",
             "soft_skills": [
-                6,
-                8,
-                9,
-                10,
+                3,
+                4,
+                7,
+                11,
                 12,
                 15
             ],
@@ -8637,29 +8586,26 @@
                 }
             ],
             "benefits": [
-                6,
-                9,
                 14,
-                4,
                 10,
-                11
+                5,
+                2,
+                13,
+                8
             ],
             "branches": [
-                6,
-                7,
-                9,
-                1,
-                15,
-                4
+                13,
+                12,
+                9
             ],
             "city": "Gossau SG",
             "cultural_fits": [
-                1,
                 3,
-                4,
+                5,
+                6,
+                7,
                 8,
-                9,
-                12
+                10
             ],
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
@@ -8874,10 +8820,10 @@
             "services": "",
             "slug": "lewis-ag-30",
             "soft_skills": [
-                5,
-                7,
-                11,
-                13,
+                2,
+                8,
+                10,
+                12,
                 14,
                 15
             ],
@@ -8948,28 +8894,25 @@
             ],
             "benefits": [
                 9,
+                7,
+                14,
                 4,
-                5,
-                2,
-                13,
-                8
+                12,
+                11
             ],
             "branches": [
-                2,
-                3,
-                11,
-                9,
-                8,
+                12,
+                15,
                 4
             ],
             "city": "Wittenbach",
             "cultural_fits": [
-                2,
+                1,
                 3,
-                4,
                 5,
-                6,
-                12
+                7,
+                9,
+                11
             ],
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
@@ -9184,12 +9127,12 @@
             "services": "",
             "slug": "curry-ag-31",
             "soft_skills": [
-                7,
-                9,
-                10,
-                11,
+                2,
+                3,
+                5,
+                6,
                 12,
-                13
+                14
             ],
             "state": "public",
             "street": "Romanshornerstrasse",
@@ -9259,23 +9202,20 @@
             "benefits": [
                 9,
                 3,
-                7,
-                2,
+                4,
+                12,
                 11,
                 8
             ],
             "branches": [
+                5,
                 16,
-                7,
-                3,
-                12,
-                11,
-                15
+                12
             ],
             "city": "Ebnat-Kappel",
             "cultural_fits": [
-                4,
                 5,
+                6,
                 7,
                 9,
                 10,
@@ -9494,11 +9434,11 @@
             "services": "",
             "slug": "mitchell-ag-32",
             "soft_skills": [
-                2,
-                5,
-                8,
+                1,
+                3,
+                7,
                 9,
-                11,
+                12,
                 14
             ],
             "state": "public",
