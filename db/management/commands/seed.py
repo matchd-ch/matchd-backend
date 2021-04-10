@@ -13,7 +13,7 @@ from PIL import Image as PILImage
 
 from db.models import Employee, Student, Hobby, OnlineProject, UserLanguageRelation, CulturalFit, Skill, SoftSkill, \
     Branch, JobType, ProfileState, Language, LanguageLevel, Company, Image, Video, Attachment, JobPosting, \
-    JobRequirement, JobPostingState, JobPostingLanguageRelation
+    JobRequirement, JobPostingState, JobPostingLanguageRelation, Benefit
 
 
 # pylint: disable=W0612
@@ -30,6 +30,14 @@ class Command(BaseCommand):
         'mit dem Hund spazieren', 'Kollegen treffen', 'Ausgang', 'Bowling', 'Malen', 'Zeichnen'
     ]
 
+    random_job_posting_titles = [
+        'Praktikant*in Applikationsentwicklung', 'Praktikant*in Systemtechnik', 'Praktikant*in DevOps',
+        'Praktikant*in Frontendentwicklung', 'Praktikant*in HTML / CSS', 'Praktikant*in Design', 'Praktikant*in UX',
+        'Praktikant*in Grafik', 'Praktikant*in User Experience', 'Praktikant*in Social Media',
+        'Praktikant*in Datenbanken', 'Praktikant*in PHP', 'Praktikant*in Python', 'Praktikant*in Javascript',
+        'Praktikant*in Vue.js / React.js'
+    ]
+
     content_types = {
         'company': ContentType.objects.get(app_label='db', model='company'),
         'student': ContentType.objects.get(app_label='db', model='student'),
@@ -38,6 +46,7 @@ class Command(BaseCommand):
         'file': ContentType.objects.get(app_label='db', model='file')
     }
 
+    random_benefits = []
     random_cultural_fits = []
     random_skills = []
     random_soft_skills = []
@@ -57,6 +66,7 @@ class Command(BaseCommand):
             self.data = json.load(json_file)
 
         self.random_cultural_fits = list(CulturalFit.objects.all().values_list('id', flat=True))
+        self.random_benefits = list(Benefit.objects.all().values_list('id', flat=True))
         self.random_skills = list(Skill.objects.all().values_list('id', flat=True))
         self.random_soft_skills = list(SoftSkill.objects.all().values_list('id', flat=True))
         self.random_branches = list(Branch.objects.all().values_list('id', flat=True))
@@ -157,6 +167,10 @@ class Command(BaseCommand):
                 except JobPosting.DoesNotExist:
                     job_posting = JobPosting(branch_id=obj.get('branch'), job_type_id=obj.get('job_type'),
                                              company=company)
+                job_title = obj.get('title', None)
+                if job_title is None:
+                    job_title = self.random_items(self.random_job_posting_titles, 1)
+                job_posting.title = job_title
                 job_posting.description = obj.get('description')
                 job_posting.workload = obj.get('workload')
                 job_posting.job_from_date = obj.get('job_from_date')
@@ -195,19 +209,40 @@ class Command(BaseCommand):
         company.state = data.get('state')
         is_complete = company.state != ProfileState.INCOMPLETE
 
-        # benefits
-        company.branches.set(data.get('branches'))
-        branches = data.get('branches')
-        if len(branches) == 0 and is_complete and len(user.company.branches.all()) == 0:
-            company.branches.set(self.random_items(self.random_branches, 6))
+        if is_complete:
+            # benefits
+            benefits = data.get('benefits')
+            if len(benefits) == 0 or len(user.company.benefits.all()) == 0:
+                company.benefits.set(self.random_items(self.random_benefits, 6))
+            else:
+                company.benefits.set(benefits)
+
+            # branches
+            branches = data.get('branches')
+            if len(branches) == 0 or len(user.company.branches.all()) < 3:
+                company.branches.set(self.random_items(self.random_branches, 3))
+            else:
+                company.branches.set(branches)
+
+            # cultural fits
+            cultural_fits = data.get('cultural_fits')
+            if len(cultural_fits) == 0 or len(company.cultural_fits.all()) < 6:
+                company.cultural_fits.set(self.random_items(self.random_cultural_fits, 6))
+            else:
+                company.cultural_fits.set(cultural_fits)
+
+            soft_skills = data.get('soft_skills')
+            if len(soft_skills) == 0 or len(company.soft_skills.all()) < 6:
+                company.soft_skills.set(self.random_items(self.random_soft_skills, 6))
+            else:
+                company.soft_skills.set(soft_skills)
         else:
-            company.cultural_fits.set(branches)
+            company.benefits.set([])
+            company.branches.set([])
+            company.cultural_fits.set([])
+            company.soft_skills.set([])
+
         company.city = data.get('city')
-        cultural_fits = data.get('cultural_fits')
-        if len(cultural_fits) == 0 and is_complete and len(company.cultural_fits.all()) == 0:
-            company.cultural_fits.set(self.random_items(self.random_cultural_fits, 6))
-        else:
-            company.cultural_fits.set(cultural_fits)
         company.description = data.get('description')
         company.link_education = data.get('link_education', None)
         company.link_projects = data.get('link_projects', None)
@@ -217,12 +252,6 @@ class Command(BaseCommand):
         company.phone = data.get('phone')
         company.profile_step = data.get('profile_step')
         company.services = data.get('services', '')
-        soft_skills = data.get('soft_skills')
-        if len(soft_skills) == 0 and is_complete and len(company.soft_skills.all()) == 0:
-            company.soft_skills.set(self.random_items(self.random_soft_skills, 4))
-        else:
-            company.soft_skills.set(soft_skills)
-
         company.street = data.get('street')
         company.top_level_organisation_description = data.get('top_level_organisation_description', '')
         company.top_level_organisation_website = data.get('top_level_organisation_website', '')

@@ -22,6 +22,7 @@ class Command(BaseCommand):
 
         for job_posting in company.job_postings.all():
             obj = {
+                'title': job_posting.title,
                 'description': job_posting.description,
                 'job_type': job_posting.job_type.id,
                 'branch': job_posting.branch.id,
