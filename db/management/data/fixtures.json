@@ -4,7 +4,7 @@
             "attachments": [],
             "benefits": [],
             "branches": [],
-            "city": "St. Gallen",
+            "city": "Roggwil TG",
             "cultural_fits": [],
             "description": "",
             "job_postings": [],
@@ -19,13 +19,13 @@
             "slug": "siegert-ag",
             "soft_skills": [],
             "state": "incomplete",
-            "street": "",
+            "street": "Fetzislohstrasse",
             "top_level_organisation_description": "",
             "top_level_organisation_website": "",
             "type": "company",
             "uid": "CHE-999.999.999",
             "website": "",
-            "zip": "9000"
+            "zip": "9325"
         },
         "email": "company-not-verified@matchd.lo",
         "employee": {
@@ -41,7 +41,7 @@
             "attachments": [],
             "benefits": [],
             "branches": [],
-            "city": "St. Gallen",
+            "city": "Gossau SG",
             "cultural_fits": [],
             "description": "",
             "job_postings": [],
@@ -56,13 +56,13 @@
             "slug": "schulze-ag",
             "soft_skills": [],
             "state": "incomplete",
-            "street": "",
+            "street": "Moosgartenstrasse",
             "top_level_organisation_description": "",
             "top_level_organisation_website": "",
             "type": "company",
             "uid": "CHE-999.999.999",
             "website": "",
-            "zip": "9000"
+            "zip": "9200"
         },
         "email": "company-step-1@matchd.lo",
         "employee": {
@@ -78,7 +78,7 @@
             "attachments": [],
             "benefits": [],
             "branches": [],
-            "city": "St. Gallen",
+            "city": "Gossau SG",
             "cultural_fits": [],
             "description": "",
             "job_postings": [],
@@ -93,13 +93,13 @@
             "slug": "schneider-ag",
             "soft_skills": [],
             "state": "incomplete",
-            "street": "",
+            "street": "J\u00e4gerweg",
             "top_level_organisation_description": "",
             "top_level_organisation_website": "",
             "type": "company",
             "uid": "CHE-999.999.999",
             "website": "",
-            "zip": "9000"
+            "zip": "9200"
         },
         "email": "company-step-2@matchd.lo",
         "employee": {
@@ -115,7 +115,7 @@
             "attachments": [],
             "benefits": [],
             "branches": [],
-            "city": "St. Gallen",
+            "city": "Arbon",
             "cultural_fits": [],
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
             "job_postings": [],
@@ -130,13 +130,13 @@
             "slug": "dirksen-ag",
             "soft_skills": [],
             "state": "incomplete",
-            "street": "",
+            "street": "Romanshornerstrasse",
             "top_level_organisation_description": "",
             "top_level_organisation_website": "",
             "type": "company",
             "uid": "CHE-999.999.999",
             "website": "http://www.dirksen.lo",
-            "zip": "9000"
+            "zip": "9320"
         },
         "email": "company-step-3@matchd.lo",
         "employee": {
@@ -163,7 +163,7 @@
                 9,
                 15
             ],
-            "city": "St. Gallen",
+            "city": "Ebnat-Kappel",
             "cultural_fits": [
                 2,
                 3,
@@ -393,13 +393,13 @@
                 6
             ],
             "state": "public",
-            "street": "",
+            "street": "Sabelweg",
             "top_level_organisation_description": "",
             "top_level_organisation_website": "",
             "type": "company",
             "uid": "CHE-999.999.999",
             "website": "http://www.carl.lo",
-            "zip": "9000"
+            "zip": "9642"
         },
         "email": "company-public@matchd.lo",
         "employee": {
@@ -715,7 +715,7 @@
             "attachments": [],
             "benefits": [],
             "branches": [],
-            "city": "St. Gallen",
+            "city": "Gossau SG",
             "cultural_fits": [],
             "description": "",
             "job_postings": [],
@@ -730,13 +730,13 @@
             "slug": "meiner-university",
             "soft_skills": [],
             "state": "incomplete",
-            "street": "",
+            "street": "Weinburgstrasse",
             "top_level_organisation_description": "",
             "top_level_organisation_website": "",
             "type": "university",
             "uid": "",
             "website": "",
-            "zip": "9000"
+            "zip": "9200"
         },
         "email": "university-not-verified@matchd.lo",
         "employee": {
@@ -752,7 +752,7 @@
             "attachments": [],
             "benefits": [],
             "branches": [],
-            "city": "St. Gallen",
+            "city": "Ebnat-Kappel",
             "cultural_fits": [],
             "description": "",
             "job_postings": [],
@@ -767,13 +767,13 @@
             "slug": "schwarz-university",
             "soft_skills": [],
             "state": "incomplete",
-            "street": "",
+            "street": "Hohlweg",
             "top_level_organisation_description": "",
             "top_level_organisation_website": "",
             "type": "university",
             "uid": "",
             "website": "",
-            "zip": "9000"
+            "zip": "9642"
         },
         "email": "university-step-1@matchd.lo",
         "employee": {
@@ -789,7 +789,7 @@
             "attachments": [],
             "benefits": [],
             "branches": [],
-            "city": "St. Gallen",
+            "city": "Buchs SG",
             "cultural_fits": [],
             "description": "",
             "job_postings": [],
@@ -804,13 +804,13 @@
             "slug": "becker-university",
             "soft_skills": [],
             "state": "incomplete",
-            "street": "",
+            "street": "Tr\u00e4nkeweg",
             "top_level_organisation_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
             "top_level_organisation_website": "http://www.toplevel.lo",
             "type": "university",
             "uid": "",
             "website": "http://www.becker.lo",
-            "zip": "9000"
+            "zip": "9470"
         },
         "email": "university-step-2@matchd.lo",
         "employee": {
@@ -826,7 +826,7 @@
             "attachments": [],
             "benefits": [],
             "branches": [],
-            "city": "St. Gallen",
+            "city": "Ebnat-Kappel",
             "cultural_fits": [],
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
             "job_postings": [],
@@ -841,13 +841,13 @@
             "slug": "ludwig-university",
             "soft_skills": [],
             "state": "incomplete",
-            "street": "",
+            "street": "Kesseltobel-Guggenlochweg",
             "top_level_organisation_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
             "top_level_organisation_website": "http://www.toplevel.lo",
             "type": "university",
             "uid": "",
             "website": "http://www.ludwig.lo",
-            "zip": "9000"
+            "zip": "9642"
         },
         "email": "university-step-3@matchd.lo",
         "employee": {
@@ -874,7 +874,7 @@
                 6,
                 3
             ],
-            "city": "St. Gallen",
+            "city": "Roggwil TG",
             "cultural_fits": [
                 1,
                 2,
@@ -1104,13 +1104,13 @@
                 14
             ],
             "state": "public",
-            "street": "",
+            "street": "Waldhofstrasse",
             "top_level_organisation_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
             "top_level_organisation_website": "http://www.toplevel.lo",
             "type": "university",
             "uid": "",
             "website": "http://www.luther.lo",
-            "zip": "9000"
+            "zip": "9325"
         },
         "email": "university-public@matchd.lo",
         "employee": {
@@ -1128,7 +1128,7 @@
         "student": {
             "attachments": [],
             "branch": null,
-            "city": "",
+            "city": "Grub SG",
             "cultural_fits": [],
             "date_of_birth": null,
             "distinction": "",
@@ -1147,8 +1147,8 @@
             "skills": [],
             "soft_skills": [],
             "state": "incomplete",
-            "street": "",
-            "zip": ""
+            "street": "B\u00fcelweg",
+            "zip": "9036"
         },
         "type": "student",
         "verified": false
@@ -1160,7 +1160,7 @@
         "student": {
             "attachments": [],
             "branch": null,
-            "city": "",
+            "city": "Arbon",
             "cultural_fits": [],
             "date_of_birth": null,
             "distinction": "",
@@ -1179,8 +1179,8 @@
             "skills": [],
             "soft_skills": [],
             "state": "incomplete",
-            "street": "",
-            "zip": ""
+            "street": "Romanshornerstrasse",
+            "zip": "9320"
         },
         "type": "student",
         "verified": true
@@ -1192,7 +1192,7 @@
         "student": {
             "attachments": [],
             "branch": null,
-            "city": "St. Gallen",
+            "city": "Gossau SG",
             "cultural_fits": [],
             "date_of_birth": "1999-01-03",
             "distinction": "",
@@ -1211,8 +1211,8 @@
             "skills": [],
             "soft_skills": [],
             "state": "incomplete",
-            "street": "",
-            "zip": ""
+            "street": "Widenstrasse",
+            "zip": "9200"
         },
         "type": "student",
         "verified": true
@@ -1224,7 +1224,7 @@
         "student": {
             "attachments": [],
             "branch": null,
-            "city": "St. Gallen",
+            "city": "Ebnat-Kappel",
             "cultural_fits": [],
             "date_of_birth": "1999-01-03",
             "distinction": "",
@@ -1243,8 +1243,8 @@
             "skills": [],
             "soft_skills": [],
             "state": "incomplete",
-            "street": "",
-            "zip": ""
+            "street": "Schwand-Wintersbergweg",
+            "zip": "9642"
         },
         "type": "student",
         "verified": true
@@ -1256,7 +1256,7 @@
         "student": {
             "attachments": [],
             "branch": 1,
-            "city": "St. Gallen",
+            "city": "Ebnat-Kappel",
             "cultural_fits": [],
             "date_of_birth": "1999-01-03",
             "distinction": "",
@@ -1275,8 +1275,8 @@
             "skills": [],
             "soft_skills": [],
             "state": "incomplete",
-            "street": "",
-            "zip": ""
+            "street": "Bendelverbindungsweg",
+            "zip": "9642"
         },
         "type": "student",
         "verified": true
@@ -1288,7 +1288,7 @@
         "student": {
             "attachments": [],
             "branch": 1,
-            "city": "St. Gallen",
+            "city": "Ebersol",
             "cultural_fits": [],
             "date_of_birth": "1999-01-03",
             "distinction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
@@ -1326,8 +1326,8 @@
             ],
             "soft_skills": [],
             "state": "incomplete",
-            "street": "",
-            "zip": ""
+            "street": "Niderwil",
+            "zip": "9122"
         },
         "type": "student",
         "verified": true
@@ -1339,7 +1339,7 @@
         "student": {
             "attachments": [],
             "branch": 1,
-            "city": "St. Gallen",
+            "city": "Buchs SG",
             "cultural_fits": [],
             "date_of_birth": "1999-01-03",
             "distinction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
@@ -1377,8 +1377,8 @@
             ],
             "soft_skills": [],
             "state": "incomplete",
-            "street": "",
-            "zip": ""
+            "street": "G\u00fcterstrasse",
+            "zip": "9470"
         },
         "type": "student",
         "verified": true
@@ -1440,8 +1440,8 @@
                 10
             ],
             "state": "public",
-            "street": "",
-            "zip": ""
+            "street": "Berneggstollen",
+            "zip": "9000"
         },
         "type": "student",
         "verified": true
@@ -1453,7 +1453,7 @@
         "student": {
             "attachments": [],
             "branch": 1,
-            "city": "St. Gallen",
+            "city": "Buchs SG",
             "cultural_fits": [
                 1,
                 2,
@@ -1503,8 +1503,8 @@
                 9
             ],
             "state": "anonymous",
-            "street": "",
-            "zip": ""
+            "street": "G\u00fcterstrasse",
+            "zip": "9470"
         },
         "type": "student",
         "verified": true
@@ -1514,7 +1514,7 @@
             "attachments": [],
             "benefits": [],
             "branches": [],
-            "city": "St. Gallen",
+            "city": "Wil SG",
             "cultural_fits": [],
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a scelerisque elit. Praesent accumsan mi id mauris scelerisque, sagittis tristique sem facilisis. Mauris in tempor risus. Integer ornare, leo placerat mollis molestie, urna ipsum volutpat lectus, quis vestibulum lorem sem quis urna. Vestibulum finibus, quam eu laoreet facilisis, lectus dolor vehicula orci, consequat feugiat orci enim eu orci. Ut sed urna quis augue gravida tempus. Fusce sed orci et lacus congue gravida. Integer leo arcu, mattis vitae egestas non, fermentum nec justo. Integer in consequat metus. Phasellus tempus, mauris et pharetra tempor, orci eros venenatis orci, in eleifend erat elit ut leo. Maecenas hendrerit eu ipsum at viverra. Mauris auctor sapien eu turpis maximus, eget tincidunt ligula pretium. Nullam at elit ac elit iaculis tincidunt. Nam massa risus, hendrerit ut eros sit amet, aliquam feugiat ante. Donec aliquet nisi a maximus molestie.",
             "job_postings": [],
@@ -1529,13 +1529,13 @@
             "slug": "peters-ag",
             "soft_skills": [],
             "state": "incomplete",
-            "street": "",
+            "street": "Terrasse",
             "top_level_organisation_description": "",
             "top_level_organisation_website": "",
             "type": "company",
             "uid": "CHE-999.999.999",
             "website": "http://www.peters.lo",
-            "zip": "9000"
+            "zip": "9500"
         },
         "email": "company-step-4@matchd.lo",
         "employee": {
@@ -1645,8 +1645,8 @@
                 6
             ],
             "state": "public",
-            "street": "",
-            "zip": ""
+            "street": "Herisauerstrasse",
+            "zip": "9015"
         },
         "type": "student",
         "verified": true
@@ -1665,7 +1665,7 @@
                 }
             ],
             "branch": 2,
-            "city": "St. Gallen",
+            "city": "Gossau SG",
             "cultural_fits": [
                 2,
                 3,
@@ -1742,8 +1742,8 @@
                 7
             ],
             "state": "public",
-            "street": "",
-            "zip": ""
+            "street": "Neuchlenweg",
+            "zip": "9200"
         },
         "type": "student",
         "verified": true
@@ -1762,7 +1762,7 @@
                 }
             ],
             "branch": 3,
-            "city": "St. Gallen",
+            "city": "Niederwil SG",
             "cultural_fits": [
                 3,
                 4,
@@ -1839,8 +1839,8 @@
                 8
             ],
             "state": "public",
-            "street": "",
-            "zip": ""
+            "street": "Moosstrasse",
+            "zip": "9203"
         },
         "type": "student",
         "verified": true
@@ -1859,7 +1859,7 @@
                 }
             ],
             "branch": 4,
-            "city": "Wil",
+            "city": "Niederwil SG",
             "cultural_fits": [
                 4,
                 5,
@@ -1931,8 +1931,8 @@
                 9
             ],
             "state": "public",
-            "street": "",
-            "zip": ""
+            "street": "Schmiedstrasse",
+            "zip": "9203"
         },
         "type": "student",
         "verified": true
@@ -1951,7 +1951,7 @@
                 }
             ],
             "branch": 5,
-            "city": "Gossau",
+            "city": "Buchs SG",
             "cultural_fits": [
                 5,
                 6,
@@ -2013,8 +2013,8 @@
                 10
             ],
             "state": "public",
-            "street": "",
-            "zip": ""
+            "street": "Marsweg",
+            "zip": "9470"
         },
         "type": "student",
         "verified": true
@@ -2033,7 +2033,7 @@
                 }
             ],
             "branch": 1,
-            "city": "Arbon",
+            "city": "Buchs SG",
             "cultural_fits": [
                 6,
                 7,
@@ -2095,8 +2095,8 @@
                 11
             ],
             "state": "public",
-            "street": "",
-            "zip": ""
+            "street": "Valgurg",
+            "zip": "9470"
         },
         "type": "student",
         "verified": true
@@ -2115,7 +2115,7 @@
                 }
             ],
             "branch": 2,
-            "city": "Sargans",
+            "city": "Ebnat-Kappel",
             "cultural_fits": [
                 7,
                 8,
@@ -2177,8 +2177,8 @@
                 12
             ],
             "state": "public",
-            "street": "",
-            "zip": ""
+            "street": "Nassschwendiweg",
+            "zip": "9642"
         },
         "type": "student",
         "verified": true
@@ -2197,7 +2197,7 @@
                 }
             ],
             "branch": 3,
-            "city": "Wattwil",
+            "city": "Ebersol",
             "cultural_fits": [
                 1,
                 2,
@@ -2259,8 +2259,8 @@
                 13
             ],
             "state": "public",
-            "street": "",
-            "zip": ""
+            "street": "B\u00f6schenbach",
+            "zip": "9122"
         },
         "type": "student",
         "verified": true
@@ -2279,7 +2279,7 @@
                 }
             ],
             "branch": 4,
-            "city": "Herisau",
+            "city": "Steinach",
             "cultural_fits": [
                 2,
                 3,
@@ -2341,8 +2341,8 @@
                 14
             ],
             "state": "public",
-            "street": "",
-            "zip": ""
+            "street": "Bildzelg",
+            "zip": "9323"
         },
         "type": "student",
         "verified": true
@@ -2361,7 +2361,7 @@
                 }
             ],
             "branch": 5,
-            "city": "Heerbrugg",
+            "city": "Ebersol",
             "cultural_fits": [
                 3,
                 4,
@@ -2423,8 +2423,8 @@
                 15
             ],
             "state": "public",
-            "street": "",
-            "zip": ""
+            "street": "B\u00f6schenbach",
+            "zip": "9122"
         },
         "type": "student",
         "verified": true
@@ -2443,7 +2443,7 @@
                 }
             ],
             "branch": 6,
-            "city": "St. Gallen",
+            "city": "Gossau SG",
             "cultural_fits": [
                 1,
                 2,
@@ -2505,8 +2505,8 @@
                 7
             ],
             "state": "public",
-            "street": "",
-            "zip": ""
+            "street": "Kirchstrasse",
+            "zip": "9200"
         },
         "type": "student",
         "verified": true
@@ -2525,7 +2525,7 @@
                 }
             ],
             "branch": 7,
-            "city": "St. Gallen",
+            "city": "Ebnat-Kappel",
             "cultural_fits": [
                 1,
                 2,
@@ -2587,8 +2587,8 @@
                 15
             ],
             "state": "public",
-            "street": "",
-            "zip": ""
+            "street": "Dollenweg",
+            "zip": "9642"
         },
         "type": "student",
         "verified": true
@@ -2607,7 +2607,7 @@
                 }
             ],
             "branch": 8,
-            "city": "St. Gallen",
+            "city": "Ebnat-Kappel",
             "cultural_fits": [
                 3,
                 4,
@@ -2666,8 +2666,8 @@
                 10
             ],
             "state": "public",
-            "street": "",
-            "zip": ""
+            "street": "Bendel-Rellenweg",
+            "zip": "9642"
         },
         "type": "student",
         "verified": true
@@ -2686,7 +2686,7 @@
                 }
             ],
             "branch": 9,
-            "city": "Wil",
+            "city": "Ebersol",
             "cultural_fits": [
                 4,
                 5,
@@ -2748,8 +2748,8 @@
                 15
             ],
             "state": "anonymous",
-            "street": "",
-            "zip": ""
+            "street": "Unterdorfweg",
+            "zip": "9122"
         },
         "type": "student",
         "verified": true
@@ -2768,7 +2768,7 @@
                 }
             ],
             "branch": 10,
-            "city": "Gossau",
+            "city": "Gossau SG",
             "cultural_fits": [
                 5,
                 9,
@@ -2828,8 +2828,8 @@
                 12
             ],
             "state": "public",
-            "street": "",
-            "zip": ""
+            "street": "Herisauerstrasse",
+            "zip": "9200"
         },
         "type": "student",
         "verified": true
@@ -2848,7 +2848,7 @@
                 }
             ],
             "branch": 11,
-            "city": "Arbon",
+            "city": "Ebnat-Kappel",
             "cultural_fits": [
                 6,
                 7,
@@ -2910,8 +2910,8 @@
                 13
             ],
             "state": "public",
-            "street": "",
-            "zip": ""
+            "street": "Bendel-Rellenweg",
+            "zip": "9642"
         },
         "type": "student",
         "verified": true
@@ -2930,7 +2930,7 @@
                 }
             ],
             "branch": 12,
-            "city": "Sargans",
+            "city": "Ebnat-Kappel",
             "cultural_fits": [
                 1,
                 2,
@@ -2992,8 +2992,8 @@
                 12
             ],
             "state": "public",
-            "street": "",
-            "zip": ""
+            "street": "Bendelverbindungsweg",
+            "zip": "9642"
         },
         "type": "student",
         "verified": true
@@ -3012,7 +3012,7 @@
                 }
             ],
             "branch": 13,
-            "city": "Wattwil",
+            "city": "Arbon",
             "cultural_fits": [
                 1,
                 3,
@@ -3073,8 +3073,8 @@
                 13
             ],
             "state": "public",
-            "street": "",
-            "zip": ""
+            "street": "St. Gallerstrasse",
+            "zip": "9320"
         },
         "type": "student",
         "verified": true
@@ -3093,7 +3093,7 @@
                 }
             ],
             "branch": 14,
-            "city": "Herisau",
+            "city": "Buchs SG",
             "cultural_fits": [
                 2,
                 6,
@@ -3153,8 +3153,8 @@
                 14
             ],
             "state": "anonymous",
-            "street": "",
-            "zip": ""
+            "street": "Lilienweg",
+            "zip": "9470"
         },
         "type": "student",
         "verified": true
@@ -3173,7 +3173,7 @@
                 }
             ],
             "branch": 15,
-            "city": "Heerbrugg",
+            "city": "Ebnat-Kappel",
             "cultural_fits": [
                 3,
                 4,
@@ -3234,8 +3234,8 @@
                 15
             ],
             "state": "public",
-            "street": "",
-            "zip": ""
+            "street": "Bendel",
+            "zip": "9642"
         },
         "type": "student",
         "verified": true
@@ -3290,7 +3290,7 @@
                 3,
                 4
             ],
-            "city": "",
+            "city": "Arbon",
             "cultural_fits": [
                 1,
                 5,
@@ -3520,13 +3520,13 @@
                 14
             ],
             "state": "public",
-            "street": "",
+            "street": "Fischmarktplatz",
             "top_level_organisation_description": "",
             "top_level_organisation_website": "",
             "type": "company",
             "uid": "CHE-000.000.000",
             "website": "https://www.dietrich.lo",
-            "zip": ""
+            "zip": "9320"
         },
         "email": "company-1-1@matchd.lo",
         "employee": {
@@ -3600,7 +3600,7 @@
                 8,
                 4
             ],
-            "city": "",
+            "city": "Buchs SG",
             "cultural_fits": [
                 2,
                 3,
@@ -3830,13 +3830,13 @@
                 15
             ],
             "state": "public",
-            "street": "",
+            "street": "Arvenweg",
             "top_level_organisation_description": "",
             "top_level_organisation_website": "",
             "type": "company",
             "uid": "CHE-000.000.000",
             "website": "https://www.stumpf.lo",
-            "zip": ""
+            "zip": "9470"
         },
         "email": "company-2-1@matchd.lo",
         "employee": {
@@ -3910,7 +3910,7 @@
                 9,
                 1
             ],
-            "city": "",
+            "city": "Buchs SG",
             "cultural_fits": [
                 3,
                 5,
@@ -4140,13 +4140,13 @@
                 12
             ],
             "state": "public",
-            "street": "",
+            "street": "Hochhausweg",
             "top_level_organisation_description": "",
             "top_level_organisation_website": "",
             "type": "company",
             "uid": "CHE-000.000.000",
             "website": "https://www.foehrkolb.lo",
-            "zip": ""
+            "zip": "9470"
         },
         "email": "company-3-1@matchd.lo",
         "employee": {
@@ -4220,7 +4220,7 @@
                 3,
                 15
             ],
-            "city": "",
+            "city": "Ebnat-Kappel",
             "cultural_fits": [
                 1,
                 2,
@@ -4450,13 +4450,13 @@
                 13
             ],
             "state": "public",
-            "street": "",
+            "street": "Schwand-Hundsruckweg",
             "top_level_organisation_description": "",
             "top_level_organisation_website": "",
             "type": "company",
             "uid": "CHE-000.000.000",
             "website": "https://www.Gitta.lo",
-            "zip": ""
+            "zip": "9642"
         },
         "email": "company-4-1@matchd.lo",
         "employee": {
@@ -4530,7 +4530,7 @@
                 15,
                 4
             ],
-            "city": "",
+            "city": "Arbon",
             "cultural_fits": [
                 3,
                 5,
@@ -4760,13 +4760,13 @@
                 14
             ],
             "state": "public",
-            "street": "",
+            "street": "Fischmarktplatz",
             "top_level_organisation_description": "",
             "top_level_organisation_website": "",
             "type": "company",
             "uid": "CHE-000.000.000",
             "website": "https://www.pankraz.lo",
-            "zip": ""
+            "zip": "9320"
         },
         "email": "company-5-1@matchd.lo",
         "employee": {
@@ -4840,7 +4840,7 @@
                 1,
                 4
             ],
-            "city": "",
+            "city": "Ebnat-Kappel",
             "cultural_fits": [
                 2,
                 4,
@@ -5070,13 +5070,13 @@
                 15
             ],
             "state": "public",
-            "street": "",
+            "street": "Wintersbergstrasse",
             "top_level_organisation_description": "",
             "top_level_organisation_website": "",
             "type": "company",
             "uid": "CHE-000.000.000",
             "website": "https://www.berger.lo",
-            "zip": ""
+            "zip": "9642"
         },
         "email": "company-6-1@matchd.lo",
         "employee": {
@@ -5150,7 +5150,7 @@
                 11,
                 4
             ],
-            "city": "",
+            "city": "Buchs SG",
             "cultural_fits": [
                 1,
                 2,
@@ -5380,13 +5380,13 @@
                 14
             ],
             "state": "public",
-            "street": "",
+            "street": "Arvenweg",
             "top_level_organisation_description": "",
             "top_level_organisation_website": "",
             "type": "company",
             "uid": "CHE-000.000.000",
             "website": "https://www.baasch.lo",
-            "zip": ""
+            "zip": "9470"
         },
         "email": "company-7-1@matchd.lo",
         "employee": {
@@ -5460,7 +5460,7 @@
                 9,
                 4
             ],
-            "city": "",
+            "city": "Gossau SG",
             "cultural_fits": [
                 3,
                 4,
@@ -5690,13 +5690,13 @@
                 12
             ],
             "state": "public",
-            "street": "",
+            "street": "Bahnhofplatz",
             "top_level_organisation_description": "",
             "top_level_organisation_website": "",
             "type": "company",
             "uid": "CHE-000.000.000",
             "website": "https://www.klossner.lo",
-            "zip": ""
+            "zip": "9200"
         },
         "email": "company-8-1@matchd.lo",
         "employee": {
@@ -5770,7 +5770,7 @@
                 15,
                 4
             ],
-            "city": "",
+            "city": "Ebnat-Kappel",
             "cultural_fits": [
                 1,
                 2,
@@ -6000,13 +6000,13 @@
                 14
             ],
             "state": "public",
-            "street": "",
+            "street": "Runkelweg",
             "top_level_organisation_description": "",
             "top_level_organisation_website": "",
             "type": "company",
             "uid": "CHE-000.000.000",
             "website": "https://www.kunkel.lo",
-            "zip": ""
+            "zip": "9642"
         },
         "email": "company-9-1@matchd.lo",
         "employee": {
@@ -6080,7 +6080,7 @@
                 15,
                 4
             ],
-            "city": "",
+            "city": "Oppikon",
             "cultural_fits": [
                 4,
                 5,
@@ -6310,13 +6310,13 @@
                 12
             ],
             "state": "public",
-            "street": "",
+            "street": "Hauptstrasse",
             "top_level_organisation_description": "",
             "top_level_organisation_website": "",
             "type": "company",
             "uid": "CHE-000.000.000",
             "website": "https://www.wagner.lo",
-            "zip": ""
+            "zip": "9565"
         },
         "email": "company-10-1@matchd.lo",
         "employee": {
@@ -6390,7 +6390,7 @@
                 7,
                 11
             ],
-            "city": "",
+            "city": "Gossau SG",
             "cultural_fits": [
                 5,
                 6,
@@ -6620,13 +6620,13 @@
                 15
             ],
             "state": "public",
-            "street": "",
+            "street": "St. Gallerstrasse",
             "top_level_organisation_description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "top_level_organisation_website": "https://www.toplevel.lo",
             "type": "university",
             "uid": "",
             "website": "https://www.schumacher.lo",
-            "zip": ""
+            "zip": "9200"
         },
         "email": "company-11-1@matchd.lo",
         "employee": {
@@ -6700,7 +6700,7 @@
                 3,
                 8
             ],
-            "city": "",
+            "city": "Ebnat-Kappel",
             "cultural_fits": [
                 1,
                 3,
@@ -6930,13 +6930,13 @@
                 15
             ],
             "state": "public",
-            "street": "",
+            "street": "Kesseltobelweg",
             "top_level_organisation_description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "top_level_organisation_website": "https://www.toplevel.lo",
             "type": "university",
             "uid": "",
             "website": "https://www.wolf.lo",
-            "zip": ""
+            "zip": "9642"
         },
         "email": "company-12-1@matchd.lo",
         "employee": {
@@ -7010,7 +7010,7 @@
                 9,
                 4
             ],
-            "city": "",
+            "city": "Gossau SG",
             "cultural_fits": [
                 2,
                 4,
@@ -7240,13 +7240,13 @@
                 13
             ],
             "state": "public",
-            "street": "",
+            "street": "Rosenaustrasse",
             "top_level_organisation_description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "top_level_organisation_website": "https://www.toplevel.lo",
             "type": "university",
             "uid": "",
             "website": "https://www.lanz.lo",
-            "zip": ""
+            "zip": "9200"
         },
         "email": "company-13-1@matchd.lo",
         "employee": {
@@ -7320,7 +7320,7 @@
                 9,
                 15
             ],
-            "city": "",
+            "city": "Ebnat-Kappel",
             "cultural_fits": [
                 3,
                 4,
@@ -7550,13 +7550,13 @@
                 12
             ],
             "state": "public",
-            "street": "",
+            "street": "Nassschwendiweg",
             "top_level_organisation_description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "top_level_organisation_website": "https://www.toplevel.lo",
             "type": "university",
             "uid": "",
             "website": "https://www.schubert.lo",
-            "zip": ""
+            "zip": "9642"
         },
         "email": "company-14-1@matchd.lo",
         "employee": {
@@ -7630,7 +7630,7 @@
                 8,
                 4
             ],
-            "city": "",
+            "city": "Ebersol",
             "cultural_fits": [
                 1,
                 4,
@@ -7860,13 +7860,13 @@
                 14
             ],
             "state": "public",
-            "street": "",
+            "street": "Lettenweg",
             "top_level_organisation_description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "top_level_organisation_website": "https://www.toplevel.lo",
             "type": "university",
             "uid": "",
             "website": "https://www.esser.lo",
-            "zip": ""
+            "zip": "9122"
         },
         "email": "company-15-1@matchd.lo",
         "employee": {
@@ -7940,7 +7940,7 @@
                 8,
                 4
             ],
-            "city": "",
+            "city": "Oppikon",
             "cultural_fits": [
                 1,
                 2,
@@ -8170,13 +8170,13 @@
                 12
             ],
             "state": "public",
-            "street": "",
+            "street": "Furtbachstrasse",
             "top_level_organisation_description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "top_level_organisation_website": "https://www.toplevel.lo",
             "type": "university",
             "uid": "",
             "website": "https://www.vonnegut.lo",
-            "zip": ""
+            "zip": "9565"
         },
         "email": "company-16-1@matchd.lo",
         "employee": {
@@ -8250,7 +8250,7 @@
                 11,
                 15
             ],
-            "city": "",
+            "city": "Ebnat-Kappel",
             "cultural_fits": [
                 2,
                 5,
@@ -8480,13 +8480,13 @@
                 15
             ],
             "state": "public",
-            "street": "",
+            "street": "Runkelweg",
             "top_level_organisation_description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "top_level_organisation_website": "https://www.toplevel.lo",
             "type": "university",
             "uid": "",
             "website": "https://www.sachs.lo",
-            "zip": ""
+            "zip": "9642"
         },
         "email": "company-17-1@matchd.lo",
         "employee": {
@@ -8560,7 +8560,7 @@
                 15,
                 4
             ],
-            "city": "",
+            "city": "Gossau SG",
             "cultural_fits": [
                 1,
                 3,
@@ -8790,13 +8790,13 @@
                 15
             ],
             "state": "public",
-            "street": "",
+            "street": "Brunnenstrasse",
             "top_level_organisation_description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "top_level_organisation_website": "https://www.toplevel.lo",
             "type": "university",
             "uid": "",
             "website": "https://www.pfeiffer.lo",
-            "zip": ""
+            "zip": "9200"
         },
         "email": "company-18-1@matchd.lo",
         "employee": {
@@ -8870,7 +8870,7 @@
                 8,
                 4
             ],
-            "city": "",
+            "city": "Wittenbach",
             "cultural_fits": [
                 2,
                 3,
@@ -9100,13 +9100,13 @@
                 13
             ],
             "state": "public",
-            "street": "",
+            "street": "Romanshornerstrasse",
             "top_level_organisation_description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "top_level_organisation_website": "https://www.toplevel.lo",
             "type": "university",
             "uid": "",
             "website": "https://www.warner.lo",
-            "zip": ""
+            "zip": "9300"
         },
         "email": "company-19-1@matchd.lo",
         "employee": {
@@ -9180,7 +9180,7 @@
                 11,
                 15
             ],
-            "city": "",
+            "city": "Ebnat-Kappel",
             "cultural_fits": [
                 4,
                 5,
@@ -9410,13 +9410,13 @@
                 14
             ],
             "state": "public",
-            "street": "",
+            "street": "Nassschwendiweg",
             "top_level_organisation_description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "top_level_organisation_website": "https://www.toplevel.lo",
             "type": "university",
             "uid": "",
             "website": "https://www.krause.lo",
-            "zip": ""
+            "zip": "9642"
         },
         "email": "company-20-1@matchd.lo",
         "employee": {
