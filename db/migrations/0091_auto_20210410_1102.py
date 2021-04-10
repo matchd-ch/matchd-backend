@@ -3,7 +3,7 @@
 from django.db import migrations, connection
 from django.utils.text import slugify
 
-from db.models import Student, ProfileState
+from db.models import Student
 
 
 def add_student_slug(apps, schema_editor):
@@ -11,11 +11,10 @@ def add_student_slug(apps, schema_editor):
     students = Student.objects.all()
 
     for student in students:
-        if student.state not in (ProfileState.PUBLIC, ProfileState.ANONYMOUS):
-            continue
-        if student.slug is None or student.slug == '':
-            query = "UPDATE `db_student` SET slug='%s' WHERE id=%i" % (slugify(student.nickname), student.id)
-            cursor.execute(query)
+        if student.profile_step >= 5:
+            if student.slug is None or student.slug == '':
+                query = "UPDATE `db_student` SET slug='%s' WHERE id=%i" % (slugify(student.nickname), student.id)
+                cursor.execute(query)
 
 
 class Migration(migrations.Migration):
