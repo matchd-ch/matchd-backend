@@ -10,19 +10,23 @@ from db.search.mapper import MatchMapper
 from api.schema.branch import BranchInput
 from api.schema.job_posting import JobPostingInput
 from api.schema.job_type import JobTypeInput
-from api.schema.profile_type import ProfileType
 from db.models import JobPosting as JobPostingModel, JobPostingLanguageRelation, JobType as JobTypeModel,  \
-    Branch as BranchModel, ProfileType as ProfileTypeModel, JobPostingState
+    Branch as BranchModel, ProfileType as ProfileTypeModel, JobPostingState, MatchType as MatchTypeModel
 from db.search import Matching
+
+MatchType = graphene.Enum.from_enum(MatchTypeModel)
 
 
 class Match(ObjectType):
+    id = graphene.ID()
+    slug = graphene.NonNull(graphene.String)
     name = graphene.NonNull(graphene.String)
+    type = graphene.NonNull(MatchType)
     avatar = graphene.String()
-    type = graphene.Field(ProfileType)
     slug = graphene.NonNull(graphene.String)
     score = graphene.NonNull(graphene.Float)
     raw_score = graphene.NonNull(graphene.Float)
+    job_posting_title = graphene.String()
 
 
 class JobPostingMatchingInput(InputObjectType):

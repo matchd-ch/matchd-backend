@@ -1,4 +1,4 @@
-from db.models import Attachment, AttachmentKey, ProfileState
+from db.models import Attachment, AttachmentKey, ProfileState, MatchType
 
 
 class MatchMapper:
@@ -25,10 +25,11 @@ class MatchMapper:
                 name = student.nickname
                 attachment = None
             match = {
+                'id': student.id,
+                'slug': student.slug,
                 'name': name,
                 'avatar': attachment,
-                'type': student.user.type,
-                'slug': student.nickname,
+                'type': MatchType.STUDENT,
                 'score': student.score,
                 'raw_score': student.raw_score
             }
