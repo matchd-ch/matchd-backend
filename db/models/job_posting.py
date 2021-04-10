@@ -11,6 +11,7 @@ class JobPostingState(models.TextChoices):
 
 # pylint: disable=R0902
 class JobPosting(models.Model, index.Indexed):
+    title = models.CharField(max_length=50, blank=True)
     description = models.TextField(max_length=1000)
     job_type = models.ForeignKey('db.JobType', null=False, blank=False, on_delete=models.CASCADE, related_name='+')
     branch = models.ForeignKey('db.Branch', null=False, blank=False, on_delete=models.CASCADE, related_name='+')
