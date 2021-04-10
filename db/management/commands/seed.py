@@ -100,6 +100,8 @@ class Command(BaseCommand):
             elif f[0] == 'm':
                 self.random_male_avatars.append(f)
 
+        self.load_address_list()
+
     def load_address_list(self):
         with open('db/management/commands/address_list.txt') as address_file:
             lines = address_file.readlines()

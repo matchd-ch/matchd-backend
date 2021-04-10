@@ -165,49 +165,6 @@ Furtbachstrasse, 9565 - Oppikon, Bussnang, Bezirk Weinfelden
 Mühleweg, 9565 - Oppikon, Bussnang, Bezirk Weinfelden
 Am Furtbach, 9565 - Oppikon, Oberbussnang, Bussnang
 Hauptstrasse, 9565 - Oppikon, Oberbussnang, Bussnang
-Ara-Strasse, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Böden-Käsernweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Bendel-Rellenweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Bitzi-Pfingstmoosweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Bitzi-Verbindungsweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Brandholzbrücke, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Dollenweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Gsässweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Guggenlochstrasse, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Häxebrüggli, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Hürnliweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Hüsliberg-Nassschwendiweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Hohlweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Hundsrückweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Hundsruckweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Käsern-Schwandweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Kesseltobel-Guggenlochweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Kesseltobelweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Lei-Hüslibergweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Nassschwendi-Käfereggweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Nassschwendi-Kellenweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Nassschwendi-Schafbüchelweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Nassschwendi-Schofbüchelweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Nassschwendiwaldweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Nassschwendiweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Pfingstmoosweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Rellenweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Runkel-Fuchsfallen, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Sabelweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Schafbüchel-Bendelstrasse, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Schluecht-Kesseltobelweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Schuflen-Bürzelweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Schwand-Hundsruckweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Schwand-Käsernweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Schwand-Wintersbergweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Schwandtobelweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Schwarzer Steg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Stofel-Bitziweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Stofel-Schofbüchelweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Studenweidlistrasse, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Sumpfstrasse, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Zübli-Rietweg, 9642 - Ebnat-Kappel, Ebnat-Kappel, Wahlkreis Toggenburg
-Bendel, 9642 - Ebnat-Kappel, Bendel, Ebnat-Kappel
 Bendel-Rellenweg, 9642 - Ebnat-Kappel, Bendel, Ebnat-Kappel
 Bendelverbindungsweg, 9642 - Ebnat-Kappel, Bendel, Ebnat-Kappel
 Oberer Hohlverbindungsweg, 9642 - Ebnat-Kappel, Bendel, Ebnat-Kappel

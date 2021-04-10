@@ -31,17 +31,6 @@ class Command(SeedCommand):
         month = self.random_items(months, 1)
         return f'2022-{month}-01'
 
-    def load_data(self):
-        self.load_address_list()
-        self.random_cultural_fits = list(CulturalFit.objects.all().values_list('id', flat=True))
-        self.random_skills = list(Skill.objects.all().values_list('id', flat=True))
-        self.random_soft_skills = list(SoftSkill.objects.all().values_list('id', flat=True))
-        self.random_branches = list(Branch.objects.all().values_list('id', flat=True))
-        self.random_job_types = list(JobType.objects.all().values_list('id', flat=True))
-        self.random_languages = list(Language.objects.all().values_list('id', flat=True))
-        self.random_language_levels = list(LanguageLevel.objects.all().values_list('id', flat=True))
-        self.random_gender = ['male', 'female']
-
     # noinspection PyUnresolvedReferences
     def handle(self, *args, **options):
         number_of_students = options.get('num')
@@ -66,6 +55,10 @@ class Command(SeedCommand):
 
             street, zip_value, city = self.random_items(self.random_address, 1)
 
+            avatar = self.random_items(self.random_male_avatars, 1)
+            if gender == 'female':
+                avatar = self.random_items(self.random_female_avatars, 1)
+
             dummy = {
                 "email": email,
                 "first_name": first_name,
@@ -73,7 +66,7 @@ class Command(SeedCommand):
                 "student": {
                     "attachments": [
                         {
-                            "file": "dummy.png",
+                            "file": avatar,
                             "key": "student_avatar",
                             "type": "db.image",
                             "user": email
@@ -138,7 +131,15 @@ class Command(SeedCommand):
         elif model == 'video':
             attachment_instance = self.create_video(relative_file_path, user)
 
-        Attachment.objects.get_or_create(
-            attachment_type=self.content_types[model], attachment_id=attachment_instance.id,
-            content_type=self.content_types[content_type_key], object_id=company_or_student.id,
-            key=attachment_data.get('key'))
+        try:
+            data = Attachment.objects.get(
+                attachment_type=self.content_types[model],
+                content_type=self.content_types[content_type_key], object_id=company_or_student.id,
+                key=attachment_data.get('key'))
+            data.attachment_id = attachment_instance.id
+            data.save()
+        except Attachment.DoesNotExist:
+            Attachment.objects.create(
+                attachment_type=self.content_types[model], attachment_id=attachment_instance.id,
+                content_type=self.content_types[content_type_key], object_id=company_or_student.id,
+                key=attachment_data.get('key'))
