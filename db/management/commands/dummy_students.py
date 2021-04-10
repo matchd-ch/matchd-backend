@@ -35,6 +35,7 @@ class Command(SeedCommand):
         return f'2022-{month}-01'
 
     def load_data(self):
+        self.load_address_list()
         self.random_cultural_fits = list(CulturalFit.objects.all().values_list('id', flat=True))
         self.random_skills = list(Skill.objects.all().values_list('id', flat=True))
         self.random_soft_skills = list(SoftSkill.objects.all().values_list('id', flat=True))
@@ -71,6 +72,8 @@ class Command(SeedCommand):
             nickname = f'{slugify(name)}-{str(i)}'
             first_name, last_name = name.split(' ')
 
+            street, zip_value, city = self.random_items(self.random_address, 1)
+
             dummy = {
                 "email": email,
                 "first_name": first_name,
@@ -85,7 +88,7 @@ class Command(SeedCommand):
                         }
                     ],
                     "branch": self.random_items(self.random_branches, 1),
-                    "city": "St. Gallen",
+                    "city": city,
                     "cultural_fits": self.random_items(self.random_cultural_fits, 6),
                     "date_of_birth": "2002-04-05",
                     "distinction": "Distinction",
@@ -107,8 +110,8 @@ class Command(SeedCommand):
                     "skills": self.random_items(self.random_skills, 4),
                     "soft_skills": self.random_items(self.random_soft_skills, 6),
                     "state": "public",
-                    "street": "",
-                    "zip": ""
+                    "street": street,
+                    "zip": zip_value
                 },
                 "type": "student",
                 "verified": 1

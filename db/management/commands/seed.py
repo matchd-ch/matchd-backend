@@ -67,16 +67,7 @@ class Command(BaseCommand):
         with open('db/management/data/fixtures.json') as json_file:
             self.data = json.load(json_file)
 
-        with open('db/management/commands/address_list.txt') as address_file:
-            lines = address_file.readlines()
-            for line in lines:
-                parts = line.split(',')
-                address = parts[0].strip()
-                parts2 = parts[1].split(' - ')
-                self.random_address.append(
-                    (address, parts2[0].strip(), parts2[1].strip())
-                )
-
+        self.load_address_list()
         self.random_cultural_fits = list(CulturalFit.objects.all().values_list('id', flat=True))
         self.random_benefits = list(Benefit.objects.all().values_list('id', flat=True))
         self.random_skills = list(Skill.objects.all().values_list('id', flat=True))
@@ -86,6 +77,17 @@ class Command(BaseCommand):
         self.random_languages = list(Language.objects.all().values_list('id', flat=True))
         self.random_language_levels = list(LanguageLevel.objects.all().values_list('id', flat=True))
         self.random_requirements = list(JobRequirement.objects.all().values_list('id', flat=True))
+
+    def load_address_list(self):
+        with open('db/management/commands/address_list.txt') as address_file:
+            lines = address_file.readlines()
+            for line in lines:
+                parts = line.split(',')
+                address = parts[0].strip()
+                parts2 = parts[1].split(' - ')
+                self.random_address.append(
+                    (address, parts2[0].strip(), parts2[1].strip())
+                )
 
     def random_items(self, items, count):
         random.shuffle(items)
