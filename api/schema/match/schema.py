@@ -7,11 +7,10 @@ from graphql_jwt.decorators import login_required
 from graphene import ObjectType, InputObjectType
 
 from db.search.mapper import MatchMapper
-from api.schema.branch import BranchInput
 from api.schema.job_posting import JobPostingInput
 from api.schema.job_type import JobTypeInput
 from db.models import JobPosting as JobPostingModel, JobPostingLanguageRelation, JobType as JobTypeModel,  \
-    Branch as BranchModel, ProfileType as ProfileTypeModel, JobPostingState, MatchType as MatchTypeModel
+    ProfileType as ProfileTypeModel, JobPostingState, MatchType as MatchTypeModel
 from db.search import Matching
 
 MatchType = graphene.Enum.from_enum(MatchTypeModel)
@@ -34,7 +33,7 @@ class JobPostingMatchingInput(InputObjectType):
 
 class StudentMatchingInput(InputObjectType):
     job_type = graphene.Field(JobTypeInput, required=True)
-    work_load = graphene.Int(required=False)
+    workload = graphene.Int(required=False)
 
 
 class MatchQuery(ObjectType):
