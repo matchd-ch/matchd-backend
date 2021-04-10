@@ -1,12 +1,13 @@
 import pytest
 from django.contrib.auth.models import AnonymousUser
 
-from db.models import JobPosting, JobPostingState
+from db.models import JobPosting, JobPostingState, JobPostingLanguageRelation
 
 
 @pytest.mark.django_db
 def test_job_posting(query_job_posting, job_posting_object: JobPosting, job_type_objects, branch_objects,
-                     company_object, job_requirement_objects, skill_objects, user_employee):
+                     company_object, job_requirement_objects, skill_objects, user_employee, language_objects,
+                     language_level_objects):
     job_posting_object.title = 'title'
     job_posting_object.slug = 'title'
     job_posting_object.description = 'description'
@@ -23,6 +24,8 @@ def test_job_posting(query_job_posting, job_posting_object: JobPosting, job_type
     job_posting_object.state = JobPostingState.PUBLIC
     job_posting_object.employee = user_employee.employee
     job_posting_object.save()
+    JobPostingLanguageRelation.objects.create(job_posting=job_posting_object, language=language_objects[0],
+                                              language_level=language_level_objects[0])
 
     data, errors = query_job_posting(user_employee, 'title')
 
@@ -41,7 +44,8 @@ def test_job_posting(query_job_posting, job_posting_object: JobPosting, job_type
     assert job_posting.get('jobToDate') == '2021-10-01'
     assert job_posting.get('url') == job_posting_object.url
     assert len(job_posting.get('jobRequirements')) == len(job_requirement_objects)
-    assert len(job_posting.get('skills')) == len(skill_objects)
+    assert len(job_posting.get('skills')) == 0  # skills should not be visible
+    assert len(job_posting.get('languages')) == 0  # languages should not be visible
     assert int(job_posting.get('formStep')) == job_posting_object.form_step
     assert job_posting.get('state') == job_posting_object.state.upper()
     assert int(job_posting.get('employee').get('id')) == user_employee.employee.id
@@ -87,7 +91,8 @@ def test_job_posting_is_draft_but_accessible_for_employee(login, query_job_posti
     assert job_posting.get('jobToDate') == '2021-10-01'
     assert job_posting.get('url') == job_posting_object.url
     assert len(job_posting.get('jobRequirements')) == len(job_requirement_objects)
-    assert len(job_posting.get('skills')) == len(skill_objects)
+    assert len(job_posting.get('skills')) == 0
+    assert len(job_posting.get('languages')) == 0
     assert int(job_posting.get('formStep')) == job_posting_object.form_step
     assert job_posting.get('state') == job_posting_object.state.upper()
     assert int(job_posting.get('employee').get('id')) == user_employee.employee.id
