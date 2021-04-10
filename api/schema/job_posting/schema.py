@@ -51,26 +51,18 @@ class JobPostingQuery(ObjectType):
     @login_required
     def resolve_job_postings(self, info, **kwargs):
         slug = kwargs.get('slug')
-        if slug is None:
-            user = info.context.user
-            if user.type not in ProfileType.valid_company_types():
-                raise PermissionDenied('You do not have permission to perform this action')
-            company = get_object_or_404(Company, slug=slug)
-            if company == user.company:
-                # show incomplete job postings
-                return JobPostingModel.objects.filter(company=company)
-            raise PermissionDenied('You do not have permission to perform this action')
-        else:
-            company = get_object_or_404(Company, slug=slug)
-            # hide incomplete job postings
-            return JobPostingModel.objects.filter(state=JobPostingState.PUBLIC, company=company)
+        company = get_object_or_404(Company, slug=slug)
+        # hide incomplete job postings
+        # employees should not see job postings which have a DRAFT state
+        # eg. an employee should not be able to search with an unpublished job posting
+        return JobPostingModel.objects.filter(state=JobPostingState.PUBLIC, company=company)
 
     @login_required
     def resolve_job_posting(self, info, **kwargs):
         slug = kwargs.get('slug')
         job_posting = get_object_or_404(JobPostingModel, slug=slug)
 
-        # show incomplete job postings for owner
+        # show incomplete job postings for employees of the company
         if info.context.user.company == job_posting.company:
             return job_posting
 
