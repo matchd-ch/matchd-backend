@@ -1551,14 +1551,7 @@
         "first_name": "Melissa",
         "last_name": "Cianciolo",
         "student": {
-            "attachments": [
-                {
-                    "file": "melissa-cianciolo_profilbild_1.png",
-                    "key": "student_avatar",
-                    "type": "db.image",
-                    "user": "student-1@matchd.lo"
-                }
-            ],
+            "attachments": [],
             "branch": 1,
             "city": "St. Gallen",
             "cultural_fits": [
@@ -1656,14 +1649,7 @@
         "first_name": "Andy",
         "last_name": "Jackson",
         "student": {
-            "attachments": [
-                {
-                    "file": "andy-jackson_profilbild_2.png",
-                    "key": "student_avatar",
-                    "type": "db.image",
-                    "user": "student-2@matchd.lo"
-                }
-            ],
+            "attachments": [],
             "branch": 2,
             "city": "Gossau SG",
             "cultural_fits": [
@@ -1753,14 +1739,7 @@
         "first_name": "Talia",
         "last_name": "Hart",
         "student": {
-            "attachments": [
-                {
-                    "file": "talia-hart_profilbild_3.png",
-                    "key": "student_avatar",
-                    "type": "db.image",
-                    "user": "student-3@matchd.lo"
-                }
-            ],
+            "attachments": [],
             "branch": 3,
             "city": "Niederwil SG",
             "cultural_fits": [
@@ -1850,14 +1829,7 @@
         "first_name": "Kevin",
         "last_name": "Graves",
         "student": {
-            "attachments": [
-                {
-                    "file": "kevin-graves_profilbild_4.png",
-                    "key": "student_avatar",
-                    "type": "db.image",
-                    "user": "student-4@matchd.lo"
-                }
-            ],
+            "attachments": [],
             "branch": 4,
             "city": "Niederwil SG",
             "cultural_fits": [
@@ -1942,14 +1914,7 @@
         "first_name": "Timothy",
         "last_name": "Wilson",
         "student": {
-            "attachments": [
-                {
-                    "file": "timothy-wilson_profilbild_5.png",
-                    "key": "student_avatar",
-                    "type": "db.image",
-                    "user": "student-5@matchd.lo"
-                }
-            ],
+            "attachments": [],
             "branch": 5,
             "city": "Buchs SG",
             "cultural_fits": [
@@ -2024,14 +1989,7 @@
         "first_name": "Charlie",
         "last_name": "Jencks",
         "student": {
-            "attachments": [
-                {
-                    "file": "charlie-jencks_profilbild_6.png",
-                    "key": "student_avatar",
-                    "type": "db.image",
-                    "user": "student-6@matchd.lo"
-                }
-            ],
+            "attachments": [],
             "branch": 1,
             "city": "Buchs SG",
             "cultural_fits": [
@@ -2106,14 +2064,7 @@
         "first_name": "Mark",
         "last_name": "Avery",
         "student": {
-            "attachments": [
-                {
-                    "file": "mark-avery_profilbild_7.png",
-                    "key": "student_avatar",
-                    "type": "db.image",
-                    "user": "student-7@matchd.lo"
-                }
-            ],
+            "attachments": [],
             "branch": 2,
             "city": "Ebnat-Kappel",
             "cultural_fits": [
@@ -2188,14 +2139,7 @@
         "first_name": "Misty",
         "last_name": "Hernandez",
         "student": {
-            "attachments": [
-                {
-                    "file": "misty-hernandez_profilbild_8.png",
-                    "key": "student_avatar",
-                    "type": "db.image",
-                    "user": "student-8@matchd.lo"
-                }
-            ],
+            "attachments": [],
             "branch": 3,
             "city": "Ebersol",
             "cultural_fits": [
@@ -2270,14 +2214,7 @@
         "first_name": "Mary",
         "last_name": "Polite",
         "student": {
-            "attachments": [
-                {
-                    "file": "mary-polite_profilbild_9.jpg",
-                    "key": "student_avatar",
-                    "type": "db.image",
-                    "user": "student-9@matchd.lo"
-                }
-            ],
+            "attachments": [],
             "branch": 4,
             "city": "Steinach",
             "cultural_fits": [
@@ -2352,14 +2289,7 @@
         "first_name": "Jessica",
         "last_name": "Salazar",
         "student": {
-            "attachments": [
-                {
-                    "file": "jessica-salazar_profilbild_10.jpg",
-                    "key": "student_avatar",
-                    "type": "db.image",
-                    "user": "student-10@matchd.lo"
-                }
-            ],
+            "attachments": [],
             "branch": 5,
             "city": "Ebersol",
             "cultural_fits": [
@@ -2434,14 +2364,7 @@
         "first_name": "Grete",
         "last_name": "Weber",
         "student": {
-            "attachments": [
-                {
-                    "file": "grete-weber_profilbild_11.jpg",
-                    "key": "student_avatar",
-                    "type": "db.image",
-                    "user": "student-11@matchd.lo"
-                }
-            ],
+            "attachments": [],
             "branch": 6,
             "city": "Gossau SG",
             "cultural_fits": [
@@ -2516,14 +2439,7 @@
         "first_name": "Franz",
         "last_name": "Haas",
         "student": {
-            "attachments": [
-                {
-                    "file": "franz-haas_profilbild_12.png",
-                    "key": "student_avatar",
-                    "type": "db.image",
-                    "user": "student-12@matchd.lo"
-                }
-            ],
+            "attachments": [],
             "branch": 7,
             "city": "Ebnat-Kappel",
             "cultural_fits": [
@@ -2598,14 +2514,7 @@
         "first_name": "Amala",
         "last_name": "Volk",
         "student": {
-            "attachments": [
-                {
-                    "file": "amala-volk_profilbild_13.jpg",
-                    "key": "student_avatar",
-                    "type": "db.image",
-                    "user": "student-13@matchd.lo"
-                }
-            ],
+            "attachments": [],
             "branch": 8,
             "city": "Ebnat-Kappel",
             "cultural_fits": [
@@ -2677,14 +2586,7 @@
         "first_name": "Emil",
         "last_name": "Sch\u00e4fer",
         "student": {
-            "attachments": [
-                {
-                    "file": "emil-schafer_profilbild_14.jpg",
-                    "key": "student_avatar",
-                    "type": "db.image",
-                    "user": "student-14@matchd.lo"
-                }
-            ],
+            "attachments": [],
             "branch": 9,
             "city": "Ebersol",
             "cultural_fits": [
@@ -2759,14 +2661,7 @@
         "first_name": "Waldo",
         "last_name": "Wegener",
         "student": {
-            "attachments": [
-                {
-                    "file": "waldo-wegener_profilbild_15.jpg",
-                    "key": "student_avatar",
-                    "type": "db.image",
-                    "user": "student-15@matchd.lo"
-                }
-            ],
+            "attachments": [],
             "branch": 10,
             "city": "Gossau SG",
             "cultural_fits": [
@@ -2839,14 +2734,7 @@
         "first_name": "Heinz",
         "last_name": "Kraus",
         "student": {
-            "attachments": [
-                {
-                    "file": "heinz-kraus_profilbild_16.jpg",
-                    "key": "student_avatar",
-                    "type": "db.image",
-                    "user": "student-16@matchd.lo"
-                }
-            ],
+            "attachments": [],
             "branch": 11,
             "city": "Ebnat-Kappel",
             "cultural_fits": [
@@ -2921,14 +2809,7 @@
         "first_name": "Wilfried",
         "last_name": "Vogt",
         "student": {
-            "attachments": [
-                {
-                    "file": "wilfried-vogt_profilbild_17.jpg",
-                    "key": "student_avatar",
-                    "type": "db.image",
-                    "user": "student-17@matchd.lo"
-                }
-            ],
+            "attachments": [],
             "branch": 12,
             "city": "Ebnat-Kappel",
             "cultural_fits": [
@@ -3003,14 +2884,7 @@
         "first_name": "Emeline",
         "last_name": "Fabel",
         "student": {
-            "attachments": [
-                {
-                    "file": "emeline-fabel_profilbild_18.jpg",
-                    "key": "student_avatar",
-                    "type": "db.image",
-                    "user": "student-18@matchd.lo"
-                }
-            ],
+            "attachments": [],
             "branch": 13,
             "city": "Arbon",
             "cultural_fits": [
@@ -3084,14 +2958,7 @@
         "first_name": "Ima",
         "last_name": "Richter",
         "student": {
-            "attachments": [
-                {
-                    "file": "ima-richter_profilbild_19.jpg",
-                    "key": "student_avatar",
-                    "type": "db.image",
-                    "user": "student-19@matchd.lo"
-                }
-            ],
+            "attachments": [],
             "branch": 14,
             "city": "Buchs SG",
             "cultural_fits": [
@@ -3164,14 +3031,7 @@
         "first_name": "Uschi",
         "last_name": "Mayer",
         "student": {
-            "attachments": [
-                {
-                    "file": "uschi-mayer_profilbild_20.jpg",
-                    "key": "student_avatar",
-                    "type": "db.image",
-                    "user": "student-20@matchd.lo"
-                }
-            ],
+            "attachments": [],
             "branch": 15,
             "city": "Ebnat-Kappel",
             "cultural_fits": [
