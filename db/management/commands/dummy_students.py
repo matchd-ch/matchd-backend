@@ -119,8 +119,14 @@ class Command(SeedCommand):
 
         app_label, model = attachment_data.get('type').split('.')
         file_path = os.path.join(fixtures_path, attachment_data.get('file'))
-        relative_file_path = attachment_data.get('file')
-        destination_path = os.path.join(media_path, attachment_data.get('file'))
+        relative_path = os.path.join(content_type_key, str(company_or_student.id),
+                                     'images' if model == 'image' else 'video')
+        relative_file_path = os.path.join(content_type_key, str(company_or_student.id),
+                                          'images' if model == 'image' else 'video', attachment_data.get('file'))
+
+        destination_path = os.path.join(media_path, relative_path)
+        os.makedirs(destination_path, exist_ok=True)
+        destination_path = os.path.join(destination_path, attachment_data.get('file'))
 
         if not os.path.exists(destination_path):
             shutil.copy(file_path, destination_path)
