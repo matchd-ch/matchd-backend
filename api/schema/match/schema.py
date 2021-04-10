@@ -23,8 +23,6 @@ class Match(ObjectType):
     slug = graphene.NonNull(graphene.String)
     score = graphene.NonNull(graphene.Float)
     raw_score = graphene.NonNull(graphene.Float)
-    effective_score = graphene.NonNull(graphene.Float)
-    max_score = graphene.NonNull(graphene.Float)
 
 
 class JobPostingMatchingInput(InputObjectType):

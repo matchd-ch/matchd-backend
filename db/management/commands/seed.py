@@ -433,7 +433,6 @@ class Command(BaseCommand):
         fixtures_path = os.path.join(settings.MEDIA_ROOT, 'company_fixtures')
 
         for attachment in attachments:
-            # print(attachment)
             user = get_user_model().objects.get(email=attachment.get('user'))
             self.create_attachment(fixtures_path, company, attachment, user, 'company')
 

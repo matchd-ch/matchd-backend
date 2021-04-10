@@ -25,7 +25,13 @@ class HitResolver:
                 max_score = score
             if float(score) < min_score:
                 min_score = score
-        self.calculate_score_multiplier(max_score, min_score)
+
+        # this mostly happens when only 1 result is returned
+        if max_score == min_score:
+            self.calculate_score_multiplier(self.maximum_possible_score, min_score)
+        else:
+            self.calculate_score_multiplier(max_score, min_score)
+
         query = Q(id__in=ids)
         result = self.queryset.filter(query)
 
@@ -34,8 +40,6 @@ class HitResolver:
             if obj_id in scores:
                 setattr(obj, 'score', self.shift_score(float(scores[obj_id]), min_score))
                 setattr(obj, 'raw_score', self.shift_raw_score(round(float(scores[obj_id]), 2)))
-                setattr(obj, 'effective_score', round(float(scores[obj_id]), 2))
-                setattr(obj, 'max_score', self.maximum_possible_score)
 
         def sort_by_score(value):
             return value.score
@@ -49,7 +53,7 @@ class HitResolver:
 
     def shift_score(self, origin_score, minimum):
         origin_score = origin_score - minimum
-        return round(origin_score * self.score_multiplier, 2)
+        return min(1, round(origin_score * self.score_multiplier, 2))
 
     def shift_raw_score(self, origin_score):
-        return round(origin_score * self.raw_score_multiplier, 2)
+        return min(1, round(origin_score * self.raw_score_multiplier, 2))

@@ -30,9 +30,7 @@ class MatchMapper:
                 'type': student.user.type,
                 'slug': student.nickname,
                 'score': student.score,
-                'raw_score': student.raw_score,
-                'effective_score': student.effective_score,
-                'max_score': student.max_score
+                'raw_score': student.raw_score
             }
             matches.append(match)
         return matches

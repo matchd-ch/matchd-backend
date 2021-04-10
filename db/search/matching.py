@@ -12,21 +12,7 @@ class Matching:
     def find_talents_by_job_posting(self, job_posting, first=100, skip=0, soft_boost=1, tech_boost=1):
         queryset = Student.get_indexed_objects().prefetch_related('user')
         index = self.search_backend.get_index_for_model(queryset.model).name
-
-        # Calculate the maximum score possible
-        # branch id, job type id
-        maximum_score = 20
-        print('a', maximum_score)
-        maximum_score += (len(job_posting.company.cultural_fits.all()) * soft_boost)
-        print('b', maximum_score)
-        maximum_score += (len(job_posting.company.soft_skills.all()) * soft_boost)
-        print('c', maximum_score)
-        maximum_score += (len(job_posting.skills.all()) * tech_boost)
-        print('d', maximum_score)
-        maximum_score += (len(job_posting.languages.all()) * 2)
-        print('e', maximum_score)
-        maximum_score += 3  # max score for date or date range match
-        print('f', maximum_score)
+        maximum_score = self.calculate_maximum_job_posting_score(job_posting, soft_boost, tech_boost)
 
         builder = StudentParamBuilder(queryset, index, first, skip)
         builder.set_branch(job_posting.branch_id, 10)
@@ -68,3 +54,19 @@ class Matching:
     def find_job_postings(self):
         # queryset = JobPosting.get_indexed_objects()
         pass
+
+    def calculate_maximum_job_posting_score(self, job_posting, soft_boost, tech_boost):
+        # Calculate the maximum score possible
+        # branch id, job type id
+        maximum_score = 20
+        maximum_score += (len(job_posting.company.cultural_fits.all()) * soft_boost)
+        maximum_score += (len(job_posting.company.soft_skills.all()) * soft_boost)
+        maximum_score += (len(job_posting.skills.all()) * tech_boost)
+        # matching on language level is disabled for now, see db.search.builders.student (set_languages)
+        # we do not add the score for the language, to get better matching scores
+        # maximum_score += (len(job_posting.languages.all()) * 2)
+        if job_posting.job_type.mode == DateMode.DATE_RANGE:
+            maximum_score += 6  # max score for date or date range match
+        else:
+            maximum_score += 3  # max score for date or date range match
+        return maximum_score

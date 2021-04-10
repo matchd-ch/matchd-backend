@@ -25,9 +25,11 @@ class StudentParamBuilder(BaseParamBuilder):
         for obj in languages:
             self.should_conditions.append(self.get_condition('languages', 'language_id_filter',
                                                              [obj.language.id], boost))
-            self.should_conditions.append(
-                self.get_condition('languages', 'language_level_concat_filter',
-                                   [f'{obj.language.id}-{obj.language_level.id}'], boost))
+            # matching on language level is disabled for now,
+            # see db.search.matching (calculate_maximum_job_posting_score)
+            # self.should_conditions.append(
+            #     self.get_condition('languages', 'language_level_concat_filter',
+            #                        [f'{obj.language.id}-{obj.language_level.id}'], boost))
 
     def set_date_from(self, date_from, boost=1):
         self.should_conditions.append(
