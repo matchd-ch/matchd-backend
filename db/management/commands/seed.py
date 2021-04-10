@@ -177,6 +177,7 @@ class Command(BaseCommand):
 
             for i in range(0, 5):
                 job_posting = JobPosting(
+                    title=self.random_items(self.random_job_posting_titles, 1),
                     description=description,
                     job_type_id=job_types[i],
                     branch_id=branches[i],
@@ -190,6 +191,7 @@ class Command(BaseCommand):
                     employee=Employee.objects.get(user=user)
                 )
                 job_posting.save()
+                job_posting.slug = f'{slugify(job_posting.title)}-{str(job_posting.id)}'
                 job_posting.job_requirements.set(self.random_items(self.random_requirements, 4))
                 job_posting.skills.set(self.random_items(self.random_skills, 5))
                 random_languages = self.random_items(self.random_languages, 3)
@@ -221,6 +223,7 @@ class Command(BaseCommand):
                 job_posting.state = obj.get('state')
                 job_posting.employee = get_user_model().objects.get(email=obj.get('employee')).employee
                 job_posting.save()
+                job_posting.slug = f'{slugify(job_posting.title)}-{str(job_posting.id)}'
                 job_posting.skills.set(obj.get('skills'))
                 job_posting.job_requirements.set(obj.get('job_requirements'))
 
@@ -252,27 +255,27 @@ class Command(BaseCommand):
         if is_complete:
             # benefits
             benefits = data.get('benefits')
-            if len(benefits) == 0 or len(user.company.benefits.all()) == 0:
+            if len(benefits) == 0:
                 company.benefits.set(self.random_items(self.random_benefits, 6))
             else:
                 company.benefits.set(benefits)
 
             # branches
             branches = data.get('branches')
-            if len(branches) == 0 or len(user.company.branches.all()) < 3:
+            if len(branches) == 0:
                 company.branches.set(self.random_items(self.random_branches, 3))
             else:
                 company.branches.set(branches)
 
             # cultural fits
             cultural_fits = data.get('cultural_fits')
-            if len(cultural_fits) == 0 or len(company.cultural_fits.all()) < 6:
+            if len(cultural_fits) == 0:
                 company.cultural_fits.set(self.random_items(self.random_cultural_fits, 6))
             else:
                 company.cultural_fits.set(cultural_fits)
 
             soft_skills = data.get('soft_skills')
-            if len(soft_skills) == 0 or len(company.soft_skills.all()) < 6:
+            if len(soft_skills) == 0:
                 company.soft_skills.set(self.random_items(self.random_soft_skills, 6))
             else:
                 company.soft_skills.set(soft_skills)
@@ -330,7 +333,7 @@ class Command(BaseCommand):
         else:
             student.branch_id = branch
         cultural_fits = data.get('cultural_fits')
-        if len(cultural_fits) == 0 and is_complete and len(user.student.cultural_fits.all()) == 0:
+        if len(cultural_fits) == 0 and is_complete:
             student.cultural_fits.set(self.random_items(self.random_cultural_fits, 6))
         else:
             student.cultural_fits.set(cultural_fits)
@@ -339,7 +342,7 @@ class Command(BaseCommand):
         student.field_of_study = data.get('field_of_study')
         student.graduation = data.get('graduation')
         hobbies = data.get('hobbies')
-        if len(data.get('hobbies')) == 0 and is_complete and len(user.student.hobbies.all()) == 0:
+        if len(data.get('hobbies')) == 0 and is_complete:
             for hobby in self.random_items(self.random_hobbies, 3):
                 Hobby.objects.create(student=student, name=hobby)
         else:
@@ -355,7 +358,7 @@ class Command(BaseCommand):
             student.job_type_id = job_type
 
         languages = data.get('languages')
-        if len(languages) == 0 and is_complete and len(user.student.languages.all()) == 0:
+        if len(languages) == 0 and is_complete:
             random_languages = self.random_items(self.random_languages, 3)
             random_language_levels = self.random_items(self.random_language_levels, 3)
             index = 0
