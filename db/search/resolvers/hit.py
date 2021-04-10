@@ -37,8 +37,8 @@ class HitResolver:
                 setattr(obj, 'effective_score', round(float(scores[obj_id]), 2))
                 setattr(obj, 'max_score', self.maximum_possible_score)
 
-        def sort_by_score(x):
-            return x.score
+        def sort_by_score(value):
+            return value.score
         return sorted(list(result), key=sort_by_score, reverse=True)
 
     def calculate_score_multiplier(self, max_score, min_score):

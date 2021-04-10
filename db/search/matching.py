@@ -1,10 +1,11 @@
 from wagtail.search.backends import get_search_backend
 
-from db.models import Student, Company, JobPosting, DateMode
+from db.models import Student, Company, DateMode
 from db.search.builders import StudentParamBuilder, CompanyParamBuilder
 from db.search.resolvers import HitResolver
 
 
+# pylint: disable=R0913
 class Matching:
     search_backend = get_search_backend()
 
@@ -61,9 +62,9 @@ class Matching:
         if soft_skills is not None:
             builder.set_soft_skills(soft_skills, soft_boost)
         hits = self.search_backend.es.search(**builder.get_params())
-        resolver = HitResolver(queryset, hits)
+        resolver = HitResolver(queryset, hits, 1000)
         return resolver.resolve()
 
     def find_job_postings(self):
-        queryset = JobPosting.get_indexed_objects()
+        # queryset = JobPosting.get_indexed_objects()
         pass

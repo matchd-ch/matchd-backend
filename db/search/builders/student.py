@@ -5,7 +5,7 @@ class StudentParamBuilder(BaseParamBuilder):
 
     def set_branch(self, branch_id, boost=1):
         self.must_conditions.append(self.get_condition('branch', 'id_filter', [branch_id], boost))
-        
+
     def set_job_type(self, job_type_id, boost=1):
         self.should_conditions.append(self.get_condition('job_type', 'id_filter', [job_type_id], boost))
 

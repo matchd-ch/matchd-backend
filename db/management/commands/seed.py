@@ -16,7 +16,7 @@ from PIL import Image as PILImage
 
 from db.models import Employee, Student, Hobby, OnlineProject, UserLanguageRelation, CulturalFit, Skill, SoftSkill, \
     Branch, JobType, ProfileState, Language, LanguageLevel, Company, Image, Video, Attachment, JobPosting, \
-    JobRequirement, JobPostingState, JobPostingLanguageRelation, Benefit, ProfileType
+    JobRequirement, JobPostingState, JobPostingLanguageRelation, Benefit
 
 
 # pylint: disable=W0612
@@ -91,14 +91,16 @@ class Command(BaseCommand):
         self.random_gender = ['male', 'female']
 
         path = os.path.join(settings.MEDIA_ROOT, 'student_fixtures')
-        student_avatars = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
-        for f in student_avatars:
-            if f[0] == '.':
+        student_avatars = [
+            file_name for file_name in os.listdir(path) if os.path.isfile(os.path.join(path, file_name))
+        ]
+        for file_name in student_avatars:
+            if file_name[0] == '.':
                 continue
-            elif f[0] == 'f':
-                self.random_female_avatars.append(f)
-            elif f[0] == 'm':
-                self.random_male_avatars.append(f)
+            if file_name[0] == 'f':
+                self.random_female_avatars.append(file_name)
+            elif file_name[0] == 'm':
+                self.random_male_avatars.append(file_name)
 
         self.load_address_list()
 

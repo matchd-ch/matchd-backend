@@ -1,6 +1,5 @@
 import pytest
 from django.contrib.auth.models import AnonymousUser
-from django.utils.text import slugify
 
 from db.helper.forms import convert_date
 from db.models import ProfileType, ProfileState, Hobby, OnlineProject

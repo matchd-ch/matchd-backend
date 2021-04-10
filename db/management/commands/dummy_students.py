@@ -12,7 +12,7 @@ from .seed import Command as SeedCommand
 # pylint: disable=R0912
 # pylint: disable=R0913
 # pylint: disable=R0915
-from ...models import CulturalFit, Skill, SoftSkill, Branch, JobType, Language, LanguageLevel, Attachment
+from ...models import Attachment
 
 
 class Command(SeedCommand):

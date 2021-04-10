@@ -4,6 +4,7 @@ from django.contrib.auth.models import AnonymousUser
 from db.models import JobPosting, JobPostingState, JobPostingLanguageRelation
 
 
+# pylint: disable=R0913
 @pytest.mark.django_db
 def test_job_posting(query_job_posting, job_posting_object: JobPosting, job_type_objects, branch_objects,
                      company_object, job_requirement_objects, skill_objects, user_employee, language_objects,

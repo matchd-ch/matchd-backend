@@ -1,6 +1,7 @@
 from dateutil.relativedelta import relativedelta
 
 
+# pylint: disable=R0913
 class BaseParamBuilder:
 
     def __init__(self, queryset, index, first, skip):
