@@ -1,5 +1,5 @@
 import graphene
-from graphene import ObjectType
+from graphene import ObjectType, InputObjectType
 
 from api.data import zip_city_datasource
 from db.models import JobPosting, JobPostingState
@@ -9,6 +9,10 @@ class ZipCity(ObjectType):
     zip = graphene.NonNull(graphene.String)
     city = graphene.NonNull(graphene.String)
     canton = graphene.NonNull(graphene.String)
+
+
+class ZipCityInput(InputObjectType):
+    zip = graphene.String(required=True)
 
 
 class ZipCityQuery(ObjectType):

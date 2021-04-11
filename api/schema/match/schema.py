@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404
 from graphql_jwt.decorators import login_required
 from graphene import ObjectType, InputObjectType
 
+from api.schema.zip_city import ZipCityInput
 from db.search.mapper import MatchMapper
 from api.schema.job_posting import JobPostingInput
 from api.schema.job_type import JobTypeInput
@@ -34,6 +35,7 @@ class JobPostingMatchingInput(InputObjectType):
 class StudentMatchingInput(InputObjectType):
     job_type = graphene.Field(JobTypeInput, required=True)
     workload = graphene.Int(required=False)
+    zip = graphene.Field(ZipCityInput, required=False)
 
 
 class MatchQuery(ObjectType):
@@ -111,7 +113,10 @@ class MatchQuery(ObjectType):
             job_type = get_object_or_404(JobTypeModel, pk=job_type_id)
 
         workload = data.get('workload', None)
+        zip_value = data.get('zip', None)
+        if zip_value is not None:
+            zip_value = zip_value.get('zip', None)
 
         matching = Matching()
-        matches = matching.find_job_postings(user, job_type, workload, first, skip, soft_boost, tech_boost)
+        matches = matching.find_job_postings(user, job_type, workload, zip_value, first, skip, soft_boost, tech_boost)
         return MatchMapper.map_job_postings(matches)
