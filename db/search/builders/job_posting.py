@@ -50,12 +50,34 @@ class JobPostingParamBuilder(BaseParamBuilder):
             })
 
     def set_cultural_fits(self, cultural_fits, boost=1):
-        # TODO
-        pass
+        for obj in cultural_fits:
+            self.should_conditions.append({
+                "bool": {
+                    "must": {
+                        "match": {
+                            "cultural_fits_filter": {
+                                "query": obj.id,
+                                "boost": boost
+                            }
+                        }
+                    }
+                }
+            })
 
     def set_soft_skills(self, soft_skills, boost=1):
-        # TODO
-        pass
+        for obj in soft_skills:
+            self.should_conditions.append({
+                "bool": {
+                    "must": {
+                        "match": {
+                            "soft_skills_filter": {
+                                "query": obj.id,
+                                "boost": boost
+                            }
+                        }
+                    }
+                }
+            })
 
     def set_languages(self, languages, boost=1):
         for obj in languages:

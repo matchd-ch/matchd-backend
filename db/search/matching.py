@@ -66,9 +66,8 @@ class Matching:
         builder.set_branch(user.student.branch_id, 10)
         if job_type is not None:
             builder.set_job_type(job_type.id, 5)
-        # TODO
-        # builder.set_cultural_fits(user.student.cultural_fits.all(), soft_boost)
-        # builder.set_soft_skills(user.student.soft_skills.all(), soft_boost)
+        builder.set_cultural_fits(user.student.cultural_fits.all(), soft_boost)
+        builder.set_soft_skills(user.student.soft_skills.all(), soft_boost)
         builder.set_skills(user.student.skills.all(), tech_boost)
         if workload is not None:
             builder.set_workload(workload, 1)
@@ -106,9 +105,8 @@ class Matching:
         # 5 for branch id, 10 f
         maximum_score = 15
         maximum_score += 3  # workload
-        # TODO
-        # maximum_score += (len(user.student.cultural_fits.all()) * soft_boost)
-        # maximum_score += (len(user.student.soft_skills.all()) * soft_boost)
+        maximum_score += (len(user.student.cultural_fits.all()) * soft_boost)
+        maximum_score += (len(user.student.soft_skills.all()) * soft_boost)
         maximum_score += (len(user.student.skills.all()) * tech_boost)
         # matching on language level is disabled for now, see db.search.builders.student (set_languages)
         # maximum_score += (len(user.student.languages.all()))

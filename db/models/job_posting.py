@@ -41,14 +41,10 @@ class JobPosting(models.Model, index.Indexed):
         return int(self.company.zip)
 
     def cultural_fits(self):
-        ids = [str(obj.id) for obj in self.company.cultural_fits.all()]
-        ids = '|'.join(ids)
-        return f'|{ids}|'
+        return [obj.id for obj in self.company.cultural_fits.all()]
 
     def soft_skills(self):
-        ids = [str(obj.id) for obj in self.company.soft_skills.all()]
-        ids = '|'.join(ids)
-        return f'|{ids}|'
+        return [obj.id for obj in self.company.soft_skills.all()]
 
     @classmethod
     def get_indexed_objects(cls):
