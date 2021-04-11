@@ -1,6 +1,6 @@
 from django.conf import settings
 
-from db.search.calculators import BaseScoreCalculator
+from .base import BaseScoreCalculator
 
 
 class StudentScoreCalculator(BaseScoreCalculator):

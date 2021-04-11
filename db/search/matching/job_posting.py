@@ -35,5 +35,3 @@ class JobPostingMatching:
         calculator = StudentScoreCalculator(job_posting, hits, soft_boost, tech_boost)
         hits = calculator.annotate()
         return MatchMapper.map_students(hits)
-
-

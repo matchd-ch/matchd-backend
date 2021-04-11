@@ -29,4 +29,3 @@ class HitResolver:
                 setattr(obj, 'score', obj_score)
 
         return sorted(list(result), key=self.sort_by_score, reverse=True)
-
