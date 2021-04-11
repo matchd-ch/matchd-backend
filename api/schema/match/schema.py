@@ -7,12 +7,11 @@ from graphql_jwt.decorators import login_required
 from graphene import ObjectType, InputObjectType
 
 from api.schema.zip_city import ZipCityInput
-from db.search.mapper import MatchMapper
 from api.schema.job_posting import JobPostingInput
 from api.schema.job_type import JobTypeInput
 from db.models import JobPosting as JobPostingModel, JobPostingLanguageRelation, JobType as JobTypeModel,  \
     ProfileType as ProfileTypeModel, JobPostingState, MatchType as MatchTypeModel
-from db.search import Matching
+from db.search.matching import JobPostingMatching, StudentMatching
 
 MatchType = graphene.Enum.from_enum(MatchTypeModel)
 
@@ -94,9 +93,8 @@ class MatchQuery(ObjectType):
         if user.company != job_posting_company:
             raise PermissionDenied('You do not have the permission to perform this action')
 
-        matching = Matching()
-        matches = matching.find_talents_by_job_posting(job_posting, first, skip, soft_boost, tech_boost)
-        return MatchMapper.map_students(matches)
+        matching = JobPostingMatching()
+        return matching.find_matches(job_posting, first, skip, soft_boost, tech_boost)
 
     # pylint: disable=R0913
     @classmethod
@@ -117,6 +115,5 @@ class MatchQuery(ObjectType):
         if zip_value is not None:
             zip_value = zip_value.get('zip', None)
 
-        matching = Matching()
-        matches = matching.find_job_postings(user, job_type, workload, zip_value, first, skip, soft_boost, tech_boost)
-        return MatchMapper.map_job_postings(matches)
+        matching = StudentMatching()
+        return matching.find_matches(user, job_type, workload, zip_value, first, skip, soft_boost, tech_boost)

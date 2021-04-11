@@ -4,12 +4,35 @@ from .base import BaseParamBuilder
 class JobPostingParamBuilder(BaseParamBuilder):
 
     def set_branch(self, branch_id, boost=1):
-        self.should_conditions.append(self.get_condition('branch', 'id_filter', [branch_id], boost))
+        self.should_conditions.append({
+            "bool": {
+                "should": [
+                    {
+                        'terms': {
+                            'branch_id_filter': [branch_id],
+                            'boost': boost
+                        }
+                    }
+                ]
+            }
+        })
 
     def set_job_type(self, job_type_id, boost=1):
-        self.should_conditions.append(self.get_condition('job_type', 'id_filter', [job_type_id], boost))
+        self.should_conditions.append({
+            "bool": {
+                "should": [
+                    {
+                        'terms': {
+                            'job_type_id_filter': [job_type_id],
+                            'boost': boost
+                        }
+                    }
+                ]
+            }
+        })
 
     def set_skills(self, skills, boost=1):
+        boost = boost / len(skills)
         for obj in skills:
             self.should_conditions.append(self.get_condition('skills', 'id_filter', [obj.id], boost))
 
@@ -26,11 +49,11 @@ class JobPostingParamBuilder(BaseParamBuilder):
                             }
                         },
                         # boost exact workload
-                        self.get_range_query('workload_filter', workload, 0, boost),
+                        self.get_range_query('workload_filter', workload, 0, boost / 3),
                         # boost workload +- 10 %
-                        self.get_range_query('workload_filter', workload, 10, boost),
+                        self.get_range_query('workload_filter', workload, 10, boost / 3),
                         # boost workload +- 20 %
-                        self.get_range_query('workload_filter', workload, 20, boost)
+                        self.get_range_query('workload_filter', workload, 20, boost / 3)
                     ]
                 }
             })
@@ -50,44 +73,36 @@ class JobPostingParamBuilder(BaseParamBuilder):
             })
 
     def set_cultural_fits(self, cultural_fits, boost=1):
+        boost = boost / len(cultural_fits)
         for obj in cultural_fits:
             self.should_conditions.append({
                 "bool": {
-                    "must": {
-                        "match": {
-                            "cultural_fits_filter": {
-                                "query": obj.id,
-                                "boost": boost
+                    "should": [
+                        {
+                            'terms': {
+                                'cultural_fits_filter': [obj.id],
+                                'boost': boost
                             }
                         }
-                    }
+                    ]
                 }
             })
 
     def set_soft_skills(self, soft_skills, boost=1):
+        boost = boost / len(soft_skills)
         for obj in soft_skills:
             self.should_conditions.append({
                 "bool": {
-                    "must": {
-                        "match": {
-                            "soft_skills_filter": {
-                                "query": obj.id,
-                                "boost": boost
+                    "should": [
+                        {
+                            'terms': {
+                                'soft_skills_filter': [obj.id],
+                                'boost': boost
                             }
                         }
-                    }
+                    ]
                 }
             })
-
-    def set_languages(self, languages, boost=1):
-        for obj in languages:
-            self.should_conditions.append(self.get_condition('languages', 'language_id_filter', [obj.language.id],
-                                                             boost))
-            # matching on language level is disabled for now,
-            # see db.search.matching (calculate_job_posting_matching_max_score)
-            # self.should_conditions.append(
-            #     self.get_condition('languages', 'language_level_concat_filter',
-            #                        [f'{obj.language.id}-{obj.language_level.id}'], boost))
 
     def set_date_from(self, date_from, boost=1):
         self.should_conditions.append(
@@ -103,11 +118,11 @@ class JobPostingParamBuilder(BaseParamBuilder):
                             }
                         },
                         # boost exact dates
-                        self.get_date_range_query('job_from_date_filter', date_from, date_from, 0, boost),
+                        self.get_date_range_query('job_from_date_filter', date_from, date_from, 0, boost / 3),
                         # boost dates within 2 months
-                        self.get_date_range_query('job_from_date_filter', date_from, date_from, 2, boost),
+                        self.get_date_range_query('job_from_date_filter', date_from, date_from, 2, boost / 3),
                         # boost dates within 6 months
-                        self.get_date_range_query('job_from_date_filter', date_from, date_from, 6, boost)
+                        self.get_date_range_query('job_from_date_filter', date_from, date_from, 6, boost / 3)
                     ]
                 }
             }
@@ -128,13 +143,13 @@ class JobPostingParamBuilder(BaseParamBuilder):
                         },
                         # boost exact dates
                         self.get_nested_date_range_query('job_from_date_filter', 'job_to_date_filter', date_from,
-                                                         date_to, 0, boost),
+                                                         date_to, 0, boost / 6),
                         # boost dates within 2 months
                         self.get_nested_date_range_query('job_from_date_filter', 'job_to_date_filter', date_from,
-                                                         date_to, 2, boost),
+                                                         date_to, 2, boost / 6),
                         # boost dates within 6 months
                         self.get_nested_date_range_query('job_from_date_filter', 'job_to_date_filter', date_from,
-                                                         date_to, 6, boost)
+                                                         date_to, 6, boost / 6)
                     ]
                 }
             }
