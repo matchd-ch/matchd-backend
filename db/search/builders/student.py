@@ -23,7 +23,8 @@ class StudentParamBuilder(BaseParamBuilder):
 
     def set_languages(self, languages, boost=1):
         for obj in languages:
-            self.should_conditions.append(self.get_condition('languages', 'language_id_filter', [obj.language.id], boost))
+            self.should_conditions.append(self.get_condition('languages', 'language_id_filter', [obj.language.id],
+                                                             boost))
             # matching on language level is disabled for now,
             # see db.search.matching (calculate_talent_matching_max_score)
             # self.should_conditions.append(
@@ -68,14 +69,14 @@ class StudentParamBuilder(BaseParamBuilder):
                             }
                         },
                         # boost exact dates
-                        self.get_nested_date_range_query('job_from_date_filter', 'job_to_date_filter', date_from, date_to, 0,
-                                                         boost),
+                        self.get_nested_date_range_query('job_from_date_filter', 'job_to_date_filter', date_from,
+                                                         date_to, 0, boost),
                         # boost dates within 2 months
-                        self.get_nested_date_range_query('job_from_date_filter', 'job_to_date_filter', date_from, date_to, 2,
-                                                         boost),
+                        self.get_nested_date_range_query('job_from_date_filter', 'job_to_date_filter', date_from,
+                                                         date_to, 2, boost),
                         # boost dates within 6 months
-                        self.get_nested_date_range_query('job_from_date_filter', 'job_to_date_filter', date_from, date_to, 6,
-                                                         boost)
+                        self.get_nested_date_range_query('job_from_date_filter', 'job_to_date_filter', date_from,
+                                                         date_to, 6, boost)
                     ]
                 }
             }

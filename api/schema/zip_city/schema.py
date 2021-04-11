@@ -28,6 +28,3 @@ class ZipCityQuery(ObjectType):
         zip_values = list(job_postings)
         zip_data = zip_city_datasource.data
         return [obj for obj in zip_data if str(obj.get('zip')) in zip_values]
-
-
-
