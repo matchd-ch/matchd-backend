@@ -21,16 +21,6 @@ class Command(SeedCommand):
     def add_arguments(self, parser):
         parser.add_argument('num', type=int, help='Indicates the number of students to be created', default=0)
 
-    def random_start_date(self):
-        months = ['08', '09', '10', '11', '12', '01']
-        month = self.random_items(months, 1)
-        return f'2021-{month}-01'
-
-    def random_end_date(self):
-        months = ['02', '03', '04', '05', '06', '07']
-        month = self.random_items(months, 1)
-        return f'2022-{month}-01'
-
     # noinspection PyUnresolvedReferences
     def handle(self, *args, **options):
         number_of_students = options.get('num')

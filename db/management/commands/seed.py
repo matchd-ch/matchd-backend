@@ -69,6 +69,16 @@ class Command(BaseCommand):
     random_male_avatars = []
     random_female_avatars = []
 
+    def random_start_date(self):
+        months = ['08', '09', '10', '11', '12', '01']
+        month = self.random_items(months, 1)
+        return f'2021-{month}-01'
+
+    def random_end_date(self):
+        months = ['02', '03', '04', '05', '06', '07']
+        month = self.random_items(months, 1)
+        return f'2022-{month}-01'
+
     def random_name(self):
         gender = self.random_items(self.random_gender, 1)
         name = names.get_full_name(gender=gender)
@@ -183,8 +193,8 @@ class Command(BaseCommand):
                     branch_id=branches[i],
                     workload=100,
                     company=company,
-                    job_from_date='2021-08-01',
-                    job_to_date='2022-08-01',
+                    job_from_date=self.random_start_date(),
+                    job_to_date=self.random_end_date(),
                     url='http://www.job.lo',
                     form_step=4,
                     state=JobPostingState.PUBLIC,
