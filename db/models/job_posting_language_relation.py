@@ -13,4 +13,9 @@ class JobPostingLanguageRelation(models.Model):
         return self.language.id
 
     def language_level_concat(self):
-        return f'{self.language.id}-{self.language_level.id}'
+        i = self.language_level.value
+        result = []
+        while i > 0:
+            result.append(f'{self.language.id}-{i}')
+            i -= 10
+        return result
