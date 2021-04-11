@@ -36,7 +36,19 @@ class JobPosting(models.Model, index.Indexed):
     form_step = models.IntegerField(default=2)  # since we save the job posting in step 1 the default value is 2
     state = models.CharField(choices=JobPostingState.choices, default=JobPostingState.DRAFT, max_length=255)
     employee = models.ForeignKey('db.Employee', on_delete=models.CASCADE, blank=True, null=True)
-    soft_skills = None
+
+    def zip_code(self):
+        return int(self.company.zip)
+
+    def cultural_fits(self):
+        ids = [str(obj.id) for obj in self.company.cultural_fits.all()]
+        ids = '|'.join(ids)
+        return f'|{ids}|'
+
+    def soft_skills(self):
+        ids = [str(obj.id) for obj in self.company.soft_skills.all()]
+        ids = '|'.join(ids)
+        return f'|{ids}|'
 
     @classmethod
     def get_indexed_objects(cls):
@@ -62,6 +74,13 @@ class JobPosting(models.Model, index.Indexed):
             'null_value': default_date()
         }),
         index.RelatedFields('skills', [
+            index.FilterField('id'),
+        ]),
+        index.FilterField('zip_code'),
+        index.FilterField('soft_skills'),
+        index.FilterField('cultural_fits'),
+        index.FilterField('zip_code'),
+        index.RelatedFields('branch', [
             index.FilterField('id'),
         ]),
     ]
