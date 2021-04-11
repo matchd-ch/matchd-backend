@@ -3,11 +3,11 @@ from django.conf import settings
 from db.search.calculators import BaseScoreCalculator
 
 
-class JobPostingScoreCalculator(BaseScoreCalculator):
+class StudentScoreCalculator(BaseScoreCalculator):
 
-    def __init__(self, user, hits, soft_boost, tech_boost):
-        self.user = user
-        super().__init__(hits, user.student.languages.all(), soft_boost, tech_boost)
+    def __init__(self, job_posting, hits, soft_boost, tech_boost):
+        self.job_posting = job_posting
+        super().__init__(hits, job_posting.languages.all(), soft_boost, tech_boost)
 
     def add_language_score(self, hit):
         languages = hit.languages.all()
@@ -23,14 +23,13 @@ class JobPostingScoreCalculator(BaseScoreCalculator):
                 # if level_value >= language.language_level.value:
                 #     score += multiplier
                 # One with better language skills can get a match beyond 100 %
-                score += (level_value / language.language_level.value * multiplier)
+                score += (language.language_level.value / level_value * multiplier)
         hit.score = round(score, 2)
 
     def highest_possible_value(self):
         value = 0
         value += settings.MATCHING_VALUE_BRANCH
         value += settings.MATCHING_VALUE_JOB_TYPE
-        value += settings.MATCHING_VALUE_WORKLOAD
         value += self.soft_boost * settings.MATCHING_VALUE_CULTURAL_FITS
         value += self.soft_boost * settings.MATCHING_VALUE_SOFT_SKILLS
         value += self.tech_boost * settings.MATCHING_VALUE_SKILLS
