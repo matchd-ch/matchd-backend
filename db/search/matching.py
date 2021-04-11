@@ -52,7 +52,8 @@ class Matching:
         resolver = HitResolver(queryset, hits, 1000)
         return resolver.resolve()
 
-    def find_job_postings(self, user, job_type=None, workload=None, first=100, skip=0, soft_boost=1, tech_boost=1):
+    def find_job_postings(self, user, job_type=None, workload=None, zip_value=None, first=100, skip=0, soft_boost=1,
+                          tech_boost=1):
         queryset = JobPosting.get_indexed_objects()
         index = self.search_backend.get_index_for_model(queryset.model).name
 
@@ -62,11 +63,17 @@ class Matching:
 
         maximum_score = self.calculate_job_posting_matching_max_score(user, job_type, soft_boost, tech_boost)
         builder = JobPostingParamBuilder(queryset, index, first, skip)
+        builder.set_branch(user.student.branch_id, 10)
         if job_type is not None:
-            builder.set_job_type(job_type.id, 10)
+            builder.set_job_type(job_type.id, 5)
+        # TODO
+        # builder.set_cultural_fits(user.student.cultural_fits.all(), soft_boost)
+        # builder.set_soft_skills(user.student.soft_skills.all(), soft_boost)
         builder.set_skills(user.student.skills.all(), tech_boost)
         if workload is not None:
             builder.set_workload(workload, 1)
+        if zip_value is not None:
+            builder.set_zip(zip_value)
         # languages = user.student.languages.all()
         # if languages is not None:
         #     builder.set_languages(languages)
@@ -96,13 +103,12 @@ class Matching:
 
     def calculate_job_posting_matching_max_score(self, user, job_type, soft_boost, tech_boost):
         # Calculate the maximum score possible
-        # 10 for job type id
-        maximum_score = 10
+        # 5 for branch id, 10 f
+        maximum_score = 15
         maximum_score += 3  # workload
-        # TODO cultural fits and soft skills
-        # maximum_score += (len(job_posting.company.cultural_fits.all()) * soft_boost)
-        # maximum_score += (len(job_posting.company.soft_skills.all()) * soft_boost)
-
+        # TODO
+        # maximum_score += (len(user.student.cultural_fits.all()) * soft_boost)
+        # maximum_score += (len(user.student.soft_skills.all()) * soft_boost)
         maximum_score += (len(user.student.skills.all()) * tech_boost)
         # matching on language level is disabled for now, see db.search.builders.student (set_languages)
         # maximum_score += (len(user.student.languages.all()))

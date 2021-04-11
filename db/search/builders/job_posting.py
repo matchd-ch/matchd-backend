@@ -3,6 +3,9 @@ from .base import BaseParamBuilder
 
 class JobPostingParamBuilder(BaseParamBuilder):
 
+    def set_branch(self, branch_id, boost=1):
+        self.should_conditions.append(self.get_condition('branch', 'id_filter', [branch_id], boost))
+
     def set_job_type(self, job_type_id, boost=1):
         self.should_conditions.append(self.get_condition('job_type', 'id_filter', [job_type_id], boost))
 
@@ -31,6 +34,28 @@ class JobPostingParamBuilder(BaseParamBuilder):
                     ]
                 }
             })
+
+    def set_zip(self, zip_value):
+        self.must_conditions.append({
+                "bool": {
+                    "must": {
+                        "match": {
+                            "zip_code_filter": {
+                                "query": zip_value,
+                                "boost": 0
+                            }
+                        }
+                    }
+                }
+            })
+
+    def set_cultural_fits(self, cultural_fits, boost=1):
+        # TODO
+        pass
+
+    def set_soft_skills(self, soft_skills, boost=1):
+        # TODO
+        pass
 
     def set_languages(self, languages, boost=1):
         for obj in languages:
