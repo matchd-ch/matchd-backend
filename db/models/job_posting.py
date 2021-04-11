@@ -51,14 +51,8 @@ class JobPosting(models.Model, index.Indexed):
         return cls.objects.filter(state=JobPostingState.PUBLIC)
 
     search_fields = [
-        index.RelatedFields('job_type', [
-            index.FilterField('id'),
-        ]),
+        index.FilterField('job_type_id'),
         index.FilterField('workload'),
-        index.RelatedFields('languages', [
-            index.FilterField('language_id'),
-            index.FilterField('language_level_concat')  # see JobPostingLanguageRelation
-        ]),
         index.FilterField('job_from_date', es_extra={
             'type': 'date',
             'format': 'yyyy-MM-dd',
@@ -76,7 +70,5 @@ class JobPosting(models.Model, index.Indexed):
         index.FilterField('soft_skills'),
         index.FilterField('cultural_fits'),
         index.FilterField('zip_code'),
-        index.RelatedFields('branch', [
-            index.FilterField('id'),
-        ]),
+        index.FilterField('branch_id'),
     ]
