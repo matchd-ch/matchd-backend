@@ -52,24 +52,16 @@ class Student(models.Model, index.Indexed):
 
     search_fields = [
         index.FilterField('id'),
-        index.RelatedFields('branch', [
-            index.FilterField('id'),
-        ]),
+        index.FilterField('branch_id'),
+        index.FilterField('job_type_id'),
         index.RelatedFields('cultural_fits', [
             index.FilterField('id'),
         ]),
         index.RelatedFields('soft_skills', [
             index.FilterField('id'),
         ]),
-        index.RelatedFields('job_type', [
-            index.FilterField('id'),
-        ]),
         index.RelatedFields('skills', [
             index.FilterField('id'),
-        ]),
-        index.RelatedFields('languages', [
-            index.FilterField('language_id'),  # see UserLanguageRelation
-            index.FilterField('language_level_concat')  # see UserLanguageRelation
         ]),
         index.FilterField('job_from_date', es_extra={
             'type': 'date',

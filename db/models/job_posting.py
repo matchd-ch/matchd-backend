@@ -51,6 +51,7 @@ class JobPosting(models.Model, index.Indexed):
         return cls.objects.filter(state=JobPostingState.PUBLIC)
 
     search_fields = [
+        index.FilterField('branch_id'),
         index.FilterField('job_type_id'),
         index.FilterField('workload'),
         index.FilterField('job_from_date', es_extra={
@@ -70,5 +71,4 @@ class JobPosting(models.Model, index.Indexed):
         index.FilterField('soft_skills'),
         index.FilterField('cultural_fits'),
         index.FilterField('zip_code'),
-        index.FilterField('branch_id'),
     ]
