@@ -12,18 +12,17 @@ from db.search.resolvers import HitResolver
 class StudentMatching:
     search_backend = get_search_backend()
 
-    def find_matches(self, user, job_type=None, workload=None, zip_value=None, first=100, skip=0, soft_boost=1,
-                     tech_boost=1):
+    def find_matches(self, user, job_type=None, branch=None, workload=None, zip_value=None, first=100, skip=0,
+                     soft_boost=1, tech_boost=1):
         queryset = JobPosting.get_indexed_objects()
         index = self.search_backend.get_index_for_model(queryset.model).name
-
-        # if no job type was submitted, we use the job type of the student
         if job_type is None:
             job_type = user.student.job_type
+        if branch is None:
+            branch = user.student.branch
         builder = JobPostingParamBuilder(queryset, index, first, skip)
-        builder.set_branch(user.student.branch_id, settings.MATCHING_VALUE_BRANCH)
-        if job_type is not None:
-            builder.set_job_type(job_type.id, settings.MATCHING_VALUE_JOB_TYPE)
+        builder.set_branch(branch.id, settings.MATCHING_VALUE_BRANCH)
+        builder.set_job_type(job_type.id, settings.MATCHING_VALUE_JOB_TYPE)
         builder.set_cultural_fits(user.student.cultural_fits.all(), soft_boost * settings.MATCHING_VALUE_CULTURAL_FITS)
         builder.set_soft_skills(user.student.soft_skills.all(), soft_boost * settings.MATCHING_VALUE_SOFT_SKILLS)
         builder.set_skills(user.student.skills.all(), tech_boost * settings.MATCHING_VALUE_SKILLS)

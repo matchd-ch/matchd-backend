@@ -6,11 +6,12 @@ from django.shortcuts import get_object_or_404
 from graphql_jwt.decorators import login_required
 from graphene import ObjectType, InputObjectType
 
+from api.schema.branch import BranchInput
 from api.schema.zip_city import ZipCityInput
 from api.schema.job_posting import JobPostingInput
 from api.schema.job_type import JobTypeInput
 from db.models import JobPosting as JobPostingModel, JobPostingLanguageRelation, JobType as JobTypeModel,  \
-    ProfileType as ProfileTypeModel, JobPostingState, MatchType as MatchTypeModel
+    ProfileType as ProfileTypeModel, JobPostingState, MatchType as MatchTypeModel, Branch as BranchModel
 from db.search.matching import JobPostingMatching, StudentMatching
 
 MatchType = graphene.Enum.from_enum(MatchTypeModel)
@@ -32,7 +33,8 @@ class JobPostingMatchingInput(InputObjectType):
 
 
 class StudentMatchingInput(InputObjectType):
-    job_type = graphene.Field(JobTypeInput, required=True)
+    branch = graphene.Field(BranchInput, required=False)
+    job_type = graphene.Field(JobTypeInput, required=False)
     workload = graphene.Int(required=False)
     zip = graphene.Field(ZipCityInput, required=False)
 
@@ -110,10 +112,18 @@ class MatchQuery(ObjectType):
         if job_type_id is not None:
             job_type = get_object_or_404(JobTypeModel, pk=job_type_id)
 
+        branch_id = data.get('branch', None)
+        if branch_id is not None:
+            branch_id = branch_id.get('id')
+
+        branch = None
+        if branch_id is not None:
+            branch = get_object_or_404(BranchModel, pk=branch_id)
+
         workload = data.get('workload', None)
         zip_value = data.get('zip', None)
         if zip_value is not None:
             zip_value = zip_value.get('zip', None)
 
         matching = StudentMatching()
-        return matching.find_matches(user, job_type, workload, zip_value, first, skip, soft_boost, tech_boost)
+        return matching.find_matches(user, job_type, branch, workload, zip_value, first, skip, soft_boost, tech_boost)
