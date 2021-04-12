@@ -23,7 +23,10 @@ def test_step_2(user_employee, job_posting_object, login, job_posting_step_2, jo
     assert data.get('jobPostingStep2') is not None
     assert data.get('jobPostingStep2').get('success')
 
-    job_posting = JobPosting.objects.get(slug=data.get('jobPostingStep2').get('slug'))
+    job_posting_slug = JobPosting.objects.get(slug=data.get('jobPostingStep2').get('slug'))
+    job_posting = JobPosting.objects.get(pk=data.get('jobPostingStep2').get('jobPostingId'))
+    assert job_posting_slug == job_posting
+
     job_requirements = job_posting.job_requirements.all()
     for obj in job_requirement_objects:
         assert obj in job_requirements

@@ -7,10 +7,14 @@ from db.models import JobPosting
 # pylint: disable=R0913
 
 
-def job_posting_query(slug):
+def job_posting_query(filter_value, param_name):
+    if param_name == 'slug':
+        param = 'slug: "%s"' % filter_value
+    else:
+        param = 'id: %s' % filter_value
     return '''
     query {
-        jobPosting(slug: "%s") {
+        jobPosting(%s) {
             id
             slug
             title
@@ -65,7 +69,7 @@ def job_posting_query(slug):
             }
         }
     }
-    ''' % slug
+    ''' % param
 
 
 def job_postings_query(slug):
@@ -132,7 +136,14 @@ def job_postings_query(slug):
 @pytest.fixture
 def query_job_posting(execute):
     def closure(user, slug):
-        return execute(job_posting_query(slug), **{'user': user})
+        return execute(job_posting_query(slug, 'slug'), **{'user': user})
+    return closure
+
+
+@pytest.fixture
+def query_job_posting_by_id(execute):
+    def closure(user, job_posting_id):
+        return execute(job_posting_query(job_posting_id, 'id'), **{'user': user})
     return closure
 
 
@@ -150,7 +161,8 @@ def job_posting_mutation(step):
       jobPostingStep%s(step%s: $step%s) {
         success,
         errors,
-        slug
+        slug,
+        jobPostingId
       }
     }
     ''' % (step, step, step, step, step)

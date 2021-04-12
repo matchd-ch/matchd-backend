@@ -18,7 +18,9 @@ def test_step_1(requests_mock, user_employee, login, job_posting_step_1, job_typ
     assert data.get('jobPostingStep1') is not None
     assert data.get('jobPostingStep1').get('success')
 
-    job_posting = JobPosting.objects.get(slug=data.get('jobPostingStep1').get('slug'))
+    job_posting_slug = JobPosting.objects.get(slug=data.get('jobPostingStep1').get('slug'))
+    job_posting = JobPosting.objects.get(pk=data.get('jobPostingStep1').get('jobPostingId'))
+    assert job_posting_slug == job_posting
     assert job_posting.title == 'title'
     assert job_posting.slug == f'title-{str(job_posting.id)}'
     assert job_posting.description == 'description'
