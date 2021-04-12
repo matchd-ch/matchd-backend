@@ -58,7 +58,7 @@ class JobPosting(DjangoObjectType):
 
 class JobPostingQuery(ObjectType):
     job_postings = graphene.List(JobPosting, slug=graphene.String(required=False))
-    job_posting = graphene.Field(JobPosting, slug=graphene.String(required=True))
+    job_posting = graphene.Field(JobPosting, id=graphene.ID(required=False), slug=graphene.String(required=False))
 
     @login_required
     def resolve_job_postings(self, info, **kwargs):
@@ -72,9 +72,16 @@ class JobPostingQuery(ObjectType):
     @login_required
     def resolve_job_posting(self, info, **kwargs):
         slug = kwargs.get('slug')
-        job_posting = get_object_or_404(JobPostingModel, slug=slug)
+        job_posting_id = kwargs.get('id')
+        if slug is None and job_posting_id is None:
+            raise Http404(_('Job posting not found'))
+        if slug is not None:
+            job_posting = get_object_or_404(JobPostingModel, slug=slug)
+        elif job_posting_id is not None:
+            job_posting = get_object_or_404(JobPostingModel, pk=job_posting_id)
 
         # show incomplete job postings for employees of the company
+        # noinspection PyUnboundLocalVariable
         if info.context.user.company == job_posting.company:
             return job_posting
 
