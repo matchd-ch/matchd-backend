@@ -8,7 +8,7 @@ from db.models import FAQCategory as FAQCategoryModel
 class FAQCategory(DjangoObjectType):
     class Meta:
         model = FAQCategoryModel
-        fields = ('id', 'name',)
+        fields = ('id', 'name', 'faqs',)
 
 
 class FAQCategoryQuery(ObjectType):

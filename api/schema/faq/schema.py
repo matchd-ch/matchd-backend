@@ -3,23 +3,23 @@ from django.shortcuts import get_object_or_404
 from graphene import ObjectType
 from graphene_django import DjangoObjectType
 
-from db.models import FAQ as FAQmodel, Company
+from api.schema.faq_category.schema import FAQCategory
+from db.models import FAQ as FAQmodel, Company, FAQCategory as FAQCategoryModel
 
 
 class FAQ(DjangoObjectType):
     class Meta:
         model = FAQmodel
         fields = ('id', 'category', 'title', 'question', 'answer',)
-        convert_choices_to_enum = False
 
 
 class FAQQuery(ObjectType):
-    faqs = graphene.List(FAQ, slug=graphene.String())
+    company_faqs = graphene.List(FAQCategory, slug=graphene.String())
 
-    def resolve_faqs(self, info, slug):
-        company = get_object_or_404(Company, slug=slug)
-        faqs = company.faqs.all()
-        return faqs
+    def resolve_company_faqs(self, info, slug):
+        company_id = get_object_or_404(Company, slug=slug).id
+        faq_categories = FAQCategoryModel.objects.filter(faqs__company__id=company_id).distinct()
+        return faq_categories
 
 
 class FAQInput(graphene.InputObjectType):
