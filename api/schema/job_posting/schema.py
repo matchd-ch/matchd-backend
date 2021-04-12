@@ -17,7 +17,7 @@ from api.schema.registration import EmployeeInput
 from api.schema.skill import SkillInput
 from db.exceptions import FormException
 from db.forms import process_job_posting_form_step_1, process_job_posting_form_step_2, process_job_posting_form_step_3
-from db.models import JobPosting as JobPostingModel, Company, JobPostingState as JobPostingStateModel
+from db.models import JobPosting as JobPostingModel, Company, JobPostingState as JobPostingStateModel, ProfileType
 
 JobPostingState = graphene.Enum.from_enum(JobPostingStateModel)
 
@@ -62,7 +62,12 @@ class JobPostingQuery(ObjectType):
 
     @login_required
     def resolve_job_postings(self, info, **kwargs):
+        user = info.context.user
         slug = kwargs.get('slug')
+        if slug is None:
+            if user.type in ProfileType.valid_company_types():
+                slug = user.company.slug
+
         company = get_object_or_404(Company, slug=slug)
         # hide incomplete job postings
         # employees should not see job postings which have a DRAFT state
