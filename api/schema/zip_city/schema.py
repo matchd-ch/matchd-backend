@@ -68,7 +68,9 @@ class ZipCityQuery(ObjectType):
             if data_zip in zip_mapping:
                 city_canton = zip_mapping[data_zip].split(' ')
                 city_value = city_canton[0]
-                canton_value = city_canton[1]
+                canton_value = ''
+                if len(city_canton) > 1:
+                    canton_value = city_canton[-1]
                 data_canton = obj.get('canton')
                 if canton_value == data_canton:
                     if city_value == obj.get('city').split(f' {data_canton}')[0]:
