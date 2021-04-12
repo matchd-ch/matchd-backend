@@ -16,3 +16,12 @@ class FAQCategoryQuery(ObjectType):
 
     def resolve_faq_categories(self, info, **kwargs):
         return FAQCategoryModel.objects.all()
+
+
+class FAQCategoryInput(graphene.InputObjectType):
+    id = graphene.ID(required=True)
+
+    # pylint: disable=C0103
+    @property
+    def pk(self):
+        return self.id
