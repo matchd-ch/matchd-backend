@@ -26,6 +26,15 @@ def me_query():
                 graduation
                 distinction
                 slug
+                branch {
+                    id
+                    name
+                }
+                jobType {
+                    id
+                    name
+                    mode
+                }
                 skills {
                     id
                     name
