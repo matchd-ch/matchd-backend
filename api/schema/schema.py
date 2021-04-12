@@ -3,6 +3,7 @@ import graphene
 from api.schema.benefit import BenefitQuery
 from api.schema.branch import BranchQuery
 from api.schema.cultural_fit import CulturalFitQuery
+from api.schema.faq import FAQQuery
 from api.schema.faq_category import FAQCategoryQuery
 from api.schema.company import CompanyProfileMutation, CompanyQuery, UniversityProfileMutation
 from api.schema.attachment import AttachmentMutation, AttachmentQuery
@@ -59,7 +60,8 @@ class Query(
     JobRequirementQuery,
     FAQCategoryQuery,
     SoftSkillQuery,
-    CulturalFitQuery
+    CulturalFitQuery,
+    FAQQuery
 ):
     pass
 

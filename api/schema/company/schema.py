@@ -266,3 +266,4 @@ class CompanyQuery(ObjectType):
             return company
 
         raise Http404(_('Company not found'))
+
