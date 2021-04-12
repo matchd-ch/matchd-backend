@@ -28,11 +28,11 @@ class Match(ObjectType):
     job_posting_title = graphene.String()
 
 
-class JobPostingMatchingInput(InputObjectType):
+class StudentMatchingInput(InputObjectType):
     job_posting = graphene.Field(JobPostingInput, required=True)
 
 
-class StudentMatchingInput(InputObjectType):
+class JobPostingMatchingInput(InputObjectType):
     branch = graphene.Field(BranchInput, required=False)
     job_type = graphene.Field(JobTypeInput, required=False)
     workload = graphene.Int(required=False)
@@ -72,7 +72,7 @@ class MatchQuery(ObjectType):
     # pylint: disable=R0913
     # pylint: disable=W0707
     @classmethod
-    def job_posting_matching(cls, user, data, first, skip, tech_boost, soft_boost):
+    def student_matching(cls, user, data, first, skip, tech_boost, soft_boost):
         if user.type not in ProfileTypeModel.valid_company_types():
             raise PermissionDenied('You do not have the permission to perform this action')
 
@@ -95,12 +95,12 @@ class MatchQuery(ObjectType):
         if user.company != job_posting_company:
             raise PermissionDenied('You do not have the permission to perform this action')
 
-        matching = JobPostingMatching()
+        matching = StudentMatching()
         return matching.find_matches(job_posting, first, skip, soft_boost, tech_boost)
 
     # pylint: disable=R0913
     @classmethod
-    def student_matching(cls, user, data, first, skip, tech_boost, soft_boost):
+    def job_posting_matching(cls, user, data, first, skip, tech_boost, soft_boost):
         if user.type not in ProfileTypeModel.valid_student_types():
             raise PermissionDenied('You do not have the permission to perform this action')
 
@@ -125,5 +125,5 @@ class MatchQuery(ObjectType):
         if zip_value is not None:
             zip_value = zip_value.get('zip', None)
 
-        matching = StudentMatching()
+        matching = JobPostingMatching()
         return matching.find_matches(user, job_type, branch, workload, zip_value, first, skip, soft_boost, tech_boost)
