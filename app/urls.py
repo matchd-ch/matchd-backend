@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.urls import include, path
 from django.contrib import admin
 from django.views.decorators.csrf import csrf_exempt
+from django.core.management import call_command
 
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.core import urls as wagtail_urls
@@ -30,7 +31,6 @@ if settings.DEBUG:
 
     def indexing_debug_view(request):
         html = '<html><body>Indexing complete</body></html>'
-        from django.core.management import call_command
         call_command('update_index')
 
         return HttpResponse(html)
