@@ -94,7 +94,7 @@ class JobPostingQuery(ObjectType):
 class JobPostingInputStep1(graphene.InputObjectType):
     id = graphene.ID(required=False)
     title = graphene.String(description=_('Title'), required=True)
-    description = graphene.String(description=_('Description'), required=True)
+    description = graphene.String(description=_('Description'), required=False)
     job_type = graphene.Field(JobTypeInput, required=True)
     branch = graphene.Field(BranchInput, required=True)
     workload = graphene.Int(description=_('Workload'), required=True)
