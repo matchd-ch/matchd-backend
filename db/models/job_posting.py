@@ -70,5 +70,4 @@ class JobPosting(models.Model, index.Indexed):
         index.FilterField('zip_code'),
         index.FilterField('soft_skills'),
         index.FilterField('cultural_fits'),
-        index.FilterField('zip_code'),
     ]

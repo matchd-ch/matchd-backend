@@ -51,7 +51,6 @@ class Student(models.Model, index.Indexed):
         return cls.objects.filter(query)
 
     search_fields = [
-        index.FilterField('id'),
         index.FilterField('branch_id'),
         index.FilterField('job_type_id'),
         index.RelatedFields('cultural_fits', [
