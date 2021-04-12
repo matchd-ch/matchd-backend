@@ -1,13 +1,15 @@
 from django.conf import settings
 
 from .base import BaseScoreCalculator
+from ...models import Student
 
 
 class JobPostingScoreCalculator(BaseScoreCalculator):
 
     def __init__(self, user, hits, soft_boost, tech_boost):
         self.user = user
-        super().__init__(hits, user.student.languages.all(), soft_boost, tech_boost)
+        student = Student.objects.prefetch_related('languages', 'languages__level').get(user=user)
+        super().__init__(hits, student.languages.all(), soft_boost, tech_boost)
 
     def add_language_score(self, hit):
         languages = hit.languages.all()

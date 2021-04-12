@@ -48,7 +48,9 @@ class Student(models.Model, index.Indexed):
     def get_indexed_objects(cls):
         query = Q(state=ProfileState.PUBLIC)
         query |= Q(state=ProfileState.ANONYMOUS)
-        return cls.objects.filter(query)
+        return cls.objects.filter(query).prefetch_related('languages', 'languages__language_level',
+                                                          'cultural_fits', 'soft_skills', 'skills').\
+            select_related('branch', 'job_type')
 
     search_fields = [
         index.FilterField('branch_id'),

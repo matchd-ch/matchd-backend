@@ -14,8 +14,7 @@ class JobPostingMatching:
 
     def find_matches(self, user, job_type=None, branch=None, workload=None, zip_value=None, first=100, skip=0,
                      soft_boost=1, tech_boost=1):
-        queryset = JobPosting.get_indexed_objects().select_related('company').\
-            prefetch_related('languages', 'languages__language_level')
+        queryset = JobPosting.get_indexed_objects()
         index = self.search_backend.get_index_for_model(queryset.model).name
         if job_type is None:
             job_type = user.student.job_type

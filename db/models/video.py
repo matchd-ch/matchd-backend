@@ -46,3 +46,9 @@ class Video(AbstractMedia):
 
     def __str__(self):
         return self.title
+
+    @classmethod
+    def get_indexed_objects(cls):
+        return Video.objects.none()
+
+    search_fields = []

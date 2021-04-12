@@ -13,7 +13,7 @@ class StudentMatching:
     search_backend = get_search_backend()
 
     def find_matches(self, job_posting, first=100, skip=0, soft_boost=1, tech_boost=1):
-        queryset = Student.get_indexed_objects().prefetch_related('user', 'languages', 'languages__language_level')
+        queryset = Student.get_indexed_objects()
         index = self.search_backend.get_index_for_model(queryset.model).name
 
         builder = StudentParamBuilder(queryset, index, first, skip)

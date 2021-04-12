@@ -48,7 +48,8 @@ class JobPosting(models.Model, index.Indexed):
 
     @classmethod
     def get_indexed_objects(cls):
-        return cls.objects.filter(state=JobPostingState.PUBLIC)
+        return cls.objects.filter(state=JobPostingState.PUBLIC).select_related('company', 'branch', 'job_type').\
+            prefetch_related('languages', 'languages__language_level', 'skills', 'job_requirements')
 
     search_fields = [
         index.FilterField('branch_id'),

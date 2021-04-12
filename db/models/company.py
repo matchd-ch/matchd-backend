@@ -50,7 +50,7 @@ class Company(models.Model, index.Indexed):
     def get_indexed_objects(cls):
         query = Q(state=ProfileState.PUBLIC)
         query |= Q(state=ProfileState.ANONYMOUS)
-        return cls.objects.filter(query)
+        return cls.objects.filter(query).prefetch_related('branches', 'cultural_fits', 'soft_skills')
 
     search_fields = [
         index.RelatedFields('branches', [
