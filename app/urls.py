@@ -13,19 +13,9 @@ from graphql_jwt.decorators import jwt_cookie
 from api.views import csrf_view, GraphQLView, AttachmentServeView
 
 
-def current_datetime(request):
-    html = "<html><body>It is now.</body></html>"
-
-    from django.core.management import call_command
-    call_command('update_index')
-
-    return HttpResponse(html)
-
-
 urlpatterns = [
     path('django-admin/', admin.site.urls),
     path('admin/', include(wagtailadmin_urls)),
-    path('index/', current_datetime),
     path('documents/', include(wagtaildocs_urls)),
     path('graphql/', jwt_cookie(GraphQLView.as_view(graphiql=settings.GRAPHIQL_ENABLED))),
     path('attachment/<int:attachment_id>/', AttachmentServeView.as_view(), name='attachment_serve'),
@@ -37,11 +27,20 @@ urlpatterns = [
 if settings.DEBUG:
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
+
+    def indexing_debug_view(request):
+        html = '<html><body>Indexing complete</body></html>'
+        from django.core.management import call_command
+        call_command('update_index')
+
+        return HttpResponse(html)
+
     # Serve static and media files from development server
     urlpatterns += staticfiles_urlpatterns()
     urlpatterns += [
         path('__debug__/', include(debug_toolbar.urls)),
-        path('introspection/', csrf_exempt(GraphQLView.as_view(graphiql=settings.GRAPHIQL_ENABLED)))
+        path('introspection/', csrf_exempt(GraphQLView.as_view(graphiql=settings.GRAPHIQL_ENABLED))),
+        path('index/', indexing_debug_view),
     ]
 
 urlpatterns = urlpatterns + [
