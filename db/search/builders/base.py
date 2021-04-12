@@ -14,7 +14,7 @@ class BaseParamBuilder:
         self.filter_conditions = []
 
     def set_branch(self, branch_id, boost=1):
-        self.should_conditions.append({
+        self.must_conditions.append({
             "bool": {
                 "should": [
                     {
