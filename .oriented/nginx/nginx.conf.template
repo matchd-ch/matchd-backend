@@ -14,7 +14,7 @@ events {
 }
 
 http {
-    $IP_WHITELIST
+    allow 85.195.251.239;
     deny all;
 
     server_tokens off;
