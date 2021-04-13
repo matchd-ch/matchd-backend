@@ -13,7 +13,7 @@ from db.models import JobType, JobPosting, Branch
 
 class JobPostingFormStep1(forms.Form):
     title = forms.CharField(max_length=50, required=True)
-    description = forms.CharField(max_length=1000, required=True)
+    description = forms.CharField(max_length=1000, required=False)
     job_type = forms.ModelChoiceField(queryset=JobType.objects.all(), required=True)
     branch = forms.ModelChoiceField(queryset=Branch.objects.all(), required=True)
     workload = forms.IntegerField(required=True, validators=[
