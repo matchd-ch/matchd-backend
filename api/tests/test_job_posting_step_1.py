@@ -72,7 +72,7 @@ def test_step_1_with_invalid_data(requests_mock, user_employee, login, job_posti
     errors = data.get('jobPostingStep1').get('errors')
     assert errors is not None
     assert 'title' in errors
-    assert 'description' in errors
+    assert 'description' not in errors
     assert 'jobType' in errors
     assert 'branch' in errors
     assert 'workload' in errors
