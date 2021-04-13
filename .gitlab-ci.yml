@@ -90,7 +90,7 @@ build:development:
     APP_TAG: latest
     ENVIRONMENT: development
     PROXY_URL: http://api-development:8080
-    IP_WHITELIST: "$IP_WHITELIST_SCRIPT $DEVELOPMENT_IP_WHITELIST"
+    IP_WHITELIST: "$IP_WHITELIST_SCRIPT \"$$DEVELOPMENT_IP_WHITELIST\""
   script:
     - 'eval $IP_WHITELIST'
   dependencies:
