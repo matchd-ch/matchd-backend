@@ -1,4 +1,5 @@
 from dateutil.relativedelta import relativedelta
+from django.conf import settings
 
 
 # pylint: disable=R0913
@@ -47,52 +48,53 @@ class BaseParamBuilder:
             self.should_conditions.append(self.get_condition('skills', 'id_filter', [obj.id], boost))
 
     def set_date_from(self, date_from, boost=1):
+        boost *= settings.MATCHING_VALUE_DATE_OR_DATE_RANGE
+        boost = boost / len(settings.MATCHING_VALUE_DATE_OR_DATE_RANGE_PRECISION)
+        conditions = [
+            {
+                # we need to include matches without a job start date set, but without boosting it
+                # null values are set to 01.01.1970 see db.models.Student (search_fields)
+                "exists": {
+                    "field": "job_from_date_filter",
+                    "boost": 0
+                }
+            }
+        ]
+        for i in range(0, len(settings.MATCHING_VALUE_DATE_OR_DATE_RANGE_PRECISION)):
+            conditions.append(self.get_date_range_query(
+                'job_from_date_filter', date_from, date_from, settings.MATCHING_VALUE_DATE_OR_DATE_RANGE_PRECISION[i],
+                boost))
+
         self.should_conditions.append(
             {
                 "bool": {
-                    "should": [
-                        {
-                            # we need to include matches without a job start date set, but without boosting it
-                            # null values are set to 01.01.1970 see db.models.Student (search_fields)
-                            "exists": {
-                                "field": "job_from_date_filter",
-                                "boost": 0
-                            }
-                        },
-                        # boost exact dates
-                        self.get_date_range_query('job_from_date_filter', date_from, date_from, 0, boost / 3),
-                        # boost dates within 2 months
-                        self.get_date_range_query('job_from_date_filter', date_from, date_from, 2, boost / 3),
-                        # boost dates within 6 months
-                        self.get_date_range_query('job_from_date_filter', date_from, date_from, 6, boost / 3)
-                    ]
+                    "should": conditions
                 }
             }
         )
 
     def set_date_range(self, date_from, date_to, boost=1):
+        boost *= settings.MATCHING_VALUE_DATE_OR_DATE_RANGE
+        boost = boost / len(settings.MATCHING_VALUE_DATE_OR_DATE_RANGE_PRECISION)
+        conditions = [
+            {
+                # we need to include matches without a job start/end date set, but without boosting it
+                # null values are set to 01.01.1970 see db.models.Student (search_fields)
+                "exists": {
+                    "field": "job_from_date_filter",
+                    "boost": 0
+                }
+            }
+        ]
+        for i in range(0, len(settings.MATCHING_VALUE_DATE_OR_DATE_RANGE_PRECISION)):
+            conditions.append(self.get_nested_date_range_query(
+                'job_from_date_filter', 'job_to_date_filter', date_from, date_to,
+                settings.MATCHING_VALUE_DATE_OR_DATE_RANGE_PRECISION[i], boost / 2))
+
         self.should_conditions.append(
             {
                 "bool": {
-                    "should": [
-                        {
-                            # we need to include matches without a job start/end date set, but without boosting it
-                            # null values are set to 01.01.1970 see db.models.Student (search_fields)
-                            "exists": {
-                                "field": "job_from_date_filter",
-                                "boost": 0
-                            }
-                        },
-                        # boost exact dates
-                        self.get_nested_date_range_query('job_from_date_filter', 'job_to_date_filter', date_from,
-                                                         date_to, 0, boost / 6),
-                        # boost dates within 2 months
-                        self.get_nested_date_range_query('job_from_date_filter', 'job_to_date_filter', date_from,
-                                                         date_to, 2, boost / 6),
-                        # boost dates within 6 months
-                        self.get_nested_date_range_query('job_from_date_filter', 'job_to_date_filter', date_from,
-                                                         date_to, 6, boost / 6)
-                    ]
+                    "should": conditions
                 }
             }
         )
