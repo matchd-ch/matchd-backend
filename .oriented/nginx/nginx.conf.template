@@ -14,7 +14,7 @@ events {
 }
 
 http {
-
+    $IP_WHITELIST
     server_tokens off;
 
     access_log /dev/stdout;

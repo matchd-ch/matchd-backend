@@ -1,0 +1,15 @@
+#!/bin/bash
+
+export IFS=","
+
+if [[ -z  $1 ]]; then
+  echo "";
+  exit 0;
+fi
+
+ip_list=""
+for ip in $1; do
+  ip_list="${iplist}allow $ip;\n"
+done
+ip_list="${ip_list}deny all;"
+echo "$ip_list";

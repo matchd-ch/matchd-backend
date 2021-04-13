@@ -1,5 +1,6 @@
 variables:
   DOCKER_COMPOSE_SCRIPT: ./.oriented/run-docker-compose
+  IP_WHITELIST_SCRIPT: ./.oriented/generate-ip-whitelist
 
 stages:
   - "Test"
@@ -74,6 +75,7 @@ test:
       docker build
       -t "$CI_REGISTRY/matchd/backend:nginx-$APP_TAG"
       --build-arg PROXY_URL="$PROXY_URL"
+      --build-arg IP_WHITELIST="$IP_WHITELIST"
       -f ".oriented/nginx.Dockerfile" .
     - docker push $CI_REGISTRY/matchd/backend:nginx-$APP_TAG
     - docker logout $CI_REGISTRY
@@ -88,10 +90,13 @@ build:development:
     APP_TAG: latest
     ENVIRONMENT: development
     PROXY_URL: http://api-development:8080
+    IP_WHITELIST: "$IP_WHITELIST_SCRIPT $DEVELOPMENT_IP_WHITELIST"
+  script:
+    - 'eval $IP_WHITELIST'
   dependencies:
     - test
   only:
-    - develop
+    - feature/MATCHD-220
   resource_group: development
 
 build:integration:
@@ -100,6 +105,9 @@ build:integration:
     APP_TAG: $CI_COMMIT_REF_NAME
     ENVIRONMENT: integration
     PROXY_URL: http://api-integration:8080
+    IP_WHITELIST: "$IP_WHITELIST_SCRIPT $DEVELOPMENT_IP_WHITELIST"
+  script:
+    - 'eval $IP_WHITELIST'
   dependencies:
     - test
   only:
@@ -113,6 +121,7 @@ build:production:
     APP_TAG: $CI_COMMIT_REF_NAME
     ENVIRONMENT: production
     PROXY_URL: http://api-production:8080
+    IP_WHITELIST: $PRODUCTION_IP_WHITELIST
   dependencies:
     - test
   only:
@@ -154,7 +163,7 @@ deploy:development:
     WAGTAIL_SITE_NAME: $DEVELOPMENT_WAGTAIL_SITE_NAME
     DJANGO_SECRET_KEY: $DEVELOPMENT_DJANGO_SECRET_KEY
   only:
-    - develop
+    - feature/MATCHD-220
   tags:
     - matchd
     - development
