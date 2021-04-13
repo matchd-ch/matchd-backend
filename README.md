@@ -65,7 +65,7 @@ Copy the file to api/data/data.xlsx and run the following command:
 ## pylint
 
     docker-compose exec api bash
-    pylint --load-plugins pylint_django --django-settings-module=app.settings.test api app db
+    pylint api app db
 
 ## Tests
 
