@@ -8,7 +8,7 @@ from graphql_jwt.decorators import login_required
 
 from api.schema.faq_category.schema import FAQCategory, FAQCategoryInput
 from db.exceptions import FormException
-from db.forms.faq import process_add_faq, process_update_faq
+from db.forms.faq import process_add_faq, process_update_faq, process_delete_faq
 from db.models import FAQ as FAQmodel, Company, FAQCategory as FAQCategoryModel
 
 
@@ -80,6 +80,30 @@ class UpdateFAQ(Output, graphene.Mutation):
         return UpdateFAQ(success=True, errors=None)
 
 
+class DeleteFAQInput(graphene.InputObjectType):
+    faq_id = graphene.ID(description=_('Faq ID'), required=True)
+
+
+class DeleteFAQ(Output, graphene.Mutation):
+    class Arguments:
+        delete_faq = DeleteFAQInput(description=_('FAQ input is required'), required=True)
+
+    class Meta:
+        description = _('deletes FAQ from your company')
+
+    @classmethod
+    @login_required
+    def mutate(cls, root, info, **data):
+        user = info.context.user
+        form_data = data.get('delete_faq', None)
+        try:
+            process_delete_faq(user, form_data)
+        except FormException as exception:
+            return DeleteFAQ(success=False, errors=exception.errors)
+        return DeleteFAQ(success=True, errors=None)
+
+
 class FAQMutation(graphene.ObjectType):
     add_faq = AddFAQ.Field()
     update_faq = UpdateFAQ.Field()
+    delete_faq = DeleteFAQ.Field()

@@ -47,7 +47,6 @@ def process_add_faq(user, data):
     if errors:
         raise FormException(errors=errors)
 
-
     # save FAQ
     faq_to_save.save()
 
@@ -95,9 +94,42 @@ def process_update_faq(user, data):
     else:
         errors.update(form.errors.get_json_data())
 
-
     if errors:
         raise FormException(errors=errors)
 
     # save FAQ
     faq_to_save.save()
+
+
+class DeleteFAQForm(forms.Form):
+    faq_id = forms.ModelChoiceField(queryset=FAQ.objects.all(), required=True)
+
+
+def process_delete_faq(user, data):
+    # validate user type and data
+    validate_company_user_type(user, ProfileType.COMPANY)
+    validate_form_data(data)
+    errors = {}
+    company = user.company
+
+    # validate profile data
+    form = DeleteFAQForm(data)
+    form.full_clean()
+
+    if form.is_valid():
+        cleaned_data = form.cleaned_data
+        faq_to_remove = get_object_or_404(FAQ, pk=cleaned_data.get('faq_id').id)
+
+        # Check if Company Id is the same
+
+        if not faq_to_remove.company == company:
+            errors.update(generic_error_dict('FAQ', _('Company doesn\'t match'), 'company_not_same'))
+
+    else:
+        errors.update(form.errors.get_json_data())
+
+    if errors:
+        raise FormException(errors=errors)
+
+    # save FAQ
+    faq_to_remove.delete()
