@@ -1,6 +1,5 @@
 variables:
   DOCKER_COMPOSE_SCRIPT: ./.oriented/run-docker-compose
-  IP_WHITELIST_SCRIPT: ./.oriented/generate-ip-whitelist
 
 stages:
   - "Test"
@@ -90,9 +89,7 @@ build:development:
     APP_TAG: latest
     ENVIRONMENT: development
     PROXY_URL: http://api-development:8080
-    IP_WHITELIST: "$IP_WHITELIST_SCRIPT \"$$DEVELOPMENT_IP_WHITELIST\""
-  script:
-    - 'eval $IP_WHITELIST'
+    IP_WHITELIST: $DEVELOPMENT_IP_WHITELIST
   dependencies:
     - test
   only:
@@ -105,9 +102,7 @@ build:integration:
     APP_TAG: $CI_COMMIT_REF_NAME
     ENVIRONMENT: integration
     PROXY_URL: http://api-integration:8080
-    IP_WHITELIST: "$IP_WHITELIST_SCRIPT $DEVELOPMENT_IP_WHITELIST"
-  script:
-    - 'eval $IP_WHITELIST'
+    IP_WHITELIST: $INTEGRATION_IP_WHITELIST
   dependencies:
     - test
   only:
