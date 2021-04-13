@@ -92,6 +92,7 @@ build:development:
     - test
   only:
     - develop
+    - feature/MATCHD-220
   resource_group: development
 
 build:integration:
@@ -155,6 +156,7 @@ deploy:development:
     DJANGO_SECRET_KEY: $DEVELOPMENT_DJANGO_SECRET_KEY
   only:
     - develop
+    - feature/MATCHD-220
   tags:
     - matchd
     - development
