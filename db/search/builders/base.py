@@ -48,7 +48,6 @@ class BaseParamBuilder:
             self.should_conditions.append(self.get_condition('skills', 'id_filter', [obj.id], boost))
 
     def set_date_from(self, date_from, boost=1):
-        boost *= settings.MATCHING_VALUE_DATE_OR_DATE_RANGE
         boost = boost / len(settings.MATCHING_VALUE_DATE_OR_DATE_RANGE_PRECISION)
         conditions = [
             {
@@ -74,7 +73,6 @@ class BaseParamBuilder:
         )
 
     def set_date_range(self, date_from, date_to, boost=1):
-        boost *= settings.MATCHING_VALUE_DATE_OR_DATE_RANGE
         boost = boost / len(settings.MATCHING_VALUE_DATE_OR_DATE_RANGE_PRECISION)
         conditions = [
             {

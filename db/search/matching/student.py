@@ -26,9 +26,10 @@ class StudentMatching:
         if job_posting.job_from_date is not None:
             date_mode = job_posting.job_type.mode
             if date_mode == DateMode.DATE_RANGE:
-                builder.set_date_range(job_posting.job_from_date, job_posting.job_to_date)
+                builder.set_date_range(job_posting.job_from_date, job_posting.job_to_date,
+                                       settings.MATCHING_VALUE_DATE_OR_DATE_RANGE)
             else:
-                builder.set_date_from(job_posting.job_from_date)
+                builder.set_date_from(job_posting.job_from_date, settings.MATCHING_VALUE_DATE_OR_DATE_RANGE)
         hits = self.search_backend.es.search(**builder.get_params())
         resolver = HitResolver(queryset, hits)
         hits = resolver.resolve()

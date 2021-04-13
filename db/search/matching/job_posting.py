@@ -20,14 +20,15 @@ class JobPostingMatching:
             job_type = user.student.job_type
         if branch is None:
             branch = user.student.branch
+        if workload is None:
+            workload = 100
         builder = JobPostingParamBuilder(queryset, index, first, skip)
         builder.set_branch(branch.id, settings.MATCHING_VALUE_BRANCH)
         builder.set_job_type(job_type.id, settings.MATCHING_VALUE_JOB_TYPE)
         builder.set_cultural_fits(user.student.cultural_fits.all(), soft_boost * settings.MATCHING_VALUE_CULTURAL_FITS)
         builder.set_soft_skills(user.student.soft_skills.all(), soft_boost * settings.MATCHING_VALUE_SOFT_SKILLS)
         builder.set_skills(user.student.skills.all(), tech_boost * settings.MATCHING_VALUE_SKILLS)
-        if workload is not None:
-            builder.set_workload(workload, settings.MATCHING_VALUE_WORKLOAD)
+        builder.set_workload(workload, settings.MATCHING_VALUE_WORKLOAD)
         if zip_value is not None:
             builder.set_zip(zip_value)
         date_mode = job_type.mode

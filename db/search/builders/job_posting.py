@@ -1,29 +1,33 @@
+from django.conf import settings
+
 from .base import BaseParamBuilder
 
 
 class JobPostingParamBuilder(BaseParamBuilder):
 
     def set_workload(self, workload, boost=1):
-        self.should_conditions.append({
-                "bool": {
-                    "should": [
-                        {
-                            # we need to include matches without a job start date set, but without boosting it
-                            # null values are set to 01.01.1970 see db.models.Student (search_fields)
-                            "exists": {
-                                "field": "workload_filter",
-                                "boost": 0
-                            }
-                        },
-                        # boost exact workload
-                        self.get_range_query('workload_filter', workload, 0, boost / 3),
-                        # boost workload +- 10 %
-                        self.get_range_query('workload_filter', workload, 10, boost / 3),
-                        # boost workload +- 20 %
-                        self.get_range_query('workload_filter', workload, 20, boost / 3)
-                    ]
+        boost = boost / len(settings.MATCHING_VALUE_WORKLOAD_PRECISION)
+        conditions = [
+            {
+                # we need to include matches without a job start date set, but without boosting it
+                # null values are set to 01.01.1970 see db.models.Student (search_fields)
+                "exists": {
+                    "field": "workload_filter",
+                    "boost": 0
                 }
-            })
+            }
+        ]
+        for i in range(0, len(settings.MATCHING_VALUE_WORKLOAD_PRECISION)):
+            conditions.append(self.get_range_query(
+                'workload_filter', workload, settings.MATCHING_VALUE_WORKLOAD_PRECISION[i], boost))
+
+        self.should_conditions.append(
+            {
+                "bool": {
+                    "should": conditions
+                }
+            }
+        )
 
     def set_zip(self, zip_value):
         self.must_conditions.append({
