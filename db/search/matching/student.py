@@ -37,6 +37,7 @@ class StudentMatching:
                 )
             ).select_related('company').get(pk=job_posting_id)
         except JobPosting.DoesNotExist:
+            # pylint: disable=W0707
             raise Http404('Job posting does not exist')
 
         if self.job_posting.state != JobPostingState.PUBLIC:

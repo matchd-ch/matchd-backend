@@ -11,6 +11,7 @@ from db.search.resolvers import HitResolver
 
 
 # pylint: disable=R0913
+# pylint: disable=R0902
 class JobPostingMatching:
     search_backend = get_search_backend()
 
