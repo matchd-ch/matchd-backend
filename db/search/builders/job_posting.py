@@ -44,6 +44,8 @@ class JobPostingParamBuilder(BaseParamBuilder):
             })
 
     def set_cultural_fits(self, cultural_fits, boost=1):
+        if len(cultural_fits) == 0:
+            return
         boost = boost / len(cultural_fits)
         for obj in cultural_fits:
             self.should_conditions.append({
@@ -60,6 +62,8 @@ class JobPostingParamBuilder(BaseParamBuilder):
             })
 
     def set_soft_skills(self, soft_skills, boost=1):
+        if len(soft_skills) == 0:
+            return
         boost = boost / len(soft_skills)
         for obj in soft_skills:
             self.should_conditions.append({

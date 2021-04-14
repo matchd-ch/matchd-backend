@@ -43,6 +43,8 @@ class BaseParamBuilder:
         })
 
     def set_skills(self, skills, boost=1):
+        if len(skills) == 0:
+            return
         boost = boost / len(skills)
         for obj in skills:
             self.should_conditions.append(self.get_condition('skills', 'id_filter', [obj.id], boost))
