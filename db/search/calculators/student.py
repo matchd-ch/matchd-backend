@@ -11,6 +11,8 @@ class StudentScoreCalculator(BaseScoreCalculator):
 
     def add_language_score(self, hit):
         languages = hit.languages.all()
+        if len(languages) == 0:
+            return
         multiplier = settings.MATCHING_VALUE_LANGUAGES / len(languages) / 2  # language and level
         score = hit.score
         for language in languages:
