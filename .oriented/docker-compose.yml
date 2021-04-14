@@ -45,7 +45,6 @@ services:
       - "traefik.http.routers.${TRAEFIK_ROUTER_NAME}.rule=Host(`${APP_DOMAIN}`)"
       - "traefik.http.routers.${TRAEFIK_ROUTER_NAME}.tls=true"
       - "traefik.http.routers.${TRAEFIK_ROUTER_NAME}.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.${TRAEFIK_ROUTER_NAME}.middlewares=dev-whitelist"
     volumes:
       - /var/www/${ENVIRONMENT}/static:/opt/app-root/src/static
       - /var/www/${ENVIRONMENT}/media:/opt/app-root/src/media
