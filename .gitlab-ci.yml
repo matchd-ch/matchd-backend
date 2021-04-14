@@ -127,6 +127,14 @@ build:production:
     - ${DOCKER_COMPOSE_SCRIPT}
     - docker logout $CI_REGISTRY
 
+.deploy:production:
+  stage: "Deploy"
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - rm .oriented/docker-compose.override.yml
+    - ${DOCKER_COMPOSE_SCRIPT}
+    - docker logout $CI_REGISTRY
+
 deploy:development:
   extends: .deploy
   variables:
@@ -195,7 +203,7 @@ deploy:integration:
   resource_group: integration
 
 deploy:production:
-  extends: .deploy
+  extends: .deploy:production
   variables:
     ENVIRONMENT: production
     IMAGE_BACKEND: $CI_REGISTRY/matchd/backend:python-$CI_COMMIT_REF_NAME
