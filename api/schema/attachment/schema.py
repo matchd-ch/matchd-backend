@@ -8,7 +8,7 @@ from graphql_jwt.decorators import login_required
 from django.utils.translation import gettext as _
 
 from db.helper import generic_error_dict, has_access_to_attachments, get_company_or_student
-from db.models import AttachmentKey as AttachmentKeyModel, Attachment as AttachmentModel, Company
+from db.models import AttachmentKey as AttachmentKeyModel, Attachment as AttachmentModel, Company, Student
 
 AttachmentKey = graphene.Enum.from_enum(AttachmentKeyModel)
 
@@ -74,7 +74,6 @@ class AttachmentQuery(ObjectType):
     attachments = graphene.List(
         Attachment,
         key=AttachmentKey(required=True),
-        user_id=graphene.Int(required=False),
         slug=graphene.String(required=False)
     )
 
@@ -83,15 +82,24 @@ class AttachmentQuery(ObjectType):
         user = info.context.user
         key = kwargs.get('key')
 
-        # if user id is None, we assume to return the list of the currently logged in user
-        user_id = kwargs.get('user_id', None)
+        is_student = key in AttachmentKeyModel.valid_student_keys()
+        is_company = key in AttachmentKeyModel.valid_company_keys()
+
+        if not is_student and not is_company:
+            return []
+
+        attachment_owner = None
         slug = kwargs.get('slug', None)
-        attachment_owner = get_company_or_student(user)
-        if user_id is not None:
-            attachment_owner = get_object_or_404(get_user_model(), pk=user_id)
-            attachment_owner = get_company_or_student(attachment_owner)
-        elif slug is not None:
-            attachment_owner = get_object_or_404(Company, slug=slug)
+        if slug is not None:
+            if is_student:
+                attachment_owner = get_object_or_404(Student, slug=slug)
+            if is_company:
+                attachment_owner = get_object_or_404(Company, slug=slug)
+        else:
+            attachment_owner = get_company_or_student(user)
+
+        if attachment_owner is None:
+            return []
 
         # check if the owner has a public profile
         # if not, return an empty list
