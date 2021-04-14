@@ -3,17 +3,20 @@ import os
 import random
 import shutil
 
+import names
+
 import magic
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.core.management.base import BaseCommand
+from django.utils.text import slugify
 from graphql_auth.models import UserStatus
 from PIL import Image as PILImage
 
 from db.models import Employee, Student, Hobby, OnlineProject, UserLanguageRelation, CulturalFit, Skill, SoftSkill, \
     Branch, JobType, ProfileState, Language, LanguageLevel, Company, Image, Video, Attachment, JobPosting, \
-    JobRequirement, JobPostingState, JobPostingLanguageRelation
+    JobRequirement, JobPostingState, JobPostingLanguageRelation, Benefit
 
 
 # pylint: disable=W0612
@@ -25,9 +28,19 @@ class Command(BaseCommand):
     help = 'Generates test data'
     data = []
 
+    random_address = []
+
     random_hobbies = [
         'Gamen', 'Fussball', 'Programmieren', 'Kochen', 'Jodeln', 'Wandern', 'Handball', 'Lego', 'Gitarre', 'Flöte',
         'mit dem Hund spazieren', 'Kollegen treffen', 'Ausgang', 'Bowling', 'Malen', 'Zeichnen'
+    ]
+
+    random_job_posting_titles = [
+        'Praktikant*in Applikationsentwicklung', 'Praktikant*in Systemtechnik', 'Praktikant*in DevOps',
+        'Praktikant*in Frontendentwicklung', 'Praktikant*in HTML / CSS', 'Praktikant*in Design', 'Praktikant*in UX',
+        'Praktikant*in Grafik', 'Praktikant*in User Experience', 'Praktikant*in Social Media',
+        'Praktikant*in Datenbanken', 'Praktikant*in PHP', 'Praktikant*in Python', 'Praktikant*in Javascript',
+        'Praktikant*in Vue.js / React.js'
     ]
 
     content_types = {
@@ -38,6 +51,7 @@ class Command(BaseCommand):
         'file': ContentType.objects.get(app_label='db', model='file')
     }
 
+    random_benefits = []
     random_cultural_fits = []
     random_skills = []
     random_soft_skills = []
@@ -51,12 +65,32 @@ class Command(BaseCommand):
         'Praktikant Applications-Entwicklung'
     ]
     random_requirements = []
+    random_gender = []
+    random_male_avatars = []
+    random_female_avatars = []
+
+    def random_start_date(self):
+        months = ['08', '09', '10', '11', '12', '01']
+        month = self.random_items(months, 1)
+        return f'2021-{month}-01'
+
+    def random_end_date(self):
+        months = ['02', '03', '04', '05', '06', '07']
+        month = self.random_items(months, 1)
+        return f'2022-{month}-01'
+
+    def random_name(self):
+        gender = self.random_items(self.random_gender, 1)
+        name = names.get_full_name(gender=gender)
+        return name, gender
 
     def load_data(self):
         with open('db/management/data/fixtures.json') as json_file:
             self.data = json.load(json_file)
 
+        self.load_address_list()
         self.random_cultural_fits = list(CulturalFit.objects.all().values_list('id', flat=True))
+        self.random_benefits = list(Benefit.objects.all().values_list('id', flat=True))
         self.random_skills = list(Skill.objects.all().values_list('id', flat=True))
         self.random_soft_skills = list(SoftSkill.objects.all().values_list('id', flat=True))
         self.random_branches = list(Branch.objects.all().values_list('id', flat=True))
@@ -64,6 +98,32 @@ class Command(BaseCommand):
         self.random_languages = list(Language.objects.all().values_list('id', flat=True))
         self.random_language_levels = list(LanguageLevel.objects.all().values_list('id', flat=True))
         self.random_requirements = list(JobRequirement.objects.all().values_list('id', flat=True))
+        self.random_gender = ['male', 'female']
+
+        path = os.path.join(settings.MEDIA_ROOT, 'student_fixtures')
+        student_avatars = [
+            file_name for file_name in os.listdir(path) if os.path.isfile(os.path.join(path, file_name))
+        ]
+        for file_name in student_avatars:
+            if file_name[0] == '.':
+                continue
+            if file_name[0] == 'f':
+                self.random_female_avatars.append(file_name)
+            elif file_name[0] == 'm':
+                self.random_male_avatars.append(file_name)
+
+        self.load_address_list()
+
+    def load_address_list(self):
+        with open('db/management/commands/address_list.txt') as address_file:
+            lines = address_file.readlines()
+            for line in lines:
+                parts = line.split(',')
+                address = parts[0].strip()
+                parts2 = parts[1].split(' - ')
+                self.random_address.append(
+                    (address, parts2[0].strip(), parts2[1].strip())
+                )
 
     def random_items(self, items, count):
         random.shuffle(items)
@@ -127,18 +187,21 @@ class Command(BaseCommand):
 
             for i in range(0, 5):
                 job_posting = JobPosting(
+                    title=self.random_items(self.random_job_posting_titles, 1),
                     description=description,
                     job_type_id=job_types[i],
                     branch_id=branches[i],
                     workload=100,
                     company=company,
-                    job_from_date='2021-08-01',
-                    job_to_date='2022-08-01',
+                    job_from_date=self.random_start_date(),
+                    job_to_date=self.random_end_date(),
                     url='http://www.job.lo',
                     form_step=4,
                     state=JobPostingState.PUBLIC,
                     employee=Employee.objects.get(user=user)
                 )
+                job_posting.save()
+                job_posting.slug = f'{slugify(job_posting.title)}-{str(job_posting.id)}'
                 job_posting.save()
                 job_posting.job_requirements.set(self.random_items(self.random_requirements, 4))
                 job_posting.skills.set(self.random_items(self.random_skills, 5))
@@ -157,6 +220,10 @@ class Command(BaseCommand):
                 except JobPosting.DoesNotExist:
                     job_posting = JobPosting(branch_id=obj.get('branch'), job_type_id=obj.get('job_type'),
                                              company=company)
+                job_title = obj.get('title', None)
+                if job_title is None:
+                    job_title = self.random_items(self.random_job_posting_titles, 1)
+                job_posting.title = job_title
                 job_posting.description = obj.get('description')
                 job_posting.workload = obj.get('workload')
                 job_posting.job_from_date = obj.get('job_from_date')
@@ -166,6 +233,8 @@ class Command(BaseCommand):
                 job_posting.form_step = obj.get('form_step')
                 job_posting.state = obj.get('state')
                 job_posting.employee = get_user_model().objects.get(email=obj.get('employee')).employee
+                job_posting.save()
+                job_posting.slug = f'{slugify(job_posting.title)}-{str(job_posting.id)}'
                 job_posting.save()
                 job_posting.skills.set(obj.get('skills'))
                 job_posting.job_requirements.set(obj.get('job_requirements'))
@@ -195,19 +264,39 @@ class Command(BaseCommand):
         company.state = data.get('state')
         is_complete = company.state != ProfileState.INCOMPLETE
 
-        # benefits
-        company.branches.set(data.get('branches'))
-        branches = data.get('branches')
-        if len(branches) == 0 and is_complete and len(user.company.branches.all()) == 0:
-            company.branches.set(self.random_items(self.random_branches, 6))
+        if is_complete:
+            # benefits
+            benefits = data.get('benefits')
+            if len(benefits) == 0:
+                company.benefits.set(self.random_items(self.random_benefits, 6))
+            else:
+                company.benefits.set(benefits)
+
+            # branches
+            branches = data.get('branches')
+            if len(branches) == 0:
+                company.branches.set(self.random_items(self.random_branches, 3))
+            else:
+                company.branches.set(branches)
+
+            # cultural fits
+            cultural_fits = data.get('cultural_fits')
+            if len(cultural_fits) == 0:
+                company.cultural_fits.set(self.random_items(self.random_cultural_fits, 6))
+            else:
+                company.cultural_fits.set(cultural_fits)
+
+            soft_skills = data.get('soft_skills')
+            if len(soft_skills) == 0:
+                company.soft_skills.set(self.random_items(self.random_soft_skills, 6))
+            else:
+                company.soft_skills.set(soft_skills)
         else:
-            company.cultural_fits.set(branches)
-        company.city = data.get('city')
-        cultural_fits = data.get('cultural_fits')
-        if len(cultural_fits) == 0 and is_complete and len(company.cultural_fits.all()) == 0:
-            company.cultural_fits.set(self.random_items(self.random_cultural_fits, 6))
-        else:
-            company.cultural_fits.set(cultural_fits)
+            company.benefits.set([])
+            company.branches.set([])
+            company.cultural_fits.set([])
+            company.soft_skills.set([])
+
         company.description = data.get('description')
         company.link_education = data.get('link_education', None)
         company.link_projects = data.get('link_projects', None)
@@ -217,19 +306,21 @@ class Command(BaseCommand):
         company.phone = data.get('phone')
         company.profile_step = data.get('profile_step')
         company.services = data.get('services', '')
-        soft_skills = data.get('soft_skills')
-        if len(soft_skills) == 0 and is_complete and len(company.soft_skills.all()) == 0:
-            company.soft_skills.set(self.random_items(self.random_soft_skills, 4))
-        else:
-            company.soft_skills.set(soft_skills)
-
-        company.street = data.get('street')
         company.top_level_organisation_description = data.get('top_level_organisation_description', '')
         company.top_level_organisation_website = data.get('top_level_organisation_website', '')
         company.type = data.get('type')
         company.uid = data.get('uid', '')
         company.website = data.get('website')
-        company.zip = data.get('zip')
+        street = data.get('street')
+        if street is None or street == '':
+            street, zip_value, city = self.random_items(self.random_address, 1)
+            company.street = street
+            company.zip = zip_value
+            company.city = city
+        else:
+            company.street = street
+            company.zip = data.get('zip')
+            company.city = data.get('city')
 
         company.save()
         return company
@@ -253,9 +344,8 @@ class Command(BaseCommand):
             student.branch_id = self.random_items(self.random_branches, 1)
         else:
             student.branch_id = branch
-        student.city = data.get('city')
         cultural_fits = data.get('cultural_fits')
-        if len(cultural_fits) == 0 and is_complete and len(user.student.cultural_fits.all()) == 0:
+        if len(cultural_fits) == 0 and is_complete:
             student.cultural_fits.set(self.random_items(self.random_cultural_fits, 6))
         else:
             student.cultural_fits.set(cultural_fits)
@@ -264,7 +354,7 @@ class Command(BaseCommand):
         student.field_of_study = data.get('field_of_study')
         student.graduation = data.get('graduation')
         hobbies = data.get('hobbies')
-        if len(data.get('hobbies')) == 0 and is_complete and len(user.student.hobbies.all()) == 0:
+        if len(data.get('hobbies')) == 0 and is_complete:
             for hobby in self.random_items(self.random_hobbies, 3):
                 Hobby.objects.create(student=student, name=hobby)
         else:
@@ -280,7 +370,7 @@ class Command(BaseCommand):
             student.job_type_id = job_type
 
         languages = data.get('languages')
-        if len(languages) == 0 and is_complete and len(user.student.languages.all()) == 0:
+        if len(languages) == 0 and is_complete:
             random_languages = self.random_items(self.random_languages, 3)
             random_language_levels = self.random_items(self.random_language_levels, 3)
             index = 0
@@ -300,6 +390,10 @@ class Command(BaseCommand):
 
         student.mobile = data.get('mobile')
         student.nickname = data.get('nickname')
+        slug = data.get('slug')
+        if slug is None or slug == '':
+            slug = slugify(student.nickname)
+        student.slug = slug
         online_projects = data.get('online_projects')
         if len(online_projects) == 0 and is_complete and len(user.student.online_projects.all()) == 0:
             OnlineProject.objects.create(student=student, url='http://www.project.lo')
@@ -323,8 +417,18 @@ class Command(BaseCommand):
             student.soft_skills.set(soft_skills)
 
         student.state = data.get('state')
-        student.street = data.get('street')
-        student.zip = data.get('zip')
+
+        street = data.get('street')
+        if street is None or street == '':
+            street, zip_value, city = self.random_items(self.random_address, 1)
+            student.street = street
+            student.city = city
+            student.zip = zip_value
+        else:
+            student.street = data.get('street')
+            student.city = data.get('city')
+            student.zip = data.get('zip')
+
         student.save()
         return student
 
@@ -333,9 +437,8 @@ class Command(BaseCommand):
         if attachments is None:
             return
         fixtures_path = os.path.join(settings.MEDIA_ROOT, 'student_fixtures')
-
+        user = student.user
         for attachment in attachments:
-            user = student.user
             self.create_attachment(fixtures_path, student, attachment, user, 'student')
 
     def create_attachments_for_company(self, company, user_data):
@@ -345,7 +448,6 @@ class Command(BaseCommand):
         fixtures_path = os.path.join(settings.MEDIA_ROOT, 'company_fixtures')
 
         for attachment in attachments:
-            # print(attachment)
             user = get_user_model().objects.get(email=attachment.get('user'))
             self.create_attachment(fixtures_path, company, attachment, user, 'company')
 

@@ -22,6 +22,7 @@ from db.models import Student as StudentModel
 
 
 class StudentInput(graphene.InputObjectType):
+    id = graphene.ID(required=False)
     mobile = graphene.String(description=_('Mobile'), required=True)
 
 
@@ -32,7 +33,7 @@ class Student(DjangoObjectType):
         model = StudentModel
         fields = ('mobile', 'street', 'zip', 'city', 'date_of_birth', 'nickname', 'school_name', 'field_of_study',
                   'graduation', 'skills', 'hobbies', 'languages', 'distinction', 'online_projects', 'state',
-                  'profile_step', 'soft_skills', 'cultural_fits', 'branch')
+                  'profile_step', 'soft_skills', 'cultural_fits', 'branch', 'slug', 'job_type')
         convert_choices_to_enum = False
 
 

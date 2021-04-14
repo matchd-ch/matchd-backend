@@ -10,10 +10,13 @@ from db.models import ProfileType, ProfileState, Hobby, OnlineProject
 
 
 @pytest.mark.django_db
-def test_me_student(login, me, user_student, skill_objects, soft_skill_objects, cultural_fit_objects):
+def test_me_student(login, me, user_student, skill_objects, soft_skill_objects, cultural_fit_objects, branch_objects,
+                    job_type_objects):
     user_student.first_name = 'John'
     user_student.last_name = 'Doe'
     user_student.save()
+    user_student.student.branch = branch_objects[0]
+    user_student.student.job_type = job_type_objects[0]
     user_student.student.profile_step = 3
     user_student.student.state = ProfileState.ANONYMOUS
     user_student.student.mobile = '+41711234567'
@@ -22,6 +25,7 @@ def test_me_student(login, me, user_student, skill_objects, soft_skill_objects, 
     user_student.student.street = 'street 1337'
     user_student.student.date_of_birth = convert_date('01.03.1337')
     user_student.student.nickname = 'nickname'
+    user_student.student.slug = 'nickname'
     user_student.student.school_name = 'school name'
     user_student.student.field_of_study = 'field of study'
     user_student.student.graduation = convert_date('03.1337', '%m.%Y')
@@ -57,6 +61,8 @@ def test_me_student(login, me, user_student, skill_objects, soft_skill_objects, 
     student = user.get('student')
     assert student is not None
     assert student.get('profileStep') == 3
+    assert int(student.get('branch').get('id')) == branch_objects[0].id
+    assert int(student.get('jobType').get('id')) == job_type_objects[0].id
     assert student.get('state') == ProfileState.ANONYMOUS.upper()
     assert student.get('mobile') == '+41711234567'
     assert student.get('zip') == '1337'
@@ -64,6 +70,7 @@ def test_me_student(login, me, user_student, skill_objects, soft_skill_objects, 
     assert student.get('street') == 'street 1337'
     assert student.get('dateOfBirth') == '1337-03-01'
     assert student.get('nickname') == 'nickname'
+    assert student.get('slug') == 'nickname'
     assert student.get('schoolName') == 'school name'
     assert student.get('fieldOfStudy') == 'field of study'
     assert student.get('graduation') == '1337-03-01'

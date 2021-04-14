@@ -25,3 +25,4 @@ from .job_posting_language_relation import JobPostingLanguageRelation
 from .faq_category import FAQCategory
 from .soft_skill import SoftSkill
 from .cultural_fit import CulturalFit
+from .match import MatchType

@@ -10,9 +10,8 @@ def test_step_2(login, user_rector, university_step_2, branch_objects):
     user_rector.company.profile_step = 2
     user_rector.company.save()
     login(user_rector)
+
     data, errors = university_step_2(user_rector, 'description', branch_objects)
-    print(data)
-    print(errors)
     assert errors is None
     assert data is not None
     assert data.get('universityProfileStep2') is not None

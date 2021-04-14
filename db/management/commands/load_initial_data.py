@@ -9,9 +9,12 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         files = self.get_all_json()
+        fixture_count = 0
+        object_count = 0
         for file in files:
             if 'fixtures.json' in file:
                 continue
+            fixture_count += 1
             data_set = self.read_json(file)
             for data in data_set:
                 self.get_fields(data)
@@ -26,7 +29,10 @@ class Command(BaseCommand):
                 for field in fields:
                     setattr(data_to_update, field, data.get('fields').get(field))
                 data_to_update.save()
-            self.stdout.write(self.style.SUCCESS('Filled ' + data_set[0].get('model')))
+                object_count += 1
+        self.stdout.write(
+            self.style.SUCCESS('Installed %i object(s) from %i fixture(s)' % (object_count, fixture_count))
+        )
 
     def read_file(self, path):
         with open(path) as file:

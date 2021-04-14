@@ -83,7 +83,7 @@
     "model": "db.benefit",
     "pk": 11,
     "fields": {
-      "icon": "sports_basketball",
+      "icon": "fitness_center",
       "name": "Sport- und Fitnessangebot"
     }
   },
