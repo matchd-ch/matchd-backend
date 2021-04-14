@@ -1,4 +1,6 @@
 import graphene
+from django.shortcuts import get_object_or_404
+from graphene import ObjectType
 from graphene_django import DjangoObjectType
 from graphql_auth.bases import Output
 from django.utils.translation import gettext as _
@@ -12,6 +14,7 @@ from api.schema.online_project import OnlineProjectInput
 from api.schema.profile_state import ProfileState
 from api.schema.soft_skill import SoftSkillInput
 from api.schema.skill import SkillInput
+from api.schema.user import User
 from api.schema.user_language_relation.user_language_relation import UserLanguageRelationInput
 from db.exceptions import FormException, NicknameException
 from db.forms import process_student_form_step_1, process_student_form_step_2, \
@@ -28,12 +31,13 @@ class StudentInput(graphene.InputObjectType):
 
 class Student(DjangoObjectType):
     state = graphene.Field(graphene.NonNull(ProfileState))
+    user = graphene.Field(graphene.NonNull(User))
 
     class Meta:
         model = StudentModel
         fields = ('mobile', 'street', 'zip', 'city', 'date_of_birth', 'nickname', 'school_name', 'field_of_study',
                   'graduation', 'skills', 'hobbies', 'languages', 'distinction', 'online_projects', 'state',
-                  'profile_step', 'soft_skills', 'cultural_fits', 'branch', 'slug', 'job_type')
+                  'profile_step', 'soft_skills', 'cultural_fits', 'branch', 'slug', 'job_type', 'user')
         convert_choices_to_enum = False
 
 
@@ -206,3 +210,11 @@ class StudentProfileMutation(graphene.ObjectType):
     student_profile_step4 = StudentProfileStep4.Field()
     student_profile_step5 = StudentProfileStep5.Field()
     student_profile_step6 = StudentProfileStep6.Field()
+
+
+class StudentQuery(ObjectType):
+    student = graphene.Field(Student, slug=graphene.String())
+
+    def resolve_student(self, info, slug):
+        user = info.context.user
+        return get_object_or_404(StudentModel, slug=slug)
