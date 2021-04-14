@@ -88,13 +88,17 @@ class AttachmentQuery(ObjectType):
         if not is_student and not is_company:
             return []
 
-        attachment_owner = None
         slug = kwargs.get('slug', None)
         if slug is not None:
+            model = None
             if is_student:
-                attachment_owner = get_object_or_404(Student, slug=slug)
+                model = Student
             if is_company:
-                attachment_owner = get_object_or_404(Company, slug=slug)
+                model = Company
+            try:
+                attachment_owner = model.objects.get(slug=slug)
+            except model.DoesNotExist:
+                attachment_owner = None
         else:
             attachment_owner = get_company_or_student(user)
 
