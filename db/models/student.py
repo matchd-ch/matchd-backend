@@ -1,13 +1,21 @@
+from datetime import datetime
+
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.core.validators import RegexValidator
 from django.db import models
+from django.db.models import Q
+from wagtail.search import index
 
 from db.models.profile_state import ProfileState
 
 
-class Student(models.Model):
+def default_date():
+    return datetime.strptime('01.01.1970', '%m.%d.%Y').date()
+
+
+class Student(models.Model, index.Indexed):
     user = models.OneToOneField(to=get_user_model(), on_delete=models.CASCADE, related_name='student')
     mobile = models.CharField(max_length=12, blank=True, validators=[RegexValidator(regex=settings.PHONE_REGEX)])
     street = models.CharField(max_length=255, blank=True)
@@ -28,9 +36,42 @@ class Student(models.Model):
     profile_step = models.IntegerField(default=1)
     soft_skills = models.ManyToManyField('db.SoftSkill', blank=True, related_name='students')
     cultural_fits = models.ManyToManyField('db.CulturalFit', blank=True, related_name='students')
+    slug = models.CharField(max_length=200, blank=True)
 
     def get_profile_content_type(self):
         return ContentType.objects.get(app_label='db', model='student')
 
     def get_profile_id(self):
         return self.id
+
+    @classmethod
+    def get_indexed_objects(cls):
+        query = Q(state=ProfileState.PUBLIC)
+        query |= Q(state=ProfileState.ANONYMOUS)
+        return cls.objects.filter(query).prefetch_related('user', 'languages', 'languages__language_level',
+                                                          'cultural_fits', 'soft_skills', 'skills').\
+            select_related('branch', 'job_type')
+
+    search_fields = [
+        index.FilterField('branch_id'),
+        index.FilterField('job_type_id'),
+        index.RelatedFields('cultural_fits', [
+            index.FilterField('id'),
+        ]),
+        index.RelatedFields('soft_skills', [
+            index.FilterField('id'),
+        ]),
+        index.RelatedFields('skills', [
+            index.FilterField('id'),
+        ]),
+        index.FilterField('job_from_date', es_extra={
+            'type': 'date',
+            'format': 'yyyy-MM-dd',
+            'null_value': default_date()
+        }),
+        index.FilterField('job_to_date', es_extra={
+            'type': 'date',
+            'format': 'yyyy-MM-dd',
+            'null_value': default_date()
+        }),
+    ]

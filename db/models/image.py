@@ -29,6 +29,12 @@ class Image(AbstractImage):
         'focal_point_height',
     )
 
+    @classmethod
+    def get_indexed_objects(cls):
+        return Image.objects.none()
+
+    search_fields = []
+
     # noinspection PyBroadException
     def get_mime_type(self):
         if self.mime_type is None:

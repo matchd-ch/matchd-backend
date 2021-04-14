@@ -7,8 +7,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.management.base import BaseCommand
 from django.contrib.auth import get_user_model
 
-from django.utils.text import slugify
-
 from db.models import Attachment, ProfileType, ProfileState
 
 
@@ -22,6 +20,7 @@ class Command(BaseCommand):
 
         for job_posting in company.job_postings.all():
             obj = {
+                'title': job_posting.title,
                 'description': job_posting.description,
                 'job_type': job_posting.job_type.id,
                 'branch': job_posting.branch.id,
@@ -44,14 +43,13 @@ class Command(BaseCommand):
 
     def get_attachments_for_company(self, company):
         content_type = ContentType.objects.get(app_label='db', model='company')
-        return self.get_attachments(content_type, company.id, company.slug, 'company_fixtures')
+        return self.get_attachments(content_type, company.id, 'company_fixtures')
 
     def get_attachments_for_student(self, student):
         content_type = ContentType.objects.get(app_label='db', model='student')
-        return self.get_attachments(content_type, student.id,
-                                    slugify(f'{student.user.first_name} {student.user.last_name}'), 'student_fixtures')
+        return self.get_attachments(content_type, student.id, 'student_fixtures')
 
-    def get_attachments(self, content_type, object_id, slug, directory):
+    def get_attachments(self, content_type, object_id, directory):
         fixtures_path = os.path.join(settings.MEDIA_ROOT, directory)
         media_path = os.path.join(settings.MEDIA_ROOT)
         attachments = Attachment.objects.filter(content_type_id=content_type.id, object_id=object_id)
@@ -61,8 +59,6 @@ class Command(BaseCommand):
             file_path = str(attachment.attachment_object.file)
             source_path = os.path.join(media_path, file_path)
             file_name = file_path.split('/')[-1]
-            if slug not in file_name:
-                file_name = f'{slug}_{file_name}'
             destination_path = os.path.join(fixtures_path, file_name)
             if not os.path.exists(destination_path):
                 shutil.copy(source_path, destination_path)
@@ -167,7 +163,8 @@ class Command(BaseCommand):
                         {'language': obj.language.id, 'language_level': obj.language_level.id}
                         for obj in student.languages.all()
                     ],
-                    'attachments': self.get_attachments_for_student(student)
+                    'attachments': self.get_attachments_for_student(student),
+                    'slug': student.slug
                 }
                 user_obj['student'] = student_obj
 
