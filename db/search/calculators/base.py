@@ -21,6 +21,8 @@ class BaseScoreCalculator:
         return 100 / (max_value - min_value) / 100
 
     def calculate_raw_score_multiplier(self, max_value):
+        if max_value == 0:
+            return 1
         return 100 / max_value / 100
 
     def shift_score(self, origin_score, minimum, multiplier):
