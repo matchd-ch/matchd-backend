@@ -20,3 +20,6 @@ USER_REQUEST_FORM_RECIPIENTS = [
 ]
 
 GRAPHQL_AUTH['EMAIL_TEMPLATE_VARIABLES']['email_subject_prefix'] = EMAIL_SUBJECT_PREFIX
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media_test')
+MEDIA_URL = '/media_test/'

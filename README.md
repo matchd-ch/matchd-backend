@@ -21,38 +21,34 @@ If you want to access user specific data you also need to include the authorizat
 
     Authorization: JWT <YOUR JWT TOKEN HERE>
 
-# Registered / Verified users
+# Test Data
 
+*! Do not use dump_data / load_data command from django !*
 
-| Type | Username | Password | Nickname |
-|---|---|---|---|
-| Company | company-not-verified@matchd.lo | asdf1234$ | - |
-| Company | company-step-1@matchd.lo | asdf1234$ | - |
-| Company | company-step-2@matchd.lo | asdf1234$ | - |
-| Company | company-step-3@matchd.lo | asdf1234$ | - |
-| Company | company-step-4@matchd.lo | asdf1234$ | - |
-| Company | company-public@matchd.lo | asdf1234$ | - |
-| Company | liip@matchd.lo | asdf1234$ | - |
-| University | university-not-verified@matchd.lo | asdf1234$ | - |
-| University | university-step-1@matchd.lo | asdf1234$ | - |
-| University | university-step-2@matchd.lo | asdf1234$ | - |
-| University | university-step-3@matchd.lo | asdf1234$ | - |
-| University | university-public@matchd.lo | asdf1234$ | - |
-| Student | student-not-verified@matchd.lo | asdf1234$ | - |
-| Student | student-step-1@matchd.lo | asdf1234$ | - |
-| Student | student-step-2@matchd.lo | asdf1234$ | - |
-| Student | student-step-3@matchd.lo | asdf1234$ | - |
-| Student | student-step-4@matchd.lo | asdf1234$ | - |
-| Student | student-step-5@matchd.lo | asdf1234$ | - |
-| Student | student-step-6@matchd.lo | asdf1234$ | - |
-| Student | student-public@matchd.lo | asdf1234$ | - |
-| Student | student-anonymous@matchd.lo | asdf1234$ | - |
+Run following command to seed test data:
 
+    docker-compose exec api bash
+    ./manage.py seed
+
+Loads all user data from `db/management/data/fixtures.json`
+
+See `ACCOUNTS.md` for all available user accounts
 
 # Dump Fixtures
 
     docker-compose exec api bash 
-    ./manage.py dumpdata --indent 4 --exclude auth --exclude contenttypes --exclude wagtailcore.GroupCollectionPermission --exclude sessions --exclude wagtailcore --exclude refresh_token.refreshtoken --exclude db.skill --exclude db.language --exclude db.languagelevel --exclude db.branch --exclude db.benefit --exclude db.expectation --exclude db.faqcategory --exclude db.softskill --exclude db.userrequest --exclude db.joboption > db/fixtures/initial_data.json
+    ./manage.py dump_seed
+
+Creates a dump of all user data including attachments (`db/management/data/fixtures.json`)
+
+Updates the file `ACCOUNTS.md` with all users
+
+# Create test students
+
+    docker-compose exec api bash 
+    ./manage.py dummy_students 100
+
+All users generated with this command will be ignored if you dump fixtures with `dump_seed`
 
 # Zip / City
 
@@ -69,9 +65,9 @@ Copy the file to api/data/data.xlsx and run the following command:
 ## pylint
 
     docker-compose exec api bash
-    pylint --load-plugins pylint_django --django-settings-module=app.settings.test api app db
+    pylint api app db
 
 ## Tests
 
     docker-compose exec api bash
-    ./manage.py test --settings=app.settings.test
+    ./manage.py pytest

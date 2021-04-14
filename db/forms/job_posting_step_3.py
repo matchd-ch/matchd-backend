@@ -46,10 +46,12 @@ def process_job_posting_form_step_3(user, data):
     if errors:
         raise FormException(errors=errors)
 
+    # pylint: disable=W0511
+    # TODO create validator
     # check if employee belongs to the same company
     user_company = user.company.id
-    employee_company = job_posting.employee.user.company.id
-    if user_company != employee_company:
+    job_posting_company = job_posting.company.id
+    if user_company != job_posting_company:
         errors.update(generic_error_dict('employee', _('Employee does not belong to this company.'), 'invalid'))
         raise FormException(errors=errors)
 

@@ -25,10 +25,9 @@ class UserQuery(graphene.ObjectType):
     @login_required
     def resolve_me(self, info):
         user = info.context.user
-
         if user.is_authenticated:
             user = get_user_model().objects.prefetch_related('student', 'company__users',
-                                                             'company__benefits', 'company__job_positions').\
-                select_related('company', 'company__branch').get(pk=user.id)
+                                                             'company__benefits', 'company__branches').\
+                select_related('company').get(pk=user.id)
             return user
         return None
