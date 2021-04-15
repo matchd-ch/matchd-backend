@@ -1,11 +1,10 @@
 from django import forms
 from django.shortcuts import get_object_or_404
-from django.utils.translation import gettext as _
 from graphql_jwt.exceptions import PermissionDenied
 
 from db.exceptions import FormException
 from db.helper import validate_form_data
-from db.helper.forms import validate_company_user_type, convert_object_to_id, generic_error_dict
+from db.helper.forms import validate_company_user_type, convert_object_to_id
 from db.models import ProfileType, FAQCategory, FAQ
 
 

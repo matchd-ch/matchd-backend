@@ -9,6 +9,7 @@ from db.models import Employee, Company, Student, ProfileType, FAQCategory, FAQ
 
 # pylint:disable=R0913
 # pylint:disable=R0902
+# pylint:disable=R0904
 class FAQGraphQLTestCase(GraphQLTestCase):
     GRAPHQL_SCHEMA = schema
 
@@ -417,24 +418,22 @@ class FAQGraphQLTestCase(GraphQLTestCase):
         self.assertEqual(len(company.faqs.all()), 1)
 
     def test_faq_query_as_company(self):
-        self.faq_id_2 = FAQ.objects.create(id=2, title='second Title', question='second Question',
-                                           answer='second Answer', category=self.faq_category_id_1, company=self.company)
+        FAQ.objects.create(id=2, title='second Title', question='second Question', answer='second Answer',
+                           category=self.faq_category_id_1, company=self.company)
 
-        self.faq_id_3 = FAQ.objects.create(id=3, title='third Title', question='third Question', answer='third Answer',
-                                           category=self.faq_category_id_2, company=self.company)
+        FAQ.objects.create(id=3, title='third Title', question='third Question', answer='third Answer',
+                           category=self.faq_category_id_2, company=self.company)
         self._login('john@doe.com')
         self._faq_query('doe-unlimited')
 
     def test_faq_query_as_student(self):
-        self.faq_id_2 = FAQ.objects.create(id=2, title='second Title', question='second Question',
-                                           answer='second Answer', category=self.faq_category_id_1,
-                                           company=self.company)
+        FAQ.objects.create(id=2, title='second Title', question='second Question', answer='second Answer',
+                           category=self.faq_category_id_1, company=self.company)
 
-        self.faq_id_3 = FAQ.objects.create(id=3, title='third Title', question='third Question', answer='third Answer',
-                                           category=self.faq_category_id_2, company=self.company)
+        FAQ.objects.create(id=3, title='third Title', question='third Question', answer='third Answer',
+                           category=self.faq_category_id_2, company=self.company)
         self._login('jane@doe.com')
         self._faq_query('doe-unlimited')
-
 
     def test_faq_query_without_login(self):
         self._faq_query_with_errors('doe-unlimited')
