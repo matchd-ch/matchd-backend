@@ -21,6 +21,7 @@ class FAQ(DjangoObjectType):
 class FAQQuery(ObjectType):
     company_faqs = graphene.List(FAQCategory, slug=graphene.String())
 
+    @login_required
     def resolve_company_faqs(self, info, slug):
         company_id = get_object_or_404(Company, slug=slug).id
         faq_categories = FAQCategoryModel.objects.filter(faqs__company__id=company_id).distinct()
