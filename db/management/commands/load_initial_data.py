@@ -1,5 +1,6 @@
 import json
-import glob
+import os
+
 from django.core.management.base import BaseCommand
 from django.apps import apps
 
@@ -8,14 +9,24 @@ class Command(BaseCommand):
     help = 'loads initial data in DB'
 
     def handle(self, *args, **options):
-        files = self.get_all_json()
+        base_path = 'db/seed/data'
+        files = [
+            'benefits.json',
+            'branches.json',
+            'cultural_fits.json',
+            'faq_categories.json',
+            'job_requirements.json',
+            'job_types.json',
+            'language_levels.json',
+            'languages.json',
+            'skills.json',
+            'soft_skills.json'
+        ]
         fixture_count = 0
         object_count = 0
         for file in files:
-            if 'fixtures.json' in file:
-                continue
             fixture_count += 1
-            data_set = self.read_json(file)
+            data_set = self.read_json(os.path.join(base_path, file))
             for data in data_set:
                 self.get_fields(data)
                 model = self.get_model(data)
@@ -42,10 +53,6 @@ class Command(BaseCommand):
 
     def read_json(self, path):
         return json.loads(self.read_file(path))
-
-    def get_all_json(self):
-        base_path = 'db/management/data'
-        return glob.glob(base_path + "/*.json")
 
     def get_model(self, data):
         data_model = data.get('model').split(".")
