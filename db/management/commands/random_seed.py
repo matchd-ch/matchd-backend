@@ -1,7 +1,6 @@
 from django.core.management import BaseCommand
 from db.models import ProfileType
-
-from ...seed import Seed
+from db.seed import Seed
 
 
 class Command(BaseCommand):

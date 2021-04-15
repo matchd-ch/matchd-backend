@@ -1,7 +1,7 @@
 from django.conf import settings
 
+from db.models import Student
 from .base import BaseScoreCalculator
-from ...models import Student
 
 
 class JobPostingScoreCalculator(BaseScoreCalculator):
