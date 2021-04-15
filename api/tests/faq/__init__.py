@@ -1,0 +1,1 @@
+from .faq import FAQGraphQLTestCase
