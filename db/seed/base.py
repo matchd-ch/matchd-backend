@@ -1,4 +1,4 @@
-from db.seed import Random
+from db.seed.random import Random
 
 
 class BaseSeed:
