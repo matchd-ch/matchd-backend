@@ -2,6 +2,7 @@ from db.seed.base import BaseSeed
 from db.models import Employee as EmployeeModel
 
 
+# pylint: disable=W0612
 class Employee(BaseSeed):
 
     def create_or_update(self, data, *args, **kwargs):
@@ -11,5 +12,5 @@ class Employee(BaseSeed):
         employee.role = data.get('role')
         employee.save()
 
-    def random(self):
+    def random(self, *args, **kwargs):
         pass

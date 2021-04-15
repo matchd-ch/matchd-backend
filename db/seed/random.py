@@ -10,6 +10,9 @@ from db.models import Branch, CulturalFit, JobType, Language, LanguageLevel, Ski
     JobRequirement
 
 
+# pylint: disable=R0902
+# pylint: disable=C0200
+# pylint: disable=R0904
 class Random:
 
     def __init__(self):

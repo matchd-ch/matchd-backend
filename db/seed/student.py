@@ -4,6 +4,9 @@ from db.models import DateMode, Student as StudentModel, JobType, Hobby, OnlineP
 from db.seed.base import BaseSeed
 
 
+# pylint: disable=W0612
+# pylint: disable=R0912
+# pylint: disable=R0915
 class Student(BaseSeed):
 
     def create_or_update(self, data, *args, **kwargs):
@@ -155,7 +158,8 @@ class Student(BaseSeed):
         student.save()
         return student
 
-    def random(self, index):
+    def random(self, *args, **kwargs):
+        index = kwargs.get('index')
         gender = self.rand.gender()
         name = self.rand.name(gender)
         first_name, last_name = name.split(' ')

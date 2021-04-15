@@ -6,6 +6,7 @@ from db.models import DateMode, JobType
 from db.seed.base import BaseSeed
 
 
+# pylint: disable=W0612
 class User(BaseSeed):
 
     def create_or_update(self, data, *args, **kwargs):

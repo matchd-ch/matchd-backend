@@ -6,6 +6,9 @@ from db.models import ProfileState, JobPosting as JobPostingModel, DateMode, Job
 from db.seed.base import BaseSeed
 
 
+# pylint: disable=W0612
+# pylint: disable=R0912
+# pylint: disable=R0915
 class JobPosting(BaseSeed):
 
     def create_or_update(self, data, *args, **kwargs):

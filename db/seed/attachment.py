@@ -11,6 +11,9 @@ from db.seed.base import BaseSeed
 from db.models import Attachment as AttachmentModel, ProfileState, Image, Video, File, AttachmentKey
 
 
+# pylint: disable=W0612
+# pylint: disable=R0913
+# pylint: disable=W0612
 class Attachment(BaseSeed):
 
     company_fixtures = os.path.join(settings.MEDIA_ROOT, 'company_fixtures')
@@ -39,6 +42,7 @@ class Attachment(BaseSeed):
             return 'videos'
         if model == 'file':
             return 'documents'
+        return ''
 
     def _create_image(self, image_path, relative_path, user):
         image, created = Image.objects.get_or_create(file=relative_path)

@@ -1,7 +1,5 @@
-import os
 import json
 
-from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.management.base import BaseCommand
 from django.contrib.auth import get_user_model
@@ -9,6 +7,8 @@ from django.contrib.auth import get_user_model
 from db.models import Attachment, ProfileType, ProfileState, AttachmentKey
 
 
+# pylint: disable=R0912
+# pylint: disable=R0915
 class Command(BaseCommand):
     help = 'Dumps test data'
 

@@ -2,6 +2,9 @@ from db.seed.base import BaseSeed
 from db.models import Company as CompanyModel, ProfileType
 
 
+# pylint: disable=R0912
+# pylint: disable=R0915
+# pylint: disable=W0612
 class Company(BaseSeed):
 
     def create_or_update(self, data, *args, **kwargs):
