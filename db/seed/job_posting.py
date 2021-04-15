@@ -83,7 +83,10 @@ class JobPosting(BaseSeed):
                 job_posting.state = obj.get('state')
                 job_posting.employee = get_user_model().objects.get(email=obj.get('employee')).employee
                 job_posting.save()
-                job_posting.slug = f'{slugify(job_posting.title)}-{str(job_posting.id)}'
+                slug = obj.get('slug')
+                if slug is None or slug == '':
+                    slug = f'{slugify(job_posting.title)}-{str(job_posting.id)}'
+                job_posting.slug = slug
                 job_posting.save()
                 job_posting.skills.set(obj.get('skills'))
                 job_posting.job_requirements.set(obj.get('job_requirements'))
