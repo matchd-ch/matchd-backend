@@ -2,6 +2,7 @@
 .idea
 .bash_history
 .pylint.d
+.coverage
 __pycache__
 *.pyc
 .env
@@ -9,3 +10,5 @@ __pycache__
 /media/*
 !/media/.gitkeep
 api/data/data.xlsx
+/media_test/*
+!/media_test/.gitkeep

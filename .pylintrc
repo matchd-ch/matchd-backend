@@ -18,5 +18,8 @@ disable=
     W0703, # broad-except
     R0911, # too-many-return-statements
 
+load-plugins=pylint_django
+django-settings-module=app.settings.test
+
 [FORMAT]
 max-line-length=120

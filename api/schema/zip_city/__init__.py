@@ -1,1 +1,1 @@
-from .schema import ZipCityQuery
+from .schema import ZipCityQuery, ZipCityInput

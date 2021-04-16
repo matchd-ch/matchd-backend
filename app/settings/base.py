@@ -233,6 +233,7 @@ IMAGE_STACKS = {
     'mobile': 'fill-640x480',
     'desktop-square': 'fill-400x400',
     'mobile-square': 'fill-200x200',
+    'avatar': 'min-50x50'
 }
 
 USER_UPLOADS_IMAGE_TYPES = ('image/jpeg', 'image/png', 'image/gif',)
@@ -311,3 +312,15 @@ PHONE_REGEX = r'\+[0-9]{11}$'
 UID_REGEX = r'CHE-[0-9]{3}\.[0-9]{3}\.[0-9]{3}$'
 
 ZIP_CITY_DATA_SOURCE = os.path.join(BASE_DIR, 'api', 'data', 'data.json')
+
+MATCHING_VALUE_BRANCH = 0
+MATCHING_VALUE_JOB_TYPE = 3
+MATCHING_VALUE_WORKLOAD = 1
+MATCHING_VALUE_CULTURAL_FITS = 3
+MATCHING_VALUE_SOFT_SKILLS = 3
+MATCHING_VALUE_SKILLS = 3
+MATCHING_VALUE_LANGUAGES = 2
+MATCHING_VALUE_DATE_OR_DATE_RANGE = 5
+
+MATCHING_VALUE_DATE_OR_DATE_RANGE_PRECISION = [0]  # , 2, 6]
+MATCHING_VALUE_WORKLOAD_PRECISION = [0]  # , 10, 20]

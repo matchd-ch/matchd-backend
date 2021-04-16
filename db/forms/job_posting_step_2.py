@@ -6,12 +6,13 @@ from django.utils.translation import gettext as _
 from api.schema.job_posting_language_relation import JobPostingLanguageRelationInput
 from db.exceptions import FormException
 from db.forms.job_posting_language_relation import JobPostingLanguageRelationForm
-from db.helper.forms import validate_company_user_type, validate_form_data, validate_job_posting_step, silent_fail
-from db.models import JobPosting, Expectation, Skill, JobPostingLanguageRelation, Language
+from db.helper.forms import validate_company_user_type, validate_form_data, validate_job_posting_step, silent_fail, \
+    generic_error_dict
+from db.models import JobPosting, JobRequirement, Skill, JobPostingLanguageRelation, Language
 
 
 class JobPostingFormStep2(forms.Form):
-    expectations = forms.ModelMultipleChoiceField(queryset=Expectation.objects.all(), required=False)
+    job_requirements = forms.ModelMultipleChoiceField(queryset=JobRequirement.objects.all(), required=False)
     skills = forms.ModelMultipleChoiceField(queryset=Skill.objects.all(), required=False)
     languages = graphene.List(JobPostingLanguageRelationInput, description=_('Languages'), required=False)
 
@@ -73,13 +74,13 @@ def process_job_posting_form_step_2(user, data):
 
     form = JobPostingFormStep2(data)
     form.full_clean()
-    expectations_to_save = None
+    job_requirements_to_save = None
     skills_to_save = None
 
     if form.is_valid():
         cleaned_data = form.cleaned_data
 
-        expectations_to_save = cleaned_data.get('expectations')
+        job_requirements_to_save = cleaned_data.get('job_requirements')
         skills_to_save = cleaned_data.get('skills')
     else:
         errors.update(form.errors.get_json_data())
@@ -103,6 +104,15 @@ def process_job_posting_form_step_2(user, data):
     if errors:
         raise FormException(errors=errors)
 
+    # pylint: disable=W0511
+    # TODO create validator
+    # check if employee belongs to the same company
+    user_company = user.company.id
+    job_posting_company = job_posting.company.id
+    if user_company != job_posting_company:
+        errors.update(generic_error_dict('employee', _('Employee does not belong to this company.'), 'invalid'))
+        raise FormException(errors=errors)
+
     # save all valid forms
     for form in valid_languages_forms:
         form.save()
@@ -111,7 +121,7 @@ def process_job_posting_form_step_2(user, data):
     if languages_to_delete is not None:
         languages_to_delete.delete()
 
-    job_posting.expectations.set(expectations_to_save)
+    job_posting.job_requirements.set(job_requirements_to_save)
     job_posting.skills.set(skills_to_save)
 
     if job_posting.form_step == 2:

@@ -1,0 +1,58 @@
+[
+  {
+    "model": "db.jobtype",
+    "pk": 1,
+    "fields": {
+        "name": "Jahrespraktikum",
+        "mode": "date_range"
+    }
+},
+{
+    "model": "db.jobtype",
+    "pk": 2,
+    "fields": {
+        "name": "Kurzpraktikum",
+        "mode": "date_range"
+    }
+},
+{
+    "model": "db.jobtype",
+    "pk": 3,
+    "fields": {
+        "name": "Trainee für Hochschulabgänger",
+        "mode": "date_range"
+    }
+},
+{
+    "model": "db.jobtype",
+    "pk": 4,
+    "fields": {
+        "name": "Teilzeitstelle für Studierende FH/Uni",
+        "mode": "date_range"
+    }
+},
+{
+    "model": "db.jobtype",
+    "pk": 5,
+    "fields": {
+        "name": "Lehrstelle",
+        "mode": "date_range"
+    }
+},
+{
+    "model": "db.jobtype",
+    "pk": 6,
+    "fields": {
+        "name": "Thema für Abschlussarbeit FH/Uni",
+        "mode": "date_from"
+    }
+},
+{
+    "model": "db.jobtype",
+    "pk": 7,
+    "fields": {
+        "name": "Thema für Projektarbeit (Gruppe/Einzel)",
+        "mode": "date_from"
+    }
+}
+]
