@@ -65,8 +65,7 @@ class JobPosting(DjangoObjectType):
         status = None
         if user.type in ProfileType.valid_student_types():
             try:
-                status = MatchModel.objects.get(company=self.company, job_posting=self, student=user.student,
-                                                initiator=MatchInitiator.STUDENT)
+                status = MatchModel.objects.get(company=self.company, job_posting=self, student=user.student)
             except MatchModel.DoesNotExist:
                 pass
 
