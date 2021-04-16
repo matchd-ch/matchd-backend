@@ -15,6 +15,7 @@ class MatchInitiator(models.TextChoices):
 class Match(models.Model):
     student = models.ForeignKey('db.Student', null=False, on_delete=models.CASCADE)
     company = models.ForeignKey('db.Company', null=False, on_delete=models.CASCADE)
+    job_posting = models.ForeignKey('db.JobPosting', null=True, on_delete=models.CASCADE)
     student_confirmed = models.BooleanField(default=False)
     company_confirmed = models.BooleanField(default=False)
     date_created = models.DateTimeField(auto_now_add=True)
