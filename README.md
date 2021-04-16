@@ -30,7 +30,7 @@ Run following command to seed test data:
     docker-compose exec api bash
     ./manage.py seed
 
-Loads all user data from `db/management/data/fixtures.json`
+Loads all user data from `db/seed/data/fixtures.json`
 
 See `ACCOUNTS.md` for all available user accounts
 
@@ -39,14 +39,15 @@ See `ACCOUNTS.md` for all available user accounts
     docker-compose exec api bash 
     ./manage.py dump_seed
 
-Creates a dump of all user data including attachments (`db/management/data/fixtures.json`)
+Creates a dump of all user data including attachments (`db/seed/data/fixtures.json`)
 
 Updates the file `ACCOUNTS.md` with all users
 
-# Create test students
+# Create test data
 
     docker-compose exec api bash 
-    ./manage.py dummy_students 100
+    # 50 students, 100 companies, 200 universities
+    ./manage.py random_seed 50 100 200  
 
 All users generated with this command will be ignored if you dump fixtures with `dump_seed`
 

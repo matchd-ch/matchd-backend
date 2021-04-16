@@ -1,7 +1,7 @@
 from django.conf import settings
 
+from db.models import Student
 from .base import BaseScoreCalculator
-from ...models import Student
 
 
 class JobPostingScoreCalculator(BaseScoreCalculator):
@@ -13,6 +13,8 @@ class JobPostingScoreCalculator(BaseScoreCalculator):
 
     def add_language_score(self, hit):
         languages = hit.languages.all()
+        if len(languages) == 0:
+            return
         multiplier = settings.MATCHING_VALUE_LANGUAGES / len(languages) / 2  # language and level
         score = hit.score
         for language in languages:
