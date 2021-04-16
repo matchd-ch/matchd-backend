@@ -8,9 +8,9 @@ from graphql_jwt.decorators import login_required
 
 from api.schema.branch import BranchInput
 from api.schema.cultural_fit import CulturalFitInput
-from api.schema.hobby import HobbyInput
+from api.schema.hobby import HobbyInput, Hobby
 from api.schema.job_type import JobTypeInput
-from api.schema.online_project import OnlineProjectInput
+from api.schema.online_project import OnlineProjectInput, OnlineProject
 from api.schema.profile_state import ProfileState
 from api.schema.soft_skill import SoftSkillInput
 from api.schema.skill import SkillInput
@@ -35,6 +35,16 @@ class Student(DjangoObjectType):
     first_name = graphene.String()
     last_name = graphene.String()
     zip = graphene.String()
+    city = graphene.String()
+    street = graphene.String()
+    mobile = graphene.String()
+    distinction = graphene.String()
+    online_projects = graphene.List(graphene.NonNull(OnlineProject))
+    hobbies = graphene.List(graphene.NonNull(Hobby))
+    date_of_birth = graphene.String()
+    school_name = graphene.String()
+    field_of_study = graphene.String()
+    graduation = graphene.String()
 
     class Meta:
         model = StudentModel
@@ -59,6 +69,46 @@ class Student(DjangoObjectType):
     @privacy
     def resolve_zip(self: StudentModel, info):
         return self.zip
+
+    @privacy
+    def resolve_city(self: StudentModel, info):
+        return self.city
+
+    @privacy
+    def resolve_street(self: StudentModel, info):
+        return self.street
+
+    @privacy
+    def resolve_mobile(self: StudentModel, info):
+        return self.mobile
+
+    @privacy
+    def resolve_distinction(self: StudentModel, info):
+        return self.distinction
+
+    @privacy
+    def resolve_online_projects(self: StudentModel, info):
+        return self.online_projects
+
+    @privacy
+    def resolve_hobbies(self: StudentModel, info):
+        return self.hobbies
+
+    @privacy
+    def resolve_date_of_birth(self: StudentModel, info):
+        return self.date_of_birth
+
+    @privacy
+    def resolve_school_name(self: StudentModel, info):
+        return self.school_name
+
+    @privacy
+    def resolve_field_of_study(self: StudentModel, info):
+        return self.field_of_study
+
+    @privacy
+    def resolve_graduation(self: StudentModel, info):
+        return self.graduation
 
 
 class StudentProfileInputStep1(graphene.InputObjectType):
