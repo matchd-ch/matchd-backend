@@ -1,5 +1,5 @@
-import pytz
 from datetime import datetime
+import pytz
 
 from django.conf import settings
 
@@ -9,6 +9,7 @@ from db.models import Student, Match, Company, JobPosting
 from db.models.match import MatchInitiator
 
 
+# pylint: disable=R0912
 def process_student_match(company, data):
     errors = {}
     student = data.get('student')
@@ -34,7 +35,7 @@ def process_student_match(company, data):
         raise FormException(errors=errors)
 
     student_id = student.get('id')
-    match_obj, created = None, None,
+    match_obj, created = None, None
     try:
         target = Student.objects.get(pk=student_id)
         match_obj, created = Match.objects.get_or_create(company=company, student=target, job_posting=job_posting)
@@ -94,7 +95,7 @@ def process_company_or_job_posting_match(student, data):
     if job_posting is not None:
         company = job_posting.company
 
-    match_obj, created = None, None,
+    match_obj, created = None, None
     try:
         match_obj, created = Match.objects.get_or_create(student=student, company=company, job_posting=job_posting)
         match_obj.student_confirmed = True

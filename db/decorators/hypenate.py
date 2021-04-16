@@ -1,6 +1,7 @@
-def hyphenate(func):
-    import pyphen
+import pyphen
 
+
+def hyphenate(func):
     def hypenate_word(dic, word):
         return dic.inserted(word, hyphen='\u00AD')
 
