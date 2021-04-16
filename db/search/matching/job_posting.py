@@ -71,7 +71,7 @@ class JobPostingMatching:
         if self.zip_value is not None:
             builder.set_zip(self.zip_value)
         date_mode = self.job_type.mode
-        if date_mode == DateMode.DATE_RANGE:
+        if date_mode == DateMode.DATE_RANGE and self.user.student.job_to_date is not None:
             builder.set_date_range(self.user.student.job_from_date, self.user.student.job_to_date,
                                    settings.MATCHING_VALUE_DATE_OR_DATE_RANGE)
         else:
