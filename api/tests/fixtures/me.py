@@ -13,13 +13,10 @@ def me_query():
             email
             type
             student {
-                user {
-                    id
-                    username
-                    email
-                    firstName
-                    lastName
-                }
+                id
+                email
+                firstName
+                lastName
                 mobile
                 street
                 zip
@@ -68,7 +65,6 @@ def me_query():
                   }
                 }
               }
-            }
             company {
                 uid
                 type
@@ -95,14 +91,9 @@ def me_query():
                 employees {
                     id
                     role
-                    user {
-                        id
-                        username
-                        email
-                        type
-                        firstName
-                        lastName
-                    }
+                    email
+                    firstName
+                    lastName
                 }
                 softSkills {
                     id

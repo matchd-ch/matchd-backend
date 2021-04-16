@@ -10,12 +10,9 @@ def add_employee_mutation():
             employee {
                 id
                 role
-                user {
-                    firstName
-                    lastName
-                    email
-                    username
-                }
+                firstName
+                lastName
+                email
             }
         }
     }

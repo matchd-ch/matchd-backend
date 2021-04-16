@@ -33,13 +33,9 @@ def job_posting_query(filter_value, param_name):
             employee {
                 id
                 role
-                user {
-                    id
-                    firstName
-                    lastName
-                    email
-                    username
-                }
+                firstName
+                lastName
+                email
             }
             company {
                 id
@@ -94,13 +90,9 @@ def job_postings_query(slug):
             employee {
                 id
                 role
-                user {
-                    id
-                    firstName
-                    lastName
-                    email
-                    username
-                }
+                firstName
+                lastName
+                email
             }
             company {
                 id
