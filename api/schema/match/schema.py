@@ -13,6 +13,7 @@ from api.schema.student import StudentInput
 from api.schema.zip_city import ZipCityInput
 from api.schema.job_posting import JobPostingInput
 from api.schema.job_type import JobTypeInput
+from db.helper import generic_error_dict
 from db.models import MatchType as MatchTypeModel, ProfileType, Student, Company, Match as MatchModel
 from db.models.match import MatchInitiator
 from db.search.matching import JobPostingMatching, StudentMatching
@@ -100,23 +101,36 @@ class CreateMatch(Output, graphene.Mutation):
 
         student = None
         company = None
+        target_id = None
+        match = data.get('match')
+
+        errors = {}
 
         if user.type in ProfileType.valid_student_types():
             is_student = True
             student = user.student
+            match = match.get('company')
+            if match is None:
+                errors.update(generic_error_dict('company', 'Missing company', 'required'))
+            target_id = match.get('id')
+
         if user.type in ProfileType.valid_company_types():
             is_company = True
             company = user.company
+            match = match.get('student')
+            if match is None:
+                errors.update(generic_error_dict('student', 'Missing student', 'required'))
+            target_id = match.get('id')
+
+        if errors:
+            return CreateMatch(success=False, errors=errors)
 
         if not is_student and not is_company:
             raise PermissionDenied('You are not allowed to perform this action')
 
-        match = data.get('match')
-
         match_obj = None
         if is_company:
-            target = match.get('student').get('id')
-            target = Student.objects.get(pk=target)
+            target = Student.objects.get(pk=target_id)
             match_obj, created = MatchModel.objects.get_or_create(company=company, student=target)
             match_obj.company_confirmed = True
             if not created:
@@ -125,8 +139,7 @@ class CreateMatch(Output, graphene.Mutation):
                 match_obj.initiator = MatchInitiator.COMPANY
             match_obj.save()
         if is_student:
-            target = match.get('company').get('id')
-            target = Company.objects.get(pk=target)
+            target = Company.objects.get(pk=target_id)
             match_obj, created = MatchModel.objects.get_or_create(student=student, company=target)
             match_obj.student_confirmed = True
             if not created:
@@ -137,10 +150,10 @@ class CreateMatch(Output, graphene.Mutation):
             match_obj.save()
 
         if match_obj is None:
-            return CreateMatch(success=False, errors=None, confirmed=False)
+            errors.update(generic_error_dict('non_field_error', 'Failed to create match', 'error'))
+            return CreateMatch(success=False, errors=errors, confirmed=False)
 
-        return CreateMatch(success=True, errors=None,
-                           confirmed=match_obj.complete)
+        return CreateMatch(success=True, errors=None, confirmed=match_obj.complete)
 
 
 class MatchMutation(graphene.ObjectType):
