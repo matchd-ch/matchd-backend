@@ -12,10 +12,16 @@ from api.schema.job_posting import JobPostingInput
 from api.schema.job_type import JobTypeInput
 from db.exceptions import FormException
 from db.forms import process_company_or_job_posting_match, process_student_match
-from db.models import MatchType as MatchTypeModel, ProfileType
+from db.models import MatchType as MatchTypeModel, ProfileType, MatchInitiator as MatchInitiatorModel
 from db.search.matching import JobPostingMatching, StudentMatching
 
 MatchType = graphene.Enum.from_enum(MatchTypeModel)
+MatchInitiator = graphene.Enum.from_enum(MatchInitiatorModel)
+
+
+class MatchStatus(ObjectType):
+    confirmed = graphene.Boolean()
+    initiator = graphene.Field(MatchInitiator)
 
 
 class Match(ObjectType):
