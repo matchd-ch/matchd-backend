@@ -11,7 +11,7 @@ from api.schema.zip_city import ZipCityInput
 from api.schema.job_posting import JobPostingInput
 from api.schema.job_type import JobTypeInput
 from db.exceptions import FormException
-from db.forms import process_company_match, process_student_match
+from db.forms import process_company_or_job_posting_match, process_student_match
 from db.models import MatchType as MatchTypeModel, ProfileType
 from db.search.matching import JobPostingMatching, StudentMatching
 
@@ -76,6 +76,7 @@ class MatchQuery(ObjectType):
 class MatchInput(graphene.InputObjectType):
     student = graphene.Field(StudentInput)
     company = graphene.Field(CompanyInput)
+    job_posting = graphene.Field(JobPostingInput)
 
 
 class CreateMatch(Output, graphene.Mutation):
@@ -96,7 +97,7 @@ class CreateMatch(Output, graphene.Mutation):
         match_obj = None
         try:
             if user.type in ProfileType.valid_student_types():
-                match_obj = process_company_match(user.student, match)
+                match_obj = process_company_or_job_posting_match(user.student, match)
             if user.type in ProfileType.valid_company_types():
                 match_obj = process_student_match(user.company, match)
         except FormException as exception:
