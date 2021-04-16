@@ -14,7 +14,6 @@ from api.schema.online_project import OnlineProjectInput
 from api.schema.profile_state import ProfileState
 from api.schema.soft_skill import SoftSkillInput
 from api.schema.skill import SkillInput
-from api.schema.user import User
 from api.schema.user_language_relation.user_language_relation import UserLanguageRelationInput
 from db.exceptions import FormException, NicknameException
 from db.forms import process_student_form_step_1, process_student_form_step_2, \
@@ -31,15 +30,26 @@ class StudentInput(graphene.InputObjectType):
 
 class Student(DjangoObjectType):
     state = graphene.Field(graphene.NonNull(ProfileState))
-    user = graphene.Field(graphene.NonNull(User))
+    email = graphene.String()
+    first_name = graphene.String()
+    last_name = graphene.String()
 
     class Meta:
         model = StudentModel
         fields = ('mobile', 'street', 'zip', 'city', 'date_of_birth', 'nickname', 'school_name', 'field_of_study',
                   'graduation', 'skills', 'hobbies', 'languages', 'distinction', 'online_projects', 'state',
-                  'profile_step', 'soft_skills', 'cultural_fits', 'branch', 'slug', 'job_type', 'user', 'job_type',
+                  'profile_step', 'soft_skills', 'cultural_fits', 'branch', 'slug', 'job_type', 'job_type',
                   'branch', 'job_from_date', 'job_to_date')
         convert_choices_to_enum = False
+
+    def resolve_first_name(self: StudentModel, info):
+        return self.user.first_name
+
+    def resolve_last_name(self: StudentModel, info):
+        return self.user.last_name
+
+    def resolve_email(self: StudentModel, info):
+        return self.user.email
 
 
 class StudentProfileInputStep1(graphene.InputObjectType):
