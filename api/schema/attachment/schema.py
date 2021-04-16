@@ -1,6 +1,4 @@
 import graphene
-from django.contrib.auth import get_user_model
-from django.shortcuts import get_object_or_404
 from graphene import ObjectType
 from graphene_django import DjangoObjectType
 from graphql_auth.bases import Output
