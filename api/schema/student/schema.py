@@ -90,11 +90,11 @@ class Student(DjangoObjectType):
 
     @privacy
     def resolve_online_projects(self: StudentModel, info):
-        return self.online_projects
+        return self.online_projects.all()
 
     @privacy
     def resolve_hobbies(self: StudentModel, info):
-        return self.hobbies
+        return self.hobbies.all()
 
     @privacy
     def resolve_date_of_birth(self: StudentModel, info):
