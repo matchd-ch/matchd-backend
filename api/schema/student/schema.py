@@ -15,6 +15,7 @@ from api.schema.profile_state import ProfileState
 from api.schema.soft_skill import SoftSkillInput
 from api.schema.skill import SkillInput
 from api.schema.user_language_relation.user_language_relation import UserLanguageRelationInput
+from db.decorators import privacy
 from db.exceptions import FormException, NicknameException
 from db.forms import process_student_form_step_1, process_student_form_step_2, \
     process_student_form_step_5, process_student_form_step_6, process_student_form_step_4
@@ -33,6 +34,7 @@ class Student(DjangoObjectType):
     email = graphene.String()
     first_name = graphene.String()
     last_name = graphene.String()
+    zip = graphene.String()
 
     class Meta:
         model = StudentModel
@@ -42,14 +44,21 @@ class Student(DjangoObjectType):
                   'branch', 'job_from_date', 'job_to_date')
         convert_choices_to_enum = False
 
+    @privacy
     def resolve_first_name(self: StudentModel, info):
         return self.user.first_name
 
+    @privacy
     def resolve_last_name(self: StudentModel, info):
         return self.user.last_name
 
+    @privacy
     def resolve_email(self: StudentModel, info):
         return self.user.email
+
+    @privacy
+    def resolve_zip(self: StudentModel, info):
+        return self.zip
 
 
 class StudentProfileInputStep1(graphene.InputObjectType):
