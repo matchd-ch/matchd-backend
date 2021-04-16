@@ -11,7 +11,7 @@ pylint:
     docker.gitlab.liip.ch/matchd/docker-images/python-38-centos7:latest
   script:
     - pip install --upgrade pip && pip install -r requirements.txt
-    - pylint --load-plugins pylint_django --django-settings-module=app.settings.test api app db
+    - pylint api app db
   stage: "Test"
   only:
     - branches
@@ -27,7 +27,7 @@ test:
   script:
     - pip install --upgrade pip && pip install -r requirements.txt
     - until curl -s http://elasticsearch:9200/_cluster/health | egrep '(green|yellow)' -i > /dev/null; do echo "elastic is not ready. waiting..." && sleep 5; done
-    - ./manage.py test --settings app.settings.test
+    - pytest
   stage: "Test"
   only:
     - branches
@@ -127,6 +127,14 @@ build:production:
     - ${DOCKER_COMPOSE_SCRIPT}
     - docker logout $CI_REGISTRY
 
+.deploy:production:
+  stage: "Deploy"
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - rm .oriented/docker-compose.override.yml
+    - ${DOCKER_COMPOSE_SCRIPT}
+    - docker logout $CI_REGISTRY
+
 deploy:development:
   extends: .deploy
   variables:
@@ -195,7 +203,7 @@ deploy:integration:
   resource_group: integration
 
 deploy:production:
-  extends: .deploy
+  extends: .deploy:production
   variables:
     ENVIRONMENT: production
     IMAGE_BACKEND: $CI_REGISTRY/matchd/backend:python-$CI_COMMIT_REF_NAME

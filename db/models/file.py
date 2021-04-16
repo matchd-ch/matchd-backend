@@ -30,3 +30,9 @@ class File(AbstractDocument):
         user_type = owner.get_profile_content_type().name
         profile_id = owner.get_profile_id()
         return os.path.join(user_type, str(profile_id), 'documents', filename)
+
+    @classmethod
+    def get_indexed_objects(cls):
+        return File.objects.none()
+
+    search_fields = []

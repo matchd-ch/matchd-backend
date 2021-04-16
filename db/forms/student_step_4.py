@@ -5,7 +5,7 @@ from db.forms.hobby import HobbyForm
 from db.forms.online_project import OnlineProjectForm
 from db.forms.user_language_relation import UserLanguageRelationForm
 
-from db.helper import validate_student_user_type, validate_step, validate_form_data, silent_fail
+from db.helper import validate_student_user_type, validate_step, validate_form_data, silent_fail, generic_error_dict
 from db.models import Skill, OnlineProject, Hobby, UserLanguageRelation
 
 
@@ -14,15 +14,26 @@ class StudentProfileFormStep4(forms.Form):
     distinction = forms.CharField(max_length=1000, required=False)
 
 
-def process_hobby(data):
-    if 'id' in data:
+def get_instance_or_none(model, data):
+    object_id = data.get('id', None)
+    if object_id is None:
         return None
-    form = HobbyForm(data)
+    instance = None
+    try:
+        instance = model.objects.get(pk=object_id)
+    except model.DoesNotExist:
+        pass
+    return instance
+
+
+def process_hobby(data):
+    instance = get_instance_or_none(Hobby, data)
+    form = HobbyForm(data, instance=instance)
     form.full_clean()
     if form.is_valid():
         return form
     errors = form.errors.get_json_data()
-    if not silent_fail(errors):
+    if not silent_fail(errors) or instance is not None:
         raise FormException(errors=errors)
     return None
 
@@ -36,18 +47,26 @@ def get_hobbies_to_delete(profile, data):
     return Hobby.objects.filter(student=profile).exclude(id__in=exclude_ids)
 
 
-def process_online_project(profile, data):
-    if 'id' in data:
-        return None
+def project_url_already_exists(profile, url, instance=None):
+    if instance is None:
+        return OnlineProject.objects.filter(url=url, student=profile).exists()
+    return OnlineProject.objects.filter(url=url, student=profile).exclude(pk=instance.id).exists()
 
-    form = OnlineProjectForm(data)
+
+def process_online_project(profile, data):
+    instance = get_instance_or_none(OnlineProject, data)
+    form = OnlineProjectForm(data, instance=instance)
     form.full_clean()
     if form.is_valid():
         cleaned_data = form.cleaned_data
         # OnlineProject Model fields (url and user) can't be unique together because url is too long
         # This is why we do a manual check
-        if not OnlineProject.objects.filter(url=cleaned_data['url'], student=profile).exists():
+        if not project_url_already_exists(profile, cleaned_data.get('url'), instance):
             return form
+        if instance is not None:
+            raise FormException(errors=generic_error_dict('nonFieldErrors',
+                                                          'A project with the same url already exists',
+                                                          'unique_together'))
     else:
         raise FormException(errors=form.errors.get_json_data())
     return None
@@ -62,18 +81,8 @@ def get_online_projects_to_delete(profile, data):
     return OnlineProject.objects.filter(student=profile).exclude(id__in=exclude_ids)
 
 
-def process_language(profile, data):
-    if 'id' in data:
-        return None
-
-    instance = None
-    existing_entry_for_language = UserLanguageRelation.objects.filter(student=profile,
-                                                                      language=data.get('language', None))
-
-    if len(existing_entry_for_language) > 0:
-        instance = existing_entry_for_language[0]
-        data['id'] = instance.id
-
+def process_language(data):
+    instance = get_instance_or_none(UserLanguageRelation, data)
     form = UserLanguageRelationForm(data, instance=instance)
     form.full_clean()
     if form.is_valid():
@@ -142,7 +151,9 @@ def process_student_form_step_4(user, data):
         for hobby in hobbies:
             hobby['student'] = student.id
             try:
-                valid_hobby_forms.append(process_hobby(hobby))
+                hobby_form = process_hobby(hobby)
+                if hobby_form is not None:
+                    valid_hobby_forms.append(hobby_form)
             except FormException as exception:
                 errors.update(exception.errors)
 
@@ -154,7 +165,9 @@ def process_student_form_step_4(user, data):
         for online_project in online_projects:
             online_project['student'] = student.id
             try:
-                valid_online_project_forms.append(process_online_project(student, online_project))
+                online_project_form = process_online_project(student, online_project)
+                if online_project_form is not None:
+                    valid_online_project_forms.append(online_project_form)
             except FormException as exception:
                 errors.update(exception.errors)
 
@@ -167,7 +180,9 @@ def process_student_form_step_4(user, data):
         for language in languages:
             language['student'] = student.id
             try:
-                valid_languages_forms.append(process_language(student, language))
+                language_form = process_language(language)
+                if language_form is not None:
+                    valid_languages_forms.append(language_form)
             except FormException as exception:
                 errors.update(exception.errors)
 
@@ -180,7 +195,6 @@ def process_student_form_step_4(user, data):
 
     # save all valid forms
     valid_forms = valid_hobby_forms + valid_online_project_forms + valid_languages_forms
-    valid_forms = [form for form in valid_forms if form]
 
     for form in valid_forms:
         form.save()
