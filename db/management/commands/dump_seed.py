@@ -1,13 +1,10 @@
-import os
-import shutil
 import json
 
-from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.management.base import BaseCommand
 from django.contrib.auth import get_user_model
 
-from db.models import Attachment, ProfileType, ProfileState
+from db.models import Attachment, ProfileType, ProfileState, AttachmentKey
 
 
 # pylint: disable=R0912
@@ -19,14 +16,18 @@ class Command(BaseCommand):
         job_posting_objs = []
 
         for job_posting in company.job_postings.all():
+            job_to_date = job_posting.job_to_date
+            if job_to_date is not None:
+                job_to_date = job_to_date.strftime('%Y-%m-%d')
             obj = {
+                'slug': job_posting.slug,
                 'title': job_posting.title,
                 'description': job_posting.description,
                 'job_type': job_posting.job_type.id,
                 'branch': job_posting.branch.id,
                 'workload': job_posting.workload,
                 'job_from_date': job_posting.job_from_date.strftime('%Y-%m-%d'),
-                'job_to_date': job_posting.job_to_date.strftime('%Y-%m-%d'),
+                'job_to_date': job_to_date,
                 'url': job_posting.url,
                 'job_requirements': [obj.id for obj in job_posting.job_requirements.all()],
                 'skills': [obj.id for obj in job_posting.skills.all()],
@@ -43,28 +44,47 @@ class Command(BaseCommand):
 
     def get_attachments_for_company(self, company):
         content_type = ContentType.objects.get(app_label='db', model='company')
-        return self.get_attachments(content_type, company.id, 'company_fixtures')
+        return self.get_attachments(content_type, company.id, 'company_fixtures', company.slug == 'liip-ag')
 
     def get_attachments_for_student(self, student):
         content_type = ContentType.objects.get(app_label='db', model='student')
         return self.get_attachments(content_type, student.id, 'student_fixtures')
 
-    def get_attachments(self, content_type, object_id, directory):
-        fixtures_path = os.path.join(settings.MEDIA_ROOT, directory)
-        media_path = os.path.join(settings.MEDIA_ROOT)
+    def get_attachments(self, content_type, object_id, directory, is_liip=False):
         attachments = Attachment.objects.filter(content_type_id=content_type.id, object_id=object_id)
         attachment_objs = []
 
         for attachment in attachments:
             file_path = str(attachment.attachment_object.file)
-            source_path = os.path.join(media_path, file_path)
             file_name = file_path.split('/')[-1]
-            destination_path = os.path.join(fixtures_path, file_name)
-            if not os.path.exists(destination_path):
-                shutil.copy(source_path, destination_path)
+
+            path = ''
+            if attachment.key == AttachmentKey.COMPANY_AVATAR:
+                path = 'avatars'
+            if attachment.key == AttachmentKey.COMPANY_DOCUMENTS:
+                path = 'moods'
+            if attachment.key == AttachmentKey.STUDENT_AVATAR:
+                is_female = 'f-' in file_name
+                if is_female:
+                    path = 'avatars/female'
+                else:
+                    path = 'avatars/male'
+            if attachment.key == AttachmentKey.STUDENT_DOCUMENTS:
+                path = 'documents'
+            if is_liip:
+                path = 'liip'
+
+            # do not dump files for now
+            # fixtures_path = os.path.join(settings.MEDIA_ROOT, directory)
+            # media_path = os.path.join(settings.MEDIA_ROOT)
+            # destination_path = os.path.join(fixtures_path, path, file_name)
+            # source_path = os.path.join(media_path, file_path)
+            # if not os.path.exists(destination_path):
+            #     shutil.copy(source_path, destination_path)
+
             attachment_obj = {
                 'type': f'{attachment.attachment_type.app_label}.{attachment.attachment_type.model}',
-                'file': file_name,
+                'file': f'{path}/{file_name}',
                 'user': attachment.attachment_object.uploaded_by_user.email,
                 'key': attachment.key
             }
@@ -172,7 +192,7 @@ class Command(BaseCommand):
 
         json_string = json.dumps(user_dump, indent=4, sort_keys=True)
 
-        with open('db/management/data/fixtures.json', 'w') as json_file:
+        with open('db/seed/data/fixtures.json', 'w') as json_file:
             json_file.write(json_string)
 
         users = get_user_model().objects.all().exclude(username='admin')
@@ -191,7 +211,7 @@ class Command(BaseCommand):
             attachments = '-'
             if user.type in ProfileType.valid_student_types():
                 nickname = user.student.nickname
-                if nickname == '':
+                if nickname == '' or nickname is None:
                     nickname = '-'
                 state = user.student.state
                 if user.student.state in (ProfileState.PUBLIC, ProfileState.ANONYMOUS):
