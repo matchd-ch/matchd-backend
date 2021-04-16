@@ -57,14 +57,14 @@ def me_query():
                     url
                 }
                 languages {
-                  language {
+                    language {
                         name
-                  }
-                  languageLevel {
+                    }
+                    languageLevel {
                         level
-                  }
+                    }
                 }
-              }
+            }
             company {
                 uid
                 type
