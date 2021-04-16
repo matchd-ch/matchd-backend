@@ -113,7 +113,6 @@ class CreateMatch(Output, graphene.Mutation):
 
         match = data.get('match')
 
-        target = None
         match_obj = None
         if is_company:
             target = match.get('student').get('id')
