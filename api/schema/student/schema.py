@@ -1,4 +1,6 @@
 import graphene
+from django.core.exceptions import PermissionDenied
+from django.http import Http404
 from django.shortcuts import get_object_or_404
 from graphene import ObjectType
 from graphene_django import DjangoObjectType
@@ -21,7 +23,7 @@ from db.forms import process_student_form_step_1, process_student_form_step_2, \
     process_student_form_step_5, process_student_form_step_6, process_student_form_step_4
 from db.forms.student_step_3 import process_student_form_step_3
 
-from db.models import Student as StudentModel
+from db.models import Student as StudentModel, ProfileType
 
 
 class StudentInput(graphene.InputObjectType):
@@ -287,4 +289,11 @@ class StudentQuery(ObjectType):
 
     def resolve_student(self, info, slug):
         user = info.context.user
-        return get_object_or_404(StudentModel, slug=slug)
+
+        if user.type not in (ProfileType.COMPANY, ProfileType.UNIVERSITY):
+            raise PermissionDenied('You have not the permission to perform this action')
+
+        student = get_object_or_404(StudentModel, slug=slug)
+        if student.state == ProfileState.INCOMPLETE:
+            raise Http404('Student not found')
+        return student
