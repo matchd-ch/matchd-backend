@@ -26,6 +26,10 @@ from db.models import Company as CompanyModel, ProfileState as ProfileStateModel
 
 
 class CompanyInput(graphene.InputObjectType):
+    id = graphene.ID(required=True)
+
+
+class RegisterCompanyInput(graphene.InputObjectType):
     name = graphene.String(description=_('Name'), required=True)
     uid = graphene.String(description=_('UID'))
     zip = graphene.String(description=_('ZIP'), required=True)

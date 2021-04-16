@@ -1,12 +1,20 @@
+from datetime import datetime
+
 import graphene
+from django.core.exceptions import PermissionDenied
+from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 from graphene import ObjectType, InputObjectType
+from django.utils.translation import gettext as _
 
 from api.schema.branch import BranchInput
+from api.schema.company import CompanyInput
+from api.schema.student import StudentInput
 from api.schema.zip_city import ZipCityInput
 from api.schema.job_posting import JobPostingInput
 from api.schema.job_type import JobTypeInput
-from db.models import MatchType as MatchTypeModel
+from db.models import MatchType as MatchTypeModel, ProfileType, Student, Company, Match as MatchModel
+from db.models.match import MatchInitiator
 from db.search.matching import JobPostingMatching, StudentMatching
 
 MatchType = graphene.Enum.from_enum(MatchTypeModel)
@@ -65,3 +73,76 @@ class MatchQuery(ObjectType):
             matching = StudentMatching(user, student_matching, first, skip, tech_boost, soft_boost)
             return matching.find_matches()
         return []
+
+
+class MatchInput(graphene.InputObjectType):
+    student = graphene.Field(StudentInput)
+    company = graphene.Field(CompanyInput)
+
+
+class CreateMatch(Output, graphene.Mutation):
+
+    confirmed = graphene.Boolean(default_value=False)
+
+    class Arguments:
+        match = MatchInput(description=_('MatchInput'), required=True)
+
+    class Meta:
+        description = _('Initiate or confirm Matching')
+
+    @classmethod
+    @login_required
+    def mutate(cls, root, info, **data):
+        user = info.context.user
+
+        is_student = False
+        is_company = False
+
+        student = None
+        company = None
+
+        if user.type in ProfileType.valid_student_types():
+            is_student = True
+            student = user.student
+        if user.type in ProfileType.valid_company_types():
+            is_company = True
+            company = user.company
+
+        if not is_student and not is_company:
+            raise PermissionDenied('You are not allowed to perform this action')
+
+        match = data.get('match')
+
+        target = None
+        match_obj = None
+        if is_company:
+            target = match.get('student').get('id')
+            target = Student.objects.get(pk=target)
+            match_obj, created = MatchModel.objects.get_or_create(company=company, student=target)
+            match_obj.company_confirmed = True
+            if not created:
+                match_obj.date_confirmed = datetime.now()
+            else:
+                match_obj.initiator = MatchInitiator.COMPANY
+            match_obj.save()
+        if is_student:
+            target = match.get('company').get('id')
+            target = Company.objects.get(pk=target)
+            match_obj, created = MatchModel.objects.get_or_create(student=student, company=target)
+            match_obj.student_confirmed = True
+            if not created:
+                match_obj.date_confirmed = datetime.now()
+                match_obj.complete = True
+            else:
+                match_obj.initiator = MatchInitiator.STUDENT
+            match_obj.save()
+
+        if match_obj is None:
+            return CreateMatch(success=False, errors=None, confirmed=False)
+
+        return CreateMatch(success=True, errors=None,
+                           confirmed=match_obj.complete)
+
+
+class MatchMutation(graphene.ObjectType):
+    match = CreateMatch.Field()
