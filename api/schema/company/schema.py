@@ -22,7 +22,8 @@ from db.forms import process_company_form_step_2, process_company_form_step_3, p
     process_university_form_step_2, process_university_form_step_3
 from db.forms.company_step_1 import process_company_form_step_1
 from db.forms.company_step_4 import process_company_form_step_4
-from db.models import Company as CompanyModel, ProfileState as ProfileStateModel, JobPostingState
+from db.models import Company as CompanyModel, ProfileState as ProfileStateModel, JobPostingState, Match as MatchModel, \
+    MatchInitiator, ProfileType as ProfileTypeModel
 
 
 class CompanyInput(graphene.InputObjectType):
@@ -244,6 +245,7 @@ class Company(DjangoObjectType):
     soft_skills = graphene.List(graphene.NonNull('api.schema.soft_skill.schema.SoftSkill'))
     cultural_fits = graphene.List(graphene.NonNull('api.schema.cultural_fit.schema.CulturalFit'))
     name = graphene.String()
+    match_status = graphene.Field('api.schema.match.MatchStatus')
 
     class Meta:
         model = CompanyModel
@@ -276,6 +278,23 @@ class Company(DjangoObjectType):
     @hyphenate
     def resolve_name(self, info):
         return self.name
+
+    def resolve_match_status(self: CompanyModel, info):
+        user = info.context.user
+        status = None
+        if user.type in ProfileTypeModel.valid_student_types():
+            try:
+                status = MatchModel.objects.get(company=self, job_posting=None, student=user.student,
+                                                initiator=MatchInitiator.STUDENT)
+            except MatchModel.DoesNotExist:
+                pass
+
+        if status is not None:
+            return {
+                'confirmed':  status.complete,
+                'initiator': status.initiator
+            }
+        return None
 
 
 class CompanyQuery(ObjectType):
