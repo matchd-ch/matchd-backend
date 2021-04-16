@@ -59,7 +59,8 @@ class JobPostingMatching:
         index = self.search_backend.get_index_for_model(queryset.model).name
 
         builder = JobPostingParamBuilder(queryset, index, self.first, self.skip)
-        builder.set_branch(self.branch.id, settings.MATCHING_VALUE_BRANCH)
+        if self.branch is not None:
+            builder.set_branch(self.branch.id, settings.MATCHING_VALUE_BRANCH)
         builder.set_job_type(self.job_type.id, settings.MATCHING_VALUE_JOB_TYPE)
         builder.set_cultural_fits(self.user.student.cultural_fits.all(),
                                   self.soft_boost * settings.MATCHING_VALUE_CULTURAL_FITS)
