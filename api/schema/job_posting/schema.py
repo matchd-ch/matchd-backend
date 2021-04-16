@@ -14,7 +14,7 @@ from api.schema.job_type import JobTypeInput
 from api.schema.job_posting_language_relation import JobPostingLanguageRelationInput
 from api.schema.registration import EmployeeInput
 from api.schema.skill import SkillInput
-from db.decorators import cheating_protection
+from db.decorators import cheating_protection, hyphenate
 from db.exceptions import FormException
 from db.forms import process_job_posting_form_step_1, process_job_posting_form_step_2, process_job_posting_form_step_3
 from db.models import JobPosting as JobPostingModel, Company, JobPostingState as JobPostingStateModel, ProfileType
@@ -37,6 +37,7 @@ class JobPosting(DjangoObjectType):
     workload = graphene.Field(graphene.NonNull(graphene.Int))
     skills = graphene.List(graphene.NonNull('api.schema.skill.schema.Skill'))
     languages = graphene.List(graphene.NonNull( 'api.schema.job_posting_language_relation.JobPostingLanguageRelation'))
+    title = graphene.String()
 
     class Meta:
         model = JobPostingModel
@@ -51,6 +52,10 @@ class JobPosting(DjangoObjectType):
     @cheating_protection
     def resolve_languages(self: JobPostingModel, info):
         return self.languages.all()
+
+    @hyphenate
+    def resolve_title(self, info):
+        return self.title
 
 
 class JobPostingQuery(ObjectType):
