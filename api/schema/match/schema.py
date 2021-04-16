@@ -1,7 +1,4 @@
-from datetime import datetime
-
 import graphene
-from django.core.exceptions import PermissionDenied
 from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 from graphene import ObjectType, InputObjectType
@@ -13,9 +10,9 @@ from api.schema.student import StudentInput
 from api.schema.zip_city import ZipCityInput
 from api.schema.job_posting import JobPostingInput
 from api.schema.job_type import JobTypeInput
-from db.helper import generic_error_dict
-from db.models import MatchType as MatchTypeModel, ProfileType, Student, Company, Match as MatchModel
-from db.models.match import MatchInitiator
+from db.exceptions import FormException
+from db.forms import process_company_match, process_student_match
+from db.models import MatchType as MatchTypeModel, ProfileType
 from db.search.matching import JobPostingMatching, StudentMatching
 
 MatchType = graphene.Enum.from_enum(MatchTypeModel)
@@ -95,64 +92,15 @@ class CreateMatch(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-
-        is_student = False
-        is_company = False
-
-        student = None
-        company = None
-        target_id = None
         match = data.get('match')
-
-        errors = {}
-
-        if user.type in ProfileType.valid_student_types():
-            is_student = True
-            student = user.student
-            match = match.get('company')
-            if match is None:
-                errors.update(generic_error_dict('company', 'Missing company', 'required'))
-            target_id = match.get('id')
-
-        if user.type in ProfileType.valid_company_types():
-            is_company = True
-            company = user.company
-            match = match.get('student')
-            if match is None:
-                errors.update(generic_error_dict('student', 'Missing student', 'required'))
-            target_id = match.get('id')
-
-        if errors:
-            return CreateMatch(success=False, errors=errors)
-
-        if not is_student and not is_company:
-            raise PermissionDenied('You are not allowed to perform this action')
-
         match_obj = None
-        if is_company:
-            target = Student.objects.get(pk=target_id)
-            match_obj, created = MatchModel.objects.get_or_create(company=company, student=target)
-            match_obj.company_confirmed = True
-            if not created:
-                match_obj.date_confirmed = datetime.now()
-            else:
-                match_obj.initiator = MatchInitiator.COMPANY
-            match_obj.save()
-        if is_student:
-            target = Company.objects.get(pk=target_id)
-            match_obj, created = MatchModel.objects.get_or_create(student=student, company=target)
-            match_obj.student_confirmed = True
-            if not created:
-                match_obj.date_confirmed = datetime.now()
-                match_obj.complete = True
-            else:
-                match_obj.initiator = MatchInitiator.STUDENT
-            match_obj.save()
-
-        if match_obj is None:
-            errors.update(generic_error_dict('non_field_error', 'Failed to create match', 'error'))
-            return CreateMatch(success=False, errors=errors, confirmed=False)
-
+        try:
+            if user.type in ProfileType.valid_student_types():
+                match_obj = process_company_match(user.student, match)
+            if user.type in ProfileType.valid_company_types():
+                match_obj = process_student_match(user.company, match)
+        except FormException as exception:
+            return CreateMatch(success=True, errors=exception.errors)
         return CreateMatch(success=True, errors=None, confirmed=match_obj.complete)
 
 
