@@ -23,7 +23,7 @@ from db.forms import process_student_form_step_1, process_student_form_step_2, \
     process_student_form_step_5, process_student_form_step_6, process_student_form_step_4
 from db.forms.student_step_3 import process_student_form_step_3
 
-from db.models import Student as StudentModel, ProfileType
+from db.models import Student as StudentModel, ProfileType, Match as MatchModel, MatchInitiator
 
 
 class StudentInput(graphene.InputObjectType):
@@ -51,6 +51,7 @@ class Student(DjangoObjectType):
     school_name = graphene.String()
     field_of_study = graphene.String()
     graduation = graphene.String()
+    match_status = graphene.Field('api.schema.match.MatchStatus')
 
     class Meta:
         model = StudentModel
@@ -115,6 +116,22 @@ class Student(DjangoObjectType):
     @privacy
     def resolve_graduation(self: StudentModel, info):
         return self.graduation
+
+    def resolve_match_status(self: StudentModel, info):
+        user = info.context.user
+        status = None
+        if user.type in ProfileType.valid_company_types():
+            try:
+                status = MatchModel.objects.get(student=self, job_posting=None, company=user.company)
+            except MatchModel.DoesNotExist:
+                pass
+
+        if status is not None:
+            return {
+                'confirmed':  status.complete,
+                'initiator': status.initiator
+            }
+        return None
 
 
 class StudentProfileInputStep1(graphene.InputObjectType):
