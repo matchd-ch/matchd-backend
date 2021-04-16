@@ -11,7 +11,7 @@ pylint:
     docker.gitlab.liip.ch/matchd/docker-images/python-38-centos7:latest
   script:
     - pip install --upgrade pip && pip install -r requirements.txt
-    - pylint --load-plugins pylint_django --django-settings-module=app.settings.test api app db
+    - pylint api app db
   stage: "Test"
   only:
     - branches

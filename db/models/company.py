@@ -23,9 +23,9 @@ class Company(models.Model, index.Indexed):
     website = models.URLField(max_length=2048, blank=True)
     branches = models.ManyToManyField('db.Branch', related_name='companies')
     description = models.TextField(max_length=1000, blank=True)
-    soft_skills = models.ManyToManyField('db.SoftSkill', related_name='companies')
 
     # fields for company only
+    soft_skills = models.ManyToManyField('db.SoftSkill', related_name='companies')
     uid = models.CharField(max_length=255, blank=False,
                            validators=[RegexValidator(regex=settings.UID_REGEX)])
     services = models.TextField(blank=True)
