@@ -23,26 +23,81 @@ class Match(models.Model):
     complete = models.BooleanField(default=False)
 
     def send_start_match_email(self):
-        template = 'company'
-        recipients = [self.student.user.email]
-        url_link = f'{settings.FRONTEND_URL_PROTOCOL}{settings.FRONTEND_URL}{settings.STUDENT_PROFILE_URL}' \
-                   f'{self.student.slug}?jobPosting={self.job_posting.slug}'
         if self.initiator == ProfileType.COMPANY:
-            template = 'student'
-            recipients = [self.job_posting.employee.user.email]
-            url_link = f'{settings.FRONTEND_URL_PROTOCOL}{settings.FRONTEND_URL}{settings.JOB_POSTING_URL}' \
-                       f'{self.job_posting.slug}'
+            self._send_initiator_company()
 
-        email_context = {
+        if self.initiator in ProfileType.valid_student_types():
+            self._send_initiator_student()
+
+    def _student_profile_url(self):
+        return f'{settings.FRONTEND_URL_PROTOCOL}{settings.FRONTEND_URL}{settings.STUDENT_PROFILE_URL}' \
+               f'{self.student.slug}?jobPosting={self.job_posting.slug}'
+
+    def _job_posting_url(self):
+        return f'{settings.FRONTEND_URL_PROTOCOL}{settings.FRONTEND_URL}{settings.JOB_POSTING_URL}' \
+               f'{self.job_posting.slug}'
+
+    def _email_context(self):
+        return {
             'company': self.job_posting.company,
-            'url_link': url_link,
             'student': self.student.user,
-            'job_posting': self.job_posting
+            'job_posting_url': self._job_posting_url(),
+            'job_posting': self.job_posting,
+            'student_profile_url': self._student_profile_url(),
         }
 
-        subject = render_to_string(f'db/email/match/{template}/start_match.subject.txt', email_context)
-        plain_body = render_to_string(f'db/email/match/{template}/start_match.body_plain.txt', email_context)
-        html_body = render_to_string(f'db/email/match/{template}/start_match.body.html', email_context)
+    def _send_initiator_company(self):
+        email_context = self._email_context()
+        template_path = 'db/email/match/student/'
+
+        # email student
+        recipients = [self.student.user.email]
+        subject = render_to_string(f'{template_path}start_match.subject.txt', email_context)
+        plain_body = render_to_string(f'{template_path}start_match.body_plain.txt', email_context)
+        html_body = render_to_string(f'{template_path}start_match.body.html', email_context)
+        send_mail(
+            subject,
+            plain_body,
+            settings.DEFAULT_FROM_EMAIL,
+            recipients,
+            html_message=html_body
+        )
+
+        # email company
+        recipients = [self.job_posting.employee.user.email]
+        subject = render_to_string(f'{template_path}copy.start_match.subject.txt', email_context)
+        plain_body = render_to_string(f'{template_path}copy.start_match.body_plain.txt', email_context)
+        html_body = render_to_string(f'{template_path}copy.start_match.body.html', email_context)
+        send_mail(
+            subject,
+            plain_body,
+            settings.DEFAULT_FROM_EMAIL,
+            recipients,
+            html_message=html_body
+        )
+
+    def _send_initiator_student(self):
+        email_context = self._email_context()
+        template_path = 'db/email/match/company/'
+
+        # email company
+        recipients = [self.job_posting.employee.user.email]
+        subject = render_to_string(f'{template_path}start_match.subject.txt', email_context)
+        plain_body = render_to_string(f'{template_path}start_match.body_plain.txt', email_context)
+        html_body = render_to_string(f'{template_path}start_match.body.html', email_context)
+        send_mail(
+            subject,
+            plain_body,
+            settings.DEFAULT_FROM_EMAIL,
+            recipients,
+            html_message=html_body
+        )
+
+        # email student
+        recipients = [self.student.user.email]
+        subject = render_to_string(f'{template_path}copy.start_match.subject.txt', email_context)
+        plain_body = render_to_string(f'{template_path}copy.start_match.body_plain.txt', email_context)
+        html_body = render_to_string(f'{template_path}copy.start_match.body.html', email_context)
         send_mail(
             subject,
             plain_body,
