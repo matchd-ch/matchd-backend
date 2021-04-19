@@ -1,0 +1,3 @@
+{% load i18n %}
+Das Talent {{ user.first_name }} {{ user.last_name }} hat die Stelle {{ job_posting.title }} gematchd!
+{{ url_link }}

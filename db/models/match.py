@@ -22,14 +22,16 @@ class Match(models.Model):
     initiator = models.CharField(choices=ProfileType.choices, max_length=100)
     complete = models.BooleanField(default=False)
 
-    def send_email(self):
+    def send_start_match_email(self):
         template = 'company'
         recipients = [self.student.user.email]
-        url_link = f'{settings.FRONTEND_URL_PROTOCOL}{settings.PROFILE_URL_STUDENT}{self.student.slug}'
-        if self.initiator == ProfileType.STUDENT:
+        url_link = f'{settings.FRONTEND_URL_PROTOCOL}{settings.FRONTEND_URL}{settings.STUDENT_PROFILE_URL}' \
+                   f'{self.student.slug}?jobPosting={self.job_posting.slug}'
+        if self.initiator == ProfileType.COMPANY:
             template = 'student'
             recipients = [self.job_posting.employee.user.email]
-            url_link = f'{settings.FRONTEND_URL_PROTOCOL}{settings.PROFILE_URL_COMPANY}{self.job_posting.company.slug}'
+            url_link = f'{settings.FRONTEND_URL_PROTOCOL}{settings.FRONTEND_URL}{settings.JOB_POSTING_URL}' \
+                       f'{self.job_posting.slug}'
 
         email_context = {
             'company': self.job_posting.company,

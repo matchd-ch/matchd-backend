@@ -181,8 +181,8 @@ USER_REQUEST_FORM_RECIPIENTS = [
 FRONTEND_URL_PROTOCOL = 'https://'
 FRONTEND_URL = os.getenv('FRONTEND_URL', '')
 
-PROFILE_URL_STUDENT = f'{FRONTEND_URL}/talente/'
-PROFILE_URL_COMPANY = f'{FRONTEND_URL}/firmen/'
+STUDENT_PROFILE_URL = f'/talente/'
+JOB_POSTING_URL = f'/stellen/'
 
 
 # Wagtail settings

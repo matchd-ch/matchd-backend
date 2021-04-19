@@ -48,6 +48,7 @@ CSRF_COOKIE_DOMAIN = os.getenv('APP_CSRF_COOKIE_DOMAIN', '.matchd.lo')
 
 # noinspection HttpUrlsUsage
 FRONTEND_URL_PROTOCOL = 'http://'
+FRONTEND_URL = f'{FRONTEND_URL}:8081'
 
 try:
     from .local import *

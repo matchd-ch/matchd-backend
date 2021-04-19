@@ -50,6 +50,10 @@ def process_student_match(user, data):
         match_obj.date_confirmed = datetime.now(tz=pytz.timezone(settings.TIME_ZONE))
         match_obj.complete = True
     match_obj.save()
+
+    if created:
+        match_obj.send_start_match_email()
+
     return match_obj
 
 
@@ -79,4 +83,8 @@ def process_job_posting_match(user, data):
         match_obj.date_confirmed = datetime.now(tz=pytz.timezone(settings.TIME_ZONE))
         match_obj.complete = True
     match_obj.save()
+
+    if created:
+        match_obj.send_start_match_email()
+
     return match_obj
