@@ -19,7 +19,6 @@ from db.exceptions import FormException
 from db.forms import process_job_posting_form_step_1, process_job_posting_form_step_2, process_job_posting_form_step_3
 from db.models import JobPosting as JobPostingModel, Company, JobPostingState as JobPostingStateModel, ProfileType, \
     Match as MatchModel
-from db.models.match import MatchInitiator
 
 JobPostingState = graphene.Enum.from_enum(JobPostingStateModel)
 

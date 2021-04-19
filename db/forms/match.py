@@ -5,54 +5,47 @@ from django.conf import settings
 
 from db.exceptions import FormException
 from db.helper import generic_error_dict
-from db.models import Student, Match, Company, JobPosting
-from db.models.match import MatchInitiator
+from db.helper.forms import validate_company_user_type, validate_form_data, validate_student_user_type
+from db.models import Student, Match, JobPosting, ProfileType
 
 
-# pylint: disable=R0912
-def process_student_match(company, data):
+def get_id_from_data(data, key):
     errors = {}
-    student = data.get('student')
-    job_posting = data.get('job_posting')
-    if company is None:
-        if job_posting is None:
-            errors.update(generic_error_dict('non_field_errors', 'Missing company or job posting', 'required'))
-    if errors:
-        raise FormException(errors=errors)
+    if data.get(key) is not None:
+        obj_id = data.get(key).get('id')
+        if obj_id is not None:
+            return obj_id
+    errors.update(generic_error_dict(key, 'Select a valid choice', 'invalid'))
+    raise FormException(errors=errors)
 
-    if job_posting is not None:
-        job_posting_id = job_posting.get('id')
-        if job_posting_id is not None:
-            try:
-                job_posting = JobPosting.objects.get(pk=job_posting_id)
-            except JobPosting.DoesNotExist:
-                errors.update(generic_error_dict('job_posting', 'Select a valid choice', 'invalid'))
-    if errors:
-        raise FormException(errors=errors)
 
-    if job_posting is not None and company != job_posting.company:
-        errors.update(generic_error_dict('company', 'Job Posting does not belong to this company', 'invalid'))
-        raise FormException(errors=errors)
+def process_student_match(user, data):
+    errors = {}
 
-    student_id = student.get('id')
-    match_obj, created = None, None
+    validate_company_user_type(user)
+    validate_form_data(data)
+
+    student = None
+    job_posting = None
     try:
-        target = Student.objects.get(pk=student_id)
-        match_obj, created = Match.objects.get_or_create(company=company, student=target, job_posting=job_posting)
-        match_obj.company_confirmed = True
-        if match_obj.initiator == MatchInitiator.COMPANY:
-            return match_obj
-        if created:
-            match_obj.initiator = MatchInitiator.COMPANY
+        student_id = get_id_from_data(data, 'student')
+        student = Student.objects.get(pk=student_id)
+        job_posting_id = get_id_from_data(data, 'job_posting')
+        job_posting = JobPosting.objects.get(pk=job_posting_id)
     except Student.DoesNotExist:
         errors.update(generic_error_dict('student', 'Select a valid choice', 'invalid'))
+    except JobPosting.DoesNotExist:
+        errors.update(generic_error_dict('job_posting', 'Select a valid choice', 'invalid'))
+    except FormException as exception:
+        raise FormException(errors=exception.errors)
+
     if errors:
         raise FormException(errors=errors)
 
-    if match_obj is None:
-        errors.update(generic_error_dict('non_field_error', 'Failed to create match', 'error'))
-        raise FormException(errors=errors)
-
+    match_obj, created = Match.objects.get_or_create(student=student, job_posting=job_posting)
+    match_obj.company_confirmed = True
+    if created:
+        match_obj.initiator = ProfileType.COMPANY
     if not created and not match_obj.complete:
         match_obj.date_confirmed = datetime.now(tz=pytz.timezone(settings.TIME_ZONE))
         match_obj.complete = True
@@ -60,58 +53,28 @@ def process_student_match(company, data):
     return match_obj
 
 
-def process_company_or_job_posting_match(student, data):
+def process_job_posting_match(user, data):
     errors = {}
-    job_posting = data.get('job_posting')
-    company = data.get('company')
-    if job_posting is None:
-        if company is None:
-            errors.update(generic_error_dict('non_field_errors', 'Missing company or job posting', 'required'))
-    if errors:
-        raise FormException(errors=errors)
 
-    if job_posting is not None:
-        job_posting_id = job_posting.get('id')
-        if job_posting_id is not None:
-            try:
-                job_posting = JobPosting.objects.get(pk=job_posting_id)
-            except JobPosting.DoesNotExist:
-                errors.update(generic_error_dict('job_posting', 'Select a valid choice', 'invalid'))
+    validate_student_user_type(user)
+    validate_form_data(data)
 
-    if company is not None:
-        company_id = company.get('id')
-        try:
-            company = Company.objects.get(pk=company_id)
-        except Company.DoesNotExist:
-            errors.update(generic_error_dict('company', 'Select a valid choice', 'invalid'))
-
-    if errors:
-        raise FormException(errors=errors)
-
-    if company is not None and job_posting is not None and company != job_posting.company:
-        errors.update(generic_error_dict('company', 'Job Posting does not belong to this company', 'invalid'))
-        raise FormException(errors=errors)
-
-    if job_posting is not None:
-        company = job_posting.company
-
-    match_obj, created = None, None
+    job_posting = None
     try:
-        match_obj, created = Match.objects.get_or_create(student=student, company=company, job_posting=job_posting)
-        match_obj.student_confirmed = True
-        if match_obj.initiator == MatchInitiator.STUDENT:
-            return match_obj
-        if created:
-            match_obj.initiator = MatchInitiator.STUDENT
-    except Company.DoesNotExist:
-        errors.update(generic_error_dict('company', 'Select a valid choice', 'invalid'))
+        job_posting_id = get_id_from_data(data, 'job_posting')
+        job_posting = JobPosting.objects.get(pk=job_posting_id)
+    except JobPosting.DoesNotExist:
+        errors.update(generic_error_dict('job_posting', 'Select a valid choice', 'invalid'))
+    except FormException as exception:
+        raise FormException(errors=exception.errors)
+
     if errors:
         raise FormException(errors=errors)
 
-    if match_obj is None:
-        errors.update(generic_error_dict('non_field_error', 'Failed to create match', 'error'))
-        raise FormException(errors=errors)
-
+    match_obj, created = Match.objects.get_or_create(student=user.student, job_posting=job_posting)
+    match_obj.student_confirmed = True
+    if created:
+        match_obj.initiator = ProfileType.STUDENT
     if not created and not match_obj.complete:
         match_obj.date_confirmed = datetime.now(tz=pytz.timezone(settings.TIME_ZONE))
         match_obj.complete = True

@@ -23,7 +23,7 @@ from db.forms import process_student_form_step_1, process_student_form_step_2, \
     process_student_form_step_5, process_student_form_step_6, process_student_form_step_4
 from db.forms.student_step_3 import process_student_form_step_3
 
-from db.models import Student as StudentModel, ProfileType, Match as MatchModel, MatchInitiator
+from db.models import Student as StudentModel, ProfileType, Match as MatchModel
 
 
 class StudentInput(graphene.InputObjectType):
