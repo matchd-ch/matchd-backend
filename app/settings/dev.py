@@ -46,6 +46,9 @@ GRAPHQL_JWT.update({
 
 CSRF_COOKIE_DOMAIN = os.getenv('APP_CSRF_COOKIE_DOMAIN', '.matchd.lo')
 
+# noinspection HttpUrlsUsage
+FRONTEND_URL_PROTOCOL = 'http://'
+
 try:
     from .local import *
 except ImportError:
