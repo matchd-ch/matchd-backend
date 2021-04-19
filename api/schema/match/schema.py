@@ -18,6 +18,11 @@ from db.search.matching import JobPostingMatching, StudentMatching
 MatchType = graphene.Enum.from_enum(MatchTypeModel)
 
 
+class MatchHistory(ObjectType):
+    has_requested_match = graphene.NonNull(graphene.Boolean)
+    has_confirmed_match = graphene.NonNull(graphene.Boolean)
+
+
 class MatchStatus(ObjectType):
     confirmed = graphene.Boolean()
     initiator = graphene.Field(ProfileType)

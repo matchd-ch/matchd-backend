@@ -4,11 +4,14 @@ from graphene_django import DjangoObjectType
 from graphql_auth.settings import graphql_auth_settings
 from graphql_jwt.decorators import login_required
 
+from api.schema.match.schema import MatchHistory
 from api.schema.profile_type import ProfileType
+from db.models import Match as MatchModel, ProfileType as ProfileTypeModel
 
 
 class User(DjangoObjectType):
     type = graphene.Field(graphene.NonNull(ProfileType))
+    match_history = graphene.Field(graphene.NonNull(MatchHistory))
 
     class Meta:
         model = get_user_model()
@@ -16,6 +19,23 @@ class User(DjangoObjectType):
         exclude = graphql_auth_settings.USER_NODE_EXCLUDE_FIELDS
         skip_registry = True
         convert_choices_to_enum = False
+
+    def resolve_match_history(self, info):
+        user = info.context.user
+        has_requested_match = False
+        has_confirmed_match = False
+        if user.type in ProfileTypeModel.valid_company_types():
+            has_requested_match = MatchModel.objects.filter(initiator=user.type, job_posting__employee=user.employee)
+            has_confirmed_match = MatchModel.objects.filter(initiator=ProfileTypeModel.STUDENT,
+                                                            job_posting__employee=user.employee, company_confirmed=True)
+        if user.type in ProfileTypeModel.valid_student_types():
+            has_requested_match = MatchModel.objects.filter(initiator=user.type, student=user.student)
+            has_confirmed_match = MatchModel.objects.filter(initiator=ProfileTypeModel.COMPANY, student=user.student,
+                                                            student_confirmed=True)
+        return {
+            'has_confirmed_match': has_confirmed_match,
+            'has_requested_match': has_requested_match
+        }
 
 
 class UserQuery(graphene.ObjectType):
