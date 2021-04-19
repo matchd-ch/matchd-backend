@@ -237,7 +237,7 @@ IMAGE_STACKS = {
     'mobile': 'fill-640x480',
     'desktop-square': 'fill-400x400',
     'mobile-square': 'fill-200x200',
-    'avatar': 'min-50x50'
+    'avatar': 'min-160x160'
 }
 
 USER_UPLOADS_IMAGE_TYPES = ('image/jpeg', 'image/png', 'image/gif',)
