@@ -120,11 +120,12 @@ class Student(DjangoObjectType):
 
     # noinspection PyBroadException
     def resolve_match_status(self: StudentModel, info: ResolveInfo):
+        # try to retrieve job posting id parameter from operation
+        # if the parameter is missing, no match status will be returned
         try:
             job_posting_id = info.operation.selection_set.selections[0].arguments[1].value.value
         except Exception:
             job_posting_id = None
-
         if job_posting_id is None:
             return None
         user = info.context.user
