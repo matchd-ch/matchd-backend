@@ -110,7 +110,7 @@ class MatchStudent(Output, graphene.Mutation):
 
 
 class MatchJobPostingInput(graphene.InputObjectType):
-    job_posting = graphene.Field(JobPostingInput)
+    job_posting = graphene.Field(JobPostingInput, required=True)
 
 
 class MatchJobPosting(Output, graphene.Mutation):
