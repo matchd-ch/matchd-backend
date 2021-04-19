@@ -4,6 +4,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 from graphene import ObjectType
 from graphene_django import DjangoObjectType
+from graphql import ResolveInfo
 from graphql_auth.bases import Output
 from django.utils.translation import gettext as _
 from graphql_jwt.decorators import login_required
@@ -117,12 +118,20 @@ class Student(DjangoObjectType):
     def resolve_graduation(self: StudentModel, info):
         return self.graduation
 
-    def resolve_match_status(self: StudentModel, info):
+    # noinspection PyBroadException
+    def resolve_match_status(self: StudentModel, info: ResolveInfo):
+        try:
+            job_posting_id = info.operation.selection_set.selections[0].arguments[1].value.value
+        except Exception:
+            job_posting_id = None
+
+        if job_posting_id is None:
+            return None
         user = info.context.user
         status = None
         if user.type in ProfileType.valid_company_types():
             try:
-                status = MatchModel.objects.get(student=self, job_posting=None, company=user.company)
+                status = MatchModel.objects.get(student=self, job_posting__id=job_posting_id)
             except MatchModel.DoesNotExist:
                 pass
 
@@ -306,9 +315,9 @@ class StudentProfileMutation(graphene.ObjectType):
 
 
 class StudentQuery(ObjectType):
-    student = graphene.Field(Student, slug=graphene.String())
+    student = graphene.Field(Student, slug=graphene.String(), job_posting_id=graphene.ID(required=False))
 
-    def resolve_student(self, info, slug):
+    def resolve_student(self, info, slug, *args, **kwargs):
         user = info.context.user
 
         if user.type not in (ProfileType.COMPANY, ProfileType.UNIVERSITY):
