@@ -48,7 +48,7 @@ class JobPosting(DjangoObjectType):
         convert_choices_to_enum = False
 
     @cheating_protection
-    def resolve_skills(self: JobPostingModel):
+    def resolve_skills(self: JobPostingModel, info):
         return self.skills.all()
 
     @cheating_protection
