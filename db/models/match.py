@@ -31,7 +31,7 @@ class Match(models.Model):
 
     def _student_profile_url(self):
         return f'{settings.FRONTEND_URL_PROTOCOL}{settings.FRONTEND_URL}{settings.STUDENT_PROFILE_URL}' \
-               f'{self.student.slug}?jobPosting={self.job_posting.slug}'
+               f'{self.student.slug}?jobPosting={self.job_posting.id}'
 
     def _job_posting_url(self):
         return f'{settings.FRONTEND_URL_PROTOCOL}{settings.FRONTEND_URL}{settings.JOB_POSTING_URL}' \
