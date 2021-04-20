@@ -40,6 +40,7 @@ class JobPosting(DjangoObjectType):
     languages = graphene.List(graphene.NonNull('api.schema.job_posting_language_relation.JobPostingLanguageRelation'))
     title = graphene.String()
     match_status = graphene.Field('api.schema.match.MatchStatus')
+    match_hints = graphene.Field('api.schema.match.MatchHints')
 
     class Meta:
         model = JobPostingModel
@@ -74,6 +75,22 @@ class JobPosting(DjangoObjectType):
                 'initiator': status.initiator
             }
         return None
+
+    def resolve_match_hints(self, info):
+        user = info.context.user
+        if user.type in ProfileType.valid_company_types():
+            return None
+
+        has_requested_match = False
+        has_confirmed_match = False
+        if user.type in ProfileType.valid_student_types():
+            has_requested_match = MatchModel.objects.filter(initiator=user.type, student=user.student, job_posting=self)
+            has_confirmed_match = MatchModel.objects.filter(initiator=ProfileType.COMPANY, student=user.student,
+                                                            student_confirmed=True, job_posting=self)
+        return {
+            'has_confirmed_match': has_confirmed_match,
+            'has_requested_match': has_requested_match
+        }
 
 
 class JobPostingQuery(ObjectType):
