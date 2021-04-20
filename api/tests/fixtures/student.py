@@ -151,6 +151,8 @@ def user_student(get_user, default_password):
     return user
 
 
+# pylint: disable=R0913
+# pylint: disable=W0621
 @pytest.fixture
 def user_student_full_profile(user_student, branch_objects, job_type_objects, skill_objects, soft_skill_objects,
                               cultural_fit_objects):

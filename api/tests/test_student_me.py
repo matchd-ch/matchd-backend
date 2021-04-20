@@ -1,8 +1,7 @@
 import pytest
 from django.contrib.auth.models import AnonymousUser
 
-from db.helper.forms import convert_date
-from db.models import ProfileType, ProfileState, Hobby, OnlineProject
+from db.models import ProfileType, ProfileState
 
 # pylint: disable=C0103
 # pylint: disable=R0913

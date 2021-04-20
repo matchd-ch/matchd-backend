@@ -2,6 +2,9 @@ import pytest
 
 from db.models import ProfileState, Match
 
+# pylint: disable=R0913
+# pylint: disable=W0612
+
 
 @pytest.mark.django_db
 def test_student(login, user_student_full_profile, query_student, user_employee, branch_objects, job_type_objects,

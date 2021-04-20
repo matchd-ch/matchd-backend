@@ -1,5 +1,5 @@
 from api.helper import is_me_query
-from db.models import Student, ProfileState, ProfileType, Match
+from db.models import Student, ProfileState, ProfileType
 
 
 def privacy_protection(match_only=False):
