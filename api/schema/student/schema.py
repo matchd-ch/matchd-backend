@@ -119,20 +119,41 @@ class Student(DjangoObjectType):
         return self.graduation
 
     # noinspection PyBroadException
-    def resolve_match_status(self: StudentModel, info: ResolveInfo, *args, **kwargs):
+    def resolve_match_status(self: StudentModel, info):
         # try to retrieve job posting id parameter from operation
-        # if the parameter is missing, no match status will be returned
+        #
+        # query example:
+        # query
+        # {
+        #     student(slug: "{student-slug}", jobPostingId: {id}) {
+        #     .....
+        #     }
+        # }
         try:
             job_posting_id = info.operation.selection_set.selections[0].arguments[1].value.value
         except Exception:
             job_posting_id = None
 
         # fallback if request was sent with variables
+        #
+        # query example:
+        # query($slug: String!, $jobPostingId: ID!) {
+        #     student(slug: $slug, jobPostingId: $jobPostingId) {
+        #     ....
+        #     }
+        # }
+        # with variables
+        # {
+        #     "slug": "{student-slug}",
+        #     "jobPostingId": {id}
+        # }
         if job_posting_id is None:
             try:
                 job_posting_id = info.variable_values.get('jobPostingId')
             except Exception:
                 job_posting_id = None
+
+        # if the parameter is missing, no match status will be returned
         if job_posting_id is None:
             return None
 
