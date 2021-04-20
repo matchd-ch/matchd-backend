@@ -19,6 +19,10 @@ def job_posting_query(filter_value, param_name):
               initiator
               confirmed
             }
+            matchHints {
+              hasRequestedMatch
+              hasConfirmedMatch
+            }
             id
             slug
             title
@@ -79,6 +83,10 @@ def job_postings_query(slug):
             matchStatus {
               initiator
               confirmed
+            }
+            matchHints {
+              hasRequestedMatch
+              hasConfirmedMatch
             }
             id
             slug
@@ -221,9 +229,16 @@ def job_posting_objects(company_object, job_type_objects_date_range, branch_obje
     return [
         JobPosting.objects.create(id=1, company=company_object, job_type=job_type_objects_date_range[0],
                                   job_from_date=datetime.now(), branch=branch_objects[0]),
+        JobPosting.objects.create(id=2, company=company_object, job_type=job_type_objects_date_range[0],
+                                  job_from_date=datetime.now(), branch=branch_objects[0]),
     ]
 
 
 @pytest.fixture
 def job_posting_object(job_posting_objects):
     return job_posting_objects[0]
+
+
+@pytest.fixture
+def job_posting_object_2(job_posting_objects):
+    return job_posting_objects[1]
