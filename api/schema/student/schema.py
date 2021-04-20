@@ -4,7 +4,6 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 from graphene import ObjectType
 from graphene_django import DjangoObjectType
-from graphql import ResolveInfo
 from graphql_auth.bases import Output
 from django.utils.translation import gettext as _
 from graphql_jwt.decorators import login_required
