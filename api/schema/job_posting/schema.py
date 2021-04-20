@@ -76,7 +76,7 @@ class JobPosting(DjangoObjectType):
             }
         return None
 
-    def resolve_match_hints(self, info):
+    def resolve_match_hints(self: JobPostingModel, info):
         user = info.context.user
         if user.type in ProfileType.valid_company_types():
             return None
@@ -84,9 +84,11 @@ class JobPosting(DjangoObjectType):
         has_requested_match = False
         has_confirmed_match = False
         if user.type in ProfileType.valid_student_types():
-            has_requested_match = MatchModel.objects.filter(initiator=user.type, student=user.student, job_posting=self)
+            has_requested_match = MatchModel.objects.filter(initiator=user.type, student=user.student,
+                                                            job_posting__company=self.company).exists()
             has_confirmed_match = MatchModel.objects.filter(initiator=ProfileType.COMPANY, student=user.student,
-                                                            student_confirmed=True, job_posting=self)
+                                                            student_confirmed=True, job_posting__company=self.company)\
+                .exists()
         return {
             'has_confirmed_match': has_confirmed_match,
             'has_requested_match': has_requested_match

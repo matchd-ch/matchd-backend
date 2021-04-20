@@ -25,13 +25,15 @@ class User(DjangoObjectType):
         has_requested_match = False
         has_confirmed_match = False
         if user.type in ProfileTypeModel.valid_company_types():
-            has_requested_match = MatchModel.objects.filter(initiator=user.type, job_posting__employee=user.employee)
-            has_confirmed_match = MatchModel.objects.filter(initiator=ProfileTypeModel.STUDENT,
-                                                            job_posting__employee=user.employee, company_confirmed=True)
+            has_requested_match = MatchModel.objects.filter(
+                initiator=user.type, job_posting__employee=user.employee).exists()
+            has_confirmed_match = MatchModel.objects.filter(
+                initiator=ProfileTypeModel.STUDENT, job_posting__employee=user.employee, company_confirmed=True)\
+                .exists()
         if user.type in ProfileTypeModel.valid_student_types():
-            has_requested_match = MatchModel.objects.filter(initiator=user.type, student=user.student)
+            has_requested_match = MatchModel.objects.filter(initiator=user.type, student=user.student).exists()
             has_confirmed_match = MatchModel.objects.filter(initiator=ProfileTypeModel.COMPANY, student=user.student,
-                                                            student_confirmed=True)
+                                                            student_confirmed=True).exists()
         return {
             'has_confirmed_match': has_confirmed_match,
             'has_requested_match': has_requested_match
