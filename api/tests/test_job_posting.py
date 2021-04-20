@@ -45,8 +45,8 @@ def test_job_posting(query_job_posting, job_posting_object: JobPosting, job_type
     assert job_posting.get('jobToDate') == '2021-10-01'
     assert job_posting.get('url') == job_posting_object.url
     assert len(job_posting.get('jobRequirements')) == len(job_requirement_objects)
-    assert len(job_posting.get('skills')) == 0  # skills should not be visible
-    assert len(job_posting.get('languages')) == 0  # languages should not be visible
+    assert job_posting.get('skills') is None  # skills should not be visible
+    assert job_posting.get('languages') is None  # languages should not be visible
     assert int(job_posting.get('formStep')) == job_posting_object.form_step
     assert job_posting.get('state') == job_posting_object.state.upper()
     assert int(job_posting.get('employee').get('id')) == user_employee.employee.id
@@ -92,8 +92,8 @@ def test_job_posting_by_id(query_job_posting_by_id, job_posting_object: JobPosti
     assert job_posting.get('jobToDate') == '2021-10-01'
     assert job_posting.get('url') == job_posting_object.url
     assert len(job_posting.get('jobRequirements')) == len(job_requirement_objects)
-    assert len(job_posting.get('skills')) == 0  # skills should not be visible
-    assert len(job_posting.get('languages')) == 0  # languages should not be visible
+    assert job_posting.get('skills') is None  # skills should not be visible
+    assert job_posting.get('languages') is None  # languages should not be visible
     assert int(job_posting.get('formStep')) == job_posting_object.form_step
     assert job_posting.get('state') == job_posting_object.state.upper()
     assert int(job_posting.get('employee').get('id')) == user_employee.employee.id
@@ -139,8 +139,8 @@ def test_job_posting_is_draft_but_accessible_for_employee(login, query_job_posti
     assert job_posting.get('jobToDate') == '2021-10-01'
     assert job_posting.get('url') == job_posting_object.url
     assert len(job_posting.get('jobRequirements')) == len(job_requirement_objects)
-    assert len(job_posting.get('skills')) == 0
-    assert len(job_posting.get('languages')) == 0
+    assert job_posting.get('skills') is None
+    assert job_posting.get('languages') is None
     assert int(job_posting.get('formStep')) == job_posting_object.form_step
     assert job_posting.get('state') == job_posting_object.state.upper()
     assert int(job_posting.get('employee').get('id')) == user_employee.employee.id

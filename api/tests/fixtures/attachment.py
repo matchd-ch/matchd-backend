@@ -47,52 +47,6 @@ def attachments_by_slug_query(slug):
     ''' % (slug, slug, slug, slug)
 
 
-def attachments_by_id_query(user_id):
-    user_id = str(user_id)
-    return '''
-    {
-        studentAvatar: attachments (key:STUDENT_AVATAR, userId: %s) {
-            id
-            url
-            mimeType
-            fileSize
-            fileName
-        }
-
-        studentDocuments: attachments (key:STUDENT_DOCUMENTS, userId: %s) {
-            id
-            url
-            mimeType
-            fileSize
-            fileName
-        }
-        
-        companyAvatar: attachments (key:COMPANY_AVATAR, userId: %s) {
-            id
-            url
-            mimeType
-            fileSize
-            fileName
-          }
-
-        companyDocuments: attachments (key:COMPANY_DOCUMENTS, userId: %s) {
-            id
-            url
-            mimeType
-            fileSize
-            fileName
-        }
-    }
-    ''' % (user_id, user_id, user_id, user_id)
-
-
-@pytest.fixture
-def query_attachments_for_user(execute):
-    def closure(user, student):
-        return execute(attachments_by_id_query(student.id), **{'user': user})
-    return closure
-
-
 @pytest.fixture
 def query_attachments_for_slug(execute):
     def closure(user, slug):

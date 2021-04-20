@@ -1,4 +1,8 @@
 import graphene
+from django.core.exceptions import PermissionDenied
+from django.http import Http404
+from django.shortcuts import get_object_or_404
+from graphene import ObjectType
 from graphene_django import DjangoObjectType
 from graphql_auth.bases import Output
 from django.utils.translation import gettext as _
@@ -6,19 +10,20 @@ from graphql_jwt.decorators import login_required
 
 from api.schema.branch import BranchInput
 from api.schema.cultural_fit import CulturalFitInput
-from api.schema.hobby import HobbyInput
+from api.schema.hobby import HobbyInput, Hobby
 from api.schema.job_type import JobTypeInput
-from api.schema.online_project import OnlineProjectInput
+from api.schema.online_project import OnlineProjectInput, OnlineProject
 from api.schema.profile_state import ProfileState
 from api.schema.soft_skill import SoftSkillInput
 from api.schema.skill import SkillInput
 from api.schema.user_language_relation.user_language_relation import UserLanguageRelationInput
+from db.decorators import privacy
 from db.exceptions import FormException, NicknameException
 from db.forms import process_student_form_step_1, process_student_form_step_2, \
     process_student_form_step_5, process_student_form_step_6, process_student_form_step_4
 from db.forms.student_step_3 import process_student_form_step_3
 
-from db.models import Student as StudentModel
+from db.models import Student as StudentModel, ProfileType
 
 
 class StudentInput(graphene.InputObjectType):
@@ -28,13 +33,84 @@ class StudentInput(graphene.InputObjectType):
 
 class Student(DjangoObjectType):
     state = graphene.Field(graphene.NonNull(ProfileState))
+    email = graphene.String()
+    first_name = graphene.String()
+    last_name = graphene.String()
+    zip = graphene.String()
+    city = graphene.String()
+    street = graphene.String()
+    mobile = graphene.String()
+    distinction = graphene.String()
+    online_projects = graphene.List(graphene.NonNull(OnlineProject))
+    hobbies = graphene.List(graphene.NonNull(Hobby))
+    date_of_birth = graphene.String()
+    school_name = graphene.String()
+    field_of_study = graphene.String()
+    graduation = graphene.String()
 
     class Meta:
         model = StudentModel
-        fields = ('mobile', 'street', 'zip', 'city', 'date_of_birth', 'nickname', 'school_name', 'field_of_study',
+        fields = ('id', 'mobile', 'street', 'zip', 'city', 'date_of_birth', 'nickname', 'school_name', 'field_of_study',
                   'graduation', 'skills', 'hobbies', 'languages', 'distinction', 'online_projects', 'state',
-                  'profile_step', 'soft_skills', 'cultural_fits', 'branch', 'slug', 'job_type')
+                  'profile_step', 'soft_skills', 'cultural_fits', 'branch', 'slug', 'job_type', 'job_type',
+                  'branch', 'job_from_date', 'job_to_date')
         convert_choices_to_enum = False
+
+    @privacy
+    def resolve_first_name(self: StudentModel, info):
+        return self.user.first_name
+
+    @privacy
+    def resolve_last_name(self: StudentModel, info):
+        return self.user.last_name
+
+    @privacy
+    def resolve_email(self: StudentModel, info):
+        return self.user.email
+
+    @privacy
+    def resolve_zip(self: StudentModel, info):
+        return self.zip
+
+    @privacy
+    def resolve_city(self: StudentModel, info):
+        return self.city
+
+    @privacy
+    def resolve_street(self: StudentModel, info):
+        return self.street
+
+    @privacy
+    def resolve_mobile(self: StudentModel, info):
+        return self.mobile
+
+    @privacy
+    def resolve_distinction(self: StudentModel, info):
+        return self.distinction
+
+    @privacy
+    def resolve_online_projects(self: StudentModel, info):
+        return self.online_projects.all()
+
+    @privacy
+    def resolve_hobbies(self: StudentModel, info):
+        return self.hobbies.all()
+
+    @privacy
+    def resolve_date_of_birth(self: StudentModel, info):
+        return self.date_of_birth
+
+    @privacy
+    def resolve_school_name(self: StudentModel, info):
+        return self.school_name
+
+    @privacy
+    def resolve_field_of_study(self: StudentModel, info):
+        return self.field_of_study
+
+    @privacy
+    def resolve_graduation(self: StudentModel, info):
+        return self.graduation
 
 
 class StudentProfileInputStep1(graphene.InputObjectType):
@@ -206,3 +282,19 @@ class StudentProfileMutation(graphene.ObjectType):
     student_profile_step4 = StudentProfileStep4.Field()
     student_profile_step5 = StudentProfileStep5.Field()
     student_profile_step6 = StudentProfileStep6.Field()
+
+
+class StudentQuery(ObjectType):
+    student = graphene.Field(Student, slug=graphene.String())
+
+    def resolve_student(self, info, slug):
+        user = info.context.user
+
+        if user.type not in (ProfileType.COMPANY, ProfileType.UNIVERSITY):
+            if user.type in ProfileType.valid_student_types() and user.student.slug != slug:
+                raise PermissionDenied('You have not the permission to perform this action')
+
+        student = get_object_or_404(StudentModel, slug=slug)
+        if student.state == ProfileState.INCOMPLETE:
+            raise Http404('Student not found')
+        return student
