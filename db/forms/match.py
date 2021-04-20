@@ -19,6 +19,13 @@ def get_id_from_data(data, key):
     raise FormException(errors=errors)
 
 
+def send_mails(match_object, created):
+    if created:
+        match_object.send_start_match_email()
+    elif match_object.complete:
+        match_object.send_complete_match_mail()
+
+
 def process_student_match(user, data):
     errors = {}
 
@@ -51,8 +58,7 @@ def process_student_match(user, data):
         match_obj.complete = True
     match_obj.save()
 
-    if created:
-        match_obj.send_start_match_email()
+    send_mails(match_obj, created)
 
     return match_obj
 
@@ -84,7 +90,6 @@ def process_job_posting_match(user, data):
         match_obj.complete = True
     match_obj.save()
 
-    if created:
-        match_obj.send_start_match_email()
+    send_mails(match_obj, created)
 
     return match_obj
