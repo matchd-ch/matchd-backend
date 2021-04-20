@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.apps import apps
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
@@ -8,6 +9,7 @@ from django.db import models
 from django.db.models import Q
 from wagtail.search import index
 
+from db.models import ProfileType
 from db.models.profile_state import ProfileState
 
 
@@ -38,6 +40,10 @@ class Student(models.Model, index.Indexed):
     cultural_fits = models.ManyToManyField('db.CulturalFit', blank=True, related_name='students')
     slug = models.CharField(max_length=200, blank=True)
 
+    def __init__(self, *args, **kwargs):
+        self.possible_matches = {}
+        super().__init__(*args, **kwargs)
+
     def get_profile_content_type(self):
         return ContentType.objects.get(app_label='db', model='student')
 
@@ -51,6 +57,18 @@ class Student(models.Model, index.Indexed):
         return cls.objects.filter(query).prefetch_related('user', 'languages', 'languages__language_level',
                                                           'cultural_fits', 'soft_skills', 'skills').\
             select_related('branch', 'job_type')
+
+    def has_match(self, company):
+        if self.possible_matches.get(company.slug, None) is None:
+            model = apps.get_model('db', model_name='match')
+            self.possible_matches[company.slug] = model.objects.filter(student=self, job_posting__company=company)
+        possible_matches = self.possible_matches.get(company.slug)
+        if len(possible_matches) > 0:
+            for possible_match in possible_matches:
+                if possible_match.initiator == ProfileType.STUDENT or \
+                        (possible_match.complete and possible_match.student_confirmed):
+                    return True
+        return False
 
     search_fields = [
         index.FilterField('branch_id'),
