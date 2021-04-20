@@ -228,9 +228,9 @@ def job_posting_step_3(execute):
 def job_posting_objects(company_object, job_type_objects_date_range, branch_objects):
     return [
         JobPosting.objects.create(id=1, company=company_object, job_type=job_type_objects_date_range[0],
-                                  job_from_date=datetime.now(), branch=branch_objects[0]),
+                                  job_from_date=datetime.now(), branch=branch_objects[0], slug='job-1'),
         JobPosting.objects.create(id=2, company=company_object, job_type=job_type_objects_date_range[0],
-                                  job_from_date=datetime.now(), branch=branch_objects[0]),
+                                  job_from_date=datetime.now(), branch=branch_objects[0], slug='job-2'),
     ]
 
 
