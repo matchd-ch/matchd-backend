@@ -17,7 +17,7 @@ from api.schema.profile_state import ProfileState
 from api.schema.soft_skill import SoftSkillInput
 from api.schema.skill import SkillInput
 from api.schema.user_language_relation.user_language_relation import UserLanguageRelationInput
-from db.decorators import privacy
+from db.decorators import privacy_protection
 from db.exceptions import FormException, NicknameException
 from db.forms import process_student_form_step_1, process_student_form_step_2, \
     process_student_form_step_5, process_student_form_step_6, process_student_form_step_4
@@ -61,59 +61,59 @@ class Student(DjangoObjectType):
                   'branch', 'job_from_date', 'job_to_date')
         convert_choices_to_enum = False
 
-    @privacy
+    @privacy_protection()
     def resolve_first_name(self: StudentModel, info):
         return self.user.first_name
 
-    @privacy
+    @privacy_protection()
     def resolve_last_name(self: StudentModel, info):
         return self.user.last_name
 
-    @privacy
+    @privacy_protection(match_only=True)
     def resolve_email(self: StudentModel, info):
         return self.user.email
 
-    @privacy
+    @privacy_protection(match_only=True)
     def resolve_zip(self: StudentModel, info):
         return self.zip
 
-    @privacy
+    @privacy_protection(match_only=True)
     def resolve_city(self: StudentModel, info):
         return self.city
 
-    @privacy
+    @privacy_protection(match_only=True)
     def resolve_street(self: StudentModel, info):
         return self.street
 
-    @privacy
+    @privacy_protection(match_only=True)
     def resolve_mobile(self: StudentModel, info):
         return self.mobile
 
-    @privacy
+    @privacy_protection()
     def resolve_distinction(self: StudentModel, info):
         return self.distinction
 
-    @privacy
+    @privacy_protection()
     def resolve_online_projects(self: StudentModel, info):
         return self.online_projects.all()
 
-    @privacy
+    @privacy_protection()
     def resolve_hobbies(self: StudentModel, info):
         return self.hobbies.all()
 
-    @privacy
+    @privacy_protection()
     def resolve_date_of_birth(self: StudentModel, info):
         return self.date_of_birth
 
-    @privacy
+    @privacy_protection()
     def resolve_school_name(self: StudentModel, info):
         return self.school_name
 
-    @privacy
+    @privacy_protection()
     def resolve_field_of_study(self: StudentModel, info):
         return self.field_of_study
 
-    @privacy
+    @privacy_protection()
     def resolve_graduation(self: StudentModel, info):
         return self.graduation
 
