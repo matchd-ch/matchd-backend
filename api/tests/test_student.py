@@ -36,6 +36,7 @@ def test_student(login, user_student_full_profile, query_student, user_employee,
     assert len(student.get('onlineProjects')) == 2
     assert len(student.get('softSkills')) == 6
     assert len(student.get('culturalFits')) == 6
+    assert student.get('matchStatus') is None
 
     company = student.get('company')
     assert company is None
@@ -74,6 +75,7 @@ def test_student_anonymous(login, user_student_full_profile, query_student, user
     assert student.get('onlineProjects') is None
     assert len(student.get('softSkills')) == 6
     assert len(student.get('culturalFits')) == 6
+    assert student.get('matchStatus') is None
 
     company = student.get('company')
     assert company is None
@@ -117,6 +119,7 @@ def test_student_anonymous_with_match_initiated_by_student(login, user_student_f
     assert len(student.get('onlineProjects')) == 2
     assert len(student.get('softSkills')) == 6
     assert len(student.get('culturalFits')) == 6
+    assert student.get('matchStatus') is None
 
     company = student.get('company')
     assert company is None
@@ -130,7 +133,7 @@ def test_student_anonymous_with_match_initiated_by_employee_but_not_confirmed(
     user_student_full_profile.student.save()
 
     Match.objects.create(job_posting=job_posting_object, student=user_student_full_profile.student,
-                                 initiator=user_employee.type, company_confirmed=True)
+                         initiator=user_employee.type, company_confirmed=True)
 
     login(user_employee)
     data, errors = query_student(user_employee, user_student_full_profile.student.slug)
@@ -160,6 +163,7 @@ def test_student_anonymous_with_match_initiated_by_employee_but_not_confirmed(
     assert student.get('onlineProjects') is None
     assert len(student.get('softSkills')) == 6
     assert len(student.get('culturalFits')) == 6
+    assert student.get('matchStatus') is None
 
     company = student.get('company')
     assert company is None
@@ -173,7 +177,7 @@ def test_student_anonymous_with_match_initiated_by_employee_and_confirmed(
     user_student_full_profile.student.save()
 
     Match.objects.create(job_posting=job_posting_object, student=user_student_full_profile.student,
-                                 initiator=user_employee.type, company_confirmed=True, student_confirmed=True, complete=True)
+                         initiator=user_employee.type, company_confirmed=True, student_confirmed=True, complete=True)
 
     login(user_employee)
     data, errors = query_student(user_employee, user_student_full_profile.student.slug)
@@ -203,6 +207,55 @@ def test_student_anonymous_with_match_initiated_by_employee_and_confirmed(
     assert len(student.get('onlineProjects')) == 2
     assert len(student.get('softSkills')) == 6
     assert len(student.get('culturalFits')) == 6
+    assert student.get('matchStatus') is None
 
     company = student.get('company')
     assert company is None
+
+
+@pytest.mark.django_db
+def test_student_with_match_status_initiated_from_student(login, user_student_full_profile, query_student,
+                                                          user_employee, job_posting_object):
+    Match.objects.create(job_posting=job_posting_object, student=user_student_full_profile.student,
+                                 initiator=user_student_full_profile.type, student_confirmed=True)
+
+    login(user_employee)
+    data, errors = query_student(user_employee, user_student_full_profile.student.slug, job_posting_object.id)
+
+    student = data.get('student')
+    match_status = student.get('matchStatus')
+    assert match_status is not None
+    assert match_status.get('initiator') == user_student_full_profile.type.upper()
+    assert match_status.get('confirmed') is False
+
+
+@pytest.mark.django_db
+def test_student_with_match_status_initiated_from_employee( login, user_student_full_profile, query_student,
+                                                            user_employee, job_posting_object):
+    Match.objects.create(job_posting=job_posting_object, student=user_student_full_profile.student,
+                         initiator=user_employee.type, company_confirmed=True)
+
+    login(user_employee)
+    data, errors = query_student(user_employee, user_student_full_profile.student.slug, job_posting_object.id)
+
+    student = data.get('student')
+    match_status = student.get('matchStatus')
+    assert match_status is not None
+    assert match_status.get('initiator') == user_employee.type.upper()
+    assert match_status.get('confirmed') is False
+
+
+@pytest.mark.django_db
+def test_student_with_confirmed_match_status( login, user_student_full_profile, query_student,
+                                                            user_employee, job_posting_object):
+    Match.objects.create(job_posting=job_posting_object, student=user_student_full_profile.student,
+                         initiator=user_employee.type, company_confirmed=True, student_confirmed=True, complete=True)
+
+    login(user_employee)
+    data, errors = query_student(user_employee, user_student_full_profile.student.slug, job_posting_object.id)
+
+    student = data.get('student')
+    match_status = student.get('matchStatus')
+    assert match_status is not None
+    assert match_status.get('initiator') == user_employee.type.upper()
+    assert match_status.get('confirmed') is True
