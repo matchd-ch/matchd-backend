@@ -46,6 +46,7 @@ def process_student_match(user, data):
     except JobPosting.DoesNotExist:
         errors.update(generic_error_dict('job_posting', 'Select a valid choice', 'invalid'))
     except FormException as exception:
+        # pylint: disable=W0707
         raise FormException(errors=exception.errors)
 
     if errors:
@@ -78,6 +79,7 @@ def process_job_posting_match(user, data):
     except JobPosting.DoesNotExist:
         errors.update(generic_error_dict('job_posting', 'Select a valid choice', 'invalid'))
     except FormException as exception:
+        # pylint: disable=W0707
         raise FormException(errors=exception.errors)
 
     if errors:

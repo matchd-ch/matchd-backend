@@ -22,8 +22,7 @@ from db.forms import process_company_form_step_2, process_company_form_step_3, p
     process_university_form_step_2, process_university_form_step_3
 from db.forms.company_step_1 import process_company_form_step_1
 from db.forms.company_step_4 import process_company_form_step_4
-from db.models import Company as CompanyModel, ProfileState as ProfileStateModel, JobPostingState, \
-    Match as MatchModel, ProfileType as ProfileTypeModel
+from db.models import Company as CompanyModel, ProfileState as ProfileStateModel, JobPostingState
 
 
 class CompanyInput(graphene.InputObjectType):
