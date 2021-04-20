@@ -15,6 +15,10 @@ def job_posting_query(filter_value, param_name):
     return '''
     query {
         jobPosting(%s) {
+            matchStatus {
+              initiator
+              confirmed
+            }
             id
             slug
             title
@@ -72,6 +76,10 @@ def job_postings_query(slug):
     return '''
     query {
         jobPostings(slug: "%s") {
+            matchStatus {
+              initiator
+              confirmed
+            }
             id
             slug
             title

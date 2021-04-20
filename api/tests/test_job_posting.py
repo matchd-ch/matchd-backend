@@ -1,7 +1,7 @@
 import pytest
 from django.contrib.auth.models import AnonymousUser
 
-from db.models import JobPosting, JobPostingState, JobPostingLanguageRelation
+from db.models import JobPosting, JobPostingState, JobPostingLanguageRelation, Match
 
 
 # pylint: disable=R0913
@@ -51,6 +51,9 @@ def test_job_posting(query_job_posting, job_posting_object: JobPosting, job_type
     assert job_posting.get('state') == job_posting_object.state.upper()
     assert int(job_posting.get('employee').get('id')) == user_employee.employee.id
 
+    match_status = job_posting.get('matchStatus')
+    assert match_status is None
+
 
 @pytest.mark.django_db
 def test_job_posting_by_id(query_job_posting_by_id, job_posting_object: JobPosting, job_type_objects, branch_objects,
@@ -98,6 +101,9 @@ def test_job_posting_by_id(query_job_posting_by_id, job_posting_object: JobPosti
     assert job_posting.get('state') == job_posting_object.state.upper()
     assert int(job_posting.get('employee').get('id')) == user_employee.employee.id
 
+    match_status = job_posting.get('matchStatus')
+    assert match_status is None
+
 
 @pytest.mark.django_db
 def test_job_posting_is_draft_but_accessible_for_employee(login, query_job_posting, job_posting_object: JobPosting,
@@ -144,6 +150,9 @@ def test_job_posting_is_draft_but_accessible_for_employee(login, query_job_posti
     assert int(job_posting.get('formStep')) == job_posting_object.form_step
     assert job_posting.get('state') == job_posting_object.state.upper()
     assert int(job_posting.get('employee').get('id')) == user_employee.employee.id
+
+    match_status = job_posting.get('matchStatus')
+    assert match_status is None
 
 
 @pytest.mark.django_db
@@ -201,3 +210,30 @@ def test_job_postings(query_job_postings, job_posting_objects, company_object, u
 
     assert job_postings is not None
     assert len(job_postings) == len(job_posting_objects) - 1
+
+
+# pylint: disable=R0913
+@pytest.mark.django_db
+def test_job_posting_with_match_status(login, query_job_posting, job_posting_object: JobPosting, user_employee,
+                                       user_student):
+    job_posting_object.title = 'title'
+    job_posting_object.slug = 'title'
+    job_posting_object.form_step = 4
+    job_posting_object.state = JobPostingState.PUBLIC
+    job_posting_object.employee = user_employee.employee
+    job_posting_object.save()
+
+    Match.objects.create(job_posting=job_posting_object, student=user_student.student,
+                         initiator=user_employee.type, company_confirmed=True, student_confirmed=True, complete=True)
+
+    login(user_student)
+    data, errors = query_job_posting(user_student, 'title')
+
+    assert errors is None
+    assert data is not None
+    job_posting = data.get('jobPosting')
+
+    match_status = job_posting.get('matchStatus')
+    assert match_status is not None
+    assert match_status.get('initiator') == user_employee.type.upper()
+    assert match_status.get('confirmed') is True
