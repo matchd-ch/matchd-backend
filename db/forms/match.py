@@ -22,8 +22,10 @@ def get_id_from_data(data, key):
 def send_mails(match_object, created):
     if created:
         match_object.send_start_match_email()
-    elif match_object.complete:
+    elif match_object.complete and not match_object.complete_mail_sent:
         match_object.send_complete_match_mail()
+        match_object.complete_mail_sent = True
+        match_object.save()
 
 
 def process_student_match(user, data):

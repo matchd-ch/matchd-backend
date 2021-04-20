@@ -24,7 +24,35 @@ class Match(models.Model):
     complete_mail_sent = models.BooleanField(default=False)
 
     def send_complete_match_mail(self):
-        print('complete match mail')
+        email_context = self._email_context()
+        template_path = 'db/email/match/student/'
+
+        # email student
+        recipients = [self.student.user.email]
+        subject = render_to_string(f'{template_path}complete_match.subject.txt', email_context)
+        plain_body = render_to_string(f'{template_path}complete_match.body_plain.txt', email_context)
+        html_body = render_to_string(f'{template_path}complete_match.body.html', email_context)
+        send_mail(
+            subject,
+            plain_body,
+            settings.DEFAULT_FROM_EMAIL,
+            recipients,
+            html_message=html_body
+        )
+
+        # email company
+        template_path = 'db/email/match/company/'
+        recipients = [self.job_posting.employee.user.email]
+        subject = render_to_string(f'{template_path}complete_match.subject.txt', email_context)
+        plain_body = render_to_string(f'{template_path}complete_match.body_plain.txt', email_context)
+        html_body = render_to_string(f'{template_path}complete_match.body.html', email_context)
+        send_mail(
+            subject,
+            plain_body,
+            settings.DEFAULT_FROM_EMAIL,
+            recipients,
+            html_message=html_body
+        )
 
     def send_start_match_email(self):
         if self.initiator == ProfileType.COMPANY:
