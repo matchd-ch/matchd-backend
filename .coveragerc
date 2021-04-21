@@ -9,3 +9,7 @@ omit =
     app/wsgi.py
     db/seed/*
     db/management/*
+[report]
+exclude_lines =
+    pragma: no cover
+    if settings.DEBUG:
