@@ -9,8 +9,8 @@ from django.db import models
 from django.db.models import Q
 from wagtail.search import index
 
-from db.models import ProfileType
-from db.models.profile_state import ProfileState
+from .profile_type import ProfileType
+from .profile_state import ProfileState
 
 
 def default_date():

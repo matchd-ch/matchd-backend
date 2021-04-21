@@ -4,7 +4,7 @@ from django.db import models
 from django.template.loader import render_to_string
 from django.utils.translation import gettext as _
 
-from db.models import ProfileType
+from .profile_type import ProfileType
 
 
 class MatchType(models.TextChoices):
