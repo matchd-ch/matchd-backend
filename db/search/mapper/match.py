@@ -1,4 +1,4 @@
-from db.models import Attachment, AttachmentKey, ProfileState, MatchType, ProfileType, Match
+from db.models import Attachment, AttachmentKey, ProfileState, MatchType, Match
 
 
 class MatchMapper:
