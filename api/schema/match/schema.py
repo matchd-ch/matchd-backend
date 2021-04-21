@@ -1,4 +1,5 @@
 import graphene
+from graphene_django import DjangoObjectType
 from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 from graphene import ObjectType, InputObjectType
@@ -12,7 +13,7 @@ from api.schema.job_posting import JobPostingInput
 from api.schema.job_type import JobTypeInput
 from db.exceptions import FormException
 from db.forms import process_job_posting_match, process_student_match
-from db.models import MatchType as MatchTypeModel
+from db.models import MatchType as MatchTypeModel, Match as MatchModel
 from db.search.matching import JobPostingMatching, StudentMatching
 
 MatchType = graphene.Enum.from_enum(MatchTypeModel)
@@ -26,6 +27,12 @@ class MatchHints(ObjectType):
 class MatchStatus(ObjectType):
     confirmed = graphene.Boolean()
     initiator = graphene.Field(ProfileType)
+
+
+class MatchInfo(DjangoObjectType):
+    class Meta:
+        model = MatchModel
+        fields = ('id', 'student', 'job_posting',)
 
 
 class Match(ObjectType):

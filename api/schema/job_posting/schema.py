@@ -45,7 +45,8 @@ class JobPosting(DjangoObjectType):
     class Meta:
         model = JobPostingModel
         fields = ('id', 'title', 'description', 'job_type', 'workload', 'company', 'job_from_date', 'job_to_date',
-                  'url', 'form_step', 'skills', 'job_requirements', 'languages', 'branch', 'state', 'employee', 'slug')
+                  'url', 'form_step', 'skills', 'job_requirements', 'languages', 'branch', 'state', 'employee', 'slug',
+                  'date_published', 'date_created')
         convert_choices_to_enum = False
 
     @cheating_protection
