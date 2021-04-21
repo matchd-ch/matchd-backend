@@ -3,6 +3,7 @@ import pytest
 from db.models import ProfileState, AttachmentKey
 
 
+# pylint: disable=R0913
 @pytest.mark.django_db
 def test_delete_attachment(login, delete_attachment, upload, file_image_jpg, attachments_for_user, user_employee):
     user_employee.company.state = ProfileState.INCOMPLETE
@@ -22,6 +23,7 @@ def test_delete_attachment(login, delete_attachment, upload, file_image_jpg, att
     assert data.get('deleteAttachment').get('errors') is None
 
 
+# pylint: disable=R0913
 @pytest.mark.django_db
 def test_delete_attachment_with_another_user(login, delete_attachment, upload, file_image_jpg, attachments_for_user,
                                              user_employee, user_student):

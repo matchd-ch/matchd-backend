@@ -12,6 +12,7 @@ def test_match_job_posting(user_student, user_employee, job_posting_object, matc
     login(user_student)
 
     data, errors = match_job_posting(user_student, job_posting_object.id)
+    assert errors is None
     assert data is not None
 
     match_job_posting_data = data.get('matchJobPosting')
@@ -29,8 +30,6 @@ def test_match_job_posting(user_student, user_employee, job_posting_object, matc
 
     mail_to_student = mail.outbox[1]
     assert user_student.email in mail_to_student.recipients()
-
-
 
 
 @pytest.mark.django_db
@@ -53,6 +52,7 @@ def test_match_job_posting_as_employee(user_employee, job_posting_object, match_
     login(user_employee)
 
     data, errors = match_job_posting(user_employee, job_posting_object.id)
+    assert errors is None
     assert data is not None
 
     match_job_posting_data = data.get('matchJobPosting')
@@ -66,6 +66,7 @@ def test_match_job_posting_with_invalid_job_posting(user_student, match_job_post
     login(user_student)
 
     data, errors = match_job_posting(user_student, 1337)
+    assert errors is None
     assert data is not None
 
     match_job_posting_data = data.get('matchJobPosting')

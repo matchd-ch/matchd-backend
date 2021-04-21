@@ -12,6 +12,7 @@ def test_match_student(user_student, user_employee, job_posting_object, match_st
     login(user_employee)
 
     data, errors = match_student(user_employee, user_student.student.id, job_posting_object.id)
+    assert errors is None
     assert data is not None
 
     match_student_data = data.get('matchStudent')
@@ -51,6 +52,7 @@ def test_match_student_as_student(user_student, user_employee, job_posting_objec
     login(user_student)
 
     data, errors = match_student(user_student, user_student.student.id, job_posting_object.id)
+    assert errors is None
     assert data is not None
 
     match_student_data = data.get('matchStudent')
@@ -64,6 +66,7 @@ def test_match_job_posting_with_invalid_job_posting(user_employee, match_student
     login(user_employee)
 
     data, errors = match_student(user_employee, 1337, 1337)
+    assert errors is None
     assert data is not None
 
     match_student_data = data.get('matchStudent')
