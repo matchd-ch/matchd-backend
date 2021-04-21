@@ -1,5 +1,7 @@
 from datetime import datetime
 
+import pytz
+from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import gettext as _
@@ -36,6 +38,8 @@ class JobPosting(models.Model, index.Indexed):
     form_step = models.IntegerField(default=2)  # since we save the job posting in step 1 the default value is 2
     state = models.CharField(choices=JobPostingState.choices, default=JobPostingState.DRAFT, max_length=255)
     employee = models.ForeignKey('db.Employee', on_delete=models.CASCADE, blank=True, null=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_published = models.DateTimeField(null=True)
 
     def zip_code(self):
         return int(self.company.zip)
