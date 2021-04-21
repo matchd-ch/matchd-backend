@@ -33,9 +33,11 @@ class DeleteAttachment(Output, graphene.Mutation):
             file = attachment.attachment_object
             file.delete()
             attachment.delete()
-        except Exception as exception:
-            return DeleteAttachment(success=False, errors=generic_error_dict('id', '%s:%s' % (_('Error deleting file'),
-                                                                                              str(exception)), 'error'))
+        except Exception as exception:  # pragma: no cover
+            return DeleteAttachment(
+                success=False,
+                errors=generic_error_dict(
+                    'id', '%s:%s' % (_('Error deleting file'), str(exception)), 'error'))  # pragma: no cover
         return DeleteAttachment(success=True, errors=None)
 
 

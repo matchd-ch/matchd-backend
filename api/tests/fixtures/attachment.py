@@ -89,6 +89,17 @@ def upload(default_password):
     return closure
 
 
+def delete_attachment_mutation(attachment_id):
+    return '''
+    mutation {
+      deleteAttachment(id:%i) {
+        success
+        errors
+      }
+    }
+    ''' % attachment_id
+
+
 @pytest.fixture
 def file_image_jpg():
     mime_type = 'image/jpeg'
@@ -119,4 +130,11 @@ def attachments_for_user():
         profile_content_type = user.get_profile_content_type()
         profile_id = user.get_profile_id()
         return Attachment.objects.filter(key=key, content_type=profile_content_type, object_id=profile_id)
+    return closure
+
+
+@pytest.fixture
+def delete_attachment(execute):
+    def closure(user, attachment_id):
+        return execute(delete_attachment_mutation(attachment_id), **{'user': user})
     return closure
