@@ -9,7 +9,9 @@ omit =
     app/wsgi.py
     db/seed/*
     db/management/*
+    db/wagtail_hooks.py
 [report]
 exclude_lines =
     pragma: no cover
     if settings.DEBUG:
+    def pk(self):
