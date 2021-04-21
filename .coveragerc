@@ -1,0 +1,11 @@
+[run]
+omit =
+    api/tests/*
+    db/tests/*
+    db/migrations/*
+    api/data/xlsx_to_json.py
+    api/middleware/*
+    app/settings/*
+    app/wsgi.py
+    db/seed/*
+    db/management/*
