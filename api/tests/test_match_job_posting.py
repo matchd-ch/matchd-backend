@@ -31,6 +31,8 @@ def test_match_job_posting(user_student, user_employee, job_posting_object, matc
     assert user_student.email in mail_to_student.recipients()
 
 
+
+
 @pytest.mark.django_db
 def test_match_job_posting_without_login(user_employee, job_posting_object, match_job_posting):
     job_posting_object.employee = user_employee.employee
