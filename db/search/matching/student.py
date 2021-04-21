@@ -72,4 +72,4 @@ class StudentMatching:
         hits = resolver.resolve()
         calculator = StudentScoreCalculator(self.job_posting, hits, self.soft_boost, self.tech_boost)
         hits = calculator.annotate()
-        return MatchMapper.map_students(hits)
+        return MatchMapper.map_students(hits, self.job_posting)

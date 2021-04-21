@@ -81,4 +81,4 @@ class JobPostingMatching:
         hits = resolver.resolve()
         calculator = JobPostingScoreCalculator(self.user, hits, self.soft_boost, self.tech_boost)
         hits = calculator.annotate()
-        return MatchMapper.map_job_postings(hits)
+        return MatchMapper.map_job_postings(hits, self.user)
