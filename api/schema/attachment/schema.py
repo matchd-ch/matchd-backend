@@ -107,7 +107,7 @@ class AttachmentQuery(ObjectType):
 
         # check if the owner has a public profile
         # if not, return an empty list
-        show = has_access_to_attachments(user, attachment_owner)
+        show = has_access_to_attachments(user, attachment_owner, key)
         if not show:
             return []
 
