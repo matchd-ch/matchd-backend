@@ -16,10 +16,9 @@ def test_add_employee(login, user_employee, add_employee):
     employee = data.get('addEmployee').get('employee')
     assert employee is not None
     assert employee.get('role') == 'Role'
-    assert employee.get('user').get('firstName') == 'John'
-    assert employee.get('user').get('lastName') == 'Doe'
-    assert employee.get('user').get('email') == new_username
-    assert employee.get('user').get('username') == new_username
+    assert employee.get('firstName') == 'John'
+    assert employee.get('lastName') == 'Doe'
+    assert employee.get('email') == new_username
     assert employee_count + 1 == len(company.users.all())
 
 

@@ -36,14 +36,10 @@ def company_query(slug):
             employees {
                 id
                 role
-                user {
-                    id
-                    username
-                    email
-                    type
-                    firstName
-                    lastName
-                }
+                email
+                firstName
+                lastName
+                phone
             }
             softSkills {
                 id

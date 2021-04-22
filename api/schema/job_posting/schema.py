@@ -7,7 +7,6 @@ from graphene_django import DjangoObjectType
 from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 
-from api.helper import is_me_query
 from api.schema.branch import BranchInput
 from api.schema.employee import Employee
 from api.schema.job_requirement import JobRequirementInput
@@ -15,6 +14,7 @@ from api.schema.job_type import JobTypeInput
 from api.schema.job_posting_language_relation import JobPostingLanguageRelationInput
 from api.schema.registration import EmployeeInput
 from api.schema.skill import SkillInput
+from db.decorators import cheating_protection
 from db.exceptions import FormException
 from db.forms import process_job_posting_form_step_1, process_job_posting_form_step_2, process_job_posting_form_step_3
 from db.models import JobPosting as JobPostingModel, Company, JobPostingState as JobPostingStateModel, ProfileType
@@ -35,9 +35,8 @@ class JobPosting(DjangoObjectType):
     state = graphene.Field(graphene.NonNull(JobPostingState))
     employee = graphene.Field(Employee)
     workload = graphene.Field(graphene.NonNull(graphene.Int))
-    skills = graphene.NonNull(graphene.List(graphene.NonNull('api.schema.skill.schema.Skill')))
-    languages = graphene.NonNull(graphene.List(graphene.NonNull(
-        'api.schema.job_posting_language_relation.JobPostingLanguageRelation')))
+    skills = graphene.List(graphene.NonNull('api.schema.skill.schema.Skill'))
+    languages = graphene.List(graphene.NonNull( 'api.schema.job_posting_language_relation.JobPostingLanguageRelation'))
 
     class Meta:
         model = JobPostingModel
@@ -45,15 +44,13 @@ class JobPosting(DjangoObjectType):
                   'url', 'form_step', 'skills', 'job_requirements', 'languages', 'branch', 'state', 'employee', 'slug')
         convert_choices_to_enum = False
 
+    @cheating_protection
     def resolve_skills(self: JobPostingModel, info):
-        if is_me_query(info):
-            return self.skills.all()
-        return []
+        return self.skills.all()
 
+    @cheating_protection
     def resolve_languages(self: JobPostingModel, info):
-        if is_me_query(info):
-            return self.languages.all()
-        return []
+        return self.languages.all()
 
 
 class JobPostingQuery(ObjectType):

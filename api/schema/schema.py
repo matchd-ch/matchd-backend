@@ -16,7 +16,7 @@ from api.schema.language_level import LanguageLevelQuery
 from api.schema.match import MatchQuery
 from api.schema.skill import SkillQuery
 from api.schema.soft_skill import SoftSkillQuery
-from api.schema.student import StudentProfileMutation
+from api.schema.student import StudentProfileMutation, StudentQuery
 from api.schema.registration import RegistrationMutation
 from api.schema.upload import UploadMutation
 from api.schema.upload.schema import UploadConfigurationQuery
@@ -59,7 +59,8 @@ class Query(
     FAQCategoryQuery,
     SoftSkillQuery,
     CulturalFitQuery,
-    MatchQuery
+    MatchQuery,
+    StudentQuery
 ):
     pass
 
