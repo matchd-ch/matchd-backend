@@ -1,10 +1,13 @@
 from io import StringIO
 
 import pytest
+from django.core import management
 
 from db.helper.forms import convert_date
 from db.models import JobPostingState, ProfileState, JobPostingLanguageRelation, UserLanguageRelation, Match
-from django.core import management
+
+# pylint: disable=R0913
+# pylint: disable=R0915
 
 
 @pytest.mark.django_db
@@ -89,6 +92,8 @@ def test_job_posting_matching(job_posting_object, job_posting_object_2, skill_ob
 
     login(user_student)
     data, errors = job_posting_matching(user_student, user_student.student.branch, user_student.student.job_type)
+    assert data is not None
+    assert errors is None
 
     matches = data.get('matches')
     assert matches is not None
