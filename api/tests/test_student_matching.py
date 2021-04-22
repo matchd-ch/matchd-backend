@@ -2,7 +2,7 @@ from io import StringIO
 
 import pytest
 
-from db.models import JobPostingState, ProfileState, JobPostingLanguageRelation, UserLanguageRelation
+from db.models import JobPostingState, ProfileState, JobPostingLanguageRelation, UserLanguageRelation, Match
 from django.core import management
 
 
@@ -72,6 +72,9 @@ def test_student_matching(job_posting_object, skill_objects, branch_objects, job
 
     management.call_command('update_index', stdout=StringIO())
 
+    Match.objects.create(student=user_student.student, job_posting=job_posting_object, initiator=user_employee.type,
+                         company_confirmed=True)
+
     login(user_employee)
     data, errors = student_matching(user_employee, job_posting_object)
 
@@ -83,11 +86,17 @@ def test_student_matching(job_posting_object, skill_objects, branch_objects, job
     # user_student is a perfect match --> score = 19
     # user_student matches only with branch --> score = 0
     best_match = matches[0]
-    worst_match = matches[1]
     assert int(best_match.get('id')) == user_student.student.id
     assert float(best_match.get('score')) == 1
     assert float(best_match.get('rawScore')) == 1
+    match_status = best_match.get('matchStatus')
+    assert match_status is not None
+    assert match_status.get('confirmed') is False
+    assert match_status.get('initiator') == user_employee.type.upper()
 
+    worst_match = matches[1]
     assert int(worst_match.get('id')) == user_student_2.student.id
     assert float(worst_match.get('score')) == 0
     assert float(worst_match.get('rawScore')) == 0
+    match_status = worst_match.get('matchStatus')
+    assert match_status is None

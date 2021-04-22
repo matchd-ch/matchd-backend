@@ -3,7 +3,7 @@ from io import StringIO
 import pytest
 
 from db.helper.forms import convert_date
-from db.models import JobPostingState, ProfileState, JobPostingLanguageRelation, UserLanguageRelation
+from db.models import JobPostingState, ProfileState, JobPostingLanguageRelation, UserLanguageRelation, Match
 from django.core import management
 
 
@@ -84,6 +84,9 @@ def test_job_posting_matching(job_posting_object, job_posting_object_2, skill_ob
 
     management.call_command('update_index', stdout=StringIO())
 
+    Match.objects.create(student=user_student.student, job_posting=job_posting_object, initiator=user_student.type,
+                         student_confirmed=True)
+
     login(user_student)
     data, errors = job_posting_matching(user_student, user_student.student.branch, user_student.student.job_type)
 
@@ -95,11 +98,17 @@ def test_job_posting_matching(job_posting_object, job_posting_object_2, skill_ob
     # job_posting_object is a perfect match --> score = 20
     # job_posting_object_2 matches only with branch --> score = 0
     best_match = matches[0]
-    worst_match = matches[1]
     assert int(best_match.get('id')) == job_posting_object.id
     assert float(best_match.get('score')) == 1
     assert float(best_match.get('rawScore')) == 1
+    match_status = best_match.get('matchStatus')
+    assert match_status is not None
+    assert match_status.get('confirmed') is False
+    assert match_status.get('initiator') == user_student.type.upper()
 
+    worst_match = matches[1]
     assert int(worst_match.get('id')) == job_posting_object_2.id
     assert float(worst_match.get('score')) == 0
     assert float(worst_match.get('rawScore')) == 0
+    match_status = worst_match.get('matchStatus')
+    assert match_status is None
