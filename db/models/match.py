@@ -20,7 +20,6 @@ class Match(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_confirmed = models.DateTimeField(null=True)
     initiator = models.CharField(choices=ProfileType.choices, max_length=100)
-    complete = models.BooleanField(default=False)
     complete_mail_sent = models.BooleanField(default=False)
 
     def send_complete_match_mail(self):
