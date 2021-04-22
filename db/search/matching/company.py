@@ -9,6 +9,7 @@ from db.search.mapper import CompanyMatchMapper
 from db.search.resolvers import HitResolver
 
 
+# pylint: disable=R0913
 class CompanyMatching:
     search_backend = get_search_backend()
 
