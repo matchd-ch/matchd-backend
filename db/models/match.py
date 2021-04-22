@@ -22,6 +22,10 @@ class Match(models.Model):
     initiator = models.CharField(choices=ProfileType.choices, max_length=100)
     complete_mail_sent = models.BooleanField(default=False)
 
+    @property
+    def complete(self):
+        return self.student_confirmed and self.company_confirmed
+
     def send_complete_match_mail(self):
         email_context = self._email_context()
         template_path = 'db/email/match/student/'
