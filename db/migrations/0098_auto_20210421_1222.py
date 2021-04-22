@@ -7,7 +7,7 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('db', '0096_match_complete_mail_sent'),
+        ('db', '0097_remove_match_complete'),
     ]
 
     operations = [

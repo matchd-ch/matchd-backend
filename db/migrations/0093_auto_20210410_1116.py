@@ -8,11 +8,12 @@ from db.models import JobPosting
 
 def add_job_posting_slug(apps, schema_editor):
     cursor = connection.cursor()
-    job_postings = JobPosting.objects.all()
+    job_postings = JobPosting.objects.raw("SELECT * FROM db_jobposting")
 
     for job_posting in job_postings:
         slug = slugify(job_posting.title)
-        query = "UPDATE `db_jobposting` SET slug='%s-%i' WHERE id=%i" % (slug, job_posting.id, job_posting.id)
+        query = "UPDATE `db_jobposting` SET slug='%s-%i' WHERE id=%i" % \
+                (slug, job_posting.id, job_posting.id)
         cursor.execute(query)
 
 
