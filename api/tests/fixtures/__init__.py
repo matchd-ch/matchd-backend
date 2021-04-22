@@ -23,3 +23,4 @@ from .university_profile import *
 from .user import *
 from .user_request import *
 from .match import *
+from .matching import *
