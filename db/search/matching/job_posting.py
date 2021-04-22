@@ -6,7 +6,7 @@ from wagtail.search.backends import get_search_backend
 from db.models import DateMode, JobPosting, ProfileType, JobType, Branch
 from db.search.builders import JobPostingParamBuilder
 from db.search.calculators import JobPostingScoreCalculator
-from db.search.mapper import MatchMapper
+from db.search.mapper import JobPostingMatchMapper
 from db.search.resolvers import HitResolver
 
 
@@ -81,4 +81,5 @@ class JobPostingMatching:
         hits = resolver.resolve()
         calculator = JobPostingScoreCalculator(self.user, hits, self.soft_boost, self.tech_boost)
         hits = calculator.annotate()
-        return MatchMapper.map_job_postings(hits, self.user)
+        mapper = JobPostingMatchMapper(hits, self.user)
+        return mapper.get_matches()
