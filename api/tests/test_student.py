@@ -180,7 +180,7 @@ def test_student_anonymous_with_match_initiated_by_employee_and_confirmed(
     user_student_full_profile.student.save()
 
     Match.objects.create(job_posting=job_posting_object, student=user_student_full_profile.student,
-                         initiator=user_employee.type, company_confirmed=True, student_confirmed=True, complete=True)
+                         initiator=user_employee.type, company_confirmed=True, student_confirmed=True)
 
     login(user_employee)
     data, errors = query_student(user_employee, user_student_full_profile.student.slug)
@@ -252,7 +252,7 @@ def test_student_with_match_status_initiated_from_employee( login, user_student_
 def test_student_with_confirmed_match_status( login, user_student_full_profile, query_student,
                                                             user_employee, job_posting_object):
     Match.objects.create(job_posting=job_posting_object, student=user_student_full_profile.student,
-                         initiator=user_employee.type, company_confirmed=True, student_confirmed=True, complete=True)
+                         initiator=user_employee.type, company_confirmed=True, student_confirmed=True)
 
     login(user_employee)
     data, errors = query_student(user_employee, user_student_full_profile.student.slug, job_posting_object.id)

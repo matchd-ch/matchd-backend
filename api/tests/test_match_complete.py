@@ -23,7 +23,7 @@ def test_match_starting_with_student_match(user_student, user_employee, job_post
 
     match_obj_exists = Match.objects.filter(student=user_student.student, job_posting=job_posting_object,
                                             initiator=user_employee.type, student_confirmed=True,
-                                            company_confirmed=True, complete=True, complete_mail_sent=True).exists()
+                                            company_confirmed=True, complete_mail_sent=True).exists()
     assert match_obj_exists is True
 
     mail_to_student = mail.outbox[2]
@@ -53,7 +53,7 @@ def test_match_starting_with_job_posting_match(user_student, user_employee, job_
 
     match_obj_exists = Match.objects.filter(student=user_student.student, job_posting=job_posting_object,
                                             initiator=user_student.type, student_confirmed=True,
-                                            company_confirmed=True, complete=True, complete_mail_sent=True).exists()
+                                            company_confirmed=True, complete_mail_sent=True).exists()
     assert match_obj_exists is True
 
     mail_to_student = mail.outbox[2]
