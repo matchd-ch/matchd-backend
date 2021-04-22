@@ -10,6 +10,7 @@ from .profile_type import ProfileType
 class MatchType(models.TextChoices):
     STUDENT = 'student', _('Student')
     JOB_POSTING = 'job_posting', _('Job posting')
+    COMPANY = 'company', _('Company')
 
 
 class Match(models.Model):
