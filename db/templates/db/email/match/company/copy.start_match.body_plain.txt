@@ -1,0 +1,3 @@
+{% load i18n %}
+Du hast die Stelle {{ job_posting.title }} gematchd!
+{{ job_posting_url }}

@@ -20,7 +20,9 @@ def job_types_query():
 def job_type_objects():
     return [
         JobType.objects.create(id=1, name="Praktikum", mode=DateMode.DATE_FROM),
-        JobType.objects.create(id=2, name="Lehrstelle", mode=DateMode.DATE_RANGE)
+        JobType.objects.create(id=2, name="Lehrstelle", mode=DateMode.DATE_RANGE),
+        JobType.objects.create(id=3, name="Lehrstelle 2", mode=DateMode.DATE_RANGE),
+        JobType.objects.create(id=4, name="Praktikum 2", mode=DateMode.DATE_FROM)
     ]
 
 

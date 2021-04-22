@@ -1,0 +1,3 @@
+{% load i18n %}
+Die Firma {{ company.name }} hat dein Profil gematchd!
+{{ job_posting_url }}
