@@ -44,6 +44,7 @@ class Match(ObjectType):
     score = graphene.NonNull(graphene.Float)
     raw_score = graphene.NonNull(graphene.Float)
     job_posting_title = graphene.String()
+    match_status = graphene.Field(MatchStatus)
 
 
 class StudentMatchingInput(InputObjectType):
