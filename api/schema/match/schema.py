@@ -14,7 +14,7 @@ from api.schema.job_type import JobTypeInput
 from db.exceptions import FormException
 from db.forms import process_job_posting_match, process_student_match
 from db.models import MatchType as MatchTypeModel, Match as MatchModel
-from db.search.matching import JobPostingMatching, StudentMatching
+from db.search.matching import JobPostingMatching, StudentMatching, CompanyMatching
 
 MatchType = graphene.Enum.from_enum(MatchTypeModel)
 
@@ -88,7 +88,9 @@ class MatchQuery(ObjectType):
         if student_matching is not None:
             matching = StudentMatching(user, student_matching, first, skip, tech_boost, soft_boost)
             return matching.find_matches()
-        return []
+
+        matching = CompanyMatching(user, first, skip, tech_boost, soft_boost)
+        return matching.find_matches()
 
 
 class MatchStudentInput(graphene.InputObjectType):
