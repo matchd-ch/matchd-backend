@@ -1,7 +1,8 @@
 from django.conf import settings
+from django.core.exceptions import PermissionDenied
 from wagtail.search.backends import get_search_backend
 
-from db.models import Company
+from db.models import Company, ProfileType
 from db.search.builders import CompanyParamBuilder
 from db.search.calculators import CompanyScoreCalculator
 from db.search.mapper import CompanyMatchMapper
@@ -18,7 +19,12 @@ class CompanyMatching:
         self.tech_boost = tech_boost
         self.soft_boost = soft_boost
 
+    def _validate_input(self):
+        if self.user.type not in ProfileType.valid_student_types():
+            raise PermissionDenied('You do not have the permission to perform this action')
+
     def find_matches(self):
+        self._validate_input()
         queryset = Company.get_indexed_objects()
         index = self.search_backend.get_index_for_model(queryset.model).name
 
