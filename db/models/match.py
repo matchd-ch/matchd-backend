@@ -20,8 +20,11 @@ class Match(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_confirmed = models.DateTimeField(null=True)
     initiator = models.CharField(choices=ProfileType.choices, max_length=100)
-    complete = models.BooleanField(default=False)
     complete_mail_sent = models.BooleanField(default=False)
+
+    @property
+    def complete(self):
+        return self.student_confirmed and self.company_confirmed
 
     def send_complete_match_mail(self):
         email_context = self._email_context()

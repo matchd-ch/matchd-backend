@@ -22,7 +22,7 @@ def test_match_job_posting(user_student, user_employee, job_posting_object, matc
 
     match_obj_exists = Match.objects.filter(student=user_student.student, job_posting=job_posting_object,
                                             initiator=user_student.type, student_confirmed=True,
-                                            company_confirmed=False, complete=False).exists()
+                                            company_confirmed=False).exists()
     assert match_obj_exists is True
 
     mail_to_company = mail.outbox[0]

@@ -65,8 +65,7 @@ class Student(models.Model, index.Indexed):
         possible_matches = self.possible_matches.get(company.slug)
         if len(possible_matches) > 0:
             for possible_match in possible_matches:
-                if possible_match.initiator == ProfileType.STUDENT or \
-                        (possible_match.complete and possible_match.student_confirmed):
+                if possible_match.initiator == ProfileType.STUDENT or possible_match.complete:
                     return True
         return False
 

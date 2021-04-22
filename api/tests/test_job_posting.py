@@ -232,7 +232,7 @@ def test_job_posting_with_match_status_initiated_by_employee(login, query_job_po
     job_posting_object.save()
 
     Match.objects.create(job_posting=job_posting_object, student=user_student.student,
-                         initiator=user_employee.type, company_confirmed=True, student_confirmed=True, complete=True)
+                         initiator=user_employee.type, company_confirmed=True, student_confirmed=True)
 
     login(user_student)
     data, errors = query_job_posting(user_student, 'title')
