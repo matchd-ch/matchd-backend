@@ -1,3 +1,4 @@
+from db.helper import get_fallback_profile_image
 from db.models import Attachment, AttachmentKey, ProfileState, MatchType, Match
 
 
@@ -31,7 +32,7 @@ class StudentMatchMapper:
         if attachment is not None:
             attachment = attachment.absolute_url
         if student.state == ProfileState.ANONYMOUS:
-            attachment = None
+            attachment = get_fallback_profile_image()
         return attachment
 
     def _get_name(self, student):
