@@ -1,22 +1,16 @@
 from django import forms
 
 from db.exceptions import FormException
-from db.helper.forms import validate_step, validate_form_data, validate_company_user_type, convert_object_to_id
-from db.models import Branch, ProfileType
+from db.helper.forms import validate_step, validate_form_data, validate_company_user_type
+from db.models import ProfileType
 
 
 class CompanyProfileFormStep2(forms.Form):
     website = forms.URLField(max_length=2048, required=True)
-    branch = forms.ModelChoiceField(queryset=Branch.objects.all(), required=False)
     description = forms.CharField(max_length=1000, required=False)
     services = forms.CharField(max_length=1000, required=False)
     # Bug prevention, when false is given as parameter
     member_it_st_gallen = forms.BooleanField(required=False, initial=False)
-
-    def __init__(self, data=None, **kwargs):
-        # due to a bug with ModelChoiceField and graphene_django
-        data['branch'] = convert_object_to_id(data.get('branch', None))
-        super().__init__(data=data, **kwargs)
 
 
 def process_company_form_step_2(user, data):
@@ -39,7 +33,6 @@ def process_company_form_step_2(user, data):
         company.member_it_st_gallen = cleaned_data.get('member_it_st_gallen')
 
         # optional parameters
-        company.branch = cleaned_data.get('branch')
         company.description = cleaned_data.get('description')
         company.services = cleaned_data.get('services')
     else:

@@ -4,17 +4,17 @@ from django.utils.translation import gettext as _
 from db.exceptions import FormException
 from db.helper.forms import convert_date, generic_error_dict, validate_student_user_type, validate_step,\
     validate_form_data, convert_object_to_id
-from db.models import JobType, JobPosition, DateMode
+from db.models import JobType, DateMode, Branch
 
 
 class StudentProfileFormStep2(forms.Form):
     job_type = forms.ModelChoiceField(queryset=JobType.objects.all(), required=True)
-    job_position = forms.ModelChoiceField(queryset=JobPosition.objects.all(), required=False)
+    branch = forms.ModelChoiceField(queryset=Branch.objects.all(), required=False)
 
     def __init__(self, data=None, **kwargs):
         # due to a bug with ModelChoiceField and graphene_django
         data['job_type'] = convert_object_to_id(data.get('job_type', None))
-        data['job_position'] = convert_object_to_id(data.get('job_position', None))
+        data['branch'] = convert_object_to_id(data.get('branch', None))
         super().__init__(data=data, **kwargs)
 
 
@@ -106,15 +106,24 @@ def process_student_form_step_2(user, data):
         student.job_type = cleaned_data.get('job_type')
 
         # optional parameters
-        student.job_position = cleaned_data.get('job_position')
+        student.branch = cleaned_data.get('branch')
     else:
         errors.update(form.errors.get_json_data())
 
-    if 'job_from_date' in data and data.get('job_from_date', None) is not None:
-        try:
-            process_job_type_form(student, data)
-        except FormException as exception:
-            errors.update(exception.errors)
+    # job type can be correct, but if the form is invalid, the student has no
+    # job type set
+    try:
+        job_type = JobType.objects.get(pk=data.get('job_type'))
+        student.job_type = job_type
+    except JobType.DoesNotExist:
+        student.job_type = None
+
+    if student.job_type is not None:
+        if 'job_from_date' in data and data.get('job_from_date', None) is not None:
+            try:
+                process_job_type_form(student, data)
+            except FormException as exception:
+                errors.update(exception.errors)
 
     if errors:
         raise FormException(errors=errors)

@@ -1,5 +1,6 @@
 import json
-import glob
+import os
+
 from django.core.management.base import BaseCommand
 from django.apps import apps
 
@@ -8,9 +9,24 @@ class Command(BaseCommand):
     help = 'loads initial data in DB'
 
     def handle(self, *args, **options):
-        files = self.get_all_json()
+        base_path = 'db/seed/data'
+        files = [
+            'benefits.json',
+            'branches.json',
+            'cultural_fits.json',
+            'faq_categories.json',
+            'job_requirements.json',
+            'job_types.json',
+            'language_levels.json',
+            'languages.json',
+            'skills.json',
+            'soft_skills.json'
+        ]
+        fixture_count = 0
+        object_count = 0
         for file in files:
-            data_set = self.read_json(file)
+            fixture_count += 1
+            data_set = self.read_json(os.path.join(base_path, file))
             for data in data_set:
                 self.get_fields(data)
                 model = self.get_model(data)
@@ -24,7 +40,10 @@ class Command(BaseCommand):
                 for field in fields:
                     setattr(data_to_update, field, data.get('fields').get(field))
                 data_to_update.save()
-            self.stdout.write(self.style.SUCCESS('Filled ' + data_set[0].get('model')))
+                object_count += 1
+        self.stdout.write(
+            self.style.SUCCESS('Installed %i object(s) from %i fixture(s)' % (object_count, fixture_count))
+        )
 
     def read_file(self, path):
         with open(path) as file:
@@ -34,10 +53,6 @@ class Command(BaseCommand):
 
     def read_json(self, path):
         return json.loads(self.read_file(path))
-
-    def get_all_json(self):
-        base_path = 'db/management/data'
-        return glob.glob(base_path + "/*.json")
 
     def get_model(self, data):
         data_model = data.get('model').split(".")

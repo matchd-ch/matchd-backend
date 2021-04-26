@@ -11,7 +11,6 @@ from .language import Language
 from .language_level import LanguageLevel
 from .online_project import OnlineProject
 from .job_type import JobType, DateMode
-from .job_position import JobPosition
 from .user_language_relation import UserLanguageRelation
 from .branch import Branch
 from .benefit import Benefit
@@ -26,4 +25,5 @@ from .job_posting_language_relation import JobPostingLanguageRelation
 from .faq_category import FAQCategory
 from .soft_skill import SoftSkill
 from .cultural_fit import CulturalFit
+from .match import MatchType
 from .faq import FAQ

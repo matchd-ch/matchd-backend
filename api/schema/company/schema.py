@@ -4,23 +4,25 @@ from django.shortcuts import get_object_or_404
 from graphene import ObjectType
 from graphene_django import DjangoObjectType
 from django.utils.translation import gettext as _
+from graphql import ResolveInfo
 from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 
+from api.helper import is_me_query
 from api.schema.benefit import BenefitInput
 from api.schema.branch.schema import BranchInput
 from api.schema.cultural_fit import CulturalFitInput
 from api.schema.employee import Employee
-from api.schema.job_position import JobPositionInput
 from api.schema.soft_skill import SoftSkillInput
 from api.schema.profile_state import ProfileState
 from api.schema.profile_type import ProfileType
+from db.decorators import cheating_protection
 from db.exceptions import FormException
 from db.forms import process_company_form_step_2, process_company_form_step_3, process_university_form_step_1, \
     process_university_form_step_2, process_university_form_step_3
 from db.forms.company_step_1 import process_company_form_step_1
 from db.forms.company_step_4 import process_company_form_step_4
-from db.models import Company as CompanyModel, ProfileState as ProfileStateModel
+from db.models import Company as CompanyModel, ProfileState as ProfileStateModel, JobPostingState
 
 
 class CompanyInput(graphene.InputObjectType):
@@ -62,7 +64,6 @@ class CompanyProfileStep1(Output, graphene.Mutation):
 
 class CompanyProfileInputStep2(graphene.InputObjectType):
     website = graphene.String(description=_('website'), required=True)
-    branch = graphene.Field(BranchInput, description=_('branch'), required=False)
     description = graphene.String(description=_('description'), required=False)
     services = graphene.String(description=_('services'), required=False)
     member_it_st_gallen = graphene.Boolean(description=_('memeber IT St. Gallen'), required=True)
@@ -73,7 +74,7 @@ class CompanyProfileStep2(Output, graphene.Mutation):
         step2 = CompanyProfileInputStep2(description=_('Profile Input Step 2 is required.'), required=True)
 
     class Meta:
-        description = _('Updates website url, branch, description, services, member IT St.Gallen')
+        description = _('Updates website url, description, services, member IT St.Gallen')
 
     @classmethod
     @login_required
@@ -88,7 +89,7 @@ class CompanyProfileStep2(Output, graphene.Mutation):
 
 
 class CompanyProfileInputStep3(graphene.InputObjectType):
-    job_positions = graphene.List(JobPositionInput, description=_('Job Position'))
+    branches = graphene.List(BranchInput, description=_('Branches'))
     benefits = graphene.List(BenefitInput, description=_('Benefits'))
 
 
@@ -97,7 +98,7 @@ class CompanyProfileStep3(Output, graphene.Mutation):
         step3 = CompanyProfileInputStep3(description=_('Profile Input Step 3 is required.'), required=True)
 
     class Meta:
-        description = _('Updates the Company Profile with benefits and Job Positions')
+        description = _('Updates the Company Profile with benefits and branches')
 
     @classmethod
     @login_required
@@ -176,7 +177,7 @@ class UniversityProfileStep1(Output, graphene.Mutation):
 
 
 class UniversityProfileInputStep2(graphene.InputObjectType):
-    branch = graphene.Field(BranchInput, description=_('branch'), required=False)
+    branches = graphene.List(BranchInput, description=_('Branches'), required=False)
     description = graphene.String(description=_('description'), required=False)
 
 
@@ -185,7 +186,7 @@ class UniversityProfileStep2(Output, graphene.Mutation):
         step2 = UniversityProfileInputStep2(description=_('Profile Input Step 2 is required.'), required=True)
 
     class Meta:
-        description = _('Updates website branch and description')
+        description = _('Updates branches and description')
 
     @classmethod
     @login_required
@@ -233,15 +234,18 @@ class UniversityProfileMutation(graphene.ObjectType):
 
 class Company(DjangoObjectType):
     employees = graphene.NonNull(graphene.List(graphene.NonNull(Employee)))
+    job_postings = graphene.NonNull(graphene.List(graphene.NonNull('api.schema.job_posting.schema.JobPosting')))
     type = graphene.Field(graphene.NonNull(ProfileType))
     state = graphene.Field(graphene.NonNull(ProfileState))
+    soft_skills = graphene.List(graphene.NonNull('api.schema.soft_skill.schema.SoftSkill'))
+    cultural_fits = graphene.List(graphene.NonNull('api.schema.cultural_fit.schema.CulturalFit'))
 
     class Meta:
         model = CompanyModel
         fields = ['id', 'uid', 'name', 'zip', 'city', 'street', 'phone', 'description', 'member_it_st_gallen',
-                  'services', 'website', 'job_positions', 'benefits', 'state', 'profile_step', 'slug',
-                  'top_level_organisation_description', 'top_level_organisation_website', 'type', 'branch',
-                  'link_education', 'link_projects', 'link_thesis', 'soft_skills', 'cultural_fits']
+                  'services', 'website', 'benefits', 'state', 'profile_step', 'slug',
+                  'top_level_organisation_description', 'top_level_organisation_website', 'type', 'branches',
+                  'link_education', 'link_projects', 'link_thesis', 'soft_skills', 'cultural_fits', 'job_postings']
         convert_choices_to_enum = False
 
     def resolve_employees(self: CompanyModel, info):
@@ -250,6 +254,19 @@ class Company(DjangoObjectType):
         for user in users:
             employees.append(user.employee)
         return employees
+
+    def resolve_job_postings(self: CompanyModel, info: ResolveInfo):
+        if is_me_query(info):
+            return self.job_postings.all()
+        return self.job_postings.filter(state=JobPostingState.PUBLIC)
+
+    @cheating_protection
+    def resolve_soft_skills(self: CompanyModel, info: ResolveInfo):
+        return self.soft_skills.all()
+
+    @cheating_protection
+    def resolve_cultural_fits(self: CompanyModel, info: ResolveInfo):
+        return self.cultural_fits.all()
 
 
 class CompanyQuery(ObjectType):

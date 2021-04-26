@@ -6,7 +6,8 @@ from django.utils.translation import gettext as _
 from api.schema.job_posting_language_relation import JobPostingLanguageRelationInput
 from db.exceptions import FormException
 from db.forms.job_posting_language_relation import JobPostingLanguageRelationForm
-from db.helper.forms import validate_company_user_type, validate_form_data, validate_job_posting_step, silent_fail
+from db.helper.forms import validate_company_user_type, validate_form_data, validate_job_posting_step, silent_fail, \
+    generic_error_dict
 from db.models import JobPosting, JobRequirement, Skill, JobPostingLanguageRelation, Language
 
 
@@ -101,6 +102,15 @@ def process_job_posting_form_step_2(user, data):
                 errors.update(exception.errors)
 
     if errors:
+        raise FormException(errors=errors)
+
+    # pylint: disable=W0511
+    # TODO create validator
+    # check if employee belongs to the same company
+    user_company = user.company.id
+    job_posting_company = job_posting.company.id
+    if user_company != job_posting_company:
+        errors.update(generic_error_dict('employee', _('Employee does not belong to this company.'), 'invalid'))
         raise FormException(errors=errors)
 
     # save all valid forms
