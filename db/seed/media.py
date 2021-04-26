@@ -9,8 +9,6 @@ from db.models import Image
 
 class Media:
 
-    random_images = 12
-
     def run(self):
 
         media_path = settings.MEDIA_ROOT
@@ -19,7 +17,7 @@ class Media:
         if not admin_user:
             raise Exception('Admin user not found. Could not seed random images')
 
-        for i in range(1, self.random_images + 1):
+        for i in range(1, settings.NUMBER_OF_RANDOM_PROFILE_IMAGES + 1):
             source_path = os.path.join('db', 'seed', 'media', f'r-{i}.png')
             destination_path = os.path.join(random_images_path, f'r-{i}.png')
             os.makedirs(random_images_path, exist_ok=True)
