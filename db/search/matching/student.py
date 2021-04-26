@@ -62,7 +62,7 @@ class StudentMatching:
         builder.set_skills(self.job_posting.skills.all(), self.tech_boost * settings.MATCHING_VALUE_SKILLS)
         if self.job_posting.job_from_date is not None:
             date_mode = self.job_posting.job_type.mode
-            if date_mode == DateMode.DATE_RANGE:
+            if date_mode == DateMode.DATE_RANGE and self.job_posting.job_to_date is not None:
                 builder.set_date_range(self.job_posting.job_from_date, self.job_posting.job_to_date,
                                        settings.MATCHING_VALUE_DATE_OR_DATE_RANGE)
             else:
