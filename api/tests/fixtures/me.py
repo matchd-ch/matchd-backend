@@ -13,19 +13,19 @@ def me_query():
             email
             type
             student {
-                profileStep
-                state
+                id
+                email
+                firstName
+                lastName
                 mobile
-                zip
                 street
+                zip
                 city
                 dateOfBirth
                 nickname
                 schoolName
                 fieldOfStudy
                 graduation
-                distinction
-                slug
                 branch {
                     id
                     name
@@ -33,41 +33,36 @@ def me_query():
                 jobType {
                     id
                     name
-                    mode
                 }
+                jobFromDate
+                jobToDate
                 skills {
                     id
                     name
                 }
-                hobbies {
-                    id
-                    name
-                }
-                languages {
-                    id
-                    language {
-                        id
-                        name
-                    }
-                    languageLevel {
-                        id
-                        level
-                        description
-                    }
-                }
-                onlineProjects {
-                    id
-                    url
-                }
+                distinction
+                state
+                profileStep
                 softSkills {
                     id
-                    student
-                    company
                 }
                 culturalFits {
                     id
-                    student
-                    company
+                }
+                slug
+                hobbies {
+                    name
+                }
+                onlineProjects {
+                    url
+                }
+                languages {
+                    language {
+                        name
+                    }
+                    languageLevel {
+                        level
+                    }
                 }
             }
             company {
@@ -96,14 +91,9 @@ def me_query():
                 employees {
                     id
                     role
-                    user {
-                        id
-                        username
-                        email
-                        type
-                        firstName
-                        lastName
-                    }
+                    email
+                    firstName
+                    lastName
                 }
                 softSkills {
                     id

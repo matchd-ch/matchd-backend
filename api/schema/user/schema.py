@@ -14,7 +14,6 @@ class User(DjangoObjectType):
         model = get_user_model()
         filter_fields = graphql_auth_settings.USER_NODE_FILTER_FIELDS
         exclude = graphql_auth_settings.USER_NODE_EXCLUDE_FIELDS
-        interfaces = (graphene.relay.Node,)
         skip_registry = True
         convert_choices_to_enum = False
 

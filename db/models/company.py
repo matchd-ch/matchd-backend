@@ -5,8 +5,8 @@ from django.conf import settings
 from django.db.models import Q
 from wagtail.search import index
 
-from db.models.profile_type import ProfileType
-from db.models.profile_state import ProfileState
+from .profile_type import ProfileType
+from .profile_state import ProfileState
 
 
 class Company(models.Model, index.Indexed):

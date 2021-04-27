@@ -5,21 +5,32 @@ from graphql_auth.bases import Output
 from django.utils.translation import gettext as _
 from graphql_jwt.decorators import login_required
 
-from api.schema.user.schema import User
 from db.forms import EmployeeForm, UserForm
 from db.helper.forms import validate_company_user_type, validate_form_data
 from db.models import Employee as EmployeeModel, ProfileType
 
 
 class Employee(DjangoObjectType):
-    user = graphene.Field(graphene.NonNull(User))
+    email = graphene.String()
+    first_name = graphene.String()
+    last_name = graphene.String()
+    phone = graphene.String()
 
     class Meta:
         model = EmployeeModel
         fields = ['id', 'role', 'user']
 
-    def resolve_user(self, info):
-        return self.user
+    def resolve_first_name(self: EmployeeModel, info):
+        return self.user.first_name
+
+    def resolve_last_name(self: EmployeeModel, info):
+        return self.user.last_name
+
+    def resolve_email(self: EmployeeModel, info):
+        return self.user.email
+
+    def resolve_phone(self: EmployeeModel, info):
+        return self.user.company.phone
 
 
 class EmployeeInput(graphene.InputObjectType):

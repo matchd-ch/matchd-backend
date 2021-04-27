@@ -71,4 +71,9 @@ Copy the file to api/data/data.xlsx and run the following command:
 ## Tests
 
     docker-compose exec api bash
-    ./manage.py pytest
+    pytest
+
+With coverage:
+    
+    pytest --cov=db --cov=api --cov=app --cov-report html
+    

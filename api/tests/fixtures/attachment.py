@@ -47,52 +47,6 @@ def attachments_by_slug_query(slug):
     ''' % (slug, slug, slug, slug)
 
 
-def attachments_by_id_query(user_id):
-    user_id = str(user_id)
-    return '''
-    {
-        studentAvatar: attachments (key:STUDENT_AVATAR, userId: %s) {
-            id
-            url
-            mimeType
-            fileSize
-            fileName
-        }
-
-        studentDocuments: attachments (key:STUDENT_DOCUMENTS, userId: %s) {
-            id
-            url
-            mimeType
-            fileSize
-            fileName
-        }
-        
-        companyAvatar: attachments (key:COMPANY_AVATAR, userId: %s) {
-            id
-            url
-            mimeType
-            fileSize
-            fileName
-          }
-
-        companyDocuments: attachments (key:COMPANY_DOCUMENTS, userId: %s) {
-            id
-            url
-            mimeType
-            fileSize
-            fileName
-        }
-    }
-    ''' % (user_id, user_id, user_id, user_id)
-
-
-@pytest.fixture
-def query_attachments_for_user(execute):
-    def closure(user, student):
-        return execute(attachments_by_id_query(student.id), **{'user': user})
-    return closure
-
-
 @pytest.fixture
 def query_attachments_for_slug(execute):
     def closure(user, slug):
@@ -135,6 +89,17 @@ def upload(default_password):
     return closure
 
 
+def delete_attachment_mutation(attachment_id):
+    return '''
+    mutation {
+      deleteAttachment(id:%i) {
+        success
+        errors
+      }
+    }
+    ''' % attachment_id
+
+
 @pytest.fixture
 def file_image_jpg():
     mime_type = 'image/jpeg'
@@ -165,4 +130,11 @@ def attachments_for_user():
         profile_content_type = user.get_profile_content_type()
         profile_id = user.get_profile_id()
         return Attachment.objects.filter(key=key, content_type=profile_content_type, object_id=profile_id)
+    return closure
+
+
+@pytest.fixture
+def delete_attachment(execute):
+    def closure(user, attachment_id):
+        return execute(delete_attachment_mutation(attachment_id), **{'user': user})
     return closure

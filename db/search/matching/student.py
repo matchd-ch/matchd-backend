@@ -7,7 +7,7 @@ from wagtail.search.backends import get_search_backend
 from db.models import Student, DateMode, ProfileType, JobPosting, JobPostingLanguageRelation, JobPostingState
 from db.search.builders import StudentParamBuilder
 from db.search.calculators.student import StudentScoreCalculator
-from db.search.mapper import MatchMapper
+from db.search.mapper import StudentMatchMapper
 from db.search.resolvers import HitResolver
 
 
@@ -62,7 +62,7 @@ class StudentMatching:
         builder.set_skills(self.job_posting.skills.all(), self.tech_boost * settings.MATCHING_VALUE_SKILLS)
         if self.job_posting.job_from_date is not None:
             date_mode = self.job_posting.job_type.mode
-            if date_mode == DateMode.DATE_RANGE:
+            if date_mode == DateMode.DATE_RANGE and self.job_posting.job_to_date is not None:
                 builder.set_date_range(self.job_posting.job_from_date, self.job_posting.job_to_date,
                                        settings.MATCHING_VALUE_DATE_OR_DATE_RANGE)
             else:
@@ -72,4 +72,5 @@ class StudentMatching:
         hits = resolver.resolve()
         calculator = StudentScoreCalculator(self.job_posting, hits, self.soft_boost, self.tech_boost)
         hits = calculator.annotate()
-        return MatchMapper.map_students(hits)
+        mapper = StudentMatchMapper(hits, self.job_posting)
+        return mapper.get_matches()
