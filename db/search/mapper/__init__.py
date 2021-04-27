@@ -1,1 +1,2 @@
-from .match import MatchMapper
+from .student import StudentMatchMapper
+from .job_posting import JobPostingMatchMapper

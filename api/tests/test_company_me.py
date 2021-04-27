@@ -31,7 +31,7 @@ def test_me_company(login, me, user_employee, company_object_complete):
     assert company.get('state') == company_object_complete.state.upper()
     assert company.get('profileStep') == company_object_complete.profile_step
     assert company.get('slug') == company_object_complete.slug
-    assert company.get('name') == company_object_complete.name
+    assert company.get('name') == 'Com\xadpa\xadny 1'
     assert company.get('zip') == company_object_complete.zip
     assert company.get('city') == company_object_complete.city
     assert company.get('street') == company_object_complete.street

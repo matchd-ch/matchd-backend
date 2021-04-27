@@ -13,8 +13,9 @@ class UserRequest(models.Model):
 
     @staticmethod
     def post_save(sender, instance, created, **kwargs):
+        is_raw = kwargs.get('raw', False)
         post_save.disconnect(UserRequest.post_save, UserRequest, dispatch_uid='db.models.UserRequest')
-        if created:
+        if created and not is_raw:
             instance.send_email('user_request_copy', [instance.email])
             instance.send_email('user_request', settings.USER_REQUEST_FORM_RECIPIENTS)
         post_save.connect(UserRequest.post_save, UserRequest, dispatch_uid='db.models.UserRequest')

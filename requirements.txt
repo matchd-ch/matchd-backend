@@ -50,6 +50,7 @@ pylint==2.6.0
 pylint-django==2.4.0
 pylint-plugin-utils==0.6
 pyparsing==2.4.7
+Pyphen==0.10.0
 pytest==6.2.2
 pytest-cov==2.11.1
 pytest-django==4.1.0

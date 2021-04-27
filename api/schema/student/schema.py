@@ -17,16 +17,20 @@ from api.schema.profile_state import ProfileState
 from api.schema.soft_skill import SoftSkillInput
 from api.schema.skill import SkillInput
 from api.schema.user_language_relation.user_language_relation import UserLanguageRelationInput
-from db.decorators import privacy
+from db.decorators import privacy_protection
 from db.exceptions import FormException, NicknameException
 from db.forms import process_student_form_step_1, process_student_form_step_2, \
     process_student_form_step_5, process_student_form_step_6, process_student_form_step_4
 from db.forms.student_step_3 import process_student_form_step_3
 
-from db.models import Student as StudentModel, ProfileType
+from db.models import Student as StudentModel, ProfileType, Match as MatchModel
 
 
 class StudentInput(graphene.InputObjectType):
+    id = graphene.ID(required=True)
+
+
+class RegisterStudentInput(graphene.InputObjectType):
     id = graphene.ID(required=False)
     mobile = graphene.String(description=_('Mobile'), required=True)
 
@@ -47,6 +51,7 @@ class Student(DjangoObjectType):
     school_name = graphene.String()
     field_of_study = graphene.String()
     graduation = graphene.String()
+    match_status = graphene.Field('api.schema.match.MatchStatus')
 
     class Meta:
         model = StudentModel
@@ -56,61 +61,115 @@ class Student(DjangoObjectType):
                   'branch', 'job_from_date', 'job_to_date')
         convert_choices_to_enum = False
 
-    @privacy
+    @privacy_protection()
     def resolve_first_name(self: StudentModel, info):
         return self.user.first_name
 
-    @privacy
+    @privacy_protection()
     def resolve_last_name(self: StudentModel, info):
         return self.user.last_name
 
-    @privacy
+    @privacy_protection(match_only=True)
     def resolve_email(self: StudentModel, info):
         return self.user.email
 
-    @privacy
+    @privacy_protection(match_only=True)
     def resolve_zip(self: StudentModel, info):
         return self.zip
 
-    @privacy
+    @privacy_protection(match_only=True)
     def resolve_city(self: StudentModel, info):
         return self.city
 
-    @privacy
+    @privacy_protection(match_only=True)
     def resolve_street(self: StudentModel, info):
         return self.street
 
-    @privacy
+    @privacy_protection(match_only=True)
     def resolve_mobile(self: StudentModel, info):
         return self.mobile
 
-    @privacy
+    @privacy_protection()
     def resolve_distinction(self: StudentModel, info):
         return self.distinction
 
-    @privacy
+    @privacy_protection()
     def resolve_online_projects(self: StudentModel, info):
         return self.online_projects.all()
 
-    @privacy
+    @privacy_protection()
     def resolve_hobbies(self: StudentModel, info):
         return self.hobbies.all()
 
-    @privacy
+    @privacy_protection()
     def resolve_date_of_birth(self: StudentModel, info):
         return self.date_of_birth
 
-    @privacy
+    @privacy_protection()
     def resolve_school_name(self: StudentModel, info):
         return self.school_name
 
-    @privacy
+    @privacy_protection()
     def resolve_field_of_study(self: StudentModel, info):
         return self.field_of_study
 
-    @privacy
+    @privacy_protection()
     def resolve_graduation(self: StudentModel, info):
         return self.graduation
+
+    # noinspection PyBroadException
+    def resolve_match_status(self: StudentModel, info):
+        # try to retrieve job posting id parameter from operation
+        #
+        # query example:
+        # query
+        # {
+        #     student(slug: "{student-slug}", jobPostingId: {id}) {
+        #     .....
+        #     }
+        # }
+        try:
+            job_posting_id = info.operation.selection_set.selections[0].arguments[1].value.value
+        except Exception:
+            job_posting_id = None
+
+        # fallback if request was sent with variables
+        #
+        # query example:
+        # query($slug: String!, $jobPostingId: ID!) {
+        #     student(slug: $slug, jobPostingId: $jobPostingId) {
+        #     ....
+        #     }
+        # }
+        # with variables
+        # {
+        #     "slug": "{student-slug}",
+        #     "jobPostingId": {id}
+        # }
+        if job_posting_id is None:
+            try:
+                job_posting_id = info.variable_values.get('jobPostingId')
+            except Exception:
+                job_posting_id = None
+
+        # if the parameter is missing, no match status will be returned
+        if job_posting_id is None:
+            return None
+
+        user = info.context.user
+        status = None
+        if user.type in ProfileType.valid_company_types():
+            try:
+                status = MatchModel.objects.get(student=self, job_posting__id=job_posting_id)
+            except MatchModel.DoesNotExist:
+                pass
+
+        if status is not None:
+            return {
+                'confirmed':  status.complete,
+                'initiator': status.initiator
+            }
+        return None
 
 
 class StudentProfileInputStep1(graphene.InputObjectType):
@@ -285,9 +344,9 @@ class StudentProfileMutation(graphene.ObjectType):
 
 
 class StudentQuery(ObjectType):
-    student = graphene.Field(Student, slug=graphene.String())
+    student = graphene.Field(Student, slug=graphene.String(), job_posting_id=graphene.ID(required=False))
 
-    def resolve_student(self, info, slug):
+    def resolve_student(self, info, slug, *args, **kwargs):
         user = info.context.user
 
         if user.type not in (ProfileType.COMPANY, ProfileType.UNIVERSITY):

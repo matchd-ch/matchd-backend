@@ -18,9 +18,9 @@ def language_levels_query():
 @pytest.fixture
 def language_level_objects():
     return [
-        LanguageLevel.objects.create(id=1, level="A1"),
-        LanguageLevel.objects.create(id=2, level="B1"),
-        LanguageLevel.objects.create(id=3, level="A2")
+        LanguageLevel.objects.create(id=1, level="A1", value=1),
+        LanguageLevel.objects.create(id=2, level="B1", value=2),
+        LanguageLevel.objects.create(id=3, level="A2", value=3)
     ]
 
 
