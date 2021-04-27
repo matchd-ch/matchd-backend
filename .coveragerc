@@ -1,0 +1,17 @@
+[run]
+omit =
+    api/tests/*
+    db/tests/*
+    db/migrations/*
+    api/data/xlsx_to_json.py
+    api/middleware/*
+    app/settings/*
+    app/wsgi.py
+    db/seed/*
+    db/management/*
+    db/wagtail_hooks.py
+[report]
+exclude_lines =
+    pragma: no cover
+    if settings.DEBUG:
+    def pk(self):

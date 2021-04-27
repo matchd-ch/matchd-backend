@@ -24,7 +24,12 @@ def soft_skill_objects():
         SoftSkill.objects.create(id=4, student="I like beer", company='You like beer'),
         SoftSkill.objects.create(id=5, student="I like honey", company='You like honey'),
         SoftSkill.objects.create(id=6, student="I like flowers", company='You like flowers'),
-        SoftSkill.objects.create(id=7, student="I like apples", company='You like apples')
+        SoftSkill.objects.create(id=7, student="I like apples", company='You like apples'),
+        SoftSkill.objects.create(id=8, student="I like bushes", company='You like bushes'),
+        SoftSkill.objects.create(id=9, student="I like ants", company='You like ants'),
+        SoftSkill.objects.create(id=10, student="I like lions", company='You like lions'),
+        SoftSkill.objects.create(id=11, student="I like everything", company='You like everything'),
+        SoftSkill.objects.create(id=12, student="I like nothing", company='You like nothing')
     ]
 
 

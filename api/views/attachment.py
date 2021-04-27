@@ -38,7 +38,7 @@ class AttachmentServeView(View):
             return self.get_file(attachment.attachment_object)
         if attachment_content_type == 'video':
             return self.get_file(attachment.attachment_object)
-        return HttpResponse(content='yup')
+        return HttpResponse(status=404)
 
     def get_file(self, file):
         return StreamingHttpResponse(FileWrapper(file.file), content_type=file.get_mime_type())

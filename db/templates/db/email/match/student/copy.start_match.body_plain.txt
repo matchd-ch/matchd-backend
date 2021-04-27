@@ -1,0 +1,4 @@
+{% load i18n %}
+Sie haben ein Talent gematchd</p>
+{{ student_profile_url }}
+{{ job_posting_url }}

@@ -46,4 +46,4 @@ class LogoutMutation(graphene.Mutation):
         return True
 
     def mutate(self, info):
-        pass
+        pass  # pragma: no cover
