@@ -10,7 +10,7 @@ def privacy_protection(match_only=False):
 
             # check for possible matches
             user = info.context.user
-            if user.type in ProfileType.valid_company_types():
+            if not user.is_anonymous and user.type in ProfileType.valid_company_types():
                 if self.has_match(user.company):
                     return func(self, info)
 
