@@ -15,7 +15,7 @@ def test_query(query_faqs, faq_objects, login, user_student):
     assert len(objects) == len(faq_objects)
     first_faq = objects[0]
     assert first_faq.get('name') == faq_objects[0].category.name
-    assert first_faq.get('faqs')[0].get('id') == faq_objects[0].id
+    assert int(first_faq.get('faqs')[0].get('id')) == faq_objects[0].id
     assert first_faq.get('faqs')[0].get('question') == faq_objects[0].question
     assert first_faq.get('faqs')[0].get('answer') == faq_objects[0].answer
 
