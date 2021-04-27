@@ -15,7 +15,7 @@ from db.models import FAQ as FAQmodel, Company, FAQCategory as FAQCategoryModel
 class FAQ(DjangoObjectType):
     class Meta:
         model = FAQmodel
-        fields = ('id', 'category', 'title', 'question', 'answer',)
+        fields = ('id', 'category', 'question', 'answer',)
 
 
 class FAQQuery(ObjectType):
@@ -30,7 +30,6 @@ class FAQQuery(ObjectType):
 
 class AddFAQInput(graphene.InputObjectType):
     category = graphene.Field(FAQCategoryInput, description=_('category'), required=True)
-    title = graphene.String(description=_('title'), required=True)
     question = graphene.String(description=_('question'), required=True)
     answer = graphene.String(description=_('answer'), required=True)
 
@@ -57,7 +56,6 @@ class AddFAQ(Output, graphene.Mutation):
 class UpdateFAQInput(graphene.InputObjectType):
     faq_id = graphene.ID(description=_('Faq ID'), required=True)
     category = graphene.Field(FAQCategoryInput, description=_('category'), required=True)
-    title = graphene.String(description=_('title'), required=True)
     question = graphene.String(description=_('question'), required=True)
     answer = graphene.String(description=_('answer'), required=True)
 

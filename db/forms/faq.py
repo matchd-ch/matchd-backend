@@ -10,7 +10,6 @@ from db.models import ProfileType, FAQCategory, FAQ
 
 class AddFAQForm(forms.Form):
     category = forms.ModelChoiceField(queryset=FAQCategory.objects.all(), required=True)
-    title = forms.CharField(max_length=250, required=True)
     question = forms.CharField(max_length=1000, required=True)
     answer = forms.CharField(max_length=1000, required=True)
 
@@ -36,7 +35,6 @@ def process_add_faq(user, data):
 
         # required parameters
         faq_to_save.category = cleaned_data.get('category')
-        faq_to_save.title = cleaned_data.get('title')
         faq_to_save.question = cleaned_data.get('question')
         faq_to_save.answer = cleaned_data.get('answer')
         faq_to_save.company = company
@@ -54,7 +52,7 @@ def process_add_faq(user, data):
 class UpdateFAQForm(forms.ModelForm):
     class Meta:
         model = FAQ
-        fields = ['category', 'title', 'question', 'answer']
+        fields = ['category', 'question', 'answer']
 
     def __init__(self, data=None, **kwargs):
         # due to a bug with ModelForm and graphene_django
