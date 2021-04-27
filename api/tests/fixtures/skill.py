@@ -19,7 +19,8 @@ def skill_objects():
     return [
         Skill.objects.create(name="php"),
         Skill.objects.create(name="css"),
-        Skill.objects.create(name="java")
+        Skill.objects.create(name="java"),
+        Skill.objects.create(name="python"),
     ]
 
 

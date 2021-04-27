@@ -35,7 +35,7 @@ class Command(BaseCommand):
             self.seed.run(random_data)
         self.stdout.write('', ending='\n')
 
-        self.stdout.write(f'Adding {number_of_companies} random company(ies)...')
+        self.stdout.write(f'Adding {number_of_universities} random university(ies)...')
         for i in range(0, number_of_universities):
             self.stdout.write('.', ending='')
             random_data = self.seed.random_company(i, ProfileType.UNIVERSITY)

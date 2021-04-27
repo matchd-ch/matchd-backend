@@ -24,7 +24,12 @@ def cultural_fit_objects():
         CulturalFit.objects.create(id=4, student="I like beer", company='You like beer'),
         CulturalFit.objects.create(id=5, student="I like honey", company='You like honey'),
         CulturalFit.objects.create(id=6, student="I like flowers", company='You like flowers'),
-        CulturalFit.objects.create(id=7, student="I like apples", company='You like apples')
+        CulturalFit.objects.create(id=7, student="I like apples", company='You like apples'),
+        CulturalFit.objects.create(id=8, student="I like bushes", company='You like bushes'),
+        CulturalFit.objects.create(id=9, student="I like ants", company='You like ants'),
+        CulturalFit.objects.create(id=10, student="I like lions", company='You like lions'),
+        CulturalFit.objects.create(id=11, student="I like everything", company='You like everything'),
+        CulturalFit.objects.create(id=12, student="I like nothing", company='You like nothing')
     ]
 
 

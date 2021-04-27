@@ -3,8 +3,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.translation import gettext as _
 
-from db.models.profile_state import ProfileState
-from db.models.profile_type import ProfileType
+from .profile_state import ProfileState
+from .profile_type import ProfileType
 
 
 class User(AbstractUser):
