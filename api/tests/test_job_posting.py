@@ -8,7 +8,7 @@ from db.models import JobPosting, JobPostingState, JobPostingLanguageRelation, M
 @pytest.mark.django_db
 def test_job_posting(query_job_posting, job_posting_object: JobPosting, job_type_objects, branch_objects,
                      company_object, job_requirement_objects, skill_objects, user_employee, language_objects,
-                     language_level_objects):
+                     language_level_objects, user_student):
     job_posting_object.title = 'title'
     job_posting_object.slug = 'title'
     job_posting_object.description = 'description'
@@ -28,7 +28,7 @@ def test_job_posting(query_job_posting, job_posting_object: JobPosting, job_type
     JobPostingLanguageRelation.objects.create(job_posting=job_posting_object, language=language_objects[0],
                                               language_level=language_level_objects[0])
 
-    data, errors = query_job_posting(user_employee, 'title')
+    data, errors = query_job_posting(user_student, 'title')
 
     assert errors is None
     assert data is not None
@@ -55,13 +55,15 @@ def test_job_posting(query_job_posting, job_posting_object: JobPosting, job_type
     assert match_status is None
 
     match_hints = job_posting.get('matchHints')
-    assert match_hints is None
+    assert match_hints is not None
+    assert match_hints.get('hasConfirmedMatch') is False
+    assert match_hints.get('hasRequestedMatch') is False
 
 
 @pytest.mark.django_db
 def test_job_posting_by_id(query_job_posting_by_id, job_posting_object: JobPosting, job_type_objects, branch_objects,
                            company_object, job_requirement_objects, skill_objects, user_employee, language_objects,
-                           language_level_objects):
+                           language_level_objects, user_student):
     job_posting_object.title = 'title'
     job_posting_object.slug = 'title'
     job_posting_object.description = 'description'
@@ -81,7 +83,7 @@ def test_job_posting_by_id(query_job_posting_by_id, job_posting_object: JobPosti
     JobPostingLanguageRelation.objects.create(job_posting=job_posting_object, language=language_objects[0],
                                               language_level=language_level_objects[0])
 
-    data, errors = query_job_posting_by_id(user_employee, job_posting_object.id)
+    data, errors = query_job_posting_by_id(user_student, job_posting_object.id)
 
     assert errors is None
     assert data is not None
@@ -108,7 +110,9 @@ def test_job_posting_by_id(query_job_posting_by_id, job_posting_object: JobPosti
     assert match_status is None
 
     match_hints = job_posting.get('matchHints')
-    assert match_hints is None
+    assert match_hints is not None
+    assert match_hints.get('hasConfirmedMatch') is False
+    assert match_hints.get('hasRequestedMatch') is False
 
 
 @pytest.mark.django_db
@@ -151,8 +155,8 @@ def test_job_posting_is_draft_but_accessible_for_employee(login, query_job_posti
     assert job_posting.get('jobToDate') == '2021-10-01'
     assert job_posting.get('url') == job_posting_object.url
     assert len(job_posting.get('jobRequirements')) == len(job_requirement_objects)
-    assert job_posting.get('skills') is None
-    assert job_posting.get('languages') is None
+    assert len(job_posting.get('skills')) == len(skill_objects)
+    assert len(job_posting.get('languages')) == 0
     assert int(job_posting.get('formStep')) == job_posting_object.form_step
     assert job_posting.get('state') == job_posting_object.state.upper()
     assert int(job_posting.get('employee').get('id')) == user_employee.employee.id
