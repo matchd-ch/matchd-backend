@@ -27,18 +27,20 @@ class DashboardQuery(ObjectType):
         if user.type in ProfileType.valid_company_types():
             job_postings = JobPostingModel.objects.filter(company=user.company).order_by('-date_created')
             requested_matches = Match.objects.filter(job_posting__company=user.company, initiator=user.type,
-                                                     student_confirmed=False, complete=False)
+                                                     student_confirmed=False, company_confirmed=True)
             unconfirmed_matches = Match.objects.filter(job_posting__company=user.company, initiator=ProfileType.STUDENT,
-                                                       company_confirmed=False, complete=False)
-            confirmed_matches = Match.objects.filter(job_posting__company=user.company, complete=True)
+                                                       company_confirmed=False, student_confirmed=True)
+            confirmed_matches = Match.objects.filter(job_posting__company=user.company, student_confirmed=True,
+                                                     company_confirmed=True)
         if user.type in ProfileType.valid_student_types():
             job_postings = JobPostingModel.objects.filter(branch=user.student.branch, state=JobPostingState.PUBLIC).\
                 order_by('-date_published')[:settings.DASHBOARD_STUDENT_NUM_JOB_POSTINGS]
             requested_matches = Match.objects.filter(student=user.student, initiator=user.type,
-                                                       company_confirmed=False, complete=False)
+                                                       company_confirmed=False, student_confirmed=True)
             unconfirmed_matches = Match.objects.filter(student=user.student, initiator=ProfileType.COMPANY,
-                                                       student_confirmed=False, complete=False)
-            confirmed_matches = Match.objects.filter(student=user.student, complete=True)
+                                                       student_confirmed=False, company_confirmed=True)
+            confirmed_matches = Match.objects.filter(student=user.student, student_confirmed=True,
+                                                     company_confirmed=True)
 
         return {
             'job_postings': job_postings,

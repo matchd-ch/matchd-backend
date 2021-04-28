@@ -30,7 +30,7 @@ class CompanyMatching:
         index = self.search_backend.get_index_for_model(queryset.model).name
 
         builder = CompanyParamBuilder(queryset, index, self.first, self.skip)
-        builder.set_branch(self.user.student.branch_id, settings.MATCHING_VALUE_BRANCH + 1)
+        builder.set_branch(self.user.student.branch_id, settings.MATCHING_VALUE_BRANCH)
         builder.set_cultural_fits(self.user.student.cultural_fits.all(),
                                   self.soft_boost * settings.MATCHING_VALUE_CULTURAL_FITS)
         builder.set_soft_skills(self.user.student.soft_skills.all(),
