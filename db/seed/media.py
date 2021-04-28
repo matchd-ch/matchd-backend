@@ -3,8 +3,9 @@ import shutil
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.contrib.contenttypes.models import ContentType
 
-from db.models import Image
+from db.models import Image, Attachment, AttachmentKey
 
 
 class Media:
@@ -29,3 +30,10 @@ class Media:
             image.mime_type = 'image/png'
             image.collection_id = 1
             image.save()
+
+            image_content_type = ContentType.objects.get(app_label='db', model='image')
+            user_content_type = ContentType.objects.get(app_label='db', model='user')
+
+            Attachment.objects.get_or_create(attachment_id=image.id, attachment_type_id=image_content_type.id,
+                                             content_type_id=user_content_type.id, object_id=admin_user.id,
+                                             key=AttachmentKey.AVATAR_FALLBACK)
