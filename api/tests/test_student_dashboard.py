@@ -3,6 +3,7 @@ import pytest
 from db.models import Match, JobPostingState
 
 
+# pylint: disable=R0913
 @pytest.mark.django_db
 def test_dashboard(login, query_dashboard, user_employee, user_student, job_posting_objects, branch_objects):
 
