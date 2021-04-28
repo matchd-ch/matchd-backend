@@ -107,6 +107,7 @@ def test_job_posting_matching(job_posting_object, job_posting_object_2, skill_ob
     assert float(best_match.get('score')) == 1
     assert float(best_match.get('rawScore')) == 1
     match_status = best_match.get('matchStatus')
+
     assert match_status is not None
     assert match_status.get('confirmed') is False
     assert match_status.get('initiator') == user_student.type.upper()
@@ -115,5 +116,6 @@ def test_job_posting_matching(job_posting_object, job_posting_object_2, skill_ob
     assert int(worst_match.get('id')) == job_posting_object_2.id
     assert float(worst_match.get('score')) == 0
     assert float(worst_match.get('rawScore')) == 0
+
     match_status = worst_match.get('matchStatus')
     assert match_status is None
