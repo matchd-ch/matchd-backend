@@ -14,10 +14,11 @@ from api.schema.job_type import JobTypeInput
 from api.schema.job_posting_language_relation import JobPostingLanguageRelationInput
 from api.schema.registration import EmployeeInput
 from api.schema.skill import SkillInput
-from db.decorators import cheating_protection
+from db.decorators import cheating_protection, hyphenate
 from db.exceptions import FormException
 from db.forms import process_job_posting_form_step_1, process_job_posting_form_step_2, process_job_posting_form_step_3
-from db.models import JobPosting as JobPostingModel, Company, JobPostingState as JobPostingStateModel, ProfileType
+from db.models import JobPosting as JobPostingModel, Company, JobPostingState as JobPostingStateModel, ProfileType, \
+    Match as MatchModel
 
 JobPostingState = graphene.Enum.from_enum(JobPostingStateModel)
 
@@ -36,7 +37,10 @@ class JobPosting(DjangoObjectType):
     employee = graphene.Field(Employee)
     workload = graphene.Field(graphene.NonNull(graphene.Int))
     skills = graphene.List(graphene.NonNull('api.schema.skill.schema.Skill'))
-    languages = graphene.List(graphene.NonNull( 'api.schema.job_posting_language_relation.JobPostingLanguageRelation'))
+    languages = graphene.List(graphene.NonNull('api.schema.job_posting_language_relation.JobPostingLanguageRelation'))
+    title = graphene.String()
+    match_status = graphene.Field('api.schema.match.MatchStatus')
+    match_hints = graphene.Field('api.schema.match.MatchHints')
 
     class Meta:
         model = JobPostingModel
@@ -51,6 +55,44 @@ class JobPosting(DjangoObjectType):
     @cheating_protection
     def resolve_languages(self: JobPostingModel, info):
         return self.languages.all()
+
+    @hyphenate
+    def resolve_title(self, info):
+        return self.title
+
+    def resolve_match_status(self: JobPostingModel, info):
+        user = info.context.user
+        status = None
+        if user.type in ProfileType.valid_student_types():
+            try:
+                status = MatchModel.objects.get(job_posting=self, student=user.student)
+            except MatchModel.DoesNotExist:
+                pass
+
+        if status is not None:
+            return {
+                'confirmed':  status.complete,
+                'initiator': status.initiator
+            }
+        return None
+
+    def resolve_match_hints(self: JobPostingModel, info):
+        user = info.context.user
+        if user.type in ProfileType.valid_company_types():
+            return None
+
+        has_requested_match = False
+        has_confirmed_match = False
+        if user.type in ProfileType.valid_student_types():
+            has_requested_match = MatchModel.objects.filter(initiator=user.type, student=user.student,
+                                                            job_posting__company=self.company).exists()
+            has_confirmed_match = MatchModel.objects.filter(initiator=ProfileType.COMPANY, student=user.student,
+                                                            student_confirmed=True, job_posting__company=self.company)\
+                .exists()
+        return {
+            'has_confirmed_match': has_confirmed_match,
+            'has_requested_match': has_requested_match
+        }
 
 
 class JobPostingQuery(ObjectType):

@@ -15,7 +15,7 @@ def test_company(company_object_complete, query_company):
     assert company.get('state') == company_object_complete.state.upper()
     assert company.get('profileStep') == company_object_complete.profile_step
     assert company.get('slug') == company_object_complete.slug
-    assert company.get('name') == company_object_complete.name
+    assert company.get('name') == 'Com\xadpa\xadny 1'
     assert company.get('zip') == company_object_complete.zip
     assert company.get('city') == company_object_complete.city
     assert company.get('street') == company_object_complete.street
@@ -64,20 +64,20 @@ def test_company_incomplete_as_employee(login, company_object_complete, query_co
     assert company.get('state') == company_object_complete.state.upper()
     assert company.get('profileStep') == company_object_complete.profile_step
     assert company.get('slug') == company_object_complete.slug
-    assert company.get('name') == company_object_complete.name
+    assert company.get('name') == 'Com\xadpa\xadny 1'
     assert company.get('zip') == company_object_complete.zip
     assert company.get('city') == company_object_complete.city
     assert company.get('street') == company_object_complete.street
     assert company.get('phone') == company_object_complete.phone
     assert company.get('website') == company_object_complete.website
     assert company.get('description') == company_object_complete.description
-    assert company.get('softSkills') is None  # soft skills should not be public
+    assert len(company.get('softSkills')) == len(company_object_complete.soft_skills.all())
     assert company.get('uid') == company_object_complete.uid
     assert company.get('services') == company_object_complete.services
     assert company.get('memberItStGallen') == company_object_complete.member_it_st_gallen
     assert len(company.get('benefits')) == len(company_object_complete.benefits.all())
     assert len(company.get('branches')) == len(company_object_complete.branches.all())
-    assert company.get('culturalFits') is None  # cultural fits should not be public
+    assert len(company.get('culturalFits')) == len(company_object_complete.cultural_fits.all())
     assert company.get('topLevelOrganisationDescription') == company_object_complete.top_level_organisation_description
     assert company.get('topLevelOrganisationWebsite') == company_object_complete.top_level_organisation_website
     assert company.get('linkEducation') == company_object_complete.link_education

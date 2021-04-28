@@ -1,14 +1,14 @@
 import pytest
 from django.contrib.auth.models import AnonymousUser
 
-from db.models import JobPosting, JobPostingState, JobPostingLanguageRelation
+from db.models import JobPosting, JobPostingState, JobPostingLanguageRelation, Match
 
 
 # pylint: disable=R0913
 @pytest.mark.django_db
 def test_job_posting(query_job_posting, job_posting_object: JobPosting, job_type_objects, branch_objects,
                      company_object, job_requirement_objects, skill_objects, user_employee, language_objects,
-                     language_level_objects):
+                     language_level_objects, user_student):
     job_posting_object.title = 'title'
     job_posting_object.slug = 'title'
     job_posting_object.description = 'description'
@@ -28,13 +28,13 @@ def test_job_posting(query_job_posting, job_posting_object: JobPosting, job_type
     JobPostingLanguageRelation.objects.create(job_posting=job_posting_object, language=language_objects[0],
                                               language_level=language_level_objects[0])
 
-    data, errors = query_job_posting(user_employee, 'title')
+    data, errors = query_job_posting(user_student, 'title')
 
     assert errors is None
     assert data is not None
     job_posting = data.get('jobPosting')
 
-    assert job_posting.get('title') == job_posting_object.title
+    assert job_posting.get('title') == 'tit\xadle'
     assert job_posting.get('slug') == job_posting_object.slug
     assert job_posting.get('description') == job_posting_object.description
     assert int(job_posting.get('jobType').get('id')) == job_posting_object.job_type_id
@@ -50,12 +50,20 @@ def test_job_posting(query_job_posting, job_posting_object: JobPosting, job_type
     assert int(job_posting.get('formStep')) == job_posting_object.form_step
     assert job_posting.get('state') == job_posting_object.state.upper()
     assert int(job_posting.get('employee').get('id')) == user_employee.employee.id
+
+    match_status = job_posting.get('matchStatus')
+    assert match_status is None
+
+    match_hints = job_posting.get('matchHints')
+    assert match_hints is not None
+    assert match_hints.get('hasConfirmedMatch') is False
+    assert match_hints.get('hasRequestedMatch') is False
 
 
 @pytest.mark.django_db
 def test_job_posting_by_id(query_job_posting_by_id, job_posting_object: JobPosting, job_type_objects, branch_objects,
                            company_object, job_requirement_objects, skill_objects, user_employee, language_objects,
-                           language_level_objects):
+                           language_level_objects, user_student):
     job_posting_object.title = 'title'
     job_posting_object.slug = 'title'
     job_posting_object.description = 'description'
@@ -75,13 +83,13 @@ def test_job_posting_by_id(query_job_posting_by_id, job_posting_object: JobPosti
     JobPostingLanguageRelation.objects.create(job_posting=job_posting_object, language=language_objects[0],
                                               language_level=language_level_objects[0])
 
-    data, errors = query_job_posting_by_id(user_employee, job_posting_object.id)
+    data, errors = query_job_posting_by_id(user_student, job_posting_object.id)
 
     assert errors is None
     assert data is not None
     job_posting = data.get('jobPosting')
 
-    assert job_posting.get('title') == job_posting_object.title
+    assert job_posting.get('title') == 'tit\xadle'
     assert job_posting.get('slug') == job_posting_object.slug
     assert job_posting.get('description') == job_posting_object.description
     assert int(job_posting.get('jobType').get('id')) == job_posting_object.job_type_id
@@ -97,6 +105,14 @@ def test_job_posting_by_id(query_job_posting_by_id, job_posting_object: JobPosti
     assert int(job_posting.get('formStep')) == job_posting_object.form_step
     assert job_posting.get('state') == job_posting_object.state.upper()
     assert int(job_posting.get('employee').get('id')) == user_employee.employee.id
+
+    match_status = job_posting.get('matchStatus')
+    assert match_status is None
+
+    match_hints = job_posting.get('matchHints')
+    assert match_hints is not None
+    assert match_hints.get('hasConfirmedMatch') is False
+    assert match_hints.get('hasRequestedMatch') is False
 
 
 @pytest.mark.django_db
@@ -128,7 +144,7 @@ def test_job_posting_is_draft_but_accessible_for_employee(login, query_job_posti
     assert data is not None
     job_posting = data.get('jobPosting')
 
-    assert job_posting.get('title') == job_posting_object.title
+    assert job_posting.get('title') == 'tit\xadle'
     assert job_posting.get('slug') == job_posting_object.slug
     assert job_posting.get('description') == job_posting_object.description
     assert int(job_posting.get('jobType').get('id')) == job_posting_object.job_type_id
@@ -139,11 +155,17 @@ def test_job_posting_is_draft_but_accessible_for_employee(login, query_job_posti
     assert job_posting.get('jobToDate') == '2021-10-01'
     assert job_posting.get('url') == job_posting_object.url
     assert len(job_posting.get('jobRequirements')) == len(job_requirement_objects)
-    assert job_posting.get('skills') is None
-    assert job_posting.get('languages') is None
+    assert len(job_posting.get('skills')) == len(skill_objects)
+    assert len(job_posting.get('languages')) == 0
     assert int(job_posting.get('formStep')) == job_posting_object.form_step
     assert job_posting.get('state') == job_posting_object.state.upper()
     assert int(job_posting.get('employee').get('id')) == user_employee.employee.id
+
+    match_status = job_posting.get('matchStatus')
+    assert match_status is None
+
+    match_hints = job_posting.get('matchHints')
+    assert match_hints is None
 
 
 @pytest.mark.django_db
@@ -201,3 +223,94 @@ def test_job_postings(query_job_postings, job_posting_objects, company_object, u
 
     assert job_postings is not None
     assert len(job_postings) == len(job_posting_objects) - 1
+
+
+@pytest.mark.django_db
+def test_job_posting_with_match_status_initiated_by_employee(login, query_job_posting, job_posting_object: JobPosting,
+                                                             user_employee, user_student):
+    job_posting_object.title = 'title'
+    job_posting_object.slug = 'title'
+    job_posting_object.form_step = 4
+    job_posting_object.state = JobPostingState.PUBLIC
+    job_posting_object.employee = user_employee.employee
+    job_posting_object.save()
+
+    Match.objects.create(job_posting=job_posting_object, student=user_student.student,
+                         initiator=user_employee.type, company_confirmed=True, student_confirmed=True)
+
+    login(user_student)
+    data, errors = query_job_posting(user_student, 'title')
+
+    assert errors is None
+    assert data is not None
+    job_posting = data.get('jobPosting')
+
+    match_status = job_posting.get('matchStatus')
+    assert match_status is not None
+    assert match_status.get('initiator') == user_employee.type.upper()
+    assert match_status.get('confirmed') is True
+
+    match_hints = job_posting.get('matchHints')
+    assert match_hints is not None
+    assert match_hints.get('hasConfirmedMatch') is True
+    assert match_hints.get('hasRequestedMatch') is False
+
+
+@pytest.mark.django_db
+def test_job_posting_with_match_status_initiated_by_student(login, query_job_posting, job_posting_object: JobPosting,
+                                                             user_employee, user_student):
+    job_posting_object.title = 'title'
+    job_posting_object.slug = 'title'
+    job_posting_object.form_step = 4
+    job_posting_object.state = JobPostingState.PUBLIC
+    job_posting_object.employee = user_employee.employee
+    job_posting_object.save()
+
+    Match.objects.create(job_posting=job_posting_object, student=user_student.student,
+                         initiator=user_student.type, student_confirmed=True)
+
+    login(user_student)
+    data, errors = query_job_posting(user_student, 'title')
+
+    assert errors is None
+    assert data is not None
+    job_posting = data.get('jobPosting')
+
+    match_status = job_posting.get('matchStatus')
+    assert match_status is not None
+    assert match_status.get('initiator') == user_student.type.upper()
+    assert match_status.get('confirmed') is False
+
+    match_hints = job_posting.get('matchHints')
+    assert match_hints is not None
+    assert match_hints.get('hasConfirmedMatch') is False
+    assert match_hints.get('hasRequestedMatch') is True
+
+
+@pytest.mark.django_db
+def test_job_posting_with_match_status_initiated_by_student_on_other_job_posting(
+        login, query_job_posting, job_posting_object: JobPosting, job_posting_object_2, user_employee, user_student):
+    job_posting_object.title = 'title'
+    job_posting_object.slug = 'title'
+    job_posting_object.form_step = 4
+    job_posting_object.state = JobPostingState.PUBLIC
+    job_posting_object.employee = user_employee.employee
+    job_posting_object.save()
+
+    Match.objects.create(job_posting=job_posting_object_2, student=user_student.student,
+                         initiator=user_student.type, student_confirmed=True)
+
+    login(user_student)
+    data, errors = query_job_posting(user_student, 'title')
+
+    assert errors is None
+    assert data is not None
+    job_posting = data.get('jobPosting')
+
+    match_status = job_posting.get('matchStatus')
+    assert match_status is None
+
+    match_hints = job_posting.get('matchHints')
+    assert match_hints is not None
+    assert match_hints.get('hasConfirmedMatch') is False
+    assert match_hints.get('hasRequestedMatch') is True

@@ -4,9 +4,9 @@ from graphql_auth import mutations
 from graphql_auth.mutations import Register
 from django.utils.translation import gettext_lazy as _
 
-from api.schema.company import CompanyInput
+from api.schema.company import RegisterCompanyInput
 from api.schema.employee import EmployeeInput
-from api.schema.student import StudentInput
+from api.schema.student import RegisterStudentInput
 from db.helper import generic_error_dict, get_company_slug
 from db.forms import CompanyForm, StudentForm, EmployeeForm, UniversityForm
 from db.models import Company, Student, Employee, ProfileType
@@ -15,7 +15,7 @@ from db.models import Company, Student, Employee, ProfileType
 class RegisterCompany(Register):
 
     class Arguments:
-        company = CompanyInput(description=_('Company is required.'), required=True)
+        company = RegisterCompanyInput(description=_('Company is required.'), required=True)
         employee = EmployeeInput(description=_('Employee is required.'), required=True)
 
     class Meta:
@@ -90,7 +90,7 @@ class RegisterCompany(Register):
 class RegisterStudent(Register):
 
     class Arguments:
-        student = StudentInput(description=_('Student is optional.'))
+        student = RegisterStudentInput(description=_('Student is optional.'))
 
     class Meta:
         description = _('Creates a new user as student')
