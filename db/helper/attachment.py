@@ -60,10 +60,3 @@ def get_company_or_student(user):
     if user.type in ProfileType.valid_student_types():
         return user.student
     return None
-
-
-def get_fallback_profile_image():
-    random_id = random.randint(1, settings.NUMBER_OF_RANDOM_PROFILE_IMAGES)
-    path = reverse('media_serve_image', args=[random_id, '--STACK--'])
-    path = path.replace('--STACK--', '{stack}')  # Workaround to avoid URL escaping
-    return f'{settings.BASE_URL}{path}'
