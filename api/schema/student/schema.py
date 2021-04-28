@@ -8,6 +8,7 @@ from graphql_auth.bases import Output
 from django.utils.translation import gettext as _
 from graphql_jwt.decorators import login_required
 
+from api.helper import retrieve_param_from_info
 from api.schema.branch import BranchInput
 from api.schema.cultural_fit import CulturalFitInput
 from api.schema.hobby import HobbyInput, Hobby
@@ -119,38 +120,7 @@ class Student(DjangoObjectType):
 
     # noinspection PyBroadException
     def resolve_match_status(self: StudentModel, info):
-        # try to retrieve job posting id parameter from operation
-        #
-        # query example:
-        # query
-        # {
-        #     student(slug: "{student-slug}", jobPostingId: {id}) {
-        #     .....
-        #     }
-        # }
-        try:
-            job_posting_id = info.operation.selection_set.selections[0].arguments[1].value.value
-        except Exception:
-            job_posting_id = None
-
-        # fallback if request was sent with variables
-        #
-        # query example:
-        # query($slug: String!, $jobPostingId: ID!) {
-        #     student(slug: $slug, jobPostingId: $jobPostingId) {
-        #     ....
-        #     }
-        # }
-        # with variables
-        # {
-        #     "slug": "{student-slug}",
-        #     "jobPostingId": {id}
-        # }
-        if job_posting_id is None:
-            try:
-                job_posting_id = info.variable_values.get('jobPostingId')
-            except Exception:
-                job_posting_id = None
+        job_posting_id = retrieve_param_from_info(info, 'jobPostingId', 1)
 
         # if the parameter is missing, no match status will be returned
         if job_posting_id is None:
