@@ -1,3 +1,5 @@
+import random
+
 from django.apps import apps
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
@@ -12,6 +14,7 @@ class AttachmentKey(models.TextChoices):
     STUDENT_DOCUMENTS = 'student_documents', _('Student Documents')
     COMPANY_AVATAR = 'company_avatar', _('Company Avatar')
     COMPANY_DOCUMENTS = 'company_documents', _('Company Documents')
+    AVATAR_FALLBACK = 'avatar_fallback', _('Avatar fallback')
 
     @classmethod
     def valid_student_keys(cls):
@@ -47,6 +50,14 @@ class Attachment(models.Model):
         else:
             path = reverse('attachment_serve', args=[self.pk])
         return f'{settings.BASE_URL}{path}'
+
+    @classmethod
+    def get_random_avatar(cls):
+        attachments = list(Attachment.objects.filter(key=AttachmentKey.AVATAR_FALLBACK))
+        if len(attachments) == 0:
+            return None
+        random.shuffle(attachments)
+        return attachments[0]
 
 
 def student_avatar_config():
