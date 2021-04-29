@@ -111,6 +111,13 @@ class AttachmentQuery(ObjectType):
         if not show:
             return []
 
+        if key in (AttachmentKey.STUDENT_AVATAR_FALLBACK, AttachmentKey.COMPANY_AVATAR_FALLBACK):
+            if is_student:
+                return [AttachmentModel.get_student_avatar_fallback(attachment_owner)]
+            if is_company:
+                return [AttachmentModel.get_company_avatar_fallback(attachment_owner)]
+            return []
+
         # get profile content type and id
         profile_content_type = attachment_owner.get_profile_content_type()
         profile_id = attachment_owner.get_profile_id()
