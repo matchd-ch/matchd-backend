@@ -1,5 +1,3 @@
-import random
-
 from django.apps import apps
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
@@ -52,12 +50,9 @@ class Attachment(models.Model):
         return f'{settings.BASE_URL}{path}'
 
     @classmethod
-    def get_random_avatar(cls):
-        attachments = list(Attachment.objects.filter(key=AttachmentKey.AVATAR_FALLBACK))
-        if len(attachments) == 0:
-            return None
-        random.shuffle(attachments)
-        return attachments[0]
+    def get_random_student_avatar(cls, student):
+        attachments = list(Attachment.objects.filter(key=AttachmentKey.AVATAR_FALLBACK).order_by('id'))
+        return attachments[(student.id % settings.NUMBER_OF_RANDOM_PROFILE_IMAGES) + 1]
 
 
 def student_avatar_config():

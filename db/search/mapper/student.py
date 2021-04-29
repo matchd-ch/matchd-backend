@@ -35,7 +35,7 @@ class StudentMatchMapper:
             attachment = attachment.absolute_url
         has_match = self.permission_map.get(student.id, None)
         if not has_match and (student.state == ProfileState.ANONYMOUS or attachment is None):
-            attachment = Attachment.get_random_avatar().absolute_url
+            attachment = Attachment.get_random_student_avatar(student).absolute_url
         return attachment
 
     def _get_name(self, student):

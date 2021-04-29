@@ -108,20 +108,14 @@ class AttachmentQuery(ObjectType):
         # check if the owner has a public profile or a match exists
         # if not, return an empty list
         show = has_access_to_attachments(user, attachment_owner, key)
-        if not show and key != AttachmentKey.STUDENT_AVATAR:
+        if not show:
             return []
-        elif not show and key == AttachmentKey.STUDENT_AVATAR:
-            return [AttachmentModel.get_random_avatar()]
 
         # get profile content type and id
         profile_content_type = attachment_owner.get_profile_content_type()
         profile_id = attachment_owner.get_profile_id()
-        attachments = AttachmentModel.objects.filter(
+        return AttachmentModel.objects.filter(
             key=key,
             content_type=profile_content_type,
             object_id=profile_id).\
             prefetch_related('content_object', 'attachment_object')
-
-        if len(attachments) == 0 and key == AttachmentKey.STUDENT_AVATAR:
-            attachments = [AttachmentModel.get_random_avatar()]
-        return attachments
