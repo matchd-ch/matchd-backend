@@ -12,7 +12,8 @@ class AttachmentKey(models.TextChoices):
     STUDENT_DOCUMENTS = 'student_documents', _('Student Documents')
     COMPANY_AVATAR = 'company_avatar', _('Company Avatar')
     COMPANY_DOCUMENTS = 'company_documents', _('Company Documents')
-    AVATAR_FALLBACK = 'avatar_fallback', _('Avatar fallback')
+    STUDENT_AVATAR_FALLBACK = 'student_avatar_fallback', _('Student Avatar fallback'),
+    COMPANY_AVATAR_FALLBACK = 'company_avatar_fallback', _('Company Avatar fallback')
 
     @classmethod
     def valid_student_keys(cls):
