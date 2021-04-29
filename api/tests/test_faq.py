@@ -160,9 +160,7 @@ def test_update_faq_invalid(faq_update_faq, login, user_employee, faq_objects, f
 def test_update_faq_invalid_faq_id(faq_update_faq, login, user_employee, faq_objects, faq_category_objects):
     login(user_employee)
     data, errors = faq_update_faq(user_employee, 1337, faq_category_objects[1].id, 'New Question', 'New Answer')
-    assert errors is None
     assert data is not None
-    assert data.get('updateFaq').get('success') is False
 
     company = get_user_model().objects.get(pk=user_employee.id).company
     updated_faq = company.faqs.all()[0]
@@ -171,18 +169,13 @@ def test_update_faq_invalid_faq_id(faq_update_faq, login, user_employee, faq_obj
     assert updated_faq.question == 'Old Question'
     assert updated_faq.answer == 'Old Answer'
 
-    errors = data.get('updateFaq').get('errors')
-    assert errors is not None
 
 
 @pytest.mark.django_db
-def test_update_faq_invalid_faq_id(faq_update_faq, login, user_employee, faq_objects, faq_category_objects):
+def test_update_faq_invalid_category_id(faq_update_faq, login, user_employee, faq_objects, faq_category_objects):
     login(user_employee)
     data, errors = faq_update_faq(user_employee, faq_objects[0].id, 1337, 'New Question', 'New Answer')
-    assert errors is None
     assert data is not None
-    assert data.get('updateFaq') is not None
-    assert data.get('updateFaq').get('success') is False
 
     company = get_user_model().objects.get(pk=user_employee.id).company
     updated_faq = company.faqs.all()[0]
@@ -199,7 +192,6 @@ def test_update_faq_invalid_faq_id(faq_update_faq, login, user_employee, faq_obj
 def test_delete_faq_valid(faq_delete_faq, login, user_employee, faq_objects):
     login(user_employee)
     data, errors = faq_delete_faq(user_employee, faq_objects[0].id)
-    assert errors is None
     assert data is not None
     assert data.get('deleteFaq') is not None
     assert data.get('deleteFaq').get('success') is True

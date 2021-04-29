@@ -1,7 +1,6 @@
 import graphene
 from graphene import ObjectType
 from graphene_django import DjangoObjectType
-from graphql_auth.settings import graphql_auth_settings
 
 from api.helper import is_faq_categories_query, retrieve_param_from_info
 from db.models import FAQCategory as FAQCategoryModel

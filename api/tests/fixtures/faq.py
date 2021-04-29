@@ -1,6 +1,5 @@
 import pytest
 
-from api.tests.fixtures import faq_category_objects, company_objects, company_object
 from db.models import FAQ
 
 
@@ -52,6 +51,7 @@ def delete_faq_mutation():
     '''
 
 
+# pylint: disable=W0621
 @pytest.fixture
 def faq_objects(faq_category_objects, company_object):
     return [
