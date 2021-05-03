@@ -25,8 +25,8 @@ class MatchHints(ObjectType):
 
 
 class MatchStatus(ObjectType):
-    confirmed = graphene.Boolean()
-    initiator = graphene.Field(ProfileType)
+    confirmed = graphene.NonNull(graphene.Boolean)
+    initiator = graphene.Field(graphene.NonNull(ProfileType))
 
 
 class MatchInfo(DjangoObjectType):
