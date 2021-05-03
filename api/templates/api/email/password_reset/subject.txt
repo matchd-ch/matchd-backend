@@ -1,1 +1,0 @@
-{{ email_subject_prefix }}MATCHD Password Reset

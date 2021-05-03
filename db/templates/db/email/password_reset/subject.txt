@@ -1,0 +1,1 @@
+{{ email_subject_prefix }}{% if user.type == 'company' %}Ihr{% elif user.type == 'university' %}Ihr{% else %}Dein{% endif %} Passwort Reset-Link für Matchd

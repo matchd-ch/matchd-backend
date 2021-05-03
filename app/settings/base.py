@@ -297,10 +297,10 @@ GRAPHQL_AUTH = {
     'EMAIL_FROM': DEFAULT_FROM_EMAIL,
     'ACTIVATION_PATH_ON_EMAIL': 'aktivierung',
     'PASSWORD_RESET_PATH_ON_EMAIL': 'passwort-reset',
-    'EMAIL_SUBJECT_ACTIVATION': 'api/email/activation/subject.txt',
-    'EMAIL_TEMPLATE_ACTIVATION': 'api/email/activation/body.html',
-    'EMAIL_SUBJECT_PASSWORD_RESET': 'api/email/password_reset/subject.txt',
-    'EMAIL_TEMPLATE_PASSWORD_RESET': 'api/email/password_reset/body.html',
+    'EMAIL_SUBJECT_ACTIVATION': 'db/email/activation/subject.txt',
+    'EMAIL_TEMPLATE_ACTIVATION': 'db/email/activation/body.html',
+    'EMAIL_SUBJECT_PASSWORD_RESET': 'db/email/password_reset/subject.txt',
+    'EMAIL_TEMPLATE_PASSWORD_RESET': 'db/email/password_reset/body.html',
     'EMAIL_TEMPLATE_VARIABLES': {
         'frontend_url': FRONTEND_URL,
         'email_subject_prefix': EMAIL_SUBJECT_PREFIX
