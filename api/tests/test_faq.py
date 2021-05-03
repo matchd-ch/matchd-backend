@@ -159,7 +159,7 @@ def test_update_faq_invalid(faq_update_faq, login, user_employee, faq_objects, f
 @pytest.mark.django_db
 def test_update_faq_invalid_faq_id(faq_update_faq, login, user_employee, faq_objects, faq_category_objects):
     login(user_employee)
-    data, errors = faq_update_faq(user_employee, 1337, faq_category_objects[1].id, 'New Question', 'New Answer')
+    data = faq_update_faq(user_employee, 1337, faq_category_objects[1].id, 'New Question', 'New Answer')
     assert data is not None
 
     company = get_user_model().objects.get(pk=user_employee.id).company
