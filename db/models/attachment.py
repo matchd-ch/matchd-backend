@@ -55,12 +55,12 @@ class Attachment(models.Model):
     @classmethod
     def get_student_avatar_fallback(cls, student):
         attachments = list(Attachment.objects.filter(key=AttachmentKey.STUDENT_AVATAR_FALLBACK).order_by('id'))
-        return attachments[(student.id % settings.NUMBER_OF_STUDENT_AVATAR_FALLBACK_IMAGES) + 1]
+        return attachments[student.id % (settings.NUMBER_OF_STUDENT_AVATAR_FALLBACK_IMAGES - 1)]
 
     @classmethod
     def get_company_avatar_fallback(cls, company):
         attachments = list(Attachment.objects.filter(key=AttachmentKey.COMPANY_AVATAR_FALLBACK).order_by('id'))
-        return attachments[(company.id % settings.NUMBER_OF_COMPANY_AVATAR_FALLBACK_IMAGES) + 1]
+        return attachments[company.id % (settings.NUMBER_OF_COMPANY_AVATAR_FALLBACK_IMAGES - 1)]
 
 
 def student_avatar_config():
