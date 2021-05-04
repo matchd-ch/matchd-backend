@@ -5,14 +5,14 @@ from django.core import management
 
 from db.models import JobPostingState, ProfileState, JobPostingLanguageRelation, UserLanguageRelation, Match
 
+
 # pylint: disable=R0913
 # pylint: disable=R0915
-
-
 @pytest.mark.django_db
 def test_student_matching(job_posting_object, skill_objects, branch_objects, job_type_objects_date_range,
-                              user_employee, soft_skill_objects, cultural_fit_objects, user_student, user_student_2,
-                              student_matching, login, language_objects, language_level_objects):
+                          user_employee, soft_skill_objects, cultural_fit_objects, user_student, user_student_2,
+                          student_matching, login, language_objects, language_level_objects,
+                          student_fallback_images):
 
     branch = branch_objects[0]
     job_type = job_type_objects_date_range[0]

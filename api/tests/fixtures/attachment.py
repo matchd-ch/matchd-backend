@@ -1,12 +1,14 @@
 import json
 import os
+import shutil
 
 import pytest
 from django.conf import settings
+from django.contrib.contenttypes.models import ContentType
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import Client
 
-from db.models import Attachment
+from db.models import Attachment, Image, AttachmentKey
 
 
 def attachments_by_slug_query(slug):
@@ -138,3 +140,49 @@ def delete_attachment(execute):
     def closure(user, attachment_id):
         return execute(delete_attachment_mutation(attachment_id), **{'user': user})
     return closure
+
+
+@pytest.fixture
+def company_fallback_images(user_employee):
+    image_content_type = ContentType.objects.get(app_label='db', model='image')
+
+    source_image_path = os.path.join(settings.BASE_DIR, 'api', 'tests', 'fixtures', 'media', 'image.jpg')
+    destination_image_path = os.path.join(settings.MEDIA_ROOT, 'company_image.jpg')
+    shutil.copy(source_image_path, destination_image_path)
+
+    image = Image.objects.create(file='company_image.jpg')
+    Attachment.objects.create(key=AttachmentKey.COMPANY_AVATAR_FALLBACK, object_id=user_employee.get_profile_id(),
+                              content_type=user_employee.get_profile_content_type(), attachment_id=image.id,
+                              attachment_type=image_content_type)
+
+    source_image_path = os.path.join(settings.BASE_DIR, 'api', 'tests', 'fixtures', 'media', 'image.jpg')
+    destination_image_path = os.path.join(settings.MEDIA_ROOT, 'company_image_2.jpg')
+    shutil.copy(source_image_path, destination_image_path)
+
+    image = Image.objects.create(file='company_image_2.jpg')
+    Attachment.objects.create(key=AttachmentKey.COMPANY_AVATAR_FALLBACK, object_id=user_employee.get_profile_id(),
+                              content_type=user_employee.get_profile_content_type(), attachment_id=image.id,
+                              attachment_type=image_content_type)
+
+
+@pytest.fixture
+def student_fallback_images(user_student):
+    image_content_type = ContentType.objects.get(app_label='db', model='image')
+
+    source_image_path = os.path.join(settings.BASE_DIR, 'api', 'tests', 'fixtures', 'media', 'image.jpg')
+    destination_image_path = os.path.join(settings.MEDIA_ROOT, 'student_image.jpg')
+    shutil.copy(source_image_path, destination_image_path)
+    image = Image.objects.create(file='student_image.jpg')
+
+    Attachment.objects.create(key=AttachmentKey.COMPANY_AVATAR_FALLBACK, object_id=user_student.get_profile_id(),
+                              content_type=user_student.get_profile_content_type(), attachment_id=image.id,
+                              attachment_type=image_content_type)
+
+    source_image_path = os.path.join(settings.BASE_DIR, 'api', 'tests', 'fixtures', 'media', 'image.jpg')
+    destination_image_path = os.path.join(settings.MEDIA_ROOT, 'student_image_2.jpg')
+    shutil.copy(source_image_path, destination_image_path)
+    image = Image.objects.create(file='student_image_2.jpg')
+
+    Attachment.objects.create(key=AttachmentKey.COMPANY_AVATAR_FALLBACK, object_id=user_student.get_profile_id(),
+                              content_type=user_student.get_profile_content_type(), attachment_id=image.id,
+                              attachment_type=image_content_type)
