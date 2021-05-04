@@ -183,6 +183,6 @@ def student_fallback_images(user_student):
     shutil.copy(source_image_path, destination_image_path)
     image = Image.objects.create(file='student_image_2.jpg')
 
-    Attachment.objects.create(key=AttachmentKey.COMPANY_AVATAR_FALLBACK, object_id=user_student.get_profile_id(),
+    Attachment.objects.create(key=AttachmentKey.STUDENT_AVATAR_FALLBACK, object_id=user_student.get_profile_id(),
                               content_type=user_student.get_profile_content_type(), attachment_id=image.id,
                               attachment_type=image_content_type)
