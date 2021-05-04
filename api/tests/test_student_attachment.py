@@ -4,8 +4,6 @@ from db.models import AttachmentKey, ProfileState, Match
 
 
 # pylint: disable=R0913
-
-
 @pytest.mark.django_db
 def test_incomplete_attachments(login, user_student, upload, file_image_jpg, attachments_for_user, logout,
                                 user_employee, query_attachments_for_slug):
@@ -25,6 +23,7 @@ def test_incomplete_attachments(login, user_student, upload, file_image_jpg, att
     assert errors is None
     assert data is not None
     assert len(data.get('studentAvatar')) == 1
+    assert len(data.get('studentAvatarFallback')) == 1
 
     logout()
     login(user_employee)
@@ -33,6 +32,7 @@ def test_incomplete_attachments(login, user_student, upload, file_image_jpg, att
     assert errors is None
     assert data is not None
     assert len(data.get('studentAvatar')) == 0
+    assert len(data.get('studentAvatarFallback')) == 1
 
 
 @pytest.mark.django_db
@@ -54,6 +54,7 @@ def test_anonymous_attachments(login, user_student, upload, file_image_jpg, atta
     assert errors is None
     assert data is not None
     assert len(data.get('studentAvatar')) == 1
+    assert len(data.get('studentAvatarFallback')) == 1
 
     logout()
     login(user_employee)
@@ -62,6 +63,7 @@ def test_anonymous_attachments(login, user_student, upload, file_image_jpg, atta
     assert errors is None
     assert data is not None
     assert len(data.get('studentAvatar')) == 0
+    assert len(data.get('studentAvatarFallback')) == 1
 
 
 @pytest.mark.django_db
@@ -83,6 +85,7 @@ def test_public_attachments(login, user_student, upload, file_image_jpg, attachm
     assert errors is None
     assert data is not None
     assert len(data.get('studentAvatar')) == 1
+    assert len(data.get('studentAvatarFallback')) == 1
 
     logout()
     login(user_employee)
@@ -91,6 +94,7 @@ def test_public_attachments(login, user_student, upload, file_image_jpg, attachm
     assert errors is None
     assert data is not None
     assert len(data.get('studentAvatar')) == 1
+    assert len(data.get('studentAvatarFallback')) == 1
 
 
 @pytest.mark.django_db

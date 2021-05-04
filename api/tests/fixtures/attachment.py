@@ -21,6 +21,14 @@ def attachments_by_slug_query(slug):
             fileSize
             fileName
           }
+          
+        companyAvatarFallback: attachments (key:COMPANY_AVATAR_FALLBACK, slug: "%s") {
+            id
+            url
+            mimeType
+            fileSize
+            fileName
+          }
 
         companyDocuments: attachments (key:COMPANY_DOCUMENTS, slug: "%s") {
             id
@@ -37,6 +45,14 @@ def attachments_by_slug_query(slug):
             fileSize
             fileName
         }
+        
+        studentAvatarFallback: attachments (key:STUDENT_AVATAR_FALLBACK, slug: "%s") {
+            id
+            url
+            mimeType
+            fileSize
+            fileName
+        }
 
         studentDocuments: attachments (key:STUDENT_DOCUMENTS, slug: "%s") {
             id
@@ -46,7 +62,7 @@ def attachments_by_slug_query(slug):
             fileName
         }
     }
-    ''' % (slug, slug, slug, slug)
+    ''' % (slug, slug, slug, slug, slug, slug)
 
 
 @pytest.fixture
@@ -142,7 +158,8 @@ def delete_attachment(execute):
     return closure
 
 
-@pytest.fixture
+@pytest.mark.django_db
+@pytest.fixture(autouse=True)
 def company_fallback_images(user_employee):
     image_content_type = ContentType.objects.get(app_label='db', model='image')
 
@@ -165,7 +182,8 @@ def company_fallback_images(user_employee):
                               attachment_type=image_content_type)
 
 
-@pytest.fixture
+@pytest.mark.django_db
+@pytest.fixture(autouse=True)
 def student_fallback_images(user_student):
     image_content_type = ContentType.objects.get(app_label='db', model='image')
 
