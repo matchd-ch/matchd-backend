@@ -23,7 +23,8 @@ if [[ -z "${ENVIRONMENT}" ||
       -z "${DJANGO_EMAIL_PORT}" ||
       -z "${DJANGO_EMAIL_HOST_USER}" ||
       -z "${DJANGO_EMAIL_HOST_PASSWORD}" ||
-      -z "${DJANGO_EMAIL_SUBJECT_PREFIX}" ]]
+      -z "${DJANGO_EMAIL_SUBJECT_PREFIX}"||
+      -z "${DATA_PROTECTION_URL}"]]
 then
     echo "ERROR: A required environment variable is not set" >&2
     echo " " >&2
@@ -106,6 +107,7 @@ echo "DJANGO_EMAIL_HOST_PASSWORD=${DJANGO_EMAIL_HOST_PASSWORD}" >> $DOTENV
 echo "DJANGO_EMAIL_SUBJECT_PREFIX=\"${DJANGO_EMAIL_SUBJECT_PREFIX}\"" >> $DOTENV
 echo "TRAEFIK_ROUTER_NAME=${TRAEFIK_ROUTER_NAME}" >> $DOTENV
 echo "API_NETWORK_ALIAS=api-${ENVIRONMENT}" >> $DOTENV
+echo "DATA_PROTECTION_URL=\"${DATA_PROTECTION_URL}\"" >> $DOTENV
 
 cd .oriented
 

@@ -1,6 +1,4 @@
-<p>Hey, {{ user.first_name }}</p>
-<p>https://{{ frontend_url }}/{{ path }}/{{ token }}</p>
-{#Activation-E-mail for student#}
+{# Activation-E-mail for student #}
 {% if user.type == 'student' %}
     <p>Hey, {{ user.first_name }}</p>
     <p>Nur noch 1 Klick und du bist Teil der Matchd-Community. Click, click hurray, das ist
@@ -8,11 +6,11 @@
         und weiter gehts mit Matchen.</p>
     <p>Let’s match!</p>
     <p>Der Schutz deiner Daten ist uns wichtig. Mit der Angabe deiner E-Mail-Adresse akzeptierst du die
-        <a href="">Datenschutzerklärung</a>
+        <a href="{{ data_protection_url }}">Datenschutzerklärung</a>
         des Vereins IT St.Gallen («IT rockt!»), dem Anbieter von Matchd.</p>
 {% endif %}
 
-{#Activation-E-mail for Company#}
+{# Activation-E-mail for Company #}
 {% if user.type == 'company' or user.type == 'university' %}
     <p>Guten Tag</p>
     <p>Nur noch 1 Klick und Sie sind Teil der Matchd-Community. Aktivieren Sie jetzt
@@ -20,6 +18,6 @@
         und tauchen Sie ein in den Matchd-Talentpool.</p>
     <p>Ihr Matchd-Team </p>
     <p>Datenschutz ist uns wichtig. Mit der Angabe Ihrer E-Mail-Adresse akzeptieren Sie die
-        <a href="">Datenschutzerklärung</a>
+        <a href="{{ data_protection_url }}">Datenschutzerklärung</a>
         des Vereins IT St.Gallen («IT rockt!»), dem Anbieter von Matchd.</p>
 {% endif %}

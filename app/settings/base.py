@@ -184,6 +184,8 @@ FRONTEND_URL = os.getenv('FRONTEND_URL', '')
 STUDENT_PROFILE_URL = '/talente/'
 JOB_POSTING_URL = '/stellen/'
 
+# DATA PROTECTION
+DATA_PROTECTION_URL = os.getenv('DATA_PROTECTION_URL', '')
 
 # Wagtail settings
 
@@ -303,7 +305,9 @@ GRAPHQL_AUTH = {
     'EMAIL_TEMPLATE_PASSWORD_RESET': 'db/email/password_reset/body.html',
     'EMAIL_TEMPLATE_VARIABLES': {
         'frontend_url': FRONTEND_URL,
-        'email_subject_prefix': EMAIL_SUBJECT_PREFIX
+        'frontend_url_protocol': FRONTEND_URL_PROTOCOL,
+        'email_subject_prefix': EMAIL_SUBJECT_PREFIX,
+        'data_protection_url': DATA_PROTECTION_URL
     },
     'USER_NODE_EXCLUDE_FIELDS': ['password', 'is_superuser', 'is_staff', 'last_login', 'is_active', 'date_joined'],
     'REGISTER_MUTATION_FIELDS': ['email', 'username', 'first_name', 'last_name', 'type'],
