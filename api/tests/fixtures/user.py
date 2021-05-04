@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 @pytest.fixture
 def get_user():
     def closure(username, password, verified, user_type, company=None):
+        # pylint: disable=W0612
         user, created = get_user_model().objects.get_or_create(
             username=username,
             email=username,
