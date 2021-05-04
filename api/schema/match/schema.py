@@ -100,7 +100,7 @@ class MatchStudentInput(graphene.InputObjectType):
 
 class MatchStudent(Output, graphene.Mutation):
 
-    confirmed = graphene.Boolean(default_value=False)
+    confirmed = graphene.NonNull(graphene.Boolean)
 
     class Arguments:
         match = MatchStudentInput(description=_('MatchInput'), required=True)
@@ -115,7 +115,7 @@ class MatchStudent(Output, graphene.Mutation):
         try:
             match_obj = process_student_match(user, data.get('match'))
         except FormException as exception:
-            return MatchStudent(success=False, errors=exception.errors)
+            return MatchStudent(success=False, errors=exception.errors, confirmed=False)
         return MatchStudent(success=True, errors=None, confirmed=match_obj.complete)
 
 
@@ -125,7 +125,7 @@ class MatchJobPostingInput(graphene.InputObjectType):
 
 class MatchJobPosting(Output, graphene.Mutation):
 
-    confirmed = graphene.Boolean(default_value=False)
+    confirmed = graphene.NonNull(graphene.Boolean)
 
     class Arguments:
         match = MatchJobPostingInput(description=_('MatchInput'), required=True)
@@ -140,7 +140,7 @@ class MatchJobPosting(Output, graphene.Mutation):
         try:
             match_obj = process_job_posting_match(user, data.get('match'))
         except FormException as exception:
-            return MatchJobPosting(success=False, errors=exception.errors)
+            return MatchJobPosting(success=False, errors=exception.errors, confirmed=False)
         return MatchJobPosting(success=True, errors=None, confirmed=match_obj.complete)
 
 
