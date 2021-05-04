@@ -26,6 +26,7 @@ class Media:
             if not os.path.exists(destination_path):
                 shutil.copy(source_path, destination_path)
 
+            # pylint: disable=W0612
             image, created = Image.objects.get_or_create(file=os.path.join('random', image_name))
             image.uploaded_by_user = admin_user
             image.mime_type = 'image/png'
