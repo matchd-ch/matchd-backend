@@ -1,9 +1,7 @@
 {# Password-Reset-E-mail for student #}
 {% if user.type == 'student' %}
     <p>Hey, {{ user.first_name }}</p>
-    <p>Passwort vergessen? Macht nichts, das passiert uns allen.
-        Hol dir <a href="https://{{ frontend_url }}/{{ path }}/{{ token }}">dein neues Passwort</a>
-        und weiter gehts mit Matchen.</p>
+    <p>Passwort vergessen? Macht nichts, das passiert uns allen. Hol dir <a href="https://{{ frontend_url }}/{{ path }}/{{ token }}">dein neues Passwort</a> und weiter gehts mit Matchen.</p>
     <p>Bis bald! <br>
         Dein Matchd-Team</p>
 {% endif %}
@@ -11,9 +9,7 @@
 {# Password-Reset-E-Mail for Company #}
 {% if user.type == 'company' or user.type == 'university' %}
     <p>Guten Tag</p>
-    <p>Sie haben Ihr Passwort vergessen? Erstellen Sie gleich jetzt
-        <a href="https://{{ frontend_url }}/{{ path }}/{{ token }}">Ihr neues Passwort </a>
-        und weiter gehts mit Matchen.</p>
+    <p>Sie haben Ihr Passwort vergessen? Erstellen Sie gleich jetzt <a href="https://{{ frontend_url }}/{{ path }}/{{ token }}">Ihr neues Passwort </a>und weiter gehts mit Matchen.</p>
     <p>Bis bald! <br>
         Dein Matchd-Team</p>
 {% endif %}

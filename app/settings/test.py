@@ -20,6 +20,10 @@ USER_REQUEST_FORM_RECIPIENTS = [
 ]
 
 GRAPHQL_AUTH['EMAIL_TEMPLATE_VARIABLES']['email_subject_prefix'] = EMAIL_SUBJECT_PREFIX
+GRAPHQL_AUTH['EMAIL_SUBJECT_ACTIVATION'] = 'db/tests/email/activation/subject.txt'
+GRAPHQL_AUTH['EMAIL_TEMPLATE_ACTIVATION'] = 'db/tests/email/activation/body.html'
+GRAPHQL_AUTH['EMAIL_SUBJECT_PASSWORD_RESET'] = 'db/tests/email/password_reset/subject.txt'
+GRAPHQL_AUTH['EMAIL_TEMPLATE_PASSWORD_RESET'] = 'db/tests/email/password_reset/body.html'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media_test')
 MEDIA_URL = '/media_test/'
