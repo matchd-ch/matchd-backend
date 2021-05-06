@@ -24,7 +24,7 @@ if [[ -z "${ENVIRONMENT}" ||
       -z "${DJANGO_EMAIL_HOST_USER}" ||
       -z "${DJANGO_EMAIL_HOST_PASSWORD}" ||
       -z "${DJANGO_EMAIL_SUBJECT_PREFIX}" ||
-      -z "${DATA_PROTECTION_URL}"]]
+      -z "${DATA_PROTECTION_URL}" ]]
 then
     echo "ERROR: A required environment variable is not set" >&2
     echo " " >&2
