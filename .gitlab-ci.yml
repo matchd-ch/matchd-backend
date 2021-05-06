@@ -92,6 +92,7 @@ build:development:
     - test
   only:
     - develop
+    - feature/MATCHD-65
   resource_group: development
 
 build:integration:
