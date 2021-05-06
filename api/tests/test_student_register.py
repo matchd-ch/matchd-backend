@@ -37,7 +37,7 @@ def test_register_student(register_student, verification_url_and_token, verify_a
     assert token is not None
 
     data_protection_url = data_protection_url(activation_email)
-    assert 'app.matchd.lo/datenschutz' == data_protection_url
+    assert settings.DATA_PROTECTION_URL == data_protection_url
 
     data, errors = verify_account(token)
     assert errors is None
