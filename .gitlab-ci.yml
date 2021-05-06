@@ -92,7 +92,6 @@ build:development:
     - test
   only:
     - develop
-    - feature/MATCHD-65
   resource_group: development
 
 build:integration:
@@ -165,7 +164,6 @@ deploy:development:
     DATA_PROTECTION_URL: $DEVELOPMENT_DATA_PROTECTION_URL
   only:
     - develop
-    - feature/MATCHD-65
   tags:
     - matchd
     - development
