@@ -35,10 +35,14 @@ class JobPostingFormStep1(forms.Form):
         super().__init__(data=data, **kwargs)
 
 
+# noinspection PyBroadException
 def validate_html_url(url):
-    response = requests.head(url)
-    content_type = response.headers.get('Content-Type')
-    return 'text/html' in content_type
+    try:
+        response = requests.head(url)
+        content_type = response.headers.get('Content-Type')
+        return 'text/html' in content_type
+    except Exception:
+        return False
 
 
 def process_job_posting_form_step_1(user, data):
