@@ -14,7 +14,7 @@ from db.models import JobPostingState, ProfileState, JobPostingLanguageRelation,
 def test_job_posting_matching(job_posting_object, job_posting_object_2, skill_objects, branch_objects,
                               job_type_objects_date_range, user_employee, soft_skill_objects, cultural_fit_objects,
                               user_student, job_posting_matching, login, language_objects, language_level_objects,
-                              user_employee_2):
+                              user_employee_2, company_fallback_images):
     branch = branch_objects[0]
     job_type = job_type_objects_date_range[0]
     language = language_objects[0]
