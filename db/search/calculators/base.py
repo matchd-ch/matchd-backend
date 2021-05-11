@@ -4,6 +4,8 @@ class BaseScoreCalculator:
     def __init__(self, hits, languages, soft_boost, tech_boost):
         self.hits = hits
         self.languages = languages
+        if self.languages is None:
+            self.languages = []
         self.soft_boost = soft_boost
         self.tech_boost = tech_boost
         self.language_level_map = {}

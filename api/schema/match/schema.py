@@ -14,7 +14,7 @@ from api.schema.job_type import JobTypeInput
 from db.exceptions import FormException
 from db.forms import process_job_posting_match, process_student_match
 from db.models import MatchType as MatchTypeModel, Match as MatchModel
-from db.search.matching import JobPostingMatching, StudentMatching
+from db.search.matching import JobPostingMatching, StudentMatching, CompanyMatching
 
 MatchType = graphene.Enum.from_enum(MatchTypeModel)
 
@@ -25,8 +25,8 @@ class MatchHints(ObjectType):
 
 
 class MatchStatus(ObjectType):
-    confirmed = graphene.Boolean()
-    initiator = graphene.Field(ProfileType)
+    confirmed = graphene.NonNull(graphene.Boolean)
+    initiator = graphene.Field(graphene.NonNull(ProfileType))
 
 
 class MatchInfo(DjangoObjectType):
@@ -88,7 +88,9 @@ class MatchQuery(ObjectType):
         if student_matching is not None:
             matching = StudentMatching(user, student_matching, first, skip, tech_boost, soft_boost)
             return matching.find_matches()
-        return []
+
+        matching = CompanyMatching(user, first, skip, tech_boost, soft_boost)
+        return matching.find_matches()
 
 
 class MatchStudentInput(graphene.InputObjectType):
@@ -98,7 +100,7 @@ class MatchStudentInput(graphene.InputObjectType):
 
 class MatchStudent(Output, graphene.Mutation):
 
-    confirmed = graphene.Boolean(default_value=False)
+    confirmed = graphene.NonNull(graphene.Boolean)
 
     class Arguments:
         match = MatchStudentInput(description=_('MatchInput'), required=True)
@@ -113,7 +115,7 @@ class MatchStudent(Output, graphene.Mutation):
         try:
             match_obj = process_student_match(user, data.get('match'))
         except FormException as exception:
-            return MatchStudent(success=False, errors=exception.errors)
+            return MatchStudent(success=False, errors=exception.errors, confirmed=False)
         return MatchStudent(success=True, errors=None, confirmed=match_obj.complete)
 
 
@@ -123,7 +125,7 @@ class MatchJobPostingInput(graphene.InputObjectType):
 
 class MatchJobPosting(Output, graphene.Mutation):
 
-    confirmed = graphene.Boolean(default_value=False)
+    confirmed = graphene.NonNull(graphene.Boolean)
 
     class Arguments:
         match = MatchJobPostingInput(description=_('MatchInput'), required=True)
@@ -138,7 +140,7 @@ class MatchJobPosting(Output, graphene.Mutation):
         try:
             match_obj = process_job_posting_match(user, data.get('match'))
         except FormException as exception:
-            return MatchJobPosting(success=False, errors=exception.errors)
+            return MatchJobPosting(success=False, errors=exception.errors, confirmed=False)
         return MatchJobPosting(success=True, errors=None, confirmed=match_obj.complete)
 
 
