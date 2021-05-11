@@ -62,8 +62,8 @@ def reset_url_and_token():
 @pytest.fixture
 def data_protection_url():
     def closure(email):
-        reset_url = email.body.split('\n')[-1]
-        return reset_url
+        data_protection_url = email.body.split('\n')[-1]
+        return data_protection_url
     return closure
 
 
