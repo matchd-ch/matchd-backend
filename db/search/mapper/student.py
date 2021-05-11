@@ -9,6 +9,7 @@ class StudentMatchMapper:
         self.job_posting = job_posting
         self.attachment_map = {}
         self.matches_map = {}
+        self.permission_map = {}
         self._prefetch_attachments()
         self._prefetch_matches()
 
@@ -25,18 +26,22 @@ class StudentMatchMapper:
         matches = Match.objects.filter(job_posting=self.job_posting, student_id__in=self.student_ids)
         for match in matches:
             self.matches_map[match.student.id] = match
+            if match.student_confirmed:
+                self.permission_map[match.student.id] = match
 
     def _get_attachment(self, student):
         attachment = self.attachment_map.get(student.id, None)
         if attachment is not None:
             attachment = attachment.absolute_url
-        if student.state == ProfileState.ANONYMOUS:
-            attachment = None
+        has_match = self.permission_map.get(student.id, None)
+        if not has_match and (student.state == ProfileState.ANONYMOUS or attachment is None):
+            attachment = Attachment.get_student_avatar_fallback(student).absolute_url
         return attachment
 
     def _get_name(self, student):
         name = '%s %s' % (student.user.first_name, student.user.last_name)
-        if student.state == ProfileState.ANONYMOUS:
+        has_match = self.permission_map.get(student.id, None)
+        if not has_match and student.state == ProfileState.ANONYMOUS:
             name = student.nickname
         return name
 
