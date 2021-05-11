@@ -11,7 +11,7 @@ from db.models import ProfileState, Match, JobPostingState
 # pylint: disable=R0915
 @pytest.mark.django_db
 def test_match_company(user_student, company_matching, soft_skill_objects, cultural_fit_objects, user_employee,
-                       user_employee_2, branch_objects, job_posting_object):
+                       user_employee_2, branch_objects, job_posting_object, company_fallback_images):
     user_student.student.branch = branch_objects[0]
     user_student.student.job_from_date = convert_date('2021-08-01', '%Y-%m-%d')
     user_student.student.job_to_date = convert_date('2022-07-31', '%Y-%m-%d')
