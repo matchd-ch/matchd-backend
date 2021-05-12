@@ -1,2 +1,3 @@
 {% load i18n %}
-{% trans 'Vielen Dank für deine Nachricht auf Matchd. Hier findest du die Kopie deiner Message:' %}: {{ message }}
+{% trans 'Vielen Dank für deine Nachricht auf Matchd. Hier findest du die Kopie deiner Message:' %}
+{{ message }}
