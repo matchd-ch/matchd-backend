@@ -7,7 +7,7 @@ from db.models import ProfileType, ProfileState
 
 
 @pytest.mark.django_db
-def test_register_student(register_student, verification_url_and_token, verify_account):
+def test_register_student(register_student, verification_url_and_token, verify_account, data_protection_url):
     username = 'student-register@matchd.test'
     data, errors = register_student(username, 'John', 'Doe', '+41791234567')
     assert errors is None
@@ -35,6 +35,9 @@ def test_register_student(register_student, verification_url_and_token, verify_a
     verification_path = settings.GRAPHQL_AUTH.get('ACTIVATION_PATH_ON_EMAIL')
     assert f'https://{settings.FRONTEND_URL}/{verification_path}/' in verification_url
     assert token is not None
+
+    data_protection_url = data_protection_url(activation_email)
+    assert settings.DATA_PROTECTION_URL == data_protection_url
 
     data, errors = verify_account(token)
     assert errors is None
