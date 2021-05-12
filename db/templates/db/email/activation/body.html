@@ -1,0 +1,16 @@
+{# Activation-E-mail for student #}
+{% if user.type == 'student' %}
+    <p>Hey, {{ user.first_name }}</p>
+    <p>Nur noch 1 Klick und du bist Teil der Matchd-Community. Click, click hurray, das ist <a href="https://{{ frontend_url }}/{{ path }}/{{ token }}">dein Aktivierungs-Link.</a></p>
+    <p>Let’s match und bis bald!</p>
+    <p>Der Schutz deiner Daten ist uns wichtig. Mit der Angabe deiner E-Mail-Adresse akzeptierst du die <a href="{{ data_protection_url }}">Datenschutzerklärung</a> des Vereins IT St.Gallen («IT rockt!»), dem Anbieter von Matchd.</p>
+{% endif %}
+
+{# Activation-E-mail for Company #}
+{% if user.type == 'company' or user.type == 'university' %}
+    <p>Guten Tag</p>
+    <p>Nur noch 1 Klick und Sie sind Teil der Matchd-Community. Aktivieren Sie jetzt <a href="https://{{ frontend_url }}/{{ path }}/{{ token }}">Ihr Profil </a>und tauchen Sie ein in den Matchd-Talentpool.</p>
+    <p>Wir sind gespannt auf Ihren ersten Match und wünschen viel Spass auf Ihrer Entdeckungsreise.</p>
+    <p>Ihr Matchd-Team </p>
+    <p>Datenschutz ist uns wichtig. Mit der Angabe Ihrer E-Mail-Adresse akzeptieren Sie die <a href="{{ data_protection_url }}">Datenschutzerklärung </a>des Vereins IT St.Gallen («IT rockt!»), dem Anbieter von Matchd.</p>
+{% endif %}

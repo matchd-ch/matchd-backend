@@ -59,6 +59,14 @@ def reset_url_and_token():
     return closure
 
 
+@pytest.fixture
+def data_protection_url():
+    def closure(email):
+        data_protection_url = email.body.split('\n')[-1]
+        return data_protection_url
+    return closure
+
+
 def send_password_reset_mail_mutation(username):
     return '''
     mutation sendPasswordResetEmail {
