@@ -195,7 +195,7 @@ def user_student_full_profile(user_student, branch_objects, job_type_objects, sk
 def user_student_2(get_user, default_password):
     username = 'student2@matchd.test'
     user = get_user(username, default_password, True, ProfileType.STUDENT)
-    Student.objects.create(user=user)
+    Student.objects.get_or_create(user=user)
     return user
 
 
@@ -203,5 +203,5 @@ def user_student_2(get_user, default_password):
 def user_student_not_verified(get_user, default_password):
     username = 'student@matchd.test'
     user = get_user(username, default_password, False, ProfileType.STUDENT)
-    Student.objects.create(user=user)
+    Student.objects.get_or_create(user=user)
     return user

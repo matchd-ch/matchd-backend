@@ -184,6 +184,8 @@ FRONTEND_URL = os.getenv('FRONTEND_URL', '')
 STUDENT_PROFILE_URL = '/talente/'
 JOB_POSTING_URL = '/stellen/'
 
+# DATA PROTECTION
+DATA_PROTECTION_URL = os.getenv('DATA_PROTECTION_URL', '')
 
 # Wagtail settings
 
@@ -297,13 +299,15 @@ GRAPHQL_AUTH = {
     'EMAIL_FROM': DEFAULT_FROM_EMAIL,
     'ACTIVATION_PATH_ON_EMAIL': 'aktivierung',
     'PASSWORD_RESET_PATH_ON_EMAIL': 'passwort-reset',
-    'EMAIL_SUBJECT_ACTIVATION': 'api/email/activation/subject.txt',
-    'EMAIL_TEMPLATE_ACTIVATION': 'api/email/activation/body.html',
-    'EMAIL_SUBJECT_PASSWORD_RESET': 'api/email/password_reset/subject.txt',
-    'EMAIL_TEMPLATE_PASSWORD_RESET': 'api/email/password_reset/body.html',
+    'EMAIL_SUBJECT_ACTIVATION': 'db/email/activation/subject.txt',
+    'EMAIL_TEMPLATE_ACTIVATION': 'db/email/activation/body.html',
+    'EMAIL_SUBJECT_PASSWORD_RESET': 'db/email/password_reset/subject.txt',
+    'EMAIL_TEMPLATE_PASSWORD_RESET': 'db/email/password_reset/body.html',
     'EMAIL_TEMPLATE_VARIABLES': {
         'frontend_url': FRONTEND_URL,
-        'email_subject_prefix': EMAIL_SUBJECT_PREFIX
+        'frontend_url_protocol': FRONTEND_URL_PROTOCOL,
+        'email_subject_prefix': EMAIL_SUBJECT_PREFIX,
+        'data_protection_url': DATA_PROTECTION_URL
     },
     'USER_NODE_EXCLUDE_FIELDS': ['password', 'is_superuser', 'is_staff', 'last_login', 'is_active', 'date_joined'],
     'REGISTER_MUTATION_FIELDS': ['email', 'username', 'first_name', 'last_name', 'type'],
@@ -328,3 +332,8 @@ MATCHING_VALUE_DATE_OR_DATE_RANGE = 5
 
 MATCHING_VALUE_DATE_OR_DATE_RANGE_PRECISION = [0]  # , 2, 6]
 MATCHING_VALUE_WORKLOAD_PRECISION = [0]  # , 10, 20]
+
+DASHBOARD_STUDENT_NUM_JOB_POSTINGS = 5
+
+NUMBER_OF_STUDENT_AVATAR_FALLBACK_IMAGES = 5
+NUMBER_OF_COMPANY_AVATAR_FALLBACK_IMAGES = 5

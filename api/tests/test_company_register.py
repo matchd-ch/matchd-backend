@@ -7,7 +7,7 @@ from db.models import ProfileType, ProfileState, Company
 
 
 @pytest.mark.django_db
-def test_register_company(register_company, verification_url_and_token, verify_account):
+def test_register_company(register_company, verification_url_and_token, verify_account, data_protection_url):
     username = 'employee@matchd.test'
     data, errors = register_company(username, 'John', 'Doe', 'Role', 'Company name', 'CHE-999.999.999')
     assert errors is None
@@ -35,6 +35,9 @@ def test_register_company(register_company, verification_url_and_token, verify_a
     verification_path = settings.GRAPHQL_AUTH.get('ACTIVATION_PATH_ON_EMAIL')
     assert f'https://{settings.FRONTEND_URL}/{verification_path}/' in verification_url
     assert token is not None
+
+    data_protection_url = data_protection_url(activation_email)
+    assert settings.DATA_PROTECTION_URL == data_protection_url
 
     data, errors = verify_account(token)
     assert errors is None
@@ -68,8 +71,10 @@ def test_register_with_same_company_name(register_company):
     assert data.get('registerCompany').get('success')
 
     companies = Company.objects.all().order_by('id')
-    assert companies[0].slug == 'company-name'
-    assert companies[1].slug == 'company-name-1'
+    assert companies[0].slug == 'company-1'  # from fixtures
+    assert companies[1].slug == 'company-2'  # from fixtures
+    assert companies[2].slug == 'company-name'
+    assert companies[3].slug == 'company-name-1'
 
 
 @pytest.mark.django_db
