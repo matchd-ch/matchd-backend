@@ -1,5 +1,2 @@
 {% load i18n %}
-{% trans 'Kopie an Absender:' %}
-{% trans 'Name' %}: {{ name }}
-{% trans 'E-Mail' %}: {{ email }}
-{% trans 'Nachricht' %}: {{ message }}
+{% trans 'Vielen Dank für deine Nachricht auf Matchd. Hier findest du die Kopie deiner Message:' %}: {{ message }}
