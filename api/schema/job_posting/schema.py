@@ -14,7 +14,7 @@ from api.schema.job_type import JobTypeInput
 from api.schema.job_posting_language_relation import JobPostingLanguageRelationInput
 from api.schema.registration import EmployeeInput
 from api.schema.skill import SkillInput
-from db.decorators import cheating_protection, hyphenate
+from db.decorators import job_posting_cheating_protection, hyphenate
 from db.exceptions import FormException
 from db.forms import process_job_posting_form_step_1, process_job_posting_form_step_2, process_job_posting_form_step_3
 from db.models import JobPosting as JobPostingModel, Company, JobPostingState as JobPostingStateModel, ProfileType, \
@@ -45,14 +45,15 @@ class JobPosting(DjangoObjectType):
     class Meta:
         model = JobPostingModel
         fields = ('id', 'title', 'description', 'job_type', 'workload', 'company', 'job_from_date', 'job_to_date',
-                  'url', 'form_step', 'skills', 'job_requirements', 'languages', 'branch', 'state', 'employee', 'slug')
+                  'url', 'form_step', 'skills', 'job_requirements', 'languages', 'branch', 'state', 'employee', 'slug',
+                  'date_published', 'date_created')
         convert_choices_to_enum = False
 
-    @cheating_protection
+    @job_posting_cheating_protection
     def resolve_skills(self: JobPostingModel, info):
         return self.skills.all()
 
-    @cheating_protection
+    @job_posting_cheating_protection
     def resolve_languages(self: JobPostingModel, info):
         return self.languages.all()
 

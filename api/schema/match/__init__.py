@@ -1,1 +1,1 @@
-from .schema import MatchQuery, MatchMutation, MatchStatus, MatchHints
+from .schema import MatchQuery, MatchMutation, MatchStatus, MatchHints, MatchInfo
