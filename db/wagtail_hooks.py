@@ -3,7 +3,7 @@ from wagtail.core import hooks
 
 @hooks.register('construct_main_menu')
 def construct_main_menu(request, menu_items):
-    hidden_items = ['explorer', 'images', 'documents', 'reports']
+    hidden_items = ['explorer', 'images', 'documents', 'reports', 'media']
     menu_items[:] = [item for item in menu_items if item.name not in hidden_items]
 
 

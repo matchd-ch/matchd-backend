@@ -105,16 +105,24 @@ class AttachmentQuery(ObjectType):
         if attachment_owner is None:
             return []
 
-        # check if the owner has a public profile
+        # check if the owner has a public profile or a match exists
         # if not, return an empty list
-        show = has_access_to_attachments(user, attachment_owner)
+        show = has_access_to_attachments(user, attachment_owner, key)
         if not show:
+            return []
+
+        if key in (AttachmentKey.STUDENT_AVATAR_FALLBACK, AttachmentKey.COMPANY_AVATAR_FALLBACK):
+            if is_student:
+                fallback = AttachmentModel.get_student_avatar_fallback(attachment_owner)
+                return [fallback] if fallback is not None else []
+            if is_company:
+                fallback = AttachmentModel.get_company_avatar_fallback(attachment_owner)
+                return [fallback] if fallback is not None else []
             return []
 
         # get profile content type and id
         profile_content_type = attachment_owner.get_profile_content_type()
         profile_id = attachment_owner.get_profile_id()
-
         return AttachmentModel.objects.filter(
             key=key,
             content_type=profile_content_type,

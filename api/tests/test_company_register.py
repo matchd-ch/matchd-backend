@@ -71,8 +71,10 @@ def test_register_with_same_company_name(register_company):
     assert data.get('registerCompany').get('success')
 
     companies = Company.objects.all().order_by('id')
-    assert companies[0].slug == 'company-name'
-    assert companies[1].slug == 'company-name-1'
+    assert companies[0].slug == 'company-1'  # from fixtures
+    assert companies[1].slug == 'company-2'  # from fixtures
+    assert companies[2].slug == 'company-name'
+    assert companies[3].slug == 'company-name-1'
 
 
 @pytest.mark.django_db

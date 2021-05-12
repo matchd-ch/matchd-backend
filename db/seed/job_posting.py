@@ -1,3 +1,7 @@
+from datetime import datetime
+
+import pytz
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.utils.text import slugify
 
@@ -45,10 +49,12 @@ class JobPosting(BaseSeed):
                     job_to_date=job_to_date,
                     url='https://www.job.lo',
                     form_step=4,
-                    state=JobPostingState.PUBLIC,
+                    state=self.rand.job_posting_state(),
                     employee=Employee.objects.get(user=user)
                 )
                 job_posting.save()
+                if job_posting.state == JobPostingState.PUBLIC:
+                    job_posting.date_published = job_posting.date_created
                 job_posting.slug = f'{slugify(job_posting.title)}-{str(job_posting.id)}'
                 job_posting.save()
                 job_posting.job_requirements.set(self.rand.requirements())
@@ -74,6 +80,15 @@ class JobPosting(BaseSeed):
                 workload = obj.get('workload')
                 if workload is None or workload == '':
                     workload = self.rand.workload()
+                date_created = obj.get('date_created')
+                date_created = datetime.strptime(date_created, '%Y-%m-%d %H:%M:%S').replace(
+                    tzinfo=pytz.timezone(settings.TIME_ZONE))
+                date_published = obj.get('date_published')
+                if date_published is not None:
+                    date_published = datetime.strptime(date_published, '%Y-%m-%d %H:%M:%S').replace(
+                        tzinfo=pytz.timezone(settings.TIME_ZONE))
+                job_posting.date_created = date_created
+                job_posting.date_published = date_published
                 job_posting.workload = workload
                 job_posting.job_from_date = obj.get('job_from_date')
                 job_posting.job_to_date = obj.get('job_to_date')
