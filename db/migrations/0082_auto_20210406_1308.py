@@ -6,7 +6,7 @@ from db.models import Company
 
 def move_branch(apps, schema_editor):
     cursor = connection.cursor()
-    companies = Company.objects.all()
+    companies = Company.objects.raw("SELECT * FROM db_company")
 
     for company in companies:
         branch_id = getattr(company, 'branch_id', None)

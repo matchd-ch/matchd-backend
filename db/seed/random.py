@@ -7,7 +7,7 @@ from dateutil.relativedelta import relativedelta
 from django.conf import settings
 
 from db.models import Branch, CulturalFit, JobType, Language, LanguageLevel, Skill, SoftSkill, ProfileState, Benefit, \
-    JobRequirement
+    JobRequirement, JobPostingState
 
 
 # pylint: disable=R0902
@@ -44,6 +44,7 @@ class Random:
             'mit dem Hund spazieren', 'Kollegen treffen', 'Ausgang', 'Bowling', 'Malen', 'Zeichnen'
         ]
         self._state_data = [ProfileState.PUBLIC, ProfileState.ANONYMOUS]
+        self._job_posting_state_data = [JobPostingState.PUBLIC, JobPostingState.DRAFT]
 
         self._titles = [
             'Praktikant*in Applikationsentwicklung', 'Praktikant*in Systemtechnik', 'Praktikant*in DevOps',
@@ -186,6 +187,9 @@ class Random:
 
     def state(self):
         return self._random(self._state_data, 1)
+
+    def job_posting_state(self):
+        return self._random(self._job_posting_state_data, 1)
 
     def uid(self):
         numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]

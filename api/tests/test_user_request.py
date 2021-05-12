@@ -21,8 +21,6 @@ def test_user_request(user_request):
 
     request_email_copy = mail.outbox[0]
     assert 'test@matchd.test' in request_email_copy.recipients()
-    assert 'John Doe' in request_email_copy.body
-    assert 'test@matchd.test' in request_email_copy.body
     assert 'Some message' in request_email_copy.body
     assert settings.EMAIL_SUBJECT_PREFIX, request_email_copy.subject
 
