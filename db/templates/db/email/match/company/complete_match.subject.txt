@@ -1,1 +1,1 @@
-Matchd: Hurra! Matching erfolgreich!
+{{ email_subject_prefix }}Matchd: Hurra! Matching erfolgreich!
