@@ -80,6 +80,7 @@ class Match(models.Model):
             'job_posting_url': self._job_posting_url(),
             'job_posting': self.job_posting,
             'student_profile_url': self._student_profile_url(),
+            'email_subject_prefix': settings.EMAIL_SUBJECT_PREFIX,
         }
 
     def _send_initiator_company(self):
