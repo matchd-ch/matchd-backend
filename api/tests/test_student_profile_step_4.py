@@ -182,8 +182,8 @@ def test_step_4_update_delete_languages(login, user_student, student_step_4, ski
     user = get_user_model().objects.get(pk=user_student.id)
     languages = user.student.languages.all()
     assert len(languages) == 1
-    assert languages[0].language.id == 1
-    assert languages[0].language_level.id == 1
+    assert languages[0].language.id == language_objects[0].id
+    assert languages[0].language_level.id == language_level_objects[1].id
     assert user_student.student.profile_step == 5
 
 
