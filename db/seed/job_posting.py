@@ -59,7 +59,7 @@ class JobPosting(BaseSeed):
                 job_posting.job_requirements.set(self.rand.requirements())
                 job_posting.skills.set(self.rand.skills())
                 job_posting.branches.set(branch_id=self.rand.branches(),)
-                languages = self.rand.languages()
+                languages = self.rand.languages_shortlist()
                 for language in languages:
                     JobPostingLanguageRelation.objects.create(
                         job_posting=job_posting, language_id=language.get('language'),

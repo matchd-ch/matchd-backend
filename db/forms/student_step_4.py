@@ -1,4 +1,5 @@
 from django import forms
+from django.db.models import Q
 
 from db.exceptions import FormException
 from db.forms.hobby import HobbyForm
@@ -12,6 +13,23 @@ from db.models import Skill, OnlineProject, Hobby, UserLanguageRelation
 class StudentProfileFormStep4(forms.Form):
     skills = forms.ModelMultipleChoiceField(queryset=Skill.objects.all(), required=True)
     distinction = forms.CharField(max_length=1000, required=False)
+
+
+def get_language_relation_instance_or_none(student, model, data):
+    instance = None
+    object_id = data.get('id', None)
+    query = None
+    if object_id is not None:
+        query = Q(pk=object_id)
+    else:
+        language_id = data.get('language')
+        if language_id is not None:
+            query = Q(language_id=language_id, student=student)
+    try:
+        instance = model.objects.get(query)
+    except model.DoesNotExist:
+        pass
+    return instance
 
 
 def get_instance_or_none(model, data):
@@ -81,8 +99,8 @@ def get_online_projects_to_delete(profile, data):
     return OnlineProject.objects.filter(student=profile).exclude(id__in=exclude_ids)
 
 
-def process_language(data):
-    instance = get_instance_or_none(UserLanguageRelation, data)
+def process_language(student, data):
+    instance = get_language_relation_instance_or_none(student, UserLanguageRelation, data)
     form = UserLanguageRelationForm(data, instance=instance)
     form.full_clean()
     if form.is_valid():
@@ -180,7 +198,7 @@ def process_student_form_step_4(user, data):
         for language in languages:
             language['student'] = student.id
             try:
-                language_form = process_language(language)
+                language_form = process_language(student, language)
                 if language_form is not None:
                     valid_languages_forms.append(language_form)
             except FormException as exception:
@@ -195,7 +213,6 @@ def process_student_form_step_4(user, data):
 
     # save all valid forms
     valid_forms = valid_hobby_forms + valid_online_project_forms + valid_languages_forms
-
     for form in valid_forms:
         form.save()
 

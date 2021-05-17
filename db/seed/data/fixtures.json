@@ -417,16 +417,8 @@
                     "job_type": 6,
                     "languages": [
                         {
-                            "language": 9,
-                            "language_level": 7
-                        },
-                        {
                             "language": 7,
                             "language_level": 2
-                        },
-                        {
-                            "language": 3,
-                            "language_level": 3
                         }
                     ],
                     "skills": [
@@ -462,14 +454,6 @@
                     "job_to_date": "2022-06-25",
                     "job_type": 1,
                     "languages": [
-                        {
-                            "language": 14,
-                            "language_level": 6
-                        },
-                        {
-                            "language": 16,
-                            "language_level": 7
-                        },
                         {
                             "language": 7,
                             "language_level": 5
@@ -508,14 +492,6 @@
                     "job_type": 5,
                     "languages": [
                         {
-                            "language": 11,
-                            "language_level": 4
-                        },
-                        {
-                            "language": 16,
-                            "language_level": 5
-                        },
-                        {
                             "language": 8,
                             "language_level": 2
                         }
@@ -552,20 +528,7 @@
                     ],
                     "job_to_date": "2020-04-28",
                     "job_type": 4,
-                    "languages": [
-                        {
-                            "language": 9,
-                            "language_level": 8
-                        },
-                        {
-                            "language": 19,
-                            "language_level": 6
-                        },
-                        {
-                            "language": 1,
-                            "language_level": 7
-                        }
-                    ],
+                    "languages": [],
                     "skills": [
                         27,
                         28,
@@ -602,14 +565,6 @@
                         {
                             "language": 5,
                             "language_level": 7
-                        },
-                        {
-                            "language": 17,
-                            "language_level": 8
-                        },
-                        {
-                            "language": 3,
-                            "language_level": 3
                         }
                     ],
                     "skills": [
@@ -647,10 +602,6 @@
                     "job_to_date": "2021-11-27",
                     "job_type": 1,
                     "languages": [
-                        {
-                            "language": 16,
-                            "language_level": 6
-                        },
                         {
                             "language": 7,
                             "language_level": 2
@@ -690,20 +641,7 @@
                     ],
                     "job_to_date": "2021-05-07",
                     "job_type": 2,
-                    "languages": [
-                        {
-                            "language": 1,
-                            "language_level": 3
-                        },
-                        {
-                            "language": 21,
-                            "language_level": 4
-                        },
-                        {
-                            "language": 17,
-                            "language_level": 2
-                        }
-                    ],
+                    "languages": [],
                     "skills": [
                         49,
                         50,
@@ -737,16 +675,8 @@
                     "job_type": 1,
                     "languages": [
                         {
-                            "language": 9,
-                            "language_level": 4
-                        },
-                        {
                             "language": 15,
                             "language_level": 6
-                        },
-                        {
-                            "language": 11,
-                            "language_level": 3
                         },
                         {
                             "language": 5,
@@ -885,18 +815,6 @@
                     "job_type": 1,
                     "languages": [
                         {
-                            "language": 11,
-                            "language_level": 7
-                        },
-                        {
-                            "language": 21,
-                            "language_level": 4
-                        },
-                        {
-                            "language": 19,
-                            "language_level": 2
-                        },
-                        {
                             "language": 5,
                             "language_level": 8
                         }
@@ -929,14 +847,6 @@
                     "job_to_date": null,
                     "job_type": 7,
                     "languages": [
-                        {
-                            "language": 19,
-                            "language_level": 6
-                        },
-                        {
-                            "language": 17,
-                            "language_level": 3
-                        },
                         {
                             "language": 15,
                             "language_level": 4
@@ -980,14 +890,6 @@
                     "job_type": 3,
                     "languages": [
                         {
-                            "language": 1,
-                            "language_level": 5
-                        },
-                        {
-                            "language": 21,
-                            "language_level": 3
-                        },
-                        {
                             "language": 8,
                             "language_level": 4
                         },
@@ -1030,14 +932,6 @@
                             "language_level": 6
                         },
                         {
-                            "language": 16,
-                            "language_level": 2
-                        },
-                        {
-                            "language": 3,
-                            "language_level": 7
-                        },
-                        {
                             "language": 5,
                             "language_level": 3
                         }
@@ -1078,18 +972,6 @@
                     "job_to_date": "2020-12-31",
                     "job_type": 4,
                     "languages": [
-                        {
-                            "language": 11,
-                            "language_level": 4
-                        },
-                        {
-                            "language": 12,
-                            "language_level": 5
-                        },
-                        {
-                            "language": 3,
-                            "language_level": 7
-                        },
                         {
                             "language": 5,
                             "language_level": 8
@@ -1536,36 +1418,17 @@
             "distinction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
             "field_of_study": "Applikationsentwicklung",
             "graduation": "2022-08-01",
-            "hobbies": [
-                "Gamen",
-                "Wandern"
-            ],
+            "hobbies": [],
             "job_from_date": "2021-06-29",
             "job_to_date": "2022-01-15",
             "job_type": 2,
-            "languages": [
-                {
-                    "language": 5,
-                    "language_level": 8
-                },
-                {
-                    "language": 7,
-                    "language_level": 4
-                }
-            ],
+            "languages": [],
             "mobile": "+41791234567",
             "nickname": null,
-            "online_projects": [
-                "http://www.project23.lo",
-                "http://www.project24.lo"
-            ],
-            "profile_step": 5,
+            "online_projects": [],
+            "profile_step": 4,
             "school_name": "FH Winterthur",
-            "skills": [
-                3,
-                2,
-                1
-            ],
+            "skills": [],
             "slug": "william-herauf-5",
             "soft_skills": [
                 2,
@@ -4030,18 +3893,6 @@
                     "job_type": 2,
                     "languages": [
                         {
-                            "language": 4,
-                            "language_level": 5
-                        },
-                        {
-                            "language": 11,
-                            "language_level": 6
-                        },
-                        {
-                            "language": 14,
-                            "language_level": 7
-                        },
-                        {
                             "language": 5,
                             "language_level": 2
                         }
@@ -4075,18 +3926,6 @@
                     "job_to_date": "2020-09-30",
                     "job_type": 4,
                     "languages": [
-                        {
-                            "language": 1,
-                            "language_level": 4
-                        },
-                        {
-                            "language": 14,
-                            "language_level": 6
-                        },
-                        {
-                            "language": 3,
-                            "language_level": 7
-                        },
                         {
                             "language": 5,
                             "language_level": 2
@@ -4133,10 +3972,6 @@
                             "language_level": 7
                         },
                         {
-                            "language": 17,
-                            "language_level": 6
-                        },
-                        {
                             "language": 5,
                             "language_level": 4
                         }
@@ -4179,10 +4014,6 @@
                         {
                             "language": 7,
                             "language_level": 7
-                        },
-                        {
-                            "language": 1,
-                            "language_level": 4
                         },
                         {
                             "language": 5,
@@ -4321,18 +4152,6 @@
                     "job_type": 7,
                     "languages": [
                         {
-                            "language": 14,
-                            "language_level": 7
-                        },
-                        {
-                            "language": 4,
-                            "language_level": 6
-                        },
-                        {
-                            "language": 2,
-                            "language_level": 8
-                        },
-                        {
                             "language": 5,
                             "language_level": 5
                         }
@@ -4369,14 +4188,6 @@
                         {
                             "language": 13,
                             "language_level": 5
-                        },
-                        {
-                            "language": 1,
-                            "language_level": 3
-                        },
-                        {
-                            "language": 18,
-                            "language_level": 6
                         },
                         {
                             "language": 5,
@@ -4420,14 +4231,6 @@
                             "language_level": 5
                         },
                         {
-                            "language": 4,
-                            "language_level": 8
-                        },
-                        {
-                            "language": 1,
-                            "language_level": 4
-                        },
-                        {
                             "language": 5,
                             "language_level": 3
                         }
@@ -4468,14 +4271,6 @@
                             "language_level": 2
                         },
                         {
-                            "language": 4,
-                            "language_level": 7
-                        },
-                        {
-                            "language": 3,
-                            "language_level": 3
-                        },
-                        {
                             "language": 5,
                             "language_level": 8
                         }
@@ -4514,16 +4309,8 @@
                     "job_type": 6,
                     "languages": [
                         {
-                            "language": 4,
-                            "language_level": 2
-                        },
-                        {
                             "language": 10,
                             "language_level": 4
-                        },
-                        {
-                            "language": 14,
-                            "language_level": 8
                         },
                         {
                             "language": 5,
@@ -4676,10 +4463,6 @@
                             "language_level": 2
                         },
                         {
-                            "language": 9,
-                            "language_level": 5
-                        },
-                        {
                             "language": 5,
                             "language_level": 4
                         }
@@ -4713,18 +4496,6 @@
                     "job_to_date": "2021-04-13",
                     "job_type": 2,
                     "languages": [
-                        {
-                            "language": 14,
-                            "language_level": 7
-                        },
-                        {
-                            "language": 21,
-                            "language_level": 5
-                        },
-                        {
-                            "language": 6,
-                            "language_level": 3
-                        },
                         {
                             "language": 5,
                             "language_level": 2
@@ -4884,16 +4655,8 @@
                     "job_type": 2,
                     "languages": [
                         {
-                            "language": 9,
-                            "language_level": 6
-                        },
-                        {
                             "language": 5,
                             "language_level": 8
-                        },
-                        {
-                            "language": 2,
-                            "language_level": 5
                         }
                     ],
                     "skills": [
@@ -4928,14 +4691,6 @@
                     "job_to_date": "2020-11-02",
                     "job_type": 4,
                     "languages": [
-                        {
-                            "language": 18,
-                            "language_level": 7
-                        },
-                        {
-                            "language": 17,
-                            "language_level": 3
-                        },
                         {
                             "language": 8,
                             "language_level": 5
@@ -5074,18 +4829,6 @@
                     "job_type": 6,
                     "languages": [
                         {
-                            "language": 11,
-                            "language_level": 8
-                        },
-                        {
-                            "language": 14,
-                            "language_level": 6
-                        },
-                        {
-                            "language": 12,
-                            "language_level": 4
-                        },
-                        {
                             "language": 5,
                             "language_level": 7
                         }
@@ -5132,10 +4875,6 @@
                             "language_level": 6
                         },
                         {
-                            "language": 2,
-                            "language_level": 4
-                        },
-                        {
                             "language": 5,
                             "language_level": 2
                         }
@@ -5171,18 +4910,6 @@
                     "job_to_date": null,
                     "job_type": 7,
                     "languages": [
-                        {
-                            "language": 9,
-                            "language_level": 5
-                        },
-                        {
-                            "language": 19,
-                            "language_level": 3
-                        },
-                        {
-                            "language": 4,
-                            "language_level": 7
-                        },
                         {
                             "language": 5,
                             "language_level": 2
@@ -5316,28 +5043,12 @@
                             "language_level": 6
                         },
                         {
-                            "language": 12,
-                            "language_level": 2
-                        },
-                        {
-                            "language": 18,
-                            "language_level": 4
-                        },
-                        {
                             "language": 5,
                             "language_level": 3
                         },
                         {
                             "language": 7,
                             "language_level": 8
-                        },
-                        {
-                            "language": 19,
-                            "language_level": 7
-                        },
-                        {
-                            "language": 20,
-                            "language_level": 2
                         }
                     ],
                     "skills": [
@@ -5375,16 +5086,8 @@
                     "job_type": 5,
                     "languages": [
                         {
-                            "language": 18,
-                            "language_level": 3
-                        },
-                        {
                             "language": 10,
                             "language_level": 4
-                        },
-                        {
-                            "language": 3,
-                            "language_level": 8
                         },
                         {
                             "language": 5,
@@ -5422,14 +5125,6 @@
                     "job_to_date": "2021-08-16",
                     "job_type": 4,
                     "languages": [
-                        {
-                            "language": 6,
-                            "language_level": 3
-                        },
-                        {
-                            "language": 2,
-                            "language_level": 5
-                        },
                         {
                             "language": 8,
                             "language_level": 7
@@ -5569,18 +5264,6 @@
                     "job_type": 3,
                     "languages": [
                         {
-                            "language": 11,
-                            "language_level": 6
-                        },
-                        {
-                            "language": 9,
-                            "language_level": 8
-                        },
-                        {
-                            "language": 2,
-                            "language_level": 7
-                        },
-                        {
                             "language": 5,
                             "language_level": 2
                         }
@@ -5615,14 +5298,6 @@
                         {
                             "language": 10,
                             "language_level": 6
-                        },
-                        {
-                            "language": 1,
-                            "language_level": 7
-                        },
-                        {
-                            "language": 18,
-                            "language_level": 8
                         },
                         {
                             "language": 5,
@@ -5787,10 +5462,6 @@
                             "language_level": 2
                         },
                         {
-                            "language": 9,
-                            "language_level": 6
-                        },
-                        {
                             "language": 7,
                             "language_level": 4
                         },
@@ -5832,16 +5503,8 @@
                     "job_type": 2,
                     "languages": [
                         {
-                            "language": 12,
-                            "language_level": 8
-                        },
-                        {
                             "language": 5,
                             "language_level": 6
-                        },
-                        {
-                            "language": 20,
-                            "language_level": 3
                         }
                     ],
                     "skills": [
@@ -5873,18 +5536,6 @@
                     "job_to_date": "2021-06-14",
                     "job_type": 2,
                     "languages": [
-                        {
-                            "language": 4,
-                            "language_level": 4
-                        },
-                        {
-                            "language": 2,
-                            "language_level": 6
-                        },
-                        {
-                            "language": 20,
-                            "language_level": 7
-                        },
                         {
                             "language": 5,
                             "language_level": 2
@@ -5919,14 +5570,6 @@
                     "job_to_date": "2022-03-18",
                     "job_type": 5,
                     "languages": [
-                        {
-                            "language": 19,
-                            "language_level": 5
-                        },
-                        {
-                            "language": 20,
-                            "language_level": 6
-                        },
                         {
                             "language": 10,
                             "language_level": 8
@@ -5971,18 +5614,6 @@
                     "job_to_date": "2021-06-26",
                     "job_type": 5,
                     "languages": [
-                        {
-                            "language": 17,
-                            "language_level": 4
-                        },
-                        {
-                            "language": 19,
-                            "language_level": 6
-                        },
-                        {
-                            "language": 20,
-                            "language_level": 7
-                        },
                         {
                             "language": 5,
                             "language_level": 8
@@ -6122,14 +5753,6 @@
                     "job_type": 6,
                     "languages": [
                         {
-                            "language": 14,
-                            "language_level": 7
-                        },
-                        {
-                            "language": 6,
-                            "language_level": 8
-                        },
-                        {
                             "language": 7,
                             "language_level": 4
                         },
@@ -6176,14 +5799,6 @@
                             "language_level": 2
                         },
                         {
-                            "language": 20,
-                            "language_level": 7
-                        },
-                        {
-                            "language": 2,
-                            "language_level": 4
-                        },
-                        {
                             "language": 5,
                             "language_level": 3
                         },
@@ -6194,10 +5809,6 @@
                         {
                             "language": 10,
                             "language_level": 4
-                        },
-                        {
-                            "language": 6,
-                            "language_level": 6
                         }
                     ],
                     "skills": [
@@ -6231,18 +5842,6 @@
                     "job_to_date": null,
                     "job_type": 6,
                     "languages": [
-                        {
-                            "language": 20,
-                            "language_level": 2
-                        },
-                        {
-                            "language": 14,
-                            "language_level": 6
-                        },
-                        {
-                            "language": 18,
-                            "language_level": 3
-                        },
                         {
                             "language": 5,
                             "language_level": 7
@@ -6279,14 +5878,6 @@
                     "job_to_date": null,
                     "job_type": 7,
                     "languages": [
-                        {
-                            "language": 20,
-                            "language_level": 8
-                        },
-                        {
-                            "language": 1,
-                            "language_level": 5
-                        },
                         {
                             "language": 15,
                             "language_level": 7
@@ -6444,14 +6035,6 @@
                     "job_to_date": "2021-07-07",
                     "job_type": 1,
                     "languages": [
-                        {
-                            "language": 18,
-                            "language_level": 7
-                        },
-                        {
-                            "language": 20,
-                            "language_level": 3
-                        },
                         {
                             "language": 8,
                             "language_level": 6
