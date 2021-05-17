@@ -13,9 +13,9 @@ def test_dashboard(login, query_dashboard, user_employee, user_student, job_post
     for job_posting_object in job_posting_objects:
         job_posting_object.company = user_employee.company
         job_posting_object.employee = user_employee.employee
-        job_posting_object.branch = branch_objects[0]
         job_posting_object.state = JobPostingState.PUBLIC
         job_posting_object.save()
+        job_posting_object.branches.set([branch_objects[0]])
 
     Match.objects.create(job_posting=job_posting_objects[0], student=user_student.student, company_confirmed=True,
                          initiator=user_employee.type)
