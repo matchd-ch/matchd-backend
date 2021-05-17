@@ -42,7 +42,6 @@ class JobPosting(BaseSeed):
                     title=self.rand.title(),
                     description=self.rand.description(),
                     job_type_id=job_type,
-                    branch_id=self.rand.branch(),
                     workload=self.rand.workload(),
                     company=company,
                     job_from_date=job_from_date,
@@ -59,6 +58,7 @@ class JobPosting(BaseSeed):
                 job_posting.save()
                 job_posting.job_requirements.set(self.rand.requirements())
                 job_posting.skills.set(self.rand.skills())
+                job_posting.branches.set(branch_id=self.rand.branches(),)
                 languages = self.rand.languages()
                 for language in languages:
                     JobPostingLanguageRelation.objects.create(
@@ -70,7 +70,7 @@ class JobPosting(BaseSeed):
                     job_posting = JobPostingModel.objects.get(
                         slug=obj.get('slug'))
                 except JobPostingModel.DoesNotExist:
-                    job_posting = JobPostingModel(branch_id=obj.get('branch'), job_type_id=obj.get('job_type'),
+                    job_posting = JobPostingModel(job_type_id=obj.get('job_type'),
                                                   company=company)
                 job_title = obj.get('title', None)
                 if job_title is None:
@@ -104,6 +104,7 @@ class JobPosting(BaseSeed):
                 job_posting.slug = slug
                 job_posting.save()
                 job_posting.skills.set(obj.get('skills'))
+                job_posting.branches.set(obj.get('branches'))
                 job_posting.job_requirements.set(obj.get('job_requirements'))
 
                 languages = obj.get('languages')
