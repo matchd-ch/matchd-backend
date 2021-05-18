@@ -78,17 +78,3 @@ class JobPostingParamBuilder(BaseParamBuilder):
                     ]
                 }
             })
-
-    def set_branch(self, branch_id, boost=1):
-        self.must_conditions.append({
-            "bool": {
-                "should": [
-                    {
-                        'terms': {
-                            'branch_id_filter': [branch_id],
-                            'boost': boost
-                        }
-                    }
-                ]
-            }
-        })
