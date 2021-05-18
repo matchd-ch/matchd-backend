@@ -120,11 +120,6 @@ def company_documents_config():
                 'model': settings.WAGTAILMEDIA_MEDIA_MODEL
             },
             {
-                'content_types': settings.USER_UPLOADS_DOCUMENT_TYPES,
-                'max_size': settings.USER_UPLOADS_MAX_DOCUMENT_SIZE,
-                'model': settings.WAGTAILDOCS_DOCUMENT_MODEL
-            },
-            {
                 'content_types': settings.USER_UPLOADS_IMAGE_TYPES,
                 'max_size': settings.USER_UPLOADS_MAX_IMAGE_SIZE,
                 'model': settings.WAGTAILIMAGES_IMAGE_MODEL
