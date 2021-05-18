@@ -33,8 +33,9 @@ class DashboardQuery(ObjectType):
             confirmed_matches = Match.objects.filter(job_posting__company=user.company, student_confirmed=True,
                                                      company_confirmed=True)
         if user.type in ProfileType.valid_student_types():
-            job_postings = JobPostingModel.objects.filter(branch=user.student.branch, state=JobPostingState.PUBLIC).\
-                order_by('-date_published')[:settings.DASHBOARD_STUDENT_NUM_JOB_POSTINGS]
+            job_postings = JobPostingModel.objects.filter(
+                branches__in=[user.student.branch], state=JobPostingState.PUBLIC).\
+                               order_by('-date_published')[:settings.DASHBOARD_STUDENT_NUM_JOB_POSTINGS]
             requested_matches = Match.objects.filter(student=user.student, initiator=user.type,
                                                        company_confirmed=False, student_confirmed=True)
             unconfirmed_matches = Match.objects.filter(student=user.student, initiator=ProfileType.COMPANY,
