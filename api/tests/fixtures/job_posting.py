@@ -34,7 +34,7 @@ def job_posting_query(filter_value, param_name):
                 name
                 mode
             }
-            branch {
+            branches {
                 id
                 name
             }
@@ -99,7 +99,7 @@ def job_postings_query(slug):
                 name
                 mode
             }
-            branch {
+            branches {
                 id
                 name
             }
@@ -178,13 +178,13 @@ def job_posting_mutation(step):
 
 @pytest.fixture
 def job_posting_step_1(execute):
-    def closure(user, title, description, job_type, branch, workload, job_from_date, job_to_date, url):
+    def closure(user, title, description, job_type, branches, workload, job_from_date, job_to_date, url):
         return execute(job_posting_mutation(1), variables={
             'step1': {
                 'title': title,
                 'description': description,
                 'jobType': None if job_type is None else {'id': job_type.id},
-                'branch': None if branch is None else {'id': branch.id},
+                'branches': [{'id': obj.id} for obj in branches],
                 'workload': workload,
                 'jobFromDate': job_from_date,
                 'jobToDate': job_to_date,
@@ -226,13 +226,19 @@ def job_posting_step_3(execute):
 
 @pytest.fixture
 def job_posting_objects(company_object, job_type_objects_date_range, branch_objects):
+    job_posting_1 = JobPosting.objects.create(id=1, company=company_object, job_type=job_type_objects_date_range[0],
+                                              job_from_date=datetime.now(), slug='job-1')
+    job_posting_1.branches.set([branch_objects[0]])
+    job_posting_2 = JobPosting.objects.create(id=2, company=company_object, job_type=job_type_objects_date_range[0],
+                                              job_from_date=datetime.now(), slug='job-2')
+    job_posting_2.branches.set([branch_objects[0]])
+    job_posting_3 = JobPosting.objects.create(id=3, company=company_object, job_type=job_type_objects_date_range[0],
+                                              job_from_date=datetime.now(), slug='job-3')
+    job_posting_3.branches.set([branch_objects[0]])
     return [
-        JobPosting.objects.create(id=1, company=company_object, job_type=job_type_objects_date_range[0],
-                                  job_from_date=datetime.now(), branch=branch_objects[0], slug='job-1'),
-        JobPosting.objects.create(id=2, company=company_object, job_type=job_type_objects_date_range[0],
-                                  job_from_date=datetime.now(), branch=branch_objects[0], slug='job-2'),
-        JobPosting.objects.create(id=3, company=company_object, job_type=job_type_objects_date_range[0],
-                                  job_from_date=datetime.now(), branch=branch_objects[0], slug='job-3'),
+        job_posting_1,
+        job_posting_2,
+        job_posting_3,
     ]
 
 

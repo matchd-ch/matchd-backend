@@ -53,7 +53,7 @@ class StudentMatching:
         index = self.search_backend.get_index_for_model(queryset.model).name
 
         builder = StudentParamBuilder(queryset, index, self.first, self.skip)
-        builder.set_branch(self.job_posting.branch_id, settings.MATCHING_VALUE_BRANCH)
+        builder.set_branches(self.job_posting.branches.all(), settings.MATCHING_VALUE_BRANCH)
         builder.set_job_type(self.job_posting.job_type_id, settings.MATCHING_VALUE_JOB_TYPE)
         builder.set_cultural_fits(self.job_posting.company.cultural_fits.all(), self.soft_boost *
                                   settings.MATCHING_VALUE_CULTURAL_FITS)

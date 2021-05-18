@@ -3,21 +3,6 @@ from .base import BaseParamBuilder
 
 class CompanyParamBuilder(BaseParamBuilder):
 
-    def set_branch(self, branch_id, boost=1):
-        self.must_conditions.append({
-            'nested': {
-                "path": "branches",
-                'query': {
-                    'bool': {
-                        'must': {
-                            "terms": {"branches.id_filter": [branch_id]},
-                        }
-                    }
-                },
-                'boost': boost
-            },
-        })
-
     def set_cultural_fits(self, cultural_fits, boost=1):
         if len(cultural_fits) == 0:
             return
