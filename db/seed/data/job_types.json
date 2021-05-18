@@ -33,14 +33,6 @@
 },
 {
     "model": "db.jobtype",
-    "pk": 5,
-    "fields": {
-        "name": "Lehrstelle",
-        "mode": "date_range"
-    }
-},
-{
-    "model": "db.jobtype",
     "pk": 6,
     "fields": {
         "name": "Thema für Abschlussarbeit FH/Uni",
