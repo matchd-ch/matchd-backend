@@ -14,20 +14,6 @@ class BaseParamBuilder:
         self.should_conditions = []
         self.filter_conditions = []
 
-    def set_branch(self, branch_id, boost=1):
-        self.must_conditions.append({
-            "bool": {
-                "should": [
-                    {
-                        'terms': {
-                            'branch_id_filter': [branch_id],
-                            'boost': boost
-                        }
-                    }
-                ]
-            }
-        })
-
     def set_job_type(self, job_type_id, boost=1):
         self.should_conditions.append({
             "bool": {
