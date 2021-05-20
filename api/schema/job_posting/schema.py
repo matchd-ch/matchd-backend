@@ -40,6 +40,7 @@ class JobPosting(DjangoObjectType):
     branches = graphene.NonNull(graphene.List(graphene.NonNull('api.schema.branch.schema.Branch')))
     languages = graphene.List(graphene.NonNull('api.schema.job_posting_language_relation.JobPostingLanguageRelation'))
     title = graphene.String()
+    display_title = graphene.String()
     match_status = graphene.Field('api.schema.match.MatchStatus')
     match_hints = graphene.Field('api.schema.match.MatchHints')
 
@@ -61,8 +62,11 @@ class JobPosting(DjangoObjectType):
     def resolve_languages(self: JobPostingModel, info):
         return self.languages.all()
 
-    @hyphenate
     def resolve_title(self, info):
+        return self.title
+
+    @hyphenate
+    def resolve_display_title(self, info):
         return self.title
 
     def resolve_match_status(self: JobPostingModel, info):
