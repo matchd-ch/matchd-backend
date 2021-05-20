@@ -28,7 +28,7 @@ class Company(models.Model, index.Indexed):
     soft_skills = models.ManyToManyField('db.SoftSkill', related_name='companies')
     uid = models.CharField(max_length=255, blank=False,
                            validators=[RegexValidator(regex=settings.UID_REGEX)])
-    services = models.TextField(blank=True)
+    services = models.TextField(max_length=1000, blank=True)
     member_it_st_gallen = models.BooleanField(blank=True, default=False)
     benefits = models.ManyToManyField('db.Benefit', related_name='companies')
     cultural_fits = models.ManyToManyField('db.CulturalFit', related_name='companies')
