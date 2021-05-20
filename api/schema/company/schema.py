@@ -243,8 +243,8 @@ class Company(DjangoObjectType):
     state = graphene.Field(graphene.NonNull(ProfileState))
     soft_skills = graphene.List(graphene.NonNull('api.schema.soft_skill.schema.SoftSkill'))
     cultural_fits = graphene.List(graphene.NonNull('api.schema.cultural_fit.schema.CulturalFit'))
-    name = graphene.String()
-    display_name = graphene.String()
+    name = graphene.NonNull(graphene.String)
+    display_name = graphene.NonNull(graphene.String)
 
     class Meta:
         model = CompanyModel

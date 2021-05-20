@@ -39,8 +39,8 @@ class JobPosting(DjangoObjectType):
     skills = graphene.List(graphene.NonNull('api.schema.skill.schema.Skill'))
     branches = graphene.NonNull(graphene.List(graphene.NonNull('api.schema.branch.schema.Branch')))
     languages = graphene.List(graphene.NonNull('api.schema.job_posting_language_relation.JobPostingLanguageRelation'))
-    title = graphene.String()
-    display_title = graphene.String()
+    title = graphene.NonNull(graphene.String)
+    display_title = graphene.NonNull(graphene.String)
     match_status = graphene.Field('api.schema.match.MatchStatus')
     match_hints = graphene.Field('api.schema.match.MatchHints')
 
