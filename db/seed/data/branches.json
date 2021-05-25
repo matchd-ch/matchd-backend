@@ -31,7 +31,7 @@
     "model": "db.branch",
     "pk": 5,
     "fields": {
-      "name": "Data Management"
+      "name": "Data-Management"
     }
   },
   {
@@ -66,42 +66,42 @@
     "model": "db.branch",
     "pk": 10,
     "fields": {
-      "name": "Qualitätsmanagement"
+      "name": "Qualitäts-Management"
     }
   },
   {
     "model": "db.branch",
     "pk": 11,
     "fields": {
-      "name": "Security/Risiko Management"
+      "name": "Security- / Risiko-Management"
     }
   },
   {
     "model": "db.branch",
     "pk": 12,
     "fields": {
-      "name": "Projektmanagement"
+      "name": "Projekt-Management"
     }
   },
   {
     "model": "db.branch",
     "pk": 13,
     "fields": {
-      "name": "Business Engineering / Management"
+      "name": "Business-Engineering / Management"
     }
   },
   {
     "model": "db.branch",
     "pk": 14,
     "fields": {
-      "name": "Marketing Communication"
+      "name": "Marketing & Kommunikation"
     }
   },
   {
     "model": "db.branch",
     "pk": 15,
     "fields": {
-      "name": "User Experience & (Interactive) Design"
+      "name": "User-Experience & (Interactive-) Design"
     }
   },
   {
