@@ -19,12 +19,20 @@ class Command(BaseCommand):
             job_to_date = job_posting.job_to_date
             if job_to_date is not None:
                 job_to_date = job_to_date.strftime('%Y-%m-%d')
+            date_created = job_posting.date_created.strftime('%Y-%m-%d %H:%M:%S')
+
+            date_published = job_posting.date_published
+            if date_published is not None:
+                date_published = job_posting.date_published.strftime('%Y-%m-%d %H:%M:%S')
+
             obj = {
                 'slug': job_posting.slug,
                 'title': job_posting.title,
                 'description': job_posting.description,
+                'date_created': date_created,
+                'date_published': date_published,
                 'job_type': job_posting.job_type.id,
-                'branch': job_posting.branch.id,
+                'branches': [obj.id for obj in job_posting.branches.all()],
                 'workload': job_posting.workload,
                 'job_from_date': job_posting.job_from_date.strftime('%Y-%m-%d'),
                 'job_to_date': job_to_date,

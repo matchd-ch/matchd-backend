@@ -7,7 +7,7 @@ from dateutil.relativedelta import relativedelta
 from django.conf import settings
 
 from db.models import Branch, CulturalFit, JobType, Language, LanguageLevel, Skill, SoftSkill, ProfileState, Benefit, \
-    JobRequirement
+    JobRequirement, JobPostingState
 
 
 # pylint: disable=R0902
@@ -32,6 +32,7 @@ class Random:
         self._cultural_fits = list(CulturalFit.objects.all().values_list('id', flat=True))
         self._job_types = list(JobType.objects.all().values_list('id', flat=True))
         self._languages = list(Language.objects.all().values_list('id', flat=True))
+        self._short_list_languages = list(Language.objects.filter(short_list=True).values_list('id', flat=True))
         self._language_levels = list(LanguageLevel.objects.all().values_list('id', flat=True))
         self._skills = list(Skill.objects.all().values_list('id', flat=True))
         self._soft_skills = list(SoftSkill.objects.all().values_list('id', flat=True))
@@ -44,6 +45,7 @@ class Random:
             'mit dem Hund spazieren', 'Kollegen treffen', 'Ausgang', 'Bowling', 'Malen', 'Zeichnen'
         ]
         self._state_data = [ProfileState.PUBLIC, ProfileState.ANONYMOUS]
+        self._job_posting_state_data = [JobPostingState.PUBLIC, JobPostingState.DRAFT]
 
         self._titles = [
             'Praktikant*in Applikationsentwicklung', 'Praktikant*in Systemtechnik', 'Praktikant*in DevOps',
@@ -157,6 +159,20 @@ class Random:
             result.append(obj)
         return result
 
+    def languages_shortlist(self):
+        languages = self._random(self._short_list_languages, 3)
+        if not self._has_german(languages):
+            languages.append(5)  # german
+        levels = self._random(self._language_levels, len(languages))
+        result = []
+        for i in range(0, len(languages)):
+            obj = {
+                "language": languages[i],
+                "language_level": levels[i]
+            }
+            result.append(obj)
+        return result
+
     def online_projects(self):
         count = random.randint(2, 10)
         online_projects = []
@@ -186,6 +202,9 @@ class Random:
 
     def state(self):
         return self._random(self._state_data, 1)
+
+    def job_posting_state(self):
+        return self._random(self._job_posting_state_data, 1)
 
     def uid(self):
         numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]

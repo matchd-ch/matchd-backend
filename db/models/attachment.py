@@ -12,19 +12,23 @@ class AttachmentKey(models.TextChoices):
     STUDENT_DOCUMENTS = 'student_documents', _('Student Documents')
     COMPANY_AVATAR = 'company_avatar', _('Company Avatar')
     COMPANY_DOCUMENTS = 'company_documents', _('Company Documents')
+    STUDENT_AVATAR_FALLBACK = 'student_avatar_fallback', _('Student Avatar fallback')
+    COMPANY_AVATAR_FALLBACK = 'company_avatar_fallback', _('Company Avatar fallback')
 
     @classmethod
     def valid_student_keys(cls):
         return [
             cls.STUDENT_AVATAR,
-            cls.STUDENT_DOCUMENTS
+            cls.STUDENT_DOCUMENTS,
+            cls.STUDENT_AVATAR_FALLBACK
         ]
 
     @classmethod
     def valid_company_keys(cls):
         return [
             cls.COMPANY_AVATAR,
-            cls.COMPANY_DOCUMENTS
+            cls.COMPANY_DOCUMENTS,
+            cls.COMPANY_AVATAR_FALLBACK
         ]
 
 
@@ -48,6 +52,22 @@ class Attachment(models.Model):
             path = reverse('attachment_serve', args=[self.pk])
         return f'{settings.BASE_URL}{path}'
 
+    @classmethod
+    def get_student_avatar_fallback(cls, student):
+        attachments = list(Attachment.objects.filter(key=AttachmentKey.STUDENT_AVATAR_FALLBACK).order_by('id'))
+        index = student.id % (settings.NUMBER_OF_STUDENT_AVATAR_FALLBACK_IMAGES - 1)
+        if len(attachments) > index:
+            return attachments[index]
+        return None
+
+    @classmethod
+    def get_company_avatar_fallback(cls, company):
+        attachments = list(Attachment.objects.filter(key=AttachmentKey.COMPANY_AVATAR_FALLBACK).order_by('id'))
+        index = company.id % (settings.NUMBER_OF_COMPANY_AVATAR_FALLBACK_IMAGES - 1)
+        if len(attachments) > index:
+            return attachments[index]
+        return None
+
 
 def student_avatar_config():
     return {
@@ -67,19 +87,9 @@ def student_documents_config():
     return {
         'content_types_configuration': [
             {
-                'content_types': settings.USER_UPLOADS_VIDEO_TYPES,
-                'max_size': settings.USER_UPLOADS_MAX_VIDEO_SIZE,
-                'model': settings.WAGTAILMEDIA_MEDIA_MODEL
-            },
-            {
                 'content_types': settings.USER_UPLOADS_DOCUMENT_TYPES,
                 'max_size': settings.USER_UPLOADS_MAX_DOCUMENT_SIZE,
                 'model': settings.WAGTAILDOCS_DOCUMENT_MODEL
-            },
-            {
-                'content_types': settings.USER_UPLOADS_IMAGE_TYPES,
-                'max_size': settings.USER_UPLOADS_MAX_IMAGE_SIZE,
-                'model': settings.WAGTAILIMAGES_IMAGE_MODEL
             }
         ],
         'max_files': 5,
@@ -108,11 +118,6 @@ def company_documents_config():
                 'content_types': settings.USER_UPLOADS_VIDEO_TYPES,
                 'max_size': settings.USER_UPLOADS_MAX_VIDEO_SIZE,
                 'model': settings.WAGTAILMEDIA_MEDIA_MODEL
-            },
-            {
-                'content_types': settings.USER_UPLOADS_DOCUMENT_TYPES,
-                'max_size': settings.USER_UPLOADS_MAX_DOCUMENT_SIZE,
-                'model': settings.WAGTAILDOCS_DOCUMENT_MODEL
             },
             {
                 'content_types': settings.USER_UPLOADS_IMAGE_TYPES,

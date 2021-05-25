@@ -1,3 +1,7 @@
+from datetime import datetime
+
+import pytz
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.utils.text import slugify
 
@@ -38,22 +42,24 @@ class JobPosting(BaseSeed):
                     title=self.rand.title(),
                     description=self.rand.description(),
                     job_type_id=job_type,
-                    branch_id=self.rand.branch(),
                     workload=self.rand.workload(),
                     company=company,
                     job_from_date=job_from_date,
                     job_to_date=job_to_date,
                     url='https://www.job.lo',
                     form_step=4,
-                    state=JobPostingState.PUBLIC,
+                    state=self.rand.job_posting_state(),
                     employee=Employee.objects.get(user=user)
                 )
                 job_posting.save()
+                if job_posting.state == JobPostingState.PUBLIC:
+                    job_posting.date_published = job_posting.date_created
                 job_posting.slug = f'{slugify(job_posting.title)}-{str(job_posting.id)}'
                 job_posting.save()
                 job_posting.job_requirements.set(self.rand.requirements())
                 job_posting.skills.set(self.rand.skills())
-                languages = self.rand.languages()
+                job_posting.branches.set(branch_id=self.rand.branches(),)
+                languages = self.rand.languages_shortlist()
                 for language in languages:
                     JobPostingLanguageRelation.objects.create(
                         job_posting=job_posting, language_id=language.get('language'),
@@ -64,7 +70,7 @@ class JobPosting(BaseSeed):
                     job_posting = JobPostingModel.objects.get(
                         slug=obj.get('slug'))
                 except JobPostingModel.DoesNotExist:
-                    job_posting = JobPostingModel(branch_id=obj.get('branch'), job_type_id=obj.get('job_type'),
+                    job_posting = JobPostingModel(job_type_id=obj.get('job_type'),
                                                   company=company)
                 job_title = obj.get('title', None)
                 if job_title is None:
@@ -74,6 +80,15 @@ class JobPosting(BaseSeed):
                 workload = obj.get('workload')
                 if workload is None or workload == '':
                     workload = self.rand.workload()
+                date_created = obj.get('date_created')
+                date_created = datetime.strptime(date_created, '%Y-%m-%d %H:%M:%S').replace(
+                    tzinfo=pytz.timezone(settings.TIME_ZONE))
+                date_published = obj.get('date_published')
+                if date_published is not None:
+                    date_published = datetime.strptime(date_published, '%Y-%m-%d %H:%M:%S').replace(
+                        tzinfo=pytz.timezone(settings.TIME_ZONE))
+                job_posting.date_created = date_created
+                job_posting.date_published = date_published
                 job_posting.workload = workload
                 job_posting.job_from_date = obj.get('job_from_date')
                 job_posting.job_to_date = obj.get('job_to_date')
@@ -89,6 +104,7 @@ class JobPosting(BaseSeed):
                 job_posting.slug = slug
                 job_posting.save()
                 job_posting.skills.set(obj.get('skills'))
+                job_posting.branches.set(obj.get('branches'))
                 job_posting.job_requirements.set(obj.get('job_requirements'))
 
                 languages = obj.get('languages')

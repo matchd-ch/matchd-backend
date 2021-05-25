@@ -8,7 +8,7 @@ from db.models import Student
 
 def add_student_slug(apps, schema_editor):
     cursor = connection.cursor()
-    students = Student.objects.all()
+    students = Student.objects.raw("SELECT * FROM db_student")
 
     for student in students:
         if student.profile_step >= 5:

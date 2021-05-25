@@ -16,7 +16,7 @@ from api.schema.employee import Employee
 from api.schema.soft_skill import SoftSkillInput
 from api.schema.profile_state import ProfileState
 from api.schema.profile_type import ProfileType
-from db.decorators import cheating_protection, hyphenate
+from db.decorators import company_cheating_protection, hyphenate
 from db.exceptions import FormException
 from db.forms import process_company_form_step_2, process_company_form_step_3, process_university_form_step_1, \
     process_university_form_step_2, process_university_form_step_3
@@ -243,7 +243,8 @@ class Company(DjangoObjectType):
     state = graphene.Field(graphene.NonNull(ProfileState))
     soft_skills = graphene.List(graphene.NonNull('api.schema.soft_skill.schema.SoftSkill'))
     cultural_fits = graphene.List(graphene.NonNull('api.schema.cultural_fit.schema.CulturalFit'))
-    name = graphene.String()
+    name = graphene.NonNull(graphene.String)
+    display_name = graphene.NonNull(graphene.String)
 
     class Meta:
         model = CompanyModel
@@ -265,16 +266,19 @@ class Company(DjangoObjectType):
             return self.job_postings.all()
         return self.job_postings.filter(state=JobPostingState.PUBLIC)
 
-    @cheating_protection
+    @company_cheating_protection
     def resolve_soft_skills(self: CompanyModel, info: ResolveInfo):
         return self.soft_skills.all()
 
-    @cheating_protection
+    @company_cheating_protection
     def resolve_cultural_fits(self: CompanyModel, info: ResolveInfo):
         return self.cultural_fits.all()
 
-    @hyphenate
     def resolve_name(self, info):
+        return self.name
+
+    @hyphenate
+    def resolve_display_name(self, info):
         return self.name
 
 

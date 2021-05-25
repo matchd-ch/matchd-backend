@@ -5,14 +5,14 @@ from django.core import management
 
 from db.models import JobPostingState, ProfileState, JobPostingLanguageRelation, UserLanguageRelation, Match
 
+
 # pylint: disable=R0913
 # pylint: disable=R0915
-
-
 @pytest.mark.django_db
 def test_student_matching(job_posting_object, skill_objects, branch_objects, job_type_objects_date_range,
-                              user_employee, soft_skill_objects, cultural_fit_objects, user_student, user_student_2,
-                              student_matching, login, language_objects, language_level_objects):
+                          user_employee, soft_skill_objects, cultural_fit_objects, user_student, user_student_2,
+                          student_matching, login, language_objects, language_level_objects,
+                          student_fallback_images):
 
     branch = branch_objects[0]
     job_type = job_type_objects_date_range[0]
@@ -30,7 +30,6 @@ def test_student_matching(job_posting_object, skill_objects, branch_objects, job
     job_posting_object.state = JobPostingState.PUBLIC
     job_posting_object.title = 'title'
     job_posting_object.slug = 'title'
-    job_posting_object.branch = branch
     job_posting_object.job_type = job_type
     job_posting_object.workload = 100
     job_posting_object.company = user_employee.company
@@ -40,12 +39,13 @@ def test_student_matching(job_posting_object, skill_objects, branch_objects, job
     job_posting_object.save()
     job_posting_object.skills.set(skill_objects[:2])
     job_posting_object.save()
+    job_posting_object.branches.set([branch])
 
     JobPostingLanguageRelation.objects.create(language=language, language_level=language_level,
                                               job_posting=job_posting_object)
 
     # a 100% match
-    user_student.student.branch = job_posting_object.branch
+    user_student.student.branch = job_posting_object.branches.all()[0]
     user_student.student.job_type = job_posting_object.job_type
     user_student.student.job_from_date = job_posting_object.job_from_date
     user_student.student.job_to_date = job_posting_object.job_to_date
@@ -59,7 +59,7 @@ def test_student_matching(job_posting_object, skill_objects, branch_objects, job
     UserLanguageRelation.objects.create(language=language, language_level=language_level, student=user_student.student)
 
     # a bad match
-    user_student_2.student.branch = job_posting_object.branch
+    user_student_2.student.branch = job_posting_object.branches.all()[0]
     user_student_2.student.job_type = job_type_objects_date_range[1]
     user_student_2.student.job_from_date = '2022-08-01'
     user_student_2.student.job_to_date = '2023-07-31'

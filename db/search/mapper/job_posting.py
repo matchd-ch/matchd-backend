@@ -31,6 +31,10 @@ class JobPostingMatchMapper:
         attachment = self.attachment_map.get(job_posting.company.id, None)
         if attachment is not None:
             attachment = attachment.absolute_url
+        else:
+            attachment = Attachment.get_company_avatar_fallback(job_posting.company)
+            if attachment is not None:
+                attachment = attachment.absolute_url
         return attachment
 
     def _get_match_status(self, job_posting):

@@ -218,7 +218,11 @@
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
             "job_postings": [
                 {
-                    "branch": 12,
+                    "branches": [
+                        12
+                    ],
+                    "date_created": "2021-05-17 14:41:19",
+                    "date_published": "2021-04-21 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-public@matchd.lo",
                     "form_step": 4,
@@ -235,7 +239,11 @@
                     "workload": 80
                 },
                 {
-                    "branch": 11,
+                    "branches": [
+                        11
+                    ],
+                    "date_created": "2021-05-17 14:41:20",
+                    "date_published": "2021-04-20 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-public@matchd.lo",
                     "form_step": 4,
@@ -263,7 +271,11 @@
                     "workload": 90
                 },
                 {
-                    "branch": 8,
+                    "branches": [
+                        8
+                    ],
+                    "date_created": "2021-05-17 14:41:20",
+                    "date_published": "2021-04-20 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-public@matchd.lo",
                     "form_step": 4,
@@ -273,7 +285,7 @@
                         6
                     ],
                     "job_to_date": "2021-11-16",
-                    "job_type": 5,
+                    "job_type": 1,
                     "languages": [],
                     "skills": [
                         41,
@@ -292,7 +304,11 @@
                     "workload": 100
                 },
                 {
-                    "branch": 15,
+                    "branches": [
+                        15
+                    ],
+                    "date_created": "2021-05-17 14:41:20",
+                    "date_published": "2021-04-19 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-public@matchd.lo",
                     "form_step": 4,
@@ -320,7 +336,11 @@
                     "workload": 90
                 },
                 {
-                    "branch": 10,
+                    "branches": [
+                        10
+                    ],
+                    "date_created": "2021-05-17 14:41:20",
+                    "date_published": "2021-04-18 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-public@matchd.lo",
                     "form_step": 4,
@@ -348,7 +368,11 @@
                     "workload": 60
                 },
                 {
-                    "branch": 11,
+                    "branches": [
+                        11
+                    ],
+                    "date_created": "2021-05-17 14:41:20",
+                    "date_published": "2021-04-18 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-public@matchd.lo",
                     "form_step": 4,
@@ -373,7 +397,11 @@
                     "workload": 100
                 },
                 {
-                    "branch": 14,
+                    "branches": [
+                        14
+                    ],
+                    "date_created": "2021-05-17 14:41:20",
+                    "date_published": "2021-04-17 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-public@matchd.lo",
                     "form_step": 4,
@@ -389,16 +417,8 @@
                     "job_type": 6,
                     "languages": [
                         {
-                            "language": 9,
-                            "language_level": 7
-                        },
-                        {
                             "language": 7,
                             "language_level": 2
-                        },
-                        {
-                            "language": 3,
-                            "language_level": 3
                         }
                     ],
                     "skills": [
@@ -415,7 +435,11 @@
                     "workload": 50
                 },
                 {
-                    "branch": 4,
+                    "branches": [
+                        4
+                    ],
+                    "date_created": "2021-05-17 14:41:20",
+                    "date_published": "2021-04-16 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-public@matchd.lo",
                     "form_step": 4,
@@ -430,14 +454,6 @@
                     "job_to_date": "2022-06-25",
                     "job_type": 1,
                     "languages": [
-                        {
-                            "language": 14,
-                            "language_level": 6
-                        },
-                        {
-                            "language": 16,
-                            "language_level": 7
-                        },
                         {
                             "language": 7,
                             "language_level": 5
@@ -458,7 +474,11 @@
                     "workload": 90
                 },
                 {
-                    "branch": 11,
+                    "branches": [
+                        11
+                    ],
+                    "date_created": "2021-05-17 14:41:20",
+                    "date_published": "2021-04-14 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-public@matchd.lo",
                     "form_step": 4,
@@ -469,16 +489,8 @@
                         7
                     ],
                     "job_to_date": "2021-04-06",
-                    "job_type": 5,
+                    "job_type": 1,
                     "languages": [
-                        {
-                            "language": 11,
-                            "language_level": 4
-                        },
-                        {
-                            "language": 16,
-                            "language_level": 5
-                        },
                         {
                             "language": 8,
                             "language_level": 2
@@ -498,7 +510,11 @@
                     "workload": 50
                 },
                 {
-                    "branch": 9,
+                    "branches": [
+                        9
+                    ],
+                    "date_created": "2021-05-17 14:41:20",
+                    "date_published": "2021-04-13 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-public@matchd.lo",
                     "form_step": 4,
@@ -512,20 +528,7 @@
                     ],
                     "job_to_date": "2020-04-28",
                     "job_type": 4,
-                    "languages": [
-                        {
-                            "language": 9,
-                            "language_level": 8
-                        },
-                        {
-                            "language": 19,
-                            "language_level": 6
-                        },
-                        {
-                            "language": 1,
-                            "language_level": 7
-                        }
-                    ],
+                    "languages": [],
                     "skills": [
                         27,
                         28,
@@ -541,7 +544,11 @@
                     "workload": 50
                 },
                 {
-                    "branch": 5,
+                    "branches": [
+                        5
+                    ],
+                    "date_created": "2021-05-17 14:41:20",
+                    "date_published": "2021-04-12 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-public@matchd.lo",
                     "form_step": 4,
@@ -558,14 +565,6 @@
                         {
                             "language": 5,
                             "language_level": 7
-                        },
-                        {
-                            "language": 17,
-                            "language_level": 8
-                        },
-                        {
-                            "language": 3,
-                            "language_level": 3
                         }
                     ],
                     "skills": [
@@ -584,7 +583,11 @@
                     "workload": 50
                 },
                 {
-                    "branch": 16,
+                    "branches": [
+                        16
+                    ],
+                    "date_created": "2021-05-17 14:41:20",
+                    "date_published": "2021-04-11 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-public@matchd.lo",
                     "form_step": 4,
@@ -599,10 +602,6 @@
                     "job_to_date": "2021-11-27",
                     "job_type": 1,
                     "languages": [
-                        {
-                            "language": 16,
-                            "language_level": 6
-                        },
                         {
                             "language": 7,
                             "language_level": 2
@@ -627,7 +626,11 @@
                     "workload": 60
                 },
                 {
-                    "branch": 7,
+                    "branches": [
+                        7
+                    ],
+                    "date_created": "2021-05-17 14:41:20",
+                    "date_published": null,
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-public@matchd.lo",
                     "form_step": 4,
@@ -638,20 +641,7 @@
                     ],
                     "job_to_date": "2021-05-07",
                     "job_type": 2,
-                    "languages": [
-                        {
-                            "language": 1,
-                            "language_level": 3
-                        },
-                        {
-                            "language": 21,
-                            "language_level": 4
-                        },
-                        {
-                            "language": 17,
-                            "language_level": 2
-                        }
-                    ],
+                    "languages": [],
                     "skills": [
                         49,
                         50,
@@ -661,13 +651,17 @@
                         16
                     ],
                     "slug": "praktikantin-user-experience-13",
-                    "state": "public",
+                    "state": "draft",
                     "title": "Praktikant*in User Experience",
                     "url": "https://www.job.lo",
                     "workload": 70
                 },
                 {
-                    "branch": 11,
+                    "branches": [
+                        11
+                    ],
+                    "date_created": "2021-05-17 14:41:20",
+                    "date_published": null,
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-public@matchd.lo",
                     "form_step": 4,
@@ -681,16 +675,8 @@
                     "job_type": 1,
                     "languages": [
                         {
-                            "language": 9,
-                            "language_level": 4
-                        },
-                        {
                             "language": 15,
                             "language_level": 6
-                        },
-                        {
-                            "language": 11,
-                            "language_level": 3
                         },
                         {
                             "language": 5,
@@ -703,7 +689,7 @@
                         33
                     ],
                     "slug": "praktikantin-vuejs-reactjs-14",
-                    "state": "public",
+                    "state": "draft",
                     "title": "Praktikant*in Vue.js / React.js",
                     "url": "https://www.job.lo",
                     "workload": 50
@@ -809,7 +795,11 @@
             "description": "Wir machen innovatives und individuelles Web-Development und Mobile-Apps. Dank grosser Expertise, langj\u00e4hriger Erfahrung und einer einzigartigen Kultur \u00fcberzeugt dies nicht nur unsere Kunden \u2013 sondern auch viele Wettbewerbsjurys.",
             "job_postings": [
                 {
-                    "branch": 7,
+                    "branches": [
+                        7
+                    ],
+                    "date_created": "2021-05-17 14:41:21",
+                    "date_published": "2021-04-08 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "liip@matchd.lo",
                     "form_step": 4,
@@ -824,18 +814,6 @@
                     "job_to_date": "2020-02-13",
                     "job_type": 1,
                     "languages": [
-                        {
-                            "language": 11,
-                            "language_level": 7
-                        },
-                        {
-                            "language": 21,
-                            "language_level": 4
-                        },
-                        {
-                            "language": 19,
-                            "language_level": 2
-                        },
                         {
                             "language": 5,
                             "language_level": 8
@@ -852,7 +830,11 @@
                     "workload": 80
                 },
                 {
-                    "branch": 15,
+                    "branches": [
+                        15
+                    ],
+                    "date_created": "2021-05-17 14:41:21",
+                    "date_published": "2021-04-20 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "liip@matchd.lo",
                     "form_step": 4,
@@ -865,14 +847,6 @@
                     "job_to_date": null,
                     "job_type": 7,
                     "languages": [
-                        {
-                            "language": 19,
-                            "language_level": 6
-                        },
-                        {
-                            "language": 17,
-                            "language_level": 3
-                        },
                         {
                             "language": 15,
                             "language_level": 4
@@ -896,7 +870,11 @@
                     "workload": 70
                 },
                 {
-                    "branch": 2,
+                    "branches": [
+                        2
+                    ],
+                    "date_created": "2021-05-17 14:41:21",
+                    "date_published": "2021-04-19 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "liip@matchd.lo",
                     "form_step": 4,
@@ -911,14 +889,6 @@
                     "job_to_date": "2022-01-02",
                     "job_type": 3,
                     "languages": [
-                        {
-                            "language": 1,
-                            "language_level": 5
-                        },
-                        {
-                            "language": 21,
-                            "language_level": 3
-                        },
                         {
                             "language": 8,
                             "language_level": 4
@@ -939,7 +909,11 @@
                     "workload": 70
                 },
                 {
-                    "branch": 15,
+                    "branches": [
+                        15
+                    ],
+                    "date_created": "2021-05-17 14:41:21",
+                    "date_published": "2021-04-18 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "liip@matchd.lo",
                     "form_step": 4,
@@ -956,14 +930,6 @@
                         {
                             "language": 10,
                             "language_level": 6
-                        },
-                        {
-                            "language": 16,
-                            "language_level": 2
-                        },
-                        {
-                            "language": 3,
-                            "language_level": 7
                         },
                         {
                             "language": 5,
@@ -987,7 +953,11 @@
                     "workload": 90
                 },
                 {
-                    "branch": 10,
+                    "branches": [
+                        10
+                    ],
+                    "date_created": "2021-05-17 14:41:21",
+                    "date_published": null,
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "liip@matchd.lo",
                     "form_step": 4,
@@ -1003,18 +973,6 @@
                     "job_type": 4,
                     "languages": [
                         {
-                            "language": 11,
-                            "language_level": 4
-                        },
-                        {
-                            "language": 12,
-                            "language_level": 5
-                        },
-                        {
-                            "language": 3,
-                            "language_level": 7
-                        },
-                        {
                             "language": 5,
                             "language_level": 8
                         }
@@ -1025,7 +983,7 @@
                         8
                     ],
                     "slug": "praktikantin-design-19",
-                    "state": "public",
+                    "state": "draft",
                     "title": "Praktikant*in Design",
                     "url": "https://www.job.lo",
                     "workload": 60
@@ -1423,7 +1381,7 @@
             "hobbies": [],
             "job_from_date": "2021-03-11",
             "job_to_date": "2021-06-04",
-            "job_type": 5,
+            "job_type": 1,
             "languages": [],
             "mobile": "+41791234567",
             "nickname": null,
@@ -1457,7 +1415,7 @@
                 12
             ],
             "date_of_birth": "1981-11-16",
-            "distinction": "",
+            "distinction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
             "field_of_study": "Applikationsentwicklung",
             "graduation": "2022-08-01",
             "hobbies": [],
@@ -1950,7 +1908,7 @@
                     "language_level": 8
                 }
             ],
-            "mobile": "+791234567",
+            "mobile": "+41791234567",
             "nickname": "david-shapiro-10",
             "online_projects": [
                 "http://www.project.lo",
@@ -2060,7 +2018,7 @@
                     "language_level": 8
                 }
             ],
-            "mobile": "+791234567",
+            "mobile": "+41791234567",
             "nickname": "stephen-tynes-11",
             "online_projects": [
                 "http://www.project.lo",
@@ -2176,7 +2134,7 @@
                     "language_level": 8
                 }
             ],
-            "mobile": "+791234567",
+            "mobile": "+41791234567",
             "nickname": "keitha-patton-12",
             "online_projects": [
                 "http://www.project.lo",
@@ -2287,7 +2245,7 @@
                     "language_level": 5
                 }
             ],
-            "mobile": "+791234567",
+            "mobile": "+41791234567",
             "nickname": "brenda-mosby-13",
             "online_projects": [
                 "http://www.project.lo",
@@ -2367,7 +2325,7 @@
             ],
             "job_from_date": "2020-09-30",
             "job_to_date": "2021-04-07",
-            "job_type": 5,
+            "job_type": 1,
             "languages": [
                 {
                     "language": 20,
@@ -2382,7 +2340,7 @@
                     "language_level": 2
                 }
             ],
-            "mobile": "+791234567",
+            "mobile": "+41791234567",
             "nickname": "lenard-meigs-14",
             "online_projects": [
                 "http://www.project.lo",
@@ -2462,7 +2420,7 @@
             ],
             "job_from_date": "2020-09-11",
             "job_to_date": "2021-05-04",
-            "job_type": 5,
+            "job_type": 1,
             "languages": [
                 {
                     "language": 11,
@@ -2477,7 +2435,7 @@
                     "language_level": 4
                 }
             ],
-            "mobile": "+791234567",
+            "mobile": "+41791234567",
             "nickname": "keith-burton-15",
             "online_projects": [
                 "http://www.project.lo",
@@ -2572,7 +2530,7 @@
                     "language_level": 7
                 }
             ],
-            "mobile": "+791234567",
+            "mobile": "+41791234567",
             "nickname": "miguelina-padilla-16",
             "online_projects": [
                 "http://www.project.lo",
@@ -2652,7 +2610,7 @@
             ],
             "job_from_date": "2021-11-01",
             "job_to_date": "2021-11-29",
-            "job_type": 5,
+            "job_type": 1,
             "languages": [
                 {
                     "language": 17,
@@ -2667,7 +2625,7 @@
                     "language_level": 8
                 }
             ],
-            "mobile": "+791234567",
+            "mobile": "+41791234567",
             "nickname": "corey-hoffman-17",
             "online_projects": [
                 "http://www.project.lo",
@@ -2768,7 +2726,7 @@
                     "language_level": 8
                 }
             ],
-            "mobile": "+791234567",
+            "mobile": "+41791234567",
             "nickname": "mary-bender-18",
             "online_projects": [
                 "http://www.project.lo",
@@ -2863,7 +2821,7 @@
                     "language_level": 5
                 }
             ],
-            "mobile": "+791234567",
+            "mobile": "+41791234567",
             "nickname": "lee-sigler-19",
             "online_projects": [
                 "http://www.project.lo",
@@ -2964,7 +2922,7 @@
                     "language_level": 8
                 }
             ],
-            "mobile": "+791234567",
+            "mobile": "+41791234567",
             "nickname": "nathaniel-olivarez-20",
             "online_projects": [
                 "http://www.project.lo",
@@ -3044,7 +3002,7 @@
             ],
             "job_from_date": "2021-01-07",
             "job_to_date": "2021-11-07",
-            "job_type": 5,
+            "job_type": 1,
             "languages": [
                 {
                     "language": 21,
@@ -3059,7 +3017,7 @@
                     "language_level": 8
                 }
             ],
-            "mobile": "+791234567",
+            "mobile": "+41791234567",
             "nickname": "anne-sullivan-21",
             "online_projects": [
                 "http://www.project.lo",
@@ -3154,7 +3112,7 @@
                     "language_level": 6
                 }
             ],
-            "mobile": "+791234567",
+            "mobile": "+41791234567",
             "nickname": "homer-floyd-22",
             "online_projects": [
                 "http://www.project.lo",
@@ -3249,7 +3207,7 @@
                     "language_level": 7
                 }
             ],
-            "mobile": "+791234567",
+            "mobile": "+41791234567",
             "nickname": "gerald-ridley-23",
             "online_projects": [
                 "http://www.project.lo",
@@ -3344,7 +3302,7 @@
                     "language_level": 4
                 }
             ],
-            "mobile": "+791234567",
+            "mobile": "+41791234567",
             "nickname": "mary-dorsey-24",
             "online_projects": [
                 "http://www.project.lo",
@@ -3445,7 +3403,7 @@
                     "language_level": 7
                 }
             ],
-            "mobile": "+791234567",
+            "mobile": "+41791234567",
             "nickname": "richard-coleman-25",
             "online_projects": [
                 "http://www.project.lo",
@@ -3546,7 +3504,7 @@
                     "language_level": 6
                 }
             ],
-            "mobile": "+791234567",
+            "mobile": "+41791234567",
             "nickname": "anne-ramsey-26",
             "online_projects": [
                 "http://www.project.lo",
@@ -3647,7 +3605,7 @@
                     "language_level": 7
                 }
             ],
-            "mobile": "+791234567",
+            "mobile": "+41791234567",
             "nickname": "melissa-hem-27",
             "online_projects": [
                 "http://www.project.lo",
@@ -3741,7 +3699,7 @@
                     "language_level": 5
                 }
             ],
-            "mobile": "+791234567",
+            "mobile": "+41791234567",
             "nickname": "christine-harding-28",
             "online_projects": [
                 "http://www.project.lo",
@@ -3819,7 +3777,7 @@
             ],
             "job_from_date": "2021-03-12",
             "job_to_date": "2022-01-25",
-            "job_type": 5,
+            "job_type": 1,
             "languages": [
                 {
                     "language": 19,
@@ -3834,7 +3792,7 @@
                     "language_level": 2
                 }
             ],
-            "mobile": "+791234567",
+            "mobile": "+41791234567",
             "nickname": "lillian-lalk-29",
             "online_projects": [
                 "http://www.project.lo",
@@ -3918,7 +3876,11 @@
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
                 {
-                    "branch": 7,
+                    "branches": [
+                        7
+                    ],
+                    "date_created": "2021-05-17 14:41:33",
+                    "date_published": "2021-04-21 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-1-1@matchd.lo",
                     "form_step": 4,
@@ -3930,18 +3892,6 @@
                     "job_to_date": "2020-04-06",
                     "job_type": 2,
                     "languages": [
-                        {
-                            "language": 4,
-                            "language_level": 5
-                        },
-                        {
-                            "language": 11,
-                            "language_level": 6
-                        },
-                        {
-                            "language": 14,
-                            "language_level": 7
-                        },
                         {
                             "language": 5,
                             "language_level": 2
@@ -3960,7 +3910,11 @@
                     "workload": 70
                 },
                 {
-                    "branch": 14,
+                    "branches": [
+                        14
+                    ],
+                    "date_created": "2021-05-17 14:41:34",
+                    "date_published": "2021-04-20 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-1-1@matchd.lo",
                     "form_step": 4,
@@ -3972,18 +3926,6 @@
                     "job_to_date": "2020-09-30",
                     "job_type": 4,
                     "languages": [
-                        {
-                            "language": 1,
-                            "language_level": 4
-                        },
-                        {
-                            "language": 14,
-                            "language_level": 6
-                        },
-                        {
-                            "language": 3,
-                            "language_level": 7
-                        },
                         {
                             "language": 5,
                             "language_level": 2
@@ -4006,7 +3948,11 @@
                     "workload": 100
                 },
                 {
-                    "branch": 7,
+                    "branches": [
+                        7
+                    ],
+                    "date_created": "2021-05-17 14:41:34",
+                    "date_published": "2021-04-19 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-1-1@matchd.lo",
                     "form_step": 4,
@@ -4019,15 +3965,11 @@
                         9
                     ],
                     "job_to_date": "2021-03-01",
-                    "job_type": 5,
+                    "job_type": 1,
                     "languages": [
                         {
                             "language": 13,
                             "language_level": 7
-                        },
-                        {
-                            "language": 17,
-                            "language_level": 6
                         },
                         {
                             "language": 5,
@@ -4049,7 +3991,11 @@
                     "workload": 60
                 },
                 {
-                    "branch": 1,
+                    "branches": [
+                        1
+                    ],
+                    "date_created": "2021-05-17 14:41:34",
+                    "date_published": null,
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-1-1@matchd.lo",
                     "form_step": 4,
@@ -4059,7 +4005,7 @@
                         9
                     ],
                     "job_to_date": "2021-12-22",
-                    "job_type": 5,
+                    "job_type": 1,
                     "languages": [
                         {
                             "language": 13,
@@ -4068,10 +4014,6 @@
                         {
                             "language": 7,
                             "language_level": 7
-                        },
-                        {
-                            "language": 1,
-                            "language_level": 4
                         },
                         {
                             "language": 5,
@@ -4083,7 +4025,7 @@
                         25
                     ],
                     "slug": "praktikantin-php-23",
-                    "state": "public",
+                    "state": "draft",
                     "title": "Praktikant*in PHP",
                     "url": "https://www.job.lo",
                     "workload": 100
@@ -4190,7 +4132,11 @@
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
                 {
-                    "branch": 14,
+                    "branches": [
+                        14
+                    ],
+                    "date_created": "2021-05-17 14:41:34",
+                    "date_published": "2021-04-17 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-2-1@matchd.lo",
                     "form_step": 4,
@@ -4205,18 +4151,6 @@
                     "job_to_date": null,
                     "job_type": 7,
                     "languages": [
-                        {
-                            "language": 14,
-                            "language_level": 7
-                        },
-                        {
-                            "language": 4,
-                            "language_level": 6
-                        },
-                        {
-                            "language": 2,
-                            "language_level": 8
-                        },
                         {
                             "language": 5,
                             "language_level": 5
@@ -4233,7 +4167,11 @@
                     "workload": 80
                 },
                 {
-                    "branch": 4,
+                    "branches": [
+                        4
+                    ],
+                    "date_created": "2021-05-17 14:41:34",
+                    "date_published": "2021-04-16 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-2-1@matchd.lo",
                     "form_step": 4,
@@ -4250,14 +4188,6 @@
                         {
                             "language": 13,
                             "language_level": 5
-                        },
-                        {
-                            "language": 1,
-                            "language_level": 3
-                        },
-                        {
-                            "language": 18,
-                            "language_level": 6
                         },
                         {
                             "language": 5,
@@ -4280,7 +4210,11 @@
                     "workload": 70
                 },
                 {
-                    "branch": 4,
+                    "branches": [
+                        4
+                    ],
+                    "date_created": "2021-05-17 14:41:35",
+                    "date_published": "2021-04-15 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-2-1@matchd.lo",
                     "form_step": 4,
@@ -4295,14 +4229,6 @@
                         {
                             "language": 8,
                             "language_level": 5
-                        },
-                        {
-                            "language": 4,
-                            "language_level": 8
-                        },
-                        {
-                            "language": 1,
-                            "language_level": 4
                         },
                         {
                             "language": 5,
@@ -4324,7 +4250,11 @@
                     "workload": 60
                 },
                 {
-                    "branch": 4,
+                    "branches": [
+                        4
+                    ],
+                    "date_created": "2021-05-17 14:41:35",
+                    "date_published": "2021-04-14 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-2-1@matchd.lo",
                     "form_step": 4,
@@ -4339,14 +4269,6 @@
                         {
                             "language": 8,
                             "language_level": 2
-                        },
-                        {
-                            "language": 4,
-                            "language_level": 7
-                        },
-                        {
-                            "language": 3,
-                            "language_level": 3
                         },
                         {
                             "language": 5,
@@ -4370,7 +4292,11 @@
                     "workload": 60
                 },
                 {
-                    "branch": 7,
+                    "branches": [
+                        7
+                    ],
+                    "date_created": "2021-05-17 14:41:35",
+                    "date_published": null,
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-2-1@matchd.lo",
                     "form_step": 4,
@@ -4383,16 +4309,8 @@
                     "job_type": 6,
                     "languages": [
                         {
-                            "language": 4,
-                            "language_level": 2
-                        },
-                        {
                             "language": 10,
                             "language_level": 4
-                        },
-                        {
-                            "language": 14,
-                            "language_level": 8
                         },
                         {
                             "language": 5,
@@ -4406,7 +4324,7 @@
                         6
                     ],
                     "slug": "praktikantin-php-28",
-                    "state": "public",
+                    "state": "draft",
                     "title": "Praktikant*in PHP",
                     "url": "https://www.job.lo",
                     "workload": 100
@@ -4519,7 +4437,11 @@
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
                 {
-                    "branch": 2,
+                    "branches": [
+                        2
+                    ],
+                    "date_created": "2021-05-17 14:41:35",
+                    "date_published": "2021-04-21 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-3-1@matchd.lo",
                     "form_step": 4,
@@ -4541,10 +4463,6 @@
                             "language_level": 2
                         },
                         {
-                            "language": 9,
-                            "language_level": 5
-                        },
-                        {
                             "language": 5,
                             "language_level": 4
                         }
@@ -4561,7 +4479,11 @@
                     "workload": 100
                 },
                 {
-                    "branch": 3,
+                    "branches": [
+                        3
+                    ],
+                    "date_created": "2021-05-17 14:41:35",
+                    "date_published": "2021-04-20 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-3-1@matchd.lo",
                     "form_step": 4,
@@ -4574,18 +4496,6 @@
                     "job_to_date": "2021-04-13",
                     "job_type": 2,
                     "languages": [
-                        {
-                            "language": 14,
-                            "language_level": 7
-                        },
-                        {
-                            "language": 21,
-                            "language_level": 5
-                        },
-                        {
-                            "language": 6,
-                            "language_level": 3
-                        },
                         {
                             "language": 5,
                             "language_level": 2
@@ -4727,7 +4637,11 @@
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
                 {
-                    "branch": 2,
+                    "branches": [
+                        2
+                    ],
+                    "date_created": "2021-05-17 14:41:36",
+                    "date_published": "2021-04-19 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-4-1@matchd.lo",
                     "form_step": 4,
@@ -4741,16 +4655,8 @@
                     "job_type": 2,
                     "languages": [
                         {
-                            "language": 9,
-                            "language_level": 6
-                        },
-                        {
                             "language": 5,
                             "language_level": 8
-                        },
-                        {
-                            "language": 2,
-                            "language_level": 5
                         }
                     ],
                     "skills": [
@@ -4767,7 +4673,11 @@
                     "workload": 100
                 },
                 {
-                    "branch": 9,
+                    "branches": [
+                        9
+                    ],
+                    "date_created": "2021-05-17 14:41:36",
+                    "date_published": "2021-04-18 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-4-1@matchd.lo",
                     "form_step": 4,
@@ -4781,14 +4691,6 @@
                     "job_to_date": "2020-11-02",
                     "job_type": 4,
                     "languages": [
-                        {
-                            "language": 18,
-                            "language_level": 7
-                        },
-                        {
-                            "language": 17,
-                            "language_level": 3
-                        },
                         {
                             "language": 8,
                             "language_level": 5
@@ -4910,7 +4812,11 @@
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
                 {
-                    "branch": 4,
+                    "branches": [
+                        4
+                    ],
+                    "date_created": "2021-05-17 14:41:37",
+                    "date_published": "2021-04-21 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-5-1@matchd.lo",
                     "form_step": 4,
@@ -4922,18 +4828,6 @@
                     "job_to_date": null,
                     "job_type": 6,
                     "languages": [
-                        {
-                            "language": 11,
-                            "language_level": 8
-                        },
-                        {
-                            "language": 14,
-                            "language_level": 6
-                        },
-                        {
-                            "language": 12,
-                            "language_level": 4
-                        },
                         {
                             "language": 5,
                             "language_level": 7
@@ -4954,7 +4848,11 @@
                     "workload": 100
                 },
                 {
-                    "branch": 16,
+                    "branches": [
+                        16
+                    ],
+                    "date_created": "2021-05-17 14:41:37",
+                    "date_published": "2021-04-20 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-5-1@matchd.lo",
                     "form_step": 4,
@@ -4977,10 +4875,6 @@
                             "language_level": 6
                         },
                         {
-                            "language": 2,
-                            "language_level": 4
-                        },
-                        {
                             "language": 5,
                             "language_level": 2
                         }
@@ -5000,7 +4894,11 @@
                     "workload": 70
                 },
                 {
-                    "branch": 15,
+                    "branches": [
+                        15
+                    ],
+                    "date_created": "2021-05-17 14:41:37",
+                    "date_published": null,
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-5-1@matchd.lo",
                     "form_step": 4,
@@ -5013,18 +4911,6 @@
                     "job_type": 7,
                     "languages": [
                         {
-                            "language": 9,
-                            "language_level": 5
-                        },
-                        {
-                            "language": 19,
-                            "language_level": 3
-                        },
-                        {
-                            "language": 4,
-                            "language_level": 7
-                        },
-                        {
                             "language": 5,
                             "language_level": 2
                         }
@@ -5034,7 +4920,7 @@
                         46
                     ],
                     "slug": "praktikantin-applikationsentwicklung-35",
-                    "state": "public",
+                    "state": "draft",
                     "title": "Praktikant*in Applikationsentwicklung",
                     "url": "https://www.job.lo",
                     "workload": 100
@@ -5135,7 +5021,11 @@
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
                 {
-                    "branch": 11,
+                    "branches": [
+                        11
+                    ],
+                    "date_created": "2021-05-17 14:41:38",
+                    "date_published": "2021-04-21 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-6-1@matchd.lo",
                     "form_step": 4,
@@ -5153,28 +5043,12 @@
                             "language_level": 6
                         },
                         {
-                            "language": 12,
-                            "language_level": 2
-                        },
-                        {
-                            "language": 18,
-                            "language_level": 4
-                        },
-                        {
                             "language": 5,
                             "language_level": 3
                         },
                         {
                             "language": 7,
                             "language_level": 8
-                        },
-                        {
-                            "language": 19,
-                            "language_level": 7
-                        },
-                        {
-                            "language": 20,
-                            "language_level": 2
                         }
                     ],
                     "skills": [
@@ -5194,7 +5068,11 @@
                     "workload": 50
                 },
                 {
-                    "branch": 12,
+                    "branches": [
+                        12
+                    ],
+                    "date_created": "2021-05-17 14:41:38",
+                    "date_published": "2021-04-20 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-6-1@matchd.lo",
                     "form_step": 4,
@@ -5205,19 +5083,11 @@
                         4
                     ],
                     "job_to_date": "2021-04-22",
-                    "job_type": 5,
+                    "job_type": 1,
                     "languages": [
-                        {
-                            "language": 18,
-                            "language_level": 3
-                        },
                         {
                             "language": 10,
                             "language_level": 4
-                        },
-                        {
-                            "language": 3,
-                            "language_level": 8
                         },
                         {
                             "language": 5,
@@ -5238,7 +5108,11 @@
                     "workload": 60
                 },
                 {
-                    "branch": 15,
+                    "branches": [
+                        15
+                    ],
+                    "date_created": "2021-05-17 14:41:38",
+                    "date_published": "2021-04-19 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-6-1@matchd.lo",
                     "form_step": 4,
@@ -5251,14 +5125,6 @@
                     "job_to_date": "2021-08-16",
                     "job_type": 4,
                     "languages": [
-                        {
-                            "language": 6,
-                            "language_level": 3
-                        },
-                        {
-                            "language": 2,
-                            "language_level": 5
-                        },
                         {
                             "language": 8,
                             "language_level": 7
@@ -5381,7 +5247,11 @@
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
                 {
-                    "branch": 8,
+                    "branches": [
+                        8
+                    ],
+                    "date_created": "2021-05-17 14:41:38",
+                    "date_published": "2021-04-18 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-7-1@matchd.lo",
                     "form_step": 4,
@@ -5393,18 +5263,6 @@
                     "job_to_date": "2020-04-25",
                     "job_type": 3,
                     "languages": [
-                        {
-                            "language": 11,
-                            "language_level": 6
-                        },
-                        {
-                            "language": 9,
-                            "language_level": 8
-                        },
-                        {
-                            "language": 2,
-                            "language_level": 7
-                        },
                         {
                             "language": 5,
                             "language_level": 2
@@ -5421,7 +5279,11 @@
                     "workload": 90
                 },
                 {
-                    "branch": 14,
+                    "branches": [
+                        14
+                    ],
+                    "date_created": "2021-05-17 14:41:38",
+                    "date_published": "2021-04-17 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-7-1@matchd.lo",
                     "form_step": 4,
@@ -5436,14 +5298,6 @@
                         {
                             "language": 10,
                             "language_level": 6
-                        },
-                        {
-                            "language": 1,
-                            "language_level": 7
-                        },
-                        {
-                            "language": 18,
-                            "language_level": 8
                         },
                         {
                             "language": 5,
@@ -5586,7 +5440,11 @@
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
                 {
-                    "branch": 15,
+                    "branches": [
+                        15
+                    ],
+                    "date_created": "2021-05-17 14:41:39",
+                    "date_published": "2021-04-21 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-8-1@matchd.lo",
                     "form_step": 4,
@@ -5602,10 +5460,6 @@
                         {
                             "language": 13,
                             "language_level": 2
-                        },
-                        {
-                            "language": 9,
-                            "language_level": 6
                         },
                         {
                             "language": 7,
@@ -5629,7 +5483,11 @@
                     "workload": 90
                 },
                 {
-                    "branch": 11,
+                    "branches": [
+                        11
+                    ],
+                    "date_created": "2021-05-17 14:41:39",
+                    "date_published": "2021-04-20 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-8-1@matchd.lo",
                     "form_step": 4,
@@ -5645,16 +5503,8 @@
                     "job_type": 2,
                     "languages": [
                         {
-                            "language": 12,
-                            "language_level": 8
-                        },
-                        {
                             "language": 5,
                             "language_level": 6
-                        },
-                        {
-                            "language": 20,
-                            "language_level": 3
                         }
                     ],
                     "skills": [
@@ -5670,7 +5520,11 @@
                     "workload": 90
                 },
                 {
-                    "branch": 2,
+                    "branches": [
+                        2
+                    ],
+                    "date_created": "2021-05-17 14:41:39",
+                    "date_published": "2021-04-19 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-8-1@matchd.lo",
                     "form_step": 4,
@@ -5682,18 +5536,6 @@
                     "job_to_date": "2021-06-14",
                     "job_type": 2,
                     "languages": [
-                        {
-                            "language": 4,
-                            "language_level": 4
-                        },
-                        {
-                            "language": 2,
-                            "language_level": 6
-                        },
-                        {
-                            "language": 20,
-                            "language_level": 7
-                        },
                         {
                             "language": 5,
                             "language_level": 2
@@ -5712,7 +5554,11 @@
                     "workload": 80
                 },
                 {
-                    "branch": 16,
+                    "branches": [
+                        16
+                    ],
+                    "date_created": "2021-05-17 14:41:39",
+                    "date_published": "2021-04-18 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-8-1@matchd.lo",
                     "form_step": 4,
@@ -5722,16 +5568,8 @@
                         2
                     ],
                     "job_to_date": "2022-03-18",
-                    "job_type": 5,
+                    "job_type": 1,
                     "languages": [
-                        {
-                            "language": 19,
-                            "language_level": 5
-                        },
-                        {
-                            "language": 20,
-                            "language_level": 6
-                        },
                         {
                             "language": 10,
                             "language_level": 8
@@ -5758,7 +5596,11 @@
                     "workload": 60
                 },
                 {
-                    "branch": 4,
+                    "branches": [
+                        4
+                    ],
+                    "date_created": "2021-05-17 14:41:40",
+                    "date_published": null,
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-8-1@matchd.lo",
                     "form_step": 4,
@@ -5770,20 +5612,8 @@
                         7
                     ],
                     "job_to_date": "2021-06-26",
-                    "job_type": 5,
+                    "job_type": 1,
                     "languages": [
-                        {
-                            "language": 17,
-                            "language_level": 4
-                        },
-                        {
-                            "language": 19,
-                            "language_level": 6
-                        },
-                        {
-                            "language": 20,
-                            "language_level": 7
-                        },
                         {
                             "language": 5,
                             "language_level": 8
@@ -5797,7 +5627,7 @@
                         43
                     ],
                     "slug": "praktikantin-datenbanken-45",
-                    "state": "public",
+                    "state": "draft",
                     "title": "Praktikant*in Datenbanken",
                     "url": "https://www.job.lo",
                     "workload": 70
@@ -5904,7 +5734,11 @@
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
                 {
-                    "branch": 12,
+                    "branches": [
+                        12
+                    ],
+                    "date_created": "2021-05-17 14:41:40",
+                    "date_published": "2021-04-21 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-9-1@matchd.lo",
                     "form_step": 4,
@@ -5918,14 +5752,6 @@
                     "job_to_date": null,
                     "job_type": 6,
                     "languages": [
-                        {
-                            "language": 14,
-                            "language_level": 7
-                        },
-                        {
-                            "language": 6,
-                            "language_level": 8
-                        },
                         {
                             "language": 7,
                             "language_level": 4
@@ -5949,7 +5775,11 @@
                     "workload": 50
                 },
                 {
-                    "branch": 5,
+                    "branches": [
+                        5
+                    ],
+                    "date_created": "2021-05-17 14:41:40",
+                    "date_published": "2021-04-20 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-9-1@matchd.lo",
                     "form_step": 4,
@@ -5969,14 +5799,6 @@
                             "language_level": 2
                         },
                         {
-                            "language": 20,
-                            "language_level": 7
-                        },
-                        {
-                            "language": 2,
-                            "language_level": 4
-                        },
-                        {
                             "language": 5,
                             "language_level": 3
                         },
@@ -5987,10 +5809,6 @@
                         {
                             "language": 10,
                             "language_level": 4
-                        },
-                        {
-                            "language": 6,
-                            "language_level": 6
                         }
                     ],
                     "skills": [
@@ -6006,7 +5824,11 @@
                     "workload": 90
                 },
                 {
-                    "branch": 9,
+                    "branches": [
+                        9
+                    ],
+                    "date_created": "2021-05-17 14:41:40",
+                    "date_published": "2021-04-19 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-9-1@matchd.lo",
                     "form_step": 4,
@@ -6020,18 +5842,6 @@
                     "job_to_date": null,
                     "job_type": 6,
                     "languages": [
-                        {
-                            "language": 20,
-                            "language_level": 2
-                        },
-                        {
-                            "language": 14,
-                            "language_level": 6
-                        },
-                        {
-                            "language": 18,
-                            "language_level": 3
-                        },
                         {
                             "language": 5,
                             "language_level": 7
@@ -6052,7 +5862,11 @@
                     "workload": 90
                 },
                 {
-                    "branch": 14,
+                    "branches": [
+                        14
+                    ],
+                    "date_created": "2021-05-17 14:41:40",
+                    "date_published": "2021-04-18 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-9-1@matchd.lo",
                     "form_step": 4,
@@ -6064,14 +5878,6 @@
                     "job_to_date": null,
                     "job_type": 7,
                     "languages": [
-                        {
-                            "language": 20,
-                            "language_level": 8
-                        },
-                        {
-                            "language": 1,
-                            "language_level": 5
-                        },
                         {
                             "language": 15,
                             "language_level": 7
@@ -6211,7 +6017,11 @@
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
                 {
-                    "branch": 16,
+                    "branches": [
+                        16
+                    ],
+                    "date_created": "2021-05-17 14:41:41",
+                    "date_published": null,
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-10-1@matchd.lo",
                     "form_step": 4,
@@ -6225,14 +6035,6 @@
                     "job_to_date": "2021-07-07",
                     "job_type": 1,
                     "languages": [
-                        {
-                            "language": 18,
-                            "language_level": 7
-                        },
-                        {
-                            "language": 20,
-                            "language_level": 3
-                        },
                         {
                             "language": 8,
                             "language_level": 6
@@ -6252,7 +6054,7 @@
                         20
                     ],
                     "slug": "praktikantin-social-media-50",
-                    "state": "public",
+                    "state": "draft",
                     "title": "Praktikant*in Social Media",
                     "url": "https://www.job.lo",
                     "workload": 90

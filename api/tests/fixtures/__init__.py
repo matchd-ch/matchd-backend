@@ -7,6 +7,7 @@ from .company import *
 from .company_add_employee import *
 from .company_profile import *
 from .cultural_fit import *
+from .dashboard import *
 from .faq_category import *
 from .job_posting import *
 from .job_requirement import *
@@ -25,3 +26,4 @@ from .user_request import *
 from .match import *
 from .matching import *
 from .faq import *
+from .zip_city import *

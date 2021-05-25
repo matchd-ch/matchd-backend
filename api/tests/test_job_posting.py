@@ -13,7 +13,6 @@ def test_job_posting(query_job_posting, job_posting_object: JobPosting, job_type
     job_posting_object.slug = 'title'
     job_posting_object.description = 'description'
     job_posting_object.job_type = job_type_objects[0]
-    job_posting_object.branch = branch_objects[0]
     job_posting_object.workload = 80
     job_posting_object.company = company_object
     job_posting_object.job_from_date = '2021-08-01'
@@ -27,6 +26,7 @@ def test_job_posting(query_job_posting, job_posting_object: JobPosting, job_type
     job_posting_object.save()
     JobPostingLanguageRelation.objects.create(job_posting=job_posting_object, language=language_objects[0],
                                               language_level=language_level_objects[0])
+    job_posting_object.branches.set([branch_objects[0]])
 
     data, errors = query_job_posting(user_student, 'title')
 
@@ -34,11 +34,12 @@ def test_job_posting(query_job_posting, job_posting_object: JobPosting, job_type
     assert data is not None
     job_posting = data.get('jobPosting')
 
-    assert job_posting.get('title') == 'tit\xadle'
+    assert job_posting.get('title') == 'title'
+    assert job_posting.get('displayTitle') == 'tit\xadle'
     assert job_posting.get('slug') == job_posting_object.slug
     assert job_posting.get('description') == job_posting_object.description
     assert int(job_posting.get('jobType').get('id')) == job_posting_object.job_type_id
-    assert int(job_posting.get('branch').get('id')) == job_posting_object.branch_id
+    assert int(job_posting.get('branches')[0].get('id')) == job_posting_object.branches.all()[0].id
     assert job_posting.get('workload') == job_posting_object.workload
     assert int(job_posting.get('company').get('id')) == job_posting_object.company_id
     assert job_posting.get('jobFromDate') == '2021-08-01'
@@ -60,15 +61,15 @@ def test_job_posting(query_job_posting, job_posting_object: JobPosting, job_type
     assert match_hints.get('hasRequestedMatch') is False
 
 
+# pylint: disable=R0913
 @pytest.mark.django_db
-def test_job_posting_by_id(query_job_posting_by_id, job_posting_object: JobPosting, job_type_objects, branch_objects,
-                           company_object, job_requirement_objects, skill_objects, user_employee, language_objects,
-                           language_level_objects, user_student):
+def test_job_posting_as_employee(query_job_posting, job_posting_object: JobPosting, job_type_objects, branch_objects,
+                                 company_object, job_requirement_objects, skill_objects, user_employee,
+                                 language_objects, language_level_objects):
     job_posting_object.title = 'title'
     job_posting_object.slug = 'title'
     job_posting_object.description = 'description'
     job_posting_object.job_type = job_type_objects[0]
-    job_posting_object.branch = branch_objects[0]
     job_posting_object.workload = 80
     job_posting_object.company = company_object
     job_posting_object.job_from_date = '2021-08-01'
@@ -82,6 +83,61 @@ def test_job_posting_by_id(query_job_posting_by_id, job_posting_object: JobPosti
     job_posting_object.save()
     JobPostingLanguageRelation.objects.create(job_posting=job_posting_object, language=language_objects[0],
                                               language_level=language_level_objects[0])
+    job_posting_object.branches.set([branch_objects[0]])
+
+    data, errors = query_job_posting(user_employee, 'title')
+
+    assert errors is None
+    assert data is not None
+    job_posting = data.get('jobPosting')
+
+    assert job_posting.get('title') == 'title'
+    assert job_posting.get('displayTitle') == 'tit\xadle'
+    assert job_posting.get('slug') == job_posting_object.slug
+    assert job_posting.get('description') == job_posting_object.description
+    assert int(job_posting.get('jobType').get('id')) == job_posting_object.job_type_id
+    assert int(job_posting.get('branches')[0].get('id')) == job_posting_object.branches.all()[0].id
+    assert job_posting.get('workload') == job_posting_object.workload
+    assert int(job_posting.get('company').get('id')) == job_posting_object.company_id
+    assert job_posting.get('jobFromDate') == '2021-08-01'
+    assert job_posting.get('jobToDate') == '2021-10-01'
+    assert job_posting.get('url') == job_posting_object.url
+    assert len(job_posting.get('jobRequirements')) == len(job_requirement_objects)
+    assert len(job_posting.get('skills')) == len(skill_objects)
+    assert len(job_posting.get('languages')) == 1
+    assert int(job_posting.get('formStep')) == job_posting_object.form_step
+    assert job_posting.get('state') == job_posting_object.state.upper()
+    assert int(job_posting.get('employee').get('id')) == user_employee.employee.id
+
+    match_status = job_posting.get('matchStatus')
+    assert match_status is None
+
+    match_hints = job_posting.get('matchHints')
+    assert match_hints is None
+
+
+@pytest.mark.django_db
+def test_job_posting_by_id(query_job_posting_by_id, job_posting_object: JobPosting, job_type_objects, branch_objects,
+                           company_object, job_requirement_objects, skill_objects, user_employee, language_objects,
+                           language_level_objects, user_student):
+    job_posting_object.title = 'title'
+    job_posting_object.slug = 'title'
+    job_posting_object.description = 'description'
+    job_posting_object.job_type = job_type_objects[0]
+    job_posting_object.workload = 80
+    job_posting_object.company = company_object
+    job_posting_object.job_from_date = '2021-08-01'
+    job_posting_object.job_to_date = '2021-10-01'
+    job_posting_object.url = 'http://www.url.lo'
+    job_posting_object.job_requirements.set(job_requirement_objects)
+    job_posting_object.skills.set(skill_objects)
+    job_posting_object.form_step = 4
+    job_posting_object.state = JobPostingState.PUBLIC
+    job_posting_object.employee = user_employee.employee
+    job_posting_object.save()
+    JobPostingLanguageRelation.objects.create(job_posting=job_posting_object, language=language_objects[0],
+                                              language_level=language_level_objects[0])
+    job_posting_object.branches.set([branch_objects[0]])
 
     data, errors = query_job_posting_by_id(user_student, job_posting_object.id)
 
@@ -89,11 +145,12 @@ def test_job_posting_by_id(query_job_posting_by_id, job_posting_object: JobPosti
     assert data is not None
     job_posting = data.get('jobPosting')
 
-    assert job_posting.get('title') == 'tit\xadle'
+    assert job_posting.get('title') == 'title'
+    assert job_posting.get('displayTitle') == 'tit\xadle'
     assert job_posting.get('slug') == job_posting_object.slug
     assert job_posting.get('description') == job_posting_object.description
     assert int(job_posting.get('jobType').get('id')) == job_posting_object.job_type_id
-    assert int(job_posting.get('branch').get('id')) == job_posting_object.branch_id
+    assert int(job_posting.get('branches')[0].get('id')) == job_posting_object.branches.all()[0].id
     assert job_posting.get('workload') == job_posting_object.workload
     assert int(job_posting.get('company').get('id')) == job_posting_object.company_id
     assert job_posting.get('jobFromDate') == '2021-08-01'
@@ -123,7 +180,6 @@ def test_job_posting_is_draft_but_accessible_for_employee(login, query_job_posti
     job_posting_object.slug = 'title'
     job_posting_object.description = 'description'
     job_posting_object.job_type = job_type_objects[0]
-    job_posting_object.branch = branch_objects[0]
     job_posting_object.workload = 80
     job_posting_object.company = company_object
     job_posting_object.job_from_date = '2021-08-01'
@@ -135,6 +191,7 @@ def test_job_posting_is_draft_but_accessible_for_employee(login, query_job_posti
     job_posting_object.state = JobPostingState.DRAFT
     job_posting_object.employee = user_employee.employee
     job_posting_object.save()
+    job_posting_object.branches.set([branch_objects[0]])
 
     login(user_employee)
 
@@ -144,11 +201,12 @@ def test_job_posting_is_draft_but_accessible_for_employee(login, query_job_posti
     assert data is not None
     job_posting = data.get('jobPosting')
 
-    assert job_posting.get('title') == 'tit\xadle'
+    assert job_posting.get('title') == 'title'
+    assert job_posting.get('displayTitle') == 'tit\xadle'
     assert job_posting.get('slug') == job_posting_object.slug
     assert job_posting.get('description') == job_posting_object.description
     assert int(job_posting.get('jobType').get('id')) == job_posting_object.job_type_id
-    assert int(job_posting.get('branch').get('id')) == job_posting_object.branch_id
+    assert int(job_posting.get('branches')[0].get('id')) == job_posting_object.branches.all()[0].id
     assert job_posting.get('workload') == job_posting_object.workload
     assert int(job_posting.get('company').get('id')) == job_posting_object.company_id
     assert job_posting.get('jobFromDate') == '2021-08-01'

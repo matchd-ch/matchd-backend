@@ -26,6 +26,7 @@ services:
       APP_CSRF_COOKIE_DOMAIN: '${APP_CSRF_COOKIE_DOMAIN}'
       WAGTAIL_SITE_NAME: '${WAGTAIL_SITE_NAME}'
       DJANGO_SECRET_KEY: '${DJANGO_SECRET_KEY}'
+      DATA_PROTECTION_URL: '${DATA_PROTECTION_URL}'
     volumes:
       - /var/run/mysqld/mysqld.sock:/var/run/mysqld/mysqld.sock
       - /var/www/${ENVIRONMENT}/static:/opt/app-root/src/static

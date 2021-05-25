@@ -19,7 +19,7 @@
     "model": "db.jobtype",
     "pk": 3,
     "fields": {
-        "name": "Trainee für Hochschulabgänger",
+        "name": "Trainee für Hochschulabgänger*innen",
         "mode": "date_range"
     }
 },
@@ -28,14 +28,6 @@
     "pk": 4,
     "fields": {
         "name": "Teilzeitstelle für Studierende FH/Uni",
-        "mode": "date_range"
-    }
-},
-{
-    "model": "db.jobtype",
-    "pk": 5,
-    "fields": {
-        "name": "Lehrstelle",
         "mode": "date_range"
     }
 },

@@ -24,7 +24,7 @@ class AttachmentServeView(View):
 
         user = request.user
         owner = get_company_or_student(attachment.attachment_object.uploaded_by_user)
-        has_permission = has_access_to_attachments(user, owner)
+        has_permission = has_access_to_attachments(user, owner, attachment.key)
 
         if not has_permission:
             raise PermissionDenied
