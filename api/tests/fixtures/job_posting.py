@@ -26,6 +26,7 @@ def job_posting_query(filter_value, param_name):
             id
             slug
             title
+            displayTitle
             formStep
             state
             description
@@ -91,6 +92,7 @@ def job_postings_query(slug):
             id
             slug
             title
+            displayTitle
             formStep
             state
             description

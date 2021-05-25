@@ -34,7 +34,8 @@ def test_job_posting(query_job_posting, job_posting_object: JobPosting, job_type
     assert data is not None
     job_posting = data.get('jobPosting')
 
-    assert job_posting.get('title') == 'tit\xadle'
+    assert job_posting.get('title') == 'title'
+    assert job_posting.get('displayTitle') == 'tit\xadle'
     assert job_posting.get('slug') == job_posting_object.slug
     assert job_posting.get('description') == job_posting_object.description
     assert int(job_posting.get('jobType').get('id')) == job_posting_object.job_type_id
@@ -90,7 +91,8 @@ def test_job_posting_as_employee(query_job_posting, job_posting_object: JobPosti
     assert data is not None
     job_posting = data.get('jobPosting')
 
-    assert job_posting.get('title') == 'tit\xadle'
+    assert job_posting.get('title') == 'title'
+    assert job_posting.get('displayTitle') == 'tit\xadle'
     assert job_posting.get('slug') == job_posting_object.slug
     assert job_posting.get('description') == job_posting_object.description
     assert int(job_posting.get('jobType').get('id')) == job_posting_object.job_type_id
@@ -143,7 +145,8 @@ def test_job_posting_by_id(query_job_posting_by_id, job_posting_object: JobPosti
     assert data is not None
     job_posting = data.get('jobPosting')
 
-    assert job_posting.get('title') == 'tit\xadle'
+    assert job_posting.get('title') == 'title'
+    assert job_posting.get('displayTitle') == 'tit\xadle'
     assert job_posting.get('slug') == job_posting_object.slug
     assert job_posting.get('description') == job_posting_object.description
     assert int(job_posting.get('jobType').get('id')) == job_posting_object.job_type_id
@@ -198,7 +201,8 @@ def test_job_posting_is_draft_but_accessible_for_employee(login, query_job_posti
     assert data is not None
     job_posting = data.get('jobPosting')
 
-    assert job_posting.get('title') == 'tit\xadle'
+    assert job_posting.get('title') == 'title'
+    assert job_posting.get('displayTitle') == 'tit\xadle'
     assert job_posting.get('slug') == job_posting_object.slug
     assert job_posting.get('description') == job_posting_object.description
     assert int(job_posting.get('jobType').get('id')) == job_posting_object.job_type_id

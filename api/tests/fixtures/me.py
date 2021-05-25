@@ -69,6 +69,7 @@ def me_query():
                 uid
                 type
                 name
+                displayName
                 slug
                 zip
                 city
