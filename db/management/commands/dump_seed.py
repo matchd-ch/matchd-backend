@@ -12,6 +12,18 @@ from db.models import Attachment, ProfileType, ProfileState, AttachmentKey
 class Command(BaseCommand):
     help = 'Dumps test data'
 
+    def get_faqs(self, company):
+        faq_objs = []
+
+        for faq in company.faqs.all():
+            obj = {
+                'category': faq.category.id,
+                'question': faq.question,
+                'answer': faq.answer,
+            }
+            faq_objs.append(obj)
+        return faq_objs
+
     def get_job_postings_for_company(self, company):
         job_posting_objs = []
 
@@ -155,7 +167,8 @@ class Command(BaseCommand):
                         'cultural_fits': [obj.id for obj in company.cultural_fits.all()],
                         'soft_skills': [obj.id for obj in company.soft_skills.all()],
                         'attachments': self.get_attachments_for_company(company),
-                        'job_postings': self.get_job_postings_for_company(company)
+                        'job_postings': self.get_job_postings_for_company(company),
+                        'faqs': self.get_faqs(company)
                     })
                     dumped_companies.append(company.slug)
                 user_obj['company'] = company_obj
