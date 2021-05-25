@@ -16,16 +16,17 @@ class BaseParamBuilder:
 
     def set_branch(self, branch_id, boost=1):
         self.must_conditions.append({
-            "bool": {
-                "should": [
-                    {
-                        'terms': {
-                            'branch_id_filter': [branch_id],
-                            'boost': boost
+            'nested': {
+                "path": "branches",
+                'query': {
+                    'bool': {
+                        'must': {
+                            "terms": {"branches.id_filter": [branch_id]},
                         }
                     }
-                ]
-            }
+                },
+                'boost': boost
+            },
         })
 
     def set_job_type(self, job_type_id, boost=1):

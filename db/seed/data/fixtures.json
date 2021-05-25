@@ -218,8 +218,10 @@
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
             "job_postings": [
                 {
-                    "branch": 12,
-                    "date_created": "2021-05-17 12:47:00",
+                    "branches": [
+                        12
+                    ],
+                    "date_created": "2021-05-17 14:41:19",
                     "date_published": "2021-04-21 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-public@matchd.lo",
@@ -237,8 +239,10 @@
                     "workload": 80
                 },
                 {
-                    "branch": 11,
-                    "date_created": "2021-05-17 12:47:01",
+                    "branches": [
+                        11
+                    ],
+                    "date_created": "2021-05-17 14:41:20",
                     "date_published": "2021-04-20 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-public@matchd.lo",
@@ -267,8 +271,10 @@
                     "workload": 90
                 },
                 {
-                    "branch": 8,
-                    "date_created": "2021-05-17 12:47:01",
+                    "branches": [
+                        8
+                    ],
+                    "date_created": "2021-05-17 14:41:20",
                     "date_published": "2021-04-20 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-public@matchd.lo",
@@ -298,8 +304,10 @@
                     "workload": 100
                 },
                 {
-                    "branch": 15,
-                    "date_created": "2021-05-17 12:47:01",
+                    "branches": [
+                        15
+                    ],
+                    "date_created": "2021-05-17 14:41:20",
                     "date_published": "2021-04-19 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-public@matchd.lo",
@@ -328,8 +336,10 @@
                     "workload": 90
                 },
                 {
-                    "branch": 10,
-                    "date_created": "2021-05-17 12:47:01",
+                    "branches": [
+                        10
+                    ],
+                    "date_created": "2021-05-17 14:41:20",
                     "date_published": "2021-04-18 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-public@matchd.lo",
@@ -358,8 +368,10 @@
                     "workload": 60
                 },
                 {
-                    "branch": 11,
-                    "date_created": "2021-05-17 12:47:01",
+                    "branches": [
+                        11
+                    ],
+                    "date_created": "2021-05-17 14:41:20",
                     "date_published": "2021-04-18 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-public@matchd.lo",
@@ -385,8 +397,10 @@
                     "workload": 100
                 },
                 {
-                    "branch": 14,
-                    "date_created": "2021-05-17 12:47:01",
+                    "branches": [
+                        14
+                    ],
+                    "date_created": "2021-05-17 14:41:20",
                     "date_published": "2021-04-17 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-public@matchd.lo",
@@ -421,8 +435,10 @@
                     "workload": 50
                 },
                 {
-                    "branch": 4,
-                    "date_created": "2021-05-17 12:47:01",
+                    "branches": [
+                        4
+                    ],
+                    "date_created": "2021-05-17 14:41:20",
                     "date_published": "2021-04-16 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-public@matchd.lo",
@@ -458,8 +474,10 @@
                     "workload": 90
                 },
                 {
-                    "branch": 11,
-                    "date_created": "2021-05-17 12:47:01",
+                    "branches": [
+                        11
+                    ],
+                    "date_created": "2021-05-17 14:41:20",
                     "date_published": "2021-04-14 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-public@matchd.lo",
@@ -492,8 +510,10 @@
                     "workload": 50
                 },
                 {
-                    "branch": 9,
-                    "date_created": "2021-05-17 12:47:01",
+                    "branches": [
+                        9
+                    ],
+                    "date_created": "2021-05-17 14:41:20",
                     "date_published": "2021-04-13 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-public@matchd.lo",
@@ -524,8 +544,10 @@
                     "workload": 50
                 },
                 {
-                    "branch": 5,
-                    "date_created": "2021-05-17 12:47:01",
+                    "branches": [
+                        5
+                    ],
+                    "date_created": "2021-05-17 14:41:20",
                     "date_published": "2021-04-12 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-public@matchd.lo",
@@ -561,8 +583,10 @@
                     "workload": 50
                 },
                 {
-                    "branch": 16,
-                    "date_created": "2021-05-17 12:47:01",
+                    "branches": [
+                        16
+                    ],
+                    "date_created": "2021-05-17 14:41:20",
                     "date_published": "2021-04-11 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-public@matchd.lo",
@@ -602,8 +626,10 @@
                     "workload": 60
                 },
                 {
-                    "branch": 7,
-                    "date_created": "2021-05-17 12:47:01",
+                    "branches": [
+                        7
+                    ],
+                    "date_created": "2021-05-17 14:41:20",
                     "date_published": null,
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-public@matchd.lo",
@@ -631,8 +657,10 @@
                     "workload": 70
                 },
                 {
-                    "branch": 11,
-                    "date_created": "2021-05-17 12:47:01",
+                    "branches": [
+                        11
+                    ],
+                    "date_created": "2021-05-17 14:41:20",
                     "date_published": null,
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-public@matchd.lo",
@@ -767,8 +795,10 @@
             "description": "Wir machen innovatives und individuelles Web-Development und Mobile-Apps. Dank grosser Expertise, langj\u00e4hriger Erfahrung und einer einzigartigen Kultur \u00fcberzeugt dies nicht nur unsere Kunden \u2013 sondern auch viele Wettbewerbsjurys.",
             "job_postings": [
                 {
-                    "branch": 7,
-                    "date_created": "2021-05-17 12:47:02",
+                    "branches": [
+                        7
+                    ],
+                    "date_created": "2021-05-17 14:41:21",
                     "date_published": "2021-04-08 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "liip@matchd.lo",
@@ -800,8 +830,10 @@
                     "workload": 80
                 },
                 {
-                    "branch": 15,
-                    "date_created": "2021-05-17 12:47:02",
+                    "branches": [
+                        15
+                    ],
+                    "date_created": "2021-05-17 14:41:21",
                     "date_published": "2021-04-20 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "liip@matchd.lo",
@@ -838,8 +870,10 @@
                     "workload": 70
                 },
                 {
-                    "branch": 2,
-                    "date_created": "2021-05-17 12:47:02",
+                    "branches": [
+                        2
+                    ],
+                    "date_created": "2021-05-17 14:41:21",
                     "date_published": "2021-04-19 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "liip@matchd.lo",
@@ -875,8 +909,10 @@
                     "workload": 70
                 },
                 {
-                    "branch": 15,
-                    "date_created": "2021-05-17 12:47:02",
+                    "branches": [
+                        15
+                    ],
+                    "date_created": "2021-05-17 14:41:21",
                     "date_published": "2021-04-18 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "liip@matchd.lo",
@@ -917,8 +953,10 @@
                     "workload": 90
                 },
                 {
-                    "branch": 10,
-                    "date_created": "2021-05-17 12:47:02",
+                    "branches": [
+                        10
+                    ],
+                    "date_created": "2021-05-17 14:41:21",
                     "date_published": null,
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "liip@matchd.lo",
@@ -1377,7 +1415,7 @@
                 12
             ],
             "date_of_birth": "1981-11-16",
-            "distinction": "",
+            "distinction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
             "field_of_study": "Applikationsentwicklung",
             "graduation": "2022-08-01",
             "hobbies": [],
@@ -3838,8 +3876,10 @@
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
                 {
-                    "branch": 7,
-                    "date_created": "2021-05-17 12:47:15",
+                    "branches": [
+                        7
+                    ],
+                    "date_created": "2021-05-17 14:41:33",
                     "date_published": "2021-04-21 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-1-1@matchd.lo",
@@ -3870,8 +3910,10 @@
                     "workload": 70
                 },
                 {
-                    "branch": 14,
-                    "date_created": "2021-05-17 12:47:15",
+                    "branches": [
+                        14
+                    ],
+                    "date_created": "2021-05-17 14:41:34",
                     "date_published": "2021-04-20 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-1-1@matchd.lo",
@@ -3906,8 +3948,10 @@
                     "workload": 100
                 },
                 {
-                    "branch": 7,
-                    "date_created": "2021-05-17 12:47:15",
+                    "branches": [
+                        7
+                    ],
+                    "date_created": "2021-05-17 14:41:34",
                     "date_published": "2021-04-19 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-1-1@matchd.lo",
@@ -3947,8 +3991,10 @@
                     "workload": 60
                 },
                 {
-                    "branch": 1,
-                    "date_created": "2021-05-17 12:47:15",
+                    "branches": [
+                        1
+                    ],
+                    "date_created": "2021-05-17 14:41:34",
                     "date_published": null,
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-1-1@matchd.lo",
@@ -4086,8 +4132,10 @@
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
                 {
-                    "branch": 14,
-                    "date_created": "2021-05-17 12:47:16",
+                    "branches": [
+                        14
+                    ],
+                    "date_created": "2021-05-17 14:41:34",
                     "date_published": "2021-04-17 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-2-1@matchd.lo",
@@ -4119,8 +4167,10 @@
                     "workload": 80
                 },
                 {
-                    "branch": 4,
-                    "date_created": "2021-05-17 12:47:16",
+                    "branches": [
+                        4
+                    ],
+                    "date_created": "2021-05-17 14:41:34",
                     "date_published": "2021-04-16 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-2-1@matchd.lo",
@@ -4160,8 +4210,10 @@
                     "workload": 70
                 },
                 {
-                    "branch": 4,
-                    "date_created": "2021-05-17 12:47:16",
+                    "branches": [
+                        4
+                    ],
+                    "date_created": "2021-05-17 14:41:35",
                     "date_published": "2021-04-15 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-2-1@matchd.lo",
@@ -4198,8 +4250,10 @@
                     "workload": 60
                 },
                 {
-                    "branch": 4,
-                    "date_created": "2021-05-17 12:47:16",
+                    "branches": [
+                        4
+                    ],
+                    "date_created": "2021-05-17 14:41:35",
                     "date_published": "2021-04-14 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-2-1@matchd.lo",
@@ -4238,8 +4292,10 @@
                     "workload": 60
                 },
                 {
-                    "branch": 7,
-                    "date_created": "2021-05-17 12:47:16",
+                    "branches": [
+                        7
+                    ],
+                    "date_created": "2021-05-17 14:41:35",
                     "date_published": null,
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-2-1@matchd.lo",
@@ -4381,8 +4437,10 @@
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
                 {
-                    "branch": 2,
-                    "date_created": "2021-05-17 12:47:17",
+                    "branches": [
+                        2
+                    ],
+                    "date_created": "2021-05-17 14:41:35",
                     "date_published": "2021-04-21 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-3-1@matchd.lo",
@@ -4421,8 +4479,10 @@
                     "workload": 100
                 },
                 {
-                    "branch": 3,
-                    "date_created": "2021-05-17 12:47:17",
+                    "branches": [
+                        3
+                    ],
+                    "date_created": "2021-05-17 14:41:35",
                     "date_published": "2021-04-20 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-3-1@matchd.lo",
@@ -4577,8 +4637,10 @@
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
                 {
-                    "branch": 2,
-                    "date_created": "2021-05-17 12:47:17",
+                    "branches": [
+                        2
+                    ],
+                    "date_created": "2021-05-17 14:41:36",
                     "date_published": "2021-04-19 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-4-1@matchd.lo",
@@ -4611,8 +4673,10 @@
                     "workload": 100
                 },
                 {
-                    "branch": 9,
-                    "date_created": "2021-05-17 12:47:17",
+                    "branches": [
+                        9
+                    ],
+                    "date_created": "2021-05-17 14:41:36",
                     "date_published": "2021-04-18 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-4-1@matchd.lo",
@@ -4748,8 +4812,10 @@
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
                 {
-                    "branch": 4,
-                    "date_created": "2021-05-17 12:47:18",
+                    "branches": [
+                        4
+                    ],
+                    "date_created": "2021-05-17 14:41:37",
                     "date_published": "2021-04-21 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-5-1@matchd.lo",
@@ -4782,8 +4848,10 @@
                     "workload": 100
                 },
                 {
-                    "branch": 16,
-                    "date_created": "2021-05-17 12:47:18",
+                    "branches": [
+                        16
+                    ],
+                    "date_created": "2021-05-17 14:41:37",
                     "date_published": "2021-04-20 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-5-1@matchd.lo",
@@ -4826,8 +4894,10 @@
                     "workload": 70
                 },
                 {
-                    "branch": 15,
-                    "date_created": "2021-05-17 12:47:18",
+                    "branches": [
+                        15
+                    ],
+                    "date_created": "2021-05-17 14:41:37",
                     "date_published": null,
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-5-1@matchd.lo",
@@ -4951,8 +5021,10 @@
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
                 {
-                    "branch": 11,
-                    "date_created": "2021-05-17 12:47:19",
+                    "branches": [
+                        11
+                    ],
+                    "date_created": "2021-05-17 14:41:38",
                     "date_published": "2021-04-21 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-6-1@matchd.lo",
@@ -4996,8 +5068,10 @@
                     "workload": 50
                 },
                 {
-                    "branch": 12,
-                    "date_created": "2021-05-17 12:47:19",
+                    "branches": [
+                        12
+                    ],
+                    "date_created": "2021-05-17 14:41:38",
                     "date_published": "2021-04-20 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-6-1@matchd.lo",
@@ -5034,8 +5108,10 @@
                     "workload": 60
                 },
                 {
-                    "branch": 15,
-                    "date_created": "2021-05-17 12:47:19",
+                    "branches": [
+                        15
+                    ],
+                    "date_created": "2021-05-17 14:41:38",
                     "date_published": "2021-04-19 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-6-1@matchd.lo",
@@ -5171,8 +5247,10 @@
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
                 {
-                    "branch": 8,
-                    "date_created": "2021-05-17 12:47:20",
+                    "branches": [
+                        8
+                    ],
+                    "date_created": "2021-05-17 14:41:38",
                     "date_published": "2021-04-18 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-7-1@matchd.lo",
@@ -5201,8 +5279,10 @@
                     "workload": 90
                 },
                 {
-                    "branch": 14,
-                    "date_created": "2021-05-17 12:47:20",
+                    "branches": [
+                        14
+                    ],
+                    "date_created": "2021-05-17 14:41:38",
                     "date_published": "2021-04-17 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-7-1@matchd.lo",
@@ -5360,8 +5440,10 @@
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
                 {
-                    "branch": 15,
-                    "date_created": "2021-05-17 12:47:21",
+                    "branches": [
+                        15
+                    ],
+                    "date_created": "2021-05-17 14:41:39",
                     "date_published": "2021-04-21 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-8-1@matchd.lo",
@@ -5401,8 +5483,10 @@
                     "workload": 90
                 },
                 {
-                    "branch": 11,
-                    "date_created": "2021-05-17 12:47:21",
+                    "branches": [
+                        11
+                    ],
+                    "date_created": "2021-05-17 14:41:39",
                     "date_published": "2021-04-20 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-8-1@matchd.lo",
@@ -5436,8 +5520,10 @@
                     "workload": 90
                 },
                 {
-                    "branch": 2,
-                    "date_created": "2021-05-17 12:47:21",
+                    "branches": [
+                        2
+                    ],
+                    "date_created": "2021-05-17 14:41:39",
                     "date_published": "2021-04-19 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-8-1@matchd.lo",
@@ -5468,8 +5554,10 @@
                     "workload": 80
                 },
                 {
-                    "branch": 16,
-                    "date_created": "2021-05-17 12:47:21",
+                    "branches": [
+                        16
+                    ],
+                    "date_created": "2021-05-17 14:41:39",
                     "date_published": "2021-04-18 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-8-1@matchd.lo",
@@ -5508,8 +5596,10 @@
                     "workload": 60
                 },
                 {
-                    "branch": 4,
-                    "date_created": "2021-05-17 12:47:21",
+                    "branches": [
+                        4
+                    ],
+                    "date_created": "2021-05-17 14:41:40",
                     "date_published": null,
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-8-1@matchd.lo",
@@ -5644,8 +5734,10 @@
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
                 {
-                    "branch": 12,
-                    "date_created": "2021-05-17 12:47:21",
+                    "branches": [
+                        12
+                    ],
+                    "date_created": "2021-05-17 14:41:40",
                     "date_published": "2021-04-21 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-9-1@matchd.lo",
@@ -5683,8 +5775,10 @@
                     "workload": 50
                 },
                 {
-                    "branch": 5,
-                    "date_created": "2021-05-17 12:47:22",
+                    "branches": [
+                        5
+                    ],
+                    "date_created": "2021-05-17 14:41:40",
                     "date_published": "2021-04-20 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-9-1@matchd.lo",
@@ -5730,8 +5824,10 @@
                     "workload": 90
                 },
                 {
-                    "branch": 9,
-                    "date_created": "2021-05-17 12:47:22",
+                    "branches": [
+                        9
+                    ],
+                    "date_created": "2021-05-17 14:41:40",
                     "date_published": "2021-04-19 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-9-1@matchd.lo",
@@ -5766,8 +5862,10 @@
                     "workload": 90
                 },
                 {
-                    "branch": 14,
-                    "date_created": "2021-05-17 12:47:22",
+                    "branches": [
+                        14
+                    ],
+                    "date_created": "2021-05-17 14:41:40",
                     "date_published": "2021-04-18 12:23:32",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-9-1@matchd.lo",
@@ -5919,8 +6017,10 @@
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [
                 {
-                    "branch": 16,
-                    "date_created": "2021-05-17 12:47:22",
+                    "branches": [
+                        16
+                    ],
+                    "date_created": "2021-05-17 14:41:41",
                     "date_published": null,
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-10-1@matchd.lo",

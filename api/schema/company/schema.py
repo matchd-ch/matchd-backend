@@ -243,7 +243,8 @@ class Company(DjangoObjectType):
     state = graphene.Field(graphene.NonNull(ProfileState))
     soft_skills = graphene.List(graphene.NonNull('api.schema.soft_skill.schema.SoftSkill'))
     cultural_fits = graphene.List(graphene.NonNull('api.schema.cultural_fit.schema.CulturalFit'))
-    name = graphene.String()
+    name = graphene.NonNull(graphene.String)
+    display_name = graphene.NonNull(graphene.String)
 
     class Meta:
         model = CompanyModel
@@ -273,8 +274,11 @@ class Company(DjangoObjectType):
     def resolve_cultural_fits(self: CompanyModel, info: ResolveInfo):
         return self.cultural_fits.all()
 
-    @hyphenate
     def resolve_name(self, info):
+        return self.name
+
+    @hyphenate
+    def resolve_display_name(self, info):
         return self.name
 
 

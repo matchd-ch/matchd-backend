@@ -19,7 +19,7 @@
     "model": "db.jobtype",
     "pk": 3,
     "fields": {
-        "name": "Trainee für Hochschulabgänger",
+        "name": "Trainee für Hochschulabgänger*innen",
         "mode": "date_range"
     }
 },

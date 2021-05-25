@@ -37,17 +37,22 @@ class JobPosting(DjangoObjectType):
     employee = graphene.Field(Employee)
     workload = graphene.Field(graphene.NonNull(graphene.Int))
     skills = graphene.List(graphene.NonNull('api.schema.skill.schema.Skill'))
+    branches = graphene.NonNull(graphene.List(graphene.NonNull('api.schema.branch.schema.Branch')))
     languages = graphene.List(graphene.NonNull('api.schema.job_posting_language_relation.JobPostingLanguageRelation'))
-    title = graphene.String()
+    title = graphene.NonNull(graphene.String)
+    display_title = graphene.NonNull(graphene.String)
     match_status = graphene.Field('api.schema.match.MatchStatus')
     match_hints = graphene.Field('api.schema.match.MatchHints')
 
     class Meta:
         model = JobPostingModel
         fields = ('id', 'title', 'description', 'job_type', 'workload', 'company', 'job_from_date', 'job_to_date',
-                  'url', 'form_step', 'skills', 'job_requirements', 'languages', 'branch', 'state', 'employee', 'slug',
-                  'date_published', 'date_created')
+                  'url', 'form_step', 'skills', 'job_requirements', 'languages', 'branches', 'state', 'employee',
+                  'slug', 'date_published', 'date_created', )
         convert_choices_to_enum = False
+
+    def resolve_branches(self: JobPostingModel, info):
+        return self.branches.all()
 
     @job_posting_cheating_protection
     def resolve_skills(self: JobPostingModel, info):
@@ -57,8 +62,11 @@ class JobPosting(DjangoObjectType):
     def resolve_languages(self: JobPostingModel, info):
         return self.languages.all()
 
-    @hyphenate
     def resolve_title(self, info):
+        return self.title
+
+    @hyphenate
+    def resolve_display_title(self, info):
         return self.title
 
     def resolve_match_status(self: JobPostingModel, info):
@@ -141,7 +149,7 @@ class JobPostingInputStep1(graphene.InputObjectType):
     title = graphene.String(description=_('Title'), required=True)
     description = graphene.String(description=_('Description'), required=False)
     job_type = graphene.Field(JobTypeInput, required=True)
-    branch = graphene.Field(BranchInput, required=True)
+    branches = graphene.List(BranchInput, required=True)
     workload = graphene.Int(description=_('Workload'), required=True)
     job_from_date = graphene.String(required=True)
     job_to_date = graphene.String(required=False)

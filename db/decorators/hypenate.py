@@ -6,7 +6,7 @@ def hyphenate(func):
         return dic.inserted(word, hyphen='\u00AD')
 
     def get_attribute_from_function(function):
-        return function.__name__.replace('resolve_', '')
+        return function.__name__.replace('resolve_', '').replace('display_', '')
 
     def wrapper(self, obj):
         attribute = get_attribute_from_function(func)
