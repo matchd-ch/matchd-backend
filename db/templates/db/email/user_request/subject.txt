@@ -1,1 +1,1 @@
-{% load i18n %}{% trans 'MATCHD: Neue Anfrage' %}
+{% load i18n %}{{ email_subject_prefix }}{% trans 'MATCHD: Neue Anfrage' %}

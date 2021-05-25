@@ -31,7 +31,9 @@ class CompanyMatchMapper:
         if attachment is not None:
             attachment = attachment.absolute_url
         else:
-            attachment = Attachment.get_company_avatar_fallback(company).absolute_url
+            attachment = Attachment.get_company_avatar_fallback(company)
+            if attachment is not None:
+                attachment = attachment.absolute_url
         return attachment
 
     def _get_match_status(self, company):

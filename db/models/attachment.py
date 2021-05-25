@@ -87,19 +87,9 @@ def student_documents_config():
     return {
         'content_types_configuration': [
             {
-                'content_types': settings.USER_UPLOADS_VIDEO_TYPES,
-                'max_size': settings.USER_UPLOADS_MAX_VIDEO_SIZE,
-                'model': settings.WAGTAILMEDIA_MEDIA_MODEL
-            },
-            {
                 'content_types': settings.USER_UPLOADS_DOCUMENT_TYPES,
                 'max_size': settings.USER_UPLOADS_MAX_DOCUMENT_SIZE,
                 'model': settings.WAGTAILDOCS_DOCUMENT_MODEL
-            },
-            {
-                'content_types': settings.USER_UPLOADS_IMAGE_TYPES,
-                'max_size': settings.USER_UPLOADS_MAX_IMAGE_SIZE,
-                'model': settings.WAGTAILIMAGES_IMAGE_MODEL
             }
         ],
         'max_files': 5,
@@ -128,11 +118,6 @@ def company_documents_config():
                 'content_types': settings.USER_UPLOADS_VIDEO_TYPES,
                 'max_size': settings.USER_UPLOADS_MAX_VIDEO_SIZE,
                 'model': settings.WAGTAILMEDIA_MEDIA_MODEL
-            },
-            {
-                'content_types': settings.USER_UPLOADS_DOCUMENT_TYPES,
-                'max_size': settings.USER_UPLOADS_MAX_DOCUMENT_SIZE,
-                'model': settings.WAGTAILDOCS_DOCUMENT_MODEL
             },
             {
                 'content_types': settings.USER_UPLOADS_IMAGE_TYPES,

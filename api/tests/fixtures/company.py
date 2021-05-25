@@ -14,6 +14,7 @@ def company_query(slug):
             uid
             type
             name
+            displayName
             slug
             zip
             city

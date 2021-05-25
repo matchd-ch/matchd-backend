@@ -16,3 +16,17 @@ class StudentParamBuilder(BaseParamBuilder):
         boost = boost / len(soft_skills)
         for obj in soft_skills:
             self.should_conditions.append(self.get_condition('soft_skills', 'id_filter', [obj.id], boost))
+
+    def set_branches(self, branches, boost=1):
+        self.must_conditions.append({
+            "bool": {
+                "should": [
+                    {
+                        'terms': {
+                            'branch_id_filter': [branch.id for branch in branches],
+                            'boost': boost
+                        }
+                    }
+                ]
+            }
+        })

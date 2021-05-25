@@ -24,10 +24,14 @@ def test_upload_company_document(login, user_employee, upload, file_document_pdf
     assert data is not None
     assert errors is None
     assert data.get('upload') is not None
-    assert data.get('upload').get('success')
+    assert data.get('upload').get('success') is False
+
+    errors = data.get('upload').get('errors')
+    assert errors is not None
+    assert 'file' in errors
 
     attachments = attachments_for_user(user_employee, AttachmentKey.COMPANY_DOCUMENTS)
-    assert len(attachments) == 1
+    assert len(attachments) == 0
 
 
 @pytest.mark.django_db
