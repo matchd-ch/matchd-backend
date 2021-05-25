@@ -32,7 +32,7 @@ class ZipCityQuery(ObjectType):
         branch = kwargs.get('branch_id')
         job_type = kwargs.get('job_type_id')
         if branch is not None:
-            query &= Q(branch_id=branch)
+            query &= Q(branches__in=[branch])
         if job_type is not None:
             query &= Q(job_type_id=job_type)
         job_postings = JobPosting.objects.select_related('company').filter(query).only('company__zip', 'company__city')
