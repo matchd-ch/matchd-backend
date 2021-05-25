@@ -285,7 +285,7 @@
                         6
                     ],
                     "job_to_date": "2021-11-16",
-                    "job_type": 5,
+                    "job_type": 1,
                     "languages": [],
                     "skills": [
                         41,
@@ -489,7 +489,7 @@
                         7
                     ],
                     "job_to_date": "2021-04-06",
-                    "job_type": 5,
+                    "job_type": 1,
                     "languages": [
                         {
                             "language": 8,
@@ -1381,7 +1381,7 @@
             "hobbies": [],
             "job_from_date": "2021-03-11",
             "job_to_date": "2021-06-04",
-            "job_type": 5,
+            "job_type": 1,
             "languages": [],
             "mobile": "+41791234567",
             "nickname": null,
@@ -2325,7 +2325,7 @@
             ],
             "job_from_date": "2020-09-30",
             "job_to_date": "2021-04-07",
-            "job_type": 5,
+            "job_type": 1,
             "languages": [
                 {
                     "language": 20,
@@ -2420,7 +2420,7 @@
             ],
             "job_from_date": "2020-09-11",
             "job_to_date": "2021-05-04",
-            "job_type": 5,
+            "job_type": 1,
             "languages": [
                 {
                     "language": 11,
@@ -2610,7 +2610,7 @@
             ],
             "job_from_date": "2021-11-01",
             "job_to_date": "2021-11-29",
-            "job_type": 5,
+            "job_type": 1,
             "languages": [
                 {
                     "language": 17,
@@ -3002,7 +3002,7 @@
             ],
             "job_from_date": "2021-01-07",
             "job_to_date": "2021-11-07",
-            "job_type": 5,
+            "job_type": 1,
             "languages": [
                 {
                     "language": 21,
@@ -3777,7 +3777,7 @@
             ],
             "job_from_date": "2021-03-12",
             "job_to_date": "2022-01-25",
-            "job_type": 5,
+            "job_type": 1,
             "languages": [
                 {
                     "language": 19,
@@ -3965,7 +3965,7 @@
                         9
                     ],
                     "job_to_date": "2021-03-01",
-                    "job_type": 5,
+                    "job_type": 1,
                     "languages": [
                         {
                             "language": 13,
@@ -4005,7 +4005,7 @@
                         9
                     ],
                     "job_to_date": "2021-12-22",
-                    "job_type": 5,
+                    "job_type": 1,
                     "languages": [
                         {
                             "language": 13,
@@ -5083,7 +5083,7 @@
                         4
                     ],
                     "job_to_date": "2021-04-22",
-                    "job_type": 5,
+                    "job_type": 1,
                     "languages": [
                         {
                             "language": 10,
@@ -5568,7 +5568,7 @@
                         2
                     ],
                     "job_to_date": "2022-03-18",
-                    "job_type": 5,
+                    "job_type": 1,
                     "languages": [
                         {
                             "language": 10,
@@ -5612,7 +5612,7 @@
                         7
                     ],
                     "job_to_date": "2021-06-26",
-                    "job_type": 5,
+                    "job_type": 1,
                     "languages": [
                         {
                             "language": 5,
