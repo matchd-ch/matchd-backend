@@ -67,7 +67,7 @@
     "model": "db.benefit",
     "pk": 9,
     "fields": {
-      "icon": "hardware",
+      "icon": "face",
       "name": "Coaching"
     }
   },
@@ -117,6 +117,22 @@
     "fields": {
       "icon": "sports_esports",
       "name": "Gaming"
+    }
+  },
+  {
+    "model": "db.benefit",
+    "pk": 15,
+    "fields": {
+      "icon": "shower",
+      "name": "Duscheinrichtung"
+    }
+  },
+  {
+    "model": "db.benefit",
+    "pk": 16,
+    "fields": {
+      "icon": "weekend",
+      "name": "Pausenraum"
     }
   }
 ]

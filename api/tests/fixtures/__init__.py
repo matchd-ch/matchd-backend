@@ -25,3 +25,4 @@ from .user import *
 from .user_request import *
 from .match import *
 from .matching import *
+from .zip_city import *

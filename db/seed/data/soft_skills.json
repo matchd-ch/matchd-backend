@@ -3,16 +3,16 @@
     "model": "db.softskill",
     "pk": 1,
     "fields": {
-      "student": "zu verstehen wie etwas funktioniert",
-      "company": "zu verstehen wie etwas funktioniert"
+      "student": "zu verstehen, wie etwas funktioniert",
+      "company": "zu verstehen, wie etwas funktioniert"
     }
   },
    {
     "model": "db.softskill",
     "pk": 2,
     "fields": {
-      "student": "mit anderen an etwas zu arbeiten",
-      "company": "mit anderen an etwas zu arbeiten"
+      "student": "in einem Team zusammenzuarbeiten",
+      "company": "in einem Team zusammenzuarbeiten"
     }
   },
   {
@@ -51,16 +51,16 @@
     "model": "db.softskill",
     "pk": 7,
     "fields": {
-      "student": "anderen bei etwas zu helfen",
-      "company": "anderen bei etwas zu helfen"
+      "student": "anderen zu helfen",
+      "company": "anderen zu helfen"
     }
   },
   {
     "model": "db.softskill",
     "pk": 8,
     "fields": {
-      "student": "nicht zu wissen wohin die Reise geht",
-      "company": "nicht zu wissen wohin die Reise geht"
+      "student": "nicht zu wissen, wohin die Reise geht",
+      "company": "nicht zu wissen, wohin die Reise geht"
     }
   },
   {
@@ -68,15 +68,15 @@
     "pk": 9,
     "fields": {
       "student": "meine Arbeit selber einzuteilen",
-      "company": "die Arbeit selber einzuteilen"
+      "company": "sich die Arbeitszeit selbst einzuteilen"
     }
   },
   {
     "model": "db.softskill",
     "pk": 10,
     "fields": {
-      "student": "jemand anderem etwas zu erklären",
-      "company": "jemand anderem etwas zu erklären"
+      "student": "anderen etwas zu erklären",
+      "company": "anderen etwas zu erklären"
     }
   },
   {
@@ -84,7 +84,7 @@
     "pk": 11,
     "fields": {
       "student": "wenn mich ein Thema fasziniert",
-      "company": "wenn sie/ihn ein Thema fasziniert"
+      "company": "sich für ein Thema zu faszinieren"
     }
   },
   {
@@ -107,8 +107,8 @@
     "model": "db.softskill",
     "pk": 14,
     "fields": {
-      "student": "jemanden happy zu machen",
-      "company": "jemanden happy zu machen"
+      "student": "andere happy zu machen",
+      "company": "andere happy zu machen"
     }
   },
   {

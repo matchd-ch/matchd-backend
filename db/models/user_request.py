@@ -24,10 +24,10 @@ class UserRequest(models.Model):
         email_context = {
             'name': self.name,
             'email': self.email,
-            'message': self.message
+            'message': self.message,
+            'email_subject_prefix': settings.EMAIL_SUBJECT_PREFIX,
         }
         subject = render_to_string(f'db/email/{email_type}/subject.txt', email_context)
-        subject = f'{settings.EMAIL_SUBJECT_PREFIX}{subject}'
         plain_body = render_to_string(f'db/email/{email_type}/body_plain.txt', email_context)
         html_body = render_to_string(f'db/email/{email_type}/body.html', email_context)
         send_mail(

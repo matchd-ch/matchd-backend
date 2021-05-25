@@ -15,7 +15,7 @@ class JobPostingFormStep1(forms.Form):
     title = forms.CharField(max_length=50, required=True)
     description = forms.CharField(max_length=1000, required=False)
     job_type = forms.ModelChoiceField(queryset=JobType.objects.all(), required=True)
-    branch = forms.ModelChoiceField(queryset=Branch.objects.all(), required=True)
+    branches = forms.ModelMultipleChoiceField(queryset=Branch.objects.all(), required=True)
     workload = forms.IntegerField(required=True, validators=[
             MaxValueValidator(100),
             MinValueValidator(10)
@@ -27,7 +27,6 @@ class JobPostingFormStep1(forms.Form):
     def __init__(self, data=None, **kwargs):
         # due to a bug with ModelChoiceField and graphene_django
         data['job_type'] = convert_object_to_id(data.get('job_type', None))
-        data['branch'] = convert_object_to_id(data.get('branch', None))
         data['job_from_date'] = convert_date(data.get('job_from_date', None), '%m.%Y')
         to_date = data.get('job_to_date', None)
         if to_date is not None:
@@ -99,13 +98,13 @@ def process_job_posting_form_step_1(user, data):
     job_posting.title = cleaned_data.get('title')
     job_posting.description = cleaned_data.get('description')
     job_posting.job_type = cleaned_data.get('job_type')
-    job_posting.branch = cleaned_data.get('branch')
     job_posting.workload = cleaned_data.get('workload', None)
     job_posting.job_from_date = cleaned_data.get('job_from_date')
     job_posting.job_to_date = cleaned_data.get('job_to_date', None)
     job_posting.url = cleaned_data.get('url', None)
     job_posting.company = cleaned_data.get('company')
     job_posting.save()
+    job_posting.branches.set(cleaned_data.get('branches'))
 
     job_posting.slug = f'{slugify(job_posting.title)}-{str(job_posting.id)}'
     job_posting.save()

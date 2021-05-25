@@ -45,7 +45,6 @@ def test_job_posting_matching(job_posting_object, job_posting_object_2, skill_ob
     job_posting_object.state = JobPostingState.PUBLIC
     job_posting_object.title = 'title'
     job_posting_object.slug = 'title'
-    job_posting_object.branch = branch
     job_posting_object.job_type = job_type
     job_posting_object.workload = 100
     job_posting_object.company = user_employee.company
@@ -55,6 +54,7 @@ def test_job_posting_matching(job_posting_object, job_posting_object_2, skill_ob
     job_posting_object.save()
     job_posting_object.skills.set(skill_objects[:2])
     job_posting_object.save()
+    job_posting_object.branches.set([branch])
 
     JobPostingLanguageRelation.objects.create(language=language, language_level=language_level,
                                               job_posting=job_posting_object)
@@ -71,7 +71,6 @@ def test_job_posting_matching(job_posting_object, job_posting_object_2, skill_ob
     job_posting_object_2.state = JobPostingState.PUBLIC
     job_posting_object_2.title = 'title2'
     job_posting_object_2.slug = 'title2'
-    job_posting_object_2.branch = branch
     job_posting_object_2.job_type = job_type_objects_date_range[1]
     job_posting_object_2.workload = 10
     job_posting_object_2.company = user_employee_2.company
@@ -81,6 +80,7 @@ def test_job_posting_matching(job_posting_object, job_posting_object_2, skill_ob
     job_posting_object_2.save()
     job_posting_object_2.skills.set(skill_objects[-2:])
     job_posting_object_2.save()
+    job_posting_object_2.branches.set([branch])
 
     JobPostingLanguageRelation.objects.create(language=language_objects[1], language_level=language_level_objects[1],
                                               job_posting=job_posting_object_2)

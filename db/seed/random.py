@@ -32,6 +32,7 @@ class Random:
         self._cultural_fits = list(CulturalFit.objects.all().values_list('id', flat=True))
         self._job_types = list(JobType.objects.all().values_list('id', flat=True))
         self._languages = list(Language.objects.all().values_list('id', flat=True))
+        self._short_list_languages = list(Language.objects.filter(short_list=True).values_list('id', flat=True))
         self._language_levels = list(LanguageLevel.objects.all().values_list('id', flat=True))
         self._skills = list(Skill.objects.all().values_list('id', flat=True))
         self._soft_skills = list(SoftSkill.objects.all().values_list('id', flat=True))
@@ -146,6 +147,20 @@ class Random:
 
     def languages(self):
         languages = self._random(self._languages, 3)
+        if not self._has_german(languages):
+            languages.append(5)  # german
+        levels = self._random(self._language_levels, len(languages))
+        result = []
+        for i in range(0, len(languages)):
+            obj = {
+                "language": languages[i],
+                "language_level": levels[i]
+            }
+            result.append(obj)
+        return result
+
+    def languages_shortlist(self):
+        languages = self._random(self._short_list_languages, 3)
         if not self._has_german(languages):
             languages.append(5)  # german
         levels = self._random(self._language_levels, len(languages))
