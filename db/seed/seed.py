@@ -1,6 +1,7 @@
 from db.seed.attachment import Attachment
 from db.seed.company import Company
 from db.seed.employee import Employee
+from db.seed.faq import FAQ
 from db.seed.job_posting import JobPosting
 from db.seed.student import Student
 from db.seed.user import User
@@ -13,6 +14,7 @@ class Seed:
     companies = Company()
     attachments = Attachment()
     job_postings = JobPosting()
+    faq = FAQ()
 
     def run(self, data):
         user = self.users.create_or_update(data)
@@ -22,6 +24,7 @@ class Seed:
         if company is not None:
             self.attachments.create_or_update(data, user=user, company=company)
             self.job_postings.create_or_update(data, company=company, user=user)
+            self.faq.create_or_update(data, company=company)
         if student is not None:
             self.attachments.create_or_update(data, student=student)
 
