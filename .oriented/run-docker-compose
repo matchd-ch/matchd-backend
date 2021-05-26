@@ -23,7 +23,6 @@ if [[ -z "${ENVIRONMENT}" ||
       -z "${DJANGO_EMAIL_PORT}" ||
       -z "${DJANGO_EMAIL_HOST_USER}" ||
       -z "${DJANGO_EMAIL_HOST_PASSWORD}" ||
-      -z "${DJANGO_EMAIL_SUBJECT_PREFIX}" ||
       -z "${DATA_PROTECTION_URL}" ]]
 then
     echo "ERROR: A required environment variable is not set" >&2
@@ -70,6 +69,7 @@ then
       echo "    DJANGO_EMAIL_HOST_PASSWORD: *****" >&2
     fi
     echo "    DJANGO_EMAIL_SUBJECT_PREFIX: ${DJANGO_EMAIL_SUBJECT_PREFIX}" >&2
+    echo "    DATA_PROTECTION_URL: ${DATA_PROTECTION_URL}" >&2
 
     exit 1
 fi
