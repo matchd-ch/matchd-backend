@@ -116,8 +116,9 @@ build:production:
   dependencies:
     - test
   only:
-    refs:
-      - /^v?\d+\.\d+\.\d+$/
+    - feature/MATCHD-321
+#    refs:
+#      - /^v?\d+\.\d+\.\d+$/
   resource_group: production
 
 .deploy:
@@ -232,8 +233,9 @@ deploy:production:
     DJANGO_SECRET_KEY: $PRODUCTION_DJANGO_SECRET_KEY
     DATA_PROTECTION_URL: $PRODUCTION_DATA_PROTECTION_URL
   only:
-    refs:
-      - /^v?\d+\.\d+\.\d+$/
+    - feature/MATCHD-321
+#    refs:
+#      - /^v?\d+\.\d+\.\d+$/
   tags:
     - matchd
     - production
