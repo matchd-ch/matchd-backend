@@ -70,6 +70,7 @@ then
       echo "    DJANGO_EMAIL_HOST_PASSWORD: *****" >&2
     fi
     echo "    DJANGO_EMAIL_SUBJECT_PREFIX: ${DJANGO_EMAIL_SUBJECT_PREFIX}" >&2
+    echo "    DATA_PROTECTION_URL: ${DATA_PROTECTION_URL}" >&2
 
     exit 1
 fi
