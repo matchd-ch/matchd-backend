@@ -807,7 +807,7 @@
                 {
                     "answer": "Wir bilden Applikationsentwickler und Designer aus",
                     "category": 1,
-                    "question": "Welche Berufe bildet Liip aus?"
+                    "question": "Welche Berufe bilden wir aus?"
                 }
             ],
             "job_postings": [
@@ -1036,7 +1036,7 @@
         "employee": {
             "role": "Developer"
         },
-        "first_name": "Kilian",
+        "first_name": "Kiliana",
         "last_name": "Schefer",
         "type": "company",
         "verified": true

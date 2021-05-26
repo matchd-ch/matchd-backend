@@ -7,7 +7,7 @@ from dateutil.relativedelta import relativedelta
 from django.conf import settings
 
 from db.models import Branch, CulturalFit, JobType, Language, LanguageLevel, Skill, SoftSkill, ProfileState, Benefit, \
-    JobRequirement, JobPostingState
+    JobRequirement, JobPostingState, FAQCategory
 
 
 # pylint: disable=R0902
@@ -38,6 +38,7 @@ class Random:
         self._soft_skills = list(SoftSkill.objects.all().values_list('id', flat=True))
         self._benefits = list(Benefit.objects.all().values_list('id', flat=True))
         self._requirements = list(JobRequirement.objects.all().values_list('id', flat=True))
+        self._faq_categories = list(FAQCategory.objects.all().values_list('id', flat=True))
 
         self._addresses = self._load_address_data()
         self._hobby_data = [
@@ -55,6 +56,46 @@ class Random:
             'Praktikant*in Vue.js / React.js'
         ]
         self._workloads = [50, 60, 70, 80, 90, 100]
+
+        self._questions = [
+           '[TEST]Was für Ausbildungen kann man bei unserer Company machen?',
+            '[TEST]Welche Berufe bildet unsere Company aus?',
+            '[TEST]Darf ich meinen Hund mit zur Arbeit nehmen?',
+            '[TEST]Mit welchem Programmiersprachen arbeitet ihr?',
+            '[TEST]Was kann ich während dem Praktikum machen?',
+            '[TEST]Wie viele Ferien habe ich?',
+            '[TEST]Wie viel Stunden muss ich arbeiten pro Woche?',
+            '[TEST]Kann ich mit dem Auto zur arbeit kommen?',
+            '[TEST] Kann ich homeoffice machen?'
+        ]
+
+        self._answers = [
+            ['[TEST] Bei uns kann man eine Lehrstelle oder ein Prakitkum machen',
+             '[TEST] Bei uns kann man nur Praktikas machen',
+             '[TEST] Wir bieten nur Lehrstellen an'],
+            ['[TEST] Wir bilden Software-Entwickler aus',
+             '[TEST] Wir bilden Software-Entwickler und Designer aus',
+             '[TEST] Wir bilden Datenbank-Spezialisten aus'],
+            ['[TEST] Ja :)',
+             '[TEST] Nein :('],
+            ['[TEST] Wir arbeiten mit Python und JavaScript',
+            '[TEST] Wir arbeiten mit Java',
+             '[TEST] Wir arbeiten mit Assembler'],
+            ['[TEST] Du wirst auf unserem Kundenprojekt arbeiten',
+             '[TEST] Du darfst unser Produkt testen',
+             '[TEST] Du darfst Kaffee bringen :D'],
+            ['[TEST] Du hast 5 Wochen Ferien',
+             '[TEST] Du hast 4 Wochen Ferien',
+             '[TEST] Du hast keine Ferien'],
+            ['[TEST] Du musst 40 Stunden pro Woche arbeiten',
+             '[TEST] Du musst 42.5 Stunden pro Woche arbeiten'],
+            ['[TEST] Ja',
+             '[TEST] Nein'],
+            ['[TEST] Ja',
+             '[TEST] Nein',
+             '[TEST] Teilweise, du darfst bis zu 40% zuhause arbeiten']
+
+        ]
 
     def _random(self, items, count):
         random.shuffle(items)
@@ -249,3 +290,11 @@ class Random:
 
     def graduation(self):
         return self._date_between('2020-01-01', '2021-12-21')
+
+    def question_and_answer(self):
+        index = random.randint(0, len(self._questions)-1)
+        return self._questions[index], self._answers[index][random.randint(0, len(self._answers[index]))-1]
+
+    def faq_category(self):
+        return self._random(self._faq_categories, 1)
+

@@ -16,6 +16,8 @@ class Command(BaseCommand):
         faq_objs = []
 
         for faq in company.faqs.all():
+            if '[TEST]' in faq.question:
+                continue
             obj = {
                 'category': faq.category.id,
                 'question': faq.question,

@@ -29,7 +29,7 @@ class Seed:
             self.attachments.create_or_update(data, student=student)
 
     def random_student(self, index):
-        return self.users.random(index=index)
+        return self.users.ranxdom(index=index)
 
     def random_company(self, index, company_type):
         return self.companies.random(index=index, company_type=company_type)
