@@ -233,13 +233,14 @@ WAGTAILIMAGES_IMAGE_MODEL = 'db.Image'
 
 # Image Stacks
 IMAGE_STACKS = {
-    'company-detail-media': 'fill-1280x1280',
-    'logo': 'width-800',
+    'company-detail-media': 'fill-1280x720',
+    'company-detail-media-small': 'fill-800x450',
+    'logo': 'width-240',
     'desktop': 'fill-800x600',
     'mobile': 'fill-640x480',
     'desktop-square': 'fill-400x400',
     'mobile-square': 'fill-200x200',
-    'avatar': 'min-160x160'
+    'avatar': 'fill-240x240'
 }
 
 USER_UPLOADS_IMAGE_TYPES = ('image/jpeg', 'image/png', 'image/gif',)
