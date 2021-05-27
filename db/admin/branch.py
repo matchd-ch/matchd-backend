@@ -1,8 +1,8 @@
 from django.utils.translation import gettext_lazy as _
 from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
 
-from .permissions import ValidationPermissionHelper
 from db.models import Branch
+from .permissions import ValidationPermissionHelper
 
 
 class BranchAdmin(ModelAdmin):
