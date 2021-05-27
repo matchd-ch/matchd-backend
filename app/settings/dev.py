@@ -2,7 +2,7 @@ from .base import *
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-DEBUG_TOOLBAR = True # os.getenv('DEBUG_TOOLBAR', False) == 'true'
+DEBUG_TOOLBAR = os.getenv('DEBUG_TOOLBAR', False) == 'true'
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'y1m_k!q=s(7m&8!)91-#9wan_568xbvqg_8$hfl@dkhy_ep#u-'
