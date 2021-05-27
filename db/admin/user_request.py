@@ -2,6 +2,7 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
 
 from db.models import UserRequest
+from .permissions import ValidationPermissionHelper
 
 
 class UserRequestAdmin(ModelAdmin):
@@ -12,6 +13,7 @@ class UserRequestAdmin(ModelAdmin):
     exclude_from_explorer = False
     list_display = ('created_at', 'name', 'email', 'message')
     search_fields = ('name', 'email', 'message')
+    permission_helper_class = ValidationPermissionHelper
 
 
 modeladmin_register(UserRequestAdmin)
