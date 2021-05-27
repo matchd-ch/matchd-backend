@@ -2,6 +2,7 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
 
 from db.models import LanguageLevel
+from .permissions import ValidationPermissionHelper
 
 
 class LanguageLevelAdmin(ModelAdmin):
@@ -12,6 +13,7 @@ class LanguageLevelAdmin(ModelAdmin):
     exclude_from_explorer = False
     list_display = ('level',)
     search_fields = ('level', 'description', )
+    permission_helper_class = ValidationPermissionHelper
 
 
 modeladmin_register(LanguageLevelAdmin)
