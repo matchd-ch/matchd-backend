@@ -48,9 +48,6 @@
                         <span class="avatar small"><img src="{% avatar_url user size=25 %}" alt="" /></span>
                         <a href="{% url 'wagtailusers_users:edit' user.pk %}">{{ user|user_display_name }}</a>
                     </div>
-                    <ul class="actions">
-                        {% user_listing_buttons user %}
-                    </ul>
                 </td>
                 <td class="username" valign="top">{{ user.get_username }}</td>
                 <td class="status" valign="top">
