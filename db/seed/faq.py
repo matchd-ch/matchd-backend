@@ -7,23 +7,17 @@ from db.models import FAQ as FAQModel, FAQCategory, Company
 class FAQ(BaseSeed):
 
     def create_or_update(self, data, *args, **kwargs):
+        FAQModel.objects.filter(company=kwargs.get('company')).delete()
 
         if data is None:
             return
         faqs_data = data.get('company').get('faqs')
         if faqs_data is None or len(faqs_data) == 0:
-            self.createRandomFAQ(kwargs.get('company'))
-            self.createRandomFAQ(kwargs.get('company'))
-            self.createRandomFAQ(kwargs.get('company'))
+            for i in range(1, 5):
+                self.createRandomFAQ(kwargs.get('company'))
         else:
             for faq_data in faqs_data:
-                # faq, created = FAQModel.objects.get_or_create(
-                #     question=faq_data.get('question'),
-                #     answer=faq_data.get('answer'),
-                #     company=kwargs.get('company'),
-                #     category=FAQCategory.objects.get(id=faq_data.get('category')))
-                # faq.save()
-                self.createFAQ(faq_data,kwargs.get('company'))
+                self.createFAQ(faq_data, kwargs.get('company'))
 
     def random(self, *args, **kwargs):
         pass
@@ -36,7 +30,7 @@ class FAQ(BaseSeed):
         faq.company = company
         faq.save()
 
-    def createRandomFAQ(self,company):
+    def createRandomFAQ(self, company):
         faq = FAQModel()
         _question, _answer = self.rand.question_and_answer()
         _category = self.rand.faq_category()
