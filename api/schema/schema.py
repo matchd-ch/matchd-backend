@@ -16,6 +16,7 @@ from api.schema.language import LanguageQuery
 from api.schema.auth import AuthMutation, LogoutMutation, VerifyPasswordResetToken
 from api.schema.language_level import LanguageLevelQuery
 from api.schema.match import MatchQuery, MatchMutation
+from api.schema.project_posting.schema import ProjectPostingQuery
 from api.schema.project_type.schema import ProjectTypeQuery
 from api.schema.skill import SkillQuery
 from api.schema.soft_skill import SoftSkillQuery
@@ -69,7 +70,8 @@ class Query(
     DashboardQuery,
     KeywordQuery,
     TopicQuery,
-    ProjectTypeQuery
+    ProjectTypeQuery,
+    ProjectPostingQuery
 ):
     pass
 
