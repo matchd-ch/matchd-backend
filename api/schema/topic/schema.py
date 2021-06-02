@@ -16,7 +16,7 @@ class Topic(DjangoObjectType):
 class TopicQuery(ObjectType):
     topics = graphene.List(Topic)
 
-    def resolve_job_types(self, info, **kwargs):
+    def resolve_topics(self, info, **kwargs):
         return TopicModel.objects.all()
 
 

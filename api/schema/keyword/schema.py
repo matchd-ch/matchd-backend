@@ -16,7 +16,7 @@ class Keyword(DjangoObjectType):
 class KeywordQuery(ObjectType):
     keywords = graphene.List(Keyword)
 
-    def resolve_job_types(self, info, **kwargs):
+    def resolve_keywords(self, info, **kwargs):
         return KeywordModel.objects.all()
 
 
