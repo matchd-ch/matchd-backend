@@ -16,6 +16,7 @@ from api.schema.language import LanguageQuery
 from api.schema.auth import AuthMutation, LogoutMutation, VerifyPasswordResetToken
 from api.schema.language_level import LanguageLevelQuery
 from api.schema.match import MatchQuery, MatchMutation
+from api.schema.project_type.schema import ProjectTypeQuery
 from api.schema.skill import SkillQuery
 from api.schema.soft_skill import SoftSkillQuery
 from api.schema.student import StudentProfileMutation, StudentQuery
@@ -67,7 +68,8 @@ class Query(
     StudentQuery,
     DashboardQuery,
     KeywordQuery,
-    TopicQuery
+    TopicQuery,
+    ProjectTypeQuery
 ):
     pass
 
