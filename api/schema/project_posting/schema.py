@@ -7,13 +7,14 @@ from graphene_django import DjangoObjectType
 from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 
-from api.schema.employee import Employee
+from api.schema.employee import Employee, EmployeeInput
 from api.schema.keyword.schema import KeywordInput
 from api.schema.project_type.schema import ProjectTypeInput
 from api.schema.topic.schema import TopicInput
 from db.decorators import hyphenate
 from db.exceptions import FormException
-from db.forms import process_project_posting_form_step_1
+from db.forms import process_project_posting_form_step_1, process_job_posting_form_step_3, \
+    process_project_posting_form_step_2
 from db.models import ProjectPosting as ProjectPostingModel, ProjectPostingState as ProjectPostingStateModel, \
     ProfileType
 
@@ -146,5 +147,34 @@ class ProjectPostingStep1(Output, graphene.Mutation):
                                    project_posting_id=project_posting.id)
 
 
+class ProjectPostingInputStep2(graphene.InputObjectType):
+    id = graphene.ID()
+    state = graphene.String(description=_('State'), required=True)
+    employee = graphene.Field(EmployeeInput, required=False)
+
+
+class ProjectPostingStep2(Output, graphene.Mutation):
+    slug = graphene.String()
+    project_posting_id = graphene.ID()
+
+    class Arguments:
+        step2 = ProjectPostingInputStep2(description=_('Project Posting Input Step 2 is required.'), required=True)
+
+    class Meta:
+        description = _('Updates a project posting')
+
+    @classmethod
+    @login_required
+    def mutate(cls, root, info, **data):
+        user = info.context.user
+        form_data = data.get('step2', None)
+        try:
+            job_posting = process_project_posting_form_step_2(user, form_data)
+        except FormException as exception:
+            return ProjectPostingStep2(success=False, errors=exception.errors)
+        return ProjectPostingStep2(success=True, errors=None, slug=job_posting.slug, project_posting_id=job_posting.id)
+
+
 class ProjectPostingMutation(graphene.ObjectType):
     project_posting_step_1 = ProjectPostingStep1.Field()
+    project_posting_step_2 = ProjectPostingStep2.Field()
