@@ -23,3 +23,8 @@ class KeywordQuery(ObjectType):
 class KeywordInput(graphene.InputObjectType):
     id = graphene.ID(required=True)
     name = graphene.String(required=False)
+
+    # pylint: disable=C0103
+    @property
+    def pk(self):
+        return self.id

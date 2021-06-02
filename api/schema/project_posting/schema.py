@@ -4,10 +4,16 @@ from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext as _
 from graphene import ObjectType
 from graphene_django import DjangoObjectType
+from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 
 from api.schema.employee import Employee
+from api.schema.keyword.schema import KeywordInput
+from api.schema.project_type.schema import ProjectTypeInput
+from api.schema.topic.schema import TopicInput
 from db.decorators import hyphenate
+from db.exceptions import FormException
+from db.forms import process_project_posting_form_step_1
 from db.models import ProjectPosting as ProjectPostingModel, ProjectPostingState as ProjectPostingStateModel, \
     ProfileType
 
@@ -103,3 +109,42 @@ class ProjectPostingQuery(ObjectType):
         if project_posting.state != ProjectPostingState.PUBLIC:
             raise Http404(_('Project posting not found'))
         return project_posting
+
+
+class ProjectPostingInputStep1(graphene.InputObjectType):
+    id = graphene.ID(required=False)
+    title = graphene.String(description=_('Title'), required=True)
+    project_type = graphene.Field(ProjectTypeInput, required=True)
+    topic = graphene.Field(TopicInput, required=True)
+    keywords = graphene.List(KeywordInput, required=False)
+    description = graphene.String(description=_('Description'), required=True)
+    additional_information = graphene.String(description=_('Additional Information'), required=False)
+    project_from_date = graphene.String(required=False)
+    website = graphene.String(required=False)
+
+
+class ProjectPostingStep1(Output, graphene.Mutation):
+    slug = graphene.String()
+    project_posting_id = graphene.ID()
+
+    class Arguments:
+        step1 = ProjectPostingInputStep1(description=_('Project Posting Input Step 1 is required.'), required=True)
+
+    class Meta:
+        description = _('Creates a project posting')
+
+    @classmethod
+    @login_required
+    def mutate(cls, root, info, **data):
+        user = info.context.user
+        form_data = data.get('step1', None)
+        try:
+            project_posting = process_project_posting_form_step_1(user, form_data)
+        except FormException as exception:
+            return ProjectPostingStep1(success=False, errors=exception.errors)
+        return ProjectPostingStep1(success=True, errors=None, slug=project_posting.slug,
+                                   project_posting_id=project_posting.id)
+
+
+class ProjectPostingMutation(graphene.ObjectType):
+    project_posting_step_1 = ProjectPostingStep1.Field()
