@@ -20,7 +20,9 @@ class Command(BaseCommand):
             'language_levels.json',
             'languages.json',
             'skills.json',
-            'soft_skills.json'
+            'soft_skills.json',
+            'topics.json',
+            'keywords.json'
         ]
         fixture_count = 0
         object_count = 0
