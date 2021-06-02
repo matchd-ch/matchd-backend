@@ -93,7 +93,6 @@ class JobPosting(BaseSeed):
                 job_posting.job_from_date = obj.get('job_from_date')
                 job_posting.job_to_date = obj.get('job_to_date')
                 job_posting.url = obj.get('url')
-                job_posting.url = obj.get('url')
                 job_posting.form_step = obj.get('form_step')
                 job_posting.state = obj.get('state')
                 job_posting.employee = get_user_model().objects.get(email=obj.get('employee')).employee

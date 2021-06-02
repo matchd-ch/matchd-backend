@@ -25,8 +25,12 @@ class ProjectPosting(models.Model, index.Indexed):
     website = models.URLField(max_length=2048, blank=True)
     project_from_date = models.DateField(null=True, blank=True)
     employee = models.ForeignKey('db.Employee', on_delete=models.SET_NULL, blank=True, null=True)
-    company = models.ForeignKey('db.Company', null=False, blank=False, on_delete=models.CASCADE,
+    student = models.ForeignKey('db.Student', on_delete=models.CASCADE, blank=True, null=True,
                                 related_name='project_postings')
+    company = models.ForeignKey('db.Company', null=True, blank=True, on_delete=models.CASCADE,
+                                related_name='project_postings')
+    form_step = models.IntegerField(default=2)  # since we save the job posting in step 1 the default value is 2
+    state = models.CharField(choices=ProjectPostingState.choices, default=ProjectPostingState.DRAFT, max_length=255)
     date_created = models.DateTimeField(auto_now_add=True)
     date_published = models.DateTimeField(null=True)
 
