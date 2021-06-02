@@ -22,7 +22,8 @@ class Command(BaseCommand):
             'skills.json',
             'soft_skills.json',
             'topics.json',
-            'keywords.json'
+            'keywords.json',
+            'project_types.json'
         ]
         fixture_count = 0
         object_count = 0

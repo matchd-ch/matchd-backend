@@ -11,3 +11,4 @@ from .soft_skill import *
 from .cultural_fit import *
 from .topic import *
 from .keyword import *
+from .project_type import *
