@@ -16,6 +16,7 @@ from .keyword import *
 from .language import *
 from .language_level import *
 from .me import *
+from .project_type import *
 from .register import *
 from .skill import *
 from .soft_skill import *

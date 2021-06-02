@@ -8,9 +8,6 @@ def test_query(query_topics, topic_objects):
     assert errors is None
     assert data is not None
 
-    print(data)
-    print(errors)
-
     objects = data.get('topics')
     assert objects is not None
     assert len(objects) == len(topic_objects)
