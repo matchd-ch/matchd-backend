@@ -4,7 +4,7 @@ from django.utils.text import slugify
 
 from db.exceptions import FormException
 from db.helper.forms import convert_object_to_id, validate_form_data, convert_date
-from db.models import JobPosting, ProjectType, Topic, Keyword, ProjectPosting, ProfileType
+from db.models import ProjectType, Topic, Keyword, ProjectPosting, ProfileType
 
 
 class ProjectPostingFormStep1(forms.Form):
@@ -51,7 +51,7 @@ def process_project_posting_form_step_1(user, data):
     # get existing job posting
     project_posting_id = data.get('id', None)
     if project_posting_id is not None:
-        project_posting = get_object_or_404(JobPosting, pk=project_posting_id)
+        project_posting = get_object_or_404(ProjectPosting, pk=project_posting_id)
     else:
         project_posting = ProjectPosting()
 
