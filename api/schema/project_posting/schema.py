@@ -43,7 +43,7 @@ class ProjectPosting(DjangoObjectType):
         model = ProjectPostingModel
         fields = ('id', 'title', 'description', 'project_type', 'topic', 'company', 'keywords',
                   'additional_information', 'website', 'project_from_date', 'form_step', 'state', 'date_published',
-                  'date_created', 'student', 'employee' )
+                  'date_created', 'student', 'employee', 'slug')
         convert_choices_to_enum = False
 
     def resolve_keywords(self: ProjectPostingModel, info):
