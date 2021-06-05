@@ -10,12 +10,15 @@ from .profile_type import ProfileType
 class MatchType(models.TextChoices):
     STUDENT = 'student', _('Student')
     JOB_POSTING = 'job_posting', _('Job posting')
+    PROJECT_POSTING = 'project_posting', _('Project posting')
     COMPANY = 'company', _('Company')
 
 
 class Match(models.Model):
-    student = models.ForeignKey('db.Student', null=False, on_delete=models.CASCADE)
-    job_posting = models.ForeignKey('db.JobPosting', null=False, on_delete=models.CASCADE)
+    student = models.ForeignKey('db.Student', null=True, on_delete=models.CASCADE)
+    job_posting = models.ForeignKey('db.JobPosting', null=True, on_delete=models.CASCADE)
+    project_posting = models.ForeignKey('db.ProjectPosting', null=True, on_delete=models.CASCADE)
+    company = models.ForeignKey('db.Company', null=True, on_delete=models.CASCADE)
     student_confirmed = models.BooleanField(default=False)
     company_confirmed = models.BooleanField(default=False)
     date_created = models.DateTimeField(auto_now_add=True)
