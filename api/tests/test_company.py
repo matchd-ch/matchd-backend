@@ -1,11 +1,19 @@
 import pytest
 from django.contrib.auth.models import AnonymousUser
 
-from db.models import ProfileState
+from db.models import ProfileState, JobPostingState, ProjectPostingState
 
 
 @pytest.mark.django_db
-def test_company(company_object_complete, query_company):
+def test_company(company_object_complete, query_company, job_posting_objects, project_posting_objects):
+    for job_posting in job_posting_objects:
+        job_posting.company = company_object_complete
+        job_posting.save()
+
+    for project_posting in project_posting_objects:
+        project_posting.company = company_object_complete
+        project_posting.save()
+
     data, errors = query_company(AnonymousUser(), company_object_complete.slug)
 
     company = data.get('company')
@@ -36,8 +44,10 @@ def test_company(company_object_complete, query_company):
     assert company.get('linkProjects') == company_object_complete.link_projects
     assert company.get('linkThesis') == company_object_complete.link_thesis
     assert len(company.get('employees')) == len(company_object_complete.users.all())
-    assert len(company.get('jobPostings')) == len(company_object_complete.job_postings.all())
-    assert len(company.get('projectPostings')) == len(company_object_complete.project_postings.all())
+    assert len(company.get('jobPostings')) == len(company_object_complete.job_postings.filter(
+        state=JobPostingState.PUBLIC))
+    assert len(company.get('projectPostings')) == len(company_object_complete.project_postings.filter(
+        state=ProjectPostingState.PUBLIC))
 
     employee = company.get('employees')[0]
     assert employee.get('phone') == company.get('phone')
