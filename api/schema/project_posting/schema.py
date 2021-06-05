@@ -13,8 +13,7 @@ from api.schema.project_type.schema import ProjectTypeInput
 from api.schema.topic.schema import TopicInput
 from db.decorators import hyphenate
 from db.exceptions import FormException
-from db.forms import process_project_posting_form_step_1, process_job_posting_form_step_3, \
-    process_project_posting_form_step_2
+from db.forms import process_project_posting_form_step_1, process_project_posting_form_step_2
 from db.models import ProjectPosting as ProjectPostingModel, ProjectPostingState as ProjectPostingStateModel, \
     ProfileType
 
@@ -37,7 +36,7 @@ class ProjectPosting(DjangoObjectType):
     employee = graphene.Field(Employee)
     keywords = graphene.List(graphene.NonNull('api.schema.keyword.schema.Keyword'))
     match_status = graphene.Field('api.schema.match.MatchStatus')
-    # match_hints = graphene.Field('api.schema.match.MatchHints')
+    match_hints = graphene.Field('api.schema.match.MatchHints')
 
     class Meta:
         model = ProjectPostingModel
@@ -101,12 +100,12 @@ class ProjectPostingQuery(ObjectType):
         elif project_posting_id is not None:
             project_posting = get_object_or_404(ProjectPostingModel, pk=project_posting_id)
 
-        # show incomplete job postings for employees of the company
+        # show incomplete project postings for employees of the company
         # noinspection PyUnboundLocalVariable
         if info.context.user.company == project_posting.company:
             return project_posting
 
-        # hide incomplete job postings for other users
+        # hide incomplete project postings for other users
         if project_posting.state != ProjectPostingState.PUBLIC:
             raise Http404(_('Project posting not found'))
         return project_posting
@@ -169,10 +168,11 @@ class ProjectPostingStep2(Output, graphene.Mutation):
         user = info.context.user
         form_data = data.get('step2', None)
         try:
-            job_posting = process_project_posting_form_step_2(user, form_data)
+            project_posting = process_project_posting_form_step_2(user, form_data)
         except FormException as exception:
             return ProjectPostingStep2(success=False, errors=exception.errors)
-        return ProjectPostingStep2(success=True, errors=None, slug=job_posting.slug, project_posting_id=job_posting.id)
+        return ProjectPostingStep2(success=True, errors=None, slug=project_posting.slug,
+                                   project_posting_id=project_posting.id)
 
 
 class ProjectPostingMutation(graphene.ObjectType):
