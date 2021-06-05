@@ -36,6 +36,8 @@ def test_company(company_object_complete, query_company):
     assert company.get('linkProjects') == company_object_complete.link_projects
     assert company.get('linkThesis') == company_object_complete.link_thesis
     assert len(company.get('employees')) == len(company_object_complete.users.all())
+    assert len(company.get('jobPostings')) == len(company_object_complete.job_postings.all())
+    assert len(company.get('projectPostings')) == len(company_object_complete.project_postings.all())
 
     employee = company.get('employees')[0]
     assert employee.get('phone') == company.get('phone')
@@ -86,6 +88,8 @@ def test_company_incomplete_as_employee(login, company_object_complete, query_co
     assert company.get('linkProjects') == company_object_complete.link_projects
     assert company.get('linkThesis') == company_object_complete.link_thesis
     assert len(company.get('employees')) == len(company_object_complete.users.all())
+    assert len(company.get('jobPostings')) == len(company_object_complete.job_postings.all())
+    assert len(company.get('projectPostings')) == len(company_object_complete.project_postings.all())
 
     employee = company.get('employees')[0]
     assert employee.get('phone') == company.get('phone')
