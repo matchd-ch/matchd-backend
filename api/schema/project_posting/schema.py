@@ -58,10 +58,10 @@ class ProjectPosting(DjangoObjectType):
     def resolve_match_status(self: ProjectPostingModel, info):
         # todo
         return None
-        return {
-            'confirmed': False,
-            'initiator': ProfileType.STUDENT
-        }
+        # return {
+        #     'confirmed': False,
+        #     'initiator': ProfileType.STUDENT
+        # }
         # user = info.context.user
         # status = None
         # if user.type in ProfileType.valid_student_types():
@@ -78,7 +78,7 @@ class ProjectPosting(DjangoObjectType):
         # return None
 
     def resolve_match_hints(self: ProjectPostingModel, info):
-        user = info.context.user
+        # user = info.context.user
         # todo
         return {
             'has_confirmed_match': False,

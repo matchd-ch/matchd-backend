@@ -3,6 +3,8 @@ from django.contrib.auth.models import AnonymousUser
 
 from db.models import ProjectPostingState, ProjectPosting
 
+# pylint: disable=R0913
+
 
 @pytest.mark.django_db
 def test_step_2_as_company(user_employee, project_posting_object, login, project_posting_step_2):

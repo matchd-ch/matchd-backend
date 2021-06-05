@@ -1,7 +1,6 @@
 import pytest
-from django.contrib.auth.models import AnonymousUser
-
-from db.models import ProjectPosting, ProjectPostingState, Match
+from db.models import ProjectPosting, ProjectPostingState
+# pylint: disable=R0913
 
 
 @pytest.mark.django_db

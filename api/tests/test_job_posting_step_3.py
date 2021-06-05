@@ -9,7 +9,8 @@ def test_step_3(user_employee, job_posting_object, login, job_posting_step_3):
     login(user_employee)
     job_posting_object.form_step = 3
     job_posting_object.save()
-    data, errors = job_posting_step_3(user_employee, job_posting_object.id, JobPostingState.PUBLIC, user_employee.employee)
+    data, errors = job_posting_step_3(user_employee, job_posting_object.id, JobPostingState.PUBLIC,
+                                      user_employee.employee)
     assert errors is None
     assert data is not None
     assert data.get('jobPostingStep3') is not None

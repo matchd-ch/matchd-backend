@@ -86,6 +86,7 @@ def project_posting_objects(company_object, project_type_objects, topic_objects)
     ]
 
 
+# pylint: disable=W0621
 @pytest.fixture
 def project_posting_object(project_posting_objects):
     return project_posting_objects[0]
@@ -105,6 +106,7 @@ def project_posting_mutation(step):
     ''' % (step, step, step, step, step)
 
 
+# pylint: disable=R0913
 @pytest.fixture
 def project_posting_step_1(execute):
     def closure(user, title, description, additional_information, project_from_date, website, topic, project_type,
