@@ -15,7 +15,7 @@ from api.schema.job_type import JobTypeInput
 from db.exceptions import FormException
 from db.forms import process_job_posting_match, process_student_match, process_project_posting_match
 from db.models import MatchType as MatchTypeModel, Match as MatchModel
-from db.search.matching import JobPostingMatching, StudentMatching, CompanyMatching
+from db.search.matching import JobPostingMatching, StudentMatching, CompanyMatching, ProjectPostingMatching
 
 MatchType = graphene.Enum.from_enum(MatchTypeModel)
 
@@ -44,7 +44,7 @@ class Match(ObjectType):
     avatar = graphene.String()
     score = graphene.NonNull(graphene.Float)
     raw_score = graphene.NonNull(graphene.Float)
-    job_posting_title = graphene.String()
+    title = graphene.String()
     match_status = graphene.Field(MatchStatus)
 
 
@@ -59,6 +59,10 @@ class JobPostingMatchingInput(InputObjectType):
     zip = graphene.Field(ZipCityInput, required=False)
 
 
+class ProjectPostingMatchingInput(InputObjectType):
+    project_posting = graphene.Field(ProjectPostingInput, required=True)
+
+
 class MatchQuery(ObjectType):
     matches = graphene.List(
         Match,
@@ -67,7 +71,8 @@ class MatchQuery(ObjectType):
         tech_boost=graphene.Int(required=False, default_value=3),
         soft_boost=graphene.Int(required=False, default_value=3),
         job_posting_matching=graphene.Argument(JobPostingMatchingInput, required=False),
-        student_matching=graphene.Argument(StudentMatchingInput, required=False)
+        student_matching=graphene.Argument(StudentMatchingInput, required=False),
+        project_posting_matching=graphene.Argument(ProjectPostingMatchingInput, required=False)
     )
 
     @login_required
@@ -88,6 +93,11 @@ class MatchQuery(ObjectType):
         student_matching = kwargs.get('student_matching', None)
         if student_matching is not None:
             matching = StudentMatching(user, student_matching, first, skip, tech_boost, soft_boost)
+            return matching.find_matches()
+
+        project_matching = kwargs.get('project_posting_matching', None)
+        if project_matching is not None:
+            matching = ProjectPostingMatching(user)
             return matching.find_matches()
 
         matching = CompanyMatching(user, first, skip, tech_boost, soft_boost)
