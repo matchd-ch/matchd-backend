@@ -42,7 +42,7 @@ class ProjectPosting(DjangoObjectType):
         model = ProjectPostingModel
         fields = ('id', 'title', 'description', 'project_type', 'topic', 'company', 'keywords',
                   'additional_information', 'website', 'project_from_date', 'form_step', 'state', 'date_published',
-                  'date_created', 'student', 'employee' )
+                  'date_created', 'student', 'employee', 'slug',)
         convert_choices_to_enum = False
 
     def resolve_keywords(self: ProjectPostingModel, info):
@@ -57,6 +57,7 @@ class ProjectPosting(DjangoObjectType):
 
     def resolve_match_status(self: ProjectPostingModel, info):
         # todo
+        return None
         return {
             'confirmed': False,
             'initiator': ProfileType.STUDENT
@@ -101,9 +102,16 @@ class ProjectPostingQuery(ObjectType):
             project_posting = get_object_or_404(ProjectPostingModel, pk=project_posting_id)
 
         # show incomplete project postings for employees of the company
-        # noinspection PyUnboundLocalVariable
-        if info.context.user.company == project_posting.company:
-            return project_posting
+        user = info.context.user
+        if user.type in ProfileType.valid_company_types():
+            # noinspection PyUnboundLocalVariable
+            if user.company == project_posting.company:
+                return project_posting
+
+        # show incomplete project postings if student is owner
+        if user.type in ProfileType.valid_student_types():
+            if user.student == project_posting.student:
+                return project_posting
 
         # hide incomplete project postings for other users
         if project_posting.state != ProjectPostingState.PUBLIC:
