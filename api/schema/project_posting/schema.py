@@ -15,7 +15,7 @@ from db.decorators import hyphenate
 from db.exceptions import FormException
 from db.forms import process_project_posting_form_step_1, process_project_posting_form_step_2
 from db.models import ProjectPosting as ProjectPostingModel, ProjectPostingState as ProjectPostingStateModel, \
-    ProfileType
+    ProfileType, Match as MatchModel
 
 ProjectPostingState = graphene.Enum.from_enum(ProjectPostingStateModel)
 
@@ -56,33 +56,37 @@ class ProjectPosting(DjangoObjectType):
         return self.title
 
     def resolve_match_status(self: ProjectPostingModel, info):
-        # todo
+        user = info.context.user
+        status = None
+        if user.type in ProfileType.valid_student_types():
+            try:
+                status = MatchModel.objects.get(project_posting=self, student=user.student)
+            except MatchModel.DoesNotExist:
+                pass
+        if user.type in ProfileType.valid_company_types():
+            try:
+                status = MatchModel.objects.get(project_posting=self, company=user.company)
+            except MatchModel.DoesNotExist:
+                pass
+
+        if status is not None:
+            return {
+                'confirmed':  status.complete,
+                'initiator': status.initiator
+            }
         return None
-        # return {
-        #     'confirmed': False,
-        #     'initiator': ProfileType.STUDENT
-        # }
-        # user = info.context.user
-        # status = None
-        # if user.type in ProfileType.valid_student_types():
-        #     try:
-        #         status = MatchModel.objects.get(job_posting=self, student=user.student)
-        #     except MatchModel.DoesNotExist:
-        #         pass
-        #
-        # if status is not None:
-        #     return {
-        #         'confirmed':  status.complete,
-        #         'initiator': status.initiator
-        #     }
-        # return None
 
     def resolve_match_hints(self: ProjectPostingModel, info):
-        # user = info.context.user
-        # todo
+        user = info.context.user
+        exists = False
+        if user.type in ProfileType.valid_student_types():
+            try:
+                exists = MatchModel.objects.filter(project_posting=self, student=user.student).exists()
+            except MatchModel.DoesNotExist:
+                pass
         return {
             'has_confirmed_match': False,
-            'has_requested_match': False
+            'has_requested_match': exists
         }
 
 
