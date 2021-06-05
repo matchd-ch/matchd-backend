@@ -54,7 +54,10 @@ class DashboardQuery(ObjectType):
             unconfirmed_matches = Match.objects.filter(job_posting__company=user.company, initiator=ProfileType.STUDENT,
                                                        company_confirmed=False, student_confirmed=True)
             confirmed_matches = Match.objects.filter(job_posting__company=user.company, student_confirmed=True,
-                                                     company_confirmed=True)
+                                                     company_confirmed=True, project_posting__isnull=True)
+            confirmed_project_matches = Match.objects.filter(project_posting__company=user.company,
+                                                             student_confirmed=True, company_confirmed=True,
+                                                             job_posting__isnull=True)
         if user.type in ProfileType.valid_student_types():
             job_postings = None
             project_postings = ProjectPostingModel.objects.filter(student=user.student).order_by('-date_created')
@@ -70,7 +73,9 @@ class DashboardQuery(ObjectType):
             unconfirmed_matches = Match.objects.filter(student=user.student, initiator=ProfileType.COMPANY,
                                                        student_confirmed=False, company_confirmed=True)
             confirmed_matches = Match.objects.filter(student=user.student, student_confirmed=True,
-                                                     company_confirmed=True)
+                                                     company_confirmed=True, project_posting__isnull=True)
+            confirmed_project_matches = Match.objects.filter(student=user.student, student_confirmed=True,
+                                                             company_confirmed=True, job_posting__isnull=True)
 
         return {
             'job_postings': job_postings,

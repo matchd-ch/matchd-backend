@@ -33,7 +33,7 @@ class MatchStatus(ObjectType):
 class MatchInfo(DjangoObjectType):
     class Meta:
         model = MatchModel
-        fields = ('id', 'student', 'job_posting',)
+        fields = ('id', 'student', 'job_posting', 'project_posting')
 
 
 class Match(ObjectType):

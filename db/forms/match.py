@@ -2,6 +2,7 @@ from datetime import datetime
 import pytz
 
 from django.conf import settings
+from django.core.exceptions import PermissionDenied
 
 from db.exceptions import FormException
 from db.helper import generic_error_dict
@@ -117,8 +118,14 @@ def process_project_posting_match(user, data):
 
     match_obj, created = None, None
     if user.type in ProfileType.valid_student_types():
+        # do not allow students to match projects of other students
+        if project_posting.student is not None:
+            raise PermissionDenied('You are not allowed to perform this action.')
         match_obj, created = Match.objects.get_or_create(project_posting=project_posting, student=user.student)
     if user.type in ProfileType.valid_company_types():
+        # do not allow companies to match projects of other companies
+        if project_posting.company is not None:
+            raise PermissionDenied('You are not allowed to perform this action.')
         match_obj, created = Match.objects.get_or_create(project_posting=project_posting, company=user.company)
 
     match_obj.student_confirmed = True
