@@ -54,7 +54,7 @@ class CompanyMatchMapper:
             'slug': company.slug,
             'score': company.score,
             'raw_score': company.raw_score,
-            'job_posting_title': None,
+            'title': None,
             'match_status': self._get_match_status(company)
         }
 
