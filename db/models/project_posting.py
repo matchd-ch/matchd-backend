@@ -14,6 +14,7 @@ class ProjectPostingState(models.TextChoices):
     PUBLIC = 'public', _('Public')
 
 
+# pylint: disable=R0902
 class ProjectPosting(models.Model, index.Indexed):
     title = models.CharField(max_length=50, blank=True)
     slug = models.CharField(max_length=100, blank=True)

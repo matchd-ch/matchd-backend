@@ -5,7 +5,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.utils.text import slugify
 
-from db.models import ProfileState, ProjectPosting as ProjectPostingModel, ProjectPostingState, Employee, ProfileType
+from db.models import ProfileState, ProjectPosting as ProjectPostingModel, ProjectPostingState
 from db.seed.base import BaseSeed
 
 
