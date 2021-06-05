@@ -38,11 +38,27 @@ def process_project_posting_form_step_2(user, data):
         cleaned_data = form.cleaned_data
         project_posting.state = cleaned_data.get('state')
         employee = cleaned_data.get('employee', None)
+
+        # check if employee belongs to the same company as the current user
         if employee is not None:
             if user.type in ProfileType.valid_company_types() and employee.user.company != user.company:
                 errors.update(generic_error_dict('employee',
                                                  _('Employee does not belong to your company'), 'invalid'))
                 raise FormException(errors=errors)
+
+        # check if the project posting belongs to the company
+        # ! if the user is a student, both values will be None
+        # ! see next if statement
+        if user.company != project_posting.company:
+            errors.update(generic_error_dict('employee',
+                                             _('Project posting does not belong to your company.'), 'invalid'))
+            raise FormException(errors=errors)
+
+        # check if the project posting belongs to the student
+        if user.type in ProfileType.valid_student_types() and user.student != project_posting.student:
+            errors.update(generic_error_dict('student',
+                                             _('Project posting does not belong to you.'), 'invalid'))
+            raise FormException(errors=errors)
         project_posting.employee = employee
     else:
         errors.update(form.errors.get_json_data())
