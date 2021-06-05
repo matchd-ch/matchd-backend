@@ -1,7 +1,74 @@
-from datetime import datetime
 import pytest
 
 from db.models import ProjectPosting
+
+
+def project_posting_query(filter_value, param_name):
+    if param_name == 'slug':
+        param = 'slug: "%s"' % filter_value
+    else:
+        param = 'id: %s' % filter_value
+    return '''
+    query {
+        projectPosting(%s) {
+            id
+            slug
+            title
+            displayTitle
+            description
+            additionalInformation
+            topic {
+              id
+              name
+            }
+            projectType {
+              id
+              name
+            }
+            keywords {
+              id
+              name
+            }
+            website
+            projectFromDate
+            formStep
+            state
+            company {
+              id
+            }
+            student {
+              slug
+              id
+            }
+            employee {
+              email
+              id
+            }
+            matchStatus {
+              confirmed
+              initiator
+            }
+            matchHints {
+              hasRequestedMatch
+              hasConfirmedMatch
+            }
+        }
+    }
+    ''' % param
+
+
+@pytest.fixture
+def query_project_posting(execute):
+    def closure(user, slug):
+        return execute(project_posting_query(slug, 'slug'), **{'user': user})
+    return closure
+
+
+@pytest.fixture
+def query_project_posting_by_id(execute):
+    def closure(user, project_posting_id):
+        return execute(project_posting_query(project_posting_id, 'id'), **{'user': user})
+    return closure
 
 
 @pytest.fixture
