@@ -7,12 +7,13 @@ from django.utils.translation import gettext as _
 
 from api.schema.branch import BranchInput
 from api.schema.profile_type import ProfileType
+from api.schema.project_posting.schema import ProjectPostingInput
 from api.schema.student import StudentInput
 from api.schema.zip_city import ZipCityInput
 from api.schema.job_posting import JobPostingInput
 from api.schema.job_type import JobTypeInput
 from db.exceptions import FormException
-from db.forms import process_job_posting_match, process_student_match
+from db.forms import process_job_posting_match, process_student_match, process_project_posting_match
 from db.models import MatchType as MatchTypeModel, Match as MatchModel
 from db.search.matching import JobPostingMatching, StudentMatching, CompanyMatching
 
@@ -144,6 +145,32 @@ class MatchJobPosting(Output, graphene.Mutation):
         return MatchJobPosting(success=True, errors=None, confirmed=match_obj.complete)
 
 
+class MatchProjectPostingInput(graphene.InputObjectType):
+    project_posting = graphene.Field(ProjectPostingInput, required=True)
+
+
+class MatchProjectPosting(Output, graphene.Mutation):
+
+    confirmed = graphene.NonNull(graphene.Boolean)
+
+    class Arguments:
+        match = MatchProjectPostingInput(description=_('MatchInput'), required=True)
+
+    class Meta:
+        description = _('Initiate or confirm Matching')
+
+    @classmethod
+    @login_required
+    def mutate(cls, root, info, **data):
+        user = info.context.user
+        try:
+            match_obj = process_project_posting_match(user, data.get('match'))
+        except FormException as exception:
+            return MatchProjectPosting(success=False, errors=exception.errors, confirmed=False)
+        return MatchProjectPosting(success=True, errors=None, confirmed=match_obj.complete)
+
+
 class MatchMutation(graphene.ObjectType):
     match_student = MatchStudent.Field()
     match_job_posting = MatchJobPosting.Field()
+    match_project_posting = MatchProjectPosting.Field()
