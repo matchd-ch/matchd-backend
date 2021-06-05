@@ -4,7 +4,7 @@ from django.utils.text import slugify
 
 from db.exceptions import FormException
 from db.helper.forms import convert_object_to_id, validate_form_data, convert_date
-from db.models import JobPosting, ProjectType, Topic, Keyword, ProjectPosting, ProfileType
+from db.models import ProjectType, Topic, Keyword, ProjectPosting, ProfileType
 
 
 class ProjectPostingFormStep1(forms.Form):
