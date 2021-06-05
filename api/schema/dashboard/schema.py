@@ -18,6 +18,7 @@ class Dashboard(ObjectType):
     requested_matches = graphene.List(graphene.NonNull(MatchInfo))
     unconfirmed_matches = graphene.List(graphene.NonNull(MatchInfo))
     confirmed_matches = graphene.List(graphene.NonNull(MatchInfo))
+    confirmed_project_matches = graphene.List(graphene.NonNull(MatchInfo))
 
 
 class DashboardQuery(ObjectType):
@@ -39,6 +40,7 @@ class DashboardQuery(ObjectType):
         requested_matches = None
         unconfirmed_matches = None
         confirmed_matches = None
+        confirmed_project_matches = None
         if user.type in ProfileType.valid_company_types():
             job_postings = JobPostingModel.objects.filter(company=user.company).order_by('-date_created')
             project_postings = ProjectPostingModel.objects.filter(company=user.company).order_by('-date_created')
@@ -77,5 +79,6 @@ class DashboardQuery(ObjectType):
             'latest_project_postings': latest_project_postings,
             'requested_matches': requested_matches,
             'unconfirmed_matches': unconfirmed_matches,
-            'confirmed_matches': confirmed_matches
+            'confirmed_matches': confirmed_matches,
+            'confirmed_project_matches': confirmed_project_matches
         }
