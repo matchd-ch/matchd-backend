@@ -41,6 +41,5 @@ def process_university_form_step_3(user, data):
         company.profile_step = 4
 
     # save user / profile
-    company.state = ProfileState.PUBLIC
     user.save()
     company.save()
