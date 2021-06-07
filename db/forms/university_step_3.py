@@ -2,10 +2,13 @@ from django import forms
 
 from db.exceptions import FormException
 from db.helper.forms import validate_step, validate_form_data, validate_company_user_type
-from db.models import ProfileType, ProfileState
+from db.models import ProfileType, ProfileState, Branch, Benefit
 
 
 class UniversityProfileFormStep3(forms.Form):
+    branches = forms.ModelMultipleChoiceField(queryset=Branch.objects.all(), required=False)
+    benefits = forms.ModelMultipleChoiceField(queryset=Benefit.objects.all(), required=False)
+
     services = forms.CharField(max_length=300, required=False)
     link_education = forms.URLField(max_length=2048, required=False)
     link_projects = forms.URLField(max_length=2048, required=False)
@@ -20,6 +23,9 @@ def process_university_form_step_3(user, data):
     errors = {}
     company = user.company
 
+    benefits_to_save = None
+    branches_to_save = None
+
     # validate profile data
     form = UniversityProfileFormStep3(data)
     form.full_clean()
@@ -30,6 +36,8 @@ def process_university_form_step_3(user, data):
         company.link_education = cleaned_data.get('link_education')
         company.link_projects = cleaned_data.get('link_projects')
         company.link_thesis = cleaned_data.get('link_thesis')
+        branches_to_save = cleaned_data.get('branches')
+        benefits_to_save = cleaned_data.get('benefits')
     else:
         errors.update(form.errors.get_json_data())
 
@@ -43,3 +51,5 @@ def process_university_form_step_3(user, data):
     # save user / profile
     user.save()
     company.save()
+    company.benefits.set(benefits_to_save)
+    company.branches.set(branches_to_save)

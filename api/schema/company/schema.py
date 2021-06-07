@@ -182,7 +182,6 @@ class UniversityProfileStep1(Output, graphene.Mutation):
 
 
 class UniversityProfileInputStep2(graphene.InputObjectType):
-    branches = graphene.List(BranchInput, description=_('Branches'), required=False)
     description = graphene.String(description=_('description'), required=False)
 
 
@@ -210,6 +209,8 @@ class UniversityProfileInputStep3(graphene.InputObjectType):
     link_education = graphene.String(description=_('website education'), required=False)
     link_projects = graphene.String(description=_('website projects'), required=False)
     link_thesis = graphene.String(description=_('website thesis'), required=False)
+    branches = graphene.List(BranchInput, description=_('Branches'))
+    benefits = graphene.List(BenefitInput, description=_('Benefits'))
 
 
 class UniversityProfileStep3(Output, graphene.Mutation):
@@ -255,11 +256,11 @@ class UniversityProfileStep4(Output, graphene.Mutation):
         return UniversityProfileStep4(success=True, errors=None)
 
 
-
 class UniversityProfileMutation(graphene.ObjectType):
     university_profile_step1 = UniversityProfileStep1.Field()
     university_profile_step2 = UniversityProfileStep2.Field()
     university_profile_step3 = UniversityProfileStep3.Field()
+    university_profile_step4 = UniversityProfileStep4.Field()
 
 
 class Company(DjangoObjectType):
