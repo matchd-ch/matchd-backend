@@ -39,11 +39,10 @@ def university_step_1(execute):
 
 @pytest.fixture
 def university_step_2(execute):
-    def closure(user, description, branches):
+    def closure(user, description):
         return execute(university_profile_mutation(2), variables={
             'step2': {
                 'description': description,
-                'branches': [{'id': obj.id} for obj in branches],
             }
         }, **{'user': user})
     return closure
@@ -51,13 +50,15 @@ def university_step_2(execute):
 
 @pytest.fixture
 def university_step_3(execute):
-    def closure(user, services, link_education, link_projects, link_thesis):
+    def closure(user, services, link_education, link_projects, link_thesis, branches, benefits):
         return execute(university_profile_mutation(3), variables={
             'step3': {
                 'services': services,
                 'linkEducation': link_education,
                 'linkProjects': link_projects,
                 'linkThesis': link_thesis,
+                'branches': [{'id': obj.id} for obj in branches],
+                'benefits': [{'id': obj.id} for obj in benefits],
             }
         }, **{'user': user})
     return closure
