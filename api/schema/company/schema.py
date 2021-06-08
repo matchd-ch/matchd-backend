@@ -239,7 +239,7 @@ class UniversityProfileInputStep4(graphene.InputObjectType):
 
 class UniversityProfileStep4(Output, graphene.Mutation):
     class Arguments:
-        step4 = CompanyProfileInputStep4(description=_('Profile Input Step 4 is required.'), required=True)
+        step4 = UniversityProfileInputStep4(description=_('Profile Input Step 4 is required.'), required=True)
 
     class Meta:
         description = _('Updates a company profile with soft skills and cultural fit')

@@ -2,7 +2,7 @@ import pytest
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 
-from db.models import ProfileState
+from db.models import ProfileState, SoftSkill, CulturalFit
 
 
 @pytest.mark.django_db
@@ -87,7 +87,8 @@ def test_step_3_invalid_data(login, user_rector, university_step_3):
     user_rector.company.profile_step = 3
     user_rector.company.save()
     login(user_rector)
-    data, errors = university_step_3(user_rector, 'a' * 301, 'invalid', 'invalid', 'invalid', [{'id':1337}], [{id:1337}])
+    data, errors = university_step_3(user_rector, 'a' * 301, 'invalid', 'invalid', 'invalid', [SoftSkill(id=1337)],
+                                     [CulturalFit(id=1337)])
     assert errors is None
     assert data is not None
     assert data.get('universityProfileStep3') is not None

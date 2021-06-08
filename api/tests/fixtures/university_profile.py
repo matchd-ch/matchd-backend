@@ -62,3 +62,14 @@ def university_step_3(execute):
             }
         }, **{'user': user})
     return closure
+
+@pytest.fixture
+def university_step_4(execute):
+    def closure(user, soft_skills, cultural_fits):
+        return execute(university_profile_mutation(4), variables={
+            'step4': {
+                'softSkills': [{'id': obj.id} for obj in soft_skills],
+                'culturalFits': [{'id': obj.id} for obj in cultural_fits],
+            }
+        }, **{'user': user})
+    return closure
