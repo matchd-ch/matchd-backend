@@ -3,7 +3,8 @@ from db.models import ProfileState, Student, ProfileType, Match, AttachmentKey
 
 # pylint: disable=R0912
 def has_access_to_attachments(user, owner, key=None):
-    if key in (AttachmentKey.STUDENT_AVATAR_FALLBACK, AttachmentKey.COMPANY_AVATAR_FALLBACK):
+    if key in (AttachmentKey.STUDENT_AVATAR_FALLBACK, AttachmentKey.COMPANY_AVATAR_FALLBACK,
+               AttachmentKey.PROJECT_POSTING_FALLBACK):
         return True
     # this could happen if the owner is an internal user (eg. ProfileType.INTERNAL). See get_company_or_student()
     if owner is None:
