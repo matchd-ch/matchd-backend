@@ -77,6 +77,14 @@ class Attachment(models.Model):
             return attachments[index]
         return None
 
+    @classmethod
+    def get_project_posting_fallback(cls, project_posting):
+        attachments = list(Attachment.objects.filter(key=AttachmentKey.PROJECT_POSTING_FALLBACK).order_by('id'))
+        index = project_posting.id % (settings.NUMBER_OF_PROJECT_POSTING_FALLBACK_IMAGES - 1)
+        if len(attachments) > index:
+            return attachments[index]
+        return None
+
 
 def student_avatar_config():
     return {
