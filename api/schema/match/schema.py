@@ -30,10 +30,23 @@ class MatchStatus(ObjectType):
     initiator = graphene.Field(graphene.NonNull(ProfileType))
 
 
-class MatchInfo(DjangoObjectType):
+class JobPostingMatchInfo(DjangoObjectType):
+    student = graphene.NonNull('api.schema.student.schema.Student')
+    job_posting = graphene.NonNull('api.schema.job_posting.schema.JobPosting')
+
     class Meta:
         model = MatchModel
-        fields = ('id', 'student', 'job_posting', 'project_posting')
+        fields = ('id', 'student', 'job_posting', )
+
+
+class ProjectPostingMatchInfo(DjangoObjectType):
+    student = graphene.Field('api.schema.student.schema.Student')
+    company = graphene.Field('api.schema.company.schema.Company')
+    project_posting = graphene.NonNull('api.schema.project_posting.schema.ProjectPosting')
+
+    class Meta:
+        model = MatchModel
+        fields = ('id', 'student', 'project_posting', 'company', )
 
 
 class Match(ObjectType):
