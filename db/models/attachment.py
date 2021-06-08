@@ -147,11 +147,41 @@ def company_documents_config():
     }
 
 
+def project_posting_images_config():
+    return {
+        'content_types_configuration': [
+            {
+                'content_types': settings.USER_UPLOADS_IMAGE_TYPES,
+                'max_size': settings.USER_UPLOADS_MAX_IMAGE_SIZE,
+                'model': settings.WAGTAILIMAGES_IMAGE_MODEL
+            }
+        ],
+        'max_files': 5,
+        'key': AttachmentKey.PROJECT_POSTING_IMAGES
+    }
+
+
+def project_posting_documents_config():
+    return {
+        'content_types_configuration': [
+            {
+                'content_types': settings.USER_UPLOADS_DOCUMENT_TYPES,
+                'max_size': settings.USER_UPLOADS_MAX_DOCUMENT_SIZE,
+                'model': settings.WAGTAILDOCS_DOCUMENT_MODEL
+            }
+        ],
+        'max_files': 5,
+        'key': AttachmentKey.PROJECT_POSTING_DOCUMENTS
+    }
+
+
 upload_configurations = [
     student_avatar_config(),
     student_documents_config(),
     company_avatar_config(),
-    company_documents_config()
+    company_documents_config(),
+    project_posting_documents_config(),
+    project_posting_images_config()
 ]
 
 
