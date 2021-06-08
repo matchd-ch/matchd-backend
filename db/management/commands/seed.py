@@ -1,4 +1,5 @@
 import json
+from django.core import management
 from django.core.management import BaseCommand
 
 from db.seed import Seed
@@ -17,6 +18,9 @@ class Command(BaseCommand):
             self.stdout.write('.', ending='')
             seed.run(data)
         self.stdout.write('', ending='\n')
+
+        management.call_command('loaddata', 'db/seed/data/matches.json')
+
         self.stdout.write(self.style.SUCCESS('Adding test data completed'))
 
     def _load_fixtures(self):

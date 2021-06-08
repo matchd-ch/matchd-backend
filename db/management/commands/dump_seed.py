@@ -1,5 +1,7 @@
 import json
+import sys
 
+from django.core import management
 from django.contrib.contenttypes.models import ContentType
 from django.core.management.base import BaseCommand
 from django.contrib.auth import get_user_model
@@ -234,6 +236,11 @@ class Command(BaseCommand):
 
         with open('db/seed/data/fixtures.json', 'w') as json_file:
             json_file.write(json_string)
+
+        sys_out = sys.stdout
+        sys.stdout = open('db/seed/data/matches.json', 'w')
+        management.call_command('dumpdata', 'db.Match')
+        sys.stdout = sys_out
 
         users = get_user_model().objects.all().exclude(username='admin')
         lines = [
