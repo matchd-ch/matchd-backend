@@ -14,13 +14,19 @@ class AttachmentKey(models.TextChoices):
     COMPANY_DOCUMENTS = 'company_documents', _('Company Documents')
     STUDENT_AVATAR_FALLBACK = 'student_avatar_fallback', _('Student Avatar fallback')
     COMPANY_AVATAR_FALLBACK = 'company_avatar_fallback', _('Company Avatar fallback')
+    PROJECT_POSTING_IMAGES = 'project_posting_images', _('Project posting images')
+    PROJECT_POSTING_DOCUMENTS = 'project_posting_documents', _('Project posting documents')
+    PROJECT_POSTING_FALLBACK = 'project_posting_fallback', _('Project posting fallback')
 
     @classmethod
     def valid_student_keys(cls):
         return [
             cls.STUDENT_AVATAR,
             cls.STUDENT_DOCUMENTS,
-            cls.STUDENT_AVATAR_FALLBACK
+            cls.STUDENT_AVATAR_FALLBACK,
+            cls.PROJECT_POSTING_IMAGES,
+            cls.PROJECT_POSTING_DOCUMENTS,
+            cls.PROJECT_POSTING_FALLBACK
         ]
 
     @classmethod
@@ -28,7 +34,10 @@ class AttachmentKey(models.TextChoices):
         return [
             cls.COMPANY_AVATAR,
             cls.COMPANY_DOCUMENTS,
-            cls.COMPANY_AVATAR_FALLBACK
+            cls.COMPANY_AVATAR_FALLBACK,
+            cls.PROJECT_POSTING_IMAGES,
+            cls.PROJECT_POSTING_DOCUMENTS,
+            cls.PROJECT_POSTING_FALLBACK
         ]
 
 
