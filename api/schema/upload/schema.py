@@ -1,23 +1,22 @@
 import graphene
 from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import ValidationError
 from graphene import ObjectType
 from graphene_file_upload.scalars import Upload
 from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
-from django.utils.translation import gettext as _
 
 from api.schema.attachment import AttachmentKey
+from api.schema.project_posting.schema import ProjectPostingInput
 from db.forms import AttachmentForm, process_upload, process_attachment
-from db.helper import generic_error_dict, validation_error_to_dict
-from db.models import upload_configurations, get_attachment_validator_map_for_key
-from db.validators import AttachmentKeyValidator, AttachmentKeyNumFilesValidator, AttachmentFileValidator
+from db.helper import generic_error_dict
+from db.models import upload_configurations, ProjectPosting as ProjectPostingModel
 
 
 class UserUpload(Output, graphene.Mutation):
     class Arguments:
         file = Upload(required=True)
         key = AttachmentKey(required=True)
+        projectPosting = ProjectPostingInput(required=False)
 
     # pylint: disable=R0912
     # pylint: disable=R0915
@@ -29,9 +28,24 @@ class UserUpload(Output, graphene.Mutation):
         key = kwargs.get('key', None)
         file = process_upload(user, key, info.context.FILES)
         attachment_content_type, file_attachment = process_attachment(user, key, file)
+
+        project_posting = kwargs.get('projectPosting', None)
+        if project_posting is not None:
+            try:
+                project_posting = ProjectPostingModel.objects.get(pk=project_posting.get('id'))
+            except ProjectPostingModel.DoesNotExist as e:
+                errors.update(generic_error_dict('projectPosting', str(e), 'invalid'))
+                return UserUpload(success=False, errors=errors)
+
+        content_type = user.get_profile_content_type()
+        object_id = user.get_profile_id()
+        if project_posting is not None:
+            content_type = ContentType.objects.get(app_label='db', model='projectposting')
+            object_id = project_posting.id
+
         form = AttachmentForm(data={
-            'content_type': user.get_profile_content_type(),
-            'object_id': user.get_profile_id(),
+            'content_type': content_type,
+            'object_id': object_id,
             'attachment_type': attachment_content_type,
             'attachment_id': file_attachment.id,
             'key': key

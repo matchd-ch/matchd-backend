@@ -59,8 +59,6 @@ def process_attachment(user, key, file):
     attachment_model = None
     attachment_model_name = None
 
-    attachment_content_type = ContentType.objects.get(app_label='db', model=attachment_model_name)
-
     # collect all attachment errors, but return them only if needed
     attachment_errors = {}
     is_valid_attachment = False
@@ -88,6 +86,8 @@ def process_attachment(user, key, file):
 
     if not is_valid_attachment:
         raise FormException(errors=attachment_errors)
+
+    attachment_content_type = ContentType.objects.get(app_label='db', model=attachment_model_name)
 
     # create file attachment (image, video or document)
     try:
