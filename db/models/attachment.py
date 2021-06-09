@@ -40,6 +40,13 @@ class AttachmentKey(models.TextChoices):
             cls.PROJECT_POSTING_FALLBACK
         ]
 
+    @classmethod
+    def valid_project_posting_keys(cls):
+        return [
+            cls.PROJECT_POSTING_DOCUMENTS,
+            cls.PROJECT_POSTING_IMAGES
+        ]
+
 
 class Attachment(models.Model):
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, related_name='user_type')

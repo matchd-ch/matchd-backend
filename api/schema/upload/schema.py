@@ -1,5 +1,6 @@
 import graphene
 from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import PermissionDenied
 from graphene import ObjectType
 from graphene_file_upload.scalars import Upload
 from graphql_auth.bases import Output
@@ -9,7 +10,8 @@ from api.schema.attachment import AttachmentKey
 from api.schema.project_posting.schema import ProjectPostingInput
 from db.forms import AttachmentForm, process_upload, process_attachment
 from db.helper import generic_error_dict
-from db.models import upload_configurations, ProjectPosting as ProjectPostingModel
+from db.models import upload_configurations, ProjectPosting as ProjectPostingModel, ProfileType, \
+    AttachmentKey as AttachmentKeyModel
 
 
 class UserUpload(Output, graphene.Mutation):
@@ -26,8 +28,6 @@ class UserUpload(Output, graphene.Mutation):
         errors = {}
         user = info.context.user
         key = kwargs.get('key', None)
-        file = process_upload(user, key, info.context.FILES)
-        attachment_content_type, file_attachment = process_attachment(user, key, file)
 
         project_posting = kwargs.get('projectPosting', None)
         if project_posting is not None:
@@ -37,9 +37,24 @@ class UserUpload(Output, graphene.Mutation):
                 errors.update(generic_error_dict('projectPosting', str(e), 'invalid'))
                 return UserUpload(success=False, errors=errors)
 
+        if project_posting is not None and key not in (
+                AttachmentKeyModel.PROJECT_POSTING_DOCUMENTS, AttachmentKeyModel.PROJECT_POSTING_IMAGES,):
+            errors.update(generic_error_dict('key', 'Invalid key', 'invalid'))
+            return UserUpload(success=False, errors=errors)
+
+        file = process_upload(user, key, info.context.FILES)
+        attachment_content_type, file_attachment = process_attachment(user, key, file)
+
         content_type = user.get_profile_content_type()
         object_id = user.get_profile_id()
         if project_posting is not None:
+            if user.type in ProfileType.valid_company_types():
+                if user.company != project_posting.company:
+                    raise PermissionDenied('You are not the owner of this project.')
+            if user.type in ProfileType.valid_student_types():
+                if user.student != project_posting.student:
+                    raise PermissionDenied('You are not the owner of this project.')
+
             content_type = ContentType.objects.get(app_label='db', model='projectposting')
             object_id = project_posting.id
 
