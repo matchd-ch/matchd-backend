@@ -93,6 +93,7 @@ class ProjectPosting(DjangoObjectType):
 class ProjectPostingQuery(ObjectType):
     project_posting = graphene.Field(ProjectPosting, id=graphene.ID(required=False),
                                      slug=graphene.String(required=False))
+    project_postings = graphene.List(ProjectPosting)
 
     @login_required
     def resolve_project_posting(self, info, **kwargs):
@@ -121,6 +122,18 @@ class ProjectPostingQuery(ObjectType):
         if project_posting.state != ProjectPostingState.PUBLIC:
             raise Http404(_('Project posting not found'))
         return project_posting
+
+    @login_required
+    def resolve_project_postings(self, info, **kwargs):
+        user = info.context.user
+        project_postings = None
+        if user.type in ProfileType.valid_company_types():
+            project_postings = ProjectPostingModel.objects.filter(company=user.company,
+                                                                  state=ProjectPostingState.PUBLIC)
+        if user.type in ProfileType.valid_student_types():
+            project_postings = ProjectPostingModel.objects.filter(student=user.student,
+                                                                  state=ProjectPostingState.PUBLIC)
+        return project_postings
 
 
 class ProjectPostingInputStep1(graphene.InputObjectType):
