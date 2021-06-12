@@ -56,6 +56,18 @@ def dashboard_query():
             nickname
           }
         }
+        projectMatches {
+          projectPosting {
+            id
+            title
+          }
+          student {
+            nickname
+          }
+          company {
+            id
+          }
+        }
       }
     }
     '''

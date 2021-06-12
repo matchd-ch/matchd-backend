@@ -6,6 +6,7 @@ from graphene import ObjectType, InputObjectType
 from django.utils.translation import gettext as _
 
 from api.schema.branch import BranchInput
+from api.schema.keyword.schema import Keyword
 from api.schema.profile_type import ProfileType
 from api.schema.project_posting.schema import ProjectPostingInput
 from api.schema.student import StudentInput
@@ -59,6 +60,8 @@ class Match(ObjectType):
     raw_score = graphene.NonNull(graphene.Float)
     title = graphene.String()
     match_status = graphene.Field(MatchStatus)
+    description = graphene.String()
+    keywords = graphene.List(Keyword)
 
 
 class StudentMatchingInput(InputObjectType):
@@ -110,7 +113,7 @@ class MatchQuery(ObjectType):
 
         project_matching = kwargs.get('project_posting_matching', None)
         if project_matching is not None:
-            matching = ProjectPostingMatching(user)
+            matching = ProjectPostingMatching(user, project_matching, first, skip, tech_boost, soft_boost)
             return matching.find_matches()
 
         matching = CompanyMatching(user, first, skip, tech_boost, soft_boost)

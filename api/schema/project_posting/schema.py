@@ -78,16 +78,11 @@ class ProjectPosting(DjangoObjectType):
 
     def resolve_match_hints(self: ProjectPostingModel, info):
         user = info.context.user
-        exists = False
-        if user.type in ProfileType.valid_student_types():
-            try:
-                exists = MatchModel.objects.filter(project_posting=self, student=user.student).exists()
-            except MatchModel.DoesNotExist:
-                pass
-        return {
-            'has_confirmed_match': False,
-            'has_requested_match': exists
-        }
+        if user.type in ProfileType.valid_company_types():
+            return None
+        if self.company is None:
+            return None
+        return user.student.get_match_hints(self.company)
 
 
 class ProjectPostingQuery(ObjectType):

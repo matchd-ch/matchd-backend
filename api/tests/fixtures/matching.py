@@ -12,7 +12,7 @@ def job_posting_matching_query(tech_boost, soft_boost):
         slug
         score
         rawScore
-        jobPostingTitle
+        title
         matchStatus {
           confirmed
           initiator
@@ -33,7 +33,7 @@ def student_matching_query(tech_boost, soft_boost):
         slug
         score
         rawScore
-        jobPostingTitle
+        title
         matchStatus {
           confirmed
           initiator
@@ -54,7 +54,7 @@ def company_matching_query(tech_boost, soft_boost):
         slug
         score
         rawScore
-        jobPostingTitle
+        title
         matchStatus {
           confirmed
           initiator
