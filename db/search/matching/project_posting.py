@@ -8,6 +8,8 @@ from db.search.calculators import ProjectPostingScoreCalculator
 from db.search.mapper import ProjectPostingMatchMapper
 from db.search.resolvers import HitResolver
 
+# pylint: disable=R0913
+
 
 class ProjectPostingMatching:
     search_backend = get_search_backend()

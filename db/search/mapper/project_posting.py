@@ -1,4 +1,4 @@
-from db.models import MatchType, Match, ProfileType, Attachment, AttachmentKey
+from db.models import MatchType, Match, ProfileType
 
 
 class ProjectPostingMatchMapper:
