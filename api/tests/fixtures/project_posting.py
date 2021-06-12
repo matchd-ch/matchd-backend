@@ -72,7 +72,7 @@ def query_project_posting_by_id(execute):
 
 
 @pytest.fixture
-def project_posting_objects(company_object, project_type_objects, topic_objects):
+def company_project_posting_objects(company_object, project_type_objects, topic_objects):
     project_posting_1 = ProjectPosting.objects.create(id=1, company=company_object, slug='project-1',
                                                       project_type=project_type_objects[0], topic=topic_objects[0],
                                                       state=ProjectPostingState.PUBLIC)
@@ -89,10 +89,34 @@ def project_posting_objects(company_object, project_type_objects, topic_objects)
     ]
 
 
+@pytest.fixture
+def student_project_posting_objects(user_student, project_type_objects, topic_objects):
+    project_posting_1 = ProjectPosting.objects.create(id=4, student=user_student.student, slug='student-project-1',
+                                                      project_type=project_type_objects[0], topic=topic_objects[0],
+                                                      state=ProjectPostingState.PUBLIC)
+    project_posting_2 = ProjectPosting.objects.create(id=5, student=user_student.student, slug='student-project-2',
+                                                      project_type=project_type_objects[0], topic=topic_objects[0],
+                                                      state=ProjectPostingState.PUBLIC)
+    project_posting_3 = ProjectPosting.objects.create(id=6, student=user_student.student, slug='student-project-3',
+                                                      project_type=project_type_objects[0], topic=topic_objects[0],
+                                                      state=ProjectPostingState.DRAFT)
+    return [
+        project_posting_1,
+        project_posting_2,
+        project_posting_3,
+    ]
+
+
 # pylint: disable=W0621
 @pytest.fixture
-def project_posting_object(project_posting_objects):
-    return project_posting_objects[0]
+def company_project_posting_object(company_project_posting_objects):
+    return company_project_posting_objects[0]
+
+
+# # pylint: disable=W0621
+# @pytest.fixture
+# def student_project_posting_object(student_project_posting_objects):
+#     return student_project_posting_objects[0]
 
 
 def project_posting_mutation(step):
