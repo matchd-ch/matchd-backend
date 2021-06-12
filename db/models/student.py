@@ -9,7 +9,7 @@ from django.db import models
 from django.db.models import Q
 from wagtail.search import index
 
-from . import Match
+from .match import Match
 from .profile_type import ProfileType
 from .profile_state import ProfileState
 
