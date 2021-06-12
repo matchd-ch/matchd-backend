@@ -5,7 +5,7 @@ from db.models import ProjectPosting, ProjectPostingState
 
 @pytest.mark.django_db
 def test_student_project_posting(query_project_posting, company_project_posting_object: ProjectPosting,
-                                 project_type_objects, topic_objects, keyword_objects, user_student):
+                                 project_type_objects, topic_objects, keyword_objects, user_student, user_employee):
     company_project_posting_object.title = 'title'
     company_project_posting_object.slug = 'title'
     company_project_posting_object.description = 'description'
@@ -22,7 +22,7 @@ def test_student_project_posting(query_project_posting, company_project_posting_
     company_project_posting_object.save()
     company_project_posting_object.keywords.set(keyword_objects)
 
-    data, errors = query_project_posting(user_student, company_project_posting_object.slug)
+    data, errors = query_project_posting(user_employee, company_project_posting_object.slug)
 
     assert errors is None
     assert data is not None
@@ -48,9 +48,7 @@ def test_student_project_posting(query_project_posting, company_project_posting_
     assert match_status is None
 
     match_hints = project_posting.get('matchHints')
-    assert match_hints is not None
-    assert match_hints.get('hasConfirmedMatch') is False
-    assert match_hints.get('hasRequestedMatch') is False
+    assert match_hints is None
 
 
 @pytest.mark.django_db
@@ -98,9 +96,7 @@ def test_student_project_posting_draft(query_project_posting, company_project_po
     assert match_status is None
 
     match_hints = project_posting.get('matchHints')
-    assert match_hints is not None
-    assert match_hints.get('hasConfirmedMatch') is False
-    assert match_hints.get('hasRequestedMatch') is False
+    assert match_hints is None
 
 
 @pytest.mark.django_db
@@ -148,9 +144,7 @@ def test_student_project_posting_by_id(query_project_posting_by_id, company_proj
     assert match_status is None
 
     match_hints = project_posting.get('matchHints')
-    assert match_hints is not None
-    assert match_hints.get('hasConfirmedMatch') is False
-    assert match_hints.get('hasRequestedMatch') is False
+    assert match_hints is None
 
 
 @pytest.mark.django_db
@@ -198,9 +192,7 @@ def test_company_project_posting(query_project_posting, company_project_posting_
     assert match_status is None
 
     match_hints = project_posting.get('matchHints')
-    assert match_hints is not None
-    assert match_hints.get('hasConfirmedMatch') is False
-    assert match_hints.get('hasRequestedMatch') is False
+    assert match_hints is None
 
 
 @pytest.mark.django_db
@@ -248,9 +240,7 @@ def test_company_project_posting_draft(query_project_posting, company_project_po
     assert match_status is None
 
     match_hints = project_posting.get('matchHints')
-    assert match_hints is not None
-    assert match_hints.get('hasConfirmedMatch') is False
-    assert match_hints.get('hasRequestedMatch') is False
+    assert match_hints is None
 
 
 @pytest.mark.django_db
@@ -298,9 +288,7 @@ def test_company_project_posting_by_id(query_project_posting_by_id, company_proj
     assert match_status is None
 
     match_hints = project_posting.get('matchHints')
-    assert match_hints is not None
-    assert match_hints.get('hasConfirmedMatch') is False
-    assert match_hints.get('hasRequestedMatch') is False
+    assert match_hints is None
 
 
 @pytest.mark.django_db
