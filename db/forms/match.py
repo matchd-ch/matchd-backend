@@ -116,6 +116,7 @@ def process_project_posting_match(user, data):
     if errors:
         raise FormException(errors=errors)
 
+    # pylint: disable=W0612
     match_obj, created = None, None
     if user.type in ProfileType.valid_student_types():
         # do not allow students to match projects of other students

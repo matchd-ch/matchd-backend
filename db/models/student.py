@@ -9,6 +9,7 @@ from django.db import models
 from django.db.models import Q
 from wagtail.search import index
 
+from .match import Match
 from .profile_type import ProfileType
 from .profile_state import ProfileState
 
@@ -68,6 +69,24 @@ class Student(models.Model, index.Indexed):
                 if possible_match.initiator == ProfileType.STUDENT or possible_match.complete:
                     return True
         return False
+
+    def get_match_hints(self, company):
+        has_requested_match = Match.objects.filter(initiator=ProfileType.STUDENT, student=self,
+                                                   job_posting__company=company).exists()
+        if not has_requested_match:
+            has_requested_match = Match.objects.filter(initiator=ProfileType.STUDENT, student=self,
+                                                       project_posting__company=company).exists()
+
+        has_confirmed_match = Match.objects.filter(initiator=ProfileType.COMPANY, student=self,
+                                                   student_confirmed=True, job_posting__company=company).exists()
+        if not has_confirmed_match:
+            has_confirmed_match = Match.objects.filter(initiator=ProfileType.COMPANY, student=self,
+                                                       student_confirmed=True, project_posting__company=company).\
+                exists()
+        return {
+            'has_confirmed_match': has_confirmed_match,
+            'has_requested_match': has_requested_match
+        }
 
     search_fields = [
         index.FilterField('branch_id'),
