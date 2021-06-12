@@ -33,8 +33,8 @@ class UserUpload(Output, graphene.Mutation):
         if project_posting is not None:
             try:
                 project_posting = ProjectPostingModel.objects.get(pk=project_posting.get('id'))
-            except ProjectPostingModel.DoesNotExist as e:
-                errors.update(generic_error_dict('projectPosting', str(e), 'invalid'))
+            except ProjectPostingModel.DoesNotExist as exception:
+                errors.update(generic_error_dict('projectPosting', str(exception), 'invalid'))
                 return UserUpload(success=False, errors=errors)
 
         if project_posting is not None and key not in (

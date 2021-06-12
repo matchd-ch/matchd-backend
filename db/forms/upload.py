@@ -27,6 +27,7 @@ def process_upload(user, key, files):
             raise FormException(errors=errors)
     except Exception:
         errors.update(generic_error_dict('file', _('Field is required'), 'required'))
+        # pylint: disable=W0707
         raise FormException(errors=errors)
 
     errors = {}
@@ -95,6 +96,7 @@ def process_attachment(user, key, file):
         file_attachment = attachment_model.objects.get(id=file_attachment.id)
     except attachment_model.DoesNotExist:
         errors.update(generic_error_dict('file', _('File could not be saved.'), 'error'))
+        # pylint: disable=W0707
         raise FormException(errors=errors)
 
     return attachment_content_type, file_attachment

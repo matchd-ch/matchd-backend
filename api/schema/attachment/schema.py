@@ -79,6 +79,7 @@ class AttachmentQuery(ObjectType):
         slug=graphene.String(required=False)
     )
 
+    # pylint: disable=R0912
     @login_required
     def resolve_attachments(self, info, **kwargs):
         user = info.context.user
