@@ -8,6 +8,7 @@ from graphql_jwt.decorators import login_required
 
 from api.schema.attachment import AttachmentKey
 from api.schema.project_posting.schema import ProjectPostingInput
+from db.exceptions import FormException
 from db.forms import AttachmentForm, process_upload, process_attachment
 from db.helper import generic_error_dict
 from db.models import upload_configurations, ProjectPosting as ProjectPostingModel, ProfileType, \
@@ -42,9 +43,6 @@ class UserUpload(Output, graphene.Mutation):
             errors.update(generic_error_dict('key', 'Invalid key', 'invalid'))
             return UserUpload(success=False, errors=errors)
 
-        file = process_upload(user, key, info.context.FILES)
-        attachment_content_type, file_attachment = process_attachment(user, key, file)
-
         content_type = user.get_profile_content_type()
         object_id = user.get_profile_id()
         if project_posting is not None:
@@ -57,6 +55,12 @@ class UserUpload(Output, graphene.Mutation):
 
             content_type = ContentType.objects.get(app_label='db', model='projectposting')
             object_id = project_posting.id
+
+        try:
+            file = process_upload(user, key, info.context.FILES)
+            attachment_content_type, file_attachment = process_attachment(user, key, file)
+        except FormException as exception:
+            return UserUpload(success=False, errors=exception.errors)
 
         form = AttachmentForm(data={
             'content_type': content_type,
