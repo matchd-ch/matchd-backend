@@ -2,6 +2,8 @@ import pytest
 
 from db.models import AttachmentKey
 
+# pylint: disable=R0913
+
 
 @pytest.mark.django_db
 def test_upload_student_project_posting_image(login, user_student, upload_for_project_posting, file_image_jpg,
