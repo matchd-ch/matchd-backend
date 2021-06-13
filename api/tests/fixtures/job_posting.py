@@ -16,6 +16,8 @@ def job_posting_query(filter_value, param_name):
     return '''
     query {
         jobPosting(%s) {
+            dateCreated
+            datePublished
             matchStatus {
               initiator
               confirmed
