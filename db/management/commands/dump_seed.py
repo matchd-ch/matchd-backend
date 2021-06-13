@@ -12,6 +12,36 @@ from db.models import Attachment, ProfileType, ProfileState, AttachmentKey
 class Command(BaseCommand):
     help = 'Dumps test data'
 
+    def get_project_postings_for_company_or_student(self, company_or_student):
+        project_posting_objs = []
+
+        for project_posting in company_or_student.project_postings.all():
+            date_created = project_posting.date_created.strftime('%Y-%m-%d %H:%M:%S')
+
+            date_published = project_posting.date_published
+            if date_published is not None:
+                date_published = project_posting.date_published.strftime('%Y-%m-%d %H:%M:%S')
+
+            obj = {
+                'title': project_posting.title,
+                'slug': project_posting.slug,
+                'project_type': project_posting.project_type.id,
+                'topic': project_posting.topic.id,
+                'keywords': [obj.id for obj in project_posting.keywords.all()],
+                'description': project_posting.description,
+                'additional_information': project_posting.additional_information,
+                'website': project_posting.website,
+                'project_from_date': project_posting.project_from_date.strftime('%Y-%m-%d'),
+                'employee': project_posting.employee.user.email if project_posting.employee else None,
+                'company': company_or_student.id,
+                'date_created': date_created,
+                'date_published': date_published,
+                'form_step': project_posting.form_step,
+                'state': project_posting.state,
+            }
+            project_posting_objs.append(obj)
+        return project_posting_objs
+
     def get_job_postings_for_company(self, company):
         job_posting_objs = []
 
@@ -155,7 +185,8 @@ class Command(BaseCommand):
                         'cultural_fits': [obj.id for obj in company.cultural_fits.all()],
                         'soft_skills': [obj.id for obj in company.soft_skills.all()],
                         'attachments': self.get_attachments_for_company(company),
-                        'job_postings': self.get_job_postings_for_company(company)
+                        'job_postings': self.get_job_postings_for_company(company),
+                        'project_postings': self.get_project_postings_for_company_or_student(company)
                     })
                     dumped_companies.append(company.slug)
                 user_obj['company'] = company_obj
@@ -192,7 +223,8 @@ class Command(BaseCommand):
                         for obj in student.languages.all()
                     ],
                     'attachments': self.get_attachments_for_student(student),
-                    'slug': student.slug
+                    'slug': student.slug,
+                    'project_postings': self.get_project_postings_for_company_or_student(student)
                 }
                 user_obj['student'] = student_obj
 

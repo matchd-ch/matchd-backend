@@ -27,3 +27,8 @@ class JobTypeInput(graphene.InputObjectType):
     id = graphene.ID(required=True)
     name = graphene.String(required=False)
     mode = graphene.String(required=False)
+
+    # pylint: disable=C0103
+    @property
+    def pk(self):
+        return self.id

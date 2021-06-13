@@ -17,6 +17,7 @@ disable=
     W0613, # unused-argument
     W0703, # broad-except
     R0911, # too-many-return-statements
+    W0511, # todo (fixme)
 
 load-plugins=pylint_django
 django-settings-module=app.settings.test
