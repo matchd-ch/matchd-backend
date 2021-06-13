@@ -26,3 +26,6 @@ from .faq_category import FAQCategory
 from .soft_skill import SoftSkill
 from .cultural_fit import CulturalFit
 from .match import MatchType, Match
+from .topic import Topic
+from .keyword import Keyword
+from .project_type import ProjectType

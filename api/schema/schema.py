@@ -11,14 +11,17 @@ from api.schema.employee import EmployeeMutation
 from api.schema.job_requirement import JobRequirementQuery
 from api.schema.job_type import JobTypeQuery
 from api.schema.job_posting import JobPostingMutation, JobPostingQuery
+from api.schema.keyword.schema import KeywordQuery
 from api.schema.language import LanguageQuery
 from api.schema.auth import AuthMutation, LogoutMutation, VerifyPasswordResetToken
 from api.schema.language_level import LanguageLevelQuery
 from api.schema.match import MatchQuery, MatchMutation
+from api.schema.project_type.schema import ProjectTypeQuery
 from api.schema.skill import SkillQuery
 from api.schema.soft_skill import SoftSkillQuery
 from api.schema.student import StudentProfileMutation, StudentQuery
 from api.schema.registration import RegistrationMutation
+from api.schema.topic.schema import TopicQuery
 from api.schema.upload import UploadMutation
 from api.schema.upload.schema import UploadConfigurationQuery
 from api.schema.user import UserQuery
@@ -63,7 +66,10 @@ class Query(
     CulturalFitQuery,
     MatchQuery,
     StudentQuery,
-    DashboardQuery
+    DashboardQuery,
+    KeywordQuery,
+    TopicQuery,
+    ProjectTypeQuery
 ):
     pass
 
