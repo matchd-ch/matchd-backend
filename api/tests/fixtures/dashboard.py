@@ -11,6 +11,24 @@ def dashboard_query():
           datePublished
           dateCreated
         }
+        projectPostings {
+          id
+          title
+          datePublished
+          dateCreated
+        }
+        latestJobPostings {
+          id
+          title
+          datePublished
+          dateCreated
+        }
+        latestProjectPostings {
+          id
+          title
+          datePublished
+          dateCreated
+        }
         requestedMatches {
           jobPosting {
             id

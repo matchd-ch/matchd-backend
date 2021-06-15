@@ -5,12 +5,12 @@ from db.models import ProfileState, JobPostingState, ProjectPostingState
 
 
 @pytest.mark.django_db
-def test_company(company_object_complete, query_company, job_posting_objects, project_posting_objects):
+def test_company(company_object_complete, query_company, job_posting_objects, company_project_posting_objects):
     for job_posting in job_posting_objects:
         job_posting.company = company_object_complete
         job_posting.save()
 
-    for project_posting in project_posting_objects:
+    for project_posting in company_project_posting_objects:
         project_posting.company = company_object_complete
         project_posting.save()
 
