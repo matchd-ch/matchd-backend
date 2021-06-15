@@ -178,7 +178,7 @@ class ProjectPostingStep2(Output, graphene.Mutation):
     project_posting_id = graphene.ID()
 
     class Arguments:
-        step1 = ProjectPostingInputStep2(description=_('Project Posting Input Step 2 is required.'), required=True)
+        step2 = ProjectPostingInputStep2(description=_('Project Posting Input Step 2 is required.'), required=True)
 
     class Meta:
         description = _('Creates a project posting')
@@ -207,7 +207,7 @@ class ProjectPostingStep3(Output, graphene.Mutation):
     project_posting_id = graphene.ID()
 
     class Arguments:
-        step2 = ProjectPostingInputStep3(description=_('Project Posting Input Step 3 is required.'), required=True)
+        step3 = ProjectPostingInputStep3(description=_('Project Posting Input Step 3 is required.'), required=True)
 
     class Meta:
         description = _('Updates a project posting')
