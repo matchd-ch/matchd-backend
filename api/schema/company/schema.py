@@ -22,7 +22,7 @@ from db.forms import process_company_form_step_2, process_company_form_step_3, p
     process_university_form_step_2, process_university_form_step_3
 from db.forms.company_step_1 import process_company_form_step_1
 from db.forms.company_step_4 import process_company_form_step_4
-from db.models import Company as CompanyModel, ProfileState as ProfileStateModel, JobPostingState
+from db.models import Company as CompanyModel, ProfileState as ProfileStateModel, JobPostingState, ProjectPostingState
 
 
 class CompanyInput(graphene.InputObjectType):
@@ -239,6 +239,8 @@ class UniversityProfileMutation(graphene.ObjectType):
 class Company(DjangoObjectType):
     employees = graphene.NonNull(graphene.List(graphene.NonNull(Employee)))
     job_postings = graphene.NonNull(graphene.List(graphene.NonNull('api.schema.job_posting.schema.JobPosting')))
+    project_postings = graphene.NonNull(graphene.List(
+        graphene.NonNull('api.schema.project_posting.schema.ProjectPosting')))
     type = graphene.Field(graphene.NonNull(ProfileType))
     state = graphene.Field(graphene.NonNull(ProfileState))
     soft_skills = graphene.List(graphene.NonNull('api.schema.soft_skill.schema.SoftSkill'))
@@ -265,6 +267,11 @@ class Company(DjangoObjectType):
         if is_me_query(info):
             return self.job_postings.all()
         return self.job_postings.filter(state=JobPostingState.PUBLIC)
+
+    def resolve_project_postings(self: CompanyModel, info: ResolveInfo):
+        if is_me_query(info):
+            return self.project_postings.all()
+        return self.project_postings.filter(state=ProjectPostingState.PUBLIC)
 
     @company_cheating_protection
     def resolve_soft_skills(self: CompanyModel, info: ResolveInfo):
