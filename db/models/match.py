@@ -12,6 +12,7 @@ class MatchType(models.TextChoices):
     JOB_POSTING = 'job_posting', _('Job posting')
     PROJECT_POSTING = 'project_posting', _('Project posting')
     COMPANY = 'company', _('Company')
+    UNIVERSITY = 'university', _('University')
 
 
 class Match(models.Model):
