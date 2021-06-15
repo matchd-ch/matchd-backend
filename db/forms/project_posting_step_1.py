@@ -14,14 +14,11 @@ class ProjectPostingFormStep1(forms.Form):
     project_type = forms.ModelChoiceField(queryset=ProjectType.objects.all(), required=True)
     topic = forms.ModelChoiceField(queryset=Topic.objects.all(), required=True)
     keywords = forms.ModelMultipleChoiceField(queryset=Keyword.objects.all(), required=False)
-    project_from_date = forms.DateField(required=False)
-    website = forms.URLField(required=False)
 
     def __init__(self, data=None, **kwargs):
         # due to a bug with ModelChoiceField and graphene_django
         data['project_type'] = convert_object_to_id(data.get('project_type', None))
         data['topic'] = convert_object_to_id(data.get('topic', None))
-        data['project_from_date'] = convert_date(data.get('project_from_date', None), '%m.%Y')
         super().__init__(data=data, **kwargs)
 
 
@@ -60,8 +57,6 @@ def process_project_posting_form_step_1(user, data):
     project_posting.additional_information = cleaned_data.get('additional_information')
     project_posting.project_type = cleaned_data.get('project_type')
     project_posting.topic = cleaned_data.get('topic')
-    project_posting.project_from_date = cleaned_data.get('project_from_date')
-    project_posting.website = cleaned_data.get('website')
     project_posting.company = cleaned_data.get('company')
     project_posting.student = cleaned_data.get('student')
     project_posting.employee = cleaned_data.get('employee')
@@ -70,4 +65,7 @@ def process_project_posting_form_step_1(user, data):
 
     project_posting.slug = f'{slugify(project_posting.title)}-{str(project_posting.id)}'
     project_posting.save()
+    # update job posting
+    if project_posting.form_step == 1:
+        project_posting.form_step = 2
     return project_posting

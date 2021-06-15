@@ -14,6 +14,7 @@ from api.schema.topic.schema import TopicInput
 from db.decorators import hyphenate
 from db.exceptions import FormException
 from db.forms import process_project_posting_form_step_1, process_project_posting_form_step_2
+from db.forms.project_posting_step_3 import process_project_posting_form_step_3
 from db.models import ProjectPosting as ProjectPostingModel, ProjectPostingState as ProjectPostingStateModel, \
     ProfileType, Match as MatchModel
 
@@ -141,8 +142,6 @@ class ProjectPostingInputStep1(graphene.InputObjectType):
     keywords = graphene.List(KeywordInput, required=False)
     description = graphene.String(description=_('Description'), required=True)
     additional_information = graphene.String(description=_('Additional Information'), required=False)
-    project_from_date = graphene.String(required=False)
-    website = graphene.String(required=False)
 
 
 class ProjectPostingStep1(Output, graphene.Mutation):
@@ -169,9 +168,9 @@ class ProjectPostingStep1(Output, graphene.Mutation):
 
 
 class ProjectPostingInputStep2(graphene.InputObjectType):
-    id = graphene.ID()
-    state = graphene.String(description=_('State'), required=True)
-    employee = graphene.Field(EmployeeInput, required=False)
+    id = graphene.ID(required=False)
+    project_from_date = graphene.String(required=False)
+    website = graphene.String(required=False)
 
 
 class ProjectPostingStep2(Output, graphene.Mutation):
@@ -179,10 +178,10 @@ class ProjectPostingStep2(Output, graphene.Mutation):
     project_posting_id = graphene.ID()
 
     class Arguments:
-        step2 = ProjectPostingInputStep2(description=_('Project Posting Input Step 2 is required.'), required=True)
+        step1 = ProjectPostingInputStep2(description=_('Project Posting Input Step 2 is required.'), required=True)
 
     class Meta:
-        description = _('Updates a project posting')
+        description = _('Creates a project posting')
 
     @classmethod
     @login_required
@@ -197,6 +196,36 @@ class ProjectPostingStep2(Output, graphene.Mutation):
                                    project_posting_id=project_posting.id)
 
 
+class ProjectPostingInputStep3(graphene.InputObjectType):
+    id = graphene.ID()
+    state = graphene.String(description=_('State'), required=True)
+    employee = graphene.Field(EmployeeInput, required=False)
+
+
+class ProjectPostingStep3(Output, graphene.Mutation):
+    slug = graphene.String()
+    project_posting_id = graphene.ID()
+
+    class Arguments:
+        step2 = ProjectPostingInputStep3(description=_('Project Posting Input Step 3 is required.'), required=True)
+
+    class Meta:
+        description = _('Updates a project posting')
+
+    @classmethod
+    @login_required
+    def mutate(cls, root, info, **data):
+        user = info.context.user
+        form_data = data.get('step3', None)
+        try:
+            project_posting = process_project_posting_form_step_3(user, form_data)
+        except FormException as exception:
+            return ProjectPostingStep3(success=False, errors=exception.errors)
+        return ProjectPostingStep3(success=True, errors=None, slug=project_posting.slug,
+                                   project_posting_id=project_posting.id)
+
+
 class ProjectPostingMutation(graphene.ObjectType):
     project_posting_step_1 = ProjectPostingStep1.Field()
     project_posting_step_2 = ProjectPostingStep2.Field()
+    project_posting_step_3 = ProjectPostingStep3.Field()
