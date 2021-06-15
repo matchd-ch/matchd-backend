@@ -43,6 +43,8 @@ class JobPosting(DjangoObjectType):
     display_title = graphene.NonNull(graphene.String)
     match_status = graphene.Field('api.schema.match.MatchStatus')
     match_hints = graphene.Field('api.schema.match.MatchHints')
+    date_created = graphene.Date()
+    date_published = graphene.Date()
 
     class Meta:
         model = JobPostingModel
