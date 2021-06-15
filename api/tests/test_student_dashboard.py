@@ -27,12 +27,17 @@ def test_dashboard(login, query_dashboard, user_employee, user_student, job_post
         project_posting_object.student = user_student.student
         project_posting_object.save()
 
+    # job posting matches
     Match.objects.create(job_posting=job_posting_objects[0], student=user_student.student, company_confirmed=True,
                          initiator=user_employee.type)
     Match.objects.create(job_posting=job_posting_objects[1], student=user_student.student, student_confirmed=True,
                          initiator=user_student.type)
     Match.objects.create(job_posting=job_posting_objects[2], student=user_student.student, student_confirmed=True,
                          company_confirmed=True, initiator=user_employee.type)
+
+    # project posting matches
+    Match.objects.create(project_posting=student_project_posting_objects[0], company=user_employee.company,
+                         company_confirmed=True, student_confirmed=True, initiator=user_employee.type)
 
     login(user_student)
     data, errors = query_dashboard(user_student)
@@ -68,3 +73,8 @@ def test_dashboard(login, query_dashboard, user_employee, user_student, job_post
     assert confirmed_matches is not None
     assert len(confirmed_matches) == 1
     assert int(confirmed_matches[0].get('jobPosting').get('id')) == job_posting_objects[2].id
+
+    project_matches = dashboard.get('projectMatches')
+    assert project_matches is not None
+    assert len(project_matches) == 1
+    assert int(project_matches[0].get('projectPosting').get('id')) == student_project_posting_objects[0].id

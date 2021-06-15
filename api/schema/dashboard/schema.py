@@ -4,7 +4,7 @@ from django.core.exceptions import PermissionDenied
 from graphene import ObjectType
 
 from api.schema.job_posting.schema import JobPosting
-from api.schema.match import MatchInfo
+from api.schema.match import JobPostingMatchInfo, ProjectPostingMatchInfo
 from api.schema.project_posting.schema import ProjectPosting, ProjectPostingState
 from db.models import ProfileType, JobPosting as JobPostingModel, JobPostingState, Match, \
     ProjectPosting as ProjectPostingModel
@@ -15,10 +15,10 @@ class Dashboard(ObjectType):
     project_postings = graphene.List(graphene.NonNull(ProjectPosting))
     latest_job_postings = graphene.List(graphene.NonNull(JobPosting))
     latest_project_postings = graphene.List(graphene.NonNull(ProjectPosting))
-    requested_matches = graphene.List(graphene.NonNull(MatchInfo))
-    unconfirmed_matches = graphene.List(graphene.NonNull(MatchInfo))
-    confirmed_matches = graphene.List(graphene.NonNull(MatchInfo))
-    confirmed_project_matches = graphene.List(graphene.NonNull(MatchInfo))
+    requested_matches = graphene.List(graphene.NonNull(JobPostingMatchInfo))
+    unconfirmed_matches = graphene.List(graphene.NonNull(JobPostingMatchInfo))
+    confirmed_matches = graphene.List(graphene.NonNull(JobPostingMatchInfo))
+    project_matches = graphene.List(graphene.NonNull(ProjectPostingMatchInfo))
 
 
 class DashboardQuery(ObjectType):
@@ -40,7 +40,7 @@ class DashboardQuery(ObjectType):
         requested_matches = None
         unconfirmed_matches = None
         confirmed_matches = None
-        confirmed_project_matches = None
+        project_matches = None
         if user.type in ProfileType.valid_company_types():
             job_postings = JobPostingModel.objects.filter(company=user.company).order_by('-date_created')
             project_postings = ProjectPostingModel.objects.filter(company=user.company).order_by('-date_created')
@@ -54,7 +54,9 @@ class DashboardQuery(ObjectType):
             unconfirmed_matches = Match.objects.filter(job_posting__company=user.company, initiator=ProfileType.STUDENT,
                                                        company_confirmed=False, student_confirmed=True)
             confirmed_matches = Match.objects.filter(job_posting__company=user.company, student_confirmed=True,
-                                                     company_confirmed=True)
+                                                     company_confirmed=True, project_posting__isnull=True)
+            project_matches = Match.objects.filter(project_posting__company=user.company, student_confirmed=True,
+                                                   company_confirmed=True)
         if user.type in ProfileType.valid_student_types():
             job_postings = None
             project_postings = ProjectPostingModel.objects.filter(student=user.student).order_by('-date_created')
@@ -70,8 +72,9 @@ class DashboardQuery(ObjectType):
             unconfirmed_matches = Match.objects.filter(student=user.student, initiator=ProfileType.COMPANY,
                                                        student_confirmed=False, company_confirmed=True)
             confirmed_matches = Match.objects.filter(student=user.student, student_confirmed=True,
-                                                     company_confirmed=True)
-
+                                                     company_confirmed=True, project_posting__isnull=True)
+            project_matches = Match.objects.filter(project_posting__student=user.student, student_confirmed=True,
+                                                   company_confirmed=True)
         return {
             'job_postings': job_postings,
             'project_postings': project_postings,
@@ -80,5 +83,5 @@ class DashboardQuery(ObjectType):
             'requested_matches': requested_matches,
             'unconfirmed_matches': unconfirmed_matches,
             'confirmed_matches': confirmed_matches,
-            'confirmed_project_matches': confirmed_project_matches
+            'project_matches': project_matches
         }
