@@ -113,10 +113,10 @@ def company_project_posting_object(company_project_posting_objects):
     return company_project_posting_objects[0]
 
 
-# # pylint: disable=W0621
-# @pytest.fixture
-# def student_project_posting_object(student_project_posting_objects):
-#     return student_project_posting_objects[0]
+# pylint: disable=W0621
+@pytest.fixture
+def student_project_posting_object(student_project_posting_objects):
+    return student_project_posting_objects[0]
 
 
 def project_posting_mutation(step):

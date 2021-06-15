@@ -29,3 +29,4 @@ from .project_posting_step_1 import process_project_posting_form_step_1
 from .project_posting_step_2 import process_project_posting_form_step_2
 
 from .match import process_job_posting_match, process_student_match, process_project_posting_match
+from .upload import process_upload, process_attachment

@@ -1,4 +1,5 @@
 import graphene
+from django.contrib.contenttypes.models import ContentType
 from graphene import ObjectType
 from graphene_django import DjangoObjectType
 from graphql_auth.bases import Output
@@ -6,7 +7,8 @@ from graphql_jwt.decorators import login_required
 from django.utils.translation import gettext as _
 
 from db.helper import generic_error_dict, has_access_to_attachments, get_company_or_student
-from db.models import AttachmentKey as AttachmentKeyModel, Attachment as AttachmentModel, Company, Student
+from db.models import AttachmentKey as AttachmentKeyModel, Attachment as AttachmentModel, Company, Student, \
+    ProjectPosting
 
 AttachmentKey = graphene.Enum.from_enum(AttachmentKeyModel)
 
@@ -77,24 +79,29 @@ class AttachmentQuery(ObjectType):
         slug=graphene.String(required=False)
     )
 
+    # pylint: disable=R0912
     @login_required
     def resolve_attachments(self, info, **kwargs):
         user = info.context.user
         key = kwargs.get('key')
 
+        is_project_posting = key in AttachmentKeyModel.valid_project_posting_keys()
         is_student = key in AttachmentKeyModel.valid_student_keys()
         is_company = key in AttachmentKeyModel.valid_company_keys()
 
-        if not is_student and not is_company:
+        if not is_student and not is_company and not is_project_posting:
             return []
 
         slug = kwargs.get('slug', None)
+
         if slug is not None:
             model = None
             if is_student:
                 model = Student
             if is_company:
                 model = Company
+            if is_project_posting:
+                model = ProjectPosting
             try:
                 attachment_owner = model.objects.get(slug=slug)
             except model.DoesNotExist:
@@ -118,11 +125,18 @@ class AttachmentQuery(ObjectType):
             if is_company:
                 fallback = AttachmentModel.get_company_avatar_fallback(attachment_owner)
                 return [fallback] if fallback is not None else []
+            if is_project_posting:
+                fallback = AttachmentModel.get_project_posting_fallback(attachment_owner)
+                return [fallback] if fallback is not None else []
             return []
 
-        # get profile content type and id
-        profile_content_type = attachment_owner.get_profile_content_type()
-        profile_id = attachment_owner.get_profile_id()
+        if not is_project_posting:
+            # get profile content type and id
+            profile_content_type = attachment_owner.get_profile_content_type()
+            profile_id = attachment_owner.get_profile_id()
+        else:
+            profile_content_type = ContentType.objects.get(app_label='db', model='projectposting')
+            profile_id = attachment_owner.id
         return AttachmentModel.objects.filter(
             key=key,
             content_type=profile_content_type,
