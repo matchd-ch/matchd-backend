@@ -11,6 +11,8 @@ def project_posting_query(filter_value, param_name):
     return '''
     query {
         projectPosting(%s) {
+            dateCreated
+            datePublished
             id
             slug
             title

@@ -61,7 +61,7 @@ class Match(ObjectType):
     title = graphene.String()
     match_status = graphene.Field(MatchStatus)
     description = graphene.String()
-    keywords = graphene.List(Keyword)
+    keywords = graphene.List(graphene.NonNull(Keyword))
 
 
 class StudentMatchingInput(InputObjectType):

@@ -37,6 +37,8 @@ class ProjectPosting(DjangoObjectType):
     keywords = graphene.List(graphene.NonNull('api.schema.keyword.schema.Keyword'))
     match_status = graphene.Field('api.schema.match.MatchStatus')
     match_hints = graphene.Field('api.schema.match.MatchHints')
+    date_created = graphene.Date()
+    date_published = graphene.Date()
 
     class Meta:
         model = ProjectPostingModel
