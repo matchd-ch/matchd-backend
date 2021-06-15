@@ -15,7 +15,7 @@ from db.decorators import hyphenate
 from db.exceptions import FormException
 from db.forms import process_project_posting_form_step_1, process_project_posting_form_step_2
 from db.models import ProjectPosting as ProjectPostingModel, ProjectPostingState as ProjectPostingStateModel, \
-    ProfileType
+    ProfileType, Match as MatchModel
 
 ProjectPostingState = graphene.Enum.from_enum(ProjectPostingStateModel)
 
@@ -56,39 +56,39 @@ class ProjectPosting(DjangoObjectType):
         return self.title
 
     def resolve_match_status(self: ProjectPostingModel, info):
-        # todo
+        user = info.context.user
+        status = None
+        if user.type in ProfileType.valid_student_types():
+            try:
+                status = MatchModel.objects.get(project_posting=self, student=user.student)
+            except MatchModel.DoesNotExist:
+                pass
+        if user.type in ProfileType.valid_company_types():
+            try:
+                status = MatchModel.objects.get(project_posting=self, company=user.company)
+            except MatchModel.DoesNotExist:
+                pass
+
+        if status is not None:
+            return {
+                'confirmed':  status.complete,
+                'initiator': status.initiator
+            }
         return None
-        # return {
-        #     'confirmed': False,
-        #     'initiator': ProfileType.STUDENT
-        # }
-        # user = info.context.user
-        # status = None
-        # if user.type in ProfileType.valid_student_types():
-        #     try:
-        #         status = MatchModel.objects.get(job_posting=self, student=user.student)
-        #     except MatchModel.DoesNotExist:
-        #         pass
-        #
-        # if status is not None:
-        #     return {
-        #         'confirmed':  status.complete,
-        #         'initiator': status.initiator
-        #     }
-        # return None
 
     def resolve_match_hints(self: ProjectPostingModel, info):
-        # user = info.context.user
-        # todo
-        return {
-            'has_confirmed_match': False,
-            'has_requested_match': False
-        }
+        user = info.context.user
+        if user.type in ProfileType.valid_company_types():
+            return None
+        if self.company is None:
+            return None
+        return user.student.get_match_hints(self.company)
 
 
 class ProjectPostingQuery(ObjectType):
     project_posting = graphene.Field(ProjectPosting, id=graphene.ID(required=False),
                                      slug=graphene.String(required=False))
+    project_postings = graphene.List(ProjectPosting)
 
     @login_required
     def resolve_project_posting(self, info, **kwargs):
@@ -117,6 +117,18 @@ class ProjectPostingQuery(ObjectType):
         if project_posting.state != ProjectPostingState.PUBLIC:
             raise Http404(_('Project posting not found'))
         return project_posting
+
+    @login_required
+    def resolve_project_postings(self, info, **kwargs):
+        user = info.context.user
+        project_postings = None
+        if user.type in ProfileType.valid_company_types():
+            project_postings = ProjectPostingModel.objects.filter(company=user.company,
+                                                                  state=ProjectPostingState.PUBLIC)
+        if user.type in ProfileType.valid_student_types():
+            project_postings = ProjectPostingModel.objects.filter(student=user.student,
+                                                                  state=ProjectPostingState.PUBLIC)
+        return project_postings
 
 
 class ProjectPostingInputStep1(graphene.InputObjectType):

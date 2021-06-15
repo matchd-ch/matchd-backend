@@ -38,7 +38,23 @@ class ProjectPosting(models.Model, index.Indexed):
     @classmethod
     def get_indexed_objects(cls):
         return cls.objects.filter(state=ProjectPostingState.PUBLIC).\
-            select_related('company', 'project_type', 'topic', 'employee').prefetch_related('keywords')
+            select_related('company', 'project_type', 'topic', 'employee', 'student').prefetch_related('keywords')
+
+    def cultural_fits(self):
+        if self.company:
+            return [obj.id for obj in self.company.cultural_fits.all()]
+        return [obj.id for obj in self.student.cultural_fits.all()]
+
+    def soft_skills(self):
+        if self.company:
+            return [obj.id for obj in self.company.soft_skills.all()]
+        return [obj.id for obj in self.student.soft_skills.all()]
+
+    def is_student(self):
+        return self.student is not None
+
+    def is_company(self):
+        return self.company is not None
 
     search_fields = [
         index.FilterField('project_type_id'),
@@ -50,5 +66,9 @@ class ProjectPosting(models.Model, index.Indexed):
             'type': 'date',
             'format': 'yyyy-MM-dd',
             'null_value': default_date()
-        })
+        }),
+        index.FilterField('soft_skills'),
+        index.FilterField('cultural_fits'),
+        index.FilterField('is_student', es_extra={'type': 'boolean'}),
+        index.FilterField('is_company', es_extra={'type': 'boolean'}),
     ]
