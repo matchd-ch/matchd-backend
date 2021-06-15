@@ -1,6 +1,6 @@
 import pytest
 
-from db.models import ProjectPosting
+from db.models import ProjectPosting, ProjectPostingState
 
 
 def project_posting_query(filter_value, param_name):
@@ -74,11 +74,14 @@ def query_project_posting_by_id(execute):
 @pytest.fixture
 def project_posting_objects(company_object, project_type_objects, topic_objects):
     project_posting_1 = ProjectPosting.objects.create(id=1, company=company_object, slug='project-1',
-                                                      project_type=project_type_objects[0], topic=topic_objects[0])
+                                                      project_type=project_type_objects[0], topic=topic_objects[0],
+                                                      state=ProjectPostingState.PUBLIC)
     project_posting_2 = ProjectPosting.objects.create(id=2, company=company_object, slug='project-2',
-                                                      project_type=project_type_objects[0], topic=topic_objects[0])
+                                                      project_type=project_type_objects[0], topic=topic_objects[0],
+                                                      state=ProjectPostingState.PUBLIC)
     project_posting_3 = ProjectPosting.objects.create(id=3, company=company_object, slug='project-3',
-                                                      project_type=project_type_objects[0], topic=topic_objects[0])
+                                                      project_type=project_type_objects[0], topic=topic_objects[0],
+                                                      state=ProjectPostingState.DRAFT)
     return [
         project_posting_1,
         project_posting_2,

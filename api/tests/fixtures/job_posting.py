@@ -1,7 +1,8 @@
 from datetime import datetime
 import pytest
 
-from db.models import JobPosting
+from db.models import JobPosting, JobPostingState
+
 
 # pylint: disable=W0621
 # pylint: disable=R0913
@@ -229,13 +230,13 @@ def job_posting_step_3(execute):
 @pytest.fixture
 def job_posting_objects(company_object, job_type_objects_date_range, branch_objects):
     job_posting_1 = JobPosting.objects.create(id=1, company=company_object, job_type=job_type_objects_date_range[0],
-                                              job_from_date=datetime.now(), slug='job-1')
+                                              job_from_date=datetime.now(), slug='job-1', state=JobPostingState.PUBLIC)
     job_posting_1.branches.set([branch_objects[0]])
     job_posting_2 = JobPosting.objects.create(id=2, company=company_object, job_type=job_type_objects_date_range[0],
-                                              job_from_date=datetime.now(), slug='job-2')
+                                              job_from_date=datetime.now(), slug='job-2', state=JobPostingState.PUBLIC)
     job_posting_2.branches.set([branch_objects[0]])
     job_posting_3 = JobPosting.objects.create(id=3, company=company_object, job_type=job_type_objects_date_range[0],
-                                              job_from_date=datetime.now(), slug='job-3')
+                                              job_from_date=datetime.now(), slug='job-3', state=JobPostingState.DRAFT)
     job_posting_3.branches.set([branch_objects[0]])
     return [
         job_posting_1,
