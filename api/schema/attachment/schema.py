@@ -1,5 +1,6 @@
 import graphene
 from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import PermissionDenied
 from graphene import ObjectType
 from graphene_django import DjangoObjectType
 from graphql_auth.bases import Output
@@ -8,7 +9,7 @@ from django.utils.translation import gettext as _
 
 from db.helper import generic_error_dict, has_access_to_attachments, get_company_or_student
 from db.models import AttachmentKey as AttachmentKeyModel, Attachment as AttachmentModel, Company, Student, \
-    ProjectPosting
+    ProjectPosting as ProjectPostingModel
 
 AttachmentKey = graphene.Enum.from_enum(AttachmentKeyModel)
 
@@ -26,10 +27,25 @@ class DeleteAttachment(Output, graphene.Mutation):
 
         # check if the attachment exists and the user is owner of the attachment
         try:
-            attachment = AttachmentModel.objects.get(pk=attachment_id, object_id=profile_id)
+            attachment = AttachmentModel.objects.get(pk=attachment_id)
         except AttachmentModel.DoesNotExist:
             return DeleteAttachment(success=False, errors=generic_error_dict('id', _('Attachment does not exist'),
                                                                              'not_found'))
+
+        project_posting_type = ContentType.objects.get(app_label='db', model='projectposting')
+
+        if attachment.content_type.id == project_posting_type.id:
+            try:
+                project_posting = ProjectPostingModel.objects.get(pk=attachment.object_id)
+                if project_posting.get_owner() != user:
+                    return PermissionDenied('You are not allowed to perform this action.')
+            except ProjectPostingModel.DoesNotExist:
+                return DeleteAttachment(
+                    success=False, errors=generic_error_dict('id', _('ProjectPosting does not exist'), 'not_found'))
+        else:
+            if not attachment.object_id == profile_id:
+                return PermissionDenied('You are not allowed to perform this action.')
+
         # delete file and attachment
         try:
             file = attachment.attachment_object
@@ -76,7 +92,8 @@ class AttachmentQuery(ObjectType):
     attachments = graphene.List(
         Attachment,
         key=AttachmentKey(required=True),
-        slug=graphene.String(required=False)
+        slug=graphene.String(required=False),
+        id=graphene.ID(required=False)
     )
 
     # pylint: disable=R0912
@@ -92,18 +109,24 @@ class AttachmentQuery(ObjectType):
         if not is_student and not is_company and not is_project_posting:
             return []
 
-        slug = kwargs.get('slug', None)
+        model = None
+        if is_student:
+            model = Student
+        if is_company:
+            model = Company
+        if is_project_posting:
+            model = ProjectPostingModel
 
+        slug = kwargs.get('slug', None)
+        object_id = kwargs.get('id', None)
         if slug is not None:
-            model = None
-            if is_student:
-                model = Student
-            if is_company:
-                model = Company
-            if is_project_posting:
-                model = ProjectPosting
             try:
                 attachment_owner = model.objects.get(slug=slug)
+            except model.DoesNotExist:
+                attachment_owner = None
+        elif object_id is not None:
+            try:
+                attachment_owner = model.objects.get(pk=object_id)
             except model.DoesNotExist:
                 attachment_owner = None
         else:

@@ -56,6 +56,11 @@ class ProjectPosting(models.Model, index.Indexed):
     def is_company(self):
         return self.company is not None
 
+    def get_owner(self):
+        if self.company:
+            return self.employee.user
+        return self.student.user
+
     search_fields = [
         index.FilterField('project_type_id'),
         index.FilterField('topic_id'),
