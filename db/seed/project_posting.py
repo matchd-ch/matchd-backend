@@ -12,6 +12,7 @@ from db.seed.base import BaseSeed
 # pylint: disable=W0612
 # pylint: disable=R0912
 # pylint: disable=R0915
+# pylint: disable=R1710
 class ProjectPosting(BaseSeed):
 
     def create_or_update(self, data, *args, **kwargs):

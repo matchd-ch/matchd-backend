@@ -106,7 +106,8 @@ class Attachment(BaseSeed):
 
         attachment_key = data.get('key')
         if attachment_key in (AttachmentKey.COMPANY_AVATAR, AttachmentKey.STUDENT_AVATAR):
-            existing = AttachmentModel.objects.filter(key=attachment_key, object_id=company_or_student_project_posting.id,
+            existing = AttachmentModel.objects.filter(key=attachment_key,
+                                                      object_id=company_or_student_project_posting.id,
                                                       content_type=self.content_types[content_type_key])
 
             for obj in existing:
