@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.utils.text import slugify
 
 from db.exceptions import FormException
-from db.helper.forms import convert_object_to_id, validate_form_data, convert_date
+from db.helper.forms import convert_object_to_id, validate_form_data
 from db.models import ProjectType, Topic, Keyword, ProjectPosting, ProfileType
 
 

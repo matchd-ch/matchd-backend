@@ -1,8 +1,9 @@
 from django import forms
 from django.shortcuts import get_object_or_404
+from django.utils.translation import gettext as _
 
 from db.exceptions import FormException
-from db.helper.forms import validate_form_data, convert_date
+from db.helper.forms import validate_form_data, convert_date, generic_error_dict
 from db.models import ProjectPosting, ProfileType
 
 
@@ -20,7 +21,7 @@ def process_project_posting_form_step_2(user, data):
     errors = {}
 
     validate_form_data(data)
-
+    project_posting = get_object_or_404(ProjectPosting, id=data.get('id'))
     form = ProjectPostingFormStep2(data)
     form.full_clean()
 
@@ -33,18 +34,34 @@ def process_project_posting_form_step_2(user, data):
             cleaned_data['employee'] = user.employee
         if user.type in ProfileType.valid_student_types():
             cleaned_data['student'] = user.student
+        employee = cleaned_data.get('employee', None)
+
+        # check if employee belongs to the same company as the current user
+        if employee is not None:
+            if user.type in ProfileType.valid_company_types() and employee.user.company != user.company:
+                errors.update(generic_error_dict('employee',
+                                                 _('Employee does not belong to your company'), 'invalid'))
+                raise FormException(errors=errors)
+
+        # check if the project posting belongs to the company
+        # ! if the user is a student, both values will be None
+        # ! see next if statement
+        if user.company != project_posting.company:
+            errors.update(generic_error_dict('employee',
+                                             _('Project posting does not belong to your company.'), 'invalid'))
+            raise FormException(errors=errors)
+
+        # check if the project posting belongs to the student
+        if user.type in ProfileType.valid_student_types() and user.student != project_posting.student:
+            errors.update(generic_error_dict('student',
+                                             _('Project posting does not belong to you.'), 'invalid'))
+            raise FormException(errors=errors)
+        project_posting.employee = employee
     else:
         errors.update(form.errors.get_json_data())
 
     if errors:
         raise FormException(errors=errors)
-
-    # get existing job posting
-    project_posting_id = data.get('id', None)
-    if project_posting_id is not None:
-        project_posting = get_object_or_404(ProjectPosting, pk=project_posting_id)
-    else:
-        project_posting = ProjectPosting()
 
     project_posting.project_from_date = cleaned_data.get('project_from_date')
     project_posting.website = cleaned_data.get('website')
