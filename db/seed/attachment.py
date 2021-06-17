@@ -196,7 +196,7 @@ class Attachment(BaseSeed):
         if len(images) == 0 and project_posting.id % 2 == 0:
             for i in range(1, self.rand.number()):
                 data = {
-                    'file': f'moods/mood-{i}.jpg',
+                    'file': f'moods/{self.rand.mood()}',
                     'type': 'db.image',
                     'key': 'project_posting_images',
                 }
