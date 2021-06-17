@@ -37,6 +37,8 @@ class ProjectPosting(BaseSeed):
         student = kwargs.get('student')
         company = kwargs.get('company')
 
+        result = []
+
         if project_postings is None or len(project_postings) == 0:
             for i in range(0, self.rand.number()):
 
@@ -60,6 +62,7 @@ class ProjectPosting(BaseSeed):
                 project_posting.slug = f'{slugify(project_posting.title)}-{str(project_posting.id)}'
                 project_posting.save()
                 project_posting.keywords.set(self.rand.keywords())
+                result.append(project_posting)
         else:
             for obj in project_postings:
                 try:
@@ -100,6 +103,8 @@ class ProjectPosting(BaseSeed):
                 project_posting.slug = slug
                 project_posting.save()
                 project_posting.keywords.set(obj.get('keywords'))
+                result.append(project_posting)
+        return result
 
     def random(self, *args, **kwargs):
         pass

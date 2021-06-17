@@ -1,4 +1,4 @@
-from db.models import MatchType, Match, ProfileType
+from db.models import MatchType, Match, ProfileType, Attachment, AttachmentKey
 
 
 class ProjectPostingMatchMapper:
@@ -10,16 +10,26 @@ class ProjectPostingMatchMapper:
         self.matches_map = {}
         self.attachment_map = {}
         self._prefetch_matches()
-        # self._prefetch_attachments()
+        self._prefetch_attachments()
 
-    # def _prefetch_attachments(self):
-    #     attachments = Attachment.objects.filter(
-    #         key=AttachmentKey.PROJECT_POSTING_IMAGES,
-    #         object_id__in=self.project_posting_ids
-    #     ).select_related('content_type', 'attachment_type')
-    #
-    #     for attachment in attachments:
-    #         self.attachment_map[attachment.object_id] = attachment
+    def _prefetch_attachments(self):
+        attachments = Attachment.objects.filter(
+            key=AttachmentKey.PROJECT_POSTING_IMAGES,
+            object_id__in=self.project_posting_ids
+        ).select_related('content_type', 'attachment_type')
+
+        for attachment in attachments:
+            self.attachment_map[attachment.object_id] = attachment
+
+    def _get_attachment(self, project_posting):
+        attachment = self.attachment_map.get(project_posting.company.id, None)
+        if attachment is not None:
+            attachment = attachment.absolute_url
+        else:
+            attachment = Attachment.get_project_posting_fallback(project_posting)
+            if attachment is not None:
+                attachment = attachment.absolute_url
+        return attachment
 
     def _prefetch_matches(self):
         matches = []
@@ -52,8 +62,7 @@ class ProjectPostingMatchMapper:
         return {
             'id': project_posting.id,
             'name': name,
-            # 'avatar': self._get_attachment(project_posting), # todo
-            'avator': None,
+            'avatar': self._get_attachment(project_posting),
             'type': MatchType.PROJECT_POSTING,
             'slug': project_posting.slug,
             'score': project_posting.score,
