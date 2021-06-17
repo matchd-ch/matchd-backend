@@ -19,10 +19,11 @@ class ProjectPostingMatchMapper:
         ).select_related('content_type', 'attachment_type')
 
         for attachment in attachments:
-            self.attachment_map[attachment.object_id] = attachment
+            if attachment.object_id not in self.attachment_map:
+                self.attachment_map[attachment.object_id] = attachment
 
     def _get_attachment(self, project_posting):
-        attachment = self.attachment_map.get(project_posting.company.id, None)
+        attachment = self.attachment_map.get(project_posting.id, None)
         if attachment is not None:
             attachment = attachment.absolute_url
         else:
