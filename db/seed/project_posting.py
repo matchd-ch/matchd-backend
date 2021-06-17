@@ -12,6 +12,7 @@ from db.seed.base import BaseSeed
 # pylint: disable=W0612
 # pylint: disable=R0912
 # pylint: disable=R0915
+# pylint: disable=R1710
 class ProjectPosting(BaseSeed):
 
     def create_or_update(self, data, *args, **kwargs):
@@ -37,6 +38,8 @@ class ProjectPosting(BaseSeed):
         student = kwargs.get('student')
         company = kwargs.get('company')
 
+        result = []
+
         if project_postings is None or len(project_postings) == 0:
             for i in range(0, self.rand.number()):
 
@@ -60,6 +63,7 @@ class ProjectPosting(BaseSeed):
                 project_posting.slug = f'{slugify(project_posting.title)}-{str(project_posting.id)}'
                 project_posting.save()
                 project_posting.keywords.set(self.rand.keywords())
+                result.append(project_posting)
         else:
             for obj in project_postings:
                 try:
@@ -100,6 +104,8 @@ class ProjectPosting(BaseSeed):
                 project_posting.slug = slug
                 project_posting.save()
                 project_posting.keywords.set(obj.get('keywords'))
+                result.append(project_posting)
+        return result
 
     def random(self, *args, **kwargs):
         pass
