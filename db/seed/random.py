@@ -256,6 +256,9 @@ class Random:
         count = random.randint(2, 7)
         return self._random(self._moods, count)
 
+    def mood(self):
+        return self._random(self._moods, 1)
+
     def logo(self):
         return self._random(self._logos, 1)
 

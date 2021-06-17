@@ -135,7 +135,6 @@ def upload_for_project_posting(default_password):
                 '0': ['variables.file'],
             }),
         }
-        print(data)
         client = Client()
         client.login(username=user.username, password=default_password)
         response = client.post('/graphql/', data=data)
@@ -193,7 +192,6 @@ def attachments_for_project_posting():
     def closure(project_posting, key):
         profile_content_type = ContentType.objects.get(app_label='db', model='projectposting')
         profile_id = project_posting.id
-        print(key, profile_content_type.id, profile_id)
         return Attachment.objects.filter(key=key, content_type=profile_content_type, object_id=profile_id)
     return closure
 

@@ -21,13 +21,15 @@ class Seed:
         self.employees.create_or_update(data.get('employee'), user=user)
         student = self.students.create_or_update(data.get('student'), user=user)
         company = self.companies.create_or_update(data.get('company'), user=user)
+        project_postings = []
         if company is not None:
             self.attachments.create_or_update(data, user=user, company=company)
             self.job_postings.create_or_update(data, company=company, user=user)
-            self.project_postings.create_or_update(data, company=company, employee=user.employee)
+            project_postings = self.project_postings.create_or_update(data, company=company, employee=user.employee)
         if student is not None:
             self.attachments.create_or_update(data, student=student)
-            self.project_postings.create_or_update(data, student=student)
+            project_postings = self.project_postings.create_or_update(data, student=student)
+        self.attachments.create_or_update(None, project_postings=project_postings)
 
     def random_student(self, index):
         return self.users.random(index=index)

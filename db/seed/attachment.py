@@ -24,7 +24,8 @@ class Attachment(BaseSeed):
         'student': ContentType.objects.get(app_label='db', model='student'),
         'video': ContentType.objects.get(app_label='db', model='video'),
         'image': ContentType.objects.get(app_label='db', model='image'),
-        'file': ContentType.objects.get(app_label='db', model='file')
+        'file': ContentType.objects.get(app_label='db', model='file'),
+        'projectposting': ContentType.objects.get(app_label='db', model='projectposting'),
     }
 
     def _get_dirs_and_file(self, path):
@@ -79,12 +80,13 @@ class Attachment(BaseSeed):
         video.save()
         return video
 
-    def _create_attachment(self, fixtures, company_or_student, data, user, content_type_key):
+    def _create_attachment(self, fixtures, company_or_student_project_posting, data, user, content_type_key):
         media_path = os.path.join(settings.MEDIA_ROOT)
         app_label, model = data.get('type').split('.')
         dirs, file = self._get_dirs_and_file(data.get('file'))
         source_file = os.path.join(fixtures, *dirs, file)
-        relative_path = os.path.join(content_type_key, str(company_or_student.id), self._dir_for_type(model))
+        relative_path = os.path.join(content_type_key, str(company_or_student_project_posting.id),
+                                     self._dir_for_type(model))
         relative_file_path = os.path.join(relative_path, file)
 
         destination_directory = os.path.join(media_path, relative_path)
@@ -104,7 +106,8 @@ class Attachment(BaseSeed):
 
         attachment_key = data.get('key')
         if attachment_key in (AttachmentKey.COMPANY_AVATAR, AttachmentKey.STUDENT_AVATAR):
-            existing = AttachmentModel.objects.filter(key=attachment_key, object_id=company_or_student.id,
+            existing = AttachmentModel.objects.filter(key=attachment_key,
+                                                      object_id=company_or_student_project_posting.id,
                                                       content_type=self.content_types[content_type_key])
 
             for obj in existing:
@@ -115,7 +118,7 @@ class Attachment(BaseSeed):
 
         AttachmentModel.objects.get_or_create(
             attachment_type=self.content_types[model], attachment_id=attachment_instance.id,
-            content_type=self.content_types[content_type_key], object_id=company_or_student.id,
+            content_type=self.content_types[content_type_key], object_id=company_or_student_project_posting.id,
             key=attachment_key)
 
     def _create_or_update_company(self, data, company, user):
@@ -177,7 +180,43 @@ class Attachment(BaseSeed):
             user = get_user_model().objects.get(email=attachment.get('user'))
             self._create_attachment(self.student_fixtures, student, attachment, user, 'student')
 
+    def _create_or_update_project_posting(self, project_posting):
+        content_type = ContentType.objects.get(app_label='db', model='projectposting')
+        images = AttachmentModel.objects.filter(key=AttachmentKey.PROJECT_POSTING_IMAGES, content_type=content_type,
+                                                object_id=project_posting.id)
+
+        documents = AttachmentModel.objects.filter(key=AttachmentKey.PROJECT_POSTING_DOCUMENTS,
+                                                   content_type=content_type, object_id=project_posting.id)
+
+        user = None
+        if project_posting.student is not None:
+            user = project_posting.student.user
+        if project_posting.employee is not None:
+            user = project_posting.employee.user
+
+        if len(images) == 0 and project_posting.id % 2 == 0:
+            for i in range(1, self.rand.number()):
+                data = {
+                    'file': f'moods/{self.rand.mood()}',
+                    'type': 'db.image',
+                    'key': 'project_posting_images',
+                }
+                self._create_attachment(self.company_fixtures, project_posting, data, user, 'projectposting')
+        if len(documents) == 0 and project_posting.id % 2 == 0:
+            for i in range(1, 3):
+                data = {
+                    'file': f'documents/doc-{i}.pdf',
+                    'type': 'db.file',
+                    'key': 'project_posting_documents',
+                }
+                self._create_attachment(self.student_fixtures, project_posting, data, user, 'projectposting')
+
     def create_or_update(self, data, *args, **kwargs):
+        project_postings = kwargs.get('project_postings')
+        if project_postings is not None:
+            for project_posting in project_postings:
+                self._create_or_update_project_posting(project_posting)
+            return
         if data is None:
             return
         company = kwargs.get('company')
