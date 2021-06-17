@@ -1,10 +1,10 @@
 import pytest
 from django.contrib.auth.models import AnonymousUser
 
-from db.helper.forms import convert_date
 from db.models import ProjectPosting, Topic, ProjectType, Keyword, ProfileType
 
 # pylint: disable=R0913
+# pylint: disable=C0301
 
 
 @pytest.mark.django_db

@@ -2,10 +2,10 @@ import pytest
 from django.contrib.auth.models import AnonymousUser
 
 from db.helper.forms import convert_date
-from db.models import ProjectPosting, Topic, ProjectType, Keyword, ProfileType
+from db.models import ProjectPosting, ProfileType
 
 # pylint: disable=R0913
-
+# pylint: disable=C0301
 
 @pytest.mark.django_db
 def test_step_2_as_company(user_employee, login, project_posting_step_2, company_project_posting_object):
@@ -30,7 +30,6 @@ def _test_step_2(user, company, student, company_project_posting_object, login, 
     assert data.get('projectPostingStep2') is not None
     assert data.get('projectPostingStep2').get('success')
 
-    project_posting_slug = ProjectPosting.objects.get(slug=data.get('projectPostingStep2').get('slug'))
     project_posting = ProjectPosting.objects.get(pk=data.get('projectPostingStep2').get('projectPostingId'))
     assert project_posting.project_from_date == convert_date('03.2021', '%m.%Y')
     assert project_posting.website == 'http://www.project-posting.lo'
@@ -68,3 +67,63 @@ def test_step_2_with_invalid_data(user_employee, login, project_posting_step_2, 
     assert errors is not None
     assert 'projectFromDate' in errors
     assert 'website' in errors
+
+@pytest.mark.django_db
+def test_step_2_as_employee_from_another_company(user_employee, user_employee_2, company_project_posting_object, login,
+                                                 project_posting_step_2):
+    login(user_employee)
+    company_project_posting_object.form_step = 2
+    company_project_posting_object.company = user_employee.company
+    company_project_posting_object.employee = None
+    company_project_posting_object.student = None
+    company_project_posting_object.save()
+    data, errors = project_posting_step_2(user_employee_2, company_project_posting_object.id, '03.2021',
+                                          'www.project-posting.lo')
+    assert errors is None
+    assert data is not None
+    assert data.get('projectPostingStep2') is not None
+    assert data.get('projectPostingStep2').get('success') is False
+
+    errors = data.get('projectPostingStep2').get('errors')
+    assert 'employee' in errors
+
+@pytest.mark.django_db
+def test_step_2_as_student_with_project_of_company(user_employee, user_student, company_project_posting_object,
+                                                   login,
+                                                   project_posting_step_2):
+    login(user_employee)
+    company_project_posting_object.form_step = 2
+    company_project_posting_object.company = user_employee.company
+    company_project_posting_object.employee = None
+    company_project_posting_object.student = None
+    company_project_posting_object.save()
+    data, errors = project_posting_step_2(user_student, company_project_posting_object.id, '03.2021',
+                                          'www.project-posting.lo')
+    assert errors is None
+    assert data is not None
+    assert data.get('projectPostingStep2') is not None
+    assert data.get('projectPostingStep2').get('success') is False
+
+    errors = data.get('projectPostingStep2').get('errors')
+    assert 'employee' in errors
+
+
+@pytest.mark.django_db
+def test_step_2_as_company_with_project_of_student_without_employee(user_employee, user_student,
+                                                                    company_project_posting_object, login,
+                                                                    project_posting_step_2):
+    login(user_employee)
+    company_project_posting_object.form_step = 2
+    company_project_posting_object.company = None
+    company_project_posting_object.employee = None
+    company_project_posting_object.student = user_student.student
+    company_project_posting_object.save()
+    data, errors = project_posting_step_2(user_employee, company_project_posting_object.id, '03.2021',
+                                          'www.project-posting.lo')
+    assert errors is None
+    assert data is not None
+    assert data.get('projectPostingStep2') is not None
+    assert data.get('projectPostingStep2').get('success') is False
+
+    errors = data.get('projectPostingStep2').get('errors')
+    assert 'employee' in errors
