@@ -76,7 +76,8 @@ class AttachmentQuery(ObjectType):
     attachments = graphene.List(
         Attachment,
         key=AttachmentKey(required=True),
-        slug=graphene.String(required=False)
+        slug=graphene.String(required=False),
+        id=graphene.ID(required=False)
     )
 
     # pylint: disable=R0912
@@ -92,18 +93,24 @@ class AttachmentQuery(ObjectType):
         if not is_student and not is_company and not is_project_posting:
             return []
 
-        slug = kwargs.get('slug', None)
+        model = None
+        if is_student:
+            model = Student
+        if is_company:
+            model = Company
+        if is_project_posting:
+            model = ProjectPosting
 
+        slug = kwargs.get('slug', None)
+        object_id = kwargs.get('id', None)
         if slug is not None:
-            model = None
-            if is_student:
-                model = Student
-            if is_company:
-                model = Company
-            if is_project_posting:
-                model = ProjectPosting
             try:
                 attachment_owner = model.objects.get(slug=slug)
+            except model.DoesNotExist:
+                attachment_owner = None
+        elif object_id is not None:
+            try:
+                attachment_owner = model.objects.get(pk=object_id)
             except model.DoesNotExist:
                 attachment_owner = None
         else:
