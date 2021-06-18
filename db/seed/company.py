@@ -80,6 +80,7 @@ class Company(BaseSeed):
             company.top_level_organisation_description = top_level_description
 
         branches = []
+        benefits = []
         if company.profile_step >= 3:
             description = data.get('description')
             if description is None or description == '':
@@ -89,8 +90,15 @@ class Company(BaseSeed):
             if branches is None or len(branches) == 0:
                 branches = self.rand.branches()
 
+
+            benefits = data.get('benefits')
+            if benefits is None or len(benefits) == 0:
+                benefits = self.rand.benefits()
+
             company.description = description
 
+        soft_skills = []
+        cultural_fits = []
         if company.profile_step >= 4:
             services = data.get('services')
             if services is None or services == '':
@@ -110,12 +118,24 @@ class Company(BaseSeed):
             if link_thesis is None or link_thesis == '':
                 link_thesis = 'https://www.thesis.lo'
 
+            soft_skills = data.get('soft_skills')
+            if soft_skills is None or len(soft_skills) == 0:
+                soft_skills = self.rand.soft_skills()
+
+            cultural_fits = data.get('cultural_fits')
+            if cultural_fits is None or len(cultural_fits) == 0:
+                cultural_fits = self.rand.cultural_fits()
+
+
             company.link_education = link_education
             company.link_projects = link_projects
             company.link_thesis = link_thesis
 
         company.save()
         company.branches.set(branches)
+        company.benefits.set(benefits)
+        company.soft_skills.set(soft_skills)
+        company.cultural_fits.set(cultural_fits)
 
     def _create_or_update_company(self, company, user, data):
         uid = data.get('uid')
