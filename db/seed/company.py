@@ -317,5 +317,7 @@ class Company(BaseSeed):
             data['company']['link_education'] = "https://www.edu.lo"
             data['company']['link_projects'] = "https://www.projects.lo"
             data['company']['link_thesis'] = "https://www.thesis.lo"
+            data['company']['soft_skills'] = self.rand.soft_skills()
+            data['company']['cultural_fits'] = self.rand.cultural_fits()
 
         return data
