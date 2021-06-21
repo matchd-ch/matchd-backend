@@ -63,6 +63,7 @@ def project_posting_query(filter_value, param_name):
 def query_project_posting(execute):
     def closure(user, slug):
         return execute(project_posting_query(slug, 'slug'), **{'user': user})
+
     return closure
 
 
@@ -70,6 +71,7 @@ def query_project_posting(execute):
 def query_project_posting_by_id(execute):
     def closure(user, project_posting_id):
         return execute(project_posting_query(project_posting_id, 'id'), **{'user': user})
+
     return closure
 
 
@@ -138,31 +140,46 @@ def project_posting_mutation(step):
 # pylint: disable=R0913
 @pytest.fixture
 def project_posting_step_1(execute):
-    def closure(user, title, description, additional_information, project_from_date, website, topic, project_type,
+    def closure(user, title, description, additional_information, topic, project_type,
                 keywords):
         return execute(project_posting_mutation(1), variables={
             'step1': {
                 'title': title,
                 'description': description,
                 'additionalInformation': additional_information,
-                'projectFromDate': project_from_date,
-                'website': website,
                 'topic': None if topic is None else {'id': topic.id},
                 'projectType': None if project_type is None else {'id': project_type.id},
                 'keywords': [{'id': obj.id} for obj in keywords]
             }
         }, **{'user': user})
+
+    return closure
+
+
+# pylint: disable=R0913
+@pytest.fixture
+def project_posting_step_2(execute):
+    def closure(user, project_posting_id, project_from_date, website):
+        return execute(project_posting_mutation(2), variables={
+            'step2': {
+                'id': project_posting_id,
+                'projectFromDate': project_from_date,
+                'website': website,
+            }
+        }, **{'user': user})
+
     return closure
 
 
 @pytest.fixture
-def project_posting_step_2(execute):
+def project_posting_step_3(execute):
     def closure(user, project_posting_id, state, employee):
-        return execute(project_posting_mutation(2), variables={
-            'step2': {
+        return execute(project_posting_mutation(3), variables={
+            'step3': {
                 'id': project_posting_id,
                 'state': state,
                 'employee': None if employee is None else {'id': employee.id}
             }
         }, **{'user': user})
+
     return closure

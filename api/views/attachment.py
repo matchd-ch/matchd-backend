@@ -2,6 +2,7 @@ import imghdr
 from wsgiref.util import FileWrapper
 
 from django.conf import settings
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse, StreamingHttpResponse
 from django.shortcuts import get_object_or_404
@@ -24,6 +25,8 @@ class AttachmentServeView(View):
 
         user = request.user
         owner = get_company_or_student(attachment.attachment_object.uploaded_by_user)
+        if attachment.content_type == ContentType.objects.get(app_label='db', model='projectposting'):
+            owner = attachment.content_object
         has_permission = has_access_to_attachments(user, owner, attachment.key)
 
         if not has_permission:
