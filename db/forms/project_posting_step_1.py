@@ -65,7 +65,4 @@ def process_project_posting_form_step_1(user, data):
 
     project_posting.slug = f'{slugify(project_posting.title)}-{str(project_posting.id)}'
     project_posting.save()
-    # update job posting
-    if project_posting.form_step == 1:
-        project_posting.form_step = 2
     return project_posting
