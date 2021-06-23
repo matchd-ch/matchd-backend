@@ -56,7 +56,7 @@ class DashboardQuery(ObjectType):
                                                        company_confirmed=False, student_confirmed=True)
             confirmed_matches = Match.objects.filter(job_posting__company=user.company, student_confirmed=True,
                                                      company_confirmed=True, project_posting__isnull=True)
-            query = Q(student_confirmed=True, company_confirmed=True)
+            query = Q(student_confirmed=True, company_confirmed=True, project_posting__isnull=False)
             project_posting_query = Q(project_posting__company=user.company)
             company_query = Q(company=user.company)
             query = query & (project_posting_query | company_query)
@@ -77,11 +77,12 @@ class DashboardQuery(ObjectType):
                                                        student_confirmed=False, company_confirmed=True)
             confirmed_matches = Match.objects.filter(student=user.student, student_confirmed=True,
                                                      company_confirmed=True, project_posting__isnull=True)
-            query = Q(student_confirmed=True, company_confirmed=True)
+            query = Q(student_confirmed=True, company_confirmed=True, project_posting__isnull=False)
             project_posting_query = Q(project_posting__student=user.student)
             student_query = Q(student=user.student)
             query = query & (project_posting_query | student_query)
             project_matches = Match.objects.filter(query)
+
         return {
             'job_postings': job_postings,
             'project_postings': project_postings,
