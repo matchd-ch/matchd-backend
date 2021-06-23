@@ -45,7 +45,6 @@ def test_dashboard(login, query_dashboard, user_employee, user_student, job_post
     data, errors = query_dashboard(user_student)
 
     assert data is not None
-    print(data)
     assert errors is None
 
     dashboard = data.get('dashboard')
