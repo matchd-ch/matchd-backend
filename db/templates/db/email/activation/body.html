@@ -1,5 +1,7 @@
 {# Activation-E-mail for student #}
-{% if user.type == 'student' %}
+{% load db_tags %}
+{% is_student user.type as student %}
+{% if student %}
     <p>Hey, {{ user.first_name }}</p>
     <p>Nur noch 1 Klick und du bist Teil der Matchd-Community. Click, click hurray, das ist <a href="https://{{ frontend_url }}/{{ path }}/{{ token }}">dein Aktivierungs-Link.</a></p>
     <p>Let’s match und bis bald!</p>
@@ -7,7 +9,8 @@
 {% endif %}
 
 {# Activation-E-mail for Company #}
-{% if user.type == 'company' or user.type == 'university' %}
+{% is_company user.type as company %}
+{% if company %}
     <p>Guten Tag</p>
     <p>Nur noch 1 Klick und Sie sind Teil der Matchd-Community. Aktivieren Sie jetzt <a href="https://{{ frontend_url }}/{{ path }}/{{ token }}">Ihr Profil </a>und tauchen Sie ein in den Matchd-Talentpool.</p>
     <p>Wir sind gespannt auf Ihren ersten Match und wünschen viel Spass auf Ihrer Entdeckungsreise.</p>

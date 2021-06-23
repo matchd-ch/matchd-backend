@@ -58,7 +58,7 @@ class JobPosting(BaseSeed):
                 job_posting.save()
                 job_posting.job_requirements.set(self.rand.requirements())
                 job_posting.skills.set(self.rand.skills())
-                job_posting.branches.set(branch_id=self.rand.branches(),)
+                job_posting.branches.set(self.rand.branches())
                 languages = self.rand.languages_shortlist()
                 for language in languages:
                     JobPostingLanguageRelation.objects.create(
@@ -92,7 +92,6 @@ class JobPosting(BaseSeed):
                 job_posting.workload = workload
                 job_posting.job_from_date = obj.get('job_from_date')
                 job_posting.job_to_date = obj.get('job_to_date')
-                job_posting.url = obj.get('url')
                 job_posting.url = obj.get('url')
                 job_posting.form_step = obj.get('form_step')
                 job_posting.state = obj.get('state')

@@ -22,7 +22,8 @@ from db.forms import process_company_form_step_2, process_company_form_step_3, p
     process_university_form_step_2, process_university_form_step_3
 from db.forms.company_step_1 import process_company_form_step_1
 from db.forms.company_step_4 import process_company_form_step_4
-from db.models import Company as CompanyModel, ProfileState as ProfileStateModel, JobPostingState
+from db.forms.university_step_4 import process_university_form_step_4
+from db.models import Company as CompanyModel, ProfileState as ProfileStateModel, JobPostingState, ProjectPostingState
 
 
 class CompanyInput(graphene.InputObjectType):
@@ -181,7 +182,6 @@ class UniversityProfileStep1(Output, graphene.Mutation):
 
 
 class UniversityProfileInputStep2(graphene.InputObjectType):
-    branches = graphene.List(BranchInput, description=_('Branches'), required=False)
     description = graphene.String(description=_('description'), required=False)
 
 
@@ -209,6 +209,8 @@ class UniversityProfileInputStep3(graphene.InputObjectType):
     link_education = graphene.String(description=_('website education'), required=False)
     link_projects = graphene.String(description=_('website projects'), required=False)
     link_thesis = graphene.String(description=_('website thesis'), required=False)
+    branches = graphene.List(BranchInput, description=_('Branches'))
+    benefits = graphene.List(BenefitInput, description=_('Benefits'))
 
 
 class UniversityProfileStep3(Output, graphene.Mutation):
@@ -230,15 +232,42 @@ class UniversityProfileStep3(Output, graphene.Mutation):
         return UniversityProfileStep3(success=True, errors=None)
 
 
+class UniversityProfileInputStep4(graphene.InputObjectType):
+    soft_skills = graphene.List(SoftSkillInput, description=_('Soft Skills'))
+    cultural_fits = graphene.List(CulturalFitInput, description=_('Cultural Fit'))
+
+
+class UniversityProfileStep4(Output, graphene.Mutation):
+    class Arguments:
+        step4 = UniversityProfileInputStep4(description=_('Profile Input Step 4 is required.'), required=True)
+
+    class Meta:
+        description = _('Updates a company profile with soft skills and cultural fit')
+
+    @classmethod
+    @login_required
+    def mutate(cls, root, info, **data):
+        user = info.context.user
+        form_data = data.get('step4', None)
+        try:
+            process_university_form_step_4(user, form_data)
+        except FormException as exception:
+            return UniversityProfileStep4(success=False, errors=exception.errors)
+        return UniversityProfileStep4(success=True, errors=None)
+
+
 class UniversityProfileMutation(graphene.ObjectType):
     university_profile_step1 = UniversityProfileStep1.Field()
     university_profile_step2 = UniversityProfileStep2.Field()
     university_profile_step3 = UniversityProfileStep3.Field()
+    university_profile_step4 = UniversityProfileStep4.Field()
 
 
 class Company(DjangoObjectType):
     employees = graphene.NonNull(graphene.List(graphene.NonNull(Employee)))
     job_postings = graphene.NonNull(graphene.List(graphene.NonNull('api.schema.job_posting.schema.JobPosting')))
+    project_postings = graphene.NonNull(graphene.List(
+        graphene.NonNull('api.schema.project_posting.schema.ProjectPosting')))
     type = graphene.Field(graphene.NonNull(ProfileType))
     state = graphene.Field(graphene.NonNull(ProfileState))
     soft_skills = graphene.List(graphene.NonNull('api.schema.soft_skill.schema.SoftSkill'))
@@ -265,6 +294,11 @@ class Company(DjangoObjectType):
         if is_me_query(info):
             return self.job_postings.all()
         return self.job_postings.filter(state=JobPostingState.PUBLIC)
+
+    def resolve_project_postings(self: CompanyModel, info: ResolveInfo):
+        if is_me_query(info):
+            return self.project_postings.all()
+        return self.project_postings.filter(state=ProjectPostingState.PUBLIC)
 
     @company_cheating_protection
     def resolve_soft_skills(self: CompanyModel, info: ResolveInfo):
