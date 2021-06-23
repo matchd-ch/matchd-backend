@@ -1,13 +1,19 @@
-from db.models import ProfileState, Student, ProfileType, Match, AttachmentKey
+from db.models import ProfileState, Student, ProfileType, Match, AttachmentKey, ProjectPosting
 
 
 # pylint: disable=R0912
 def has_access_to_attachments(user, owner, key=None):
-    if key in (AttachmentKey.STUDENT_AVATAR_FALLBACK, AttachmentKey.COMPANY_AVATAR_FALLBACK):
+    if key in (AttachmentKey.STUDENT_AVATAR_FALLBACK, AttachmentKey.COMPANY_AVATAR_FALLBACK,
+               AttachmentKey.PROJECT_POSTING_FALLBACK):
         return True
     # this could happen if the owner is an internal user (eg. ProfileType.INTERNAL). See get_company_or_student()
     if owner is None:
         return False
+
+    # allow access to project posting attachments
+    if isinstance(owner, ProjectPosting):
+        return True
+
     # owner is an instance of company or student
     # check if user has a public profile, or the user is the owner of the attachments
     owner_is_company = True

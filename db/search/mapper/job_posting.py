@@ -55,7 +55,7 @@ class JobPostingMatchMapper:
             'slug': job_posting.slug,
             'score': job_posting.score,
             'raw_score': job_posting.raw_score,
-            'job_posting_title': job_posting.title,
+            'title': job_posting.title,
             'match_status': self._get_match_status(job_posting)
         }
 

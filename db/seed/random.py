@@ -7,7 +7,7 @@ from dateutil.relativedelta import relativedelta
 from django.conf import settings
 
 from db.models import Branch, CulturalFit, JobType, Language, LanguageLevel, Skill, SoftSkill, ProfileState, Benefit, \
-    JobRequirement, JobPostingState
+    JobRequirement, JobPostingState, ProjectType, Topic, Keyword, ProjectPostingState
 
 
 # pylint: disable=R0902
@@ -38,6 +38,9 @@ class Random:
         self._soft_skills = list(SoftSkill.objects.all().values_list('id', flat=True))
         self._benefits = list(Benefit.objects.all().values_list('id', flat=True))
         self._requirements = list(JobRequirement.objects.all().values_list('id', flat=True))
+        self._project_types = list(ProjectType.objects.all().values_list('id', flat=True))
+        self._topics = list(Topic.objects.all().values_list('id', flat=True))
+        self._keywords = list(Keyword.objects.all().values_list('id', flat=True))
 
         self._addresses = self._load_address_data()
         self._hobby_data = [
@@ -46,6 +49,7 @@ class Random:
         ]
         self._state_data = [ProfileState.PUBLIC, ProfileState.ANONYMOUS]
         self._job_posting_state_data = [JobPostingState.PUBLIC, JobPostingState.DRAFT]
+        self._project_posting_state_data = [ProjectPostingState.PUBLIC, ProjectPostingState.DRAFT]
 
         self._titles = [
             'Praktikant*in Applikationsentwicklung', 'Praktikant*in Systemtechnik', 'Praktikant*in DevOps',
@@ -53,6 +57,11 @@ class Random:
             'Praktikant*in Grafik', 'Praktikant*in User Experience', 'Praktikant*in Social Media',
             'Praktikant*in Datenbanken', 'Praktikant*in PHP', 'Praktikant*in Python', 'Praktikant*in Javascript',
             'Praktikant*in Vue.js / React.js'
+        ]
+
+        self._project_titles = [
+            'Projekt KI', 'Projekt AI', 'Projekt ABC', 'Projekt DEF', 'Projekt GHI', 'Projekt JKL', 'Projekt MNO',
+            'Projekt Künstliche Intelligenz im Alltag'
         ]
         self._workloads = [50, 60, 70, 80, 90, 100]
 
@@ -138,6 +147,19 @@ class Random:
     def job_type(self):
         return self._random(self._job_types, 1)
 
+    def project_type(self):
+        return self._random(self._project_types, 1)
+
+    def topic(self):
+        return self._random(self._topics, 1)
+
+    def keywords(self):
+        count = random.randint(2, 3)
+        return self._random(self._keywords, count)
+
+    def project_from_date(self):
+        return self.job_from_date()
+
     def job_from_date(self):
         return self._date_between('2020-01-01', '2021-12-21')
 
@@ -206,6 +228,9 @@ class Random:
     def job_posting_state(self):
         return self._random(self._job_posting_state_data, 1)
 
+    def project_posting_state(self):
+        return self._random(self._project_posting_state_data, 1)
+
     def uid(self):
         numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
         numbers = self._random(numbers, len(numbers))
@@ -231,11 +256,17 @@ class Random:
         count = random.randint(2, 7)
         return self._random(self._moods, count)
 
+    def mood(self):
+        return self._random(self._moods, 1)
+
     def logo(self):
         return self._random(self._logos, 1)
 
     def title(self):
         return self._random(self._titles, 1)
+
+    def project_title(self):
+        return self._random(self._project_titles, 1)
 
     def workload(self):
         return self._random(self._workloads, 1)

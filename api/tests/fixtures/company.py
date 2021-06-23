@@ -55,6 +55,9 @@ def company_query(slug):
             jobPostings {
                 id
             }
+            projectPostings {
+                id
+            }
             topLevelOrganisationDescription
             topLevelOrganisationWebsite
             linkEducation

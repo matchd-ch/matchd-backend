@@ -83,6 +83,17 @@ def upload_mutation(key):
     ''' % key.upper()
 
 
+def upload_for_project_posting_mutation(key):
+    return '''
+    mutation UploadProjectPosting($projectPosting: ProjectPostingInput!) {
+      upload(file: Upload, key: %s, projectPosting:$projectPosting) {
+        success
+        errors
+      }
+    }
+    ''' % key.upper()
+
+
 @pytest.fixture
 def upload(default_password):
     def closure(user, key, file):
@@ -92,6 +103,31 @@ def upload(default_password):
                 'query': query,
                 'variables': {
                     'file': None,
+                },
+            }),
+            '0': file,
+            'map': json.dumps({
+                '0': ['variables.file'],
+            }),
+        }
+        client = Client()
+        client.login(username=user.username, password=default_password)
+        response = client.post('/graphql/', data=data)
+        content = json.loads(response.content)
+        return content.get('data'), content.get('errors')
+    return closure
+
+
+@pytest.fixture
+def upload_for_project_posting(default_password):
+    def closure(user, project_posting, key, file):
+        query = upload_for_project_posting_mutation(key)
+        data = {
+            'operations': json.dumps({
+                'query': query,
+                'variables': {
+                    'file': None,
+                    'projectPosting': {'id': project_posting.id}
                 },
             }),
             '0': file,
@@ -147,6 +183,15 @@ def attachments_for_user():
     def closure(user, key):
         profile_content_type = user.get_profile_content_type()
         profile_id = user.get_profile_id()
+        return Attachment.objects.filter(key=key, content_type=profile_content_type, object_id=profile_id)
+    return closure
+
+
+@pytest.fixture
+def attachments_for_project_posting():
+    def closure(project_posting, key):
+        profile_content_type = ContentType.objects.get(app_label='db', model='projectposting')
+        profile_id = project_posting.id
         return Attachment.objects.filter(key=key, content_type=profile_content_type, object_id=profile_id)
     return closure
 

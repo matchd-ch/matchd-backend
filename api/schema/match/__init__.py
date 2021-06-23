@@ -1,1 +1,1 @@
-from .schema import MatchQuery, MatchMutation, MatchStatus, MatchHints, MatchInfo
+from .schema import MatchQuery, MatchMutation, MatchStatus, MatchHints, JobPostingMatchInfo, ProjectPostingMatchInfo

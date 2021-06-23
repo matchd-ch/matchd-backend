@@ -1,4 +1,4 @@
-from db.models import Attachment, AttachmentKey, Match, MatchType
+from db.models import Attachment, AttachmentKey, Match, MatchType, ProfileType
 
 
 class CompanyMatchMapper:
@@ -50,11 +50,11 @@ class CompanyMatchMapper:
             'id': company.id,
             'name': company.name,
             'avatar': self._get_attachment(company),
-            'type': MatchType.COMPANY,
+            'type': MatchType.COMPANY if company.type == ProfileType.COMPANY else MatchType.UNIVERSITY,
             'slug': company.slug,
             'score': company.score,
             'raw_score': company.raw_score,
-            'job_posting_title': None,
+            'title': None,
             'match_status': self._get_match_status(company)
         }
 

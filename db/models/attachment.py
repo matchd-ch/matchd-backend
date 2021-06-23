@@ -14,13 +14,19 @@ class AttachmentKey(models.TextChoices):
     COMPANY_DOCUMENTS = 'company_documents', _('Company Documents')
     STUDENT_AVATAR_FALLBACK = 'student_avatar_fallback', _('Student Avatar fallback')
     COMPANY_AVATAR_FALLBACK = 'company_avatar_fallback', _('Company Avatar fallback')
+    PROJECT_POSTING_IMAGES = 'project_posting_images', _('Project posting images')
+    PROJECT_POSTING_DOCUMENTS = 'project_posting_documents', _('Project posting documents')
+    PROJECT_POSTING_FALLBACK = 'project_posting_fallback', _('Project posting fallback')
 
     @classmethod
     def valid_student_keys(cls):
         return [
             cls.STUDENT_AVATAR,
             cls.STUDENT_DOCUMENTS,
-            cls.STUDENT_AVATAR_FALLBACK
+            cls.STUDENT_AVATAR_FALLBACK,
+            cls.PROJECT_POSTING_IMAGES,
+            cls.PROJECT_POSTING_DOCUMENTS,
+            cls.PROJECT_POSTING_FALLBACK
         ]
 
     @classmethod
@@ -28,7 +34,17 @@ class AttachmentKey(models.TextChoices):
         return [
             cls.COMPANY_AVATAR,
             cls.COMPANY_DOCUMENTS,
-            cls.COMPANY_AVATAR_FALLBACK
+            cls.COMPANY_AVATAR_FALLBACK,
+            cls.PROJECT_POSTING_IMAGES,
+            cls.PROJECT_POSTING_DOCUMENTS,
+            cls.PROJECT_POSTING_FALLBACK
+        ]
+
+    @classmethod
+    def valid_project_posting_keys(cls):
+        return [
+            cls.PROJECT_POSTING_DOCUMENTS,
+            cls.PROJECT_POSTING_IMAGES
         ]
 
 
@@ -64,6 +80,14 @@ class Attachment(models.Model):
     def get_company_avatar_fallback(cls, company):
         attachments = list(Attachment.objects.filter(key=AttachmentKey.COMPANY_AVATAR_FALLBACK).order_by('id'))
         index = company.id % (settings.NUMBER_OF_COMPANY_AVATAR_FALLBACK_IMAGES - 1)
+        if len(attachments) > index:
+            return attachments[index]
+        return None
+
+    @classmethod
+    def get_project_posting_fallback(cls, project_posting):
+        attachments = list(Attachment.objects.filter(key=AttachmentKey.PROJECT_POSTING_FALLBACK).order_by('id'))
+        index = project_posting.id % (settings.NUMBER_OF_PROJECT_POSTING_FALLBACK_IMAGES - 1)
         if len(attachments) > index:
             return attachments[index]
         return None
@@ -130,11 +154,41 @@ def company_documents_config():
     }
 
 
+def project_posting_images_config():
+    return {
+        'content_types_configuration': [
+            {
+                'content_types': settings.USER_UPLOADS_IMAGE_TYPES,
+                'max_size': settings.USER_UPLOADS_MAX_IMAGE_SIZE,
+                'model': settings.WAGTAILIMAGES_IMAGE_MODEL
+            }
+        ],
+        'max_files': 5,
+        'key': AttachmentKey.PROJECT_POSTING_IMAGES
+    }
+
+
+def project_posting_documents_config():
+    return {
+        'content_types_configuration': [
+            {
+                'content_types': settings.USER_UPLOADS_DOCUMENT_TYPES,
+                'max_size': settings.USER_UPLOADS_MAX_DOCUMENT_SIZE,
+                'model': settings.WAGTAILDOCS_DOCUMENT_MODEL
+            }
+        ],
+        'max_files': 5,
+        'key': AttachmentKey.PROJECT_POSTING_DOCUMENTS
+    }
+
+
 upload_configurations = [
     student_avatar_config(),
     student_documents_config(),
     company_avatar_config(),
-    company_documents_config()
+    company_documents_config(),
+    project_posting_documents_config(),
+    project_posting_images_config()
 ]
 
 
