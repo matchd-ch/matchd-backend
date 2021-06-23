@@ -1,6 +1,7 @@
 import graphene
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
+from django.db.models import Q
 from graphene import ObjectType
 
 from api.schema.job_posting.schema import JobPosting
@@ -47,16 +48,19 @@ class DashboardQuery(ObjectType):
             latest_job_postings = None
             latest_project_postings = ProjectPostingModel.objects.filter(
                 company__isnull=True,
-                employee__isnull=True, student__isnull=False, state=ProjectPostingState.PUBLIC).\
-                order_by('-date_created')[:settings.DASHBOARD_NUM_LATEST_ENTRIES]
+                employee__isnull=True, student__isnull=False, state=ProjectPostingState.PUBLIC). \
+                                          order_by('-date_created')[:settings.DASHBOARD_NUM_LATEST_ENTRIES]
             requested_matches = Match.objects.filter(job_posting__company=user.company, initiator=user.type,
                                                      student_confirmed=False, company_confirmed=True)
             unconfirmed_matches = Match.objects.filter(job_posting__company=user.company, initiator=ProfileType.STUDENT,
                                                        company_confirmed=False, student_confirmed=True)
             confirmed_matches = Match.objects.filter(job_posting__company=user.company, student_confirmed=True,
                                                      company_confirmed=True, project_posting__isnull=True)
-            project_matches = Match.objects.filter(project_posting__company=user.company, student_confirmed=True,
-                                                   company_confirmed=True)
+            query = Q(student_confirmed=True, company_confirmed=True)
+            project_posting_query = Q(project_posting__company=user.company)
+            company_query = Q(company=user.company)
+            query = query & (project_posting_query | company_query)
+            project_matches = Match.objects.filter(query)
         if user.type in ProfileType.valid_student_types():
             job_postings = None
             project_postings = ProjectPostingModel.objects.filter(student=user.student).order_by('-date_created')
@@ -66,15 +70,18 @@ class DashboardQuery(ObjectType):
             latest_project_postings = ProjectPostingModel.objects.filter(
                 company__isnull=False,
                 employee__isnull=False, student__isnull=True, state=ProjectPostingState.PUBLIC). \
-                order_by('-date_created')[:settings.DASHBOARD_NUM_LATEST_ENTRIES]
+                                          order_by('-date_created')[:settings.DASHBOARD_NUM_LATEST_ENTRIES]
             requested_matches = Match.objects.filter(student=user.student, initiator=user.type,
-                                                       company_confirmed=False, student_confirmed=True)
+                                                     company_confirmed=False, student_confirmed=True)
             unconfirmed_matches = Match.objects.filter(student=user.student, initiator=ProfileType.COMPANY,
                                                        student_confirmed=False, company_confirmed=True)
             confirmed_matches = Match.objects.filter(student=user.student, student_confirmed=True,
                                                      company_confirmed=True, project_posting__isnull=True)
-            project_matches = Match.objects.filter(project_posting__student=user.student, student_confirmed=True,
-                                                   company_confirmed=True)
+            query = Q(student_confirmed=True, company_confirmed=True)
+            project_posting_query = Q(project_posting__student=user.student)
+            student_query = Q(student=user.student)
+            query = query & (project_posting_query | student_query)
+            project_matches = Match.objects.filter(query)
         return {
             'job_postings': job_postings,
             'project_postings': project_postings,
