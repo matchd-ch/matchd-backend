@@ -38,6 +38,8 @@ def test_dashboard(login, query_dashboard, user_employee, user_student, job_post
     # project posting matches
     Match.objects.create(project_posting=student_project_posting_objects[0], company=user_employee.company,
                          company_confirmed=True, student_confirmed=True, initiator=user_employee.type)
+    Match.objects.create(project_posting=company_project_posting_objects[0], student=user_student.student,
+                         company_confirmed=True, student_confirmed=True, initiator=user_student.student)
 
     login(user_student)
     data, errors = query_dashboard(user_student)
@@ -76,5 +78,5 @@ def test_dashboard(login, query_dashboard, user_employee, user_student, job_post
 
     project_matches = dashboard.get('projectMatches')
     assert project_matches is not None
-    assert len(project_matches) == 1
+    assert len(project_matches) == 2
     assert int(project_matches[0].get('projectPosting').get('id')) == student_project_posting_objects[0].id
