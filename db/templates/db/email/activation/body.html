@@ -1,5 +1,5 @@
 {# Activation-E-mail for student #}
-{% load templatetags %}
+{% load db_tags %}
 {% is_student user.type as student %}
 {% if student %}
     <p>Hey, {{ user.first_name }}</p>
