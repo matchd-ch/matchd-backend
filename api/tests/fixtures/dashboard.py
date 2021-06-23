@@ -60,8 +60,15 @@ def dashboard_query():
           projectPosting {
             id
             title
+            student {
+                id
+            }
+            company {
+                id
+            }
           }
           student {
+            id
             nickname
           }
           company {
