@@ -1,1 +1,1 @@
-{{ email_subject_prefix }}Ready to be matchd? {% if user.type == 'company' or user.type == 'university' %}Aktivieren Sie jetzt Ihr Matchd-Profil.{% else %}Aktiviere jetzt dein Matchd-Profil.{% endif %}
+{% load db_tags %}{% is_student user.type as student %}{% is_company user.type as company %}{{ email_subject_prefix }}Ready to be matchd? {% if company %}Aktivieren Sie jetzt Ihr Matchd-Profil.{% elif student %}Aktiviere jetzt dein Matchd-Profil.{% endif %}
