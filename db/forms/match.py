@@ -135,7 +135,6 @@ def process_project_posting_match(user, data):
     match_obj.date_confirmed = datetime.now(tz=pytz.timezone(settings.TIME_ZONE))
     match_obj.save()
 
-    # todo send email
-    # send_mails(match_obj, created)
+    send_mails(match_obj, created)
 
     return match_obj
