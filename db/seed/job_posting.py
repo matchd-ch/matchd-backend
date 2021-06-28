@@ -87,6 +87,8 @@ class JobPosting(BaseSeed):
                 if date_published is not None:
                     date_published = datetime.strptime(date_published, '%Y-%m-%d %H:%M:%S').replace(
                         tzinfo=pytz.timezone(settings.TIME_ZONE))
+                if job_posting.state == JobPostingState.PUBLIC and job_posting.date_created is None:
+                    job_posting.date_published = job_posting.date_created
                 job_posting.date_created = date_created
                 job_posting.date_published = date_published
                 job_posting.workload = workload
