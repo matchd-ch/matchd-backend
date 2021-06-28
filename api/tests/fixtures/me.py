@@ -64,6 +64,9 @@ def me_query():
                         level
                     }
                 }
+                projectPostings {
+                  slug
+                }
             }
             company {
                 uid
