@@ -53,7 +53,8 @@ class Student(DjangoObjectType):
     field_of_study = graphene.String()
     graduation = graphene.String()
     match_status = graphene.Field('api.schema.match.MatchStatus')
-    project_postings = graphene.NonNull(graphene.List('api.schema.project_posting.schema.ProjectPosting'))
+    project_postings = graphene.NonNull(
+        graphene.List(grahene.NonNull('api.schema.project_posting.schema.ProjectPosting')))
 
     class Meta:
         model = StudentModel
