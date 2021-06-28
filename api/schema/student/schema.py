@@ -46,7 +46,7 @@ class Student(DjangoObjectType):
     street = graphene.String()
     mobile = graphene.String()
     distinction = graphene.String()
-    online_projects = graphene.List(graphene.NonNull(OnlineProject))
+    online_projects = grahene.NonNull(graphene.List(graphene.NonNull(OnlineProject)))
     hobbies = graphene.List(graphene.NonNull(Hobby))
     date_of_birth = graphene.String()
     school_name = graphene.String()
