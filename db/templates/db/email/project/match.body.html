@@ -1,6 +1,6 @@
 {% load db_tags %}
-{% is_student user.type as logged_in_user %}
-{% if logged_in_user %}
+{% is_student user.type as send_company_mail %}
+{% if send_company_mail %}
     <p>Gratulation, {{ user.first_name }} {{ user.last_name }} hat sich Ihr Projekt <a href="{{ project_posting_url }}">{{ project_posting.title }}({{ project_posting.project_type.name }})</a> angesehen und ist an einer Zusammenarbeit interessiert. Damit dem Kennenlernen nichts im Weg steht, erhalten Sie hier den Link zum Matchd-Profil von <a href="{{ student_profile_url }}">{{ user.first_name }} {{ user.last_name }}.</a> </p>
     <p> Wir drücken die Daumen für einen erfolgreichen Austausch.</p>
     <p>Ihr Matchd-Team</p>
@@ -8,8 +8,8 @@
 
 {% endif %}
 
-{% is_company user.type as logged_in_user %}
-{% if logged_in_user %}
+{% is_company user.type as send_student_mail %}
+{% if send_student_mail %}
     <p>Hey {{ project_posting.student.user.first_name }}</p>
     <p> Wir haben Good-News für dich, {{ user.first_name }} {{ user.last_name }} von {{ user.company.name }} hat sich dein Projekt <a href="{{ project_posting_url }}">{{ project_posting.title }}({{ project_posting.project_type.name }})</a> angesehen und möchte sich mit dir darüber unterhalten. Damit dem Kennenlernen nichts im Weg steht, erhältst du hier den Link zum Matchd-Profil von <a href="{{ company_profile_url }}">{{ user.company.name }}.</a></p>
     <p>Toi toi toi, dass es mit dem gemeinsamen Projekt klappt.</p>
