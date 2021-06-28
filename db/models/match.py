@@ -195,5 +195,3 @@ class Match(models.Model):
             recipients,
             html_message=html_body
         )
-
-
