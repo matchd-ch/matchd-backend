@@ -20,13 +20,17 @@ def get_id_from_data(data, key):
     raise FormException(errors=errors)
 
 
-def send_mails(match_object, created):
+def send_job_posting_mails(match_object, created):
     if created:
-        match_object.send_start_match_email()
+        match_object.send_start_job_match_email()
     elif match_object.complete and not match_object.complete_mail_sent:
-        match_object.send_complete_match_mail()
+        match_object.send_complete_job_match_mail()
         match_object.complete_mail_sent = True
         match_object.save()
+
+
+def send_project_posting_mails(match_object, user):
+    match_object.send_complete_project_match_mail(user)
 
 
 def process_student_match(user, data):
@@ -61,7 +65,7 @@ def process_student_match(user, data):
         match_obj.date_confirmed = datetime.now(tz=pytz.timezone(settings.TIME_ZONE))
     match_obj.save()
 
-    send_mails(match_obj, created)
+    send_job_posting_mails(match_obj, created)
 
     return match_obj
 
@@ -93,7 +97,7 @@ def process_job_posting_match(user, data):
         match_obj.date_confirmed = datetime.now(tz=pytz.timezone(settings.TIME_ZONE))
     match_obj.save()
 
-    send_mails(match_obj, created)
+    send_job_posting_mails(match_obj, created)
 
     return match_obj
 
@@ -135,7 +139,6 @@ def process_project_posting_match(user, data):
     match_obj.date_confirmed = datetime.now(tz=pytz.timezone(settings.TIME_ZONE))
     match_obj.save()
 
-    # todo send email
-    # send_mails(match_obj, created)
+    send_project_posting_mails(match_obj, user)
 
     return match_obj

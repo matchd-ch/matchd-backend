@@ -8,6 +8,7 @@ from graphql_auth.bases import Output
 from django.utils.translation import gettext as _
 from graphql_jwt.decorators import login_required
 
+from api.helper import is_me_query
 from api.schema.branch import BranchInput
 from api.schema.cultural_fit import CulturalFitInput
 from api.schema.hobby import HobbyInput, Hobby
@@ -23,7 +24,7 @@ from db.forms import process_student_form_step_1, process_student_form_step_2, \
     process_student_form_step_5, process_student_form_step_6, process_student_form_step_4
 from db.forms.student_step_3 import process_student_form_step_3
 
-from db.models import Student as StudentModel, ProfileType, Match as MatchModel
+from db.models import Student as StudentModel, ProfileType, Match as MatchModel, ProjectPostingState
 
 
 class StudentInput(graphene.InputObjectType):
@@ -52,6 +53,8 @@ class Student(DjangoObjectType):
     field_of_study = graphene.String()
     graduation = graphene.String()
     match_status = graphene.Field('api.schema.match.MatchStatus')
+    project_postings = graphene.NonNull(
+        graphene.List(graphene.NonNull('api.schema.project_posting.schema.ProjectPosting')))
 
     class Meta:
         model = StudentModel
@@ -170,6 +173,11 @@ class Student(DjangoObjectType):
                 'initiator': status.initiator
             }
         return None
+
+    def resolve_project_postings(self: StudentModel, info):
+        if is_me_query(info):
+            return self.project_postings.all()
+        return self.project_postings.filter(state=ProjectPostingState.PUBLIC)
 
 
 class StudentProfileInputStep1(graphene.InputObjectType):
