@@ -1,23 +1,20 @@
-{# Activation-E-mail for student #}
 {% load db_tags %}
-{% is_student user.type as student %}
-{% if student %}
-    <p>Hey {{ user.first_name }}</p>
-    <br>
-    <p> Wir haben Good-News für dich, {{ company.employee.last_name }} von {{ company.name }} hat sich dein Projekt Bezeichnung (Art) angesehen und möchte sich mit dir darüber unterhalten. Damit dem Kennenlernen nichts im Weg steht, erhältst du hier den Link zum Matchd-Profil von {{ company.name }}.</p>
-    <br>
-    <p>Toi toi toi, dass es mit dem gemeinsamen Projekt klappt.</p>
-    <p>Dein Matchd-Team</p>
-    <br>
-    <p>PS: Du hast Fragen oder Inputs an uns? Dann schreib uns einfach zurück. Wir freuen uns über Feedback.</p>
-{% endif %}
-
-{% is_company user.type as company %}
-{% if company %}
-    <p>Gratulation, {{ student.first_name }} hat sich Ihr Projekt Bezeichnung (Art) angesehen und ist an einer Zusammenarbeit interessiert. Damit dem Kennenlernen nichts im Weg steht, erhalten Sie hier den Link zum Matchd-Profil von {{ student.name }}. </p>
-    <br>
+{% is_student user.type as logged_in_user %}
+{% if logged_in_user %}
+    <p>Gratulation, {{ user.first_name }} {{ user.last_name }} hat sich Ihr Projekt <a href="{{ project_posting_url }}"> {{ project_posting.project_type.name }}</a> angesehen und ist an einer Zusammenarbeit interessiert. Damit dem Kennenlernen nichts im Weg steht, erhalten Sie hier den Link zum Matchd-Profil von <a href="{{ student_profile_url }}">{{ user.first_name }} {{ user.last_name }}.</a> </p>
     <p> Wir drücken die Daumen für einen erfolgreichen Austausch.</p>
     <p>Ihr Matchd-Team</p>
-    <br>
     <p>PS: Sie haben Fragen oder Inputs an uns? Dann zögern Sie nicht, uns einfach zurückzuschreiben. Wir freuen uns über Feedback. </p>
+
 {% endif %}
+
+{% is_company user.type as logged_in_user %}
+{% if logged_in_user %}
+    <p>Hey {{ project_posting.student.user.first_name }}</p>
+    <p> Wir haben Good-News für dich, {{ user.first_name }} {{ user.last_name }} von {{ user.company.name }} hat sich dein Projekt <a href="{{ project_posting_url }}"> {{ project_posting.project_type.name }}</a> angesehen und möchte sich mit dir darüber unterhalten. Damit dem Kennenlernen nichts im Weg steht, erhältst du hier den Link zum Matchd-Profil von <a href="{{ company_profile_url }}">{{ user.company.name }}.</a></p>
+    <p>Toi toi toi, dass es mit dem gemeinsamen Projekt klappt.</p>
+    <p>Dein Matchd-Team</p>
+    <p>PS: Du hast Fragen oder Inputs an uns? Dann schreib uns einfach zurück. Wir freuen uns über Feedback.</p>
+
+{% endif %}
+
