@@ -178,7 +178,7 @@ class Match(models.Model):
         )
 
     def send_complete_project_match_mail(self, user):
-        template_path = 'db/email/project/'
+        template_path = 'db/email/match/project/'
         if self.project_posting.student and self.project_posting.student.user.email:
             email_context = self._project_posting_student_email_context(user)
             recipients = [self.project_posting.student.user.email]
