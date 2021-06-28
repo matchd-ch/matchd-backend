@@ -20,11 +20,13 @@ def get_id_from_data(data, key):
     raise FormException(errors=errors)
 
 
-def send_mails(match_object, created):
-    if created:
-        match_object.send_start_match_email()
+def send_mails(match_object, created, project=False):
+    if project:
+        match_object.send_complete_project_match_mail()
+    elif created:
+        match_object.send_start_job_match_email()
     elif match_object.complete and not match_object.complete_mail_sent:
-        match_object.send_complete_match_mail()
+        match_object.send_complete_job_match_mail()
         match_object.complete_mail_sent = True
         match_object.save()
 
@@ -135,6 +137,6 @@ def process_project_posting_match(user, data):
     match_obj.date_confirmed = datetime.now(tz=pytz.timezone(settings.TIME_ZONE))
     match_obj.save()
 
-    send_mails(match_obj, created)
+    send_mails(match_obj, created, True)
 
     return match_obj

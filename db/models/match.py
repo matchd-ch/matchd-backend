@@ -31,7 +31,7 @@ class Match(models.Model):
     def complete(self):
         return self.student_confirmed and self.company_confirmed
 
-    def send_complete_match_mail(self):
+    def send_complete_job_match_mail(self):
         email_context = self._email_context()
         template_path = 'db/email/match/student/'
 
@@ -62,7 +62,7 @@ class Match(models.Model):
             html_message=html_body
         )
 
-    def send_start_match_email(self):
+    def send_start_job_match_email(self):
         if self.initiator == ProfileType.COMPANY:
             self._send_initiator_company()
 
@@ -146,3 +146,34 @@ class Match(models.Model):
             recipients,
             html_message=html_body
         )
+
+    def send_complete_project_match_mail(self):
+        email_context = self._email_context()
+        template_path = 'db/email/project/'
+
+        # email student
+        recipients = [self.student.user.email]
+        subject = render_to_string(f'{template_path}match.subject.txt', email_context)
+        plain_body = render_to_string(f'{template_path}match.body_plain.txt', email_context)
+        html_body = render_to_string(f'{template_path}match.body.html', email_context)
+        send_mail(
+            subject,
+            plain_body,
+            settings.DEFAULT_FROM_EMAIL,
+            recipients,
+            html_message=html_body
+        )
+
+        # email company
+        recipients = [self.job_posting.employee.user.email]
+        subject = render_to_string(f'{template_path}match.subject.txt', email_context)
+        plain_body = render_to_string(f'{template_path}match.body_plain.txt', email_context)
+        html_body = render_to_string(f'{template_path}match.body.html', email_context)
+        send_mail(
+            subject,
+            plain_body,
+            settings.DEFAULT_FROM_EMAIL,
+            recipients,
+            html_message=html_body
+        )
+
