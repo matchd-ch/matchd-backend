@@ -46,7 +46,7 @@ class Student(DjangoObjectType):
     street = graphene.String()
     mobile = graphene.String()
     distinction = graphene.String()
-    online_projects = grahene.NonNull(graphene.List(graphene.NonNull(OnlineProject)))
+    online_projects = graphene.NonNull(graphene.List(graphene.NonNull(OnlineProject)))
     hobbies = graphene.List(graphene.NonNull(Hobby))
     date_of_birth = graphene.String()
     school_name = graphene.String()
@@ -54,7 +54,7 @@ class Student(DjangoObjectType):
     graduation = graphene.String()
     match_status = graphene.Field('api.schema.match.MatchStatus')
     project_postings = graphene.NonNull(
-        graphene.List(grahene.NonNull('api.schema.project_posting.schema.ProjectPosting')))
+        graphene.List(graphene.NonNull('api.schema.project_posting.schema.ProjectPosting')))
 
     class Meta:
         model = StudentModel
