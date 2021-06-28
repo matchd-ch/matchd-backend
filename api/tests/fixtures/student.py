@@ -63,7 +63,9 @@ def student_query(slug):
             level
           }
         }
-        
+        projectPostings {
+          slug
+        }
       }
     }
     ''' % slug
@@ -128,7 +130,9 @@ def student_with_job_posting_query(slug, job_posting_id):
             level
           }
         }
-
+        projectPostings {
+          slug
+        }
       }
     }
     ''' % (slug, job_posting_id)
