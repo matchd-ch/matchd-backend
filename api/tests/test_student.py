@@ -8,9 +8,14 @@ from db.models import ProfileState, Match
 
 @pytest.mark.django_db
 def test_student(login, user_student_full_profile, query_student, user_employee, branch_objects, job_type_objects,
-                 skill_objects):
+                 skill_objects, student_project_posting_objects):
     user_student_full_profile.student.state = ProfileState.PUBLIC
     user_student_full_profile.student.save()
+
+    for project_posting in student_project_posting_objects:
+        project_posting.student = user_student_full_profile.student
+        project_posting.save()
+
     login(user_employee)
     data, errors = query_student(user_employee, user_student_full_profile.student.slug)
 
@@ -39,6 +44,7 @@ def test_student(login, user_student_full_profile, query_student, user_employee,
     assert len(student.get('onlineProjects')) == 2
     assert len(student.get('softSkills')) == 6
     assert len(student.get('culturalFits')) == 6
+    assert len(student.get('projectPostings')) == 2  # public only
     assert student.get('matchStatus') is None
 
     company = student.get('company')
