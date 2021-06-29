@@ -25,6 +25,18 @@ def match_student_mutation():
     '''
 
 
+def project_posting_matching():
+    return '''
+    mutation ProjectPostingMatching($match: MatchProjectPostingInput!){
+        matchProjectPosting(match: $match) {
+            success
+            errors
+            confirmed
+        }
+    }
+    '''
+
+
 @pytest.fixture
 def match_job_posting(execute):
     def closure(user, job_posting_id):
@@ -33,6 +45,7 @@ def match_job_posting(execute):
                 "jobPosting": {"id": job_posting_id}
             }
         }, **{'user': user})
+
     return closure
 
 
@@ -43,6 +56,21 @@ def match_student(execute):
             "match": {
                 "student": {"id": student_id},
                 "jobPosting": {"id": job_posting_id}
-              }
+            }
         }, **{'user': user})
+
+    return closure
+
+
+@pytest.fixture
+def match_project_posting(execute):
+    def closure(user, project_posting):
+        return execute(project_posting_matching(), variables={
+            "match": {
+                "projectPosting": {
+                    "id": project_posting.id
+                }
+            }
+        }, **{'user': user})
+
     return closure
