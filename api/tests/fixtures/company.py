@@ -78,8 +78,8 @@ def query_company(execute):
 @pytest.fixture
 def company_objects():
     return [
-        Company.objects.create(name='Company 1', slug='company-1', type=ProfileType.COMPANY, zip='1337'),
-        Company.objects.create(name='Company 2', slug='company-2', type=ProfileType.COMPANY, zip='1337')
+        Company.objects.create(name='Company 1', slug='company-1', type=ProfileType.COMPANY),
+        Company.objects.create(name='Company 2', slug='company-2', type=ProfileType.COMPANY)
     ]
 
 
