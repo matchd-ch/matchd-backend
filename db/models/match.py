@@ -63,7 +63,7 @@ class Match(models.Model):
         )
 
     def send_start_job_match_email(self):
-        if self.initiator == ProfileType.COMPANY:
+        if self.initiator in ProfileType.valid_company_types():
             self._send_initiator_company()
 
         if self.initiator in ProfileType.valid_student_types():

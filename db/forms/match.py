@@ -60,8 +60,8 @@ def process_student_match(user, data):
     match_obj, created = Match.objects.get_or_create(student=student, job_posting=job_posting)
     match_obj.company_confirmed = True
     if created:
-        match_obj.initiator = ProfileType.COMPANY
-    if not created and not match_obj.complete and match_obj.initiator != ProfileType.COMPANY:
+        match_obj.initiator = user.type
+    if not created and not match_obj.complete and match_obj.initiator != user.type:
         match_obj.date_confirmed = datetime.now(tz=pytz.timezone(settings.TIME_ZONE))
     match_obj.save()
 
@@ -92,8 +92,8 @@ def process_job_posting_match(user, data):
     match_obj, created = Match.objects.get_or_create(student=user.student, job_posting=job_posting)
     match_obj.student_confirmed = True
     if created:
-        match_obj.initiator = ProfileType.STUDENT
-    if not created and not match_obj.complete and match_obj.initiator != ProfileType.STUDENT:
+        match_obj.initiator = user.type
+    if not created and not match_obj.complete and match_obj.initiator != user.type:
         match_obj.date_confirmed = datetime.now(tz=pytz.timezone(settings.TIME_ZONE))
     match_obj.save()
 
