@@ -52,7 +52,8 @@ class DashboardQuery(ObjectType):
                                           order_by('-date_created')[:settings.DASHBOARD_NUM_LATEST_ENTRIES]
             requested_matches = Match.objects.filter(job_posting__company=user.company, initiator=user.type,
                                                      student_confirmed=False, company_confirmed=True)
-            unconfirmed_matches = Match.objects.filter(job_posting__company=user.company, initiator=ProfileType.STUDENT,
+            unconfirmed_matches = Match.objects.filter(job_posting__company=user.company,
+                                                       initiator__in=ProfileType.valid_student_types(),
                                                        company_confirmed=False, student_confirmed=True)
             confirmed_matches = Match.objects.filter(job_posting__company=user.company, student_confirmed=True,
                                                      company_confirmed=True, project_posting__isnull=True)
@@ -73,7 +74,8 @@ class DashboardQuery(ObjectType):
                                           order_by('-date_created')[:settings.DASHBOARD_NUM_LATEST_ENTRIES]
             requested_matches = Match.objects.filter(student=user.student, initiator=user.type,
                                                      company_confirmed=False, student_confirmed=True)
-            unconfirmed_matches = Match.objects.filter(student=user.student, initiator=ProfileType.COMPANY,
+            unconfirmed_matches = Match.objects.filter(student=user.student,
+                                                       initiator__in=ProfileType.valid_company_types(),
                                                        student_confirmed=False, company_confirmed=True)
             confirmed_matches = Match.objects.filter(student=user.student, student_confirmed=True,
                                                      company_confirmed=True, project_posting__isnull=True)
