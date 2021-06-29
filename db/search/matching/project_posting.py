@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
 from wagtail.search.backends import get_search_backend
@@ -43,9 +44,21 @@ class ProjectPostingMatching:
         index = self.search_backend.get_index_for_model(queryset.model).name
 
         builder = ProjectPostingParamBuilder(queryset, index, self.first, self.skip)
-        builder.set_project_type(self.project_posting.project_type.id)
-        builder.set_topic(self.project_posting.topic.id)
-        builder.set_keywords(self.project_posting.keywords.all())
+        builder.set_project_type(self.project_posting.project_type.id, settings.MATCHING_VALUE_PROJECT_TYPE)
+        builder.set_topic(self.project_posting.topic.id, self.tech_boost * settings.MATCHING_VALUE_TOPIC)
+        builder.set_keywords(self.project_posting.keywords.all(), self.tech_boost * settings.MATCHING_VALUE_KEYWORDS)
+
+        cultural_fits = None
+        soft_skills = None
+        if self.user.type in ProfileType.valid_student_types():
+            cultural_fits = self.user.student.cultural_fits.all()
+            soft_skills = self.user.student.soft_skills.all()
+        if self.user.type in ProfileType.valid_company_types():
+            cultural_fits = self.user.company.cultural_fits.all()
+            soft_skills = self.user.company.soft_skills.all()
+
+        builder.set_cultural_fits(cultural_fits, self.soft_boost * settings.MATCHING_VALUE_CULTURAL_FITS)
+        builder.set_soft_skills(soft_skills, self.soft_boost * settings.MATCHING_VALUE_SOFT_SKILLS)
 
         if self.project_posting.company is not None:
             builder.set_is_student()

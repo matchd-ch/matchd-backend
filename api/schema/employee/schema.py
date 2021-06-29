@@ -7,7 +7,7 @@ from graphql_jwt.decorators import login_required
 
 from db.forms import EmployeeForm, UserForm
 from db.helper.forms import validate_company_user_type, validate_form_data
-from db.models import Employee as EmployeeModel, ProfileType
+from db.models import Employee as EmployeeModel
 
 
 class Employee(DjangoObjectType):
@@ -96,7 +96,7 @@ class AddEmployee(Output, graphene.Mutation):
             email=user_data.get('email'),
             username=user_data.get('username'),
             company=company,
-            type=ProfileType.COMPANY
+            type=user.type
         )
 
         # create employee
