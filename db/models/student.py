@@ -66,21 +66,21 @@ class Student(models.Model, index.Indexed):
         possible_matches = self.possible_matches.get(company.slug)
         if len(possible_matches) > 0:
             for possible_match in possible_matches:
-                if possible_match.initiator == ProfileType.STUDENT or possible_match.complete:
+                if possible_match.initiator in ProfileType.valid_student_types() or possible_match.complete:
                     return True
         return False
 
     def get_match_hints(self, company):
-        has_requested_match = Match.objects.filter(initiator=ProfileType.STUDENT, student=self,
+        has_requested_match = Match.objects.filter(initiator__in=ProfileType.valid_student_types(), student=self,
                                                    job_posting__company=company).exists()
         if not has_requested_match:
-            has_requested_match = Match.objects.filter(initiator=ProfileType.STUDENT, student=self,
+            has_requested_match = Match.objects.filter(initiator__in=ProfileType.valid_student_types(), student=self,
                                                        project_posting__company=company).exists()
 
-        has_confirmed_match = Match.objects.filter(initiator=ProfileType.COMPANY, student=self,
+        has_confirmed_match = Match.objects.filter(initiator__in=ProfileType.valid_company_types(), student=self,
                                                    student_confirmed=True, job_posting__company=company).exists()
         if not has_confirmed_match:
-            has_confirmed_match = Match.objects.filter(initiator=ProfileType.COMPANY, student=self,
+            has_confirmed_match = Match.objects.filter(initiator__in=ProfileType.valid_company_types(), student=self,
                                                        student_confirmed=True, project_posting__company=company).\
                 exists()
         return {
