@@ -36,6 +36,8 @@ def test_dashboard(login, query_dashboard, user_employee, user_student, job_post
                          company_confirmed=True, initiator=user_employee.type)
 
     # project posting matches
+    Match.objects.create(project_posting=company_project_posting_objects[0], student=user_student.student,
+                         company_confirmed=True, student_confirmed=True, initiator=user_student.type)
     Match.objects.create(project_posting=student_project_posting_objects[0], company=user_employee.company,
                          company_confirmed=True, student_confirmed=True, initiator=user_employee.type)
 
@@ -76,5 +78,6 @@ def test_dashboard(login, query_dashboard, user_employee, user_student, job_post
 
     project_matches = dashboard.get('projectMatches')
     assert project_matches is not None
-    assert len(project_matches) == 1
-    assert int(project_matches[0].get('projectPosting').get('id')) == student_project_posting_objects[0].id
+    assert len(project_matches) == 2
+    assert int(project_matches[0].get('projectPosting').get('id')) == company_project_posting_objects[0].id
+    assert int(project_matches[1].get('projectPosting').get('id')) == student_project_posting_objects[0].id

@@ -90,6 +90,8 @@ class ProjectPosting(BaseSeed):
                         tzinfo=pytz.timezone(settings.TIME_ZONE))
                 project_posting.date_created = date_created
                 project_posting.date_published = date_published
+                if project_posting.state == ProjectPostingState.PUBLIC and project_posting.date_created is None:
+                    project_posting.date_published = project_posting.date_created
                 project_posting.project_from_date = obj.get('project_from_date')
                 project_posting.form_step = obj.get('form_step')
                 project_posting.state = obj.get('state')
