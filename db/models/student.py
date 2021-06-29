@@ -74,7 +74,7 @@ class Student(models.Model, index.Indexed):
         has_requested_match = Match.objects.filter(initiator__in=ProfileType.valid_student_types(), student=self,
                                                    job_posting__company=company).exists()
         if not has_requested_match:
-            has_requested_match = Match.objects.filter(initiator_in=ProfileType.valid_student_types(), student=self,
+            has_requested_match = Match.objects.filter(initiator__in=ProfileType.valid_student_types(), student=self,
                                                        project_posting__company=company).exists()
 
         has_confirmed_match = Match.objects.filter(initiator__in=ProfileType.valid_company_types(), student=self,
