@@ -95,5 +95,3 @@ def company_matching(execute):
         return execute(company_matching_query(tech_boost, soft_boost), **{'user': user})
 
     return closure
-
-
