@@ -357,9 +357,8 @@ class StudentQuery(ObjectType):
     def resolve_student(self, info, slug, *args, **kwargs):
         user = info.context.user
 
-        if user.type not in (ProfileType.COMPANY, ProfileType.UNIVERSITY):
-            if user.type in ProfileType.valid_student_types() and user.student.slug != slug:
-                raise PermissionDenied('You have not the permission to perform this action')
+        if user.type in ProfileType.valid_student_types() and user.student.slug != slug:
+            raise PermissionDenied('You have not the permission to perform this action')
 
         student = get_object_or_404(StudentModel, slug=slug)
         if student.state == ProfileState.INCOMPLETE:
