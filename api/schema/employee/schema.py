@@ -96,7 +96,7 @@ class AddEmployee(Output, graphene.Mutation):
             email=user_data.get('email'),
             username=user_data.get('username'),
             company=company,
-            type=ProfileType.COMPANY
+            type=user.type
         )
 
         # create employee
