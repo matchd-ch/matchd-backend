@@ -26,6 +26,56 @@ def test_step_2_date_range(login, user_student, student_step_2, job_type_objects
 
 
 @pytest.mark.django_db
+def test_step_2_without_valid_date_range(login, user_student, student_step_2, job_type_objects_date_range, branch_objects):
+    user_student.student.profile_step = 2
+    user_student.student.save()
+    login(user_student)
+    data, errors = student_step_2(user_student, job_type_objects_date_range[0], None, None, branch_objects[0])
+
+    assert errors is None
+    assert data is not None
+    assert data.get('studentProfileStep2') is not None
+    assert data.get('studentProfileStep2').get('success') is False
+
+    errors = data.get('studentProfileStep2').get('errors')
+    assert errors is not None
+    assert 'jobFromDate' in errors
+    assert 'jobToDate' in errors
+
+    user = get_user_model().objects.get(pk=user_student.id)
+    assert user.student.job_type is None
+    assert user.student.branch is None
+    assert user.student.job_from_date is None
+    assert user.student.job_to_date is None
+    assert user.student.profile_step == 2
+
+
+@pytest.mark.django_db
+def test_step_2_with_from_date_only(login, user_student, student_step_2,
+                                                        job_type_objects_date_range, branch_objects):
+    user_student.student.profile_step = 2
+    user_student.student.save()
+    login(user_student)
+    data, errors = student_step_2(user_student, job_type_objects_date_range[0], '01.1337', None, branch_objects[0])
+
+    assert errors is None
+    assert data is not None
+    assert data.get('studentProfileStep2') is not None
+    assert data.get('studentProfileStep2').get('success') is False
+
+    errors = data.get('studentProfileStep2').get('errors')
+    assert errors is not None
+    assert 'jobToDate' in errors
+
+    user = get_user_model().objects.get(pk=user_student.id)
+    assert user.student.job_type is None
+    assert user.student.branch is None
+    assert user.student.job_from_date is None
+    assert user.student.job_to_date is None
+    assert user.student.profile_step == 2
+
+
+@pytest.mark.django_db
 def test_step_2_date_from(login, user_student, student_step_2, job_type_objects_date_from, branch_objects):
     user_student.student.profile_step = 2
     user_student.student.save()
