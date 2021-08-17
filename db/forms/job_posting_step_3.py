@@ -64,8 +64,12 @@ def process_job_posting_form_step_3(user, data):
 
     job_posting.save()
 
-    if not is_published and job_posting.state == JobPostingState.PUBLIC:
-        job_posting.date_published = datetime.datetime.now()
-        job_posting.save()
+    if not is_published:
+        if job_posting.state == JobPostingState.PUBLIC:
+            job_posting.date_published = datetime.datetime.now()
+            job_posting.save()
+        else:
+            job_posting.date_published = None
+            job_posting.save()
 
     return job_posting

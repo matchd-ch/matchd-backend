@@ -89,8 +89,12 @@ def process_project_posting_form_step_3(user, data):
 
     project_posting.save()
 
-    if not is_published and project_posting.state == ProjectPostingState.PUBLIC:
-        project_posting.date_published = datetime.datetime.now()
-        project_posting.save()
+    if not is_published:
+        if project_posting.state == ProjectPostingState.PUBLIC:
+            project_posting.date_published = datetime.datetime.now()
+            project_posting.save()
+        else:
+            project_posting.date_published = None
+            project_posting.save()
 
     return project_posting
