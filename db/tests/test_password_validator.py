@@ -24,3 +24,23 @@ def test_letter(password_validator):
 def test_specialchars(password_validator):
     with pytest.raises(ValidationError, match='Das Password muss mindestens 1 Sonderzeichen beinhalten.'):
         password_validator.validate('abcd1234')
+
+
+@pytest.mark.django_db
+def test_specialchars_dot(password_validator):
+    password_validator.validate('abcd1234.')
+
+
+@pytest.mark.django_db
+def test_specialchars_comma(password_validator):
+    password_validator.validate('abcd1234,')
+
+
+@pytest.mark.django_db
+def test_specialchars_dash(password_validator):
+    password_validator.validate('abcd1234-')
+
+
+@pytest.mark.django_db
+def test_specialchars_underscore(password_validator):
+    password_validator.validate('abcd1234_')
