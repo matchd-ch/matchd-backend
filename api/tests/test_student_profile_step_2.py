@@ -26,7 +26,8 @@ def test_step_2_date_range(login, user_student, student_step_2, job_type_objects
 
 
 @pytest.mark.django_db
-def test_step_2_without_valid_date_range(login, user_student, student_step_2, job_type_objects_date_range, branch_objects):
+def test_step_2_without_valid_date_range(login, user_student, student_step_2, job_type_objects_date_range,
+                                         branch_objects):
     user_student.student.profile_step = 2
     user_student.student.save()
     login(user_student)

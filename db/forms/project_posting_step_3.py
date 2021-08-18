@@ -6,6 +6,7 @@ from django.utils.translation import gettext as _
 from db.exceptions import FormException
 from db.helper.forms import validate_form_data,  convert_object_to_id, generic_error_dict, validate_project_posting_step
 from db.models import ProjectPosting, ProjectPostingState, Employee, ProfileType
+# pylint: disable=R0912
 
 
 class ProjectPostingFormStep3(forms.Form):
