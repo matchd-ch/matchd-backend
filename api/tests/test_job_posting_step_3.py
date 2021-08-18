@@ -8,6 +8,7 @@ from db.models import JobPosting, JobPostingState, Employee
 def test_step_3(user_employee, job_posting_object, login, job_posting_step_3):
     login(user_employee)
     job_posting_object.form_step = 3
+    job_posting_object.state = JobPostingState.DRAFT
     job_posting_object.save()
     data, errors = job_posting_step_3(user_employee, job_posting_object.id, JobPostingState.PUBLIC,
                                       user_employee.employee)
@@ -21,6 +22,7 @@ def test_step_3(user_employee, job_posting_object, login, job_posting_step_3):
     assert job_posting_slug == job_posting
     assert job_posting.employee.id == user_employee.employee.id
     assert job_posting.state == JobPostingState.PUBLIC
+    assert job_posting.date_published is not None
     assert job_posting.form_step == 4
 
 

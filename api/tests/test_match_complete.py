@@ -26,10 +26,7 @@ def test_match_starting_with_student_match(user_student, user_employee, job_post
                                             company_confirmed=True, complete_mail_sent=True).exists()
     assert match_obj_exists is True
 
-    mail_to_student = mail.outbox[2]
-    assert user_student.email in mail_to_student.recipients()
-
-    mail_to_company = mail.outbox[3]
+    mail_to_company = mail.outbox[2]
     assert user_employee.email in mail_to_company.recipients()
 
 
@@ -58,6 +55,3 @@ def test_match_starting_with_job_posting_match(user_student, user_employee, job_
 
     mail_to_student = mail.outbox[2]
     assert user_student.email in mail_to_student.recipients()
-
-    mail_to_company = mail.outbox[3]
-    assert user_employee.email in mail_to_company.recipients()

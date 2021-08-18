@@ -1,1 +1,1 @@
-{{ email_subject_prefix }}Matchd: Der erste Schritt ist gemacht
+{{ email_subject_prefix }}Matchd: Ihre Stelle zieht Talente an

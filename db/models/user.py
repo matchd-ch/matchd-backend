@@ -1,8 +1,10 @@
 from django.contrib.auth.models import AbstractUser
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.db.models.signals import pre_delete
 from django.utils.translation import gettext as _
 
+from .attachment import Attachment
 from .profile_state import ProfileState
 from .profile_type import ProfileType
 
@@ -47,3 +49,34 @@ class User(AbstractUser):
         if self.type in ProfileType.valid_company_types():
             return self.company.state
         return ProfileState.INCOMPLETE
+
+
+class UserSignalHandler:
+    @staticmethod
+    def pre_delete(sender, instance, **kwargs):
+        pre_delete.disconnect(UserSignalHandler.pre_delete, User,
+                              dispatch_uid='db.models.UserSignalHandler.pre_delete')
+
+        if instance.type in ProfileType.valid_student_types():
+            # attachments of project postings
+            project_posting_type = ContentType.objects.get(app_label='db', model='projectposting')
+            for project_posting in instance.student.project_postings.all():
+                attachments = Attachment.objects.filter(content_type=project_posting_type, object_id=project_posting.id)
+                for attachment in attachments:
+                    attachment.attachment_object.delete()
+                attachments.delete()
+
+            # avatars / certificates
+            student_type = ContentType.objects.get(app_label='db', model='student')
+            attachments = Attachment.objects.filter(content_type=student_type, object_id=instance.student.id)
+
+            for attachment in attachments:
+                attachment.attachment_object.delete()
+            attachments.delete()
+
+        pre_delete.connect(UserSignalHandler.pre_delete, User,
+                           dispatch_uid='db.models.UserSignalHandler.pre_delete')
+
+
+pre_delete.connect(UserSignalHandler.pre_delete, User,
+                   dispatch_uid='db.models.UserSignalHandler.pre_delete')

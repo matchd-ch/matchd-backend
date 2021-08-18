@@ -1,2 +1,14 @@
-Match bestätigt.
+Hey {{ student.first_name }} {{ student.last_name }}
+
+Wir gratulieren! Es hat gematchd zwischen dir und {{ job_posting.employee.user.first_name }} {{ job_posting.employee.user.last_name }}
+von {{ job_posting.company.name }}.
+
+Viel Glück und happy Matching!
+
+Dein Matchd-Team
+
+PS: Du hast Fragen oder Inputs an uns? Dann schreib uns einfach
+zurück. Wir freuen uns über Feedback.
+
+{{ company_profile_url }}
 {{ job_posting_url }}

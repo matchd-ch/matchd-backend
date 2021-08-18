@@ -1,4 +1,16 @@
 {% load i18n %}
-Sie haben ein Talent gematchd</p>
+Hallo {{ user.first_name }} {{ user.last_name }}
+Schön zu sehen, dass Sie für Ihre offene Stelle
+({{ job_posting.title }}) ein passendes Talent
+entdeckt haben. Sobald {{ student.first_name }} {{ student.last_name }} den Match bestätigt,
+schicken wir Ihnen ein E-Mail mit weiteren Informationen.
+
+Wir wünschen Ihnen viel Erfolg!
+
+Ihr Matchd-Team
+
+PS: Sie haben Fragen oder Inputs an uns? Dann zögern Sie nicht, uns
+einfach zurückzuschreiben. Wir freuen uns über Feedback.
+
 {{ student_profile_url }}
 {{ job_posting_url }}
