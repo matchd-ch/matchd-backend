@@ -1,3 +1,4 @@
+import datetime
 from django import forms
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext as _
@@ -5,6 +6,8 @@ from django.utils.translation import gettext as _
 from db.exceptions import FormException
 from db.helper.forms import validate_form_data,  convert_object_to_id, generic_error_dict, validate_project_posting_step
 from db.models import ProjectPosting, ProjectPostingState, Employee, ProfileType
+# pylint: disable=R0912
+# pylint: disable=R0915
 
 
 class ProjectPostingFormStep3(forms.Form):
@@ -23,6 +26,7 @@ def process_project_posting_form_step_3(user, data):
     # validate step and data
     validate_form_data(data)
     project_posting = get_object_or_404(ProjectPosting, id=data.get('id'))
+    is_published = project_posting.state == ProjectPostingState.PUBLIC
     validate_project_posting_step(project_posting, 3)
 
     # do not disable enum conversion as described here:
@@ -86,5 +90,13 @@ def process_project_posting_form_step_3(user, data):
         project_posting.form_step = 4
 
     project_posting.save()
+
+    if not is_published:
+        if project_posting.state == ProjectPostingState.PUBLIC:
+            project_posting.date_published = datetime.datetime.now()
+            project_posting.save()
+        else:
+            project_posting.date_published = None
+            project_posting.save()
 
     return project_posting

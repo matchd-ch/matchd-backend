@@ -22,12 +22,9 @@ class PasswordValidator:
             raise ValidationError(_('Das Passwort muss mindestens 1 Buchstaben beinhalten.'), code='no_letter')
 
         # check for special character
-        special_characters = r"[~\!@#\$%\^&\*\(\)_\+{}\":;'\[\]]"
-        if not any(char in special_characters for char in password):
-            raise ValidationError(
-                _('Das Password muss mindestens 1 Sonderzeichen beinhalten.'),
-                code='no_specialchars'
-            )
+        if not any(not char.isalnum() for char in password):
+            raise ValidationError(_('Das Password muss mindestens 1 Sonderzeichen beinhalten.'),
+                                  code='no_specialchars')
 
     def get_help_text(self):
         return _(

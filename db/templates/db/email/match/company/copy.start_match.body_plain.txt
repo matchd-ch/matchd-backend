@@ -1,3 +1,17 @@
 {% load i18n %}
-Du hast die Stelle {{ job_posting.title }} gematchd!
+Hey {{ user.first_name }} {{ user.last_name }}
+
+Voll toll, du hast ein interessantes Angebot ({{ job_posting.title }}) gefunden. Wir haben {{ job_posting.employee.user.first_name }} {{ job_posting.employee.user.last_name }} von
+{{ job_posting.company.name }} den Link zu deinem Matchd-Profil
+geschickt. Ist {{ job_posting.employee.user.first_name }} {{ job_posting.employee.user.last_name }} ebenfalls an einem Matching
+interessiert, schicken wir dir ein E-Mail.
+
+Toi toi toi, wir drücken dir die Daumen!
+
+Dein Matchd-Team
+
+PS: Du hast Fragen oder Inputs an uns? Dann schreib uns einfach
+zurück. Wir freuen uns über Feedback.
+
+{{ company_profile_url }}
 {{ job_posting_url }}
