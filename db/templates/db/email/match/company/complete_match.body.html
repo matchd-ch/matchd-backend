@@ -1,2 +1,15 @@
+{% load i18n %}
+<p>Hallo {{ job_posting.employee.user.first_name }} {{ job_posting.employee.user.last_name }}</p>
+
+<p>Gratulation, <a href="{{ student_profile_url }}">{{ student.first_name }} {{ student.last_name }}</a> hat sich Ihre Stelle
+    <a href="{{ job_posting_url }}">{{ job_posting.title }}</a> angesehen und möchte Sie näher kennenlernen.</p>
+<p>Hier gehts zum Profil von <a href="{{ student_profile_url }}">{{ student.first_name }} {{ student.last_name }}</a>.</p>
+
+<p>Viel Glück und gutes Matching!</p>
+
+<p>Ihr Matchd-Team</p>
+
+<p>PS: Sie haben Fragen oder Inputs an uns? Dann zögern Sie nicht, uns
+einfach zurückzuschreiben. Wir freuen uns über Feedback.</p>
+
 <p>Match bestätigt.</p>
-<a href="{{ student_profile_url }}">Link zum Profil</a>

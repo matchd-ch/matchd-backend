@@ -1,3 +1,13 @@
 {% load i18n %}
-<p>Das Talent {{ student.first_name }} {{ student.last_name }} hat die Stelle {{ job_posting.title }} gematchd!</p>
-<a href="{{ student_profile_url }}">Link zum Profil</a>
+<p>Hallo {{ job_posting.employee.user.first_name }} {{ job_posting.employee.user.last_name }}</p>
+
+<p>Ihre ausgeschriebene Stelle (<a href="{{ job_posting_url }}">{{ job_posting.title }}</a>) stösst auf Interesse.</p>
+
+<p><a href="{{ student_profile_url }}">{{ user.first_name }} {{ user.last_name }}</a> möchte mit Ihnen matchen.</p>
+
+<p>Wir sind gespannt, ob es zum gegenseitigen Matching kommt.</p>
+
+<p>Ihr Matchd-Team</p>
+
+<p>PS: Sie haben Fragen oder Inputs an uns? Dann zögern Sie nicht, uns
+    einfach zurückzuschreiben. Wir freuen uns über Feedback.</p>

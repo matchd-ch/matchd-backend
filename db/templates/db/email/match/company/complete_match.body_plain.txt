@@ -1,2 +1,15 @@
-Match bestätigt.
+{% load i18n %}
+Hallo {{ job_posting.employee.user.first_name }} {{ job_posting.employee.user.last_name }}
+
+Gratulation, {{ student.first_name }} {{ student.last_name }} hat sich Ihre Stelle
+{{ job_posting.title }} angesehen und möchte Sie näher kennenlernen.
+
+Viel Glück und gutes Matching!
+
+Ihr Matchd-Team
+
+PS: Sie haben Fragen oder Inputs an uns? Dann zögern Sie nicht, uns
+einfach zurückzuschreiben. Wir freuen uns über Feedback.
+
+{{ job_posting_url }}
 {{ student_profile_url }}

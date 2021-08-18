@@ -1,3 +1,15 @@
 {% load i18n %}
-Die Firma {{ company.name }} hat dein Profil gematchd!
+Hey {{ student.first_name }} {{ student.last_name }}
+
+{{ user.first_name }} {{ user.last_name }} von {{ company.name }} interessiert sich
+für dich. Denn die offene Stelle {{ job_posting.title }} könnte zu dir passen.
+
+Wir sind gespannt, wie ihr matchd.
+
+Dein Matchd-Team
+
+PS: Du hast Fragen oder Inputs an uns? Dann schreib uns einfach
+zurück. Wir freuen uns über Feedback.
+
+{{ company_profile_url }}
 {{ job_posting_url }}
