@@ -1,3 +1,5 @@
+import datetime
+
 from django import forms
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext as _
@@ -25,6 +27,7 @@ def process_job_posting_form_step_3(user, data):
     validate_company_user_type(user)
     validate_form_data(data)
     job_posting = get_object_or_404(JobPosting, id=data.get('id'))
+    is_published = job_posting.state == JobPostingState.PUBLIC
     validate_job_posting_step(job_posting, 3)
 
     # do not disable enum conversion as described here:
@@ -60,5 +63,13 @@ def process_job_posting_form_step_3(user, data):
         job_posting.form_step = 4
 
     job_posting.save()
+
+    if not is_published:
+        if job_posting.state == JobPostingState.PUBLIC:
+            job_posting.date_published = datetime.datetime.now()
+            job_posting.save()
+        else:
+            job_posting.date_published = None
+            job_posting.save()
 
     return job_posting

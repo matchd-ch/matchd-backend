@@ -119,11 +119,10 @@ def process_student_form_step_2(user, data):
         student.job_type = None
 
     if student.job_type is not None:
-        if 'job_from_date' in data and data.get('job_from_date', None) is not None:
-            try:
-                process_job_type_form(student, data)
-            except FormException as exception:
-                errors.update(exception.errors)
+        try:
+            process_job_type_form(student, data)
+        except FormException as exception:
+            errors.update(exception.errors)
 
     if errors:
         raise FormException(errors=errors)
