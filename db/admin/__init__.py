@@ -12,3 +12,4 @@ from .cultural_fit import *
 from .topic import *
 from .keyword import *
 from .project_type import *
+from .company import *

@@ -3,8 +3,10 @@ from django.core.validators import RegexValidator
 from django.db import models
 from django.conf import settings
 from django.db.models import Q
+from django.db.models.signals import pre_delete
 from wagtail.search import index
 
+from .attachment import Attachment
 from .profile_type import ProfileType
 from .profile_state import ProfileState
 
@@ -63,3 +65,37 @@ class Company(models.Model, index.Indexed):
             index.FilterField('id'),
         ])
     ]
+
+
+class CompanySignalHandler:
+    @staticmethod
+    def pre_delete(sender, instance, **kwargs):
+        pre_delete.disconnect(CompanySignalHandler.pre_delete, Company,
+                              dispatch_uid='db.models.CompanySignalHandler.pre_delete')
+
+        # employees
+        for user in instance.users.all():
+            user.delete()
+
+        # attachments of project postings
+        project_posting_type = ContentType.objects.get(app_label='db', model='projectposting')
+        for project_posting in instance.project_postings.all():
+            attachments = Attachment.objects.filter(content_type=project_posting_type, object_id=project_posting.id)
+            for attachment in attachments:
+                attachment.attachment_object.delete()
+            attachments.delete()
+
+        # avatars / moods
+        company_type = ContentType.objects.get(app_label='db', model='company')
+        attachments = Attachment.objects.filter(content_type=company_type, object_id=instance.id)
+
+        for attachment in attachments:
+            attachment.attachment_object.delete()
+        attachments.delete()
+
+        pre_delete.connect(CompanySignalHandler.pre_delete, Company,
+                           dispatch_uid='db.models.CompanySignalHandler.pre_delete')
+
+
+pre_delete.connect(CompanySignalHandler.pre_delete, Company,
+                   dispatch_uid='db.models.CompanySignalHandler.pre_delete')

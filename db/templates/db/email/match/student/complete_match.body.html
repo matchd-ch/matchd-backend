@@ -1,2 +1,12 @@
-<p>Match bestätigt.</p>
-<a href="{{ job_posting_url }}">Link zur Stellenausschreibung</a>
+<p>Hey {{ student.first_name }} {{ student.last_name }}</p>
+
+<p>Wir gratulieren! Es hat gematchd zwischen dir und {{ job_posting.employee.user.first_name }} {{ job_posting.employee.user.last_name }}
+    von <a href="{{ company_profile_url }}">{{ job_posting.company.name }}</a>.</p>
+<p>Hier gehts zum <a href="{{ company_profile_url }}">Unternehmensprofil</a> und zur <a href="{{ job_posting_url }}">Stellenausschreibung</a>, wo du alle Angaben findest.</p>
+
+<p>Viel Glück und happy Matching!</p>
+
+<p>Dein Matchd-Team</p>
+
+<p>PS: Du hast Fragen oder Inputs an uns? Dann schreib uns einfach
+zurück. Wir freuen uns über Feedback.</p>

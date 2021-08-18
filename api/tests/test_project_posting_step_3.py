@@ -24,6 +24,7 @@ def _test_step_3(user, employee, company, student, company_project_posting_objec
     company_project_posting_object.company = company
     company_project_posting_object.employee = None
     company_project_posting_object.student = student
+    company_project_posting_object.state = ProjectPostingState.DRAFT
     company_project_posting_object.save()
     data, errors = project_posting_step_3(user, company_project_posting_object.id, ProjectPostingState.PUBLIC, employee)
     assert errors is None
@@ -43,6 +44,7 @@ def _test_step_3(user, employee, company, student, company_project_posting_objec
         assert project_posting.employee is None
         assert project_posting.company is None
     assert project_posting.state == ProjectPostingState.PUBLIC
+    assert project_posting.date_published is not None
     assert project_posting.form_step == 4
 
 

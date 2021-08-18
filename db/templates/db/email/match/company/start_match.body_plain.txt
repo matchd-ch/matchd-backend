@@ -1,3 +1,16 @@
 {% load i18n %}
-Das Talent {{ user.first_name }} {{ user.last_name }} hat die Stelle {{ job_posting.title }} gematchd!
+Hallo {{ job_posting.employee.user.first_name }} {{ job_posting.employee.user.last_name }}
+
+Ihre ausgeschriebene Stelle ({{ job_posting.title }}) stösst auf Interesse.
+
+{{ user.first_name }} {{ user.last_name }} möchte mit Ihnen matchen.
+
+Wir sind gespannt, ob es zum gegenseitigen Matching kommt.
+
+Ihr Matchd-Team
+
+PS: Sie haben Fragen oder Inputs an uns? Dann zögern Sie nicht, uns
+einfach zurückzuschreiben. Wir freuen uns über Feedback.
+
+{{ job_posting_url }}
 {{ student_profile_url }}
