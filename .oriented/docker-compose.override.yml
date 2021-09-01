@@ -1,6 +1,0 @@
-version: '3.8'
-
-services:
-  nginx:
-      labels:
-        - "traefik.http.routers.${TRAEFIK_ROUTER_NAME}.middlewares=dev-whitelist"
