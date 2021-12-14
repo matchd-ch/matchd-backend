@@ -1,6 +1,8 @@
 Matchd Backend
 ==============
 
+[![.github/workflows/ci.yml](https://github.com/matchd-ch/matchd-backend/actions/workflows/ci.yml/badge.svg)](https://github.com/matchd-ch/matchd-backend/actions/workflows/ci.yml)
+
 # Admin GUI
 You can access the Admin gui through <a href="http://api.matchd.lo/admin/"> http://api.matchd.lo/admin </a>. Username is `admin` and password is `admin`.
 
