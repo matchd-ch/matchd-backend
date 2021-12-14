@@ -127,8 +127,12 @@ jobs:
 
     needs: ['test', 'lint']
 
+    permissions:
+      pull-requests: write
+      contents: write
+
     steps:
-      - uses: fastify/github-action-merge-dependabot@v2.4.0
+      - uses: fastify/github-action-merge-dependabot@v3.0.2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           # Major Updates need to be merged manually
