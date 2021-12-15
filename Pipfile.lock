@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "48dd6d605ddd9d07f2aabfc87fa4e76c28dbfd746eed2def27a863df89fd08c7"
+            "sha256": "9e0af1842ee399511114e0971505aa649654aa1d09ed3d80146f7d15c6d6398c"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -363,11 +363,11 @@
         },
         "l18n": {
             "hashes": [
-                "sha256:6906b2041a95b3e05d3cce3654476b6eb917e46617c9aa0de2d0e277621116fb",
-                "sha256:ea7a65b2f0935b14601a3295f2c5e5e8b54126dd1e6a7fef4e44d2b8dd5b695a"
+                "sha256:1956e890d673d17135cc20913253c154f6bc1c00266c22b7d503cc1a5a42d848",
+                "sha256:78495d1df95b6f7dcc694d1ba8994df709c463a1cbac1bf016e1b9a5ce7280b9"
             ],
             "index": "pypi",
-            "version": "==2020.6.1"
+            "version": "==2021.3"
         },
         "lazy-object-proxy": {
             "hashes": [
