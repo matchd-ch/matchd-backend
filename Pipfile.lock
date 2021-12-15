@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "c8f51718ce8c51aaf1b38510cf1209c2e2cacc78ba2755179fae36b46bd9e8e3"
+            "sha256": "b77545b8c27c05c00aad5d1dc077572c4e9fbd553262e092ce5d816989e35ae6"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -686,6 +686,14 @@
             "index": "pypi",
             "version": "==3.0.0"
         },
+        "telepath": {
+            "hashes": [
+                "sha256:801615094d3d964e178183099bf04020f4ff9c84ec43945d40b096df0a5767ee",
+                "sha256:ef4cf2a45ed1908c58639c346756955f8a73ae79002a8116d596b3fd702bf84c"
+            ],
+            "markers": "python_version >= '3.5'",
+            "version": "==0.2"
+        },
         "text-unidecode": {
             "hashes": [
                 "sha256:1311f10e8b895935241623731c2ba64f4c455287888b18189350b67134a822e8",
@@ -720,11 +728,11 @@
         },
         "wagtail": {
             "hashes": [
-                "sha256:4b866d9cfbfb15b0ca4482761afea3b12a1b3a5c5d8834e045cc9aa492decba7",
-                "sha256:93afb1c8c1dae6261ba54a65ceabf7a8d20fe43ae20ceb2ae6956e69aa1963bd"
+                "sha256:6f1bc7960a7028a6e665a0f5a15ef2ba89faad66060bc4b3952a922fbef1713b",
+                "sha256:97eb520db0056d576b698e832de2ecfa3d795e9ed12e4b9ab738623c1b6277a0"
             ],
             "index": "pypi",
-            "version": "==2.12.5"
+            "version": "==2.15.1"
         },
         "wagtailfontawesome": {
             "hashes": [
