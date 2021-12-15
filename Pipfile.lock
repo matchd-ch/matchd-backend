@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "b5cadc1e3f141008a096f9f59e7fe0b05e1c73946ac9691bcaaac452beb5708d"
+            "sha256": "44345fb949405306c1c4f3b0163892177b48bf70334bae7ba08d18fdda4b0d64"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -181,10 +181,11 @@
         },
         "django-graphiql-debug-toolbar": {
             "hashes": [
-                "sha256:946fba21418b3fd57e7e357d4cd110fb7881e08d3b7a0a8a00400fa2e75965f5"
+                "sha256:85bf4e4bdf6b699aa07567bcd28f16454742bf24b3c3334c502bc0be40777777",
+                "sha256:aec7a9e096594123d9fc359a583da794a0020b5391d941dda584ce1e667e0afd"
             ],
             "index": "pypi",
-            "version": "==0.1.4"
+            "version": "==0.2.0"
         },
         "django-graphql-auth": {
             "hashes": [
