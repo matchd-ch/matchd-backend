@@ -1,0 +1,10 @@
+*
+!/api
+!/app
+!/db
+!/static
+!/Pipfile
+!/Pipfile.lock
+!/entrypoint.sh
+!/setup.sh
+!/manage.py
