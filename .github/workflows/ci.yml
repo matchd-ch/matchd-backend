@@ -153,7 +153,7 @@ jobs:
             --tag ghcr.io/${{ github.repository }}:$GITHUB_SHA \
             .
       - run: docker push ghcr.io/${{ github.repository }}:$GITHUB_SHA
-        if: github.event_name == 'push' && steps.branch_name.outputs.SOURCE_BRANCH == 'master'
+        if: github.event_name == 'push' && steps.branch_name.outputs.SOURCE_BRANCH == 'main'
       - run: docker tag ghcr.io/${{ github.repository }}:$GITHUB_SHA ghcr.io/${{ github.repository }}:${{ steps.branch_name.outputs.SOURCE_TAG }}
         if: github.event_name == 'push' && startsWith(steps.branch_name.outputs.SOURCE_TAG, 'v')
       - run: docker push ghcr.io/${{ github.repository }}:${{ steps.branch_name.outputs.SOURCE_TAG }}
