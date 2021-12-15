@@ -2,12 +2,14 @@
 
 set -eux
 
-echo "Reset DB"
-(
-    export DJANGO_DB_NAME=mysql
-    echo "DROP DATABASE IF EXISTS matchd;" | ./manage.py dbshell
-    echo "CREATE DATABASE matchd;" | ./manage.py dbshell
-)
+if [ "${RESET_DB:-true}" = "true" ]; then
+    echo "Reset DB"
+    (
+        export DJANGO_DB_NAME=mysql
+        echo "DROP DATABASE IF EXISTS matchd;" | ./manage.py dbshell
+        echo "CREATE DATABASE matchd;" | ./manage.py dbshell
+    )
+fi
 
 echo "Apply database migrations"
 python ./manage.py migrate
