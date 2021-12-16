@@ -78,7 +78,7 @@ class Random:
         ]
         files = []
         for file_name in file_names:
-            if file_name[0] == '.':
+            if not file_name.lower().endswith(('.png', '.jpg', '.jpeg', '.mp4')):
                 continue
             files.append(file_name)
         return files
