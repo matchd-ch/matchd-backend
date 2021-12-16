@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "94bc25981b93a3697fe74c3c48c42a3a4fa613271bd05f3dc2608b9641192539"
+            "sha256": "14c27404d5c51e7d9067e4b2c077427ab32c7e8bebefe5ad42427dacc9064220"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -224,11 +224,11 @@
         },
         "djangorestframework": {
             "hashes": [
-                "sha256:48e64f08244fa0df9e2b8fbd405edec263d8e1251112a06d0073b546b7c86b9c",
-                "sha256:8b987d5683f5b3553dd946d4972048d3117fc526cb0bc01a3f021e81af53f39e"
+                "sha256:0c33407ce23acc68eca2a6e46424b008c9c02eceb8cf18581921d0092bc1f2ee",
+                "sha256:24c4bf58ed7e85d1fe4ba250ab2da926d263cd57d64b03e8dcef0ac683f8b1aa"
             ],
             "index": "pypi",
-            "version": "==3.13.0"
+            "version": "==3.13.1"
         },
         "draftjs-exporter": {
             "hashes": [
