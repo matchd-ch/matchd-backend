@@ -164,7 +164,7 @@ class Student(BaseSeed):
         name = self.rand.name(gender)
         first_name, last_name = name.split(' ')
         avatar = self.rand.avatar(gender)
-        email = f'student-{index}@matchd.lo'.lower()
+        email = f'student-{index}@matchd.localhost'.lower()
         branch = self.rand.branch()
         street, zip_value, city = self.rand.address()
         cultural_fits = self.rand.cultural_fits()

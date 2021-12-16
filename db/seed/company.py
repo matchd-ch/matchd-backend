@@ -229,11 +229,11 @@ class Company(BaseSeed):
         company_type = kwargs.get('company_type')
         index = kwargs.get('index')
 
-        email = f"dummy-company-{index}-1@matchd.lo"
+        email = f"dummy-company-{index}-1@matchd.localhost"
         role = 'Recruiter'
         slug = f'dummy-company-{index}'
         if company_type == ProfileType.UNIVERSITY:
-            email = f"dummy-university-{index}-1@matchd.lo"
+            email = f"dummy-university-{index}-1@matchd.localhost"
             role = 'Rector'
             slug = f'dummy-university-{index}'
 

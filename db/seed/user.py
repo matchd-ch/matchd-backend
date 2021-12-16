@@ -25,7 +25,7 @@ class User(BaseSeed):
 
     def random(self, *args, **kwargs):
         i = kwargs.get('index')
-        email = f"dummy-student-{str(i)}@matchd.lo"
+        email = f"dummy-student-{str(i)}@matchd.localhost"
         gender = self.rand.gender()
         languages = self.rand.languages()
         name = self.rand.name(gender)
