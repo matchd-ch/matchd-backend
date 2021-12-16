@@ -8,7 +8,8 @@ __pycache__
 .env
 !/static/.gitkeep
 /media/*
-!/media/.gitkeep
+!/media/student_fixtures
+!/media/company_fixtures
 api/data/data.xlsx
 /media_test/*
 !/media_test/.gitkeep
