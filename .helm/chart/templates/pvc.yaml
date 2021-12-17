@@ -1,0 +1,28 @@
+{{- range $storage := .Values.storages }}
+{{- $pvc := $storage.pvc | default dict }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "matchd-frontend.fullname" $ }}-{{ $storage.name }}
+  labels:
+    app.kubernetes.io/name: {{ template "matchd-frontend.name" $ }}
+    app.kubernetes.io/managed-by: {{ $.Release.Service }}
+    app.kubernetes.io/instance: {{ $.Release.Name }}
+    app.kubernetes.io/version: {{ template "matchd-frontend.version" $ }}
+    app.joshmartin.ch/environment: {{ template "matchd-frontend.environment" $ }}
+    helm.sh/chart: {{ template "matchd-frontend.chart" $ }}
+  annotations:
+{{- if $pvc.defaultBucketName }}
+    gcs.csi.ofek.dev/bucket: {{ printf "%s-%s-%s" .Release.Namespace (include "matchd-frontend.fullname" $) $storage.name | trunc 63 | trimSuffix "-" }}
+{{- end }}
+    {{- range $key, $value := $pvc.annotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+spec:
+  storageClassName: {{ $pvc.storageClassName | default "csi-gcs" }}
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: {{ $pvc.size | default "10Gi" }}
+{{- end }}

@@ -1,0 +1,13 @@
+apiVersion: v1
+description: A Helm chart for deploying a simple site
+name: matchd-frontend
+version: 1.0.0
+dependencies:
+  - name: elasticsearch
+    condition: elasticsearch.enabled
+    version: "7.16.1"
+    repository: "https://helm.elastic.co"
+  - name: maildev
+    condition: maildev.enabled
+    version: "1.1.1"
+    repository: "https://cnieg.github.io/helm-charts"
