@@ -5,7 +5,7 @@ except ImportError:
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'test-key'
-BASE_URL = os.getenv('DJANGO_BASE_URL', 'http://api.matchd.localhost:8080')
+BASE_URL = os.getenv('DJANGO_BASE_URL', 'http://api.matchd.localhost:8000')
 
 LOGGING = {
     'version': 1,
@@ -29,6 +29,7 @@ GRAPHQL_AUTH['EMAIL_SUBJECT_PASSWORD_RESET'] = 'db/tests/email/password_reset/su
 GRAPHQL_AUTH['EMAIL_TEMPLATE_PASSWORD_RESET'] = 'db/tests/email/password_reset/body.html'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media_test')
+MEDIA_FIXTURE_ROOT = os.path.join(BASE_DIR, 'media_fixtures')
 MEDIA_URL = '/media_test/'
 
 MATCHING_VALUE_BRANCH = 0

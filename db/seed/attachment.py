@@ -16,8 +16,8 @@ from db.models import Attachment as AttachmentModel, ProfileState, Image, Video,
 # pylint: disable=W0612
 class Attachment(BaseSeed):
 
-    company_fixtures = os.path.join(settings.MEDIA_ROOT, 'company_fixtures')
-    student_fixtures = os.path.join(settings.MEDIA_ROOT, 'student_fixtures')
+    company_fixtures = os.path.join(settings.MEDIA_FIXTURE_ROOT, 'company')
+    student_fixtures = os.path.join(settings.MEDIA_FIXTURE_ROOT, 'student')
 
     content_types = {
         'company': ContentType.objects.get(app_label='db', model='company'),

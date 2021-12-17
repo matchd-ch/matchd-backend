@@ -1,6 +1,6 @@
 # Matchd Backend
 
-[![.github/workflows/ci.yml](https://github.com/matchd-ch/matchd-backend/actions/workflows/ci.yml/badge.svg)](https://github.com/matchd-ch/matchd-backend/actions/workflows/ci.yml)
+[![.github/workflows/branch_main.yml](https://github.com/matchd-ch/matchd-backend/actions/workflows/branch_main.yml/badge.svg)](https://github.com/matchd-ch/matchd-backend/actions/workflows/branch_main.yml)
 
 ## Development Setup
 

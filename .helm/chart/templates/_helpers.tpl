@@ -2,7 +2,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "matchd-frontend.name" -}}
+{{- define "matchd-backend.name" -}}
 {{- default .Chart.Name .Values.name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
@@ -10,7 +10,7 @@ Expand the name of the chart.
 Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
-{{- define "matchd-frontend.fullname" -}}
+{{- define "matchd-backend.fullname" -}}
 {{- if .Values.fullname -}}
 {{- .Values.fullname | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
@@ -23,25 +23,25 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- end -}}
 {{- end -}}
 
-{{- define "matchd-frontend.version" -}}
+{{- define "matchd-backend.version" -}}
 {{- .Values.version | default "Unknown" | trunc 63 -}}
 {{- end -}}
 
-{{- define "matchd-frontend.environment" -}}
+{{- define "matchd-backend.environment" -}}
 {{- .Values.environment | default "Unknown" | trunc 63 -}}
 {{- end -}}
 
 {{/*
 Allow for the ability to override the release name used as a label in many places.
 */}}
-{{- define "matchd-frontend.releaseLabel" -}}
+{{- define "matchd-backend.releaseLabel" -}}
 {{- .Values.releaseLabel | default .Release.Name | trunc 63 -}}
 {{- end -}}
 
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "matchd-frontend.chart" -}}
+{{- define "matchd-backend.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 

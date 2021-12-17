@@ -17,15 +17,15 @@ class Random:
 
     def __init__(self):
         self._gender_data = ['male', 'female']
-        path = os.path.join(settings.MEDIA_ROOT, 'student_fixtures', 'avatars', 'male')
+        path = os.path.join(settings.MEDIA_FIXTURE_ROOT, 'student', 'avatars', 'male')
         self._male_avatars = self._load_files(path)
-        path = os.path.join(settings.MEDIA_ROOT, 'student_fixtures', 'avatars', 'female')
+        path = os.path.join(settings.MEDIA_FIXTURE_ROOT, 'student', 'avatars', 'female')
         self._female_avatars = self._load_files(path)
-        path = os.path.join(settings.MEDIA_ROOT, 'student_fixtures', 'documents')
+        path = os.path.join(settings.MEDIA_FIXTURE_ROOT, 'student', 'documents')
         self._documents = self._load_files(path)
-        path = os.path.join(settings.MEDIA_ROOT, 'company_fixtures', 'moods')
+        path = os.path.join(settings.MEDIA_FIXTURE_ROOT, 'company', 'moods')
         self._moods = self._load_files(path)
-        path = os.path.join(settings.MEDIA_ROOT, 'company_fixtures', 'avatars')
+        path = os.path.join(settings.MEDIA_FIXTURE_ROOT, 'company', 'avatars')
         self._logos = self._load_files(path)
 
         self._branches = list(Branch.objects.all().values_list('id', flat=True))

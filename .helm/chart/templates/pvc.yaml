@@ -3,17 +3,17 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ include "matchd-frontend.fullname" $ }}-{{ $storage.name }}
+  name: {{ include "matchd-backend.fullname" $ }}-{{ $storage.name }}
   labels:
-    app.kubernetes.io/name: {{ template "matchd-frontend.name" $ }}
+    app.kubernetes.io/name: {{ template "matchd-backend.name" $ }}
     app.kubernetes.io/managed-by: {{ $.Release.Service }}
     app.kubernetes.io/instance: {{ $.Release.Name }}
-    app.kubernetes.io/version: {{ template "matchd-frontend.version" $ }}
-    app.joshmartin.ch/environment: {{ template "matchd-frontend.environment" $ }}
-    helm.sh/chart: {{ template "matchd-frontend.chart" $ }}
+    app.kubernetes.io/version: {{ template "matchd-backend.version" $ }}
+    app.joshmartin.ch/environment: {{ template "matchd-backend.environment" $ }}
+    helm.sh/chart: {{ template "matchd-backend.chart" $ }}
   annotations:
 {{- if $pvc.defaultBucketName }}
-    gcs.csi.ofek.dev/bucket: {{ printf "%s-%s-%s" .Release.Namespace (include "matchd-frontend.fullname" $) $storage.name | trunc 63 | trimSuffix "-" }}
+    gcs.csi.ofek.dev/bucket: {{ printf "%s-%s-%s" $.Release.Namespace (include "matchd-backend.fullname" $) $storage.name | trunc 63 | trimSuffix "-" }}
 {{- end }}
     {{- range $key, $value := $pvc.annotations }}
     {{ $key }}: {{ $value | quote }}

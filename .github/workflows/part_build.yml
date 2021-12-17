@@ -1,0 +1,53 @@
+on:
+  workflow_call:
+    outputs:
+      tag:
+        description: "The builded image repository tag"
+        value: "${{jobs.docker_build.outputs.tag }}"
+
+name: "Build"
+
+jobs:
+  docker_build:
+    name: "Docker Build"
+
+    runs-on: ubuntu-latest
+
+    outputs:
+      tag: "${{ steps.branch_name.outputs.SOURCE_TAG }}"
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          lfs: true
+
+      - name: Branch name
+        id: branch_name
+        run: |
+          echo ::set-output name=SOURCE_BRANCH::${GITHUB_REF/refs\/heads\//}
+          echo ::set-output name=SOURCE_TAG::${GITHUB_REF/refs\/tags\//}
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: satackey/action-docker-layer-caching@v0.0.11
+        # Ignore the failure of a step and avoid terminating the job.
+        continue-on-error: true
+        with:
+          key: docker-${{ runner.os }}-${{ hashFiles('Dockerfile') }}-${{ hashFiles('Pipfile.lock') }}
+          restore-keys: |
+            docker-${{ runner.os }}-${{ hashFiles('Dockerfile') }}-
+            docker-${{ runner.os }}-
+            docker-
+      - run: |
+          docker \
+            build \
+            --tag ghcr.io/${{ github.repository }}:$GITHUB_SHA \
+            .
+      - run: docker push ghcr.io/${{ github.repository }}:$GITHUB_SHA
+      - run: docker tag ghcr.io/${{ github.repository }}:$GITHUB_SHA ghcr.io/${{ github.repository }}:${{ steps.branch_name.outputs.SOURCE_TAG }}
+        if: github.event_name == 'push' && startsWith(steps.branch_name.outputs.SOURCE_TAG, 'v')
+      - run: docker push ghcr.io/${{ github.repository }}:${{ steps.branch_name.outputs.SOURCE_TAG }}
+        if: github.event_name == 'push' && startsWith(steps.branch_name.outputs.SOURCE_TAG, 'v')

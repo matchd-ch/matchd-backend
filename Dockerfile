@@ -28,18 +28,24 @@ RUN PIPENV_VENV_IN_PROJECT=1 pipenv install --deploy
 FROM base AS runtime
 
 # Create and switch to a new user
-RUN useradd --create-home appuser
+RUN useradd --create-home appuser --uid 1010
 WORKDIR /home/appuser
-USER appuser
 
 ENV PATH="/home/appuser/.venv/bin:$PATH"
 
 # Run the application
 ENTRYPOINT ["/home/appuser/entrypoint.sh"]
-CMD ["runserver"]
+CMD ["gunicorn", "app.wsgi:application", "--bind", "0.0.0.0:8000"]
 
 # Copy virtual env from python-deps stage
 COPY --from=python-deps /home/appuser/.venv /home/appuser/.venv
 
 # Install application into container
 COPY . .
+
+EXPOSE 8000/tcp
+VOLUME /home/appuser/media
+
+RUN ["python", "/home/appuser/manage.py", "collectstatic", "--noinput"]
+
+USER appuser

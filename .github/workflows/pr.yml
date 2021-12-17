@@ -1,0 +1,24 @@
+on:
+  pull_request:
+    branches:
+      - "*"
+
+name: "Pull Request"
+
+jobs:
+  test:
+    name: "Test"
+
+    uses: matchd-ch/matchd-backend/.github/workflows/part_test.yml@main
+  
+  build:
+    name: "Build"
+
+    uses: matchd-ch/matchd-backend/.github/workflows/part_build.yml@main
+  
+  dependabot:
+    name: "Dependabot"
+
+    needs: ['test', 'build']
+
+    uses: matchd-ch/matchd-backend/.github/workflows/part_dependabot.yml@main

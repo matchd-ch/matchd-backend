@@ -3,14 +3,14 @@
 apiVersion: {{ template "deployment.apiVersion" $ }}
 kind: Deployment
 metadata:
-  name: {{ printf "%s-%s" (include "matchd-frontend.fullname" $) $variantName }}
+  name: {{ printf "%s-%s" (include "matchd-backend.fullname" $) $variantName }}
   labels:
-    app.kubernetes.io/name: {{ template "matchd-frontend.name" $ }}
+    app.kubernetes.io/name: {{ template "matchd-backend.name" $ }}
     app.kubernetes.io/managed-by: {{ $.Release.Service }}
     app.kubernetes.io/instance: {{ $.Release.Name }}
-    app.kubernetes.io/version: {{ template "matchd-frontend.version" $ }}
-    app.matchd.ch/environment: {{ template "matchd-frontend.environment" $ }}
-    helm.sh/chart: {{ template "matchd-frontend.chart" $ }}
+    app.kubernetes.io/version: {{ template "matchd-backend.version" $ }}
+    app.matchd.ch/environment: {{ template "matchd-backend.environment" $ }}
+    helm.sh/chart: {{ template "matchd-backend.chart" $ }}
   {{- if $.Values.deployment.annotations }}
   annotations:
     {{- range $key, $value := $.Values.deployment.annotations }}
@@ -25,23 +25,20 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ template "matchd-frontend.name" $ }}
-      app.matchd.ch/environment: {{ template "matchd-frontend.environment" $ }}
+      app.kubernetes.io/name: {{ template "matchd-backend.name" $ }}
+      app.matchd.ch/environment: {{ template "matchd-backend.environment" $ }}
   replicas: {{ $variant.replicaCount }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ template "matchd-frontend.name" $ }}
+        app.kubernetes.io/name: {{ template "matchd-backend.name" $ }}
         app.kubernetes.io/managed-by: {{ $.Release.Service }}
         app.kubernetes.io/instance: {{ $.Release.Name }}
-        app.kubernetes.io/version: {{ template "matchd-frontend.version" $ }}
-        app.matchd.ch/environment: {{ template "matchd-frontend.environment" $ }}
-        helm.sh/chart: {{ template "matchd-frontend.chart" $ }}
+        app.kubernetes.io/version: {{ template "matchd-backend.version" $ }}
+        app.matchd.ch/environment: {{ template "matchd-backend.environment" $ }}
+        helm.sh/chart: {{ template "matchd-backend.chart" $ }}
       {{- if $.Values.deployment.annotations }}
       annotations:
-        {{- range $key, $value := $.Values.deployment.annotations }}
-        {{ $key }}: {{ $value | quote }}
-        {{- end }}
         {{ range $.Values.storages }}
         {{- if .enableBackup }}
         backup.velero.io/backup-volumes: {{ .name }}
@@ -49,7 +46,6 @@ spec:
         {{- end }}
       {{- end }}
     spec:
-      serviceAccountName: {{ template "matchd-frontend.fullname" $ }}
       imagePullSecrets:
       {{- if $.Values.image.secrets }}
 {{ toYaml $.Values.image.secrets | indent 8 }}
@@ -68,64 +64,55 @@ spec:
                 fieldRef:
                   fieldPath: metadata.namespace
             {{- if $.Values.elasticsearch.enabled }}
-            - name: DJANGO_ELASTIC_SEARCH_URL
-              value: "{{ $.Values.elasticsearch.clusterName}}-{{ $.Values.elasticsearch.nodeGroup}}.svc.cluster.local:{{ $.Values.elasticsearch.httpPort}}"
+            - name: ELASTIC_SEARCH_URL
+              value: "http://{{ $.Values.elasticsearch.clusterName}}-{{ $.Values.elasticsearch.nodeGroup}}.{{ $.Release.Namespace }}.svc.cluster.local:{{ $.Values.elasticsearch.httpPort}}"
             {{- end }}
             {{- if $.Values.maildev.enabled }}
-            - name: DJANGO_EMAIL_HOST
-              value: "{{ include "matchd-frontend.fullname" $ }}-maildev-smtp.svc.cluster.local"
-            - name: DJANGO_EMAIL_PORT
-              value: {{ $.Values.maildev.services.smtp.port }}
+            - name: SMTP_HOST
+              value: "{{ include "matchd-backend.fullname" $ }}-maildev-smtp.{{ $.Release.Namespace }}.svc.cluster.local"
+            - name: SMTP_PORT
+              value: "{{ $.Values.maildev.services.smtp.port }}"
             {{- end }}
             {{- range $key, $variable := $.Values.env -}}
+            {{- if or (and (hasPrefix "ELASTIC_SEARCH_" $key) $.Values.elasticsearch.enabled) (and (hasPrefix "SMTP_" $key) $.Values.maildev.enabled) }}
+            #  {{ $key }} has been skipped
+            {{- else }}
             {{- $envKey := $key | upper | replace "." "_" | replace "-" "_" }}
             - name: {{ $envKey }}
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "matchd-frontend.fullname" $ }}
+                  name: {{ include "matchd-backend.fullname" $ }}
                   key: {{ $envKey }}
             {{- end }}
-          {{- if not (empty $.Values.ingress.hosts) }}
+            {{- end }}
           ports:
-          {{- range $host, $hostDefinition := $.Values.ingress.hosts }}
-            - containerPort: {{ $hostDefinition.port }}
-              name: {{ $hostDefinition.name }}
-          {{- end }}
-          {{- if $.Values.livenessProbe.enabled }}
+            - containerPort: 8000
+              name: http
           livenessProbe:
-            {{- if eq $.Values.livenessProbe.type "httpGet" }}
             httpGet:
-              path: {{ $.Values.livenessProbe.httpGet.path }}
-              port: {{ (first $.Values.ingress.hosts).port }}
-            {{- else if eq $.Values.livenessProbe.type "tcpSocket" }}
-            tcpSocket:
-              port: {{ (first $.Values.ingress.hosts).port }}
-            {{- end }}
-            initialDelaySeconds: {{ $.Values.livenessProbe.initialDelaySeconds }}
-            periodSeconds: {{ $.Values.livenessProbe.periodSeconds }}
-            timeoutSeconds: {{ $.Values.livenessProbe.timeoutSeconds }}
-            successThreshold: {{ $.Values.livenessProbe.successThreshold }}
-            failureThreshold: {{ $.Values.livenessProbe.failureThreshold }}
-          {{- end }}
-          {{- if $.Values.readinessProbe.enabled }}
+              path: /
+              port: 8000
+            initialDelaySeconds: 120
+            periodSeconds: 10
+            timeoutSeconds: 1
+            successThreshold: 1
+            failureThreshold: 2
           readinessProbe:
-            {{- if eq $.Values.readinessProbe.type "httpGet" }}
             httpGet:
-              path: {{ $.Values.readinessProbe.httpGet.path }}
-              port: {{ (first $.Values.ingress.hosts).port }}
-            {{- else if eq $.Values.readinessProbe.type "tcpSocket" }}
-            tcpSocket:
-              port: {{ (first $.Values.ingress.hosts).port }}
-            {{- end }}
-            initialDelaySeconds: {{ $.Values.readinessProbe.initialDelaySeconds }}
-            periodSeconds: {{ $.Values.readinessProbe.periodSeconds }}
-            timeoutSeconds: {{ $.Values.readinessProbe.timeoutSeconds }}
-            successThreshold: {{ $.Values.readinessProbe.successThreshold }}
-            failureThreshold: {{ $.Values.readinessProbe.failureThreshold }}
-          {{- end }}
-          {{- end }}
+              path: /
+              port: 8000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 1
+            successThreshold: 1
+            failureThreshold: 2
           resources:
-{{ toYaml $.Values.resources | indent 12 }}
+            limits:
+              cpu: 1000m
+              memory: 512Mi
+            requests:
+              cpu: 500m
+              memory: 256Mi
           {{- if or (not (empty $.Values.deployment.secretMounts)) (not (empty $.Values.storages)) }}
           volumeMounts:
             {{- range $.Values.deployment.secretMounts }}
@@ -153,11 +140,11 @@ spec:
                     - key: app.kubernetes.io/name
                       operator: In
                       values:
-                        - {{ template "matchd-frontend.name" $ }}
+                        - {{ template "matchd-backend.name" $ }}
                     - key: app.matchd.ch/environment
                       operator: In
                       values:
-                        - {{ template "matchd-frontend.environment" $ }}
+                        - {{ template "matchd-backend.environment" $ }}
       {{- if or (not (empty $.Values.deployment.secretMounts)) (not (empty $.Values.storages)) }}
       volumes:
         {{- range $.Values.deployment.secretMounts }}
@@ -168,7 +155,7 @@ spec:
         {{- range $.Values.storages }}
         - name: {{ .name }}
           persistentVolumeClaim:
-            claimName: {{ include "matchd-frontend.fullname" $ }}-{{ .name }}
+            claimName: {{ include "matchd-backend.fullname" $ }}-{{ .name }}
         {{- end }}
       {{- end }}
 ---

@@ -1,0 +1,203 @@
+on:
+  workflow_call:
+    inputs:
+      namespace:
+        required: true
+        type: string
+      release:
+        required: true
+        type: string
+      environment:
+        required: true
+        type: string
+      regularReplicaCount:
+        default: 1
+        type: number
+      stableReplicaCount:
+        default: 0
+        type: number
+      version:
+        default: "${{ github.sha }}"
+        type: string
+      domain:
+        required: true
+        type: string
+      letsencryptEnabled:
+        type: boolean
+        default: false
+      monitoringEnabled:
+        type: boolean
+        default: false
+      autoscalingEnabled:
+        type: boolean
+        default: false
+      task:
+        type: string
+        default: install
+      dbName:
+        type: string
+        required: true
+      dbHost:
+        type: string
+        required: true
+      dbUser:
+        type: string
+        required: true
+      csrfCookieDomain:
+        type: string
+        required: true
+      settingsModule:
+        type: string
+        required: true
+      senderEmail:
+        type: string
+        required: true
+      emailSubjectPrefix:
+        type: string
+        default: ''
+      smtpRelay:
+        type: string
+        required: true
+      smtpPort:
+        type: number
+        default: 2525
+      frontendUrl:
+        type: string
+        required: true
+      dataProtectionUrl:
+        type: string
+        required: true
+      resetDb:
+        type: boolean
+        default: true
+    secrets:
+      DOCKER_PULL_USERNAME:
+        required: true
+      DOCKER_PULL_SECRET:
+        required: true
+      DB_PASSWORD:
+        required: true
+      SECRET_KEY:
+        required: true
+      SMTP_USER:
+        required: true
+      SMTP_PASSWORD:
+        required: true
+
+jobs:
+  deploy_review:
+    name: "Helm"
+
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - uses: google-github-actions/setup-gcloud@v0.3.0
+        with:
+          project_id: "joshmartin-cluster"
+
+      - name: 'Prepare Helm Chart'
+        run: helm dependency update .helm/chart/
+
+      - id: 'auth'
+        name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v0.4.3'
+        with:
+          workload_identity_provider: 'projects/182803428686/locations/global/workloadIdentityPools/github/providers/github'
+          service_account: 'matchd-deployer@joshmartin-cluster.iam.gserviceaccount.com'
+
+      - id: 'get-credentials'
+        uses: 'google-github-actions/get-gke-credentials@v0.5.0'
+        with:
+          cluster_name: 'joshmartin-cluster'
+          location: 'europe-west6-a'
+
+      - name: 'Create Pull Secret'
+        if: ${{ inputs.task != 'remove' }}
+        run: |
+          kubectl create secret --namespace="${{ inputs.namespace }}" \
+            docker-registry \
+            "${{ inputs.release }}-pull" \
+            --docker-server="ghcr.io" \
+            --docker-username="${{ secrets.DOCKER_PULL_USERNAME }}" \
+            --docker-password="${{ secrets.DOCKER_PULL_SECRET }}" \
+            --output=yaml \
+            --dry-run=client \
+            | kubectl \
+              replace \
+              --namespace="${{ inputs.namespace }}" \
+              --force \
+              --filename=-
+
+      - name: 'Deploy'
+        uses: 'deliverybot/helm@v1'
+        with:
+          task: '${{ inputs.task }}'
+          release: '${{ inputs.release }}'
+          namespace: '${{ inputs.namespace }}'
+          helm: helm3
+          version: '${{ inputs.version }}'
+          chart: '.helm/chart'
+          token: '${{ github.token }}'
+          values: |
+            storages:
+              - name: media
+                enableBackup: false
+                mountPath: /home/appuser/media
+                pvc:
+                  defaultBucketName: true
+                  size: 25Gi
+                  storageClassName: csi-gcs
+                  annotations:
+                    gcs.csi.ofek.dev/uid: "1010"
+                    gcs.csi.ofek.dev/gid: "1010"
+                    gcs.csi.ofek.dev/limit-ops-per-sec: "1000"
+            deployment:
+              variants:
+                regular:
+                  replicaCount: ${{ inputs.regularReplicaCount }}
+                  autoscaling:
+                    enabled: ${{ inputs.autoscalingEnabled }}
+                stable:
+                  replicaCount: ${{ inputs.stableReplicaCount }}
+                  autoscaling:
+                    enabled: ${{ inputs.autoscalingEnabled }}
+            version: ${{ inputs.version }}
+            environment: ${{ inputs.environment }}
+            name: ${{ inputs.release }}
+            image:
+              repository: ghcr.io/${{ github.repository }}
+              tag: ${{ inputs.version }}
+              secrets:
+                - name: "${{ inputs.release }}-pull"
+            ingress:
+              domain: ${{ inputs.domain }}
+              letsencrypt: ${{ inputs.letsencryptEnabled }}
+              monitoring: ${{ inputs.monitoringEnabled }}
+            env:
+              DJANGO_SETTINGS_MODULE: '${{ inputs.settingsModule }}'
+              DB_HOST: '${{ inputs.dbHost }}'
+              DB_PORT: '3306'
+              DB_USER: '${{ inputs.dbUser }}'
+              DB_PASSWORD: '${{ secrets.DB_PASSWORD }}'
+              DB_NAME: '${{ inputs.dbName }}'
+              EMAIL_SENDER: '${{ inputs.senderEmail }}'
+              SMTP_HOST: '${{ inputs.smtpRelay }}'
+              SMTP_PORT: '${{ inputs.smtpPort }}'
+              SMTP_HOST_PASSWORD: '${{ secrets.SMTP_PASSWORD }}'
+              SMTP_HOST_USER: '${{ secrets.SMTP_USER }}'
+              EMAIL_SUBJECT_PREFIX: '${{ inputs.emailSubjectPrefix }}'
+              DJANGO_BASE_URL: 'https://${{ inputs.domain }}/'
+              GRAPHIQL_ENABLED: 'true'
+              FRONTEND_URL: '${{ inputs.frontendUrl }}'
+              APP_DOMAIN: '${{ inputs.domain }}'
+              APP_CSRF_COOKIE_DOMAIN: '${{ inputs.csrfCookieDomain }}'
+              WAGTAIL_SITE_NAME: 'MATCHD - ${{ inputs.environment }}'
+              SECRET_KEY: '${{ secrets.SECRET_KEY }}'
+              DATA_PROTECTION_URL: '${{ inputs.dataProtectionUrl }}'
+              RESET_DB: '${{ inputs.resetDb }}'

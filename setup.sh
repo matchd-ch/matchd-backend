@@ -4,18 +4,23 @@ set -eux
 
 if [ "${RESET_DB:-true}" = "true" ]; then
     echo "Reset DB"
+    DB_NAME_BEFORE="$DB_NAME"
     (
-        export DJANGO_DB_NAME=mysql
-        echo "DROP DATABASE IF EXISTS matchd;" | ./manage.py dbshell
-        echo "CREATE DATABASE matchd;" | ./manage.py dbshell
+        export DB_NAME=mysql
+        echo "DROP DATABASE IF EXISTS \`${DB_NAME_BEFORE}\`;" | ./manage.py dbshell
+        echo "CREATE DATABASE \`${DB_NAME_BEFORE}\`;" | ./manage.py dbshell
     )
 fi
 
 echo "Apply database migrations"
 python ./manage.py migrate
 
-echo "Collect static files"
-python ./manage.py collectstatic --noinput
+if [ -w "static" ]; then
+    echo "Collect static files"
+    python ./manage.py collectstatic --noinput
+else
+    echo "static not writable, skipping collectstatic"
+fi
 
 echo "Load initial data"
 ./manage.py load_initial_data

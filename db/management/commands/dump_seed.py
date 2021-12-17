@@ -84,11 +84,11 @@ class Command(BaseCommand):
 
     def get_attachments_for_company(self, company):
         content_type = ContentType.objects.get(app_label='db', model='company')
-        return self.get_attachments(content_type, company.id, 'company_fixtures', company.slug == 'liip-ag')
+        return self.get_attachments(content_type, company.id, 'company', company.slug == 'liip-ag')
 
     def get_attachments_for_student(self, student):
         content_type = ContentType.objects.get(app_label='db', model='student')
-        return self.get_attachments(content_type, student.id, 'student_fixtures')
+        return self.get_attachments(content_type, student.id, 'student')
 
     def get_attachments(self, content_type, object_id, directory, is_liip=False):
         attachments = Attachment.objects.filter(content_type_id=content_type.id, object_id=object_id)
@@ -115,7 +115,7 @@ class Command(BaseCommand):
                 path = 'liip'
 
             # do not dump files for now
-            # fixtures_path = os.path.join(settings.MEDIA_ROOT, directory)
+            # fixtures_path = os.path.join(settings.MEDIA_FIXTURE_ROOT, directory)
             # media_path = os.path.join(settings.MEDIA_ROOT)
             # destination_path = os.path.join(fixtures_path, path, file_name)
             # source_path = os.path.join(media_path, file_path)

@@ -49,7 +49,7 @@ A safe slug for the environment (eg. `production`)
 
 #### `MATCHD_DEPLOYMENT_NAME`
 
-A name for the deployment (eg. `matchd-frontend-production`).
+A name for the deployment (eg. `matchd-backend-production`).
 
 #### `MATCHD_DEPLOYMENT_VERSION`
 

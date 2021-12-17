@@ -1,12 +1,7 @@
 on:
-  pull_request:
-    branches:
-      - '*'
-  push:
-    branches:
-      - 'main'
-    tags:
-      - 'v*'
+  workflow_call: {}
+
+name: "Test"
 
 # Secrets:
 # * CACHE_VERSION - Set to `date +%s`, set new when the cache should be busted
@@ -78,12 +73,12 @@ jobs:
         run: |
           pipenv run test -svvv
         env:
-          DJANGO_DB_HOST: '127.0.0.1'
-          DJANGO_DB_PORT: '3306'
-          DJANGO_DB_NAME: 'matchd'
-          DJANGO_DB_USER: 'root'
-          DJANGO_DB_PW: 'matchd'
-          DJANGO_ELASTIC_SEARCH_URL: 'http://127.0.0.1:9200'
+          DB_HOST: '127.0.0.1'
+          DB_PORT: '3306'
+          DB_NAME: 'matchd'
+          DB_USER: 'root'
+          DB_PASSWORD: 'matchd'
+          ELASTIC_SEARCH_URL: 'http://127.0.0.1:9200'
 
   seeds:
     name: "Test Seeds"
@@ -149,12 +144,12 @@ jobs:
         run: |
           pipenv run setup
         env:
-          DJANGO_DB_HOST: '127.0.0.1'
-          DJANGO_DB_PORT: '3306'
-          DJANGO_DB_NAME: 'matchd'
-          DJANGO_DB_USER: 'root'
-          DJANGO_DB_PW: 'matchd'
-          DJANGO_ELASTIC_SEARCH_URL: 'http://127.0.0.1:9200'
+          DB_HOST: '127.0.0.1'
+          DB_PORT: '3306'
+          DB_NAME: 'matchd'
+          DB_USER: 'root'
+          DB_PASSWORD: 'matchd'
+          ELASTIC_SEARCH_URL: 'http://127.0.0.1:9200'
   
   lint:
     name: "Lint"
@@ -190,61 +185,3 @@ jobs:
       - name: Run linter
         run: |
           pipenv run lint
-
-  docker_build:
-    name: "Docker Build"
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-      - name: Branch name
-        id: branch_name
-        run: |
-          echo ::set-output name=SOURCE_BRANCH::${GITHUB_REF/refs\/heads\//}
-          echo ::set-output name=SOURCE_TAG::${GITHUB_REF/refs\/tags\//}
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - uses: satackey/action-docker-layer-caching@v0.0.11
-        # Ignore the failure of a step and avoid terminating the job.
-        continue-on-error: true
-        with:
-          key: docker-${{ runner.os }}-${{ hashFiles('Dockerfile') }}-${{ hashFiles('Pipfile.lock') }}
-          restore-keys: |
-            docker-${{ runner.os }}-${{ hashFiles('Dockerfile') }}-
-            docker-${{ runner.os }}-
-            docker-
-      - run: |
-          docker \
-            build \
-            --tag ghcr.io/${{ github.repository }}:$GITHUB_SHA \
-            .
-      - run: docker push ghcr.io/${{ github.repository }}:$GITHUB_SHA
-        if: github.event_name == 'push' && steps.branch_name.outputs.SOURCE_BRANCH == 'main'
-      - run: docker tag ghcr.io/${{ github.repository }}:$GITHUB_SHA ghcr.io/${{ github.repository }}:${{ steps.branch_name.outputs.SOURCE_TAG }}
-        if: github.event_name == 'push' && startsWith(steps.branch_name.outputs.SOURCE_TAG, 'v')
-      - run: docker push ghcr.io/${{ github.repository }}:${{ steps.branch_name.outputs.SOURCE_TAG }}
-        if: github.event_name == 'push' && startsWith(steps.branch_name.outputs.SOURCE_TAG, 'v')
-
-
-  automerge_dependabot:
-    name: "Automerge Dependabot PRs"
-
-    runs-on: ubuntu-latest
-
-    needs: ['test', 'lint', 'docker_build', 'seeds']
-
-    permissions:
-      pull-requests: write
-      contents: write
-
-    steps:
-      - uses: fastify/github-action-merge-dependabot@v3.0.2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          # Major Updates need to be merged manually
-          target: minor

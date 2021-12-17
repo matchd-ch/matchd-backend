@@ -108,11 +108,11 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {'charset': 'utf8mb4'},
-        'NAME': os.getenv('DJANGO_DB_NAME', ''),
-        'USER': os.getenv('DJANGO_DB_USER', ''),
-        'PASSWORD': os.getenv('DJANGO_DB_PW', ''),
-        'HOST': os.getenv('DJANGO_DB_HOST', ''),
-        'PORT': os.getenv('DJANGO_DB_PORT', ''),
+        'NAME': os.getenv('DB_NAME', ''),
+        'USER': os.getenv('DB_USER', ''),
+        'PASSWORD': os.getenv('DB_PASSWORD', ''),
+        'HOST': os.getenv('DB_HOST', ''),
+        'PORT': os.getenv('DB_PORT', ''),
     }
 }
 
@@ -162,17 +162,18 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_FIXTURE_ROOT = os.path.join(BASE_DIR, 'media_fixtures')
 MEDIA_URL = '/media/'
 
 # E-Mail Settings
-DEFAULT_FROM_EMAIL = os.getenv('DJANGO_EMAIL', '')
-EMAIL_HOST = os.getenv('DJANGO_EMAIL_HOST', '')
-EMAIL_PORT = os.getenv('DJANGO_EMAIL_PORT', '')
-EMAIL_HOST_PASSWORD = os.getenv('DJANGO_EMAIL_HOST_PASSWORD', '')
-EMAIL_HOST_USER = os.getenv('DJANGO_EMAIL_HOST_USER', '')
-EMAIL_USE_SSL = os.getenv('DJANGO_EMAIL_USE_SSL', False)
-EMAIL_USE_TLS = os.getenv('DJANGO_EMAIL_USE_TLS', True)
-EMAIL_SUBJECT_PREFIX = os.getenv('DJANGO_EMAIL_SUBJECT_PREFIX', '')
+DEFAULT_FROM_EMAIL = os.getenv('EMAIL_SENDER', '')
+EMAIL_HOST = os.getenv('SMTP_HOST', '')
+EMAIL_PORT = os.getenv('SMTP_PORT', '')
+EMAIL_HOST_PASSWORD = os.getenv('SMTP_HOST_PASSWORD', '')
+EMAIL_HOST_USER = os.getenv('SMTP_HOST_USER', '')
+EMAIL_USE_SSL = os.getenv('SMTP_USE_SSL', False)
+EMAIL_USE_TLS = os.getenv('SMTP_USE_TLS', True)
+EMAIL_SUBJECT_PREFIX = os.getenv('EMAIL_SUBJECT_PREFIX', '')
 USER_REQUEST_FORM_RECIPIENTS = [
     recipient.strip() for recipient in os.getenv('USER_REQUEST_FORM_RECIPIENTS', f'{DEFAULT_FROM_EMAIL}').split(',')
 ]
@@ -194,11 +195,11 @@ DATA_PROTECTION_URL = os.getenv('DATA_PROTECTION_URL', '')
 WAGTAIL_SITE_NAME = os.getenv('WAGTAIL_SITE_NAME', 'MATCHD')
 
 # Prefix Index to allow for ressource sharing
-INDEX_PREFIX = os.getenv('DJANGO_ELASTIC_INDEX_PREFIX', 'local').replace('-', '_')
+INDEX_PREFIX = os.getenv('ELASTIC_INDEX_PREFIX', 'local').replace('-', '_')
 
 
 def get_elasticsearch_url():
-    url = os.getenv('DJANGO_ELASTIC_SEARCH_URL', '')
+    url = os.getenv('ELASTIC_SEARCH_URL', '')
     protocol = 'http'
     port = ''
     if url and url != '':
@@ -209,8 +210,8 @@ def get_elasticsearch_url():
     if port and port != '':
         port = f':{port}'
 
-    user = os.getenv('DJANGO_ELASTIC_SEARCH_USER', '')
-    password = os.getenv('DJANGO_ELASTIC_SEARCH_PASSWORD', '')
+    user = os.getenv('ELASTIC_SEARCH_USER', '')
+    password = os.getenv('ELASTIC_SEARCH_PASSWORD', '')
 
     elasticsearch_url = ''
     if user and user != '' and password and password != '':
@@ -264,7 +265,7 @@ APP_DOMAIN = os.getenv('APP_DOMAIN')
 
 AUTH_USER_MODEL = 'db.User'
 
-GRAPHIQL_ENABLED = os.getenv('DJANGO_GRAPHIQL_ENABLED', False)
+GRAPHIQL_ENABLED = os.getenv('GRAPHIQL_ENABLED', False)
 
 # Graphene Settings
 GRAPHENE = {
