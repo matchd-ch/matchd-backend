@@ -13,7 +13,7 @@ ALLOWED_HOSTS = ['*']
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_SSL = os.getenv('DJANGO_EMAIL_USE_SSL', False)
 EMAIL_USE_TLS = os.getenv('DJANGO_EMAIL_USE_TLS', False)
-BASE_URL = os.getenv('DJANGO_BASE_URL', 'http://api.matchd.lo:8080')
+BASE_URL = os.getenv('DJANGO_BASE_URL', 'http://api.matchd.localhost:8080')
 
 INSTALLED_APPS += [
     'debug_toolbar',
@@ -44,7 +44,7 @@ GRAPHQL_JWT.update({
 })
 
 
-CSRF_COOKIE_DOMAIN = os.getenv('APP_CSRF_COOKIE_DOMAIN', '.matchd.lo')
+CSRF_COOKIE_DOMAIN = os.getenv('APP_CSRF_COOKIE_DOMAIN', '.matchd.localhost')
 
 # noinspection HttpUrlsUsage
 FRONTEND_URL_PROTOCOL = 'http://'

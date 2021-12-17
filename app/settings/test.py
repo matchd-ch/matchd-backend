@@ -5,7 +5,7 @@ except ImportError:
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'test-key'
-BASE_URL = os.getenv('DJANGO_BASE_URL', 'http://api.matchd.lo:8080')
+BASE_URL = os.getenv('DJANGO_BASE_URL', 'http://api.matchd.localhost:8080')
 
 LOGGING = {
     'version': 1,
@@ -19,7 +19,7 @@ USER_REQUEST_FORM_RECIPIENTS = [
     recipient.strip() for recipient in 'recipient1@matchd.ch, recipient2@matchd.ch'.split(',')
 ]
 
-DATA_PROTECTION_URL = os.getenv('DATA_PROTECTION_URL', 'app.matchd.lo/datenschutz')
+DATA_PROTECTION_URL = os.getenv('DATA_PROTECTION_URL', 'app.matchd.localhost/datenschutz')
 
 GRAPHQL_AUTH['EMAIL_TEMPLATE_VARIABLES']['email_subject_prefix'] = EMAIL_SUBJECT_PREFIX
 GRAPHQL_AUTH['EMAIL_TEMPLATE_VARIABLES']['data_protection_url'] = DATA_PROTECTION_URL

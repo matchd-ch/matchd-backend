@@ -266,7 +266,7 @@ class Command(BaseCommand):
             elif user.type in ProfileType.valid_company_types():
                 state = user.company.state
                 if user.company.state in (ProfileState.PUBLIC, ProfileState.ANONYMOUS) \
-                        and user.email != 'company-public@matchd.lo':
+                        and user.email != 'company-public@matchd.localhost':
                     attachments = 'yes'
 
             line = f'| {user.type} | {user.email} | asdf1234$ | {nickname} | {state} | {attachments} |'
