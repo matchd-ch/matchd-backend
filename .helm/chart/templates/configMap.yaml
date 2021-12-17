@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "matchd-frontend.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ template "matchd-frontend.name" .}}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/version: {{ template "matchd-frontend.version" .}}
+    app.matchd.ch/environment: {{ template "matchd-frontend.environment" .}}
+    helm.sh/chart: {{ template "matchd-frontend.chart" .}}
+data:
+  {{- range $key, $variable := .Values.env -}}
+  {{- $envKey := $key | upper | replace "." "_" | replace "-" "_" }}
+  # See https://github.com/kubernetes/helm/issues/1707
+  {{ $envKey }}: {{ $variable | toString | replace "str#" "" | quote }}
+  {{- end }}

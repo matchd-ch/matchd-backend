@@ -1,0 +1,31 @@
+{{- if not (empty $.Values.ingress.hosts) }}
+{{- $ports := dict -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "matchd-frontend.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ template "matchd-frontend.name" .}}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/version: {{ template "matchd-frontend.version" .}}
+    app.matchd.ch/environment: {{ template "matchd-frontend.environment" .}}
+    helm.sh/chart: {{ template "matchd-frontend.chart" .}}
+spec:
+  type: ClusterIP
+  ports:
+  {{- range $host, $hostDefinition := .Values.ingress.hosts }}
+  {{- if hasKey $ports (toString $hostDefinition.port) }}
+  # Duplicate Port {{ $hostDefinition.port }} / {{ $hostDefinition.name }}
+  # already used by {{ get $ports (toString $hostDefinition.port) }}, ignoring
+  {{- else }}
+  - port: {{ $hostDefinition.port }}
+    name: {{ $hostDefinition.name }}
+    protocol: TCP
+  {{- $_ := set $ports (toString $hostDefinition.port) $hostDefinition.name -}}
+  {{- end }}
+  {{- end }}
+  selector:
+    app.kubernetes.io/name: {{ template "matchd-frontend.name" .}}
+    app.matchd.ch/environment: {{ template "matchd-frontend.environment" .}}
+{{- end -}}

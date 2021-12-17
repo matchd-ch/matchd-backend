@@ -1,0 +1,47 @@
+{{- range $variantName, $variant := .Values.deployment.variants -}}
+{{- if $variant -}}
+{{ if and $variant.autoscaling.enabled (not (empty $variant.replicaCount)) }}
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ printf "%s-%s" (include "matchd-frontend.fullname" $) $variantName }}
+  labels:
+    app.kubernetes.io/name: {{ template "matchd-frontend.name" $ }}
+    app.kubernetes.io/managed-by: {{ $.Release.Service }}
+    app.kubernetes.io/instance: {{ $.Release.Name }}
+    app.kubernetes.io/version: {{ template "matchd-frontend.version" $ }}
+    app.matchd.ch/environment: {{ template "matchd-frontend.environment" $ }}
+    helm.sh/chart: {{ template "matchd-frontend.chart" $ }}
+spec:
+  scaleTargetRef:
+    apiVersion: {{ template "deployment.apiVersion" $ }}
+    kind: Deployment
+    name: {{ printf "%s-%s" (include "matchd-frontend.fullname" $) $variantName }}
+  {{- if $variant.autoscaling.enabled }}
+  minReplicas: {{ $variant.autoscaling.minReplicas | default $variant.replicaCount }}
+  maxReplicas: {{ $variant.autoscaling.maxReplicas | default (mul $variant.replicaCount 3) }}
+  {{- else }}
+  minReplicas: {{ $variant.replicaCount }}
+  maxReplicas: {{ $variant.replicaCount }}
+  {{- end }}
+  metrics:
+    {{ if hasKey $variant.autoscaling "metrics" -}}
+{{ toYaml $variant.autoscaling.metrics | indent 4 }}
+    {{ else -}}
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: {{ $variant.autoscaling.targetCPUUtilizationPercentage | default 75 }}
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: {{ $variant.autoscaling.targetMemoryUtilizationPercentage | default 75 }}
+    {{- end }}
+---
+{{ end }}
+{{- end }}
+{{- end }}

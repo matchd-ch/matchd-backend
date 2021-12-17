@@ -1,0 +1,50 @@
+{{- if not (empty $.Values.ingress.hosts) }}
+{{- if $.Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ template "matchd-frontend.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ template "matchd-frontend.name" .}}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/version: {{ template "matchd-frontend.version" .}}
+    app.matchd.ch/environment: {{ template "matchd-frontend.environment" .}}
+    helm.sh/chart: {{ template "matchd-frontend.chart" .}}
+  annotations:
+    {{- range $key, $value := .Values.ingress.annotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+{{- if .Values.ingress.letsencrypt }}
+    cert-manager.io/acme-http01-edit-in-place: 'false'
+    cert-manager.io/cluster-issuer: letsencrypt-production
+{{- end }}
+{{- if .Values.ingress.monitoring }}
+    monitor.stakater.com/enabled: 'true'
+    monitor.stakater.com/overridePath: /
+{{- end }}
+spec:
+  tls:
+    - hosts:
+      {{- range $hostDefinition := .Values.ingress.hosts }}
+        - {{ $hostDefinition.host }}
+      {{- end }}
+      {{- if .Values.ingress.tlsSecretName }}
+      secretName: {{ .Values.ingress.tlsSecretName }}
+      {{- end }}
+  rules:
+    {{- range $hostDefinition := .Values.ingress.hosts }}
+    {{- if not $hostDefinition.tlsOnly | default false }}
+    - host: {{ $hostDefinition.host }}
+      http:
+        paths:
+          - path: /
+            backend:
+              service:
+                name: {{ include "matchd-frontend.fullname" $ }}
+                port:
+                  number: {{ $hostDefinition.port }}
+    {{- end -}}
+    {{- end -}}
+{{- end -}}
+{{- end -}}

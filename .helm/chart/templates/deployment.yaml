@@ -1,0 +1,176 @@
+{{- range $variantName, $variant := .Values.deployment.variants -}}
+{{- if $variant -}}
+apiVersion: {{ template "deployment.apiVersion" $ }}
+kind: Deployment
+metadata:
+  name: {{ printf "%s-%s" (include "matchd-frontend.fullname" $) $variantName }}
+  labels:
+    app.kubernetes.io/name: {{ template "matchd-frontend.name" $ }}
+    app.kubernetes.io/managed-by: {{ $.Release.Service }}
+    app.kubernetes.io/instance: {{ $.Release.Name }}
+    app.kubernetes.io/version: {{ template "matchd-frontend.version" $ }}
+    app.matchd.ch/environment: {{ template "matchd-frontend.environment" $ }}
+    helm.sh/chart: {{ template "matchd-frontend.chart" $ }}
+  {{- if $.Values.deployment.annotations }}
+  annotations:
+    {{- range $key, $value := $.Values.deployment.annotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+    {{- range $.Values.storages }}
+    {{- if .enableBackup }}
+    backup.velero.io/backup-volumes: {{ .name }}
+    {{- end }}
+    {{- end }}
+  {{- end }}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ template "matchd-frontend.name" $ }}
+      app.matchd.ch/environment: {{ template "matchd-frontend.environment" $ }}
+  replicas: {{ $variant.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ template "matchd-frontend.name" $ }}
+        app.kubernetes.io/managed-by: {{ $.Release.Service }}
+        app.kubernetes.io/instance: {{ $.Release.Name }}
+        app.kubernetes.io/version: {{ template "matchd-frontend.version" $ }}
+        app.matchd.ch/environment: {{ template "matchd-frontend.environment" $ }}
+        helm.sh/chart: {{ template "matchd-frontend.chart" $ }}
+      {{- if $.Values.deployment.annotations }}
+      annotations:
+        {{- range $key, $value := $.Values.deployment.annotations }}
+        {{ $key }}: {{ $value | quote }}
+        {{- end }}
+        {{ range $.Values.storages }}
+        {{- if .enableBackup }}
+        backup.velero.io/backup-volumes: {{ .name }}
+        {{- end }}
+        {{- end }}
+      {{- end }}
+    spec:
+      serviceAccountName: {{ template "matchd-frontend.fullname" $ }}
+      imagePullSecrets:
+      {{- if $.Values.image.secrets }}
+{{ toYaml $.Values.image.secrets | indent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ $.Chart.Name }}
+          image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
+          imagePullPolicy: {{ $.Values.image.pullPolicy }}
+          env:
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: KUBERNETES_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            {{- if $.Values.elasticsearch.enabled }}
+            - name: DJANGO_ELASTIC_SEARCH_URL
+              value: "{{ $.Values.elasticsearch.clusterName}}-{{ $.Values.elasticsearch.nodeGroup}}.svc.cluster.local:{{ $.Values.elasticsearch.httpPort}}"
+            {{- end }}
+            {{- if $.Values.maildev.enabled }}
+            - name: DJANGO_EMAIL_HOST
+              value: "{{ include "matchd-frontend.fullname" $ }}-maildev-smtp.svc.cluster.local"
+            - name: DJANGO_EMAIL_PORT
+              value: {{ $.Values.maildev.services.smtp.port }}
+            {{- end }}
+            {{- range $key, $variable := $.Values.env -}}
+            {{- $envKey := $key | upper | replace "." "_" | replace "-" "_" }}
+            - name: {{ $envKey }}
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "matchd-frontend.fullname" $ }}
+                  key: {{ $envKey }}
+            {{- end }}
+          {{- if not (empty $.Values.ingress.hosts) }}
+          ports:
+          {{- range $host, $hostDefinition := $.Values.ingress.hosts }}
+            - containerPort: {{ $hostDefinition.port }}
+              name: {{ $hostDefinition.name }}
+          {{- end }}
+          {{- if $.Values.livenessProbe.enabled }}
+          livenessProbe:
+            {{- if eq $.Values.livenessProbe.type "httpGet" }}
+            httpGet:
+              path: {{ $.Values.livenessProbe.httpGet.path }}
+              port: {{ (first $.Values.ingress.hosts).port }}
+            {{- else if eq $.Values.livenessProbe.type "tcpSocket" }}
+            tcpSocket:
+              port: {{ (first $.Values.ingress.hosts).port }}
+            {{- end }}
+            initialDelaySeconds: {{ $.Values.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ $.Values.livenessProbe.periodSeconds }}
+            timeoutSeconds: {{ $.Values.livenessProbe.timeoutSeconds }}
+            successThreshold: {{ $.Values.livenessProbe.successThreshold }}
+            failureThreshold: {{ $.Values.livenessProbe.failureThreshold }}
+          {{- end }}
+          {{- if $.Values.readinessProbe.enabled }}
+          readinessProbe:
+            {{- if eq $.Values.readinessProbe.type "httpGet" }}
+            httpGet:
+              path: {{ $.Values.readinessProbe.httpGet.path }}
+              port: {{ (first $.Values.ingress.hosts).port }}
+            {{- else if eq $.Values.readinessProbe.type "tcpSocket" }}
+            tcpSocket:
+              port: {{ (first $.Values.ingress.hosts).port }}
+            {{- end }}
+            initialDelaySeconds: {{ $.Values.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ $.Values.readinessProbe.periodSeconds }}
+            timeoutSeconds: {{ $.Values.readinessProbe.timeoutSeconds }}
+            successThreshold: {{ $.Values.readinessProbe.successThreshold }}
+            failureThreshold: {{ $.Values.readinessProbe.failureThreshold }}
+          {{- end }}
+          {{- end }}
+          resources:
+{{ toYaml $.Values.resources | indent 12 }}
+          {{- if or (not (empty $.Values.deployment.secretMounts)) (not (empty $.Values.storages)) }}
+          volumeMounts:
+            {{- range $.Values.deployment.secretMounts }}
+            - name: {{ .name }}
+              mountPath: {{ .mountPath }}
+              readOnly: true
+            {{- end }}
+            {{- range $.Values.storages }}
+            - name: {{ .name }}
+              mountPath: {{ .mountPath }}
+            {{- end }}
+          {{- end }}
+      affinity:
+{{- if $variant.nodeAffinity }}
+        nodeAffinity:
+{{ toYaml $variant.nodeAffinity | indent 10 }}
+{{- end }}
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                topologyKey: "kubernetes.io/hostname"
+                labelSelector:
+                  matchExpressions:
+                    - key: app.kubernetes.io/name
+                      operator: In
+                      values:
+                        - {{ template "matchd-frontend.name" $ }}
+                    - key: app.matchd.ch/environment
+                      operator: In
+                      values:
+                        - {{ template "matchd-frontend.environment" $ }}
+      {{- if or (not (empty $.Values.deployment.secretMounts)) (not (empty $.Values.storages)) }}
+      volumes:
+        {{- range $.Values.deployment.secretMounts }}
+        - name: {{ .name }}
+          secret:
+            secretName: {{ .name }}
+        {{- end }}
+        {{- range $.Values.storages }}
+        - name: {{ .name }}
+          persistentVolumeClaim:
+            claimName: {{ include "matchd-frontend.fullname" $ }}-{{ .name }}
+        {{- end }}
+      {{- end }}
+---
+{{- end }}
+{{- end }}
