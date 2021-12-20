@@ -84,6 +84,8 @@ on:
       SMTP_PASSWORD:
         required: true
 
+name: "Deploy"
+
 jobs:
   deploy_review:
     name: "Helm"
