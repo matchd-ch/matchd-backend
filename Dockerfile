@@ -35,7 +35,7 @@ ENV PATH="/home/appuser/.venv/bin:$PATH"
 
 # Run the application
 ENTRYPOINT ["/home/appuser/entrypoint.sh"]
-CMD ["gunicorn", "app.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["gunicorn", "app.wsgi:application", "--bind", "0.0.0.0:8000", "--access-logfile", "-"]
 
 # Copy virtual env from python-deps stage
 COPY --from=python-deps /home/appuser/.venv /home/appuser/.venv
@@ -46,6 +46,6 @@ COPY . .
 EXPOSE 8000/tcp
 VOLUME /home/appuser/media
 
-RUN ["python", "/home/appuser/manage.py", "collectstatic", "--noinput", "--access-logfile", "-"]
+RUN ["python", "/home/appuser/manage.py", "collectstatic", "--noinput"]
 
 USER appuser
