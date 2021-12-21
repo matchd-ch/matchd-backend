@@ -54,6 +54,11 @@ migrate:
   resetDb: false
 maildev:
   enabled: true
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
   services:
     smtp:
-      port: 25
+      type: ClusterIP
+      port: 1025

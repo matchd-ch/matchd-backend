@@ -15,6 +15,14 @@ import os
 from datetime import timedelta
 from urllib.parse import urlparse
 
+SECRET_KEY = 'y1m_k!q=s(7m&8!)91-#9wan_568xbvqg_8$hfl@dkhy_ep#u-'
+ALLOWED_HOSTS = ['*']
+
+GRAPHIQL_ENABLED = True
+
+DEBUG = os.getenv('DEBUG', False) == 'true'
+DEBUG_TOOLBAR = os.getenv('DEBUG_TOOLBAR', False) == 'true'
+
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
@@ -54,10 +62,15 @@ LOGGING = {
             'formatter': 'django.server',
         },
     },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
     'loggers': {
         'django': {
             'handlers': ['console', 'console_on_not_debug'],
             'level': 'INFO',
+            'propagate': False,
         },
         'django.server': {
             'handlers': ['django.server'],
@@ -105,7 +118,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'api.apps.ApiConfig'
+    'api.apps.ApiConfig',
+
+    'debug_toolbar',
+    'graphiql_debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -119,7 +135,8 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
-    'api.middleware.JWTAuthenticationMiddleware'
+    'api.middleware.JWTAuthenticationMiddleware',
+    'api.middleware.DebugToolbarMiddleware'
 ]
 
 AUTHENTICATION_BACKENDS = [
@@ -221,16 +238,15 @@ EMAIL_HOST = os.getenv('SMTP_HOST', '')
 EMAIL_PORT = os.getenv('SMTP_PORT', '')
 EMAIL_HOST_PASSWORD = os.getenv('SMTP_HOST_PASSWORD', '')
 EMAIL_HOST_USER = os.getenv('SMTP_HOST_USER', '')
-EMAIL_USE_SSL = os.getenv('SMTP_USE_SSL', False)
-EMAIL_USE_TLS = os.getenv('SMTP_USE_TLS', True)
+EMAIL_USE_SSL = os.getenv('SMTP_USE_SSL', 'false') == 'true'
+EMAIL_USE_TLS = os.getenv('SMTP_USE_TLS', 'true') == 'true'
 EMAIL_SUBJECT_PREFIX = os.getenv('EMAIL_SUBJECT_PREFIX', '')
 USER_REQUEST_FORM_RECIPIENTS = [
     recipient.strip() for recipient in os.getenv('USER_REQUEST_FORM_RECIPIENTS', f'{DEFAULT_FROM_EMAIL}').split(',')
 ]
 
 # FRONTEND
-FRONTEND_URL_PROTOCOL = 'https://'
-FRONTEND_URL = os.getenv('FRONTEND_URL', '')
+FRONTEND_URL = os.getenv('FRONTEND_URL', 'https://matchd.ch')
 
 STUDENT_PROFILE_URL = '/talente/'
 COMPANY_PROFILE_URL = '/firmen/'
@@ -309,7 +325,7 @@ USER_UPLOADS_MAX_DOCUMENT_SIZE = 1024 * 10000
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-BASE_URL = os.getenv('DJANGO_BASE_URL', '')
+BASE_URL = os.getenv('DJANGO_BASE_URL', 'http://api.matchd.localhost:8000')
 
 APP_DOMAIN = os.getenv('APP_DOMAIN')
 
@@ -362,7 +378,6 @@ GRAPHQL_AUTH = {
     'EMAIL_TEMPLATE_PASSWORD_RESET': 'db/email/password_reset/body.html',
     'EMAIL_TEMPLATE_VARIABLES': {
         'frontend_url': FRONTEND_URL,
-        'frontend_url_protocol': FRONTEND_URL_PROTOCOL,
         'email_subject_prefix': EMAIL_SUBJECT_PREFIX,
         'data_protection_url': DATA_PROTECTION_URL
     },
@@ -370,7 +385,7 @@ GRAPHQL_AUTH = {
     'REGISTER_MUTATION_FIELDS': ['email', 'username', 'first_name', 'last_name', 'type'],
 }
 
-CSRF_COOKIE_DOMAIN = os.getenv('APP_CSRF_COOKIE_DOMAIN', None)
+CSRF_COOKIE_DOMAIN = os.getenv('APP_CSRF_COOKIE_DOMAIN', '.matchd.localhost')
 
 PHONE_REGEX = r'\+[0-9]{11}$'
 
@@ -398,3 +413,15 @@ DASHBOARD_NUM_LATEST_ENTRIES = 5
 NUMBER_OF_STUDENT_AVATAR_FALLBACK_IMAGES = 5
 NUMBER_OF_COMPANY_AVATAR_FALLBACK_IMAGES = 5
 NUMBER_OF_PROJECT_POSTING_FALLBACK_IMAGES = 5
+
+# Debug Toolbar Settings
+# DEBUG TOOLBAR
+
+
+def show_debug_toolbar(request):
+    return DEBUG_TOOLBAR
+
+
+DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_TOOLBAR_CALLBACK': show_debug_toolbar,
+}

@@ -33,7 +33,7 @@ def test_register_university(register_university, verification_url_and_token, ve
 
     verification_url, token = verification_url_and_token(activation_email)
     verification_path = settings.GRAPHQL_AUTH.get('ACTIVATION_PATH_ON_EMAIL')
-    assert f'https://{settings.FRONTEND_URL}/{verification_path}/' in verification_url
+    assert f'{settings.FRONTEND_URL}/{verification_path}/' in verification_url
     assert token is not None
 
     data_protection_url = data_protection_url(activation_email)

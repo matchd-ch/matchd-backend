@@ -53,7 +53,7 @@ def test_send_password_mail_and_reset_password(send_password_reset_mail, user_st
     reset_email = mail.outbox[0]
     reset_url, token = reset_url_and_token(reset_email)
     verification_path = settings.GRAPHQL_AUTH.get('PASSWORD_RESET_PATH_ON_EMAIL')
-    assert f'https://{settings.FRONTEND_URL}/{verification_path}/' in reset_url
+    assert f'{settings.FRONTEND_URL}/{verification_path}/' in reset_url
     assert token is not None
 
     data, errors = verify_password_reset_token(token)

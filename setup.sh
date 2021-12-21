@@ -33,8 +33,11 @@ if [ "${SETUP_DB:-true}" = "true" ]; then
     echo "Load fallback images"
     ./manage.py load_media
 
-    echo "Load test data"
-    ./manage.py seed
+
+    if [ "${RESET_DB:-true}" = "true" ]; then
+        echo "Load test data"
+        ./manage.py seed
+    fi
 
     echo "Reindex elastic"
     python ./manage.py update_index

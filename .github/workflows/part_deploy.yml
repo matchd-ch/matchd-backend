@@ -46,9 +46,6 @@ on:
       csrfCookieDomain:
         type: string
         required: true
-      settingsModule:
-        type: string
-        required: true
       senderEmail:
         type: string
         required: true
@@ -171,8 +168,13 @@ jobs:
               monitoring: ${{ inputs.monitoringEnabled }}
             migrate:
               resetDb: '${{ inputs.resetDb }}'
+            maildev:
+              ingress:
+                hosts:
+                  - host: 'maildev-${{ inputs.domain }}'
+                    paths: ['/']
             env:
-              DJANGO_SETTINGS_MODULE: '${{ inputs.settingsModule }}'
+              DJANGO_SETTINGS_MODULE: 'app.settings.base'
               DB_HOST: '${{ inputs.dbHost }}'
               DB_PORT: '3306'
               DB_USER: '${{ inputs.dbUser }}'

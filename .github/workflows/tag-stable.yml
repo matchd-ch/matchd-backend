@@ -30,7 +30,6 @@ jobs:
       dbHost: 10.100.35.5
       dbUser: matchd-production
       dbName: matchd-production
-      settingsModule: app.settings.production
       senderEmail: info@matchd.ch
       smtpRelay: smtp.postmarkapp.com
       smtpPort: 2525

@@ -10,4 +10,4 @@ source $SCRIPTPATH/../deploy.sh
 
 deploy \
   --dry-run \
-  --debug
+  --debug "$@"

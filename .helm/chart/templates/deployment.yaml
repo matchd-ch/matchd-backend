@@ -61,6 +61,14 @@ spec:
               value: "{{ include "matchd-backend.fullname" $ }}-maildev-smtp.{{ $.Release.Namespace }}.svc.cluster.local"
             - name: SMTP_PORT
               value: "{{ $.Values.maildev.services.smtp.port }}"
+            - name: SMTP_USE_SSL
+              value: 'false'
+            - name: SMTP_USE_TLS
+              value: 'false'
+            - name: SMTP_HOST_PASSWORD
+              value: ''
+            - name: SMTP_HOST_USER
+              value: ''
             {{- end }}
             {{- range $key, $variable := $.Values.env -}}
             {{- if or (and (hasPrefix "ELASTIC_SEARCH_" $key) $.Values.elasticsearch.enabled) (and (hasPrefix "SMTP_" $key) $.Values.maildev.enabled) }}
@@ -68,10 +76,7 @@ spec:
             {{- else }}
             {{- $envKey := $key | upper | replace "." "_" | replace "-" "_" }}
             - name: {{ $envKey }}
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "matchd-backend.fullname" $ }}
-                  key: {{ $envKey }}
+              value: {{ $variable | toString | replace "str#" "" | quote }}
             {{- end }}
             {{- end }}
           ports:
@@ -81,7 +86,7 @@ spec:
             httpGet:
               path: /
               port: 8000
-            initialDelaySeconds: 120
+            initialDelaySeconds: 30
             periodSeconds: 10
             timeoutSeconds: 1
             successThreshold: 1
@@ -90,7 +95,7 @@ spec:
             httpGet:
               path: /
               port: 8000
-            initialDelaySeconds: 30
+            initialDelaySeconds: 10
             periodSeconds: 10
             timeoutSeconds: 1
             successThreshold: 1

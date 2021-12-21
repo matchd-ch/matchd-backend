@@ -72,27 +72,27 @@ class Match(models.Model):
             self._send_initiator_student(user)
 
     def _job_posting_student_profile_url(self):
-        return f'{settings.FRONTEND_URL_PROTOCOL}{settings.FRONTEND_URL}{settings.STUDENT_PROFILE_URL}' \
+        return f'{settings.FRONTEND_URL}{settings.STUDENT_PROFILE_URL}' \
                f'{self.student.slug}?jobPostingId={self.job_posting.id}'
 
     def _project_posting_student_profile_url(self):
-        return f'{settings.FRONTEND_URL_PROTOCOL}{settings.FRONTEND_URL}{settings.STUDENT_PROFILE_URL}' \
+        return f'{settings.FRONTEND_URL}{settings.STUDENT_PROFILE_URL}' \
                f'{self.student.slug}'
 
     def _project_posting_company_profile_url(self):
-        return f'{settings.FRONTEND_URL_PROTOCOL}{settings.FRONTEND_URL}{settings.COMPANY_PROFILE_URL}' \
+        return f'{settings.FRONTEND_URL}{settings.COMPANY_PROFILE_URL}' \
                f'{self.company.slug}'
 
     def _job_posting_company_profile_url(self):
-        return f'{settings.FRONTEND_URL_PROTOCOL}{settings.FRONTEND_URL}{settings.COMPANY_PROFILE_URL}' \
+        return f'{settings.FRONTEND_URL}{settings.COMPANY_PROFILE_URL}' \
                f'{self.job_posting.company.slug}'
 
     def _job_posting_url(self):
-        return f'{settings.FRONTEND_URL_PROTOCOL}{settings.FRONTEND_URL}{settings.JOB_POSTING_URL}' \
+        return f'{settings.FRONTEND_URL}{settings.JOB_POSTING_URL}' \
                f'{self.job_posting.slug}'
 
     def _project_posting_url(self):
-        return f'{settings.FRONTEND_URL_PROTOCOL}{settings.FRONTEND_URL}{settings.PROJECT_POSTING_URL}' \
+        return f'{settings.FRONTEND_URL}{settings.PROJECT_POSTING_URL}' \
                f'{self.project_posting.slug}'
 
     def _job_posting_email_context(self, user):

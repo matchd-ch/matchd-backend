@@ -3,9 +3,7 @@ try:
 except ImportError:
     pass
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'test-key'
-BASE_URL = os.getenv('DJANGO_BASE_URL', 'http://api.matchd.localhost:8000')
 
 LOGGING = {
     'version': 1,

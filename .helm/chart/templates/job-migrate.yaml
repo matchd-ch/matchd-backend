@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: "{{ .Release.Name }}"
+  name: "{{ .Release.Name }}-migrate"
   labels:
     app.kubernetes.io/name: {{ template "matchd-backend.name" $ }}
     app.kubernetes.io/managed-by: {{ $.Release.Service }}
@@ -12,8 +12,9 @@ metadata:
   annotations:
     helm.sh/hook: pre-install,pre-upgrade
     helm.sh/hook-weight: "-5"
-    helm.sh/hook-delete-policy: hook-succeeded
 spec:
+  backoffLimit: 1
+  activeDeadlineSeconds: 300
   template:
     metadata:
       labels:
@@ -33,7 +34,7 @@ spec:
         - name: {{ $.Chart.Name }}
           image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
           imagePullPolicy: {{ $.Values.image.pullPolicy }}
-          command: ["echo", "success"]
+          args: ["echo", "success"]
           env:
             - name: POD_IP
               valueFrom:
@@ -56,6 +57,14 @@ spec:
               value: "{{ include "matchd-backend.fullname" $ }}-maildev-smtp.{{ $.Release.Namespace }}.svc.cluster.local"
             - name: SMTP_PORT
               value: "{{ $.Values.maildev.services.smtp.port }}"
+            - name: SMTP_USE_SSL
+              value: 'false'
+            - name: SMTP_USE_TLS
+              value: 'false'
+            - name: SMTP_HOST_PASSWORD
+              value: ''
+            - name: SMTP_HOST_USER
+              value: ''
             {{- end }}
             {{- range $key, $variable := $.Values.env -}}
             {{- if or (and (hasPrefix "ELASTIC_SEARCH_" $key) $.Values.elasticsearch.enabled) (and (hasPrefix "SMTP_" $key) $.Values.maildev.enabled) }}
@@ -63,10 +72,7 @@ spec:
             {{- else }}
             {{- $envKey := $key | upper | replace "." "_" | replace "-" "_" }}
             - name: {{ $envKey }}
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "matchd-backend.fullname" $ }}
-                  key: {{ $envKey }}
+              value: {{ $variable | toString | replace "str#" "" | quote }}
             {{- end }}
             {{- end }}
           resources:
