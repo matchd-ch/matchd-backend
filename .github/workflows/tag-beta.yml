@@ -33,6 +33,7 @@ jobs:
       frontendUrl: https://staging-matchd-frontend.joshmartin.ch
       csrfCookieDomain: '.joshmartin.ch'
       dataProtectionUrl: 'https://example.com'
+      # TODO: Enable when Prod Testing in Staging is done
       resetDb: false
     secrets:
       DOCKER_PULL_USERNAME: ${{ secrets.DOCKER_PULL_USERNAME }}
