@@ -10,8 +10,7 @@ metadata:
     app.matchd.ch/environment: {{ template "matchd-backend.environment" $ }}
     helm.sh/chart: {{ template "matchd-backend.chart" $ }}
   annotations:
-    helm.sh/hook: pre-install,pre-upgrade
-    helm.sh/hook-weight: "-5"
+    helm.sh/hook: post-install,post-upgrade
 spec:
   backoffLimit: 1
   activeDeadlineSeconds: 300
