@@ -194,7 +194,7 @@ jobs:
               SMTP_HOST_PASSWORD: '${{ secrets.SMTP_PASSWORD }}'
               SMTP_HOST_USER: '${{ secrets.SMTP_USER }}'
               EMAIL_SUBJECT_PREFIX: '${{ inputs.emailSubjectPrefix }}'
-              DJANGO_BASE_URL: 'https://${{ inputs.domain }}/'
+              DJANGO_BASE_URL: 'https://${{ inputs.domain }}'
               GRAPHIQL_ENABLED: 'true'
               FRONTEND_URL: '${{ inputs.frontendUrl }}'
               APP_DOMAIN: '${{ inputs.domain }}'
