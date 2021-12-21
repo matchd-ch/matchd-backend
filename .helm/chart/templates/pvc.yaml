@@ -14,6 +14,8 @@ metadata:
     gcs.csi.ofek.dev/uid: "1010"
     gcs.csi.ofek.dev/gid: "1010"
     gcs.csi.ofek.dev/limit-ops-per-sec: "1000"
+    helm.sh/hook: pre-install
+    helm.sh/hook-weight: "-10"
 spec:
   storageClassName: csi-gcs
   accessModes:
