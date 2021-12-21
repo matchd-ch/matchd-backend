@@ -46,6 +46,6 @@ COPY . .
 EXPOSE 8000/tcp
 VOLUME /home/appuser/media
 
-RUN ["python", "/home/appuser/manage.py", "collectstatic", "--noinput"]
+RUN ["python", "/home/appuser/manage.py", "collectstatic", "--noinput", "--access-logfile", "-"]
 
 USER appuser
