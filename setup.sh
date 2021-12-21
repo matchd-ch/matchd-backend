@@ -12,9 +12,6 @@ if [ "${RESET_DB:-true}" = "true" ]; then
     )
 fi
 
-echo "Apply database migrations"
-python ./manage.py migrate
-
 if [ -w "static" ]; then
     echo "Collect static files"
     python ./manage.py collectstatic --noinput
@@ -22,15 +19,23 @@ else
     echo "static not writable, skipping collectstatic"
 fi
 
-echo "Load initial data"
-./manage.py load_initial_data
-./manage.py loaddata db/fixtures/initial_data.json
+if [ "${SETUP_DB:-true}" = "true" ]; then
+    echo "Apply database migrations"
+    python ./manage.py migrate
 
-echo "Load fallback images"
-./manage.py load_media
+    echo "Load initial data"
+    ./manage.py load_initial_data
 
-echo "Load test data"
-./manage.py seed
+    if [ "${RESET_DB:-true}" = "true" ]; then
+        ./manage.py loaddata db/fixtures/initial_data.json
+    fi
 
-echo "Reindex elastic"
-python ./manage.py update_index
+    echo "Load fallback images"
+    ./manage.py load_media
+
+    echo "Load test data"
+    ./manage.py seed
+
+    echo "Reindex elastic"
+    python ./manage.py update_index
+fi

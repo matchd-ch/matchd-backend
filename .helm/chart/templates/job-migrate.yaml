@@ -1,9 +1,7 @@
-{{- range $variantName, $variant := .Values.deployment.variants -}}
-{{- if $variant -}}
-apiVersion: {{ template "deployment.apiVersion" $ }}
-kind: Deployment
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: {{ printf "%s-%s" (include "matchd-backend.fullname" $) $variantName }}
+  name: "{{ .Release.Name }}"
   labels:
     app.kubernetes.io/name: {{ template "matchd-backend.name" $ }}
     app.kubernetes.io/managed-by: {{ $.Release.Service }}
@@ -12,13 +10,10 @@ metadata:
     app.matchd.ch/environment: {{ template "matchd-backend.environment" $ }}
     helm.sh/chart: {{ template "matchd-backend.chart" $ }}
   annotations:
-    backup.velero.io/backup-volumes: media
+    helm.sh/hook: pre-install,pre-upgrade
+    helm.sh/hook-weight: "-5"
+    helm.sh/hook-delete-policy: hook-succeeded
 spec:
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: {{ template "matchd-backend.name" $ }}
-      app.matchd.ch/environment: {{ template "matchd-backend.environment" $ }}
-  replicas: {{ $variant.replicaCount }}
   template:
     metadata:
       labels:
@@ -28,9 +23,8 @@ spec:
         app.kubernetes.io/version: {{ template "matchd-backend.version" $ }}
         app.matchd.ch/environment: {{ template "matchd-backend.environment" $ }}
         helm.sh/chart: {{ template "matchd-backend.chart" $ }}
-      annotations:
-        backup.velero.io/backup-volumes: media
     spec:
+      restartPolicy: Never
       imagePullSecrets:
       {{- if $.Values.image.secrets }}
 {{ toYaml $.Values.image.secrets | indent 8 }}
@@ -39,6 +33,7 @@ spec:
         - name: {{ $.Chart.Name }}
           image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
           imagePullPolicy: {{ $.Values.image.pullPolicy }}
+          command: ["echo", "success"]
           env:
             - name: POD_IP
               valueFrom:
@@ -49,9 +44,9 @@ spec:
                 fieldRef:
                   fieldPath: metadata.namespace
             - name: RESET_DB
-              value: "false"
+              value: "{{ $.Values.migrate.resetDb }}"
             - name: SETUP_DB
-              value: "false"
+              value: "true"
             {{- if $.Values.elasticsearch.enabled }}
             - name: ELASTIC_SEARCH_URL
               value: "http://{{ $.Values.elasticsearch.clusterName}}-{{ $.Values.elasticsearch.nodeGroup}}.{{ $.Release.Namespace }}.svc.cluster.local:{{ $.Values.elasticsearch.httpPort}}"
@@ -74,27 +69,6 @@ spec:
                   key: {{ $envKey }}
             {{- end }}
             {{- end }}
-          ports:
-            - containerPort: 8000
-              name: http
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 8000
-            initialDelaySeconds: 120
-            periodSeconds: 10
-            timeoutSeconds: 1
-            successThreshold: 1
-            failureThreshold: 2
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 8000
-            initialDelaySeconds: 30
-            periodSeconds: 10
-            timeoutSeconds: 1
-            successThreshold: 1
-            failureThreshold: 2
           resources:
             limits:
               cpu: 1000m
@@ -105,30 +79,7 @@ spec:
           volumeMounts:
             - name: media
               mountPath: /home/appuser/media
-      affinity:
-{{- if $variant.nodeAffinity }}
-        nodeAffinity:
-{{ toYaml $variant.nodeAffinity | indent 10 }}
-{{- end }}
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 100
-              podAffinityTerm:
-                topologyKey: "kubernetes.io/hostname"
-                labelSelector:
-                  matchExpressions:
-                    - key: app.kubernetes.io/name
-                      operator: In
-                      values:
-                        - {{ template "matchd-backend.name" $ }}
-                    - key: app.matchd.ch/environment
-                      operator: In
-                      values:
-                        - {{ template "matchd-backend.environment" $ }}
       volumes:
         - name: media
           persistentVolumeClaim:
             claimName: {{ include "matchd-backend.fullname" $ }}-media
----
-{{- end }}
-{{- end }}

@@ -1,9 +1,7 @@
-{{- range $storage := .Values.storages }}
-{{- $pvc := $storage.pvc | default dict }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ include "matchd-backend.fullname" $ }}-{{ $storage.name }}
+  name: {{ include "matchd-backend.fullname" $ }}-media
   labels:
     app.kubernetes.io/name: {{ template "matchd-backend.name" $ }}
     app.kubernetes.io/managed-by: {{ $.Release.Service }}
@@ -12,17 +10,14 @@ metadata:
     app.joshmartin.ch/environment: {{ template "matchd-backend.environment" $ }}
     helm.sh/chart: {{ template "matchd-backend.chart" $ }}
   annotations:
-{{- if $pvc.defaultBucketName }}
-    gcs.csi.ofek.dev/bucket: {{ printf "%s-%s-%s" $.Release.Namespace (include "matchd-backend.fullname" $) $storage.name | trunc 63 | trimSuffix "-" }}
-{{- end }}
-    {{- range $key, $value := $pvc.annotations }}
-    {{ $key }}: {{ $value | quote }}
-    {{- end }}
+    gcs.csi.ofek.dev/bucket: {{ printf "%s-%s-media" $.Release.Namespace (include "matchd-backend.fullname" $) | trunc 63 | trimSuffix "-" }}
+    gcs.csi.ofek.dev/uid: "1010"
+    gcs.csi.ofek.dev/gid: "1010"
+    gcs.csi.ofek.dev/limit-ops-per-sec: "1000"
 spec:
-  storageClassName: {{ $pvc.storageClassName | default "csi-gcs" }}
+  storageClassName: csi-gcs
   accessModes:
     - ReadWriteMany
   resources:
     requests:
-      storage: {{ $pvc.size | default "10Gi" }}
-{{- end }}
+      storage: 25Gi

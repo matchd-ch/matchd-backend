@@ -147,18 +147,6 @@ jobs:
           chart: '.helm/chart'
           token: '${{ github.token }}'
           values: |
-            storages:
-              - name: media
-                enableBackup: false
-                mountPath: /home/appuser/media
-                pvc:
-                  defaultBucketName: true
-                  size: 25Gi
-                  storageClassName: csi-gcs
-                  annotations:
-                    gcs.csi.ofek.dev/uid: "1010"
-                    gcs.csi.ofek.dev/gid: "1010"
-                    gcs.csi.ofek.dev/limit-ops-per-sec: "1000"
             deployment:
               variants:
                 regular:
@@ -181,6 +169,8 @@ jobs:
               domain: ${{ inputs.domain }}
               letsencrypt: ${{ inputs.letsencryptEnabled }}
               monitoring: ${{ inputs.monitoringEnabled }}
+            migrate:
+              resetDb: '${{ inputs.resetDb }}'
             env:
               DJANGO_SETTINGS_MODULE: '${{ inputs.settingsModule }}'
               DB_HOST: '${{ inputs.dbHost }}'
@@ -202,4 +192,3 @@ jobs:
               WAGTAIL_SITE_NAME: 'MATCHD - ${{ inputs.environment }}'
               SECRET_KEY: '${{ secrets.SECRET_KEY }}'
               DATA_PROTECTION_URL: '${{ inputs.dataProtectionUrl }}'
-              RESET_DB: '${{ inputs.resetDb }}'

@@ -43,17 +43,6 @@ ingress:
   monitoring: false
   tlsSecretName: chart-example-tls
 env: {}
-storages: []
-  # - name: uploads
-  #   enableBackup: false
-  #   mountPath: /uploads
-  #   pvc:
-  #     defaultBucketName: true
-  #     size: 25Gi
-  #     storageClassName: csi-gcs
-  #     annotations:
-  #       gcs.csi.ofek.dev/gid: "82" # User: www-data
-  #       gcs.csi.ofek.dev/limit-ops-per-sec: "1000" # Rate Limit
 elasticsearch:
   enabled: true
   clusterName: "elasticsearch"
@@ -61,6 +50,8 @@ elasticsearch:
   httpPort: 9200
   replicas: 2
   minimumMasterNodes: 1
+migrate:
+  resetDb: false
 maildev:
   enabled: true
   services:
