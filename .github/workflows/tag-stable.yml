@@ -33,9 +33,9 @@ jobs:
       senderEmail: info@matchd.ch
       smtpRelay: smtp.postmarkapp.com
       smtpPort: 2525
-      frontendUrl: https://matchd.ch
+      frontendUrl: https://get.matchd.ch
       csrfCookieDomain: '.matchd.ch'
-      dataProtectionUrl: 'https://example.com'
+      dataProtectionUrl: 'https://matchd.ch/impressum-datenschutz/'
       resetDb: false
       maildevEnabled: false
     secrets:
