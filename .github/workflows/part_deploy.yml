@@ -67,6 +67,9 @@ on:
       resetDb:
         type: boolean
         default: true
+      maildevEnabled:
+        type: boolean
+        default: true
     secrets:
       DOCKER_PULL_USERNAME:
         required: true
@@ -169,6 +172,7 @@ jobs:
             migrate:
               resetDb: '${{ inputs.resetDb }}'
             maildev:
+              enabled: '${{ inputs.maildevEnabled }}'
               ingress:
                 hosts:
                   - host: 'maildev-${{ inputs.domain }}'
