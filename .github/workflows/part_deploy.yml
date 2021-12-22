@@ -170,9 +170,9 @@ jobs:
               letsencrypt: ${{ inputs.letsencryptEnabled }}
               monitoring: ${{ inputs.monitoringEnabled }}
             migrate:
-              resetDb: '${{ inputs.resetDb }}'
+              resetDb: ${{ inputs.resetDb }}
             maildev:
-              enabled: '${{ inputs.maildevEnabled }}'
+              enabled: ${{ inputs.maildevEnabled }}
               ingress:
                 hosts:
                   - host: 'maildev-${{ inputs.domain }}'
