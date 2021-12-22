@@ -2,7 +2,7 @@
 
 set -e
 
-export MATCHD_KUBE_NAMESPACE="matchd-backend-production"
+export MATCHD_KUBE_NAMESPACE="default"
 export MATCHD_ENVIRONMENT_URL="matchd.ch"
 export MATCHD_ENVIRONMENT_SLUG="production"
 export MATCHD_DEPLOYMENT_NAME="matchd-backend-production"
