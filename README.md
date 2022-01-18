@@ -10,17 +10,16 @@
 * `pipenv install`
 * Run `mariadb`  
 ```console
-$ docker volume create postgres
+$ docker volume create mariadb
 $ docker run \
-    --restart always \
-    --name postgres \
-    -v postgres:/var/lib/postgresql/data \
-    -p 5432:5432 \
-    -d \
-    -e POSTGRES_PASSWORD="" \
-    -e POSTGRES_USER="root" \
-    -e POSTGRES_HOST_AUTH_METHOD="trust" \
-    postgres:latest
+  --restart always \
+  --name mariadb \
+  -v mariadb:/var/lib/mysql \
+  -p 3306:3306 \
+  -d \
+  -e MYSQL_ROOT_PASSWORD="" \
+  -e MYSQL_ALLOW_EMPTY_PASSWORD=1 \
+  mariadb:latest
 ```
 * Run `elasticsearch`  
 ```console
