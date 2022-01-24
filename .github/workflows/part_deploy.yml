@@ -99,7 +99,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - uses: google-github-actions/setup-gcloud@v0.3.0
+      - uses: google-github-actions/setup-gcloud@v0.4.0
         with:
           project_id: "joshmartin-cluster"
 
