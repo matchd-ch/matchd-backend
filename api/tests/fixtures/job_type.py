@@ -1,16 +1,43 @@
 import pytest
 
+from api.tests.helpers.node_helper import b64encode_string
+
 from db.models import JobType, DateMode
 
 # pylint: disable=W0621
 
 
+def job_type_node_query(node_id):
+    b64_encoded_id = b64encode_string(node_id)
+    return '''
+    query {
+        node(id: "%s") {
+            id
+            ... on JobType {
+                name
+            }
+        }
+    }
+    ''' % b64_encoded_id
+
+
 def job_types_query():
     return '''
     query {
-        jobTypes {
-            id
-            name
+        jobTypes(first: 4) {
+            pageInfo {
+                startCursor
+                endCursor
+                hasNextPage
+                hasPreviousPage
+            }
+            edges {
+                cursor
+                node {
+                    id
+                    name
+                }
+            }
         }
     }
     '''
@@ -24,6 +51,13 @@ def job_type_objects():
         JobType.objects.create(id=3, name="Lehrstelle 2", mode=DateMode.DATE_RANGE),
         JobType.objects.create(id=4, name="Praktikum 2", mode=DateMode.DATE_FROM)
     ]
+
+
+@pytest.fixture
+def query_job_type_node(execute):
+    def closure(user, node_id):
+        return execute(job_type_node_query(node_id), **{'user': user})
+    return closure
 
 
 @pytest.fixture

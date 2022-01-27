@@ -1,8 +1,10 @@
 import graphene
-from django.db.models import Q
 from graphene import ObjectType, InputObjectType
 
+from django.db.models import Q
+
 from api.data import zip_city_datasource
+
 from db.models import JobPosting, JobPostingState
 
 

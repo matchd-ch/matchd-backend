@@ -1,6 +1,22 @@
 import pytest
 
+from api.tests.helpers.node_helper import b64encode_string
+
 from db.models import ProjectPosting, ProjectPostingState
+
+
+def project_posting_node_query(node_id):
+    b64_encoded_id = b64encode_string(node_id)
+    return '''
+    query {
+        node(id: "%s") {
+            id
+            ... on ProjectPosting {
+                slug
+            }
+        }
+    }
+    ''' % b64_encoded_id
 
 
 def project_posting_query(filter_value, param_name):
@@ -59,6 +75,69 @@ def project_posting_query(filter_value, param_name):
     ''' % param
 
 
+def project_postings_query():
+    return '''
+    query {
+        projectPostings(first: 3) {
+            pageInfo {
+                startCursor
+                endCursor
+                hasNextPage
+                hasPreviousPage
+            }
+            edges {
+                cursor
+                node {
+                    dateCreated
+                    datePublished
+                    id
+                    slug
+                    title
+                    displayTitle
+                    description
+                    additionalInformation
+                    topic {
+                        id
+                        name
+                    }
+                    projectType {
+                        id
+                        name
+                    }
+                    keywords {
+                        id
+                        name
+                    }
+                    website
+                    projectFromDate
+                    formStep
+                    state
+                    company {
+                        id
+                    }
+                    student {
+                        slug
+                        id
+                    }
+                    employee {
+                        email
+                        id
+                    }
+                    matchStatus {
+                        confirmed
+                        initiator
+                    }
+                    matchHints {
+                        hasRequestedMatch
+                        hasConfirmedMatch
+                    }
+                }
+            }
+        }
+    }
+    '''
+
+
 @pytest.fixture
 def query_project_posting(execute):
     def closure(user, slug):
@@ -71,6 +150,22 @@ def query_project_posting(execute):
 def query_project_posting_by_id(execute):
     def closure(user, project_posting_id):
         return execute(project_posting_query(project_posting_id, 'id'), **{'user': user})
+
+    return closure
+
+
+@pytest.fixture
+def query_project_posting_node(execute):
+    def closure(user, node_id):
+        return execute(project_posting_node_query(node_id), **{'user': user})
+
+    return closure
+
+
+@pytest.fixture
+def query_project_postings(execute):
+    def closure(user):
+        return execute(project_postings_query(), **{'user': user})
 
     return closure
 

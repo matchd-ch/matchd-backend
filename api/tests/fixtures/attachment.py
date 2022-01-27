@@ -1,68 +1,186 @@
 import json
 import os
 import shutil
-
 import pytest
+
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import Client
 
+from api.tests.helpers.node_helper import b64encode_string
+
 from db.models import Attachment, Image, AttachmentKey
+
+
+def attachment_node_query(node_id):
+    b64_encoded_id = b64encode_string(node_id)
+    return '''
+    query {
+        node(id: "%s") {
+            id
+            ... on Attachment {
+                fileName
+            }
+        }
+    }
+    ''' % b64_encoded_id
+
+
+def attachments_query(key):
+    return '''
+    query {
+        attachments(key: %s) {
+            pageInfo {
+                startCursor
+                endCursor
+                hasNextPage
+                hasPreviousPage
+            }
+            edges {
+                cursor
+                node {
+                    id
+                    fileName
+                }
+            }
+        }
+    }
+    ''' % key
 
 
 def attachments_by_slug_query(slug):
     return '''
-    {
-        companyAvatar: attachments (key:COMPANY_AVATAR, slug: "%s") {
-            id
-            url
-            mimeType
-            fileSize
-            fileName
+    query {
+        companyAvatar: attachments (key: COMPANY_AVATAR, slug: "%s") {
+            pageInfo {
+                startCursor
+                endCursor
+                hasNextPage
+                hasPreviousPage
+            }
+            edges {
+                cursor
+                node {
+                    id
+                    url
+                    mimeType
+                    fileSize
+                    fileName
+                }
+            }
           }
           
-        companyAvatarFallback: attachments (key:COMPANY_AVATAR_FALLBACK, slug: "%s") {
-            id
-            url
-            mimeType
-            fileSize
-            fileName
+        companyAvatarFallback: attachments (key: COMPANY_AVATAR_FALLBACK, slug: "%s") {
+            pageInfo {
+                startCursor
+                endCursor
+                hasNextPage
+                hasPreviousPage
+            }
+            edges {
+                cursor
+                node {
+                    id
+                    url
+                    mimeType
+                    fileSize
+                    fileName
+                }
+            }
           }
 
-        companyDocuments: attachments (key:COMPANY_DOCUMENTS, slug: "%s") {
-            id
-            url
-            mimeType
-            fileSize
-            fileName
+        companyDocuments: attachments (key: COMPANY_DOCUMENTS, slug: "%s") {
+            pageInfo {
+                startCursor
+                endCursor
+                hasNextPage
+                hasPreviousPage
+            }
+            edges {
+                cursor
+                node {
+                    id
+                    url
+                    mimeType
+                    fileSize
+                    fileName
+                }
+            }
         }
         
-        studentAvatar: attachments (key:STUDENT_AVATAR, slug: "%s") {
-            id
-            url
-            mimeType
-            fileSize
-            fileName
+        studentAvatar: attachments (key: STUDENT_AVATAR, slug: "%s") {
+            pageInfo {
+                startCursor
+                endCursor
+                hasNextPage
+                hasPreviousPage
+            }
+            edges {
+                cursor
+                node {
+                    id
+                    url
+                    mimeType
+                    fileSize
+                    fileName
+                }
+            }
         }
         
-        studentAvatarFallback: attachments (key:STUDENT_AVATAR_FALLBACK, slug: "%s") {
-            id
-            url
-            mimeType
-            fileSize
-            fileName
+        studentAvatarFallback: attachments (key: STUDENT_AVATAR_FALLBACK, slug: "%s") {
+            pageInfo {
+                startCursor
+                endCursor
+                hasNextPage
+                hasPreviousPage
+            }
+            edges {
+                cursor
+                node {
+                    id
+                    url
+                    mimeType
+                    fileSize
+                    fileName
+                }
+            }
         }
 
-        studentDocuments: attachments (key:STUDENT_DOCUMENTS, slug: "%s") {
-            id
-            url
-            mimeType
-            fileSize
-            fileName
+        studentDocuments: attachments (key: STUDENT_DOCUMENTS, slug: "%s") {
+            pageInfo {
+                startCursor
+                endCursor
+                hasNextPage
+                hasPreviousPage
+            }
+            edges {
+                cursor
+                node {
+                    id
+                    url
+                    mimeType
+                    fileSize
+                    fileName
+                }
+            }
         }
     }
     ''' % (slug, slug, slug, slug, slug, slug)
+
+
+@pytest.fixture
+def query_attachment_node(execute):
+    def closure(user, node_id):
+        return execute(attachment_node_query(node_id), **{'user': user})
+    return closure
+
+
+@pytest.fixture
+def query_attachments(execute):
+    def closure(user, key):
+        return execute(attachments_query(key), **{'user': user})
+    return closure
 
 
 @pytest.fixture

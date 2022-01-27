@@ -1,4 +1,5 @@
 import pytest
+
 from django.contrib.auth.models import AnonymousUser
 
 from db.models import ProfileState, JobPostingState, ProjectPostingState
@@ -15,7 +16,6 @@ def test_company(company_object_complete, query_company, job_posting_objects, co
         project_posting.save()
 
     data, errors = query_company(AnonymousUser(), company_object_complete.slug)
-
     company = data.get('company')
     assert errors is None
     assert company is not None
@@ -35,8 +35,8 @@ def test_company(company_object_complete, query_company, job_posting_objects, co
     assert company.get('uid') == company_object_complete.uid
     assert company.get('services') == company_object_complete.services
     assert company.get('memberItStGallen') == company_object_complete.member_it_st_gallen
-    assert len(company.get('benefits')) == len(company_object_complete.benefits.all())
-    assert len(company.get('branches')) == len(company_object_complete.branches.all())
+    assert len(company.get('benefits').get('edges')) == len(company_object_complete.benefits.all())
+    assert len(company.get('branches').get('edges')) == len(company_object_complete.branches.all())
     assert company.get('culturalFits') is None  # cultural fits should not be public
     assert company.get('topLevelOrganisationDescription') == company_object_complete.top_level_organisation_description
     assert company.get('topLevelOrganisationWebsite') == company_object_complete.top_level_organisation_website
@@ -89,8 +89,8 @@ def test_company_incomplete_as_employee(login, company_object_complete, query_co
     assert company.get('uid') == company_object_complete.uid
     assert company.get('services') == company_object_complete.services
     assert company.get('memberItStGallen') == company_object_complete.member_it_st_gallen
-    assert len(company.get('benefits')) == len(company_object_complete.benefits.all())
-    assert len(company.get('branches')) == len(company_object_complete.branches.all())
+    assert len(company.get('benefits').get('edges')) == len(company_object_complete.benefits.all())
+    assert len(company.get('branches').get('edges')) == len(company_object_complete.branches.all())
     assert len(company.get('culturalFits')) == len(company_object_complete.cultural_fits.all())
     assert company.get('topLevelOrganisationDescription') == company_object_complete.top_level_organisation_description
     assert company.get('topLevelOrganisationWebsite') == company_object_complete.top_level_organisation_website

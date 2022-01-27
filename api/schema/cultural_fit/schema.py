@@ -1,5 +1,5 @@
 import graphene
-from graphene import ObjectType
+from graphene import ObjectType, relay
 from graphene_django import DjangoObjectType
 
 from db.models import CulturalFit as CulturalFitModel
@@ -8,11 +8,17 @@ from db.models import CulturalFit as CulturalFitModel
 class CulturalFit(DjangoObjectType):
     class Meta:
         model = CulturalFitModel
-        fields = ('id', 'student', 'company',)
+        interfaces = (relay.Node,)
+        fields = ('student', 'company',)
+
+
+class CulturalFitConnections(relay.Connection):
+    class Meta:
+        node = CulturalFit
 
 
 class CulturalFitQuery(ObjectType):
-    cultural_fits = graphene.List(CulturalFit)
+    cultural_fits = relay.ConnectionField(CulturalFitConnections)
 
     def resolve_cultural_fits(self, info, **kwargs):
         return CulturalFitModel.objects.all()
@@ -25,3 +31,4 @@ class CulturalFitInput(graphene.InputObjectType):
     @property
     def pk(self):
         return self.id
+        

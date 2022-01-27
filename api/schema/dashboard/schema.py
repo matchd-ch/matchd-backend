@@ -1,8 +1,9 @@
 import graphene
+from graphene import ObjectType
+
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
-from graphene import ObjectType
 
 from api.schema.job_posting.schema import JobPosting
 from api.schema.match import JobPostingMatchInfo, ProjectPostingMatchInfo

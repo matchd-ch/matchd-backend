@@ -1,6 +1,8 @@
 import graphene
-from django.utils.translation import gettext_lazy as _
+from graphene import ObjectType
 from graphql_auth.bases import Output
+
+from django.utils.translation import gettext_lazy as _
 
 from db.forms import UserRequestForm
 from db.models import UserRequest as UserRequestModel
@@ -41,5 +43,5 @@ class UserRequest(Output, graphene.Mutation):
         return UserRequest(success=True)
 
 
-class UserRequestMutation(graphene.ObjectType):
+class UserRequestMutation(ObjectType):
     user_request = UserRequest.Field()

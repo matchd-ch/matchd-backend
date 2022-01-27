@@ -22,8 +22,14 @@ def test_incomplete_attachments(login, user_student, upload, file_image_jpg, att
     data, errors = query_attachments_for_slug(user_student, user_student.student.slug)
     assert errors is None
     assert data is not None
-    assert len(data.get('studentAvatar')) == 1
-    assert len(data.get('studentAvatarFallback')) == 1
+
+    student_avatar_edges = data.get('studentAvatar').get('edges')
+    assert student_avatar_edges is not None
+    assert len(student_avatar_edges) == 1
+
+    student_avatar_fallback_edges = data.get('studentAvatarFallback').get('edges')
+    assert student_avatar_fallback_edges is not None
+    assert len(student_avatar_fallback_edges) == 1
 
     logout()
     login(user_employee)
@@ -31,8 +37,14 @@ def test_incomplete_attachments(login, user_student, upload, file_image_jpg, att
     data, errors = query_attachments_for_slug(user_employee, user_student.student.slug)
     assert errors is None
     assert data is not None
-    assert len(data.get('studentAvatar')) == 0
-    assert len(data.get('studentAvatarFallback')) == 1
+
+    student_avatar_edges = data.get('studentAvatar').get('edges')
+    assert student_avatar_edges is not None
+    assert len(student_avatar_edges) == 0
+
+    student_avatar_fallback_edges = data.get('studentAvatarFallback').get('edges')
+    assert student_avatar_fallback_edges is not None
+    assert len(student_avatar_fallback_edges) == 1
 
 
 @pytest.mark.django_db
@@ -53,8 +65,14 @@ def test_anonymous_attachments(login, user_student, upload, file_image_jpg, atta
     data, errors = query_attachments_for_slug(user_student, user_student.student.slug)
     assert errors is None
     assert data is not None
-    assert len(data.get('studentAvatar')) == 1
-    assert len(data.get('studentAvatarFallback')) == 1
+
+    student_avatar_edges = data.get('studentAvatar').get('edges')
+    assert student_avatar_edges is not None
+    assert len(student_avatar_edges) == 1
+
+    student_avatar_fallback_edges = data.get('studentAvatarFallback').get('edges')
+    assert student_avatar_fallback_edges is not None
+    assert len(student_avatar_fallback_edges) == 1
 
     logout()
     login(user_employee)
@@ -62,8 +80,14 @@ def test_anonymous_attachments(login, user_student, upload, file_image_jpg, atta
     data, errors = query_attachments_for_slug(user_employee, user_student.student.slug)
     assert errors is None
     assert data is not None
-    assert len(data.get('studentAvatar')) == 0
-    assert len(data.get('studentAvatarFallback')) == 1
+
+    student_avatar_edges = data.get('studentAvatar').get('edges')
+    assert student_avatar_edges is not None
+    assert len(student_avatar_edges) == 0
+
+    student_avatar_fallback_edges = data.get('studentAvatarFallback').get('edges')
+    assert student_avatar_fallback_edges is not None
+    assert len(student_avatar_fallback_edges) == 1
 
 
 @pytest.mark.django_db
@@ -84,8 +108,14 @@ def test_public_attachments(login, user_student, upload, file_image_jpg, attachm
     data, errors = query_attachments_for_slug(user_student, user_student.student.slug)
     assert errors is None
     assert data is not None
-    assert len(data.get('studentAvatar')) == 1
-    assert len(data.get('studentAvatarFallback')) == 1
+
+    student_avatar_edges = data.get('studentAvatar').get('edges')
+    assert student_avatar_edges is not None
+    assert len(student_avatar_edges) == 1
+
+    student_avatar_fallback_edges = data.get('studentAvatarFallback').get('edges')
+    assert student_avatar_fallback_edges is not None
+    assert len(student_avatar_fallback_edges) == 1
 
     logout()
     login(user_employee)
@@ -93,8 +123,14 @@ def test_public_attachments(login, user_student, upload, file_image_jpg, attachm
     data, errors = query_attachments_for_slug(user_employee, user_student.student.slug)
     assert errors is None
     assert data is not None
-    assert len(data.get('studentAvatar')) == 1
-    assert len(data.get('studentAvatarFallback')) == 1
+
+    student_avatar_edges = data.get('studentAvatar').get('edges')
+    assert student_avatar_edges is not None
+    assert len(student_avatar_edges) == 1
+
+    student_avatar_fallback_edges = data.get('studentAvatarFallback').get('edges')
+    assert student_avatar_fallback_edges is not None
+    assert len(student_avatar_fallback_edges) == 1
 
 
 @pytest.mark.django_db
@@ -115,7 +151,7 @@ def test_protected_attachments(login, user_student, upload, file_document_pdf, a
     data, errors = query_attachments_for_slug(user_student, user_student.student.slug)
     assert errors is None
     assert data is not None
-    assert len(data.get('studentDocuments')) == 1
+    assert len(data.get('studentDocuments').get('edges')) == 1
 
     logout()
     login(user_employee)
@@ -123,7 +159,7 @@ def test_protected_attachments(login, user_student, upload, file_document_pdf, a
     data, errors = query_attachments_for_slug(user_employee, user_student.student.slug)
     assert errors is None
     assert data is not None
-    assert len(data.get('studentDocuments')) == 0
+    assert len(data.get('studentDocuments').get('edges')) == 0
 
     job_posting_object.employee = user_employee.employee
     job_posting_object.company = user_employee.company
@@ -136,7 +172,7 @@ def test_protected_attachments(login, user_student, upload, file_document_pdf, a
     data, errors = query_attachments_for_slug(user_employee, user_student.student.slug)
     assert errors is None
     assert data is not None
-    assert len(data.get('studentDocuments')) == 0
+    assert len(data.get('studentDocuments').get('edges')) == 0
 
     match_obj.delete()
 
@@ -147,4 +183,4 @@ def test_protected_attachments(login, user_student, upload, file_document_pdf, a
     data, errors = query_attachments_for_slug(user_employee, user_student.student.slug)
     assert errors is None
     assert data is not None
-    assert len(data.get('studentDocuments')) == 1
+    assert len(data.get('studentDocuments').get('edges')) == 1

@@ -36,17 +36,29 @@ def student_query(slug):
         jobFromDate
         jobToDate
         skills {
-          id
-          name
+          edges {
+            node {
+              id
+              name
+            }
+          }
         }
         distinction
         state
         profileStep
         softSkills {
-          id
+          edges {
+            node {
+              id
+            }
+          }
         }
         culturalFits {
-          id
+          edges {
+            node {
+              id
+            }
+          }
         }
         slug
         hobbies {
@@ -56,12 +68,16 @@ def student_query(slug):
           url
         }
         languages {
-          language {
-            name
-          }
-          languageLevel {
-            level
-          }
+            edges {
+                node {
+                    language {
+                        name
+                    }
+                    languageLevel {
+                        level
+                    }
+                }
+            }
         }
         projectPostings {
           slug
@@ -103,17 +119,29 @@ def student_with_job_posting_query(slug, job_posting_id):
         jobFromDate
         jobToDate
         skills {
-          id
-          name
+          edges {
+            node {
+              id
+              name
+            }
+          }
         }
         distinction
         state
         profileStep
         softSkills {
-          id
+          edges {
+            node {
+              id
+            }
+          }
         }
         culturalFits {
-          id
+          edges {
+            node {
+              id
+            }
+          }
         }
         slug
         hobbies {
@@ -123,12 +151,16 @@ def student_with_job_posting_query(slug, job_posting_id):
           url
         }
         languages {
-          language {
-            name
-          }
-          languageLevel {
-            level
-          }
+            edges {
+                node {
+                    language {
+                        name
+                    }
+                    languageLevel {
+                        level
+                    }
+                }
+            }
         }
         projectPostings {
           slug

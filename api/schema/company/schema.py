@@ -1,12 +1,13 @@
 import graphene
-from django.http import Http404
-from django.shortcuts import get_object_or_404
-from graphene import ObjectType
+from graphene import ObjectType, relay
 from graphene_django import DjangoObjectType
-from django.utils.translation import gettext as _
 from graphql import ResolveInfo
 from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
+
+from django.http import Http404
+from django.shortcuts import get_object_or_404
+from django.utils.translation import gettext as _
 
 from api.helper import is_me_query
 from api.schema.benefit import BenefitInput
@@ -16,6 +17,7 @@ from api.schema.employee import Employee
 from api.schema.soft_skill import SoftSkillInput
 from api.schema.profile_state import ProfileState
 from api.schema.profile_type import ProfileType
+
 from db.decorators import company_cheating_protection, hyphenate
 from db.exceptions import FormException
 from db.forms import process_company_form_step_2, process_company_form_step_3, process_university_form_step_1, \
@@ -141,7 +143,7 @@ class CompanyProfileStep4(Output, graphene.Mutation):
         return CompanyProfileStep4(success=True, errors=None)
 
 
-class CompanyProfileMutation(graphene.ObjectType):
+class CompanyProfileMutation(ObjectType):
     company_profile_step1 = CompanyProfileStep1.Field()
     company_profile_step2 = CompanyProfileStep2.Field()
     company_profile_step3 = CompanyProfileStep3.Field()
@@ -256,7 +258,7 @@ class UniversityProfileStep4(Output, graphene.Mutation):
         return UniversityProfileStep4(success=True, errors=None)
 
 
-class UniversityProfileMutation(graphene.ObjectType):
+class UniversityProfileMutation(ObjectType):
     university_profile_step1 = UniversityProfileStep1.Field()
     university_profile_step2 = UniversityProfileStep2.Field()
     university_profile_step3 = UniversityProfileStep3.Field()
@@ -277,7 +279,8 @@ class Company(DjangoObjectType):
 
     class Meta:
         model = CompanyModel
-        fields = ['id', 'uid', 'name', 'zip', 'city', 'street', 'phone', 'description', 'member_it_st_gallen',
+        interfaces = (relay.Node,)
+        fields = ['uid', 'name', 'zip', 'city', 'street', 'phone', 'description', 'member_it_st_gallen',
                   'services', 'website', 'benefits', 'state', 'profile_step', 'slug',
                   'top_level_organisation_description', 'top_level_organisation_website', 'type', 'branches',
                   'link_education', 'link_projects', 'link_thesis', 'soft_skills', 'cultural_fits', 'job_postings']

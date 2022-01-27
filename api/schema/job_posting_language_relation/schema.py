@@ -1,4 +1,5 @@
 import graphene
+from graphene import relay
 from graphene_django import DjangoObjectType
 
 from db.models import JobPostingLanguageRelation as JobPostingLanguageRelationModel
@@ -8,7 +9,8 @@ class JobPostingLanguageRelation(DjangoObjectType):
 
     class Meta:
         model = JobPostingLanguageRelationModel
-        fields = ('id', 'language', 'language_level',)
+        interfaces = (relay.Node,)
+        fields = ('language', 'language_level',)
 
     @classmethod
     def get_queryset(cls, queryset, info):

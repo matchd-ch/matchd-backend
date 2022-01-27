@@ -1,16 +1,43 @@
 import pytest
 
+from api.tests.helpers.node_helper import b64encode_string
+
 from db.models import Language
 
 # pylint: disable=W0621
 
 
+def language_node_query(node_id):
+    b64_encoded_id = b64encode_string(node_id)
+    return '''
+    query {
+        node(id: "%s") {
+            id
+            ... on Language {
+                name
+            }
+        }
+    }
+    ''' % b64_encoded_id
+
+
 def languages_query():
     return '''
     query {
-        languages {
-            id
-            name
+        languages(first: 4) {
+            pageInfo {
+                startCursor
+                endCursor
+                hasNextPage
+                hasPreviousPage
+            }
+            edges {
+                cursor
+                node {
+                    id
+                    name
+                }
+            }
         }
     }
     '''
@@ -19,9 +46,20 @@ def languages_query():
 def languages_shortlist_query():
     return '''
     query {
-        languages(shortList: true) {
-            id
-            name
+        languages(first: 4, shortList: true) {
+            pageInfo {
+                startCursor
+                endCursor
+                hasNextPage
+                hasPreviousPage
+            }
+            edges {
+                cursor
+                node {
+                    id
+                    name
+                }
+            }
         }
     }
     '''
@@ -35,6 +73,13 @@ def language_objects():
         Language.objects.create(id=3, name='Englisch'),
         Language.objects.create(id=4, name='Spanisch', short_list=True)
     ]
+
+
+@pytest.fixture
+def query_language_node(execute):
+    def closure(user, node_id):
+        return execute(language_node_query(node_id), **{'user': user})
+    return closure
 
 
 @pytest.fixture

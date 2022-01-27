@@ -1,15 +1,43 @@
 import pytest
 
+from api.tests.helpers.node_helper import b64encode_string
+
 from db.models import CulturalFit
+
+
+def cultural_fit_node_query(node_id):
+    b64_encoded_id = b64encode_string(node_id)
+    return '''
+    query {
+        node(id: "%s") {
+            id
+            ... on CulturalFit {
+                company
+                student
+            }
+        }
+    }
+    ''' % b64_encoded_id
 
 
 def cultural_fits_query():
     return '''
     query {
-        culturalFits {
-            id
-            student
-            company
+        culturalFits(first: 12) {
+            pageInfo {
+                startCursor
+                endCursor
+                hasNextPage
+                hasPreviousPage
+            }
+            edges {
+                cursor
+                node {
+                    id
+                    company
+                    student
+                }
+            }
         }
     }
     '''
@@ -31,6 +59,13 @@ def cultural_fit_objects():
         CulturalFit.objects.create(id=11, student="I like everything", company='You like everything'),
         CulturalFit.objects.create(id=12, student="I like nothing", company='You like nothing')
     ]
+
+
+@pytest.fixture
+def query_cultural_fit_node(execute):
+    def closure(user, node_id):
+        return execute(cultural_fit_node_query(node_id), **{'user': user})
+    return closure
 
 
 @pytest.fixture

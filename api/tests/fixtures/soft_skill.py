@@ -1,15 +1,43 @@
 import pytest
 
+from api.tests.helpers.node_helper import b64encode_string
+
 from db.models import SoftSkill
+
+
+def soft_skill_node_query(node_id):
+    b64_encoded_id = b64encode_string(node_id)
+    return '''
+    query {
+        node(id: "%s") {
+            id
+            ... on SoftSkill {
+                student
+                company
+            }
+        }
+    }
+    ''' % b64_encoded_id
 
 
 def soft_skills_query():
     return '''
     query {
-        softSkills {
-            id
-            student
-            company
+        softSkills(first: 12) {
+            pageInfo {
+                startCursor
+                endCursor
+                hasNextPage
+                hasPreviousPage
+            }
+            edges {
+                cursor
+                node {
+                    id
+                    student
+                    company
+                }
+            }
         }
     }
     '''
@@ -31,6 +59,13 @@ def soft_skill_objects():
         SoftSkill.objects.create(id=11, student="I like everything", company='You like everything'),
         SoftSkill.objects.create(id=12, student="I like nothing", company='You like nothing')
     ]
+
+
+@pytest.fixture
+def query_soft_skill_node(execute):
+    def closure(user, node_id):
+        return execute(soft_skill_node_query(node_id), **{'user': user})
+    return closure
 
 
 @pytest.fixture
