@@ -1,6 +1,6 @@
 import pytest
 
-from api.tests.helpers.node_helper import b64encode_string
+from graphql_relay import to_global_id
 
 from db.models import Match
 
@@ -61,30 +61,30 @@ def test_dashboard(login, query_dashboard, user_employee, user_student, job_post
     requested_matches = dashboard.get('requestedMatches')
     assert requested_matches is not None
     assert len(requested_matches) == 1
-    assert requested_matches[0].get('jobPosting').get('id') == b64encode_string(
-        f'JobPosting:{job_posting_objects[0].id}'
+    assert requested_matches[0].get('jobPosting').get('id') == to_global_id(
+        'JobPosting', job_posting_objects[0].id
     )
 
     unconfirmed_matches = dashboard.get('unconfirmedMatches')
     assert unconfirmed_matches is not None
     assert len(unconfirmed_matches) == 1
-    assert unconfirmed_matches[0].get('jobPosting').get('id') == b64encode_string(
-        f'JobPosting:{job_posting_objects[1].id}'
+    assert unconfirmed_matches[0].get('jobPosting').get('id') == to_global_id(
+        'JobPosting', job_posting_objects[1].id
     )
 
     confirmed_matches = dashboard.get('confirmedMatches')
     assert confirmed_matches is not None
     assert len(confirmed_matches) == 1
-    assert confirmed_matches[0].get('jobPosting').get('id') == b64encode_string(
-        f'JobPosting:{job_posting_objects[2].id}'
+    assert confirmed_matches[0].get('jobPosting').get('id') == to_global_id(
+        'JobPosting', job_posting_objects[2].id
     )
 
     project_matches = dashboard.get('projectMatches')
     assert project_matches is not None
     assert len(project_matches) == 2
-    assert project_matches[0].get('projectPosting').get('id') == b64encode_string(
-        f'ProjectPosting:{company_project_posting_objects[0].id}'
+    assert project_matches[0].get('projectPosting').get('id') == to_global_id(
+        'ProjectPosting', company_project_posting_objects[0].id
     )
-    assert project_matches[1].get('projectPosting').get('id') == b64encode_string(
-        f'ProjectPosting:{student_project_posting_objects[0].id}'
+    assert project_matches[1].get('projectPosting').get('id') == to_global_id(
+        'ProjectPosting', student_project_posting_objects[0].id
     )

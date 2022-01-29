@@ -26,7 +26,7 @@ def test_node_query(query_attachment_node, login, upload, file_image_jpg, user_e
     assert data is not None
     assert data.get('upload').get('success')
 
-    data, errors = query_attachment_node(user_employee, 'Attachment:10')
+    data, errors = query_attachment_node(user_employee, 10)
 
     assert errors is None
     assert data is not None

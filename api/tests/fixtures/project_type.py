@@ -1,22 +1,21 @@
 import pytest
 
-from api.tests.helpers.node_helper import b64encode_string
+from graphql_relay import to_global_id
 
 from db.models import ProjectType
 
 
-def project_type_node_query(node_id):
-    b64_encoded_id = b64encode_string(node_id)
+def project_type_node_query():
     return '''
-    query {
-        node(id: "%s") {
+    query ($id: ID!) {
+        node(id: $id) {
             id
             ... on ProjectType {
                 name
             }
         }
     }
-    ''' % b64_encoded_id
+    '''
 
 
 def project_types_query():
@@ -51,8 +50,10 @@ def project_type_objects():
 
 @pytest.fixture
 def query_project_type_node(execute):
-    def closure(user, node_id):
-        return execute(project_type_node_query(node_id), **{'user': user})
+    def closure(user, id_value):
+        return execute(
+            project_type_node_query(), variables={'id': to_global_id('ProjectType', id_value)}, **{'user': user}
+        )
     return closure
 
 

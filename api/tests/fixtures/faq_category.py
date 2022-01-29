@@ -1,22 +1,21 @@
 import pytest
 
-from api.tests.helpers.node_helper import b64encode_string
+from graphql_relay import to_global_id
 
 from db.models import FAQCategory
 
 
-def faq_category_node_query(node_id):
-    b64_encoded_id = b64encode_string(node_id)
+def faq_category_node_query():
     return '''
-    query {
-        node(id: "%s") {
+    query ($id: ID!) {
+        node(id: $id) {
             id
             ... on FAQCategory {
                 name
             }
         }
     }
-    ''' % b64_encoded_id
+    '''
 
 
 def faq_categories_query():
@@ -51,8 +50,10 @@ def faq_category_objects():
 
 @pytest.fixture
 def query_faq_category_node(execute):
-    def closure(user, node_id):
-        return execute(faq_category_node_query(node_id), **{'user': user})
+    def closure(user, id_value):
+        return execute(
+            faq_category_node_query(), variables={'id': to_global_id('FAQCategory', id_value)}, **{'user': user}
+        )
     return closure
 
 

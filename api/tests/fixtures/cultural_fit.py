@@ -1,15 +1,14 @@
 import pytest
 
-from api.tests.helpers.node_helper import b64encode_string
+from graphql_relay import to_global_id
 
 from db.models import CulturalFit
 
 
-def cultural_fit_node_query(node_id):
-    b64_encoded_id = b64encode_string(node_id)
+def cultural_fit_node_query():
     return '''
-    query {
-        node(id: "%s") {
+    query ($id: ID!) {
+        node(id: $id) {
             id
             ... on CulturalFit {
                 company
@@ -17,7 +16,7 @@ def cultural_fit_node_query(node_id):
             }
         }
     }
-    ''' % b64_encoded_id
+    '''
 
 
 def cultural_fits_query():
@@ -63,8 +62,10 @@ def cultural_fit_objects():
 
 @pytest.fixture
 def query_cultural_fit_node(execute):
-    def closure(user, node_id):
-        return execute(cultural_fit_node_query(node_id), **{'user': user})
+    def closure(user, id_value):
+        return execute(
+            cultural_fit_node_query(), variables={'id': to_global_id('CulturalFit', id_value)}, **{'user': user}
+        )
     return closure
 
 

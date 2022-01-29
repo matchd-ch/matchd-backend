@@ -1,22 +1,21 @@
 import pytest
 
-from api.tests.helpers.node_helper import b64encode_string
+from graphql_relay import to_global_id
 
 from db.models import Skill
 
 
-def skill_node_query(node_id):
-    b64_encoded_id = b64encode_string(node_id)
+def skill_node_query():
     return '''
-    query {
-        node(id: "%s") {
+    query ($id: ID!) {
+        node(id: $id) {
             id
             ... on Skill {
                 name
             }
         }
     }
-    ''' % b64_encoded_id
+    '''
 
 
 def skills_query():
@@ -53,8 +52,10 @@ def skill_objects():
 
 @pytest.fixture
 def query_skill_node(execute):
-    def closure(user, node_id):
-        return execute(skill_node_query(node_id), **{'user': user})
+    def closure(user, id_value):
+        return execute(
+            skill_node_query(), variables={'id': to_global_id('Skill', id_value)}, **{'user': user}
+        )
     return closure
 
 

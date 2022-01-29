@@ -1,15 +1,14 @@
 import pytest
 
-from api.tests.helpers.node_helper import b64encode_string
+from graphql_relay import to_global_id
 
 from db.models import SoftSkill
 
 
-def soft_skill_node_query(node_id):
-    b64_encoded_id = b64encode_string(node_id)
+def soft_skill_node_query():
     return '''
-    query {
-        node(id: "%s") {
+    query ($id: ID!) {
+        node(id: $id) {
             id
             ... on SoftSkill {
                 student
@@ -17,7 +16,7 @@ def soft_skill_node_query(node_id):
             }
         }
     }
-    ''' % b64_encoded_id
+    '''
 
 
 def soft_skills_query():
@@ -63,8 +62,10 @@ def soft_skill_objects():
 
 @pytest.fixture
 def query_soft_skill_node(execute):
-    def closure(user, node_id):
-        return execute(soft_skill_node_query(node_id), **{'user': user})
+    def closure(user, id_value):
+        return execute(
+            soft_skill_node_query(), variables={'id': to_global_id('SoftSkill', id_value)}, **{'user': user}
+        )
     return closure
 
 

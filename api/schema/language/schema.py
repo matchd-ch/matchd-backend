@@ -2,8 +2,6 @@ import graphene
 from graphene import ObjectType, relay
 from graphene_django import DjangoObjectType
 
-#from api.tests.fixtures.language import languages_query
-
 from db.models import Language as LanguageModel
 
 

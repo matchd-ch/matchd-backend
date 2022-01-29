@@ -2,7 +2,7 @@ import pytest
 
 from django.contrib.auth.models import AnonymousUser
 
-from api.tests.helpers.node_helper import b64encode_string
+from graphql_relay import to_global_id
 
 from db.models import ProfileType, ProfileState
 
@@ -38,8 +38,8 @@ def test_me_student(login, me, user_student_full_profile, skill_objects, branch_
     assert student.get('firstName') == 'John'
     assert student.get('lastName') == 'Doe'
     assert student.get('profileStep') == 3
-    assert student.get('branch').get('id') == b64encode_string(f'Branch:{branch_objects[0].id}')
-    assert student.get('jobType').get('id') == b64encode_string(f'JobType:{job_type_objects[0].id}')
+    assert student.get('branch').get('id') == to_global_id('Branch', branch_objects[0].id)
+    assert student.get('jobType').get('id') == to_global_id('JobType', job_type_objects[0].id)
     assert student.get('state') == ProfileState.ANONYMOUS.upper()
     assert student.get('mobile') == '+41711234567'
     assert student.get('zip') == '1337'

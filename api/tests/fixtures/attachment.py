@@ -8,23 +8,22 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import Client
 
-from api.tests.helpers.node_helper import b64encode_string
+from graphql_relay import to_global_id
 
 from db.models import Attachment, Image, AttachmentKey
 
 
-def attachment_node_query(node_id):
-    b64_encoded_id = b64encode_string(node_id)
+def attachment_node_query():
     return '''
-    query {
-        node(id: "%s") {
+    query ($id: ID!) {
+        node(id: $id) {
             id
             ... on Attachment {
                 fileName
             }
         }
     }
-    ''' % b64_encoded_id
+    '''
 
 
 def attachments_query(key):
@@ -171,8 +170,10 @@ def attachments_by_slug_query(slug):
 
 @pytest.fixture
 def query_attachment_node(execute):
-    def closure(user, node_id):
-        return execute(attachment_node_query(node_id), **{'user': user})
+    def closure(user, id_value):
+        return execute(
+            attachment_node_query(), variables={'id': to_global_id('Attachment', id_value)}, **{'user': user}
+        )
     return closure
 
 

@@ -1,24 +1,23 @@
 import pytest
 
-from api.tests.helpers.node_helper import b64encode_string
+from graphql_relay import to_global_id
 
 from db.models import Language
 
 # pylint: disable=W0621
 
 
-def language_node_query(node_id):
-    b64_encoded_id = b64encode_string(node_id)
+def language_node_query():
     return '''
-    query {
-        node(id: "%s") {
+    query ($id: ID!) {
+        node(id: $id) {
             id
             ... on Language {
                 name
             }
         }
     }
-    ''' % b64_encoded_id
+    '''
 
 
 def languages_query():
@@ -77,8 +76,10 @@ def language_objects():
 
 @pytest.fixture
 def query_language_node(execute):
-    def closure(user, node_id):
-        return execute(language_node_query(node_id), **{'user': user})
+    def closure(user, id_value):
+        return execute(
+            language_node_query(), variables={'id': to_global_id('Language', id_value)}, **{'user': user}
+        )
     return closure
 
 
