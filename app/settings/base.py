@@ -12,10 +12,11 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration
 from datetime import timedelta
 from urllib.parse import urlparse
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
 
 SECRET_KEY = 'y1m_k!q=s(7m&8!)91-#9wan_568xbvqg_8$hfl@dkhy_ep#u-'
 ALLOWED_HOSTS = ['*']
