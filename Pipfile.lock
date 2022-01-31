@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "4b6b4c5cb1d1ec359c4116c961dc9bffa7599abe8b4531649650e65889c49700"
+            "sha256": "a449efb9244709709f6be169d9c008638f470399d9f1c0aa4624a3ef0e3faf85"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -654,11 +654,11 @@
         },
         "tablib": {
             "hashes": [
-                "sha256:26141c9cf2d5904a2228d3f5d45f8a46a3f3f2f0fbb4c33b4a1c1ddca9f31348",
-                "sha256:d64c9f6712918a3d90ec5d71b44b8bab1083e3609e4844ad2be80eb633e097ed"
+                "sha256:12d8686454c721de88d8ca5adf07e1f419ef6dbcecedf65e8950d4a329daf3a0",
+                "sha256:1ba12da7b0b17e33f5997fb1bc8ed560aae3535f5892ae5e5c01a056c47d4d78"
             ],
             "index": "pypi",
-            "version": "==3.1.0"
+            "version": "==3.2.0"
         },
         "telepath": {
             "hashes": [
