@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 from datetime import timedelta
 from urllib.parse import urlparse
 
@@ -425,3 +427,12 @@ def show_debug_toolbar(request):
 DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': show_debug_toolbar,
 }
+
+
+# Sentry Integration
+
+sentry_sdk.init(
+    integrations=[DjangoIntegration()],
+    traces_sample_rate = 1.0,
+    send_default_pii = True,
+)
