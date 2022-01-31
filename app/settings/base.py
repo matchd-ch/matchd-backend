@@ -434,6 +434,6 @@ DEBUG_TOOLBAR_CONFIG = {
 
 sentry_sdk.init(
     integrations=[DjangoIntegration()],
-    traces_sample_rate = 1.0,
+    traces_sample_rate = os.getenv('TRACES_SAMPLE_RATE', 1.0),
     send_default_pii = True,
 )
