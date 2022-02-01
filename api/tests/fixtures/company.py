@@ -28,12 +28,20 @@ def company_query(slug):
             state
             profileStep
             benefits {
-              id
-              icon
+                edges {
+                    node {
+                        id
+                        icon
+                    }
+                }
             }
             branches {
-              id
-              name
+                edges {
+                    node {
+                        id
+                        name
+                    }
+                }
             }
             employees {
                 id

@@ -1,8 +1,23 @@
 import pytest
 
+from graphql_relay import to_global_id
+
 from db.models import ProjectPosting, ProjectPostingState
 
 # pylint: disable=C0209
+
+
+def project_posting_node_query():
+    return '''
+    query ($id: ID!) {
+        node(id: $id) {
+            id
+            ... on ProjectPosting {
+                slug
+            }
+        }
+    }
+    '''
 
 
 def project_posting_query(filter_value, param_name):
@@ -61,6 +76,69 @@ def project_posting_query(filter_value, param_name):
     ''' % param
 
 
+def project_postings_query():
+    return '''
+    query {
+        projectPostings(first: 3) {
+            pageInfo {
+                startCursor
+                endCursor
+                hasNextPage
+                hasPreviousPage
+            }
+            edges {
+                cursor
+                node {
+                    dateCreated
+                    datePublished
+                    id
+                    slug
+                    title
+                    displayTitle
+                    description
+                    additionalInformation
+                    topic {
+                        id
+                        name
+                    }
+                    projectType {
+                        id
+                        name
+                    }
+                    keywords {
+                        id
+                        name
+                    }
+                    website
+                    projectFromDate
+                    formStep
+                    state
+                    company {
+                        id
+                    }
+                    student {
+                        slug
+                        id
+                    }
+                    employee {
+                        email
+                        id
+                    }
+                    matchStatus {
+                        confirmed
+                        initiator
+                    }
+                    matchHints {
+                        hasRequestedMatch
+                        hasConfirmedMatch
+                    }
+                }
+            }
+        }
+    }
+    '''
+
+
 @pytest.fixture
 def query_project_posting(execute):
     def closure(user, slug):
@@ -73,6 +151,24 @@ def query_project_posting(execute):
 def query_project_posting_by_id(execute):
     def closure(user, project_posting_id):
         return execute(project_posting_query(project_posting_id, 'id'), **{'user': user})
+
+    return closure
+
+
+@pytest.fixture
+def query_project_posting_node(execute):
+    def closure(user, id_value):
+        return execute(
+            project_posting_node_query(), variables={'id': to_global_id('ProjectPosting', id_value)}, **{'user': user}
+        )
+
+    return closure
+
+
+@pytest.fixture
+def query_project_postings(execute):
+    def closure(user):
+        return execute(project_postings_query(), **{'user': user})
 
     return closure
 

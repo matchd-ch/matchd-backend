@@ -1,4 +1,5 @@
 import pytest
+
 from django.core import mail
 
 from db.models import Match

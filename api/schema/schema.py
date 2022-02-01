@@ -1,5 +1,6 @@
 import graphene
 
+from graphene import relay
 from api.schema.benefit import BenefitQuery
 from api.schema.branch import BranchQuery
 from api.schema.cultural_fit import CulturalFitQuery
@@ -74,7 +75,7 @@ class Query(
     ProjectTypeQuery,
     ProjectPostingQuery
 ):
-    pass
+    node = relay.Node.Field()
 
 
 schema = graphene.Schema(query=Query, mutation=Mutation)

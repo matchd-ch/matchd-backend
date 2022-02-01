@@ -1,15 +1,14 @@
 import graphene
 import graphql_jwt
-
-from django.contrib.auth import get_user_model
-from graphene import String
+from graphene import String, ObjectType
 from graphql_auth import mutations
 from graphql_auth.constants import TokenAction
 from graphql_auth.settings import graphql_auth_settings
 from graphql_auth.utils import get_token_paylod
 
+from django.contrib.auth import get_user_model
 
-class AuthMutation(graphene.ObjectType):
+class AuthMutation(ObjectType):
     token_auth = mutations.ObtainJSONWebToken.Field()
     refresh_token = mutations.RefreshToken.Field()
     revoke_token = graphql_jwt.Revoke.Field()
@@ -17,7 +16,7 @@ class AuthMutation(graphene.ObjectType):
     password_reset = mutations.PasswordReset.Field()
 
 
-class VerifyPasswordResetToken(graphene.ObjectType):
+class VerifyPasswordResetToken(ObjectType):
     verify_password_reset_token = graphene.Field(
         graphene.Boolean,
         token=String(required=True)

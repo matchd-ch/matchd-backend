@@ -1,5 +1,10 @@
 import pytest
+
 from django.contrib.auth.models import AnonymousUser
+
+from graphql_relay import to_global_id
+
+from api.tests.helpers.node_helper import assert_node_field, assert_node_id
 
 from db.models import JobPosting, JobPostingState, JobPostingLanguageRelation, Match
 
@@ -38,19 +43,25 @@ def test_job_posting(query_job_posting, job_posting_object: JobPosting, job_type
     assert job_posting.get('displayTitle') == 'tit\xadle'
     assert job_posting.get('slug') == job_posting_object.slug
     assert job_posting.get('description') == job_posting_object.description
-    assert int(job_posting.get('jobType').get('id')) == job_posting_object.job_type_id
-    assert int(job_posting.get('branches')[0].get('id')) == job_posting_object.branches.all()[0].id
+    assert job_posting.get('jobType').get('id') == to_global_id(
+        'JobType', job_posting_object.job_type_id
+    )
+    assert job_posting.get('branches')[0].get('id') == to_global_id(
+        'Branch', job_posting_object.branches.all()[0].id
+    )
     assert job_posting.get('workload') == job_posting_object.workload
-    assert int(job_posting.get('company').get('id')) == job_posting_object.company_id
+    assert job_posting.get('company').get('id') == to_global_id(
+        'Company', job_posting_object.company_id
+    )
     assert job_posting.get('jobFromDate') == '2021-08-01'
     assert job_posting.get('jobToDate') == '2021-10-01'
     assert job_posting.get('url') == job_posting_object.url
-    assert len(job_posting.get('jobRequirements')) == len(job_requirement_objects)
+    assert len(job_posting.get('jobRequirements').get('edges')) == len(job_requirement_objects)
     assert job_posting.get('skills') is None  # skills should not be visible
     assert job_posting.get('languages') is None  # languages should not be visible
     assert int(job_posting.get('formStep')) == job_posting_object.form_step
     assert job_posting.get('state') == job_posting_object.state.upper()
-    assert int(job_posting.get('employee').get('id')) == user_employee.employee.id
+    assert job_posting.get('employee').get('id') == to_global_id('Employee', user_employee.employee.id)
 
     match_status = job_posting.get('matchStatus')
     assert match_status is None
@@ -95,19 +106,25 @@ def test_job_posting_as_employee(query_job_posting, job_posting_object: JobPosti
     assert job_posting.get('displayTitle') == 'tit\xadle'
     assert job_posting.get('slug') == job_posting_object.slug
     assert job_posting.get('description') == job_posting_object.description
-    assert int(job_posting.get('jobType').get('id')) == job_posting_object.job_type_id
-    assert int(job_posting.get('branches')[0].get('id')) == job_posting_object.branches.all()[0].id
+    assert job_posting.get('jobType').get('id') == to_global_id(
+        'JobType', job_posting_object.job_type_id
+    )
+    assert job_posting.get('branches')[0].get('id') == to_global_id(
+        'Branch', job_posting_object.branches.all()[0].id
+    )
     assert job_posting.get('workload') == job_posting_object.workload
-    assert int(job_posting.get('company').get('id')) == job_posting_object.company_id
+    assert job_posting.get('company').get('id') == to_global_id(
+        'Company', job_posting_object.company_id
+    )
     assert job_posting.get('jobFromDate') == '2021-08-01'
     assert job_posting.get('jobToDate') == '2021-10-01'
     assert job_posting.get('url') == job_posting_object.url
-    assert len(job_posting.get('jobRequirements')) == len(job_requirement_objects)
+    assert len(job_posting.get('jobRequirements').get('edges')) == len(job_requirement_objects)
     assert len(job_posting.get('skills')) == len(skill_objects)
     assert len(job_posting.get('languages')) == 1
     assert int(job_posting.get('formStep')) == job_posting_object.form_step
     assert job_posting.get('state') == job_posting_object.state.upper()
-    assert int(job_posting.get('employee').get('id')) == user_employee.employee.id
+    assert job_posting.get('employee').get('id') == to_global_id('Employee', user_employee.employee.id)
 
     match_status = job_posting.get('matchStatus')
     assert match_status is None
@@ -149,19 +166,27 @@ def test_job_posting_by_id(query_job_posting_by_id, job_posting_object: JobPosti
     assert job_posting.get('displayTitle') == 'tit\xadle'
     assert job_posting.get('slug') == job_posting_object.slug
     assert job_posting.get('description') == job_posting_object.description
-    assert int(job_posting.get('jobType').get('id')) == job_posting_object.job_type_id
-    assert int(job_posting.get('branches')[0].get('id')) == job_posting_object.branches.all()[0].id
+    assert job_posting.get('jobType').get('id') == to_global_id(
+        'JobType', job_posting_object.job_type_id
+    )
+    assert job_posting.get('branches')[0].get('id') == to_global_id(
+        'Branch', job_posting_object.branches.all()[0].id
+    )
     assert job_posting.get('workload') == job_posting_object.workload
-    assert int(job_posting.get('company').get('id')) == job_posting_object.company_id
+    assert job_posting.get('company').get('id') == to_global_id(
+        'Company', job_posting_object.company_id
+    )
     assert job_posting.get('jobFromDate') == '2021-08-01'
     assert job_posting.get('jobToDate') == '2021-10-01'
     assert job_posting.get('url') == job_posting_object.url
-    assert len(job_posting.get('jobRequirements')) == len(job_requirement_objects)
+    assert len(job_posting.get('jobRequirements').get('edges')) == len(job_requirement_objects)
     assert job_posting.get('skills') is None  # skills should not be visible
     assert job_posting.get('languages') is None  # languages should not be visible
     assert int(job_posting.get('formStep')) == job_posting_object.form_step
     assert job_posting.get('state') == job_posting_object.state.upper()
-    assert int(job_posting.get('employee').get('id')) == user_employee.employee.id
+    assert job_posting.get('employee').get('id') == to_global_id(
+        'Employee', user_employee.employee.id
+    )
 
     match_status = job_posting.get('matchStatus')
     assert match_status is None
@@ -205,19 +230,27 @@ def test_job_posting_is_draft_but_accessible_for_employee(login, query_job_posti
     assert job_posting.get('displayTitle') == 'tit\xadle'
     assert job_posting.get('slug') == job_posting_object.slug
     assert job_posting.get('description') == job_posting_object.description
-    assert int(job_posting.get('jobType').get('id')) == job_posting_object.job_type_id
-    assert int(job_posting.get('branches')[0].get('id')) == job_posting_object.branches.all()[0].id
+    assert job_posting.get('jobType').get('id') == to_global_id(
+        'JobType', job_posting_object.job_type_id
+    )
+    assert job_posting.get('branches')[0].get('id') == to_global_id(
+        'Branch', job_posting_object.branches.all()[0].id
+    )
     assert job_posting.get('workload') == job_posting_object.workload
-    assert int(job_posting.get('company').get('id')) == job_posting_object.company_id
+    assert job_posting.get('company').get('id') == to_global_id(
+        'Company', job_posting_object.company_id
+    )
     assert job_posting.get('jobFromDate') == '2021-08-01'
     assert job_posting.get('jobToDate') == '2021-10-01'
     assert job_posting.get('url') == job_posting_object.url
-    assert len(job_posting.get('jobRequirements')) == len(job_requirement_objects)
+    assert len(job_posting.get('jobRequirements').get('edges')) == len(job_requirement_objects)
     assert len(job_posting.get('skills')) == len(skill_objects)
     assert len(job_posting.get('languages')) == 0
     assert int(job_posting.get('formStep')) == job_posting_object.form_step
     assert job_posting.get('state') == job_posting_object.state.upper()
-    assert int(job_posting.get('employee').get('id')) == user_employee.employee.id
+    assert job_posting.get('employee').get('id') == to_global_id(
+        'Employee', user_employee.employee.id
+    )
 
     match_status = job_posting.get('matchStatus')
     assert match_status is None
@@ -277,10 +310,40 @@ def test_job_postings(query_job_postings, job_posting_objects, company_object, u
 
     assert errors is None
     assert data is not None
-    job_postings = data.get('jobPostings')
+    edges = data.get('jobPostings').get('edges')
 
-    assert job_postings is not None
-    assert len(job_postings) == len(job_posting_objects) - 1
+    assert edges is not None
+    assert_node_id(edges[0].get('node'), 'JobPosting', job_posting_objects[1].id)
+    assert_node_id(edges[1].get('node'), 'JobPosting', job_posting_objects[2].id)
+    assert_node_field(edges[0].get('node'), 'slug', job_posting_objects[1].slug)
+    assert_node_field(edges[1].get('node'), 'slug', job_posting_objects[2].slug)
+    assert len(edges) == len(job_posting_objects) - 1
+
+
+@pytest.mark.django_db
+def test_job_posting_node_query(query_job_posting_node, job_posting_objects, user_employee):
+    data, errors = query_job_posting_node(user_employee, job_posting_objects[1].id)
+
+    assert errors is None
+    assert data is not None
+
+    node = data.get('node')
+    assert node is not None
+    assert_node_id(node, 'JobPosting', job_posting_objects[1].id)
+    assert_node_field(node, 'slug', job_posting_objects[1].slug)
+
+
+@pytest.mark.django_db
+def test_job_posting_node_without_login_query(query_job_posting_node, job_posting_objects):
+    data, errors = query_job_posting_node(AnonymousUser(), job_posting_objects[1].id)
+
+    assert errors is not None
+    assert data is not None
+
+    error = errors[0].get('message')
+    node = data.get('node')
+    assert node is None
+    assert error == "You do not have permission to perform this action"
 
 
 @pytest.mark.django_db

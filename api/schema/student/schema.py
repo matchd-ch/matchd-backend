@@ -1,12 +1,13 @@
 import graphene
+from graphene import ObjectType, relay
+from graphene_django import DjangoObjectType
+from graphql_auth.bases import Output
+from graphql_jwt.decorators import login_required
+
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
 from django.shortcuts import get_object_or_404
-from graphene import ObjectType
-from graphene_django import DjangoObjectType
-from graphql_auth.bases import Output
 from django.utils.translation import gettext as _
-from graphql_jwt.decorators import login_required
 
 from api.helper import is_me_query
 from api.schema.branch import BranchInput
@@ -18,12 +19,12 @@ from api.schema.profile_state import ProfileState
 from api.schema.soft_skill import SoftSkillInput
 from api.schema.skill import SkillInput
 from api.schema.user_language_relation.user_language_relation import UserLanguageRelationInput
+
 from db.decorators import privacy_protection
 from db.exceptions import FormException, NicknameException
 from db.forms import process_student_form_step_1, process_student_form_step_2, \
     process_student_form_step_5, process_student_form_step_6, process_student_form_step_4
 from db.forms.student_step_3 import process_student_form_step_3
-
 from db.models import Student as StudentModel, ProfileType, Match as MatchModel, ProjectPostingState
 
 
@@ -58,10 +59,11 @@ class Student(DjangoObjectType):
 
     class Meta:
         model = StudentModel
-        fields = ('id', 'mobile', 'street', 'zip', 'city', 'date_of_birth', 'nickname', 'school_name', 'field_of_study',
+        interfaces = (relay.Node,)
+        fields = ('mobile', 'street', 'zip', 'city', 'date_of_birth', 'nickname', 'school_name', 'field_of_study',
                   'graduation', 'skills', 'hobbies', 'languages', 'distinction', 'online_projects', 'state',
-                  'profile_step', 'soft_skills', 'cultural_fits', 'branch', 'slug', 'job_type', 'job_type',
-                  'branch', 'job_from_date', 'job_to_date')
+                  'profile_step', 'soft_skills', 'cultural_fits', 'branch', 'slug', 'job_type', 'job_from_date',
+                  'job_to_date')
         convert_choices_to_enum = False
 
     @privacy_protection()
@@ -342,7 +344,7 @@ class StudentProfileStep6(Output, graphene.Mutation):
         return StudentProfileStep6(success=True, errors=None)
 
 
-class StudentProfileMutation(graphene.ObjectType):
+class StudentProfileMutation(ObjectType):
     student_profile_step1 = StudentProfileStep1.Field()
     student_profile_step2 = StudentProfileStep2.Field()
     student_profile_step3 = StudentProfileStep3.Field()

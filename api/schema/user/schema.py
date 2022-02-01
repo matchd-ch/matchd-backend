@@ -1,8 +1,10 @@
 import graphene
-from django.contrib.auth import get_user_model
+from graphene import ObjectType, relay
 from graphene_django import DjangoObjectType
 from graphql_auth.settings import graphql_auth_settings
 from graphql_jwt.decorators import login_required
+
+from django.contrib.auth import get_user_model
 
 from api.schema.profile_type import ProfileType
 
@@ -12,13 +14,14 @@ class User(DjangoObjectType):
 
     class Meta:
         model = get_user_model()
+        interfaces = (relay.Node,)
         filter_fields = graphql_auth_settings.USER_NODE_FILTER_FIELDS
-        exclude = graphql_auth_settings.USER_NODE_EXCLUDE_FIELDS
+        exclude = graphql_auth_settings.USER_NODE_EXCLUDE_FIELDS.append('id')
         skip_registry = True
         convert_choices_to_enum = False
 
 
-class UserQuery(graphene.ObjectType):
+class UserQuery(ObjectType):
     me = graphene.Field(User)
 
     @login_required

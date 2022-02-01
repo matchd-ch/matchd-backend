@@ -1,18 +1,26 @@
 import graphene
-from graphene import ObjectType
+from graphene import ObjectType, relay
 from graphene_django import DjangoObjectType
 
 from db.models import Benefit as BenefitModel
 
 
 class Benefit(DjangoObjectType):
+
     class Meta:
         model = BenefitModel
-        fields = ('id', 'icon', 'name',)
+        interfaces = (relay.Node,)
+        fields = ('icon', 'name',)
+
+
+class BenefitConnections(relay.Connection):
+
+    class Meta:
+        node = Benefit
 
 
 class BenefitQuery(ObjectType):
-    benefits = graphene.List(Benefit)
+    benefits = relay.ConnectionField(BenefitConnections)
 
     def resolve_benefits(self, info, **kwargs):
         return BenefitModel.objects.all()

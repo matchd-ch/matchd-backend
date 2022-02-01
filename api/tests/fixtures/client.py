@@ -1,6 +1,8 @@
 import pytest
-from django.test import RequestFactory
 from graphene.test import Client
+
+from django.test import RequestFactory
+
 from api.schema import schema
 
 

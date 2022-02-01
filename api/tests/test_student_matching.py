@@ -1,6 +1,7 @@
 from io import StringIO
 
 import pytest
+
 from django.core import management
 
 from db.models import JobPostingState, ProfileState, JobPostingLanguageRelation, UserLanguageRelation, Match
