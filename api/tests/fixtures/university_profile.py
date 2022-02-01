@@ -1,6 +1,7 @@
 import pytest
 
 # pylint: disable=R0913
+# pylint: disable=C0209
 
 
 def university_profile_mutation(step):

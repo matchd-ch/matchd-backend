@@ -1,5 +1,7 @@
 import pytest
 
+# pylint: disable=C0209
+
 
 def zip_city_query():
     return '''
@@ -16,7 +18,7 @@ def zip_city_query():
 def zip_city_jobs_query(branch_id, job_type_id):
     return '''
     query {
-      zipCityJobs(branchId:%i, jobTypeId:%i) {
+      zipCityJobs(branchId: %i, jobTypeId: %i) {
         zip
       }
     }

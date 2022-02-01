@@ -28,6 +28,5 @@ class PasswordValidator:
 
     def get_help_text(self):
         return _(
-            'Your password must contain at least %(min_length)d characters.'
-            % {'min_length': self.min_length}
+            f'Your password must contain at least {self.min_length} characters.'
         )

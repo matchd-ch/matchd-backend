@@ -2,12 +2,14 @@ import pytest
 
 from db.models import ProjectPosting, ProjectPostingState
 
+# pylint: disable=C0209
+
 
 def project_posting_query(filter_value, param_name):
     if param_name == 'slug':
-        param = 'slug: "%s"' % filter_value
+        param = f'slug: "{filter_value}"'
     else:
-        param = 'id: %s' % filter_value
+        param = f'id: {filter_value}'
     return '''
     query {
         projectPosting(%s) {

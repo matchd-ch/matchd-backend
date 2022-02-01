@@ -1,5 +1,7 @@
 import pytest
 
+# pylint: disable=C0209
+
 
 def job_posting_matching_query(tech_boost, soft_boost):
     return '''

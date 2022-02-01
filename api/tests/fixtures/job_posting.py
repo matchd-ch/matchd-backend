@@ -6,13 +6,14 @@ from db.models import JobPosting, JobPostingState
 
 # pylint: disable=W0621
 # pylint: disable=R0913
+# pylint: disable=C0209
 
 
 def job_posting_query(filter_value, param_name):
     if param_name == 'slug':
-        param = 'slug: "%s"' % filter_value
+        param = f'slug: "{filter_value}"'
     else:
-        param = 'id: %s' % filter_value
+        param = f'id: {filter_value}'
     return '''
     query {
         jobPosting(%s) {

@@ -96,7 +96,7 @@ class Command(BaseCommand):
 
         for attachment in attachments:
             file_path = str(attachment.attachment_object.file)
-            file_name = file_path.split('/')[-1]
+            file_name = file_path.rsplit('/', maxsplit=1)[-1]
 
             path = ''
             if attachment.key == AttachmentKey.COMPANY_AVATAR:
@@ -234,11 +234,12 @@ class Command(BaseCommand):
 
         json_string = json.dumps(user_dump, indent=4, sort_keys=True)
 
-        with open('db/seed/data/fixtures.json', 'w') as json_file:
+        with open('db/seed/data/fixtures.json', 'w', encoding='utf-8') as json_file:
             json_file.write(json_string)
 
         sys_out = sys.stdout
-        sys.stdout = open('db/seed/data/matches.json', 'w')
+        with open('db/seed/data/matches.json', 'w', encoding='utf-8') as file:
+            sys.stdout = file
         management.call_command('dumpdata', 'db.Match')
         sys.stdout = sys_out
 
@@ -274,7 +275,7 @@ class Command(BaseCommand):
 
         content = '\n'.join(lines)
 
-        with open('ACCOUNTS.md', 'w') as json_file:
+        with open('ACCOUNTS.md', 'w', encoding='utf-8') as json_file:
             json_file.write(content)
 
         self.stdout.write('', ending='\n')

@@ -45,11 +45,11 @@ class Command(BaseCommand):
                 data_to_update.save()
                 object_count += 1
         self.stdout.write(
-            self.style.SUCCESS('Installed %i object(s) from %i fixture(s)' % (object_count, fixture_count))
+            self.style.SUCCESS(f'Installed {object_count} object(s) from {fixture_count} fixture(s)')
         )
 
     def read_file(self, path):
-        with open(path) as file:
+        with open(path, encoding='utf-8') as file:
             data = file.read()
             file.close()
         return data

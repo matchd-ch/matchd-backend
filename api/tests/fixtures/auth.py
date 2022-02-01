@@ -2,6 +2,7 @@ import pytest
 
 
 # pylint: disable=W0621
+# pylint: disable=C0209
 
 
 @pytest.fixture

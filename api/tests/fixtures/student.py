@@ -3,6 +3,8 @@ import pytest
 from db.helper.forms import convert_date
 from db.models import Student, ProfileType, ProfileState, Hobby, OnlineProject
 
+# pylint: disable=C0209
+
 
 def student_query(slug):
     return '''
