@@ -1,5 +1,5 @@
 import graphene
-from graphene import ObjectType
+from graphene import ObjectType, relay
 from graphene_django import DjangoObjectType
 
 from db.models import Branch as BranchModel
@@ -8,11 +8,17 @@ from db.models import Branch as BranchModel
 class Branch(DjangoObjectType):
     class Meta:
         model = BranchModel
-        fields = ('id', 'name',)
+        interfaces = (relay.Node,)
+        fields = ('name',)
+
+
+class BranchConnections(relay.Connection):
+    class Meta:
+        node = Branch
 
 
 class BranchQuery(ObjectType):
-    branches = graphene.List(Branch)
+    branches = relay.ConnectionField(BranchConnections)
 
     def resolve_branches(self, info, **kwargs):
         return BranchModel.objects.all()

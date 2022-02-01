@@ -1,5 +1,8 @@
 from datetime import datetime
+
 import pytest
+
+from graphql_relay import to_global_id
 
 from db.models import JobPosting, JobPostingState
 
@@ -58,8 +61,12 @@ def job_posting_query(filter_value, param_name):
             formStep
             url
             jobRequirements {
-                id
-                name
+                edges {
+                    node {
+                        id
+                        name
+                    }
+                }
             }
             skills {
                 id
@@ -80,65 +87,93 @@ def job_posting_query(filter_value, param_name):
     ''' % param
 
 
+def job_posting_node_query():
+    return '''
+    query ($id: ID!) {
+        node(id: $id) {
+            id
+            ... on JobPosting {
+                slug
+            }
+        }
+    }
+    '''
+
+
 def job_postings_query(slug):
     return '''
     query {
-        jobPostings(slug: "%s") {
-            matchStatus {
-              initiator
-              confirmed
+        jobPostings(first: 2, slug: "%s") {
+            pageInfo {
+                startCursor
+                endCursor
+                hasNextPage
+                hasPreviousPage
             }
-            matchHints {
-              hasRequestedMatch
-              hasConfirmedMatch
-            }
-            id
-            slug
-            title
-            displayTitle
-            formStep
-            state
-            description
-            jobType {
-                id
-                name
-                mode
-            }
-            branches {
-                id
-                name
-            }
-            employee {
-                id
-                role
-                firstName
-                lastName
-                email
-            }
-            company {
-                id
-            }
-            workload
-            jobFromDate
-            jobToDate
-            formStep
-            url
-            jobRequirements {
-                id
-                name
-            }
-            skills {
-                id
-                name
-            }
-            languages {
-                language {
+            edges {
+                cursor
+                node {
+                    matchStatus {
+                        initiator
+                        confirmed
+                    }
+                    matchHints {
+                        hasRequestedMatch
+                        hasConfirmedMatch
+                    }
                     id
-                    name
-                }
-                languageLevel {
-                    id
+                    slug
+                    title
+                    displayTitle
+                    formStep
+                    state
                     description
+                    jobType {
+                        id
+                        name
+                        mode
+                    }
+                    branches {
+                        id
+                        name
+                    }
+                    employee {
+                        id
+                        role
+                        firstName
+                        lastName
+                        email
+                    }
+                    company {
+                        id
+                    }
+                    workload
+                    jobFromDate
+                    jobToDate
+                    formStep
+                    url
+                    jobRequirements {
+                        edges {
+                            node {
+                                id
+                                name
+                            }
+                        }
+                    }
+                    skills {
+                        id
+                        name
+                    }
+                    languages {
+                        language {
+                            id
+                            name
+                        }
+                        languageLevel {
+                            id
+                            description
+                        }
+                    }
                 }
             }
         }
@@ -157,6 +192,15 @@ def query_job_posting(execute):
 def query_job_posting_by_id(execute):
     def closure(user, job_posting_id):
         return execute(job_posting_query(job_posting_id, 'id'), **{'user': user})
+    return closure
+
+
+@pytest.fixture
+def query_job_posting_node(execute):
+    def closure(user, id_value):
+        return execute(
+            job_posting_node_query(), variables={'id': to_global_id('JobPosting', id_value)}, **{'user': user}
+        )
     return closure
 
 

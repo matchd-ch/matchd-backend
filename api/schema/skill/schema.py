@@ -1,18 +1,26 @@
 import graphene
-from graphene import ObjectType
+from graphene import ObjectType, relay
 from graphene_django import DjangoObjectType
 
 from db.models import Skill as SkillModel
 
 
 class Skill(DjangoObjectType):
+
     class Meta:
         model = SkillModel
-        fields = ('id', 'name',)
+        interfaces = (relay.Node,)
+        fields = ('name',)
+
+
+class SkillConnections(relay.Connection):
+
+    class Meta:
+        node = Skill
 
 
 class SkillQuery(ObjectType):
-    skills = graphene.List(Skill)
+    skills = relay.ConnectionField(SkillConnections)
 
     def resolve_skills(self, info, **kwargs):
         return SkillModel.objects.all()

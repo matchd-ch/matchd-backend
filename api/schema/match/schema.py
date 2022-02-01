@@ -2,7 +2,8 @@ import graphene
 from graphene_django import DjangoObjectType
 from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
-from graphene import ObjectType, InputObjectType
+from graphene import ObjectType, InputObjectType, relay
+
 from django.utils.translation import gettext as _
 
 from api.schema.branch import BranchInput
@@ -13,6 +14,7 @@ from api.schema.student import StudentInput
 from api.schema.zip_city import ZipCityInput
 from api.schema.job_posting import JobPostingInput
 from api.schema.job_type import JobTypeInput
+
 from db.exceptions import FormException
 from db.forms import process_job_posting_match, process_student_match, process_project_posting_match
 from db.models import MatchType as MatchTypeModel, Match as MatchModel
@@ -37,7 +39,8 @@ class JobPostingMatchInfo(DjangoObjectType):
 
     class Meta:
         model = MatchModel
-        fields = ('id', 'student', 'job_posting', )
+        interfaces = (relay.Node,)
+        fields = ('student', 'job_posting', )
 
 
 class ProjectPostingMatchInfo(DjangoObjectType):
@@ -47,7 +50,8 @@ class ProjectPostingMatchInfo(DjangoObjectType):
 
     class Meta:
         model = MatchModel
-        fields = ('id', 'student', 'project_posting', 'company', )
+        interfaces = (relay.Node,)
+        fields = ('student', 'project_posting', 'company', )
 
 
 class Match(ObjectType):

@@ -1,11 +1,11 @@
 from io import StringIO
 
 import pytest
+
 from django.core import management
 
 from db.helper.forms import convert_date
 from db.models import ProfileState, Match, JobPostingState
-
 
 # pylint: disable=R0913
 # pylint: disable=R0915

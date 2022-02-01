@@ -1,22 +1,27 @@
 import graphene
-from django.http import Http404
-from django.shortcuts import get_object_or_404
-from django.utils.translation import gettext as _
-from graphene import ObjectType
+from graphene import ObjectType, relay
 from graphene_django import DjangoObjectType
 from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
+
+from django.http import Http404
+from django.shortcuts import get_object_or_404
+from django.utils.translation import gettext as _
 
 from api.schema.employee import Employee, EmployeeInput
 from api.schema.keyword.schema import KeywordInput
 from api.schema.project_type.schema import ProjectTypeInput
 from api.schema.topic.schema import TopicInput
+
 from db.decorators import hyphenate
 from db.exceptions import FormException
 from db.forms import process_project_posting_form_step_1, process_project_posting_form_step_2
 from db.forms.project_posting_step_3 import process_project_posting_form_step_3
 from db.models import ProjectPosting as ProjectPostingModel, ProjectPostingState as ProjectPostingStateModel, \
     ProfileType, Match as MatchModel
+
+# TODO: Fix permissions for get_node()
+
 
 ProjectPostingState = graphene.Enum.from_enum(ProjectPostingStateModel)
 
@@ -43,10 +48,17 @@ class ProjectPosting(DjangoObjectType):
 
     class Meta:
         model = ProjectPostingModel
-        fields = ('id', 'title', 'description', 'project_type', 'topic', 'company', 'keywords',
+        interfaces = (relay.Node,)
+        fields = ('title', 'description', 'project_type', 'topic', 'company', 'keywords',
                   'additional_information', 'website', 'project_from_date', 'form_step', 'state', 'date_published',
                   'date_created', 'student', 'employee', 'slug',)
         convert_choices_to_enum = False
+
+    # pylint: disable=W0622
+    @classmethod
+    @login_required
+    def get_node(cls, info, id):
+        return get_object_or_404(ProjectPostingModel, pk=id)
 
     def resolve_keywords(self: ProjectPostingModel, info):
         return self.keywords.all()
@@ -88,10 +100,15 @@ class ProjectPosting(DjangoObjectType):
         return user.student.get_match_hints(self.company)
 
 
+class ProjectPostingConnection(relay.Connection):
+    class Meta:
+        node = ProjectPosting
+
+
 class ProjectPostingQuery(ObjectType):
     project_posting = graphene.Field(ProjectPosting, id=graphene.ID(required=False),
                                      slug=graphene.String(required=False))
-    project_postings = graphene.List(ProjectPosting)
+    project_postings = relay.ConnectionField(ProjectPostingConnection)
 
     @login_required
     def resolve_project_posting(self, info, **kwargs):
@@ -225,7 +242,7 @@ class ProjectPostingStep3(Output, graphene.Mutation):
                                    project_posting_id=project_posting.id)
 
 
-class ProjectPostingMutation(graphene.ObjectType):
+class ProjectPostingMutation(ObjectType):
     project_posting_step_1 = ProjectPostingStep1.Field()
     project_posting_step_2 = ProjectPostingStep2.Field()
     project_posting_step_3 = ProjectPostingStep3.Field()

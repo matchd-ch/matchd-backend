@@ -8,8 +8,8 @@ from db.models import Company, ProfileState, ProfileType, Employee
 
 def company_query(slug):
     return '''
-    query{
-        company(slug:"%s"){
+    query {
+        company(slug:"%s") {
             id
             uid
             type
@@ -27,12 +27,20 @@ def company_query(slug):
             state
             profileStep
             benefits {
-              id
-              icon
+                edges {
+                    node {
+                        id
+                        icon
+                    }
+                }
             }
             branches {
-              id
-              name
+                edges {
+                    node {
+                        id
+                        name
+                    }
+                }
             }
             employees {
                 id

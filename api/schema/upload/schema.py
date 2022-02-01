@@ -1,13 +1,15 @@
 import graphene
-from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import PermissionDenied
 from graphene import ObjectType
 from graphene_file_upload.scalars import Upload
 from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 
+from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import PermissionDenied
+
 from api.schema.attachment import AttachmentKey
 from api.schema.project_posting.schema import ProjectPostingInput
+
 from db.exceptions import FormException
 from db.forms import AttachmentForm, process_upload, process_attachment
 from db.helper import generic_error_dict
@@ -81,7 +83,7 @@ class UserUpload(Output, graphene.Mutation):
         return UserUpload(success=True, errors=None)
 
 
-class UploadMutation(graphene.ObjectType):
+class UploadMutation(ObjectType):
     upload = UserUpload.Field()
 
 

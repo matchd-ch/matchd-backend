@@ -1,5 +1,5 @@
 import graphene
-from graphene import ObjectType
+from graphene import ObjectType, relay
 from graphene_django import DjangoObjectType
 
 from db.models import JobType as JobTypeModel, DateMode as DateModeModel
@@ -12,12 +12,18 @@ class JobType(DjangoObjectType):
 
     class Meta:
         model = JobTypeModel
-        fields = ('id', 'name', 'mode',)
+        interfaces = (relay.Node,)
+        fields = ('name', 'mode',)
         convert_choices_to_enum = False
 
 
+class JobTypeConnection(relay.Connection):
+    class Meta:
+        node = JobType
+
+
 class JobTypeQuery(ObjectType):
-    job_types = graphene.List(JobType)
+    job_types = relay.ConnectionField(JobTypeConnection)
 
     def resolve_job_types(self, info, **kwargs):
         return JobTypeModel.objects.all()
