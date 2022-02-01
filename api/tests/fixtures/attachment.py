@@ -12,6 +12,8 @@ from graphql_relay import to_global_id
 
 from db.models import Attachment, Image, AttachmentKey
 
+# pylint: disable=C0209
+
 
 def attachment_node_query():
     return '''
@@ -277,24 +279,24 @@ def delete_attachment_mutation(attachment_id):
 def file_image_jpg():
     mime_type = 'image/jpeg'
     image_path = os.path.join(settings.BASE_DIR, 'api', 'tests', 'fixtures', 'media', 'image.jpg')
-    file = open(image_path, 'rb').read()
-    return SimpleUploadedFile(name='image.jpg', content=file, content_type=mime_type)
+    with open(image_path, 'rb') as file:
+        return SimpleUploadedFile(name='image.jpg', content=file.read(), content_type=mime_type)
 
 
 @pytest.fixture
 def file_video_mp4():
     mime_type = 'video/mp4'
     image_path = os.path.join(settings.BASE_DIR, 'api', 'tests', 'fixtures', 'media', 'video.mp4')
-    file = open(image_path, 'rb').read()
-    return SimpleUploadedFile(name='video.mp4', content=file, content_type=mime_type)
+    with open(image_path, 'rb') as file:
+        return SimpleUploadedFile(name='video.mp4', content=file.read(), content_type=mime_type)
 
 
 @pytest.fixture
 def file_document_pdf():
     mime_type = 'application/pdf'
     image_path = os.path.join(settings.BASE_DIR, 'api', 'tests', 'fixtures', 'media', 'document.pdf')
-    file = open(image_path, 'rb').read()
-    return SimpleUploadedFile(name='document.pdf', content=file, content_type=mime_type)
+    with open(image_path, 'rb') as file:
+        return SimpleUploadedFile(name='document.pdf', content=file.read(), content_type=mime_type)
 
 
 @pytest.fixture

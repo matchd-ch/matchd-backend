@@ -20,5 +20,5 @@ for p in data['Ort / Ville / Città']:
         'canton': canton
     })
 
-with open('data.json', 'w') as outfile:
+with open('data.json', 'w', encoding='utf-8') as outfile:
     json.dump(items, outfile)

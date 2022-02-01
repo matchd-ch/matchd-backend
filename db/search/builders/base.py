@@ -62,10 +62,9 @@ class BaseParamBuilder:
                 }
             }
         ]
-        for i in range(0, len(settings.MATCHING_VALUE_DATE_OR_DATE_RANGE_PRECISION)):
+        for matching_value in settings.MATCHING_VALUE_DATE_OR_DATE_RANGE_PRECISION:
             conditions.append(self.get_date_range_query(
-                'job_from_date_filter', date_from, date_from, settings.MATCHING_VALUE_DATE_OR_DATE_RANGE_PRECISION[i],
-                boost))
+                'job_from_date_filter', date_from, date_from, matching_value, boost))
 
         self.should_conditions.append(
             {
@@ -87,10 +86,9 @@ class BaseParamBuilder:
                 }
             }
         ]
-        for i in range(0, len(settings.MATCHING_VALUE_DATE_OR_DATE_RANGE_PRECISION)):
+        for matching_value in settings.MATCHING_VALUE_DATE_OR_DATE_RANGE_PRECISION:
             conditions.append(self.get_nested_date_range_query(
-                'job_from_date_filter', 'job_to_date_filter', date_from, date_to,
-                settings.MATCHING_VALUE_DATE_OR_DATE_RANGE_PRECISION[i], boost / 2))
+                'job_from_date_filter', 'job_to_date_filter', date_from, date_to, matching_value, boost / 2))
 
         self.should_conditions.append(
             {

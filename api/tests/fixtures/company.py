@@ -4,12 +4,13 @@ from db.models import Company, ProfileState, ProfileType, Employee
 
 # pylint: disable=W0621
 # pylint: disable=R0913
+# pylint: disable=C0209
 
 
 def company_query(slug):
     return '''
-    query {
-        company(slug:"%s") {
+    query{
+        company(slug: "%s"){
             id
             uid
             type

@@ -2,6 +2,7 @@ import pytest
 
 # pylint: disable=W0621
 # pylint: disable=R0913
+# pylint: disable=C0209
 
 
 def student_profile_mutation(step):

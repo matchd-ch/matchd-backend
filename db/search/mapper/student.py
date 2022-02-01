@@ -41,7 +41,7 @@ class StudentMatchMapper:
         return attachment
 
     def _get_name(self, student):
-        name = '%s %s' % (student.user.first_name, student.user.last_name)
+        name = f'{student.user.first_name} {student.user.last_name}'
         has_match = self.permission_map.get(student.id, None)
         if not has_match and student.state == ProfileState.ANONYMOUS:
             name = student.nickname

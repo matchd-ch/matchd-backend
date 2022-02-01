@@ -17,9 +17,8 @@ class JobPostingParamBuilder(BaseParamBuilder):
                 }
             }
         ]
-        for i in range(0, len(settings.MATCHING_VALUE_WORKLOAD_PRECISION)):
-            conditions.append(self.get_range_query(
-                'workload_filter', workload, settings.MATCHING_VALUE_WORKLOAD_PRECISION[i], boost))
+        for matching_value in settings.MATCHING_VALUE_WORKLOAD_PRECISION:
+            conditions.append(self.get_range_query('workload_filter', workload, matching_value, boost))
 
         self.should_conditions.append(
             {

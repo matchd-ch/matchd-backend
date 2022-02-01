@@ -55,7 +55,7 @@ class DeleteAttachment(Output, graphene.Mutation):
             return DeleteAttachment(
                 success=False,
                 errors=generic_error_dict(
-                    'id', '%s:%s' % (_('Error deleting file'), str(exception)), 'error'))  # pragma: no cover
+                    'id', f'{_("Error deleting file")}:{str(exception)}', 'error'))  # pragma: no cover
         return DeleteAttachment(success=True, errors=None)
 
 

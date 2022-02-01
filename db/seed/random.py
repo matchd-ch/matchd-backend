@@ -85,7 +85,7 @@ class Random:
 
     def _load_address_data(self):
         address_list = []
-        with open('db/seed/data/address_list.txt') as address_file:
+        with open('db/seed/data/address_list.txt', encoding='utf-8') as address_file:
             lines = address_file.readlines()
             for line in lines:
                 parts = line.split(',')

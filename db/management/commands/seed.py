@@ -24,5 +24,5 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS('Adding test data completed'))
 
     def _load_fixtures(self):
-        with open('db/seed/data/fixtures.json') as json_file:
+        with open('db/seed/data/fixtures.json', encoding='utf-8') as json_file:
             self.data = json.load(json_file)
