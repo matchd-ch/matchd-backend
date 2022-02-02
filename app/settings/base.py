@@ -17,7 +17,6 @@ from urllib.parse import urlparse
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
-
 SECRET_KEY = 'y1m_k!q=s(7m&8!)91-#9wan_568xbvqg_8$hfl@dkhy_ep#u-'
 ALLOWED_HOSTS = ['*']
 
@@ -432,11 +431,10 @@ DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': show_debug_toolbar,
 }
 
-
 # Sentry Integration
 
 sentry_sdk.init(
     integrations=[DjangoIntegration()],
-    traces_sample_rate = os.getenv('TRACES_SAMPLE_RATE', 1.0),
-    send_default_pii = True,
+    traces_sample_rate=float(os.getenv('SENTRY_TRACES_SAMPLE_RATE', 1.0)),
+    send_default_pii=True,
 )
