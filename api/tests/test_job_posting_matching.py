@@ -1,6 +1,7 @@
 from io import StringIO
 
 import pytest
+
 from django.core import management
 
 from db.helper.forms import convert_date
@@ -11,9 +12,10 @@ from db.models import JobPostingState, ProfileState, JobPostingLanguageRelation,
 
 
 @pytest.mark.django_db
-def test_job_posting_matching(job_posting_object, job_posting_object_2, skill_objects, branch_objects,
-                              job_type_objects_date_range, user_employee, soft_skill_objects, cultural_fit_objects,
-                              user_student, job_posting_matching, login, language_objects, language_level_objects,
+def test_job_posting_matching(job_posting_object, job_posting_object_2, skill_objects,
+                              branch_objects, job_type_objects_date_range, user_employee,
+                              soft_skill_objects, cultural_fit_objects, user_student,
+                              job_posting_matching, login, language_objects, language_level_objects,
                               user_employee_2, company_fallback_images):
     branch = branch_objects[0]
     job_type = job_type_objects_date_range[0]
@@ -31,7 +33,9 @@ def test_job_posting_matching(job_posting_object, job_posting_object_2, skill_ob
     user_student.student.cultural_fits.set(cultural_fit_objects[:6])
     user_student.student.save()
 
-    UserLanguageRelation.objects.create(language=language, language_level=language_level, student=user_student.student)
+    UserLanguageRelation.objects.create(language=language,
+                                        language_level=language_level,
+                                        student=user_student.student)
 
     user_employee.company.street = 'street'
     user_employee.company.zip = '1337'
@@ -56,7 +60,8 @@ def test_job_posting_matching(job_posting_object, job_posting_object_2, skill_ob
     job_posting_object.save()
     job_posting_object.branches.set([branch])
 
-    JobPostingLanguageRelation.objects.create(language=language, language_level=language_level,
+    JobPostingLanguageRelation.objects.create(language=language,
+                                              language_level=language_level,
                                               job_posting=job_posting_object)
 
     user_employee_2.company.street = 'street'
@@ -82,16 +87,20 @@ def test_job_posting_matching(job_posting_object, job_posting_object_2, skill_ob
     job_posting_object_2.save()
     job_posting_object_2.branches.set([branch])
 
-    JobPostingLanguageRelation.objects.create(language=language_objects[1], language_level=language_level_objects[1],
+    JobPostingLanguageRelation.objects.create(language=language_objects[1],
+                                              language_level=language_level_objects[1],
                                               job_posting=job_posting_object_2)
 
     management.call_command('update_index', stdout=StringIO())
 
-    Match.objects.create(student=user_student.student, job_posting=job_posting_object, initiator=user_student.type,
+    Match.objects.create(student=user_student.student,
+                         job_posting=job_posting_object,
+                         initiator=user_student.type,
                          student_confirmed=True)
 
     login(user_student)
-    data, errors = job_posting_matching(user_student, user_student.student.branch, user_student.student.job_type)
+    data, errors = job_posting_matching(user_student, user_student.student.branch,
+                                        user_student.student.job_type)
     assert data is not None
     assert errors is None
 

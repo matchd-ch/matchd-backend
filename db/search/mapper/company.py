@@ -13,16 +13,16 @@ class CompanyMatchMapper:
         self._prefetch_matches()
 
     def _prefetch_attachments(self):
-        attachments = Attachment.objects.filter(
-            key=AttachmentKey.COMPANY_AVATAR,
-            object_id__in=self.company_ids
-        ).select_related('content_type', 'attachment_type')
+        attachments = Attachment.objects.filter(key=AttachmentKey.COMPANY_AVATAR,
+                                                object_id__in=self.company_ids).select_related(
+                                                    'content_type', 'attachment_type')
 
         for attachment in attachments:
             self.attachment_map[attachment.object_id] = attachment
 
     def _prefetch_matches(self):
-        matches = Match.objects.filter(student=self.user.student, job_posting__company_id__in=self.company_ids)
+        matches = Match.objects.filter(student=self.user.student,
+                                       job_posting__company_id__in=self.company_ids)
         for match in matches:
             self.matches_map[match.job_posting.company.id] = match
 
@@ -39,10 +39,7 @@ class CompanyMatchMapper:
     def _get_match_status(self, company):
         if self.matches_map.get(company.id) is not None:
             match_obj = self.matches_map.get(company.id)
-            return {
-                'confirmed': match_obj.complete,
-                'initiator': match_obj.initiator
-            }
+            return {'confirmed': match_obj.complete, 'initiator': match_obj.initiator}
         return None
 
     def _map_company(self, company):
@@ -50,7 +47,8 @@ class CompanyMatchMapper:
             'id': company.id,
             'name': company.name,
             'avatar': self._get_attachment(company),
-            'type': MatchType.COMPANY if company.type == ProfileType.COMPANY else MatchType.UNIVERSITY,
+            'type':
+            MatchType.COMPANY if company.type == ProfileType.COMPANY else MatchType.UNIVERSITY,
             'slug': company.slug,
             'score': company.score,
             'raw_score': company.raw_score,

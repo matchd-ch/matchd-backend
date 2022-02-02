@@ -3,7 +3,9 @@ from db.models import Student, ProfileState, ProfileType
 
 
 def privacy_protection(match_only=False):
+
     def decorator(func):
+
         def wrapper(self: Student, info):
             if is_me_query(info):
                 return func(self, info)
@@ -20,5 +22,7 @@ def privacy_protection(match_only=False):
             if self.state == ProfileState.PUBLIC:
                 return func(self, info)
             return None
+
         return wrapper
+
     return decorator

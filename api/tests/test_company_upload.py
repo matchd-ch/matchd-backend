@@ -1,4 +1,5 @@
 import pytest
+
 from django.contrib.auth.models import AnonymousUser
 
 from db.models import AttachmentKey
@@ -18,7 +19,8 @@ def test_upload_company_image(login, user_employee, upload, file_image_jpg, atta
 
 
 @pytest.mark.django_db
-def test_upload_company_document(login, user_employee, upload, file_document_pdf, attachments_for_user):
+def test_upload_company_document(login, user_employee, upload, file_document_pdf,
+                                 attachments_for_user):
     login(user_employee)
     data, errors = upload(user_employee, AttachmentKey.COMPANY_DOCUMENTS, file_document_pdf)
     assert data is not None
@@ -56,7 +58,8 @@ def test_upload_company_without_login(upload, file_image_jpg):
 
 
 @pytest.mark.django_db
-def test_upload_student_avatar_as_company(login, user_employee, upload, file_image_jpg, attachments_for_user):
+def test_upload_student_avatar_as_company(login, user_employee, upload, file_image_jpg,
+                                          attachments_for_user):
     login(user_employee)
     data, errors = upload(user_employee, AttachmentKey.STUDENT_AVATAR, file_image_jpg)
     assert data is not None
@@ -73,7 +76,8 @@ def test_upload_student_avatar_as_company(login, user_employee, upload, file_ima
 
 
 @pytest.mark.django_db
-def test_upload_too_many_uploads(login, user_employee, upload, file_image_jpg, attachments_for_user):
+def test_upload_too_many_uploads(login, user_employee, upload, file_image_jpg,
+                                 attachments_for_user):
     login(user_employee)
     upload(user_employee, AttachmentKey.COMPANY_AVATAR, file_image_jpg)
     data, errors = upload(user_employee, AttachmentKey.COMPANY_AVATAR, file_image_jpg)

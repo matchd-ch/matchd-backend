@@ -19,7 +19,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='hobby',
             name='student',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='hobbies', to='db.student'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='hobbies',
+                                    to='db.student'),
         ),
         migrations.AlterField(
             model_name='onlineproject',

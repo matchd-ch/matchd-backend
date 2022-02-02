@@ -14,12 +14,17 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='jobposting',
             name='branch',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='+', to='db.branch'),
+            field=models.ForeignKey(default=1,
+                                    on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='+',
+                                    to='db.branch'),
             preserve_default=False,
         ),
         migrations.AlterField(
             model_name='jobposting',
             name='job_option',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='+', to='db.joboption'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='+',
+                                    to='db.joboption'),
         ),
     ]

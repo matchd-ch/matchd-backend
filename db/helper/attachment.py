@@ -48,7 +48,8 @@ def has_access_to_attachments(user, owner, key=None):
                 has_access = False
             elif key in (AttachmentKey.STUDENT_DOCUMENTS, AttachmentKey.STUDENT_AVATAR):
                 # allow access only if a confirmed match exists (only confirmed by student)
-                match_exists = Match.objects.filter(student=owner, job_posting__company=user.company,
+                match_exists = Match.objects.filter(student=owner,
+                                                    job_posting__company=user.company,
                                                     student_confirmed=True).exists()
                 has_access = match_exists
                 # still show student avatar if profile is public

@@ -1,18 +1,27 @@
 import graphene
-from graphene import ObjectType
+from graphene import ObjectType, relay
 from graphene_django import DjangoObjectType
 
 from db.models import Language as LanguageModel
 
 
 class Language(DjangoObjectType):
+
     class Meta:
         model = LanguageModel
-        fields = ('id', 'name',)
+        interfaces = (relay.Node, )
+        fields = ('name', )
+
+
+class LanguageConnection(relay.Connection):
+
+    class Meta:
+        node = Language
 
 
 class LanguageQuery(ObjectType):
-    languages = graphene.List(Language, shortList=graphene.Boolean(required=False))
+    languages = relay.ConnectionField(LanguageConnection,
+                                      shortList=graphene.Boolean(required=False))
 
     def resolve_languages(self, info, **kwargs):
         short_list = kwargs.get('shortList', None)

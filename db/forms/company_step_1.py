@@ -15,7 +15,9 @@ class CompanyProfileFormStep1(forms.Form):
     street = forms.CharField(max_length=255, required=True)
     zip = forms.CharField(max_length=255, required=True)
     city = forms.CharField(max_length=255, required=True)
-    phone = forms.CharField(max_length=12, validators=[RegexValidator(regex=settings.PHONE_REGEX)], required=True)
+    phone = forms.CharField(max_length=12,
+                            validators=[RegexValidator(regex=settings.PHONE_REGEX)],
+                            required=True)
     role = forms.CharField(max_length=255, required=True)
 
 

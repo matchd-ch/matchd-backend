@@ -7,4 +7,7 @@ class UserLanguageRelation(models.Model):
     language_level = models.ForeignKey('db.LanguageLevel', on_delete=models.CASCADE)
 
     class Meta:
-        unique_together = ('language', 'student',)
+        unique_together = (
+            'language',
+            'student',
+        )

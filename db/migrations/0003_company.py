@@ -16,12 +16,24 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Company',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('uid', models.CharField(max_length=255, validators=[django.core.validators.RegexValidator(regex='CHE-[0-9]{3}.[0-9]{3}.[0-9]{3}')])),
+                ('id',
+                 models.AutoField(auto_created=True,
+                                  primary_key=True,
+                                  serialize=False,
+                                  verbose_name='ID')),
+                ('uid',
+                 models.CharField(max_length=255,
+                                  validators=[
+                                      django.core.validators.RegexValidator(
+                                          regex='CHE-[0-9]{3}.[0-9]{3}.[0-9]{3}')
+                                  ])),
                 ('name', models.CharField(max_length=255)),
                 ('zip', models.CharField(max_length=10)),
                 ('city', models.CharField(max_length=255)),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='company', to=settings.AUTH_USER_MODEL)),
+                ('user',
+                 models.OneToOneField(on_delete=django.db.models.deletion.CASCADE,
+                                      related_name='company',
+                                      to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]

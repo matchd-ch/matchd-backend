@@ -15,7 +15,9 @@ class UniversityProfileFormStep1(forms.Form):
     street = forms.CharField(max_length=255, required=True)
     zip = forms.CharField(max_length=255, required=True)
     city = forms.CharField(max_length=255, required=True)
-    phone = forms.CharField(max_length=12, validators=[RegexValidator(regex=settings.PHONE_REGEX)], required=True)
+    phone = forms.CharField(max_length=12,
+                            validators=[RegexValidator(regex=settings.PHONE_REGEX)],
+                            required=True)
     role = forms.CharField(max_length=255, required=True)
     website = forms.URLField(max_length=2048, required=True)
     top_level_organisation_description = forms.CharField(max_length=1000, required=False)
@@ -47,7 +49,8 @@ def process_university_form_step_1(user, data):
         company.city = cleaned_data.get('city')
         company.phone = cleaned_data.get('phone')
         company.website = cleaned_data.get('website')
-        company.top_level_organisation_description = cleaned_data.get('top_level_organisation_description')
+        company.top_level_organisation_description = cleaned_data.get(
+            'top_level_organisation_description')
         company.top_level_organisation_website = cleaned_data.get('top_level_organisation_website')
         employee.role = cleaned_data.get('role')
     else:

@@ -66,7 +66,8 @@ class JobPostingMatching:
                                   self.soft_boost * settings.MATCHING_VALUE_CULTURAL_FITS)
         builder.set_soft_skills(self.user.student.soft_skills.all(),
                                 self.soft_boost * settings.MATCHING_VALUE_SOFT_SKILLS)
-        builder.set_skills(self.user.student.skills.all(), self.tech_boost * settings.MATCHING_VALUE_SKILLS)
+        builder.set_skills(self.user.student.skills.all(),
+                           self.tech_boost * settings.MATCHING_VALUE_SKILLS)
         builder.set_workload(self.workload, settings.MATCHING_VALUE_WORKLOAD)
         if self.zip_value is not None:
             builder.set_zip(self.zip_value)
@@ -75,7 +76,8 @@ class JobPostingMatching:
             builder.set_date_range(self.user.student.job_from_date, self.user.student.job_to_date,
                                    settings.MATCHING_VALUE_DATE_OR_DATE_RANGE)
         else:
-            builder.set_date_from(self.user.student.job_from_date, settings.MATCHING_VALUE_DATE_OR_DATE_RANGE)
+            builder.set_date_from(self.user.student.job_from_date,
+                                  settings.MATCHING_VALUE_DATE_OR_DATE_RANGE)
         hits = self.search_backend.es.search(**builder.get_params())
         resolver = HitResolver(queryset, hits)
         hits = resolver.resolve()

@@ -37,17 +37,29 @@ def me_query():
                 jobFromDate
                 jobToDate
                 skills {
-                    id
-                    name
+                    edges {
+                        node {
+                            id
+                            name
+                        }
+                    }
                 }
                 distinction
                 state
                 profileStep
                 softSkills {
-                    id
+                    edges {
+                        node {
+                            id
+                        }
+                    }
                 }
                 culturalFits {
-                    id
+                    edges {
+                        node {
+                            id
+                        }
+                    }
                 }
                 slug
                 hobbies {
@@ -57,15 +69,19 @@ def me_query():
                     url
                 }
                 languages {
-                    language {
-                        name
-                    }
-                    languageLevel {
-                        level
+                    edges {
+                        node {
+                            language {
+                                name
+                            }
+                            languageLevel {
+                                level
+                            }
+                        }
                     }
                 }
                 projectPostings {
-                  slug
+                    slug
                 }
             }
             company {
@@ -85,12 +101,20 @@ def me_query():
                 state
                 profileStep
                 benefits {
-                    id
-                    icon
+                    edges {
+                        node {
+                            id
+                            icon
+                        }
+                    }
                 }
                 branches {
-                    id
-                    name
+                    edges {
+                        node {
+                            id
+                            name
+                        }
+                    }
                 }
                 employees {
                     id
@@ -102,7 +126,7 @@ def me_query():
                 softSkills {
                     id
                     student
-                    company
+                    company   
                 }
                 culturalFits {
                     id
@@ -122,6 +146,8 @@ def me_query():
 
 @pytest.fixture
 def me(execute):
+
     def closure(user):
         return execute(me_query(), **{'user': user})
+
     return closure

@@ -82,9 +82,8 @@ def process_online_project(profile, data):
         if not project_url_already_exists(profile, cleaned_data.get('url'), instance):
             return form
         if instance is not None:
-            raise FormException(errors=generic_error_dict('nonFieldErrors',
-                                                          'A project with the same url already exists',
-                                                          'unique_together'))
+            raise FormException(errors=generic_error_dict(
+                'nonFieldErrors', 'A project with the same url already exists', 'unique_together'))
     else:
         raise FormException(errors=form.errors.get_json_data())
     return None
@@ -133,7 +132,8 @@ def get_languages_to_delete(profile, data):
             if 'language' in language:
                 exclude_languages.append(language.get('language'))
     languages_to_delete = UserLanguageRelation.objects.filter(student=profile)
-    return languages_to_delete.exclude(id__in=exclude_ids).exclude(language_id__in=exclude_languages)
+    return languages_to_delete.exclude(id__in=exclude_ids).exclude(
+        language_id__in=exclude_languages)
 
 
 # pylint:disable=R0912

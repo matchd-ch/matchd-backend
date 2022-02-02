@@ -1,12 +1,13 @@
 import graphene
+from graphene import ObjectType, relay
+from graphene_django import DjangoObjectType
+from graphql_auth.bases import Output
+from graphql_jwt.decorators import login_required
+
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
 from django.shortcuts import get_object_or_404
-from graphene import ObjectType
-from graphene_django import DjangoObjectType
-from graphql_auth.bases import Output
 from django.utils.translation import gettext as _
-from graphql_jwt.decorators import login_required
 
 from api.helper import is_me_query
 from api.schema.branch import BranchInput
@@ -18,12 +19,12 @@ from api.schema.profile_state import ProfileState
 from api.schema.soft_skill import SoftSkillInput
 from api.schema.skill import SkillInput
 from api.schema.user_language_relation.user_language_relation import UserLanguageRelationInput
+
 from db.decorators import privacy_protection
 from db.exceptions import FormException, NicknameException
 from db.forms import process_student_form_step_1, process_student_form_step_2, \
     process_student_form_step_5, process_student_form_step_6, process_student_form_step_4
 from db.forms.student_step_3 import process_student_form_step_3
-
 from db.models import Student as StudentModel, ProfileType, Match as MatchModel, ProjectPostingState
 
 
@@ -58,10 +59,11 @@ class Student(DjangoObjectType):
 
     class Meta:
         model = StudentModel
-        fields = ('id', 'mobile', 'street', 'zip', 'city', 'date_of_birth', 'nickname', 'school_name', 'field_of_study',
-                  'graduation', 'skills', 'hobbies', 'languages', 'distinction', 'online_projects', 'state',
-                  'profile_step', 'soft_skills', 'cultural_fits', 'branch', 'slug', 'job_type', 'job_type',
-                  'branch', 'job_from_date', 'job_to_date')
+        interfaces = (relay.Node, )
+        fields = ('mobile', 'street', 'zip', 'city', 'date_of_birth', 'nickname', 'school_name',
+                  'field_of_study', 'graduation', 'skills', 'hobbies', 'languages', 'distinction',
+                  'online_projects', 'state', 'profile_step', 'soft_skills', 'cultural_fits',
+                  'branch', 'slug', 'job_type', 'job_from_date', 'job_to_date')
         convert_choices_to_enum = False
 
     @privacy_protection()
@@ -168,10 +170,7 @@ class Student(DjangoObjectType):
                 pass
 
         if status is not None:
-            return {
-                'confirmed':  status.complete,
-                'initiator': status.initiator
-            }
+            return {'confirmed': status.complete, 'initiator': status.initiator}
         return None
 
     def resolve_project_postings(self: StudentModel, info):
@@ -193,7 +192,8 @@ class StudentProfileInputStep1(graphene.InputObjectType):
 class StudentProfileStep1(Output, graphene.Mutation):
 
     class Arguments:
-        step1 = StudentProfileInputStep1(description=_('Profile Input Step 1 is required.'), required=True)
+        step1 = StudentProfileInputStep1(description=_('Profile Input Step 1 is required.'),
+                                         required=True)
 
     class Meta:
         description = _('Updates the profile of a student')
@@ -220,7 +220,8 @@ class StudentProfileInputStep2(graphene.InputObjectType):
 class StudentProfileStep2(Output, graphene.Mutation):
 
     class Arguments:
-        step2 = StudentProfileInputStep2(description=_('Profile Input Step 2 is required.'), required=True)
+        step2 = StudentProfileInputStep2(description=_('Profile Input Step 2 is required.'),
+                                         required=True)
 
     class Meta:
         description = _('Updates job option, date (start or range) and branch of a student')
@@ -245,7 +246,8 @@ class StudentProfileInputStep3(graphene.InputObjectType):
 class StudentProfileStep3(Output, graphene.Mutation):
 
     class Arguments:
-        step3 = StudentProfileInputStep3(description=_('Profile Input Step 3 is required.'), required=True)
+        step3 = StudentProfileInputStep3(description=_('Profile Input Step 3 is required.'),
+                                         required=True)
 
     class Meta:
         description = _('Updates soft skills and cultural fits of a student')
@@ -265,12 +267,15 @@ class StudentProfileStep3(Output, graphene.Mutation):
 class StudentProfileInputStep4(graphene.InputObjectType):
     skills = graphene.List(SkillInput, description=_('Skills'), required=False)
     hobbies = graphene.List(HobbyInput, description=_('Hobbies'), required=False)
-    online_projects = graphene.List(OnlineProjectInput, description=_('Online_Projects'), required=False)
+    online_projects = graphene.List(OnlineProjectInput,
+                                    description=_('Online_Projects'),
+                                    required=False)
     languages = graphene.List(UserLanguageRelationInput, description=_('Languages'), required=True)
     distinction = graphene.String(description=_('Distinction'), required=False)
 
 
 class StudentProfileStep4(Output, graphene.Mutation):
+
     class Arguments:
         step4 = StudentProfileInputStep4(description=_('Profile Input Step 4 is required.'))
 
@@ -298,7 +303,8 @@ class StudentProfileStep5(Output, graphene.Mutation):
     nickname_suggestions = graphene.List(graphene.String)
 
     class Arguments:
-        step5 = StudentProfileInputStep5(description=_('Profile Input Step 5 is required.'), required=True)
+        step5 = StudentProfileInputStep5(description=_('Profile Input Step 5 is required.'),
+                                         required=True)
 
     class Meta:
         description = _('Updates the nickname of a student')
@@ -311,7 +317,8 @@ class StudentProfileStep5(Output, graphene.Mutation):
         try:
             process_student_form_step_5(user, form_data)
         except NicknameException as exception:
-            return StudentProfileStep5(success=False, errors=exception.errors,
+            return StudentProfileStep5(success=False,
+                                       errors=exception.errors,
                                        nickname_suggestions=exception.suggestions)
         except FormException as exception:
             return StudentProfileStep5(success=False, errors=exception.errors)
@@ -325,7 +332,8 @@ class StudentProfileInputStep6(graphene.InputObjectType):
 class StudentProfileStep6(Output, graphene.Mutation):
 
     class Arguments:
-        step6 = StudentProfileInputStep6(description=_('Profile Input Step 6 is required.'), required=True)
+        step6 = StudentProfileInputStep6(description=_('Profile Input Step 6 is required.'),
+                                         required=True)
 
     class Meta:
         description = _('Updates the state of a student')
@@ -342,7 +350,7 @@ class StudentProfileStep6(Output, graphene.Mutation):
         return StudentProfileStep6(success=True, errors=None)
 
 
-class StudentProfileMutation(graphene.ObjectType):
+class StudentProfileMutation(ObjectType):
     student_profile_step1 = StudentProfileStep1.Field()
     student_profile_step2 = StudentProfileStep2.Field()
     student_profile_step3 = StudentProfileStep3.Field()
@@ -352,7 +360,9 @@ class StudentProfileMutation(graphene.ObjectType):
 
 
 class StudentQuery(ObjectType):
-    student = graphene.Field(Student, slug=graphene.String(), job_posting_id=graphene.ID(required=False))
+    student = graphene.Field(Student,
+                             slug=graphene.String(),
+                             job_posting_id=graphene.ID(required=False))
 
     def resolve_student(self, info, slug, *args, **kwargs):
         user = info.context.user

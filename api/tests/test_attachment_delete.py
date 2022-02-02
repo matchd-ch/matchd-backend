@@ -5,7 +5,8 @@ from db.models import ProfileState, AttachmentKey
 
 # pylint: disable=R0913
 @pytest.mark.django_db
-def test_delete_attachment(login, delete_attachment, upload, file_image_jpg, attachments_for_user, user_employee):
+def test_delete_attachment(login, delete_attachment, upload, file_image_jpg, attachments_for_user,
+                           user_employee):
     user_employee.company.state = ProfileState.INCOMPLETE
     user_employee.company.save()
     login(user_employee)
@@ -25,8 +26,8 @@ def test_delete_attachment(login, delete_attachment, upload, file_image_jpg, att
 
 # pylint: disable=R0913
 @pytest.mark.django_db
-def test_delete_attachment_with_another_user(login, delete_attachment, upload, file_image_jpg, attachments_for_user,
-                                             user_employee, user_student):
+def test_delete_attachment_with_another_user(login, delete_attachment, upload, file_image_jpg,
+                                             attachments_for_user, user_employee, user_student):
     user_employee.company.state = ProfileState.INCOMPLETE
     user_employee.company.save()
     login(user_employee)
@@ -45,9 +46,9 @@ def test_delete_attachment_with_another_user(login, delete_attachment, upload, f
 
 
 @pytest.mark.django_db
-def test_delete_project_posting_attachment(login, user_student, upload_for_project_posting, file_image_jpg,
-                                           attachments_for_project_posting, student_project_posting_object,
-                                           delete_attachment):
+def test_delete_project_posting_attachment(login, user_student, upload_for_project_posting,
+                                           file_image_jpg, attachments_for_project_posting,
+                                           student_project_posting_object, delete_attachment):
     login(user_student)
     data, errors = upload_for_project_posting(user_student, student_project_posting_object,
                                               AttachmentKey.PROJECT_POSTING_IMAGES, file_image_jpg)
@@ -56,7 +57,8 @@ def test_delete_project_posting_attachment(login, user_student, upload_for_proje
     assert data.get('upload') is not None
     assert data.get('upload').get('success')
 
-    attachments = attachments_for_project_posting(student_project_posting_object, AttachmentKey.PROJECT_POSTING_IMAGES)
+    attachments = attachments_for_project_posting(student_project_posting_object,
+                                                  AttachmentKey.PROJECT_POSTING_IMAGES)
 
     attachment_id = attachments[0].id
     data, errors = delete_attachment(user_student, attachment_id)
@@ -67,10 +69,12 @@ def test_delete_project_posting_attachment(login, user_student, upload_for_proje
 
 
 @pytest.mark.django_db
-def test_delete_project_posting_attachment_with_another_user(login, user_student, upload_for_project_posting,
-                                                             file_image_jpg, attachments_for_project_posting,
-                                                             student_project_posting_object, delete_attachment,
-                                                             user_employee):
+def test_delete_project_posting_attachment_with_another_user(login, user_student,
+                                                             upload_for_project_posting,
+                                                             file_image_jpg,
+                                                             attachments_for_project_posting,
+                                                             student_project_posting_object,
+                                                             delete_attachment, user_employee):
     login(user_student)
     data, errors = upload_for_project_posting(user_student, student_project_posting_object,
                                               AttachmentKey.PROJECT_POSTING_IMAGES, file_image_jpg)
@@ -79,7 +83,8 @@ def test_delete_project_posting_attachment_with_another_user(login, user_student
     assert data.get('upload') is not None
     assert data.get('upload').get('success')
 
-    attachments = attachments_for_project_posting(student_project_posting_object, AttachmentKey.PROJECT_POSTING_IMAGES)
+    attachments = attachments_for_project_posting(student_project_posting_object,
+                                                  AttachmentKey.PROJECT_POSTING_IMAGES)
 
     login(user_employee)
     attachment_id = attachments[0].id

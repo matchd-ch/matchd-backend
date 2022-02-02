@@ -1,4 +1,5 @@
 import pytest
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 
@@ -6,8 +7,9 @@ from django.contrib.auth.models import AnonymousUser
 @pytest.mark.django_db
 def test_step_1(login, user_rector, university_step_1):
     login(user_rector)
-    data, errors = university_step_1(user_rector, 'John', 'Doe', 'University 1 edited', 'street 1', '1337', 'nowhere',
-                                     '+41791234567', 'Role', 'https://www.1337.lo', 'https://www.top-level.lo',
+    data, errors = university_step_1(user_rector, 'John', 'Doe', 'University 1 edited', 'street 1',
+                                     '1337', 'nowhere', '+41791234567', 'Role',
+                                     'https://www.1337.lo', 'https://www.top-level.lo',
                                      'top level description')
     assert errors is None
     assert data is not None
@@ -31,9 +33,10 @@ def test_step_1(login, user_rector, university_step_1):
 
 @pytest.mark.django_db
 def test_step_1_without_login(user_rector, university_step_1):
-    data, errors = university_step_1(AnonymousUser(), 'John', 'Doe', 'University 1 edited', 'street 1', '1337',
-                                     'nowhere', '+41791234567', 'Role', 'https://www.1337.lo',
-                                     'https://www.top-level.lo', 'top level description')
+    data, errors = university_step_1(AnonymousUser(), 'John', 'Doe', 'University 1 edited',
+                                     'street 1', '1337', 'nowhere', '+41791234567', 'Role',
+                                     'https://www.1337.lo', 'https://www.top-level.lo',
+                                     'top level description')
     assert errors is not None
     assert data is not None
     assert data.get('universityProfileStep1') is None
@@ -53,8 +56,9 @@ def test_step_1_without_login(user_rector, university_step_1):
 @pytest.mark.django_db
 def test_step_1_as_student(login, user_student, university_step_1):
     login(user_student)
-    data, errors = university_step_1(user_student, 'John', 'Doe', 'Company 1 edited', 'street 1', '1337', 'nowhere',
-                                     '+41791234567', 'Role', 'https://www.1337.lo', 'https://www.top-level.lo',
+    data, errors = university_step_1(user_student, 'John', 'Doe', 'Company 1 edited', 'street 1',
+                                     '1337', 'nowhere', '+41791234567', 'Role',
+                                     'https://www.1337.lo', 'https://www.top-level.lo',
                                      'top level description')
     assert errors is None
     assert data is not None
@@ -70,8 +74,9 @@ def test_step_1_invalid_step(login, user_rector, university_step_1):
     user_rector.company.profile_step = 0
     user_rector.company.save()
     login(user_rector)
-    data, errors = university_step_1(user_rector, 'John', 'Doe', 'Company 1 edited', 'street 1', '1337', 'nowhere',
-                                     '+41791234567', 'Role', 'https://www.1337.lo', 'https://www.top-level.lo',
+    data, errors = university_step_1(user_rector, 'John', 'Doe', 'Company 1 edited', 'street 1',
+                                     '1337', 'nowhere', '+41791234567', 'Role',
+                                     'https://www.1337.lo', 'https://www.top-level.lo',
                                      'top level description')
     assert errors is None
     assert data is not None
@@ -89,7 +94,8 @@ def test_step_1_invalid_step(login, user_rector, university_step_1):
 @pytest.mark.django_db
 def test_step_1_invalid_data(login, user_rector, university_step_1):
     login(user_rector)
-    data, errors = university_step_1(user_rector, '', '', '', '', '', '', '', '', '', 'invalid', 'a' * 1001)
+    data, errors = university_step_1(user_rector, '', '', '', '', '', '', '', '', '', 'invalid',
+                                     'a' * 1001)
     assert errors is None
     assert data is not None
     assert data.get('universityProfileStep1') is not None

@@ -1,4 +1,5 @@
 import pytest
+
 from django.contrib.auth.models import AnonymousUser
 
 from db.models import JobPostingState
@@ -15,7 +16,8 @@ def test_query(query_zip_city):
 
 
 @pytest.mark.django_db
-def test_query_jobs(query_zip_city_jobs, job_posting_object, company_object, branch_objects, job_type_objects):
+def test_query_jobs(query_zip_city_jobs, job_posting_object, company_object, branch_objects,
+                    job_type_objects):
 
     company_object.zip = '9000'
     company_object.city = 'St. Gallen'

@@ -3,6 +3,8 @@ import pytest
 from db.helper.forms import convert_date
 from db.models import Student, ProfileType, ProfileState, Hobby, OnlineProject
 
+# pylint: disable=C0209
+
 
 def student_query(slug):
     return '''
@@ -36,17 +38,29 @@ def student_query(slug):
         jobFromDate
         jobToDate
         skills {
-          id
-          name
+          edges {
+            node {
+              id
+              name
+            }
+          }
         }
         distinction
         state
         profileStep
         softSkills {
-          id
+          edges {
+            node {
+              id
+            }
+          }
         }
         culturalFits {
-          id
+          edges {
+            node {
+              id
+            }
+          }
         }
         slug
         hobbies {
@@ -56,12 +70,16 @@ def student_query(slug):
           url
         }
         languages {
-          language {
-            name
-          }
-          languageLevel {
-            level
-          }
+            edges {
+                node {
+                    language {
+                        name
+                    }
+                    languageLevel {
+                        level
+                    }
+                }
+            }
         }
         projectPostings {
           slug
@@ -103,17 +121,29 @@ def student_with_job_posting_query(slug, job_posting_id):
         jobFromDate
         jobToDate
         skills {
-          id
-          name
+          edges {
+            node {
+              id
+              name
+            }
+          }
         }
         distinction
         state
         profileStep
         softSkills {
-          id
+          edges {
+            node {
+              id
+            }
+          }
         }
         culturalFits {
-          id
+          edges {
+            node {
+              id
+            }
+          }
         }
         slug
         hobbies {
@@ -123,12 +153,16 @@ def student_with_job_posting_query(slug, job_posting_id):
           url
         }
         languages {
-          language {
-            name
-          }
-          languageLevel {
-            level
-          }
+            edges {
+                node {
+                    language {
+                        name
+                    }
+                    languageLevel {
+                        level
+                    }
+                }
+            }
         }
         projectPostings {
           slug
@@ -140,10 +174,12 @@ def student_with_job_posting_query(slug, job_posting_id):
 
 @pytest.fixture
 def query_student(execute):
+
     def closure(user, slug, job_posting_id=None):
         if job_posting_id is None:
             return execute(student_query(slug), **{'user': user})
         return execute(student_with_job_posting_query(slug, job_posting_id), **{'user': user})
+
     return closure
 
 
@@ -158,8 +194,8 @@ def user_student(get_user, default_password):
 # pylint: disable=R0913
 # pylint: disable=W0621
 @pytest.fixture
-def user_student_full_profile(user_student, branch_objects, job_type_objects, skill_objects, soft_skill_objects,
-                              cultural_fit_objects):
+def user_student_full_profile(user_student, branch_objects, job_type_objects, skill_objects,
+                              soft_skill_objects, cultural_fit_objects):
     user_student.first_name = 'John'
     user_student.last_name = 'Doe'
     user_student.save()
@@ -185,8 +221,12 @@ def user_student_full_profile(user_student, branch_objects, job_type_objects, sk
     ]
     user_student.student.hobbies.set(hobbies)
     online_projects = [
-        OnlineProject.objects.create(id=1, url='https://www.project1.lo', student=user_student.student),
-        OnlineProject.objects.create(id=2, url='https://www.project2.lo', student=user_student.student)
+        OnlineProject.objects.create(id=1,
+                                     url='https://www.project1.lo',
+                                     student=user_student.student),
+        OnlineProject.objects.create(id=2,
+                                     url='https://www.project2.lo',
+                                     student=user_student.student)
     ]
     user_student.student.online_projects.set(online_projects)
     user_student.student.soft_skills.set(soft_skill_objects[:6])

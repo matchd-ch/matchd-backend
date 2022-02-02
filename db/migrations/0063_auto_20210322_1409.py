@@ -15,12 +15,14 @@ def move_profile_state(apps, schema_editor):
         step = user.__dict__.get('profile_step')
         if getattr(user, 'type') in ProfileType.valid_company_types():
             company_id = user.__dict__.get('company_id')
-            query = "UPDATE db_company SET state='%s', profile_step=%s WHERE id=%s;" % (state, str(step), str(company_id))
+            query = "UPDATE db_company SET state='%s', profile_step=%s WHERE id=%s;" % (
+                state, str(step), str(company_id))
             cursor.execute(query)
         elif getattr(user, 'type') in ProfileType.valid_student_types():
             query = 'SELECT * FROM db_student WHERE user_id=%s;' % getattr(user, 'id')
             student = Student.objects.raw(query)
-            query = "UPDATE db_student SET state='%s', profile_step=%s WHERE id=%s;" % (state, str(step), str(student[0].id))
+            query = "UPDATE db_student SET state='%s', profile_step=%s WHERE id=%s;" % (
+                state, str(step), str(student[0].id))
             cursor.execute(query)
 
 

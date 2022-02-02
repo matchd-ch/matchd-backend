@@ -1,4 +1,5 @@
 import pytest
+
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core import mail
@@ -7,9 +8,11 @@ from db.models import ProfileType, ProfileState, Company
 
 
 @pytest.mark.django_db
-def test_register_company(register_company, verification_url_and_token, verify_account, data_protection_url):
+def test_register_company(register_company, verification_url_and_token, verify_account,
+                          data_protection_url):
     username = 'employee@matchd.test'
-    data, errors = register_company(username, 'John', 'Doe', 'Role', 'Company name', 'CHE-999.999.999')
+    data, errors = register_company(username, 'John', 'Doe', 'Role', 'Company name',
+                                    'CHE-999.999.999')
     assert errors is None
     assert data is not None
     assert data.get('registerCompany').get('success')
@@ -48,7 +51,8 @@ def test_register_company(register_company, verification_url_and_token, verify_a
 
 @pytest.mark.django_db
 def test_register_existing_username(register_company, user_employee):
-    data, errors = register_company(user_employee.username, 'John', 'Doe', 'Role', 'Company name', 'CHE-999.999.999')
+    data, errors = register_company(user_employee.username, 'John', 'Doe', 'Role', 'Company name',
+                                    'CHE-999.999.999')
     assert errors is None
     assert data is not None
     assert data.get('registerCompany').get('success') is False
@@ -60,19 +64,21 @@ def test_register_existing_username(register_company, user_employee):
 
 @pytest.mark.django_db
 def test_register_with_same_company_name(register_company):
-    data, errors = register_company('employee@matchd.test', 'John', 'Doe', 'Role', 'Company name', 'CHE-999.999.999')
+    data, errors = register_company('employee@matchd.test', 'John', 'Doe', 'Role', 'Company name',
+                                    'CHE-999.999.999')
     assert errors is None
     assert data is not None
     assert data.get('registerCompany').get('success')
 
-    data, errors = register_company('employee-2@matchd.test', 'John', 'Doe', 'Role', 'Company name', 'CHE-999.999.999')
+    data, errors = register_company('employee-2@matchd.test', 'John', 'Doe', 'Role', 'Company name',
+                                    'CHE-999.999.999')
     assert errors is None
     assert data is not None
     assert data.get('registerCompany').get('success')
 
     companies = Company.objects.all().order_by('id')
-    assert companies[0].slug == 'company-1'  # from fixtures
-    assert companies[1].slug == 'company-2'  # from fixtures
+    assert companies[0].slug == 'company-1'    # from fixtures
+    assert companies[1].slug == 'company-2'    # from fixtures
     assert companies[2].slug == 'company-name'
     assert companies[3].slug == 'company-name-1'
 
@@ -81,7 +87,8 @@ def test_register_with_same_company_name(register_company):
 def test_register_with_weak_password(register_company, weak_passwords):
     for password, code in weak_passwords:
         username = 'student@matchd.test'
-        data, errors = register_company(username, 'John', 'Doe', 'Role', 'company name', 'CHE-999.999.999', password)
+        data, errors = register_company(username, 'John', 'Doe', 'Role', 'company name',
+                                        'CHE-999.999.999', password)
         assert errors is None
         assert data is not None
         assert data.get('registerCompany').get('success') is False

@@ -1,9 +1,11 @@
 import graphene
-from django.contrib.auth import get_user_model
+from graphene import ObjectType, relay
 from graphene_django import DjangoObjectType
 from graphql_auth.bases import Output
-from django.utils.translation import gettext as _
 from graphql_jwt.decorators import login_required
+
+from django.utils.translation import gettext as _
+from django.contrib.auth import get_user_model
 
 from db.forms import EmployeeForm, UserForm
 from db.helper.forms import validate_company_user_type, validate_form_data
@@ -18,7 +20,8 @@ class Employee(DjangoObjectType):
 
     class Meta:
         model = EmployeeModel
-        fields = ['id', 'role', 'user']
+        interfaces = (relay.Node, )
+        fields = ['role', 'user']
 
     def resolve_first_name(self: EmployeeModel, info):
         return self.user.first_name
@@ -53,7 +56,7 @@ class AddEmployee(Output, graphene.Mutation):
         add_employee = AddEmployeeInput(description=_('Employee input is required'), required=True)
 
     class Meta:
-        description = _('Adds a new emplyoee to a comany')
+        description = _('Adds a new emplyoee to a company')
 
     @classmethod
     @login_required
@@ -90,25 +93,20 @@ class AddEmployee(Output, graphene.Mutation):
             return AddEmployee(success=False, errors=errors, employee=None)
 
         # create user
-        user = get_user_model().objects.create(
-            first_name=user_data.get('first_name'),
-            last_name=user_data.get('last_name'),
-            email=user_data.get('email'),
-            username=user_data.get('username'),
-            company=company,
-            type=user.type
-        )
+        user = get_user_model().objects.create(first_name=user_data.get('first_name'),
+                                               last_name=user_data.get('last_name'),
+                                               email=user_data.get('email'),
+                                               username=user_data.get('username'),
+                                               company=company,
+                                               type=user.type)
 
         # create employee
-        employee = EmployeeModel.objects.create(
-            role=employee_data.get('role'),
-            user=user
-        )
+        employee = EmployeeModel.objects.create(role=employee_data.get('role'), user=user)
 
         user.status.send_password_reset_email(info)
 
         return AddEmployee(success=True, errors=None, employee=employee)
 
 
-class EmployeeMutation(graphene.ObjectType):
+class EmployeeMutation(ObjectType):
     add_employee = AddEmployee.Field()

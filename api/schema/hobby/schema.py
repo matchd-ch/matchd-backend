@@ -1,13 +1,16 @@
 import graphene
+from graphene import relay
 from graphene_django import DjangoObjectType
 
 from db.models import Hobby as HobbyModel
 
 
 class Hobby(DjangoObjectType):
+
     class Meta:
         model = HobbyModel
-        fields = ('id', 'name',)
+        interfaces = (relay.Node, )
+        fields = ('name', )
 
 
 class HobbyInput(graphene.InputObjectType):

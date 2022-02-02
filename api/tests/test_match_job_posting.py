@@ -1,4 +1,5 @@
 import pytest
+
 from django.contrib.auth.models import AnonymousUser
 from django.core import mail
 
@@ -6,7 +7,8 @@ from db.models import Match
 
 
 @pytest.mark.django_db
-def test_match_job_posting(user_student, user_employee, job_posting_object, match_job_posting, login):
+def test_match_job_posting(user_student, user_employee, job_posting_object, match_job_posting,
+                           login):
     job_posting_object.employee = user_employee.employee
     job_posting_object.save()
     login(user_student)
@@ -20,8 +22,10 @@ def test_match_job_posting(user_student, user_employee, job_posting_object, matc
     assert match_job_posting_data.get('success') is True
     assert match_job_posting_data.get('errors') is None
 
-    match_obj_exists = Match.objects.filter(student=user_student.student, job_posting=job_posting_object,
-                                            initiator=user_student.type, student_confirmed=True,
+    match_obj_exists = Match.objects.filter(student=user_student.student,
+                                            job_posting=job_posting_object,
+                                            initiator=user_student.type,
+                                            student_confirmed=True,
                                             company_confirmed=False).exists()
     assert match_obj_exists is True
 

@@ -1,4 +1,5 @@
 import pytest
+
 from django.contrib.auth.models import AnonymousUser
 from django.core import mail
 
@@ -20,8 +21,10 @@ def test_match_student(user_student, user_employee, job_posting_object, match_st
     assert match_student_data.get('success') is True
     assert match_student_data.get('errors') is None
 
-    match_obj_exists = Match.objects.filter(student=user_student.student, job_posting=job_posting_object,
-                                            initiator=user_employee.type, student_confirmed=False,
+    match_obj_exists = Match.objects.filter(student=user_student.student,
+                                            job_posting=job_posting_object,
+                                            initiator=user_employee.type,
+                                            student_confirmed=False,
                                             company_confirmed=True).exists()
     assert match_obj_exists is True
 
@@ -33,7 +36,8 @@ def test_match_student(user_student, user_employee, job_posting_object, match_st
 
 
 @pytest.mark.django_db
-def test_match_student_without_login(user_employee, user_student, job_posting_object, match_student):
+def test_match_student_without_login(user_employee, user_student, job_posting_object,
+                                     match_student):
     job_posting_object.employee = user_employee.employee
     job_posting_object.save()
 
@@ -46,7 +50,8 @@ def test_match_student_without_login(user_employee, user_student, job_posting_ob
 
 
 @pytest.mark.django_db
-def test_match_student_as_student(user_student, user_employee, job_posting_object, match_student, login):
+def test_match_student_as_student(user_student, user_employee, job_posting_object, match_student,
+                                  login):
     job_posting_object.employee = user_employee.employee
     job_posting_object.save()
     login(user_student)

@@ -52,8 +52,8 @@ LOGGING = {
             'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler',
         },
-        # Custom handler which we will use with logger 'django'.
-        # We want errors/warnings to be logged when DEBUG=False
+    # Custom handler which we will use with logger 'django'.
+    # We want errors/warnings to be logged when DEBUG=False
         'console_on_not_debug': {
             'level': 'WARNING',
             'filters': ['require_debug_false'],
@@ -83,10 +83,8 @@ LOGGING = {
     }
 }
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
-
 
 # Application definition
 
@@ -106,15 +104,12 @@ INSTALLED_APPS = [
     'wagtail.search',
     'wagtail.admin',
     'wagtail.core',
-
     'modelcluster',
     'taggit',
-
     'graphene_django',
     'corsheaders',
     'graphql_auth',
     'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -122,31 +117,25 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'api.apps.ApiConfig',
-
     'debug_toolbar',
     'graphiql_debug_toolbar',
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsMiddleware', 'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware', 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django.middleware.security.SecurityMiddleware', 'whitenoise.middleware.WhiteNoiseMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
-    'api.middleware.JWTAuthenticationMiddleware',
-    'api.middleware.DebugToolbarMiddleware'
+    'api.middleware.JWTAuthenticationMiddleware', 'api.middleware.DebugToolbarMiddleware'
 ]
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'graphql_auth.backends.GraphQLAuthBackend',
 ]
-
 
 ROOT_URLCONF = 'app.urls'
 
@@ -170,14 +159,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'app.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'OPTIONS': {'charset': 'utf8mb4'},
+        'OPTIONS': {
+            'charset': 'utf8mb4'
+        },
         'NAME': os.getenv('DB_NAME', ''),
         'USER': os.getenv('DB_USER', ''),
         'PASSWORD': os.getenv('DB_PASSWORD', ''),
@@ -186,16 +176,10 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'db.validators.PasswordValidator'
-    }
-]
-
+AUTH_PASSWORD_VALIDATORS = [{'NAME': 'db.validators.PasswordValidator'}]
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -209,7 +193,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
@@ -245,7 +228,8 @@ EMAIL_USE_SSL = os.getenv('SMTP_USE_SSL', 'false') == 'true'
 EMAIL_USE_TLS = os.getenv('SMTP_USE_TLS', 'true') == 'true'
 EMAIL_SUBJECT_PREFIX = os.getenv('EMAIL_SUBJECT_PREFIX', '')
 USER_REQUEST_FORM_RECIPIENTS = [
-    recipient.strip() for recipient in os.getenv('USER_REQUEST_FORM_RECIPIENTS', f'{DEFAULT_FROM_EMAIL}').split(',')
+    recipient.strip()
+    for recipient in os.getenv('USER_REQUEST_FORM_RECIPIENTS', f'{DEFAULT_FROM_EMAIL}').split(',')
 ]
 
 # FRONTEND
@@ -316,15 +300,18 @@ IMAGE_STACKS = {
     'avatar': 'fill-240x240'
 }
 
-USER_UPLOADS_IMAGE_TYPES = ('image/jpeg', 'image/png', 'image/gif',)
+USER_UPLOADS_IMAGE_TYPES = (
+    'image/jpeg',
+    'image/png',
+    'image/gif',
+)
 USER_UPLOADS_MAX_IMAGE_SIZE = 1024 * 10000
 
-USER_UPLOADS_VIDEO_TYPES = ('video/mp4',)
+USER_UPLOADS_VIDEO_TYPES = ('video/mp4', )
 USER_UPLOADS_MAX_VIDEO_SIZE = 1024 * 100000
 
-USER_UPLOADS_DOCUMENT_TYPES = ('application/pdf',)
+USER_UPLOADS_DOCUMENT_TYPES = ('application/pdf', )
 USER_UPLOADS_MAX_DOCUMENT_SIZE = 1024 * 10000
-
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
@@ -335,6 +322,9 @@ APP_DOMAIN = os.getenv('APP_DOMAIN')
 AUTH_USER_MODEL = 'db.User'
 
 GRAPHIQL_ENABLED = os.getenv('GRAPHIQL_ENABLED', False)
+
+# Database Models
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Graphene Settings
 GRAPHENE = {
@@ -367,24 +357,37 @@ GRAPHQL_JWT = {
 }
 
 GRAPHQL_AUTH = {
-    'ALLOW_LOGIN_NOT_VERIFIED': False,
-    'ALLOW_LOGIN_WITH_SECONDARY_EMAIL': False,
-    'ALLOW_DELETE_ACCOUNT': True,
-    'EXPIRATION_ACTIVATION_TOKEN': timedelta(days=7),
-    'EXPIRATION_PASSWORD_RESET_TOKEN': timedelta(hours=1),
-    'EMAIL_FROM': DEFAULT_FROM_EMAIL,
-    'ACTIVATION_PATH_ON_EMAIL': 'aktivierung',
-    'PASSWORD_RESET_PATH_ON_EMAIL': 'passwort-reset',
-    'EMAIL_SUBJECT_ACTIVATION': 'db/email/activation/subject.txt',
-    'EMAIL_TEMPLATE_ACTIVATION': 'db/email/activation/body.html',
-    'EMAIL_SUBJECT_PASSWORD_RESET': 'db/email/password_reset/subject.txt',
-    'EMAIL_TEMPLATE_PASSWORD_RESET': 'db/email/password_reset/body.html',
+    'ALLOW_LOGIN_NOT_VERIFIED':
+    False,
+    'ALLOW_LOGIN_WITH_SECONDARY_EMAIL':
+    False,
+    'ALLOW_DELETE_ACCOUNT':
+    True,
+    'EXPIRATION_ACTIVATION_TOKEN':
+    timedelta(days=7),
+    'EXPIRATION_PASSWORD_RESET_TOKEN':
+    timedelta(hours=1),
+    'EMAIL_FROM':
+    DEFAULT_FROM_EMAIL,
+    'ACTIVATION_PATH_ON_EMAIL':
+    'aktivierung',
+    'PASSWORD_RESET_PATH_ON_EMAIL':
+    'passwort-reset',
+    'EMAIL_SUBJECT_ACTIVATION':
+    'db/email/activation/subject.txt',
+    'EMAIL_TEMPLATE_ACTIVATION':
+    'db/email/activation/body.html',
+    'EMAIL_SUBJECT_PASSWORD_RESET':
+    'db/email/password_reset/subject.txt',
+    'EMAIL_TEMPLATE_PASSWORD_RESET':
+    'db/email/password_reset/body.html',
     'EMAIL_TEMPLATE_VARIABLES': {
         'frontend_url': FRONTEND_URL,
         'email_subject_prefix': EMAIL_SUBJECT_PREFIX,
         'data_protection_url': DATA_PROTECTION_URL
     },
-    'USER_NODE_EXCLUDE_FIELDS': ['password', 'is_superuser', 'is_staff', 'last_login', 'is_active', 'date_joined'],
+    'USER_NODE_EXCLUDE_FIELDS':
+    ['password', 'is_superuser', 'is_staff', 'last_login', 'is_active', 'date_joined'],
     'REGISTER_MUTATION_FIELDS': ['email', 'username', 'first_name', 'last_name', 'type'],
 }
 
@@ -408,8 +411,8 @@ MATCHING_VALUE_SKILLS = 3
 MATCHING_VALUE_LANGUAGES = 2
 MATCHING_VALUE_DATE_OR_DATE_RANGE = 5
 
-MATCHING_VALUE_DATE_OR_DATE_RANGE_PRECISION = [0]  # , 2, 6]
-MATCHING_VALUE_WORKLOAD_PRECISION = [0]  # , 10, 20]
+MATCHING_VALUE_DATE_OR_DATE_RANGE_PRECISION = [0]    # , 2, 6]
+MATCHING_VALUE_WORKLOAD_PRECISION = [0]    # , 10, 20]
 
 DASHBOARD_NUM_LATEST_ENTRIES = 5
 

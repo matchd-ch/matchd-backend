@@ -1,16 +1,42 @@
 import pytest
 
+from graphql_relay import to_global_id
+
 from db.models import Language
 
 # pylint: disable=W0621
 
 
+def language_node_query():
+    return '''
+    query ($id: ID!) {
+        node(id: $id) {
+            id
+            ... on Language {
+                name
+            }
+        }
+    }
+    '''
+
+
 def languages_query():
     return '''
     query {
-        languages {
-            id
-            name
+        languages(first: 4) {
+            pageInfo {
+                startCursor
+                endCursor
+                hasNextPage
+                hasPreviousPage
+            }
+            edges {
+                cursor
+                node {
+                    id
+                    name
+                }
+            }
         }
     }
     '''
@@ -19,9 +45,20 @@ def languages_query():
 def languages_shortlist_query():
     return '''
     query {
-        languages(shortList: true) {
-            id
-            name
+        languages(first: 4, shortList: true) {
+            pageInfo {
+                startCursor
+                endCursor
+                hasNextPage
+                hasPreviousPage
+            }
+            edges {
+                cursor
+                node {
+                    id
+                    name
+                }
+            }
         }
     }
     '''
@@ -38,16 +75,31 @@ def language_objects():
 
 
 @pytest.fixture
+def query_language_node(execute):
+
+    def closure(user, id_value):
+        return execute(language_node_query(),
+                       variables={'id': to_global_id('Language', id_value)},
+                       **{'user': user})
+
+    return closure
+
+
+@pytest.fixture
 def query_languages(execute):
+
     def closure(user):
         return execute(languages_query(), **{'user': user})
+
     return closure
 
 
 @pytest.fixture
 def query_languages_shortlist(execute):
+
     def closure(user):
         return execute(languages_shortlist_query(), **{'user': user})
+
     return closure
 
 

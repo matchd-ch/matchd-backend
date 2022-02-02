@@ -15,21 +15,29 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Benefit',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id',
+                 models.AutoField(auto_created=True,
+                                  primary_key=True,
+                                  serialize=False,
+                                  verbose_name='ID')),
                 ('icon', models.CharField(max_length=255, unique=True)),
             ],
             options={
-                'ordering': ('icon',),
+                'ordering': ('icon', ),
             },
         ),
         migrations.CreateModel(
             name='Branch',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id',
+                 models.AutoField(auto_created=True,
+                                  primary_key=True,
+                                  serialize=False,
+                                  verbose_name='ID')),
                 ('name', models.CharField(max_length=255)),
             ],
             options={
-                'ordering': ('name',),
+                'ordering': ('name', ),
             },
         ),
         migrations.AddField(
@@ -50,7 +58,10 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='company',
             name='phone',
-            field=models.CharField(blank=True, max_length=12, validators=[django.core.validators.RegexValidator(regex='\\+[0-9]{11}$')]),
+            field=models.CharField(
+                blank=True,
+                max_length=12,
+                validators=[django.core.validators.RegexValidator(regex='\\+[0-9]{11}$')]),
         ),
         migrations.AddField(
             model_name='company',
@@ -70,12 +81,19 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='company',
             name='uid',
-            field=models.CharField(max_length=255, validators=[django.core.validators.RegexValidator(regex='CHE-[0-9]{3}\\.[0-9]{3}\\.[0-9]{3}$')]),
+            field=models.CharField(max_length=255,
+                                   validators=[
+                                       django.core.validators.RegexValidator(
+                                           regex='CHE-[0-9]{3}\\.[0-9]{3}\\.[0-9]{3}$')
+                                   ]),
         ),
         migrations.AlterField(
             model_name='student',
             name='mobile',
-            field=models.CharField(blank=True, max_length=12, validators=[django.core.validators.RegexValidator(regex='\\+[0-9]{11}$')]),
+            field=models.CharField(
+                blank=True,
+                max_length=12,
+                validators=[django.core.validators.RegexValidator(regex='\\+[0-9]{11}$')]),
         ),
         migrations.AddField(
             model_name='company',
@@ -85,6 +103,9 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='company',
             name='branch',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='db.branch'),
+            field=models.ForeignKey(blank=True,
+                                    null=True,
+                                    on_delete=django.db.models.deletion.DO_NOTHING,
+                                    to='db.branch'),
         ),
     ]

@@ -1,13 +1,15 @@
 import graphene
-from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import PermissionDenied
 from graphene import ObjectType
 from graphene_file_upload.scalars import Upload
 from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 
+from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import PermissionDenied
+
 from api.schema.attachment import AttachmentKey
 from api.schema.project_posting.schema import ProjectPostingInput
+
 from db.exceptions import FormException
 from db.forms import AttachmentForm, process_upload, process_attachment
 from db.helper import generic_error_dict
@@ -16,6 +18,7 @@ from db.models import upload_configurations, ProjectPosting as ProjectPostingMod
 
 
 class UserUpload(Output, graphene.Mutation):
+
     class Arguments:
         file = Upload(required=True)
         key = AttachmentKey(required=True)
@@ -39,7 +42,9 @@ class UserUpload(Output, graphene.Mutation):
                 return UserUpload(success=False, errors=errors)
 
         if project_posting is not None and key not in (
-                AttachmentKeyModel.PROJECT_POSTING_DOCUMENTS, AttachmentKeyModel.PROJECT_POSTING_IMAGES,):
+                AttachmentKeyModel.PROJECT_POSTING_DOCUMENTS,
+                AttachmentKeyModel.PROJECT_POSTING_IMAGES,
+        ):
             errors.update(generic_error_dict('key', 'Invalid key', 'invalid'))
             return UserUpload(success=False, errors=errors)
 
@@ -62,13 +67,14 @@ class UserUpload(Output, graphene.Mutation):
         except FormException as exception:
             return UserUpload(success=False, errors=exception.errors)
 
-        form = AttachmentForm(data={
-            'content_type': content_type,
-            'object_id': object_id,
-            'attachment_type': attachment_content_type,
-            'attachment_id': file_attachment.id,
-            'key': key
-        })
+        form = AttachmentForm(
+            data={
+                'content_type': content_type,
+                'object_id': object_id,
+                'attachment_type': attachment_content_type,
+                'attachment_id': file_attachment.id,
+                'key': key
+            })
         form.full_clean()
         if form.is_valid():
             form.save()
@@ -81,7 +87,7 @@ class UserUpload(Output, graphene.Mutation):
         return UserUpload(success=True, errors=None)
 
 
-class UploadMutation(graphene.ObjectType):
+class UploadMutation(ObjectType):
     upload = UserUpload.Field()
 
 
@@ -91,7 +97,8 @@ class UploadTypeConfiguration(ObjectType):
 
 
 class UploadConfiguration(ObjectType):
-    content_types_configuration = graphene.NonNull(graphene.List(graphene.NonNull(UploadTypeConfiguration)))
+    content_types_configuration = graphene.NonNull(
+        graphene.List(graphene.NonNull(UploadTypeConfiguration)))
     max_files = graphene.NonNull(graphene.Int)
     key = graphene.NonNull(AttachmentKey)
 

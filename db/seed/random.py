@@ -32,7 +32,8 @@ class Random:
         self._cultural_fits = list(CulturalFit.objects.all().values_list('id', flat=True))
         self._job_types = list(JobType.objects.all().values_list('id', flat=True))
         self._languages = list(Language.objects.all().values_list('id', flat=True))
-        self._short_list_languages = list(Language.objects.filter(short_list=True).values_list('id', flat=True))
+        self._short_list_languages = list(
+            Language.objects.filter(short_list=True).values_list('id', flat=True))
         self._language_levels = list(LanguageLevel.objects.all().values_list('id', flat=True))
         self._skills = list(Skill.objects.all().values_list('id', flat=True))
         self._soft_skills = list(SoftSkill.objects.all().values_list('id', flat=True))
@@ -44,24 +45,26 @@ class Random:
 
         self._addresses = self._load_address_data()
         self._hobby_data = [
-            'Gamen', 'Fussball', 'Programmieren', 'Kochen', 'Jodeln', 'Wandern', 'Handball', 'Lego', 'Gitarre', 'Flöte',
-            'mit dem Hund spazieren', 'Kollegen treffen', 'Ausgang', 'Bowling', 'Malen', 'Zeichnen'
+            'Gamen', 'Fussball', 'Programmieren', 'Kochen', 'Jodeln', 'Wandern', 'Handball', 'Lego',
+            'Gitarre', 'Flöte', 'mit dem Hund spazieren', 'Kollegen treffen', 'Ausgang', 'Bowling',
+            'Malen', 'Zeichnen'
         ]
         self._state_data = [ProfileState.PUBLIC, ProfileState.ANONYMOUS]
         self._job_posting_state_data = [JobPostingState.PUBLIC, JobPostingState.DRAFT]
         self._project_posting_state_data = [ProjectPostingState.PUBLIC, ProjectPostingState.DRAFT]
 
         self._titles = [
-            'Praktikant*in Applikationsentwicklung', 'Praktikant*in Systemtechnik', 'Praktikant*in DevOps',
-            'Praktikant*in Frontendentwicklung', 'Praktikant*in HTML / CSS', 'Praktikant*in Design', 'Praktikant*in UX',
-            'Praktikant*in Grafik', 'Praktikant*in User Experience', 'Praktikant*in Social Media',
-            'Praktikant*in Datenbanken', 'Praktikant*in PHP', 'Praktikant*in Python', 'Praktikant*in Javascript',
-            'Praktikant*in Vue.js / React.js'
+            'Praktikant*in Applikationsentwicklung', 'Praktikant*in Systemtechnik',
+            'Praktikant*in DevOps', 'Praktikant*in Frontendentwicklung', 'Praktikant*in HTML / CSS',
+            'Praktikant*in Design', 'Praktikant*in UX', 'Praktikant*in Grafik',
+            'Praktikant*in User Experience', 'Praktikant*in Social Media',
+            'Praktikant*in Datenbanken', 'Praktikant*in PHP', 'Praktikant*in Python',
+            'Praktikant*in Javascript', 'Praktikant*in Vue.js / React.js'
         ]
 
         self._project_titles = [
-            'Projekt KI', 'Projekt AI', 'Projekt ABC', 'Projekt DEF', 'Projekt GHI', 'Projekt JKL', 'Projekt MNO',
-            'Projekt Künstliche Intelligenz im Alltag'
+            'Projekt KI', 'Projekt AI', 'Projekt ABC', 'Projekt DEF', 'Projekt GHI', 'Projekt JKL',
+            'Projekt MNO', 'Projekt Künstliche Intelligenz im Alltag'
         ]
         self._workloads = [50, 60, 70, 80, 90, 100]
 
@@ -74,7 +77,8 @@ class Random:
     def _load_files(self, path):
         path = os.path.join(settings.MEDIA_ROOT, path)
         file_names = [
-            file_name for file_name in os.listdir(path) if os.path.isfile(os.path.join(path, file_name))
+            file_name for file_name in os.listdir(path)
+            if os.path.isfile(os.path.join(path, file_name))
         ]
         files = []
         for file_name in file_names:
@@ -85,15 +89,13 @@ class Random:
 
     def _load_address_data(self):
         address_list = []
-        with open('db/seed/data/address_list.txt') as address_file:
+        with open('db/seed/data/address_list.txt', encoding='utf-8') as address_file:
             lines = address_file.readlines()
             for line in lines:
                 parts = line.split(',')
                 address = parts[0].strip()
                 parts2 = parts[1].split(' - ')
-                address_list.append(
-                    (address, parts2[0].strip(), parts2[1].strip())
-                )
+                address_list.append((address, parts2[0].strip(), parts2[1].strip()))
         return address_list
 
     def _date(self, date):
@@ -165,33 +167,28 @@ class Random:
 
     def job_to_date(self, from_date):
         end_date = from_date + relativedelta(months=12)
-        return self._date_between(datetime.strftime(from_date, '%Y-%m-%d'), datetime.strftime(end_date, '%Y-%m-%d'))
+        return self._date_between(datetime.strftime(from_date, '%Y-%m-%d'),
+                                  datetime.strftime(end_date, '%Y-%m-%d'))
 
     def languages(self):
         languages = self._random(self._languages, 3)
         if not self._has_german(languages):
-            languages.append(5)  # german
+            languages.append(5)    # german
         levels = self._random(self._language_levels, len(languages))
         result = []
         for i in range(0, len(languages)):
-            obj = {
-                "language": languages[i],
-                "language_level": levels[i]
-            }
+            obj = {"language": languages[i], "language_level": levels[i]}
             result.append(obj)
         return result
 
     def languages_shortlist(self):
         languages = self._random(self._short_list_languages, 3)
         if not self._has_german(languages):
-            languages.append(5)  # german
+            languages.append(5)    # german
         levels = self._random(self._language_levels, len(languages))
         result = []
         for i in range(0, len(languages)):
-            obj = {
-                "language": languages[i],
-                "language_level": levels[i]
-            }
+            obj = {"language": languages[i], "language_level": levels[i]}
             result.append(obj)
         return result
 

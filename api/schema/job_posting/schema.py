@@ -1,11 +1,12 @@
 import graphene
-from django.http import Http404
-from django.shortcuts import get_object_or_404
-from django.utils.translation import gettext as _
-from graphene import ObjectType
+from graphene import ObjectType, relay
 from graphene_django import DjangoObjectType
 from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
+
+from django.http import Http404
+from django.shortcuts import get_object_or_404
+from django.utils.translation import gettext as _
 
 from api.schema.branch import BranchInput
 from api.schema.employee import Employee
@@ -14,6 +15,7 @@ from api.schema.job_type import JobTypeInput
 from api.schema.job_posting_language_relation import JobPostingLanguageRelationInput
 from api.schema.registration import EmployeeInput
 from api.schema.skill import SkillInput
+
 from db.decorators import job_posting_cheating_protection, hyphenate
 from db.exceptions import FormException
 from db.forms import process_job_posting_form_step_1, process_job_posting_form_step_2, process_job_posting_form_step_3
@@ -21,6 +23,8 @@ from db.models import JobPosting as JobPostingModel, Company, JobPostingState as
     Match as MatchModel
 
 JobPostingState = graphene.Enum.from_enum(JobPostingStateModel)
+
+# TODO: Check permissions for get_node()
 
 
 class JobPostingInput(graphene.InputObjectType):
@@ -38,7 +42,8 @@ class JobPosting(DjangoObjectType):
     workload = graphene.Field(graphene.NonNull(graphene.Int))
     skills = graphene.List(graphene.NonNull('api.schema.skill.schema.Skill'))
     branches = graphene.NonNull(graphene.List(graphene.NonNull('api.schema.branch.schema.Branch')))
-    languages = graphene.List(graphene.NonNull('api.schema.job_posting_language_relation.JobPostingLanguageRelation'))
+    languages = graphene.List(
+        graphene.NonNull('api.schema.job_posting_language_relation.JobPostingLanguageRelation'))
     title = graphene.NonNull(graphene.String)
     display_title = graphene.NonNull(graphene.String)
     match_status = graphene.Field('api.schema.match.MatchStatus')
@@ -48,10 +53,34 @@ class JobPosting(DjangoObjectType):
 
     class Meta:
         model = JobPostingModel
-        fields = ('id', 'title', 'description', 'job_type', 'workload', 'company', 'job_from_date', 'job_to_date',
-                  'url', 'form_step', 'skills', 'job_requirements', 'languages', 'branches', 'state', 'employee',
-                  'slug', 'date_published', 'date_created', )
+        interfaces = (relay.Node, )
+        fields = (
+            'title',
+            'description',
+            'job_type',
+            'workload',
+            'company',
+            'job_from_date',
+            'job_to_date',
+            'url',
+            'form_step',
+            'skills',
+            'job_requirements',
+            'languages',
+            'branches',
+            'state',
+            'employee',
+            'slug',
+            'date_published',
+            'date_created',
+        )
         convert_choices_to_enum = False
+
+    # pylint: disable=W0622
+    @classmethod
+    @login_required
+    def get_node(cls, info, id):
+        return get_object_or_404(JobPostingModel, pk=id)
 
     def resolve_branches(self: JobPostingModel, info):
         return self.branches.all()
@@ -81,10 +110,7 @@ class JobPosting(DjangoObjectType):
                 pass
 
         if status is not None:
-            return {
-                'confirmed':  status.complete,
-                'initiator': status.initiator
-            }
+            return {'confirmed': status.complete, 'initiator': status.initiator}
         return None
 
     def resolve_match_hints(self: JobPostingModel, info):
@@ -94,23 +120,17 @@ class JobPosting(DjangoObjectType):
         return user.student.get_match_hints(self.company)
 
 
+class JobPostingConnection(relay.Connection):
+
+    class Meta:
+        node = JobPosting
+
+
 class JobPostingQuery(ObjectType):
-    job_postings = graphene.List(JobPosting, slug=graphene.String(required=False))
-    job_posting = graphene.Field(JobPosting, id=graphene.ID(required=False), slug=graphene.String(required=False))
-
-    @login_required
-    def resolve_job_postings(self, info, **kwargs):
-        user = info.context.user
-        slug = kwargs.get('slug')
-        if slug is None:
-            if user.type in ProfileType.valid_company_types():
-                slug = user.company.slug
-
-        company = get_object_or_404(Company, slug=slug)
-        # hide incomplete job postings
-        # employees should not see job postings which have a DRAFT state
-        # eg. an employee should not be able to search with an unpublished job posting
-        return JobPostingModel.objects.filter(state=JobPostingState.PUBLIC, company=company)
+    job_posting = graphene.Field(JobPosting,
+                                 id=graphene.ID(required=False),
+                                 slug=graphene.String(required=False))
+    job_postings = relay.ConnectionField(JobPostingConnection, slug=graphene.String(required=False))
 
     @login_required
     def resolve_job_posting(self, info, **kwargs):
@@ -133,6 +153,20 @@ class JobPostingQuery(ObjectType):
             raise Http404(_('Job posting not found'))
         return job_posting
 
+    @login_required
+    def resolve_job_postings(self, info, **kwargs):
+        user = info.context.user
+        slug = kwargs.get('slug')
+        if slug is None:
+            if user.type in ProfileType.valid_company_types():
+                slug = user.company.slug
+
+        company = get_object_or_404(Company, slug=slug)
+        # hide incomplete job postings
+        # employees should not see job postings which have a DRAFT state
+        # eg. an employee should not be able to search with an unpublished job posting
+        return JobPostingModel.objects.filter(state=JobPostingState.PUBLIC, company=company)
+
 
 class JobPostingInputStep1(graphene.InputObjectType):
     id = graphene.ID(required=False)
@@ -151,7 +185,8 @@ class JobPostingStep1(Output, graphene.Mutation):
     job_posting_id = graphene.ID()
 
     class Arguments:
-        step1 = JobPostingInputStep1(description=_('Job Posting Input Step 1 is required.'), required=True)
+        step1 = JobPostingInputStep1(description=_('Job Posting Input Step 1 is required.'),
+                                     required=True)
 
     class Meta:
         description = _('Creates a job posting')
@@ -165,7 +200,10 @@ class JobPostingStep1(Output, graphene.Mutation):
             job_posting = process_job_posting_form_step_1(user, form_data)
         except FormException as exception:
             return JobPostingStep1(success=False, errors=exception.errors)
-        return JobPostingStep1(success=True, errors=None, slug=job_posting.slug, job_posting_id=job_posting.id)
+        return JobPostingStep1(success=True,
+                               errors=None,
+                               slug=job_posting.slug,
+                               job_posting_id=job_posting.id)
 
 
 class JobPostingInputStep2(graphene.InputObjectType):
@@ -180,7 +218,8 @@ class JobPostingStep2(Output, graphene.Mutation):
     job_posting_id = graphene.ID()
 
     class Arguments:
-        step2 = JobPostingInputStep2(description=_('Job Posting Input Step 2 is required.'), required=True)
+        step2 = JobPostingInputStep2(description=_('Job Posting Input Step 2 is required.'),
+                                     required=True)
 
     class Meta:
         description = _('Updates a job posting')
@@ -194,7 +233,10 @@ class JobPostingStep2(Output, graphene.Mutation):
             job_posting = process_job_posting_form_step_2(user, form_data)
         except FormException as exception:
             return JobPostingStep2(success=False, errors=exception.errors)
-        return JobPostingStep2(success=True, errors=None, slug=job_posting.slug, job_posting_id=job_posting.id)
+        return JobPostingStep2(success=True,
+                               errors=None,
+                               slug=job_posting.slug,
+                               job_posting_id=job_posting.id)
 
 
 class JobPostingInputStep3(graphene.InputObjectType):
@@ -208,7 +250,8 @@ class JobPostingStep3(Output, graphene.Mutation):
     job_posting_id = graphene.ID()
 
     class Arguments:
-        step3 = JobPostingInputStep3(description=_('Job Posting Input Step 3 is required.'), required=True)
+        step3 = JobPostingInputStep3(description=_('Job Posting Input Step 3 is required.'),
+                                     required=True)
 
     class Meta:
         description = _('Updates a job posting')
@@ -222,10 +265,13 @@ class JobPostingStep3(Output, graphene.Mutation):
             job_posting = process_job_posting_form_step_3(user, form_data)
         except FormException as exception:
             return JobPostingStep3(success=False, errors=exception.errors)
-        return JobPostingStep3(success=True, errors=None, slug=job_posting.slug, job_posting_id=job_posting.id)
+        return JobPostingStep3(success=True,
+                               errors=None,
+                               slug=job_posting.slug,
+                               job_posting_id=job_posting.id)
 
 
-class JobPostingMutation(graphene.ObjectType):
+class JobPostingMutation(ObjectType):
     job_posting_step_1 = JobPostingStep1.Field()
     job_posting_step_2 = JobPostingStep2.Field()
     job_posting_step_3 = JobPostingStep3.Field()

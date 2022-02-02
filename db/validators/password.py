@@ -3,6 +3,7 @@ from django.utils.translation import gettext as _
 
 
 class PasswordValidator:
+
     def __init__(self, min_length=8):
         self.min_length = min_length
 
@@ -15,11 +16,13 @@ class PasswordValidator:
             )
 
         if not any(char.isdigit() for char in password):
-            raise ValidationError(_('Das Passwort muss mindestens 1 Zahl beinhalten.'), code='no_digit')
+            raise ValidationError(_('Das Passwort muss mindestens 1 Zahl beinhalten.'),
+                                  code='no_digit')
 
         # check for letter
         if not any(char.isalpha() for char in password):
-            raise ValidationError(_('Das Passwort muss mindestens 1 Buchstaben beinhalten.'), code='no_letter')
+            raise ValidationError(_('Das Passwort muss mindestens 1 Buchstaben beinhalten.'),
+                                  code='no_letter')
 
         # check for special character
         if not any(not char.isalnum() for char in password):
@@ -27,7 +30,4 @@ class PasswordValidator:
                                   code='no_specialchars')
 
     def get_help_text(self):
-        return _(
-            'Your password must contain at least %(min_length)d characters.'
-            % {'min_length': self.min_length}
-        )
+        return _(f'Your password must contain at least {self.min_length} characters.')

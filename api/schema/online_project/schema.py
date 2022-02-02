@@ -1,13 +1,16 @@
 import graphene
+from graphene import relay
 from graphene_django import DjangoObjectType
 
 from db.models import OnlineProject as OnlineProjectModel
 
 
 class OnlineProject(DjangoObjectType):
+
     class Meta:
         model = OnlineProjectModel
-        fields = ('id', 'url',)
+        interfaces = (relay.Node, )
+        fields = ('url', )
 
 
 class OnlineProjectInput(graphene.InputObjectType):

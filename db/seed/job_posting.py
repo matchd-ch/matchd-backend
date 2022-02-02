@@ -38,19 +38,17 @@ class JobPosting(BaseSeed):
                 if job_type_object.mode == DateMode.DATE_RANGE:
                     job_to_date = self.rand.job_to_date(job_from_date)
 
-                job_posting = JobPostingModel(
-                    title=self.rand.title(),
-                    description=self.rand.description(),
-                    job_type_id=job_type,
-                    workload=self.rand.workload(),
-                    company=company,
-                    job_from_date=job_from_date,
-                    job_to_date=job_to_date,
-                    url='https://www.job.lo',
-                    form_step=4,
-                    state=self.rand.job_posting_state(),
-                    employee=Employee.objects.get(user=user)
-                )
+                job_posting = JobPostingModel(title=self.rand.title(),
+                                              description=self.rand.description(),
+                                              job_type_id=job_type,
+                                              workload=self.rand.workload(),
+                                              company=company,
+                                              job_from_date=job_from_date,
+                                              job_to_date=job_to_date,
+                                              url='https://www.job.lo',
+                                              form_step=4,
+                                              state=self.rand.job_posting_state(),
+                                              employee=Employee.objects.get(user=user))
                 job_posting.save()
                 if job_posting.state == JobPostingState.PUBLIC:
                     job_posting.date_published = job_posting.date_created
@@ -62,16 +60,15 @@ class JobPosting(BaseSeed):
                 languages = self.rand.languages_shortlist()
                 for language in languages:
                     JobPostingLanguageRelation.objects.create(
-                        job_posting=job_posting, language_id=language.get('language'),
+                        job_posting=job_posting,
+                        language_id=language.get('language'),
                         language_level_id=language.get('language_level'))
         else:
             for obj in job_postings:
                 try:
-                    job_posting = JobPostingModel.objects.get(
-                        slug=obj.get('slug'))
+                    job_posting = JobPostingModel.objects.get(slug=obj.get('slug'))
                 except JobPostingModel.DoesNotExist:
-                    job_posting = JobPostingModel(job_type_id=obj.get('job_type'),
-                                                  company=company)
+                    job_posting = JobPostingModel(job_type_id=obj.get('job_type'), company=company)
                 job_title = obj.get('title', None)
                 if job_title is None:
                     job_title = self.rand.title()
@@ -81,12 +78,14 @@ class JobPosting(BaseSeed):
                 if workload is None or workload == '':
                     workload = self.rand.workload()
                 date_created = obj.get('date_created')
-                date_created = datetime.strptime(date_created, '%Y-%m-%d %H:%M:%S').replace(
-                    tzinfo=pytz.timezone(settings.TIME_ZONE))
+                date_created = datetime.strptime(
+                    date_created,
+                    '%Y-%m-%d %H:%M:%S').replace(tzinfo=pytz.timezone(settings.TIME_ZONE))
                 date_published = obj.get('date_published')
                 if date_published is not None:
-                    date_published = datetime.strptime(date_published, '%Y-%m-%d %H:%M:%S').replace(
-                        tzinfo=pytz.timezone(settings.TIME_ZONE))
+                    date_published = datetime.strptime(
+                        date_published,
+                        '%Y-%m-%d %H:%M:%S').replace(tzinfo=pytz.timezone(settings.TIME_ZONE))
                 if job_posting.state == JobPostingState.PUBLIC and job_posting.date_created is None:
                     job_posting.date_published = job_posting.date_created
                 job_posting.date_created = date_created
@@ -97,7 +96,8 @@ class JobPosting(BaseSeed):
                 job_posting.url = obj.get('url')
                 job_posting.form_step = obj.get('form_step')
                 job_posting.state = obj.get('state')
-                job_posting.employee = get_user_model().objects.get(email=obj.get('employee')).employee
+                job_posting.employee = get_user_model().objects.get(
+                    email=obj.get('employee')).employee
                 job_posting.save()
                 slug = obj.get('slug')
                 if slug is None or slug == '':
@@ -111,14 +111,15 @@ class JobPosting(BaseSeed):
                 languages = obj.get('languages')
                 for language in languages:
                     try:
-                        rel = JobPostingLanguageRelation.objects.get(job_posting=job_posting,
-                                                                     language_id=language.get('language'))
+                        rel = JobPostingLanguageRelation.objects.get(
+                            job_posting=job_posting, language_id=language.get('language'))
                         rel.language_level_id = language.get('language_level')
                         rel.save()
                     except JobPostingLanguageRelation.DoesNotExist:
-                        JobPostingLanguageRelation.objects.create(job_posting=job_posting,
-                                                                  language_id=language.get('language'),
-                                                                  language_level_id=language.get('language_level'))
+                        JobPostingLanguageRelation.objects.create(
+                            job_posting=job_posting,
+                            language_id=language.get('language'),
+                            language_level_id=language.get('language_level'))
 
     def random(self, *args, **kwargs):
         pass

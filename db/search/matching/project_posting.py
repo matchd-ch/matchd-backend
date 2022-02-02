@@ -44,9 +44,12 @@ class ProjectPostingMatching:
         index = self.search_backend.get_index_for_model(queryset.model).name
 
         builder = ProjectPostingParamBuilder(queryset, index, self.first, self.skip)
-        builder.set_project_type(self.project_posting.project_type.id, settings.MATCHING_VALUE_PROJECT_TYPE)
-        builder.set_topic(self.project_posting.topic.id, self.tech_boost * settings.MATCHING_VALUE_TOPIC)
-        builder.set_keywords(self.project_posting.keywords.all(), self.tech_boost * settings.MATCHING_VALUE_KEYWORDS)
+        builder.set_project_type(self.project_posting.project_type.id,
+                                 settings.MATCHING_VALUE_PROJECT_TYPE)
+        builder.set_topic(self.project_posting.topic.id,
+                          self.tech_boost * settings.MATCHING_VALUE_TOPIC)
+        builder.set_keywords(self.project_posting.keywords.all(),
+                             self.tech_boost * settings.MATCHING_VALUE_KEYWORDS)
 
         cultural_fits = None
         soft_skills = None
@@ -57,7 +60,8 @@ class ProjectPostingMatching:
             cultural_fits = self.user.company.cultural_fits.all()
             soft_skills = self.user.company.soft_skills.all()
 
-        builder.set_cultural_fits(cultural_fits, self.soft_boost * settings.MATCHING_VALUE_CULTURAL_FITS)
+        builder.set_cultural_fits(cultural_fits,
+                                  self.soft_boost * settings.MATCHING_VALUE_CULTURAL_FITS)
         builder.set_soft_skills(soft_skills, self.soft_boost * settings.MATCHING_VALUE_SOFT_SKILLS)
 
         if self.project_posting.company is not None:
@@ -68,7 +72,8 @@ class ProjectPostingMatching:
         hits = self.search_backend.es.search(**builder.get_params())
         resolver = HitResolver(queryset, hits)
         hits = resolver.resolve()
-        calculator = ProjectPostingScoreCalculator(self.user, hits, self.soft_boost, self.tech_boost)
+        calculator = ProjectPostingScoreCalculator(self.user, hits, self.soft_boost,
+                                                   self.tech_boost)
         hits = calculator.annotate()
         mapper = ProjectPostingMatchMapper(hits, self.user)
         return mapper.get_matches()

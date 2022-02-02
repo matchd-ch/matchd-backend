@@ -21,39 +21,32 @@ class AttachmentKey(models.TextChoices):
     @classmethod
     def valid_student_keys(cls):
         return [
-            cls.STUDENT_AVATAR,
-            cls.STUDENT_DOCUMENTS,
-            cls.STUDENT_AVATAR_FALLBACK,
-            cls.PROJECT_POSTING_IMAGES,
-            cls.PROJECT_POSTING_DOCUMENTS,
-            cls.PROJECT_POSTING_FALLBACK
+            cls.STUDENT_AVATAR, cls.STUDENT_DOCUMENTS, cls.STUDENT_AVATAR_FALLBACK,
+            cls.PROJECT_POSTING_IMAGES, cls.PROJECT_POSTING_DOCUMENTS, cls.PROJECT_POSTING_FALLBACK
         ]
 
     @classmethod
     def valid_company_keys(cls):
         return [
-            cls.COMPANY_AVATAR,
-            cls.COMPANY_DOCUMENTS,
-            cls.COMPANY_AVATAR_FALLBACK,
-            cls.PROJECT_POSTING_IMAGES,
-            cls.PROJECT_POSTING_DOCUMENTS,
-            cls.PROJECT_POSTING_FALLBACK
+            cls.COMPANY_AVATAR, cls.COMPANY_DOCUMENTS, cls.COMPANY_AVATAR_FALLBACK,
+            cls.PROJECT_POSTING_IMAGES, cls.PROJECT_POSTING_DOCUMENTS, cls.PROJECT_POSTING_FALLBACK
         ]
 
     @classmethod
     def valid_project_posting_keys(cls):
-        return [
-            cls.PROJECT_POSTING_DOCUMENTS,
-            cls.PROJECT_POSTING_IMAGES
-        ]
+        return [cls.PROJECT_POSTING_DOCUMENTS, cls.PROJECT_POSTING_IMAGES]
 
 
 class Attachment(models.Model):
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, related_name='user_type')
+    content_type = models.ForeignKey(ContentType,
+                                     on_delete=models.CASCADE,
+                                     related_name='user_type')
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 
-    attachment_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, related_name='attachment_type')
+    attachment_type = models.ForeignKey(ContentType,
+                                        on_delete=models.CASCADE,
+                                        related_name='attachment_type')
     attachment_id = models.PositiveIntegerField()
     attachment_object = GenericForeignKey('attachment_type', 'attachment_id')
 
@@ -63,14 +56,15 @@ class Attachment(models.Model):
     def absolute_url(self):
         if self.attachment_type.model == 'image':
             path = reverse('attachment_serve_image', args=[self.pk, '--STACK--'])
-            path = path.replace('--STACK--', '{stack}')  # Workaround to avoid URL escaping
+            path = path.replace('--STACK--', '{stack}')    # Workaround to avoid URL escaping
         else:
             path = reverse('attachment_serve', args=[self.pk])
         return f'{settings.BASE_URL}{path}'
 
     @classmethod
     def get_student_avatar_fallback(cls, student):
-        attachments = list(Attachment.objects.filter(key=AttachmentKey.STUDENT_AVATAR_FALLBACK).order_by('id'))
+        attachments = list(
+            Attachment.objects.filter(key=AttachmentKey.STUDENT_AVATAR_FALLBACK).order_by('id'))
         index = student.id % (settings.NUMBER_OF_STUDENT_AVATAR_FALLBACK_IMAGES - 1)
         if len(attachments) > index:
             return attachments[index]
@@ -78,7 +72,8 @@ class Attachment(models.Model):
 
     @classmethod
     def get_company_avatar_fallback(cls, company):
-        attachments = list(Attachment.objects.filter(key=AttachmentKey.COMPANY_AVATAR_FALLBACK).order_by('id'))
+        attachments = list(
+            Attachment.objects.filter(key=AttachmentKey.COMPANY_AVATAR_FALLBACK).order_by('id'))
         index = company.id % (settings.NUMBER_OF_COMPANY_AVATAR_FALLBACK_IMAGES - 1)
         if len(attachments) > index:
             return attachments[index]
@@ -86,7 +81,8 @@ class Attachment(models.Model):
 
     @classmethod
     def get_project_posting_fallback(cls, project_posting):
-        attachments = list(Attachment.objects.filter(key=AttachmentKey.PROJECT_POSTING_FALLBACK).order_by('id'))
+        attachments = list(
+            Attachment.objects.filter(key=AttachmentKey.PROJECT_POSTING_FALLBACK).order_by('id'))
         index = project_posting.id % (settings.NUMBER_OF_PROJECT_POSTING_FALLBACK_IMAGES - 1)
         if len(attachments) > index:
             return attachments[index]
@@ -95,90 +91,89 @@ class Attachment(models.Model):
 
 def student_avatar_config():
     return {
-        'content_types_configuration': [
-            {
-                'content_types': settings.USER_UPLOADS_IMAGE_TYPES,
-                'max_size': settings.USER_UPLOADS_MAX_IMAGE_SIZE,
-                'model': settings.WAGTAILIMAGES_IMAGE_MODEL
-            }
-        ],
-        'max_files': 1,
-        'key': AttachmentKey.STUDENT_AVATAR
+        'content_types_configuration': [{
+            'content_types': settings.USER_UPLOADS_IMAGE_TYPES,
+            'max_size': settings.USER_UPLOADS_MAX_IMAGE_SIZE,
+            'model': settings.WAGTAILIMAGES_IMAGE_MODEL
+        }],
+        'max_files':
+        1,
+        'key':
+        AttachmentKey.STUDENT_AVATAR
     }
 
 
 def student_documents_config():
     return {
-        'content_types_configuration': [
-            {
-                'content_types': settings.USER_UPLOADS_DOCUMENT_TYPES,
-                'max_size': settings.USER_UPLOADS_MAX_DOCUMENT_SIZE,
-                'model': settings.WAGTAILDOCS_DOCUMENT_MODEL
-            }
-        ],
-        'max_files': 5,
-        'key': AttachmentKey.STUDENT_DOCUMENTS
+        'content_types_configuration': [{
+            'content_types': settings.USER_UPLOADS_DOCUMENT_TYPES,
+            'max_size': settings.USER_UPLOADS_MAX_DOCUMENT_SIZE,
+            'model': settings.WAGTAILDOCS_DOCUMENT_MODEL
+        }],
+        'max_files':
+        5,
+        'key':
+        AttachmentKey.STUDENT_DOCUMENTS
     }
 
 
 def company_avatar_config():
     return {
-        'content_types_configuration': [
-            {
-                'content_types': settings.USER_UPLOADS_IMAGE_TYPES,
-                'max_size': settings.USER_UPLOADS_MAX_IMAGE_SIZE,
-                'model': settings.WAGTAILIMAGES_IMAGE_MODEL
-            }
-        ],
-        'max_files': 1,
-        'key': AttachmentKey.COMPANY_AVATAR
+        'content_types_configuration': [{
+            'content_types': settings.USER_UPLOADS_IMAGE_TYPES,
+            'max_size': settings.USER_UPLOADS_MAX_IMAGE_SIZE,
+            'model': settings.WAGTAILIMAGES_IMAGE_MODEL
+        }],
+        'max_files':
+        1,
+        'key':
+        AttachmentKey.COMPANY_AVATAR
     }
 
 
 def company_documents_config():
     return {
-        'content_types_configuration': [
-            {
-                'content_types': settings.USER_UPLOADS_VIDEO_TYPES,
-                'max_size': settings.USER_UPLOADS_MAX_VIDEO_SIZE,
-                'model': settings.WAGTAILMEDIA_MEDIA_MODEL
-            },
-            {
-                'content_types': settings.USER_UPLOADS_IMAGE_TYPES,
-                'max_size': settings.USER_UPLOADS_MAX_IMAGE_SIZE,
-                'model': settings.WAGTAILIMAGES_IMAGE_MODEL
-            }
-        ],
-        'max_files': 5,
-        'key': AttachmentKey.COMPANY_DOCUMENTS
+        'content_types_configuration': [{
+            'content_types': settings.USER_UPLOADS_VIDEO_TYPES,
+            'max_size': settings.USER_UPLOADS_MAX_VIDEO_SIZE,
+            'model': settings.WAGTAILMEDIA_MEDIA_MODEL
+        }, {
+            'content_types': settings.USER_UPLOADS_IMAGE_TYPES,
+            'max_size': settings.USER_UPLOADS_MAX_IMAGE_SIZE,
+            'model': settings.WAGTAILIMAGES_IMAGE_MODEL
+        }],
+        'max_files':
+        5,
+        'key':
+        AttachmentKey.COMPANY_DOCUMENTS
     }
 
 
 def project_posting_images_config():
     return {
-        'content_types_configuration': [
-            {
-                'content_types': settings.USER_UPLOADS_IMAGE_TYPES,
-                'max_size': settings.USER_UPLOADS_MAX_IMAGE_SIZE,
-                'model': settings.WAGTAILIMAGES_IMAGE_MODEL
-            }
-        ],
-        'max_files': 5,
-        'key': AttachmentKey.PROJECT_POSTING_IMAGES
+        'content_types_configuration': [{
+            'content_types': settings.USER_UPLOADS_IMAGE_TYPES,
+            'max_size': settings.USER_UPLOADS_MAX_IMAGE_SIZE,
+            'model': settings.WAGTAILIMAGES_IMAGE_MODEL
+        }],
+        'max_files':
+        5,
+        'key':
+        AttachmentKey.PROJECT_POSTING_IMAGES
     }
 
 
 def project_posting_documents_config():
     return {
-        'content_types_configuration': [
-            {
-                'content_types': settings.USER_UPLOADS_DOCUMENT_TYPES,
-                'max_size': settings.USER_UPLOADS_MAX_DOCUMENT_SIZE,
-                'model': settings.WAGTAILDOCS_DOCUMENT_MODEL
-            }
-        ],
-        'max_files': 5,
-        'key': AttachmentKey.PROJECT_POSTING_DOCUMENTS
+        'content_types_configuration': [{
+            'content_types': settings.USER_UPLOADS_DOCUMENT_TYPES,
+            'max_size': settings.USER_UPLOADS_MAX_DOCUMENT_SIZE,
+            'model': settings.WAGTAILDOCS_DOCUMENT_MODEL
+        }],
+        'max_files':
+        5,
+        'key':
+        AttachmentKey.PROJECT_POSTING_DOCUMENTS
     }
 
 
@@ -203,10 +198,9 @@ def get_config_for_key(key):
 
 def get_attachment_validator_map_for_key(key):
     config = get_config_for_key(key)
-    return [
-        (apps.get_model(content_type.get('model')), content_type.get('content_types'), content_type.get('max_size'))
-        for content_type in config.get('content_types_configuration', [])
-    ]
+    return [(apps.get_model(content_type.get('model')), content_type.get('content_types'),
+             content_type.get('max_size'))
+            for content_type in config.get('content_types_configuration', [])]
 
 
 def get_max_files_for_key(key):

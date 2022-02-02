@@ -1,15 +1,42 @@
 import pytest
 
+from graphql_relay import to_global_id
+
 from db.models import SoftSkill
+
+
+def soft_skill_node_query():
+    return '''
+    query ($id: ID!) {
+        node(id: $id) {
+            id
+            ... on SoftSkill {
+                student
+                company
+            }
+        }
+    }
+    '''
 
 
 def soft_skills_query():
     return '''
     query {
-        softSkills {
-            id
-            student
-            company
+        softSkills(first: 12) {
+            pageInfo {
+                startCursor
+                endCursor
+                hasNextPage
+                hasPreviousPage
+            }
+            edges {
+                cursor
+                node {
+                    id
+                    student
+                    company
+                }
+            }
         }
     }
     '''
@@ -34,7 +61,20 @@ def soft_skill_objects():
 
 
 @pytest.fixture
+def query_soft_skill_node(execute):
+
+    def closure(user, id_value):
+        return execute(soft_skill_node_query(),
+                       variables={'id': to_global_id('SoftSkill', id_value)},
+                       **{'user': user})
+
+    return closure
+
+
+@pytest.fixture
 def query_soft_skills(execute):
+
     def closure(user):
         return execute(soft_skills_query(), **{'user': user})
+
     return closure

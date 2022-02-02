@@ -14,16 +14,16 @@ class StudentMatchMapper:
         self._prefetch_matches()
 
     def _prefetch_attachments(self):
-        attachments = Attachment.objects.filter(
-            key=AttachmentKey.STUDENT_AVATAR,
-            object_id__in=self.student_ids
-        ).select_related('content_type', 'attachment_type')
+        attachments = Attachment.objects.filter(key=AttachmentKey.STUDENT_AVATAR,
+                                                object_id__in=self.student_ids).select_related(
+                                                    'content_type', 'attachment_type')
 
         for attachment in attachments:
             self.attachment_map[attachment.object_id] = attachment
 
     def _prefetch_matches(self):
-        matches = Match.objects.filter(job_posting=self.job_posting, student_id__in=self.student_ids)
+        matches = Match.objects.filter(job_posting=self.job_posting,
+                                       student_id__in=self.student_ids)
         for match in matches:
             self.matches_map[match.student.id] = match
             if match.student_confirmed:
@@ -41,7 +41,7 @@ class StudentMatchMapper:
         return attachment
 
     def _get_name(self, student):
-        name = '%s %s' % (student.user.first_name, student.user.last_name)
+        name = f'{student.user.first_name} {student.user.last_name}'
         has_match = self.permission_map.get(student.id, None)
         if not has_match and student.state == ProfileState.ANONYMOUS:
             name = student.nickname
@@ -50,10 +50,7 @@ class StudentMatchMapper:
     def _get_match_status(self, student):
         if self.matches_map.get(student.id) is not None:
             match_obj = self.matches_map.get(student.id)
-            return {
-                'confirmed': match_obj.complete,
-                'initiator': match_obj.initiator
-            }
+            return {'confirmed': match_obj.complete, 'initiator': match_obj.initiator}
         return None
 
     def _map_student(self, student):

@@ -1,6 +1,7 @@
 from io import StringIO
 
 import pytest
+
 from django.core import management
 
 from db.helper.forms import convert_date
@@ -10,8 +11,9 @@ from db.models import ProfileState, Match, JobPostingState
 # pylint: disable=R0913
 # pylint: disable=R0915
 @pytest.mark.django_db
-def test_match_company(user_student, company_matching, soft_skill_objects, cultural_fit_objects, user_employee,
-                       user_employee_2, branch_objects, job_posting_object, company_fallback_images):
+def test_match_company(user_student, company_matching, soft_skill_objects, cultural_fit_objects,
+                       user_employee, user_employee_2, branch_objects, job_posting_object,
+                       company_fallback_images):
     user_student.student.branch = branch_objects[0]
     user_student.student.job_from_date = convert_date('2021-08-01', '%Y-%m-%d')
     user_student.student.job_to_date = convert_date('2022-07-31', '%Y-%m-%d')
@@ -50,7 +52,9 @@ def test_match_company(user_student, company_matching, soft_skill_objects, cultu
     user_employee_2.company.city = 'nowhere'
     user_employee_2.company.save()
 
-    Match.objects.create(student=user_student.student, job_posting=job_posting_object, initiator=user_student.type,
+    Match.objects.create(student=user_student.student,
+                         job_posting=job_posting_object,
+                         initiator=user_student.type,
                          student_confirmed=True)
 
     management.call_command('update_index', stdout=StringIO())

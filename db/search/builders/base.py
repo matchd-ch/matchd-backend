@@ -21,7 +21,9 @@ class BaseParamBuilder:
                 'query': {
                     'bool': {
                         'must': {
-                            "terms": {"branches.id_filter": [branch_id]},
+                            "terms": {
+                                "branches.id_filter": [branch_id]
+                            },
                         }
                     }
                 },
@@ -32,14 +34,12 @@ class BaseParamBuilder:
     def set_job_type(self, job_type_id, boost=1):
         self.should_conditions.append({
             "bool": {
-                "should": [
-                    {
-                        'terms': {
-                            'job_type_id_filter': [job_type_id],
-                            'boost': boost
-                        }
+                "should": [{
+                    'terms': {
+                        'job_type_id_filter': [job_type_id],
+                        'boost': boost
                     }
-                ]
+                }]
             }
         })
 
@@ -48,57 +48,42 @@ class BaseParamBuilder:
             return
         boost = boost / len(skills)
         for obj in skills:
-            self.should_conditions.append(self.get_condition('skills', 'id_filter', [obj.id], boost))
+            self.should_conditions.append(self.get_condition('skills', 'id_filter', [obj.id],
+                                                             boost))
 
     def set_date_from(self, date_from, boost=1):
         boost = boost / len(settings.MATCHING_VALUE_DATE_OR_DATE_RANGE_PRECISION)
-        conditions = [
-            {
-                # we need to include matches without a job start date set, but without boosting it
-                # null values are set to 01.01.1970 see db.models.Student (search_fields)
-                "exists": {
-                    "field": "job_from_date_filter",
-                    "boost": 0
-                }
+        conditions = [{
+        # we need to include matches without a job start date set, but without boosting it
+        # null values are set to 01.01.1970 see db.models.Student (search_fields)
+            "exists": {
+                "field": "job_from_date_filter",
+                "boost": 0
             }
-        ]
-        for i in range(0, len(settings.MATCHING_VALUE_DATE_OR_DATE_RANGE_PRECISION)):
-            conditions.append(self.get_date_range_query(
-                'job_from_date_filter', date_from, date_from, settings.MATCHING_VALUE_DATE_OR_DATE_RANGE_PRECISION[i],
-                boost))
+        }]
+        for matching_value in settings.MATCHING_VALUE_DATE_OR_DATE_RANGE_PRECISION:
+            conditions.append(
+                self.get_date_range_query('job_from_date_filter', date_from, date_from,
+                                          matching_value, boost))
 
-        self.should_conditions.append(
-            {
-                "bool": {
-                    "should": conditions
-                }
-            }
-        )
+        self.should_conditions.append({"bool": {"should": conditions}})
 
     def set_date_range(self, date_from, date_to, boost=1):
         boost = boost / len(settings.MATCHING_VALUE_DATE_OR_DATE_RANGE_PRECISION)
-        conditions = [
-            {
-                # we need to include matches without a job start/end date set, but without boosting it
-                # null values are set to 01.01.1970 see db.models.Student (search_fields)
-                "exists": {
-                    "field": "job_from_date_filter",
-                    "boost": 0
-                }
+        conditions = [{
+        # we need to include matches without a job start/end date set, but without boosting it
+        # null values are set to 01.01.1970 see db.models.Student (search_fields)
+            "exists": {
+                "field": "job_from_date_filter",
+                "boost": 0
             }
-        ]
-        for i in range(0, len(settings.MATCHING_VALUE_DATE_OR_DATE_RANGE_PRECISION)):
-            conditions.append(self.get_nested_date_range_query(
-                'job_from_date_filter', 'job_to_date_filter', date_from, date_to,
-                settings.MATCHING_VALUE_DATE_OR_DATE_RANGE_PRECISION[i], boost / 2))
+        }]
+        for matching_value in settings.MATCHING_VALUE_DATE_OR_DATE_RANGE_PRECISION:
+            conditions.append(
+                self.get_nested_date_range_query('job_from_date_filter', 'job_to_date_filter',
+                                                 date_from, date_to, matching_value, boost / 2))
 
-        self.should_conditions.append(
-            {
-                "bool": {
-                    "should": conditions
-                }
-            }
-        )
+        self.should_conditions.append({"bool": {"should": conditions}})
 
     def get_params(self):
         return {
@@ -123,13 +108,11 @@ class BaseParamBuilder:
                 'path': path,
                 'query': {
                     condition_type: {
-                        'should': [
-                            {
-                                'terms': {
-                                    f'{path}.{prop}': value
-                                }
+                        'should': [{
+                            'terms': {
+                                f'{path}.{prop}': value
                             }
-                        ]
+                        }]
                     }
                 },
                 'boost': boost
@@ -142,7 +125,7 @@ class BaseParamBuilder:
         shifted_start = max(0, shifted_start)
         shifted_end = min(100, shifted_end)
         return {
-            # boost dates within the shifted range
+        # boost dates within the shifted range
             "range": {
                 key: {
                     "gte": shifted_start,
@@ -156,7 +139,7 @@ class BaseParamBuilder:
         shifted_start = self.get_shifted_date(date_from, -months)
         shifted_end = self.get_shifted_date(date_to, +months)
         return {
-            # boost dates within the shifted range
+        # boost dates within the shifted range
             "range": {
                 key: {
                     "gte": shifted_start.strftime('%Y-%m-%d'),
@@ -173,7 +156,7 @@ class BaseParamBuilder:
             'bool': {
                 'should': [
                     {
-                        # boost start date within range
+        # boost start date within range
                         "range": {
                             from_key: {
                                 "gte": shifted_start.strftime('%Y-%m-%d'),
@@ -183,7 +166,7 @@ class BaseParamBuilder:
                         }
                     },
                     {
-                        # boost end date within range
+        # boost end date within range
                         "range": {
                             to_key: {
                                 "gte": shifted_start.strftime('%Y-%m-%d'),

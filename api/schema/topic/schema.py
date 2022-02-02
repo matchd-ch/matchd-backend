@@ -1,5 +1,5 @@
 import graphene
-from graphene import ObjectType
+from graphene import ObjectType, relay
 from graphene_django import DjangoObjectType
 
 from db.models import Topic as TopicModel
@@ -9,12 +9,19 @@ class Topic(DjangoObjectType):
 
     class Meta:
         model = TopicModel
-        fields = ('id', 'name', )
+        interfaces = (relay.Node, )
+        fields = ('name', )
         convert_choices_to_enum = False
 
 
+class TopicConnection(relay.Connection):
+
+    class Meta:
+        node = Topic
+
+
 class TopicQuery(ObjectType):
-    topics = graphene.List(Topic)
+    topics = relay.ConnectionField(TopicConnection)
 
     def resolve_topics(self, info, **kwargs):
         return TopicModel.objects.all()

@@ -12,9 +12,12 @@ from db.models import JobPosting, JobRequirement, Skill, JobPostingLanguageRelat
 
 
 class JobPostingFormStep2(forms.Form):
-    job_requirements = forms.ModelMultipleChoiceField(queryset=JobRequirement.objects.all(), required=False)
+    job_requirements = forms.ModelMultipleChoiceField(queryset=JobRequirement.objects.all(),
+                                                      required=False)
     skills = forms.ModelMultipleChoiceField(queryset=Skill.objects.all(), required=False)
-    languages = graphene.List(JobPostingLanguageRelationInput, description=_('Languages'), required=False)
+    languages = graphene.List(JobPostingLanguageRelationInput,
+                              description=_('Languages'),
+                              required=False)
 
 
 def get_unique_languages(data):
@@ -42,13 +45,15 @@ def get_languages_to_delete(job_posting, data):
             if 'language' in language:
                 exclude_languages.append(language.get('language'))
     languages_to_delete = JobPostingLanguageRelation.objects.filter(job_posting=job_posting)
-    return languages_to_delete.exclude(id__in=exclude_ids).exclude(language_id__in=exclude_languages)
+    return languages_to_delete.exclude(id__in=exclude_ids).exclude(
+        language_id__in=exclude_languages)
 
 
 def process_language(job_posting, data):
     instance = None
     existing_entry_for_language = JobPostingLanguageRelation.objects.filter(job_posting=job_posting,
-                                                                            language=data.get('language', None))
+                                                                            language=data.get(
+                                                                                'language', None))
 
     if len(existing_entry_for_language) > 0:
         instance = existing_entry_for_language[0]
@@ -110,7 +115,9 @@ def process_job_posting_form_step_2(user, data):
     user_company = user.company.id
     job_posting_company = job_posting.company.id
     if user_company != job_posting_company:
-        errors.update(generic_error_dict('employee', _('Employee does not belong to this company.'), 'invalid'))
+        errors.update(
+            generic_error_dict('employee', _('Employee does not belong to this company.'),
+                               'invalid'))
         raise FormException(errors=errors)
 
     # save all valid forms

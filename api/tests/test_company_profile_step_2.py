@@ -1,4 +1,5 @@
 import pytest
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 
@@ -8,7 +9,8 @@ def test_step_2(login, user_employee, company_step_2):
     user_employee.company.profile_step = 2
     user_employee.company.save()
     login(user_employee)
-    data, errors = company_step_2(user_employee, 'http://www.1337.lo', 'description', 'services', True)
+    data, errors = company_step_2(user_employee, 'http://www.1337.lo', 'description', 'services',
+                                  True)
     assert errors is None
     assert data is not None
     assert data.get('companyProfileStep2') is not None
@@ -24,7 +26,8 @@ def test_step_2(login, user_employee, company_step_2):
 
 @pytest.mark.django_db
 def test_step_2_without_login(user_employee, company_step_2):
-    data, errors = company_step_2(AnonymousUser(), 'http://www.1337.lo', 'description', 'services', True)
+    data, errors = company_step_2(AnonymousUser(), 'http://www.1337.lo', 'description', 'services',
+                                  True)
     assert errors is not None
     assert data is not None
     assert data.get('companyProfileStep2') is None
@@ -40,7 +43,8 @@ def test_step_2_without_login(user_employee, company_step_2):
 @pytest.mark.django_db
 def test_step_2_as_student(login, user_student, company_step_2):
     login(user_student)
-    data, errors = company_step_2(user_student, 'http://www.1337.lo', 'description', 'services', True)
+    data, errors = company_step_2(user_student, 'http://www.1337.lo', 'description', 'services',
+                                  True)
     assert errors is None
     assert data is not None
     assert data.get('companyProfileStep2') is not None
@@ -55,7 +59,8 @@ def test_step_2_invalid_step(login, user_employee, company_step_2):
     user_employee.company.profile_step = 0
     user_employee.company.save()
     login(user_employee)
-    data, errors = company_step_2(user_employee, 'http://www.1337.lo', 'description', 'services', True)
+    data, errors = company_step_2(user_employee, 'http://www.1337.lo', 'description', 'services',
+                                  True)
     assert errors is None
     assert data is not None
     assert data.get('companyProfileStep2') is not None

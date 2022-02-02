@@ -1,12 +1,14 @@
-import graphene
-from django.contrib.auth import get_user_model
+from graphene import ObjectType
 from graphql_auth import mutations
 from graphql_auth.mutations import Register
+
+from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 
 from api.schema.company import RegisterCompanyInput
 from api.schema.employee import EmployeeInput
 from api.schema.student import RegisterStudentInput
+
 from db.helper import generic_error_dict, get_company_slug
 from db.forms import CompanyForm, StudentForm, EmployeeForm, UniversityForm
 from db.models import Company, Student, Employee, ProfileType
@@ -141,7 +143,7 @@ class RegisterStudent(Register):
         return result
 
 
-class RegistrationMutation(graphene.ObjectType):
+class RegistrationMutation(ObjectType):
     register_company = RegisterCompany.Field()
     register_student = RegisterStudent.Field()
     verify_account = mutations.VerifyAccount.Field()

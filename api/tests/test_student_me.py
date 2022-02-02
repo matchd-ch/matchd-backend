@@ -1,5 +1,8 @@
 import pytest
+
 from django.contrib.auth.models import AnonymousUser
+
+from graphql_relay import to_global_id
 
 from db.models import ProfileType, ProfileState
 
@@ -9,8 +12,8 @@ from db.models import ProfileType, ProfileState
 
 
 @pytest.mark.django_db
-def test_me_student(login, me, user_student_full_profile, skill_objects, branch_objects, job_type_objects,
-                    student_project_posting_objects):
+def test_me_student(login, me, user_student_full_profile, skill_objects, branch_objects,
+                    job_type_objects, student_project_posting_objects):
 
     for project_posting in student_project_posting_objects:
         project_posting.student = user_student_full_profile.student
@@ -35,8 +38,8 @@ def test_me_student(login, me, user_student_full_profile, skill_objects, branch_
     assert student.get('firstName') == 'John'
     assert student.get('lastName') == 'Doe'
     assert student.get('profileStep') == 3
-    assert int(student.get('branch').get('id')) == branch_objects[0].id
-    assert int(student.get('jobType').get('id')) == job_type_objects[0].id
+    assert student.get('branch').get('id') == to_global_id('Branch', branch_objects[0].id)
+    assert student.get('jobType').get('id') == to_global_id('JobType', job_type_objects[0].id)
     assert student.get('state') == ProfileState.ANONYMOUS.upper()
     assert student.get('mobile') == '+41711234567'
     assert student.get('zip') == '1337'
@@ -49,12 +52,12 @@ def test_me_student(login, me, user_student_full_profile, skill_objects, branch_
     assert student.get('fieldOfStudy') == 'field of study'
     assert student.get('graduation') == '1337-03-01'
     assert student.get('distinction') == 'distinction'
-    assert len(student.get('skills')) == len(skill_objects)
+    assert len(student.get('skills').get('edges')) == len(skill_objects)
     assert len(student.get('hobbies')) == 2
     assert len(student.get('onlineProjects')) == 2
-    assert len(student.get('softSkills')) == 6
-    assert len(student.get('culturalFits')) == 6
-    assert len(student.get('projectPostings')) == 3  # public + draft
+    assert len(student.get('softSkills').get('edges')) == 6
+    assert len(student.get('culturalFits').get('edges')) == 6
+    assert len(student.get('projectPostings')) == 3    # public + draft
 
     company = user.get('company')
     assert company is None
