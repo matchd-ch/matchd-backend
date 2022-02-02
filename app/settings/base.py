@@ -432,6 +432,7 @@ DEBUG_TOOLBAR_CONFIG = {
 }
 
 # Sentry Integration
+# pylint:disable=E0110
 
 sentry_sdk.init(
     integrations=[DjangoIntegration()],
