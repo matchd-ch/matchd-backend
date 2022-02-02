@@ -8,6 +8,7 @@
 * Install [asdf-python](https://github.com/danhper/asdf-python)
 * `pip install pipenv`
 * `pipenv install`
+* Make sure to have `apt-get install libmysqlclient-dev` and `apt-get install libsqlite3-dev`
 * Run `mariadb`  
 ```console
 $ docker volume create mariadb
@@ -121,6 +122,12 @@ python xlsx_to_json.py
 ```
 
 ## Testing
+
+### yapf code formatter
+
+```console
+pipenv run format
+```
 
 ### pylint
 
