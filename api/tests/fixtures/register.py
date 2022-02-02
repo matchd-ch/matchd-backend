@@ -7,6 +7,7 @@ import pytest
 
 @pytest.fixture
 def register_student_query(default_password):
+
     def closure(username, first_name, last_name, mobile, password=default_password):
         return '''
         mutation RegisterStudent {
@@ -28,19 +29,29 @@ def register_student_query(default_password):
             }
         }
         ''' % (username, username, password, password, first_name, last_name, mobile)
+
     return closure
 
 
 @pytest.fixture
 def register_student(execute, register_student_query, default_password):
+
     def closure(username, first_name, last_name, mobile, password=default_password):
         return execute(register_student_query(username, first_name, last_name, mobile, password))
+
     return closure
 
 
 @pytest.fixture
 def register_company_query(default_password):
-    def closure(username, first_name, last_name, role, company_name, uid, password=default_password):
+
+    def closure(username,
+                first_name,
+                last_name,
+                role,
+                company_name,
+                uid,
+                password=default_password):
         return '''
         mutation RegisterCompany {
             registerCompany (
@@ -66,19 +77,32 @@ def register_company_query(default_password):
                 errors
             }
         }
-        ''' % (username, username, password, password, first_name, last_name, role, company_name, uid)
+        ''' % (username, username, password, password, first_name, last_name, role, company_name,
+               uid)
+
     return closure
 
 
 @pytest.fixture
 def register_company(execute, register_company_query, default_password):
-    def closure(username, first_name, last_name, role, company_name, uid, password=default_password):
-        return execute(register_company_query(username, first_name, last_name, role, company_name, uid, password))
+
+    def closure(username,
+                first_name,
+                last_name,
+                role,
+                company_name,
+                uid,
+                password=default_password):
+        return execute(
+            register_company_query(username, first_name, last_name, role, company_name, uid,
+                                   password))
+
     return closure
 
 
 @pytest.fixture
 def register_university_query(default_password):
+
     def closure(username, first_name, last_name, role, company_name, password=default_password):
         return '''
         mutation RegisterCompany {
@@ -105,11 +129,16 @@ def register_university_query(default_password):
             }
         }
         ''' % (username, username, password, password, first_name, last_name, role, company_name)
+
     return closure
 
 
 @pytest.fixture
 def register_university(execute, register_university_query, default_password):
+
     def closure(username, first_name, last_name, role, company_name, password=default_password):
-        return execute(register_university_query(username, first_name, last_name, role, company_name, password))
+        return execute(
+            register_university_query(username, first_name, last_name, role, company_name,
+                                      password))
+
     return closure

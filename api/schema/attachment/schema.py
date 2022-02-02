@@ -15,6 +15,7 @@ AttachmentKey = graphene.Enum.from_enum(AttachmentKeyModel)
 
 
 class DeleteAttachment(Output, graphene.Mutation):
+
     class Arguments:
         id = graphene.ID()
 
@@ -29,8 +30,9 @@ class DeleteAttachment(Output, graphene.Mutation):
         try:
             attachment = AttachmentModel.objects.get(pk=attachment_id)
         except AttachmentModel.DoesNotExist:
-            return DeleteAttachment(success=False, errors=generic_error_dict('id', _('Attachment does not exist'),
-                                                                             'not_found'))
+            return DeleteAttachment(success=False,
+                                    errors=generic_error_dict('id', _('Attachment does not exist'),
+                                                              'not_found'))
 
         project_posting_type = ContentType.objects.get(app_label='db', model='projectposting')
 
@@ -40,8 +42,9 @@ class DeleteAttachment(Output, graphene.Mutation):
                 if project_posting.get_owner() != user:
                     return PermissionDenied('You are not allowed to perform this action.')
             except ProjectPostingModel.DoesNotExist:
-                return DeleteAttachment(
-                    success=False, errors=generic_error_dict('id', _('ProjectPosting does not exist'), 'not_found'))
+                return DeleteAttachment(success=False,
+                                        errors=generic_error_dict(
+                                            'id', _('ProjectPosting does not exist'), 'not_found'))
         else:
             if not attachment.object_id == profile_id:
                 return PermissionDenied('You are not allowed to perform this action.')
@@ -51,11 +54,11 @@ class DeleteAttachment(Output, graphene.Mutation):
             file = attachment.attachment_object
             file.delete()
             attachment.delete()
-        except Exception as exception:  # pragma: no cover
-            return DeleteAttachment(
-                success=False,
-                errors=generic_error_dict(
-                    'id', f'{_("Error deleting file")}:{str(exception)}', 'error'))  # pragma: no cover
+        except Exception as exception:    # pragma: no cover
+            return DeleteAttachment(success=False,
+                                    errors=generic_error_dict(
+                                        'id', f'{_("Error deleting file")}:{str(exception)}',
+                                        'error'))    # pragma: no cover
         return DeleteAttachment(success=True, errors=None)
 
 
@@ -71,7 +74,7 @@ class Attachment(DjangoObjectType):
 
     class Meta:
         model = AttachmentModel
-        interfaces = (relay.Node,)
+        interfaces = (relay.Node, )
         fields = tuple()
         convert_choices_to_enum = False
 
@@ -95,12 +98,10 @@ class AttachmentConnection(relay.Connection):
 
 
 class AttachmentQuery(ObjectType):
-    attachments = relay.ConnectionField(
-        AttachmentConnection,
-        key=AttachmentKey(required=True),
-        slug=graphene.String(required=False),
-        id=graphene.ID(required=False)
-    )
+    attachments = relay.ConnectionField(AttachmentConnection,
+                                        key=AttachmentKey(required=True),
+                                        slug=graphene.String(required=False),
+                                        id=graphene.ID(required=False))
 
     # pylint: disable=R0912
     @login_required

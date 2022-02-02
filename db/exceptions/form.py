@@ -1,4 +1,3 @@
-
 class FormException(Exception):
 
     def __init__(self, errors):

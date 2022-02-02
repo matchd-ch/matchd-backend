@@ -13,15 +13,8 @@ class ProfileType(models.TextChoices):
 
     @classmethod
     def valid_student_types(cls):
-        return [
-            cls.STUDENT,
-            cls.COLLEGE_STUDENT,
-            cls.JUNIOR
-        ]
+        return [cls.STUDENT, cls.COLLEGE_STUDENT, cls.JUNIOR]
 
     @classmethod
     def valid_company_types(cls):
-        return [
-            cls.COMPANY,
-            cls.UNIVERSITY
-        ]
+        return [cls.COMPANY, cls.UNIVERSITY]

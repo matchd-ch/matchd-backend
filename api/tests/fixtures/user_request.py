@@ -14,12 +14,14 @@ def user_request_mutation():
 
 @pytest.fixture
 def user_request(execute):
+
     def closure(name, email, message):
-        return execute(user_request_mutation(), variables={
-            'userRequest': {
+        return execute(
+            user_request_mutation(),
+            variables={'userRequest': {
                 'name': name,
                 'email': email,
                 'message': message
-            }
-        })
+            }})
+
     return closure

@@ -12,6 +12,4 @@ class NicknameValidator:
             raise ValidationError(_('Nickname is already taken.'), code='unique')
 
     def get_help_text(self):
-        return _(
-            'Nickname must be unique.'
-        )
+        return _('Nickname must be unique.')

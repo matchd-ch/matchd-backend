@@ -14,7 +14,9 @@ class UserRequest(models.Model):
     @staticmethod
     def post_save(sender, instance, created, **kwargs):
         is_raw = kwargs.get('raw', False)
-        post_save.disconnect(UserRequest.post_save, UserRequest, dispatch_uid='db.models.UserRequest')
+        post_save.disconnect(UserRequest.post_save,
+                             UserRequest,
+                             dispatch_uid='db.models.UserRequest')
         if created and not is_raw:
             instance.send_email('user_request_copy', [instance.email])
             instance.send_email('user_request', settings.USER_REQUEST_FORM_RECIPIENTS)
@@ -30,13 +32,11 @@ class UserRequest(models.Model):
         subject = render_to_string(f'db/email/{email_type}/subject.txt', email_context)
         plain_body = render_to_string(f'db/email/{email_type}/body_plain.txt', email_context)
         html_body = render_to_string(f'db/email/{email_type}/body.html', email_context)
-        send_mail(
-            subject,
-            plain_body,
-            settings.DEFAULT_FROM_EMAIL,
-            recipients,
-            html_message=html_body
-        )
+        send_mail(subject,
+                  plain_body,
+                  settings.DEFAULT_FROM_EMAIL,
+                  recipients,
+                  html_message=html_body)
 
 
 post_save.connect(UserRequest.post_save, UserRequest, dispatch_uid='db.models.UserRequest')

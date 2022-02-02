@@ -7,8 +7,8 @@ from django.contrib.auth.models import AnonymousUser
 @pytest.mark.django_db
 def test_step_1(login, user_employee, company_step_1):
     login(user_employee)
-    data, errors = company_step_1(user_employee, 'John', 'Doe', 'Company 1 edited', 'street 1', '1337', 'nowhere',
-                                  '+41791234567', 'Role')
+    data, errors = company_step_1(user_employee, 'John', 'Doe', 'Company 1 edited', 'street 1',
+                                  '1337', 'nowhere', '+41791234567', 'Role')
     assert errors is None
     assert data is not None
     assert data.get('companyProfileStep1') is not None
@@ -28,8 +28,8 @@ def test_step_1(login, user_employee, company_step_1):
 
 @pytest.mark.django_db
 def test_step_1_without_login(user_employee, company_step_1):
-    data, errors = company_step_1(AnonymousUser(), 'John', 'Doe', 'Company 1 edited', 'street 1', '1337', 'nowhere',
-                                  '+41791234567', 'Role')
+    data, errors = company_step_1(AnonymousUser(), 'John', 'Doe', 'Company 1 edited', 'street 1',
+                                  '1337', 'nowhere', '+41791234567', 'Role')
     assert errors is not None
     assert data is not None
     assert data.get('companyProfileStep1') is None
@@ -49,8 +49,8 @@ def test_step_1_without_login(user_employee, company_step_1):
 @pytest.mark.django_db
 def test_step_1_as_student(login, user_student, company_step_1):
     login(user_student)
-    data, errors = company_step_1(user_student, 'John', 'Doe', 'Company 1 edited', 'street 1', '1337', 'nowhere',
-                                  '+41791234567', 'Role')
+    data, errors = company_step_1(user_student, 'John', 'Doe', 'Company 1 edited', 'street 1',
+                                  '1337', 'nowhere', '+41791234567', 'Role')
     assert errors is None
     assert data is not None
     assert data.get('companyProfileStep1') is not None
@@ -65,8 +65,8 @@ def test_step_1_invalid_step(login, user_employee, company_step_1):
     user_employee.company.profile_step = 0
     user_employee.company.save()
     login(user_employee)
-    data, errors = company_step_1(user_employee, 'John', 'Doe', 'Company 1 edited', 'street 1', '1337', 'nowhere',
-                                  '+41791234567', 'Role')
+    data, errors = company_step_1(user_employee, 'John', 'Doe', 'Company 1 edited', 'street 1',
+                                  '1337', 'nowhere', '+41791234567', 'Role')
     assert errors is None
     assert data is not None
     assert data.get('companyProfileStep1') is not None

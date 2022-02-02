@@ -40,24 +40,20 @@ class User(BaseSeed):
         if job_type_object.mode == DateMode.DATE_RANGE:
             job_to_date = self.rand.job_to_date(job_from_date)
 
-        attachments = [
-            {
-                "file": f'avatars/{gender}/{avatar}',
-                "key": "student_avatar",
-                "type": "db.image",
-                "user": email
-            }
-        ]
+        attachments = [{
+            "file": f'avatars/{gender}/{avatar}',
+            "key": "student_avatar",
+            "type": "db.image",
+            "user": email
+        }]
         documents = self.rand.documents()
         for document in documents:
-            attachments.append(
-                {
-                    "file": f'documents/{document}',
-                    "key": "student_documents",
-                    "type": "db.file",
-                    "user": email
-                }
-            )
+            attachments.append({
+                "file": f'documents/{document}',
+                "key": "student_documents",
+                "type": "db.file",
+                "user": email
+            })
 
         dummy = {
             "email": email,

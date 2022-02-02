@@ -22,7 +22,6 @@ from db.models import ProjectPosting as ProjectPostingModel, ProjectPostingState
 
 # TODO: Fix permissions for get_node()
 
-
 ProjectPostingState = graphene.Enum.from_enum(ProjectPostingStateModel)
 
 
@@ -48,10 +47,25 @@ class ProjectPosting(DjangoObjectType):
 
     class Meta:
         model = ProjectPostingModel
-        interfaces = (relay.Node,)
-        fields = ('title', 'description', 'project_type', 'topic', 'company', 'keywords',
-                  'additional_information', 'website', 'project_from_date', 'form_step', 'state', 'date_published',
-                  'date_created', 'student', 'employee', 'slug',)
+        interfaces = (relay.Node, )
+        fields = (
+            'title',
+            'description',
+            'project_type',
+            'topic',
+            'company',
+            'keywords',
+            'additional_information',
+            'website',
+            'project_from_date',
+            'form_step',
+            'state',
+            'date_published',
+            'date_created',
+            'student',
+            'employee',
+            'slug',
+        )
         convert_choices_to_enum = False
 
     # pylint: disable=W0622
@@ -85,10 +99,7 @@ class ProjectPosting(DjangoObjectType):
                 pass
 
         if status is not None:
-            return {
-                'confirmed':  status.complete,
-                'initiator': status.initiator
-            }
+            return {'confirmed': status.complete, 'initiator': status.initiator}
         return None
 
     def resolve_match_hints(self: ProjectPostingModel, info):
@@ -101,12 +112,14 @@ class ProjectPosting(DjangoObjectType):
 
 
 class ProjectPostingConnection(relay.Connection):
+
     class Meta:
         node = ProjectPosting
 
 
 class ProjectPostingQuery(ObjectType):
-    project_posting = graphene.Field(ProjectPosting, id=graphene.ID(required=False),
+    project_posting = graphene.Field(ProjectPosting,
+                                     id=graphene.ID(required=False),
                                      slug=graphene.String(required=False))
     project_postings = relay.ConnectionField(ProjectPostingConnection)
 
@@ -158,7 +171,8 @@ class ProjectPostingInputStep1(graphene.InputObjectType):
     topic = graphene.Field(TopicInput, required=True)
     keywords = graphene.List(KeywordInput, required=False)
     description = graphene.String(description=_('Description'), required=True)
-    additional_information = graphene.String(description=_('Additional Information'), required=False)
+    additional_information = graphene.String(description=_('Additional Information'),
+                                             required=False)
 
 
 class ProjectPostingStep1(Output, graphene.Mutation):
@@ -166,7 +180,8 @@ class ProjectPostingStep1(Output, graphene.Mutation):
     project_posting_id = graphene.ID()
 
     class Arguments:
-        step1 = ProjectPostingInputStep1(description=_('Project Posting Input Step 1 is required.'), required=True)
+        step1 = ProjectPostingInputStep1(description=_('Project Posting Input Step 1 is required.'),
+                                         required=True)
 
     class Meta:
         description = _('Creates a project posting')
@@ -180,7 +195,9 @@ class ProjectPostingStep1(Output, graphene.Mutation):
             project_posting = process_project_posting_form_step_1(user, form_data)
         except FormException as exception:
             return ProjectPostingStep1(success=False, errors=exception.errors)
-        return ProjectPostingStep1(success=True, errors=None, slug=project_posting.slug,
+        return ProjectPostingStep1(success=True,
+                                   errors=None,
+                                   slug=project_posting.slug,
                                    project_posting_id=project_posting.id)
 
 
@@ -195,7 +212,8 @@ class ProjectPostingStep2(Output, graphene.Mutation):
     project_posting_id = graphene.ID()
 
     class Arguments:
-        step2 = ProjectPostingInputStep2(description=_('Project Posting Input Step 2 is required.'), required=True)
+        step2 = ProjectPostingInputStep2(description=_('Project Posting Input Step 2 is required.'),
+                                         required=True)
 
     class Meta:
         description = _('Creates a project posting')
@@ -209,7 +227,9 @@ class ProjectPostingStep2(Output, graphene.Mutation):
             project_posting = process_project_posting_form_step_2(user, form_data)
         except FormException as exception:
             return ProjectPostingStep2(success=False, errors=exception.errors)
-        return ProjectPostingStep2(success=True, errors=None, slug=project_posting.slug,
+        return ProjectPostingStep2(success=True,
+                                   errors=None,
+                                   slug=project_posting.slug,
                                    project_posting_id=project_posting.id)
 
 
@@ -224,7 +244,8 @@ class ProjectPostingStep3(Output, graphene.Mutation):
     project_posting_id = graphene.ID()
 
     class Arguments:
-        step3 = ProjectPostingInputStep3(description=_('Project Posting Input Step 3 is required.'), required=True)
+        step3 = ProjectPostingInputStep3(description=_('Project Posting Input Step 3 is required.'),
+                                         required=True)
 
     class Meta:
         description = _('Updates a project posting')
@@ -238,7 +259,9 @@ class ProjectPostingStep3(Output, graphene.Mutation):
             project_posting = process_project_posting_form_step_3(user, form_data)
         except FormException as exception:
             return ProjectPostingStep3(success=False, errors=exception.errors)
-        return ProjectPostingStep3(success=True, errors=None, slug=project_posting.slug,
+        return ProjectPostingStep3(success=True,
+                                   errors=None,
+                                   slug=project_posting.slug,
                                    project_posting_id=project_posting.id)
 
 

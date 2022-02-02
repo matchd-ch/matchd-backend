@@ -5,9 +5,7 @@ from wagtail.admin.edit_handlers import FieldPanel
 class Skill(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
-    panels = [
-        FieldPanel('name')
-    ]
+    panels = [FieldPanel('name')]
 
     class Meta:
         ordering = ['name']

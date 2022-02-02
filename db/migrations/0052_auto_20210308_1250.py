@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='expectation',
-            options={'ordering': ('name',)},
+            options={'ordering': ('name', )},
         ),
         migrations.AddField(
             model_name='jobposting',

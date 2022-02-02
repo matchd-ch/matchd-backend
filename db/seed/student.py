@@ -125,12 +125,15 @@ class Student(BaseSeed):
             OnlineProject.objects.get_or_create(student=student, url=url)
         for language in languages:
             try:
-                existing = UserLanguageRelation.objects.get(student=student, language_id=language.get('language'))
+                existing = UserLanguageRelation.objects.get(student=student,
+                                                            language_id=language.get('language'))
                 existing.language_level_id = language.get('language_level')
                 existing.save()
             except UserLanguageRelation.DoesNotExist:
-                UserLanguageRelation.objects.create(student=student, language_id=language.get('language'),
-                                                    language_level_id=language.get('language_level'))
+                UserLanguageRelation.objects.create(
+                    student=student,
+                    language_id=language.get('language'),
+                    language_level_id=language.get('language_level'))
 
         student.nickname = nickname
 
@@ -184,24 +187,15 @@ class Student(BaseSeed):
         skills = self.rand.skills()
         soft_skills = self.rand.soft_skills()
 
-        attachments = [
-            {
-                "file": avatar,
-                "key": "student_avatar",
-                "type": "db.image",
-                "user": email
-            }
-        ]
+        attachments = [{"file": avatar, "key": "student_avatar", "type": "db.image", "user": email}]
         documents = self.rand.documents()
         for document in documents:
-            attachments.append(
-                {
-                    "file": document,
-                    "key": "student_documents",
-                    "type": "db.file",
-                    "user": email
-                }
-            )
+            attachments.append({
+                "file": document,
+                "key": "student_documents",
+                "type": "db.file",
+                "user": email
+            })
 
         data = {
             "email": email,

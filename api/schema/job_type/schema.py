@@ -12,12 +12,16 @@ class JobType(DjangoObjectType):
 
     class Meta:
         model = JobTypeModel
-        interfaces = (relay.Node,)
-        fields = ('name', 'mode',)
+        interfaces = (relay.Node, )
+        fields = (
+            'name',
+            'mode',
+        )
         convert_choices_to_enum = False
 
 
 class JobTypeConnection(relay.Connection):
+
     class Meta:
         node = JobType
 

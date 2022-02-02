@@ -12,8 +12,8 @@ from db.models import ProfileType, ProfileState
 
 
 @pytest.mark.django_db
-def test_me_student(login, me, user_student_full_profile, skill_objects, branch_objects, job_type_objects,
-                    student_project_posting_objects):
+def test_me_student(login, me, user_student_full_profile, skill_objects, branch_objects,
+                    job_type_objects, student_project_posting_objects):
 
     for project_posting in student_project_posting_objects:
         project_posting.student = user_student_full_profile.student
@@ -57,7 +57,7 @@ def test_me_student(login, me, user_student_full_profile, skill_objects, branch_
     assert len(student.get('onlineProjects')) == 2
     assert len(student.get('softSkills').get('edges')) == 6
     assert len(student.get('culturalFits').get('edges')) == 6
-    assert len(student.get('projectPostings')) == 3  # public + draft
+    assert len(student.get('projectPostings')) == 3    # public + draft
 
     company = user.get('company')
     assert company is None

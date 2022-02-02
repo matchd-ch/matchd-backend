@@ -9,8 +9,11 @@ class SoftSkill(DjangoObjectType):
 
     class Meta:
         model = SoftSkillModel
-        interfaces = (relay.Node,)
-        fields = ('student', 'company',)
+        interfaces = (relay.Node, )
+        fields = (
+            'student',
+            'company',
+        )
 
 
 class SoftSkillConnections(relay.Connection):

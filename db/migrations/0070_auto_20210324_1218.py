@@ -14,6 +14,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='jobposting',
             name='workload',
-            field=models.IntegerField(blank=True, default=100, null=True, validators=[django.core.validators.MaxValueValidator(100), django.core.validators.MinValueValidator(10)]),
+            field=models.IntegerField(blank=True,
+                                      default=100,
+                                      null=True,
+                                      validators=[
+                                          django.core.validators.MaxValueValidator(100),
+                                          django.core.validators.MinValueValidator(10)
+                                      ]),
         ),
     ]

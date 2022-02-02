@@ -9,7 +9,7 @@ class Topic(DjangoObjectType):
 
     class Meta:
         model = TopicModel
-        interfaces = (relay.Node,)
+        interfaces = (relay.Node, )
         fields = ('name', )
         convert_choices_to_enum = False
 

@@ -10,6 +10,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunSQL("UPDATE db_jobposting SET date_published = date_created WHERE state = 'public';",
-                          migrations.RunSQL.noop)
+        migrations.RunSQL(
+            "UPDATE db_jobposting SET date_published = date_created WHERE state = 'public';",
+            migrations.RunSQL.noop)
     ]

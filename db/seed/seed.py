@@ -25,7 +25,9 @@ class Seed:
         if company is not None:
             self.attachments.create_or_update(data, user=user, company=company)
             self.job_postings.create_or_update(data, company=company, user=user)
-            project_postings = self.project_postings.create_or_update(data, company=company, employee=user.employee)
+            project_postings = self.project_postings.create_or_update(data,
+                                                                      company=company,
+                                                                      employee=user.employee)
         if student is not None:
             self.attachments.create_or_update(data, student=student)
             project_postings = self.project_postings.create_or_update(data, student=student)

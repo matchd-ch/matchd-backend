@@ -8,7 +8,8 @@ from db.models import ProfileType, ProfileState
 
 
 @pytest.mark.django_db
-def test_register_student(register_student, verification_url_and_token, verify_account, data_protection_url):
+def test_register_student(register_student, verification_url_and_token, verify_account,
+                          data_protection_url):
     username = 'student-register@matchd.test'
     data, errors = register_student(username, 'John', 'Doe', '+41791234567')
     assert errors is None

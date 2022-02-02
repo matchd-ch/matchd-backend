@@ -23,6 +23,4 @@ class Migration(migrations.Migration):
         ('db', '0092_jobposting_slug'),
     ]
 
-    operations = [
-        migrations.RunPython(add_job_posting_slug, migrations.RunPython.noop)
-    ]
+    operations = [migrations.RunPython(add_job_posting_slug, migrations.RunPython.noop)]

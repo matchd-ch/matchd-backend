@@ -8,4 +8,5 @@ class ProjectPostingFormStepValidator:
 
     def validate(self, project_posting):
         if project_posting.form_step < self.min_required_step:
-            raise ValidationError(code='invalid_step', message='You must first complete the previous steps.')
+            raise ValidationError(code='invalid_step',
+                                  message='You must first complete the previous steps.')

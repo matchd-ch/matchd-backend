@@ -18,7 +18,10 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='company',
             name='state',
-            field=models.CharField(choices=[('incomplete', 'Incomplete'), ('anonymous', 'Anonymous'), ('public', 'Public')], default='incomplete', max_length=255),
+            field=models.CharField(choices=[('incomplete', 'Incomplete'),
+                                            ('anonymous', 'Anonymous'), ('public', 'Public')],
+                                   default='incomplete',
+                                   max_length=255),
         ),
         migrations.AddField(
             model_name='student',
@@ -28,6 +31,9 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='student',
             name='state',
-            field=models.CharField(choices=[('incomplete', 'Incomplete'), ('anonymous', 'Anonymous'), ('public', 'Public')], default='incomplete', max_length=255),
+            field=models.CharField(choices=[('incomplete', 'Incomplete'),
+                                            ('anonymous', 'Anonymous'), ('public', 'Public')],
+                                   default='incomplete',
+                                   max_length=255),
         ),
     ]

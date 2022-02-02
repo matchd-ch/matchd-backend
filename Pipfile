@@ -84,6 +84,7 @@ Unidecode = "==1.3.2"
 Willow = "==1.4"
 XlsxWriter = "==3.0.2"
 whitenoise = "*"
+yapf = "*"
 
 [dev-packages]
 
@@ -95,3 +96,4 @@ setup = "./setup.sh"
 start = "./manage.py runserver"
 test = "pytest"
 lint = "pylint api app db"
+format = "yapf -ir ."

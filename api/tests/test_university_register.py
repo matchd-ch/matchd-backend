@@ -8,7 +8,8 @@ from db.models import ProfileState, ProfileType, Company
 
 
 @pytest.mark.django_db
-def test_register_university(register_university, verification_url_and_token, verify_account, data_protection_url):
+def test_register_university(register_university, verification_url_and_token, verify_account,
+                             data_protection_url):
     username = 'employee@matchd.test'
     data, errors = register_university(username, 'John', 'Doe', 'Role', 'Company name')
     assert errors is None
@@ -49,7 +50,8 @@ def test_register_university(register_university, verification_url_and_token, ve
 
 @pytest.mark.django_db
 def test_register_existing_username(register_university, user_employee):
-    data, errors = register_university(user_employee.username, 'John', 'Doe', 'Role', 'Company name')
+    data, errors = register_university(user_employee.username, 'John', 'Doe', 'Role',
+                                       'Company name')
     assert errors is None
     assert data is not None
     assert data.get('registerCompany').get('success') is False
@@ -61,19 +63,21 @@ def test_register_existing_username(register_university, user_employee):
 
 @pytest.mark.django_db
 def test_register_with_same_company_name(register_university):
-    data, errors = register_university('employee@matchd.test', 'John', 'Doe', 'Role', 'Company name')
+    data, errors = register_university('employee@matchd.test', 'John', 'Doe', 'Role',
+                                       'Company name')
     assert errors is None
     assert data is not None
     assert data.get('registerCompany').get('success')
 
-    data, errors = register_university('employee-2@matchd.test', 'John', 'Doe', 'Role', 'Company name')
+    data, errors = register_university('employee-2@matchd.test', 'John', 'Doe', 'Role',
+                                       'Company name')
     assert errors is None
     assert data is not None
     assert data.get('registerCompany').get('success')
 
     companies = Company.objects.all().order_by('id')
-    assert companies[0].slug == 'company-1'  # from fixtures
-    assert companies[1].slug == 'company-2'  # from fixtures
+    assert companies[0].slug == 'company-1'    # from fixtures
+    assert companies[1].slug == 'company-2'    # from fixtures
     assert companies[2].slug == 'company-name'
     assert companies[3].slug == 'company-name-1'
 
@@ -83,7 +87,8 @@ def test_register_with_weak_password(register_university, weak_passwords):
     for password, code in weak_passwords:
         username = 'student@matchd.test'
 
-        data, errors = register_university(username, 'John', 'Doe', 'Role', 'company name', password)
+        data, errors = register_university(username, 'John', 'Doe', 'Role', 'company name',
+                                           password)
         assert errors is None
         assert data is not None
         assert data.get('registerCompany').get('success') is False

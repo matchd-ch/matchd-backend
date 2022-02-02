@@ -43,8 +43,9 @@ def test_login_logout(login, logout, user_student):
 
 
 @pytest.mark.django_db
-def test_send_password_mail_and_reset_password(send_password_reset_mail, user_student, reset_url_and_token,
-                                               reset_password, verify_password_reset_token):
+def test_send_password_mail_and_reset_password(send_password_reset_mail, user_student,
+                                               reset_url_and_token, reset_password,
+                                               verify_password_reset_token):
     data, errors = send_password_reset_mail(user_student)
     assert errors is None
     assert data is not None

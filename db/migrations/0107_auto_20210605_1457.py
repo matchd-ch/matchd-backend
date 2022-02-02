@@ -14,21 +14,29 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='match',
             name='company',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='db.company'),
+            field=models.ForeignKey(null=True,
+                                    on_delete=django.db.models.deletion.CASCADE,
+                                    to='db.company'),
         ),
         migrations.AddField(
             model_name='match',
             name='project_posting',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='db.projectposting'),
+            field=models.ForeignKey(null=True,
+                                    on_delete=django.db.models.deletion.CASCADE,
+                                    to='db.projectposting'),
         ),
         migrations.AlterField(
             model_name='match',
             name='job_posting',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='db.jobposting'),
+            field=models.ForeignKey(null=True,
+                                    on_delete=django.db.models.deletion.CASCADE,
+                                    to='db.jobposting'),
         ),
         migrations.AlterField(
             model_name='match',
             name='student',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='db.student'),
+            field=models.ForeignKey(null=True,
+                                    on_delete=django.db.models.deletion.CASCADE,
+                                    to='db.student'),
         ),
     ]

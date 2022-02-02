@@ -13,7 +13,7 @@ class StudentScoreCalculator(BaseScoreCalculator):
         languages = hit.languages.all()
         if len(languages) == 0:
             return
-        multiplier = settings.MATCHING_VALUE_LANGUAGES / len(languages) / 2  # language and level
+        multiplier = settings.MATCHING_VALUE_LANGUAGES / len(languages) / 2    # language and level
         score = hit.score
         for language in languages:
             if language.language_id in self.language_level_map:

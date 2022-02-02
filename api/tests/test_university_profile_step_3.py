@@ -11,8 +11,8 @@ def test_step_3(login, user_rector, university_step_3, branch_objects, benefit_o
     user_rector.company.profile_step = 3
     user_rector.company.save()
     login(user_rector)
-    data, errors = university_step_3(user_rector, 'services', 'http://edu.lo', 'http://projects.lo', 'http://thesis.lo',
-                                     branch_objects, benefit_objects)
+    data, errors = university_step_3(user_rector, 'services', 'http://edu.lo', 'http://projects.lo',
+                                     'http://thesis.lo', branch_objects, benefit_objects)
     assert errors is None
     assert data is not None
     assert data.get('universityProfileStep3') is not None
@@ -33,8 +33,9 @@ def test_step_3(login, user_rector, university_step_3, branch_objects, benefit_o
 def test_step_3_without_login(user_rector, university_step_3, branch_objects, benefit_objects):
     user_rector.company.profile_step = 3
     user_rector.company.save()
-    data, errors = university_step_3(AnonymousUser(), 'services', 'http://edu.lo', 'http://projects.lo',
-                                     'http://thesis.lo', branch_objects, benefit_objects)
+    data, errors = university_step_3(AnonymousUser(), 'services', 'http://edu.lo',
+                                     'http://projects.lo', 'http://thesis.lo', branch_objects,
+                                     benefit_objects)
     assert errors is not None
     assert data is not None
     assert data.get('universityProfileStep3') is None
@@ -52,8 +53,9 @@ def test_step_3_without_login(user_rector, university_step_3, branch_objects, be
 @pytest.mark.django_db
 def test_step_3_as_student(login, user_student, university_step_3, branch_objects, benefit_objects):
     login(user_student)
-    data, errors = university_step_3(user_student, 'services', 'http://edu.lo', 'http://projects.lo',
-                                     'http://thesis.lo', branch_objects, benefit_objects)
+    data, errors = university_step_3(user_student, 'services', 'http://edu.lo',
+                                     'http://projects.lo', 'http://thesis.lo', branch_objects,
+                                     benefit_objects)
     assert errors is None
     assert data is not None
     assert data.get('universityProfileStep3') is not None
@@ -64,12 +66,13 @@ def test_step_3_as_student(login, user_student, university_step_3, branch_object
 
 
 @pytest.mark.django_db
-def test_step_3_invalid_step(login, user_rector, university_step_3, branch_objects, benefit_objects):
+def test_step_3_invalid_step(login, user_rector, university_step_3, branch_objects,
+                             benefit_objects):
     user_rector.company.profile_step = 0
     user_rector.company.save()
     login(user_rector)
-    data, errors = university_step_3(user_rector, 'services', 'http://edu.lo', 'http://projects.lo', 'http://thesis.lo',
-                                     branch_objects, benefit_objects)
+    data, errors = university_step_3(user_rector, 'services', 'http://edu.lo', 'http://projects.lo',
+                                     'http://thesis.lo', branch_objects, benefit_objects)
     assert errors is None
     assert data is not None
     assert data.get('universityProfileStep3') is not None
@@ -88,8 +91,8 @@ def test_step_3_invalid_data(login, user_rector, university_step_3):
     user_rector.company.profile_step = 3
     user_rector.company.save()
     login(user_rector)
-    data, errors = university_step_3(user_rector, 'a' * 301, 'invalid', 'invalid', 'invalid', [SoftSkill(id=1337)],
-                                     [CulturalFit(id=1337)])
+    data, errors = university_step_3(user_rector, 'a' * 301, 'invalid', 'invalid', 'invalid',
+                                     [SoftSkill(id=1337)], [CulturalFit(id=1337)])
     assert errors is None
     assert data is not None
     assert data.get('universityProfileStep3') is not None

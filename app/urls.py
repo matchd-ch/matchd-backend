@@ -13,21 +13,20 @@ from graphql_jwt.decorators import jwt_cookie
 
 from api.views import csrf_view, GraphQLView, AttachmentServeView
 
-
 urlpatterns = [
     path('django-admin/', admin.site.urls),
     path('admin/', include(wagtailadmin_urls)),
     path('documents/', include(wagtaildocs_urls)),
     path('graphql/', jwt_cookie(GraphQLView.as_view(graphiql=settings.GRAPHIQL_ENABLED))),
     path('attachment/<int:attachment_id>/', AttachmentServeView.as_view(), name='attachment_serve'),
-    path('attachment/<int:attachment_id>/<str:stack>/', AttachmentServeView.as_view(), name='attachment_serve_image'),
+    path('attachment/<int:attachment_id>/<str:stack>/',
+         AttachmentServeView.as_view(),
+         name='attachment_serve_image'),
     path('csrf/', csrf_view),
 ]
 
-
 if settings.DEBUG:
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-
 
     def indexing_debug_view(request):
         html = '<html><body>Indexing complete</body></html>'
@@ -39,7 +38,8 @@ if settings.DEBUG:
     urlpatterns += staticfiles_urlpatterns()
     urlpatterns += [
         path('__debug__/', include(debug_toolbar.urls)),
-        path('introspection/', csrf_exempt(GraphQLView.as_view(graphiql=settings.GRAPHIQL_ENABLED))),
+        path('introspection/',
+             csrf_exempt(GraphQLView.as_view(graphiql=settings.GRAPHIQL_ENABLED))),
         path('index/', indexing_debug_view),
     ]
 

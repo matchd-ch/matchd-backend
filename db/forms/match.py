@@ -126,12 +126,14 @@ def process_project_posting_match(user, data):
         # do not allow students to match projects of other students
         if project_posting.student is not None:
             raise PermissionDenied('You are not allowed to perform this action.')
-        match_obj, created = Match.objects.get_or_create(project_posting=project_posting, student=user.student)
+        match_obj, created = Match.objects.get_or_create(project_posting=project_posting,
+                                                         student=user.student)
     if user.type in ProfileType.valid_company_types():
         # do not allow companies to match projects of other companies
         if project_posting.company is not None:
             raise PermissionDenied('You are not allowed to perform this action.')
-        match_obj, created = Match.objects.get_or_create(project_posting=project_posting, company=user.company)
+        match_obj, created = Match.objects.get_or_create(project_posting=project_posting,
+                                                         company=user.company)
 
     match_obj.student_confirmed = True
     match_obj.company_confirmed = True

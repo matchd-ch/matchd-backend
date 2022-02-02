@@ -3,6 +3,7 @@ from db.models import ProfileType
 
 
 def job_posting_cheating_protection(func):
+
     def wrapper(self, info):
         user = info.context.user
         if user.is_authenticated and user.company == self.company:
@@ -10,10 +11,12 @@ def job_posting_cheating_protection(func):
         if is_me_query(info):
             return func(self, info)
         return None
+
     return wrapper
 
 
 def company_cheating_protection(func):
+
     def wrapper(self, info):
         user = info.context.user
         if user.is_authenticated and user.type in ProfileType.valid_company_types():
@@ -22,4 +25,5 @@ def company_cheating_protection(func):
         if is_me_query(info):
             return func(self, info)
         return None
+
     return wrapper

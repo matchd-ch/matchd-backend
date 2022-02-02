@@ -14,21 +14,27 @@ from .profile_state import ProfileState
 class Company(models.Model, index.Indexed):
     # fields for company / university
     type = models.CharField(choices=ProfileType.choices, max_length=255, blank=True)
-    state = models.CharField(choices=ProfileState.choices, max_length=255, blank=False, default=ProfileState.INCOMPLETE)
+    state = models.CharField(choices=ProfileState.choices,
+                             max_length=255,
+                             blank=False,
+                             default=ProfileState.INCOMPLETE)
     profile_step = models.IntegerField(default=1)
     slug = models.SlugField(unique=True)
     name = models.CharField(max_length=255, blank=False)
     zip = models.CharField(max_length=10, blank=False)
     city = models.CharField(max_length=255, blank=False)
     street = models.CharField(max_length=255, blank=True)
-    phone = models.CharField(max_length=12, blank=True, validators=[RegexValidator(regex=settings.PHONE_REGEX)])
+    phone = models.CharField(max_length=12,
+                             blank=True,
+                             validators=[RegexValidator(regex=settings.PHONE_REGEX)])
     website = models.URLField(max_length=2048, blank=True)
     branches = models.ManyToManyField('db.Branch', related_name='companies')
     description = models.TextField(max_length=1000, blank=True)
 
     # fields for company only
     soft_skills = models.ManyToManyField('db.SoftSkill', related_name='companies')
-    uid = models.CharField(max_length=255, blank=False,
+    uid = models.CharField(max_length=255,
+                           blank=False,
                            validators=[RegexValidator(regex=settings.UID_REGEX)])
     services = models.TextField(blank=True)
     member_it_st_gallen = models.BooleanField(blank=True, default=False)
@@ -52,7 +58,8 @@ class Company(models.Model, index.Indexed):
     def get_indexed_objects(cls):
         query = Q(state=ProfileState.PUBLIC)
         query |= Q(state=ProfileState.ANONYMOUS)
-        return cls.objects.filter(query).prefetch_related('branches', 'cultural_fits', 'soft_skills')
+        return cls.objects.filter(query).prefetch_related('branches', 'cultural_fits',
+                                                          'soft_skills')
 
     search_fields = [
         index.RelatedFields('branches', [
@@ -68,9 +75,11 @@ class Company(models.Model, index.Indexed):
 
 
 class CompanySignalHandler:
+
     @staticmethod
     def pre_delete(sender, instance, **kwargs):
-        pre_delete.disconnect(CompanySignalHandler.pre_delete, Company,
+        pre_delete.disconnect(CompanySignalHandler.pre_delete,
+                              Company,
                               dispatch_uid='db.models.CompanySignalHandler.pre_delete')
 
         # employees
@@ -80,7 +89,8 @@ class CompanySignalHandler:
         # attachments of project postings
         project_posting_type = ContentType.objects.get(app_label='db', model='projectposting')
         for project_posting in instance.project_postings.all():
-            attachments = Attachment.objects.filter(content_type=project_posting_type, object_id=project_posting.id)
+            attachments = Attachment.objects.filter(content_type=project_posting_type,
+                                                    object_id=project_posting.id)
             for attachment in attachments:
                 attachment.attachment_object.delete()
             attachments.delete()
@@ -93,9 +103,11 @@ class CompanySignalHandler:
             attachment.attachment_object.delete()
         attachments.delete()
 
-        pre_delete.connect(CompanySignalHandler.pre_delete, Company,
+        pre_delete.connect(CompanySignalHandler.pre_delete,
+                           Company,
                            dispatch_uid='db.models.CompanySignalHandler.pre_delete')
 
 
-pre_delete.connect(CompanySignalHandler.pre_delete, Company,
+pre_delete.connect(CompanySignalHandler.pre_delete,
+                   Company,
                    dispatch_uid='db.models.CompanySignalHandler.pre_delete')

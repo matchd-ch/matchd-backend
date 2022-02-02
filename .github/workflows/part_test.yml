@@ -151,6 +151,41 @@ jobs:
           DB_PASSWORD: 'matchd'
           ELASTIC_SEARCH_URL: 'http://127.0.0.1:9200'
   
+  format:
+    name: "Check Formatting"
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - name: Setup Python
+        id: setup-python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "${{ env.DEFAULT_PYTHON_VERSION }}"
+
+      - name: Install pipenv
+        run: |
+          python -m pip install --upgrade pipenv wheel
+
+      - id: cache-pipenv
+        uses: actions/cache@v2.1.7
+        with:
+          path: ~/.local/share/virtualenvs
+          key: pipenv-${{ secrets.CACHE_VERSION }}-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('Pipfile.lock') }}
+          restore-keys: |
+            pipenv-${{ secrets.CACHE_VERSION }}-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-
+
+      - name: Install dependencies
+        if: steps.cache-pipenv.outputs.cache-hit != 'true'
+        run: pipenv install --deploy --dev
+
+      - name: Run formatter
+        run: |
+          pipenv run yapf --diff --recursive --verbose $GITHUB_WORKSPACE
+
   lint:
     name: "Lint"
 

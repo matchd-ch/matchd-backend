@@ -32,10 +32,10 @@ class StudentMatching:
             self.job_posting = JobPosting.objects.prefetch_related(
                 Prefetch(
                     'languages',
-                    queryset=JobPostingLanguageRelation.objects.filter(job_posting_id=job_posting_id).select_related(
-                        'language', 'language_level')
-                )
-            ).select_related('company').get(pk=job_posting_id)
+                    queryset=JobPostingLanguageRelation.objects.filter(
+                        job_posting_id=job_posting_id).select_related(
+                            'language',
+                            'language_level'))).select_related('company').get(pk=job_posting_id)
         except JobPosting.DoesNotExist:
             # pylint: disable=W0707
             raise Http404('Job posting does not exist')
@@ -55,22 +55,25 @@ class StudentMatching:
         builder = StudentParamBuilder(queryset, index, self.first, self.skip)
         builder.set_branches(self.job_posting.branches.all(), settings.MATCHING_VALUE_BRANCH)
         builder.set_job_type(self.job_posting.job_type_id, settings.MATCHING_VALUE_JOB_TYPE)
-        builder.set_cultural_fits(self.job_posting.company.cultural_fits.all(), self.soft_boost *
-                                  settings.MATCHING_VALUE_CULTURAL_FITS)
+        builder.set_cultural_fits(self.job_posting.company.cultural_fits.all(),
+                                  self.soft_boost * settings.MATCHING_VALUE_CULTURAL_FITS)
         builder.set_soft_skills(self.job_posting.company.soft_skills.all(),
                                 self.soft_boost * settings.MATCHING_VALUE_SOFT_SKILLS)
-        builder.set_skills(self.job_posting.skills.all(), self.tech_boost * settings.MATCHING_VALUE_SKILLS)
+        builder.set_skills(self.job_posting.skills.all(),
+                           self.tech_boost * settings.MATCHING_VALUE_SKILLS)
         if self.job_posting.job_from_date is not None:
             date_mode = self.job_posting.job_type.mode
             if date_mode == DateMode.DATE_RANGE and self.job_posting.job_to_date is not None:
                 builder.set_date_range(self.job_posting.job_from_date, self.job_posting.job_to_date,
                                        settings.MATCHING_VALUE_DATE_OR_DATE_RANGE)
             else:
-                builder.set_date_from(self.job_posting.job_from_date, settings.MATCHING_VALUE_DATE_OR_DATE_RANGE)
+                builder.set_date_from(self.job_posting.job_from_date,
+                                      settings.MATCHING_VALUE_DATE_OR_DATE_RANGE)
         hits = self.search_backend.es.search(**builder.get_params())
         resolver = HitResolver(queryset, hits)
         hits = resolver.resolve()
-        calculator = StudentScoreCalculator(self.job_posting, hits, self.soft_boost, self.tech_boost)
+        calculator = StudentScoreCalculator(self.job_posting, hits, self.soft_boost,
+                                            self.tech_boost)
         hits = calculator.annotate()
         mapper = StudentMatchMapper(hits, self.job_posting)
         return mapper.get_matches()

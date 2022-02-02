@@ -4,6 +4,11 @@ from db.models import Hobby
 
 
 class HobbyForm(forms.ModelForm):
+
     class Meta:
         model = Hobby
-        fields = ('id', 'name', 'student', )
+        fields = (
+            'id',
+            'name',
+            'student',
+        )

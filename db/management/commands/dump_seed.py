@@ -34,7 +34,8 @@ class Command(BaseCommand):
                 'additional_information': project_posting.additional_information,
                 'website': project_posting.website,
                 'project_from_date': project_posting.project_from_date.strftime('%Y-%m-%d'),
-                'employee': project_posting.employee.user.email if project_posting.employee else None,
+                'employee':
+                project_posting.employee.user.email if project_posting.employee else None,
                 'company': company_or_student.id,
                 'date_created': date_created,
                 'date_published': date_published,
@@ -58,26 +59,39 @@ class Command(BaseCommand):
                 date_published = job_posting.date_published.strftime('%Y-%m-%d %H:%M:%S')
 
             obj = {
-                'slug': job_posting.slug,
-                'title': job_posting.title,
-                'description': job_posting.description,
-                'date_created': date_created,
-                'date_published': date_published,
-                'job_type': job_posting.job_type.id,
+                'slug':
+                job_posting.slug,
+                'title':
+                job_posting.title,
+                'description':
+                job_posting.description,
+                'date_created':
+                date_created,
+                'date_published':
+                date_published,
+                'job_type':
+                job_posting.job_type.id,
                 'branches': [obj.id for obj in job_posting.branches.all()],
-                'workload': job_posting.workload,
-                'job_from_date': job_posting.job_from_date.strftime('%Y-%m-%d'),
-                'job_to_date': job_to_date,
-                'url': job_posting.url,
+                'workload':
+                job_posting.workload,
+                'job_from_date':
+                job_posting.job_from_date.strftime('%Y-%m-%d'),
+                'job_to_date':
+                job_to_date,
+                'url':
+                job_posting.url,
                 'job_requirements': [obj.id for obj in job_posting.job_requirements.all()],
                 'skills': [obj.id for obj in job_posting.skills.all()],
-                'languages': [
-                        {'language': obj.language.id, 'language_level': obj.language_level.id}
-                        for obj in job_posting.languages.all()
-                    ],
-                'form_step': job_posting.form_step,
-                'state': job_posting.state,
-                'employee': job_posting.employee.user.email
+                'languages': [{
+                    'language': obj.language.id,
+                    'language_level': obj.language_level.id
+                } for obj in job_posting.languages.all()],
+                'form_step':
+                job_posting.form_step,
+                'state':
+                job_posting.state,
+                'employee':
+                job_posting.employee.user.email
             }
             job_posting_objs.append(obj)
         return job_posting_objs
@@ -91,7 +105,8 @@ class Command(BaseCommand):
         return self.get_attachments(content_type, student.id, 'student')
 
     def get_attachments(self, content_type, object_id, directory, is_liip=False):
-        attachments = Attachment.objects.filter(content_type_id=content_type.id, object_id=object_id)
+        attachments = Attachment.objects.filter(content_type_id=content_type.id,
+                                                object_id=object_id)
         attachment_objs = []
 
         for attachment in attachments:
@@ -123,7 +138,8 @@ class Command(BaseCommand):
             #     shutil.copy(source_path, destination_path)
 
             attachment_obj = {
-                'type': f'{attachment.attachment_type.app_label}.{attachment.attachment_type.model}',
+                'type':
+                f'{attachment.attachment_type.app_label}.{attachment.attachment_type.model}',
                 'file': f'{path}/{file_name}',
                 'user': attachment.attachment_object.uploaded_by_user.email,
                 'key': attachment.key
@@ -153,42 +169,59 @@ class Command(BaseCommand):
             }
 
             if user.type in ProfileType.valid_company_types():
-                user_obj['employee'] = {
-                    'role': user.employee.role
-                }
+                user_obj['employee'] = {'role': user.employee.role}
 
             company = user.company
             if company is not None:
-                company_obj = {
-                    'slug': company.slug
-                }
+                company_obj = {'slug': company.slug}
                 if company.slug not in dumped_companies:
                     company_obj.update({
-                        'uid': company.uid,
-                        'name': company.name,
-                        'zip': company.zip,
-                        'city': company.city,
-                        'description': company.description,
-                        'member_it_st_gallen': company.member_it_st_gallen,
-                        'phone': company.phone,
-                        'services': company.services,
-                        'street': company.street,
-                        'website': company.website,
-                        'profile_step': company.profile_step,
-                        'state': company.state,
-                        'top_level_organisation_website': company.top_level_organisation_website,
-                        'top_level_organisation_description': company.top_level_organisation_description,
-                        'type': company.type,
-                        'link_education': company.link_education,
-                        'link_projects': company.link_projects,
-                        'link_thesis': company.link_thesis,
+                        'uid':
+                        company.uid,
+                        'name':
+                        company.name,
+                        'zip':
+                        company.zip,
+                        'city':
+                        company.city,
+                        'description':
+                        company.description,
+                        'member_it_st_gallen':
+                        company.member_it_st_gallen,
+                        'phone':
+                        company.phone,
+                        'services':
+                        company.services,
+                        'street':
+                        company.street,
+                        'website':
+                        company.website,
+                        'profile_step':
+                        company.profile_step,
+                        'state':
+                        company.state,
+                        'top_level_organisation_website':
+                        company.top_level_organisation_website,
+                        'top_level_organisation_description':
+                        company.top_level_organisation_description,
+                        'type':
+                        company.type,
+                        'link_education':
+                        company.link_education,
+                        'link_projects':
+                        company.link_projects,
+                        'link_thesis':
+                        company.link_thesis,
                         'benefits': [obj.id for obj in company.benefits.all()],
                         'branches': [obj.id for obj in company.branches.all()],
                         'cultural_fits': [obj.id for obj in company.cultural_fits.all()],
                         'soft_skills': [obj.id for obj in company.soft_skills.all()],
-                        'attachments': self.get_attachments_for_company(company),
-                        'job_postings': self.get_job_postings_for_company(company),
-                        'project_postings': self.get_project_postings_for_company_or_student(company)
+                        'attachments':
+                        self.get_attachments_for_company(company),
+                        'job_postings':
+                        self.get_job_postings_for_company(company),
+                        'project_postings':
+                        self.get_project_postings_for_company_or_student(company)
                     })
                     dumped_companies.append(company.slug)
                 user_obj['company'] = company_obj
@@ -196,37 +229,57 @@ class Command(BaseCommand):
             student = getattr(user, 'student', None)
             if student is not None:
                 student_obj = {
-                    'mobile': student.mobile,
-                    'city': student.city,
-                    'street': student.street,
-                    'zip': student.zip,
-                    'date_of_birth': student.date_of_birth.strftime('%Y-%m-%d')
+                    'mobile':
+                    student.mobile,
+                    'city':
+                    student.city,
+                    'street':
+                    student.street,
+                    'zip':
+                    student.zip,
+                    'date_of_birth':
+                    student.date_of_birth.strftime('%Y-%m-%d')
                     if student.date_of_birth is not None else None,
-                    'nickname': student.nickname,
-                    'field_of_study': student.field_of_study,
-                    'graduation': student.graduation.strftime('%Y-%m-%d') if student.graduation is not None else None,
-                    'school_name': student.school_name,
-                    'job_from_date': student.job_from_date.strftime('%Y-%m-%d')
+                    'nickname':
+                    student.nickname,
+                    'field_of_study':
+                    student.field_of_study,
+                    'graduation':
+                    student.graduation.strftime('%Y-%m-%d')
+                    if student.graduation is not None else None,
+                    'school_name':
+                    student.school_name,
+                    'job_from_date':
+                    student.job_from_date.strftime('%Y-%m-%d')
                     if student.job_from_date is not None else None,
-                    'job_to_date': student.job_to_date.strftime('%Y-%m-%d')
+                    'job_to_date':
+                    student.job_to_date.strftime('%Y-%m-%d')
                     if student.job_to_date is not None else None,
-                    'job_type': student.job_type.id if student.job_type is not None else None,
-                    'distinction': student.distinction,
-                    'profile_step': student.profile_step,
-                    'state': student.state,
-                    'branch': student.branch.id if student.branch is not None else None,
+                    'job_type':
+                    student.job_type.id if student.job_type is not None else None,
+                    'distinction':
+                    student.distinction,
+                    'profile_step':
+                    student.profile_step,
+                    'state':
+                    student.state,
+                    'branch':
+                    student.branch.id if student.branch is not None else None,
                     'cultural_fits': [obj.id for obj in student.cultural_fits.all()],
                     'soft_skills': [obj.id for obj in student.soft_skills.all()],
                     'skills': [obj.id for obj in student.skills.all()],
                     'hobbies': [obj.name for obj in student.hobbies.all()],
                     'online_projects': [obj.url for obj in student.online_projects.all()],
-                    'languages': [
-                        {'language': obj.language.id, 'language_level': obj.language_level.id}
-                        for obj in student.languages.all()
-                    ],
-                    'attachments': self.get_attachments_for_student(student),
-                    'slug': student.slug,
-                    'project_postings': self.get_project_postings_for_company_or_student(student)
+                    'languages': [{
+                        'language': obj.language.id,
+                        'language_level': obj.language_level.id
+                    } for obj in student.languages.all()],
+                    'attachments':
+                    self.get_attachments_for_student(student),
+                    'slug':
+                    student.slug,
+                    'project_postings':
+                    self.get_project_postings_for_company_or_student(student)
                 }
                 user_obj['student'] = student_obj
 
@@ -245,9 +298,7 @@ class Command(BaseCommand):
 
         users = get_user_model().objects.all().exclude(username='admin')
         lines = [
-            'Matchd Test Accounts',
-            '==============',
-            ''
+            'Matchd Test Accounts', '==============', ''
             '| Type | Username | Password | Nickname | Status | Attachments |',
             '|---|---|---|---|---|---|'
         ]

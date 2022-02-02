@@ -25,7 +25,8 @@ class AttachmentServeView(View):
 
         user = request.user
         owner = get_company_or_student(attachment.attachment_object.uploaded_by_user)
-        if attachment.content_type == ContentType.objects.get(app_label='db', model='projectposting'):
+        if attachment.content_type == ContentType.objects.get(app_label='db',
+                                                              model='projectposting'):
             owner = attachment.content_object
         has_permission = has_access_to_attachments(user, owner, attachment.key)
 
@@ -52,11 +53,16 @@ class AttachmentServeView(View):
             filter_spec = self.stacks.get(stack)
             rendition = image.get_rendition(filter_spec)
         except SourceImageIOError:
-            return HttpResponse("Source image file not found", content_type='text/plain', status=410)
+            return HttpResponse("Source image file not found",
+                                content_type='text/plain',
+                                status=410)
         except InvalidFilterSpecError:
             # noinspection PyUnboundLocalVariable
-            return HttpResponse("Invalid filter spec: " + filter_spec, content_type='text/plain', status=400)
+            return HttpResponse("Invalid filter spec: " + filter_spec,
+                                content_type='text/plain',
+                                status=400)
 
         rendition.file.open('rb')
         image_format = imghdr.what(rendition.file)
-        return StreamingHttpResponse(FileWrapper(rendition.file), content_type='image/' + image_format)
+        return StreamingHttpResponse(FileWrapper(rendition.file),
+                                     content_type='image/' + image_format)

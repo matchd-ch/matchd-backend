@@ -8,4 +8,5 @@ class JobPostingFormStepValidator:
 
     def validate(self, job_posting):
         if job_posting.form_step < self.min_required_step:
-            raise ValidationError(code='invalid_step', message='You must first complete the previous steps.')
+            raise ValidationError(code='invalid_step',
+                                  message='You must first complete the previous steps.')

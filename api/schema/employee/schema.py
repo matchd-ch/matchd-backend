@@ -20,7 +20,7 @@ class Employee(DjangoObjectType):
 
     class Meta:
         model = EmployeeModel
-        interfaces = (relay.Node,)
+        interfaces = (relay.Node, )
         fields = ['role', 'user']
 
     def resolve_first_name(self: EmployeeModel, info):
@@ -93,20 +93,15 @@ class AddEmployee(Output, graphene.Mutation):
             return AddEmployee(success=False, errors=errors, employee=None)
 
         # create user
-        user = get_user_model().objects.create(
-            first_name=user_data.get('first_name'),
-            last_name=user_data.get('last_name'),
-            email=user_data.get('email'),
-            username=user_data.get('username'),
-            company=company,
-            type=user.type
-        )
+        user = get_user_model().objects.create(first_name=user_data.get('first_name'),
+                                               last_name=user_data.get('last_name'),
+                                               email=user_data.get('email'),
+                                               username=user_data.get('username'),
+                                               company=company,
+                                               type=user.type)
 
         # create employee
-        employee = EmployeeModel.objects.create(
-            role=employee_data.get('role'),
-            user=user
-        )
+        employee = EmployeeModel.objects.create(role=employee_data.get('role'), user=user)
 
         user.status.send_password_reset_email(info)
 

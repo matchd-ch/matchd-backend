@@ -6,10 +6,11 @@ from db.models import OnlineProject as OnlineProjectModel
 
 
 class OnlineProject(DjangoObjectType):
+
     class Meta:
         model = OnlineProjectModel
-        interfaces = (relay.Node,)
-        fields = ('url',)
+        interfaces = (relay.Node, )
+        fields = ('url', )
 
 
 class OnlineProjectInput(graphene.InputObjectType):

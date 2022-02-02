@@ -11,8 +11,8 @@ class BenefitAdmin(ModelAdmin):
     menu_icon = 'folder-open-inverse'
     add_to_settings_menu = False
     exclude_from_explorer = False
-    list_display = ('icon',)
-    search_fields = ('icon',)
+    list_display = ('icon', )
+    search_fields = ('icon', )
     permission_helper_class = ValidationPermissionHelper
 
 

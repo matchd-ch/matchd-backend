@@ -13,6 +13,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='jobposting',
             name='state',
-            field=models.CharField(choices=[('draft', 'Draft'), ('public', 'Public')], default='draft', max_length=255),
+            field=models.CharField(choices=[('draft', 'Draft'), ('public', 'Public')],
+                                   default='draft',
+                                   max_length=255),
         ),
     ]

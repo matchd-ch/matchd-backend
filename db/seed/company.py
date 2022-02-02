@@ -90,7 +90,6 @@ class Company(BaseSeed):
             if branches is None or len(branches) == 0:
                 branches = self.rand.branches()
 
-
             benefits = data.get('benefits')
             if benefits is None or len(benefits) == 0:
                 benefits = self.rand.benefits()
@@ -125,7 +124,6 @@ class Company(BaseSeed):
             cultural_fits = data.get('cultural_fits')
             if cultural_fits is None or len(cultural_fits) == 0:
                 cultural_fits = self.rand.cultural_fits()
-
 
             company.link_education = link_education
             company.link_projects = link_projects
@@ -240,23 +238,19 @@ class Company(BaseSeed):
         attachments = []
         avatar = self.rand.logo()
         moods = self.rand.moods()
-        attachments.append(
-            {
-                "file": f"avatars/{avatar}",
-                "key": "company_avatar",
+        attachments.append({
+            "file": f"avatars/{avatar}",
+            "key": "company_avatar",
+            "type": "db.image",
+            "user": email
+        })
+        for mood in moods:
+            attachments.append({
+                "file": f"moods/{mood}",
+                "key": "company_documents",
                 "type": "db.image",
                 "user": email
-            }
-        )
-        for mood in moods:
-            attachments.append(
-                {
-                    "file": f"moods/{mood}",
-                    "key": "company_documents",
-                    "type": "db.image",
-                    "user": email
-                }
-            )
+            })
 
         street, zip_code, city = self.rand.address()
         gender = self.rand.gender()

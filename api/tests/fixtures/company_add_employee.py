@@ -21,14 +21,17 @@ def add_employee_mutation():
 
 @pytest.fixture
 def add_employee(execute):
+
     def closure(employee, email, first_name, last_name, role):
-        return execute(add_employee_mutation(), variables={
-            'addEmployee': {
-                'firstName': first_name,
-                'lastName': last_name,
-                'role': role,
-                'email': email
-              }
-            }, **{'user': employee}
-        )
+        return execute(add_employee_mutation(),
+                       variables={
+                           'addEmployee': {
+                               'firstName': first_name,
+                               'lastName': last_name,
+                               'role': role,
+                               'email': email
+                           }
+                       },
+                       **{'user': employee})
+
     return closure

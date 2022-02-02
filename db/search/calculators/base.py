@@ -1,4 +1,3 @@
-
 class BaseScoreCalculator:
 
     def __init__(self, hits, languages, soft_boost, tech_boost):

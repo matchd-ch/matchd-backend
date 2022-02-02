@@ -146,6 +146,8 @@ def me_query():
 
 @pytest.fixture
 def me(execute):
+
     def closure(user):
         return execute(me_query(), **{'user': user})
+
     return closure

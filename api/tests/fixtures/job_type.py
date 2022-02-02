@@ -54,17 +54,21 @@ def job_type_objects():
 
 @pytest.fixture
 def query_job_type_node(execute):
+
     def closure(user, id_value):
-        return execute(
-            job_type_node_query(), variables={'id': to_global_id('JobType', id_value)}, **{'user': user}
-        )
+        return execute(job_type_node_query(),
+                       variables={'id': to_global_id('JobType', id_value)},
+                       **{'user': user})
+
     return closure
 
 
 @pytest.fixture
 def query_job_types(execute):
+
     def closure(user):
         return execute(job_types_query(), **{'user': user})
+
     return closure
 
 

@@ -50,14 +50,19 @@ def benefit_objects():
 
 @pytest.fixture
 def query_benefits(execute):
+
     def closure(user):
         return execute(benefits_query(), **{'user': user})
+
     return closure
+
 
 @pytest.fixture
 def query_benefit_node(execute):
+
     def closure(user, id_value):
-        return execute(
-            benefit_node_query(), variables={'id': to_global_id('Benefit', id_value)}, **{'user': user}
-        )
+        return execute(benefit_node_query(),
+                       variables={'id': to_global_id('Benefit', id_value)},
+                       **{'user': user})
+
     return closure

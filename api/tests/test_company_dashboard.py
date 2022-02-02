@@ -26,18 +26,31 @@ def test_dashboard(login, query_dashboard, user_employee, user_student, job_post
         project_posting_object.save()
 
     # job posting matches
-    Match.objects.create(job_posting=job_posting_objects[0], student=user_student.student, company_confirmed=True,
+    Match.objects.create(job_posting=job_posting_objects[0],
+                         student=user_student.student,
+                         company_confirmed=True,
                          initiator=user_employee.type)
-    Match.objects.create(job_posting=job_posting_objects[1], student=user_student.student, student_confirmed=True,
+    Match.objects.create(job_posting=job_posting_objects[1],
+                         student=user_student.student,
+                         student_confirmed=True,
                          initiator=user_student.type)
-    Match.objects.create(job_posting=job_posting_objects[2], student=user_student.student, student_confirmed=True,
-                         company_confirmed=True, initiator=user_employee.type)
+    Match.objects.create(job_posting=job_posting_objects[2],
+                         student=user_student.student,
+                         student_confirmed=True,
+                         company_confirmed=True,
+                         initiator=user_employee.type)
 
     # project posting matches
-    Match.objects.create(project_posting=company_project_posting_objects[0], student=user_student.student,
-                         company_confirmed=True, student_confirmed=True, initiator=user_student.type)
-    Match.objects.create(project_posting=student_project_posting_objects[0], company=user_employee.company,
-                         company_confirmed=True, student_confirmed=True, initiator=user_employee.type)
+    Match.objects.create(project_posting=company_project_posting_objects[0],
+                         student=user_student.student,
+                         company_confirmed=True,
+                         student_confirmed=True,
+                         initiator=user_student.type)
+    Match.objects.create(project_posting=student_project_posting_objects[0],
+                         company=user_employee.company,
+                         company_confirmed=True,
+                         student_confirmed=True,
+                         initiator=user_employee.type)
 
     login(user_employee)
     data, errors = query_dashboard(user_employee)
@@ -56,35 +69,31 @@ def test_dashboard(login, query_dashboard, user_employee, user_student, job_post
     assert len(project_postings) == 3
 
     latest_project_postings = dashboard.get('latestProjectPostings')
-    assert len(latest_project_postings) == len(student_project_posting_objects) - 1  # 2x public, 1x draft
+    assert len(latest_project_postings
+               ) == len(student_project_posting_objects) - 1    # 2x public, 1x draft
 
     requested_matches = dashboard.get('requestedMatches')
     assert requested_matches is not None
     assert len(requested_matches) == 1
     assert requested_matches[0].get('jobPosting').get('id') == to_global_id(
-        'JobPosting', job_posting_objects[0].id
-    )
+        'JobPosting', job_posting_objects[0].id)
 
     unconfirmed_matches = dashboard.get('unconfirmedMatches')
     assert unconfirmed_matches is not None
     assert len(unconfirmed_matches) == 1
     assert unconfirmed_matches[0].get('jobPosting').get('id') == to_global_id(
-        'JobPosting', job_posting_objects[1].id
-    )
+        'JobPosting', job_posting_objects[1].id)
 
     confirmed_matches = dashboard.get('confirmedMatches')
     assert confirmed_matches is not None
     assert len(confirmed_matches) == 1
     assert confirmed_matches[0].get('jobPosting').get('id') == to_global_id(
-        'JobPosting', job_posting_objects[2].id
-    )
+        'JobPosting', job_posting_objects[2].id)
 
     project_matches = dashboard.get('projectMatches')
     assert project_matches is not None
     assert len(project_matches) == 2
     assert project_matches[0].get('projectPosting').get('id') == to_global_id(
-        'ProjectPosting', company_project_posting_objects[0].id
-    )
+        'ProjectPosting', company_project_posting_objects[0].id)
     assert project_matches[1].get('projectPosting').get('id') == to_global_id(
-        'ProjectPosting', student_project_posting_objects[0].id
-    )
+        'ProjectPosting', student_project_posting_objects[0].id)

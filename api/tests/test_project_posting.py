@@ -11,8 +11,10 @@ from db.models import ProjectPosting, ProjectPostingState
 
 
 @pytest.mark.django_db
-def test_student_project_posting(query_project_posting, company_project_posting_object: ProjectPosting,
-                                 project_type_objects, topic_objects, keyword_objects, user_student, user_employee):
+def test_student_project_posting(query_project_posting,
+                                 company_project_posting_object: ProjectPosting,
+                                 project_type_objects, topic_objects, keyword_objects, user_student,
+                                 user_employee):
     company_project_posting_object.title = 'title'
     company_project_posting_object.slug = 'title'
     company_project_posting_object.description = 'description'
@@ -39,20 +41,21 @@ def test_student_project_posting(query_project_posting, company_project_posting_
     assert project_posting.get('displayTitle') == 'tit\xadle'
     assert project_posting.get('slug') == company_project_posting_object.slug
     assert project_posting.get('description') == company_project_posting_object.description
-    assert project_posting.get('additionalInformation') == company_project_posting_object.additional_information
+    assert project_posting.get(
+        'additionalInformation') == company_project_posting_object.additional_information
     assert project_posting.get('projectFromDate') == '2021-08-01'
     assert project_posting.get('website') == company_project_posting_object.website
     assert project_posting.get('topic').get('id') == to_global_id(
-        'Topic', company_project_posting_object.topic_id
-    )
+        'Topic', company_project_posting_object.topic_id)
     assert project_posting.get('projectType').get('id') == to_global_id(
-        'ProjectType', company_project_posting_object.project_type_id
-    )
+        'ProjectType', company_project_posting_object.project_type_id)
     assert int(project_posting.get('formStep')) == company_project_posting_object.form_step
     assert project_posting.get('company') is None
     assert project_posting.get('employee') is None
-    assert project_posting.get('student').get('id') == to_global_id('Student', user_student.student.id)
-    assert len(project_posting.get('keywords')) == len(company_project_posting_object.keywords.all())
+    assert project_posting.get('student').get('id') == to_global_id('Student',
+                                                                    user_student.student.id)
+    assert len(project_posting.get('keywords')) == len(
+        company_project_posting_object.keywords.all())
     assert project_posting.get('state') == company_project_posting_object.state.upper()
 
     match_status = project_posting.get('matchStatus')
@@ -63,8 +66,10 @@ def test_student_project_posting(query_project_posting, company_project_posting_
 
 
 @pytest.mark.django_db
-def test_student_project_posting_draft(query_project_posting, company_project_posting_object: ProjectPosting,
-                                       project_type_objects, topic_objects, keyword_objects, user_student):
+def test_student_project_posting_draft(query_project_posting,
+                                       company_project_posting_object: ProjectPosting,
+                                       project_type_objects, topic_objects, keyword_objects,
+                                       user_student):
     company_project_posting_object.title = 'title'
     company_project_posting_object.slug = 'title'
     company_project_posting_object.description = 'description'
@@ -91,20 +96,21 @@ def test_student_project_posting_draft(query_project_posting, company_project_po
     assert project_posting.get('displayTitle') == 'tit\xadle'
     assert project_posting.get('slug') == company_project_posting_object.slug
     assert project_posting.get('description') == company_project_posting_object.description
-    assert project_posting.get('additionalInformation') == company_project_posting_object.additional_information
+    assert project_posting.get(
+        'additionalInformation') == company_project_posting_object.additional_information
     assert project_posting.get('projectFromDate') == '2021-08-01'
     assert project_posting.get('website') == company_project_posting_object.website
     assert project_posting.get('topic').get('id') == to_global_id(
-        'Topic', company_project_posting_object.topic_id
-    )
+        'Topic', company_project_posting_object.topic_id)
     assert project_posting.get('projectType').get('id') == to_global_id(
-        'ProjectType', company_project_posting_object.project_type_id
-    )
+        'ProjectType', company_project_posting_object.project_type_id)
     assert int(project_posting.get('formStep')) == company_project_posting_object.form_step
     assert project_posting.get('company') is None
     assert project_posting.get('employee') is None
-    assert project_posting.get('student').get('id') == to_global_id('Student', user_student.student.id)
-    assert len(project_posting.get('keywords')) == len(company_project_posting_object.keywords.all())
+    assert project_posting.get('student').get('id') == to_global_id('Student',
+                                                                    user_student.student.id)
+    assert len(project_posting.get('keywords')) == len(
+        company_project_posting_object.keywords.all())
     assert project_posting.get('state') == company_project_posting_object.state.upper()
 
     match_status = project_posting.get('matchStatus')
@@ -115,8 +121,10 @@ def test_student_project_posting_draft(query_project_posting, company_project_po
 
 
 @pytest.mark.django_db
-def test_student_project_posting_by_id(query_project_posting_by_id, company_project_posting_object: ProjectPosting,
-                                       project_type_objects, topic_objects, keyword_objects, user_student):
+def test_student_project_posting_by_id(query_project_posting_by_id,
+                                       company_project_posting_object: ProjectPosting,
+                                       project_type_objects, topic_objects, keyword_objects,
+                                       user_student):
     company_project_posting_object.title = 'title'
     company_project_posting_object.slug = 'title'
     company_project_posting_object.description = 'description'
@@ -143,20 +151,21 @@ def test_student_project_posting_by_id(query_project_posting_by_id, company_proj
     assert project_posting.get('displayTitle') == 'tit\xadle'
     assert project_posting.get('slug') == company_project_posting_object.slug
     assert project_posting.get('description') == company_project_posting_object.description
-    assert project_posting.get('additionalInformation') == company_project_posting_object.additional_information
+    assert project_posting.get(
+        'additionalInformation') == company_project_posting_object.additional_information
     assert project_posting.get('projectFromDate') == '2021-08-01'
     assert project_posting.get('website') == company_project_posting_object.website
     assert project_posting.get('topic').get('id') == to_global_id(
-        'Topic', company_project_posting_object.topic_id
-    )
+        'Topic', company_project_posting_object.topic_id)
     assert project_posting.get('projectType').get('id') == to_global_id(
-        'ProjectType', company_project_posting_object.project_type_id
-    )
+        'ProjectType', company_project_posting_object.project_type_id)
     assert int(project_posting.get('formStep')) == company_project_posting_object.form_step
     assert project_posting.get('company') is None
     assert project_posting.get('employee') is None
-    assert project_posting.get('student').get('id') == to_global_id('Student', user_student.student.id)
-    assert len(project_posting.get('keywords')) == len(company_project_posting_object.keywords.all())
+    assert project_posting.get('student').get('id') == to_global_id('Student',
+                                                                    user_student.student.id)
+    assert len(project_posting.get('keywords')) == len(
+        company_project_posting_object.keywords.all())
     assert project_posting.get('state') == company_project_posting_object.state.upper()
 
     match_status = project_posting.get('matchStatus')
@@ -167,8 +176,10 @@ def test_student_project_posting_by_id(query_project_posting_by_id, company_proj
 
 
 @pytest.mark.django_db
-def test_company_project_posting(query_project_posting, company_project_posting_object: ProjectPosting,
-                                 project_type_objects, topic_objects, keyword_objects, user_employee):
+def test_company_project_posting(query_project_posting,
+                                 company_project_posting_object: ProjectPosting,
+                                 project_type_objects, topic_objects, keyword_objects,
+                                 user_employee):
     company_project_posting_object.title = 'title'
     company_project_posting_object.slug = 'title'
     company_project_posting_object.description = 'description'
@@ -195,20 +206,22 @@ def test_company_project_posting(query_project_posting, company_project_posting_
     assert project_posting.get('displayTitle') == 'tit\xadle'
     assert project_posting.get('slug') == company_project_posting_object.slug
     assert project_posting.get('description') == company_project_posting_object.description
-    assert project_posting.get('additionalInformation') == company_project_posting_object.additional_information
+    assert project_posting.get(
+        'additionalInformation') == company_project_posting_object.additional_information
     assert project_posting.get('projectFromDate') == '2021-08-01'
     assert project_posting.get('website') == company_project_posting_object.website
     assert project_posting.get('topic').get('id') == to_global_id(
-        'Topic', company_project_posting_object.topic_id
-    )
+        'Topic', company_project_posting_object.topic_id)
     assert project_posting.get('projectType').get('id') == to_global_id(
-        'ProjectType', company_project_posting_object.project_type_id
-    )
+        'ProjectType', company_project_posting_object.project_type_id)
     assert int(project_posting.get('formStep')) == company_project_posting_object.form_step
-    assert project_posting.get('company').get('id') == to_global_id('Company', user_employee.company.id)
-    assert project_posting.get('employee').get('id') == to_global_id('Employee', user_employee.employee.id)
+    assert project_posting.get('company').get('id') == to_global_id('Company',
+                                                                    user_employee.company.id)
+    assert project_posting.get('employee').get('id') == to_global_id('Employee',
+                                                                     user_employee.employee.id)
     assert project_posting.get('student') is None
-    assert len(project_posting.get('keywords')) == len(company_project_posting_object.keywords.all())
+    assert len(project_posting.get('keywords')) == len(
+        company_project_posting_object.keywords.all())
     assert project_posting.get('state') == company_project_posting_object.state.upper()
 
     match_status = project_posting.get('matchStatus')
@@ -219,8 +232,10 @@ def test_company_project_posting(query_project_posting, company_project_posting_
 
 
 @pytest.mark.django_db
-def test_company_project_posting_draft(query_project_posting, company_project_posting_object: ProjectPosting,
-                                       project_type_objects, topic_objects, keyword_objects, user_employee):
+def test_company_project_posting_draft(query_project_posting,
+                                       company_project_posting_object: ProjectPosting,
+                                       project_type_objects, topic_objects, keyword_objects,
+                                       user_employee):
     company_project_posting_object.title = 'title'
     company_project_posting_object.slug = 'title'
     company_project_posting_object.description = 'description'
@@ -247,20 +262,22 @@ def test_company_project_posting_draft(query_project_posting, company_project_po
     assert project_posting.get('displayTitle') == 'tit\xadle'
     assert project_posting.get('slug') == company_project_posting_object.slug
     assert project_posting.get('description') == company_project_posting_object.description
-    assert project_posting.get('additionalInformation') == company_project_posting_object.additional_information
+    assert project_posting.get(
+        'additionalInformation') == company_project_posting_object.additional_information
     assert project_posting.get('projectFromDate') == '2021-08-01'
     assert project_posting.get('website') == company_project_posting_object.website
     assert project_posting.get('topic').get('id') == to_global_id(
-        'Topic', company_project_posting_object.topic_id
-    )
+        'Topic', company_project_posting_object.topic_id)
     assert project_posting.get('projectType').get('id') == to_global_id(
-        'ProjectType', company_project_posting_object.project_type_id
-    )
+        'ProjectType', company_project_posting_object.project_type_id)
     assert int(project_posting.get('formStep')) == company_project_posting_object.form_step
-    assert project_posting.get('company').get('id') == to_global_id('Company', user_employee.company.id)
-    assert project_posting.get('employee').get('id') == to_global_id('Employee', user_employee.employee.id)
+    assert project_posting.get('company').get('id') == to_global_id('Company',
+                                                                    user_employee.company.id)
+    assert project_posting.get('employee').get('id') == to_global_id('Employee',
+                                                                     user_employee.employee.id)
     assert project_posting.get('student') is None
-    assert len(project_posting.get('keywords')) == len(company_project_posting_object.keywords.all())
+    assert len(project_posting.get('keywords')) == len(
+        company_project_posting_object.keywords.all())
     assert project_posting.get('state') == company_project_posting_object.state.upper()
 
     match_status = project_posting.get('matchStatus')
@@ -271,8 +288,10 @@ def test_company_project_posting_draft(query_project_posting, company_project_po
 
 
 @pytest.mark.django_db
-def test_company_project_posting_by_id(query_project_posting_by_id, company_project_posting_object: ProjectPosting,
-                                       project_type_objects, topic_objects, keyword_objects, user_employee):
+def test_company_project_posting_by_id(query_project_posting_by_id,
+                                       company_project_posting_object: ProjectPosting,
+                                       project_type_objects, topic_objects, keyword_objects,
+                                       user_employee):
     company_project_posting_object.title = 'title'
     company_project_posting_object.slug = 'title'
     company_project_posting_object.description = 'description'
@@ -299,20 +318,22 @@ def test_company_project_posting_by_id(query_project_posting_by_id, company_proj
     assert project_posting.get('displayTitle') == 'tit\xadle'
     assert project_posting.get('slug') == company_project_posting_object.slug
     assert project_posting.get('description') == company_project_posting_object.description
-    assert project_posting.get('additionalInformation') == company_project_posting_object.additional_information
+    assert project_posting.get(
+        'additionalInformation') == company_project_posting_object.additional_information
     assert project_posting.get('projectFromDate') == '2021-08-01'
     assert project_posting.get('website') == company_project_posting_object.website
     assert project_posting.get('topic').get('id') == to_global_id(
-        'Topic', company_project_posting_object.topic_id
-    )
+        'Topic', company_project_posting_object.topic_id)
     assert project_posting.get('projectType').get('id') == to_global_id(
-        'ProjectType', company_project_posting_object.project_type_id
-    )
+        'ProjectType', company_project_posting_object.project_type_id)
     assert int(project_posting.get('formStep')) == company_project_posting_object.form_step
-    assert project_posting.get('company').get('id') == to_global_id('Company', user_employee.company.id)
-    assert project_posting.get('employee').get('id') == to_global_id('Employee', user_employee.employee.id)
+    assert project_posting.get('company').get('id') == to_global_id('Company',
+                                                                    user_employee.company.id)
+    assert project_posting.get('employee').get('id') == to_global_id('Employee',
+                                                                     user_employee.employee.id)
     assert project_posting.get('student') is None
-    assert len(project_posting.get('keywords')) == len(company_project_posting_object.keywords.all())
+    assert len(project_posting.get('keywords')) == len(
+        company_project_posting_object.keywords.all())
     assert project_posting.get('state') == company_project_posting_object.state.upper()
 
     match_status = project_posting.get('matchStatus')
@@ -323,10 +344,9 @@ def test_company_project_posting_by_id(query_project_posting_by_id, company_proj
 
 
 @pytest.mark.django_db
-def test_student_project_posting_draft_not_accessible(query_project_posting,
-                                                      company_project_posting_object: ProjectPosting,
-                                                      project_type_objects, topic_objects, keyword_objects,
-                                                      user_student, user_employee):
+def test_student_project_posting_draft_not_accessible(
+        query_project_posting, company_project_posting_object: ProjectPosting, project_type_objects,
+        topic_objects, keyword_objects, user_student, user_employee):
     company_project_posting_object.title = 'title'
     company_project_posting_object.slug = 'title'
     company_project_posting_object.description = 'description'
@@ -351,10 +371,9 @@ def test_student_project_posting_draft_not_accessible(query_project_posting,
 
 
 @pytest.mark.django_db
-def test_company_project_posting_draft_not_accessible(query_project_posting,
-                                                      company_project_posting_object: ProjectPosting,
-                                                      project_type_objects, topic_objects, keyword_objects,
-                                                      user_employee, user_student):
+def test_company_project_posting_draft_not_accessible(
+        query_project_posting, company_project_posting_object: ProjectPosting, project_type_objects,
+        topic_objects, keyword_objects, user_employee, user_student):
     company_project_posting_object.title = 'title'
     company_project_posting_object.slug = 'title'
     company_project_posting_object.description = 'description'
@@ -408,9 +427,8 @@ def test_node_query(query_project_posting_node, company_project_posting_objects,
 
 @pytest.mark.django_db
 def test_node_without_login_query(query_project_posting_node, company_project_posting_objects):
-    data, errors = query_project_posting_node(
-        AnonymousUser(), company_project_posting_objects[0].id
-    )
+    data, errors = query_project_posting_node(AnonymousUser(),
+                                              company_project_posting_objects[0].id)
 
     assert errors is not None
     assert data is not None

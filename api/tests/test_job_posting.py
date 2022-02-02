@@ -11,9 +11,9 @@ from db.models import JobPosting, JobPostingState, JobPostingLanguageRelation, M
 
 # pylint: disable=R0913
 @pytest.mark.django_db
-def test_job_posting(query_job_posting, job_posting_object: JobPosting, job_type_objects, branch_objects,
-                     company_object, job_requirement_objects, skill_objects, user_employee, language_objects,
-                     language_level_objects, user_student):
+def test_job_posting(query_job_posting, job_posting_object: JobPosting, job_type_objects,
+                     branch_objects, company_object, job_requirement_objects, skill_objects,
+                     user_employee, language_objects, language_level_objects, user_student):
     job_posting_object.title = 'title'
     job_posting_object.slug = 'title'
     job_posting_object.description = 'description'
@@ -29,7 +29,8 @@ def test_job_posting(query_job_posting, job_posting_object: JobPosting, job_type
     job_posting_object.state = JobPostingState.PUBLIC
     job_posting_object.employee = user_employee.employee
     job_posting_object.save()
-    JobPostingLanguageRelation.objects.create(job_posting=job_posting_object, language=language_objects[0],
+    JobPostingLanguageRelation.objects.create(job_posting=job_posting_object,
+                                              language=language_objects[0],
                                               language_level=language_level_objects[0])
     job_posting_object.branches.set([branch_objects[0]])
 
@@ -43,25 +44,24 @@ def test_job_posting(query_job_posting, job_posting_object: JobPosting, job_type
     assert job_posting.get('displayTitle') == 'tit\xadle'
     assert job_posting.get('slug') == job_posting_object.slug
     assert job_posting.get('description') == job_posting_object.description
-    assert job_posting.get('jobType').get('id') == to_global_id(
-        'JobType', job_posting_object.job_type_id
-    )
+    assert job_posting.get('jobType').get('id') == to_global_id('JobType',
+                                                                job_posting_object.job_type_id)
     assert job_posting.get('branches')[0].get('id') == to_global_id(
-        'Branch', job_posting_object.branches.all()[0].id
-    )
+        'Branch',
+        job_posting_object.branches.all()[0].id)
     assert job_posting.get('workload') == job_posting_object.workload
-    assert job_posting.get('company').get('id') == to_global_id(
-        'Company', job_posting_object.company_id
-    )
+    assert job_posting.get('company').get('id') == to_global_id('Company',
+                                                                job_posting_object.company_id)
     assert job_posting.get('jobFromDate') == '2021-08-01'
     assert job_posting.get('jobToDate') == '2021-10-01'
     assert job_posting.get('url') == job_posting_object.url
     assert len(job_posting.get('jobRequirements').get('edges')) == len(job_requirement_objects)
-    assert job_posting.get('skills') is None  # skills should not be visible
-    assert job_posting.get('languages') is None  # languages should not be visible
+    assert job_posting.get('skills') is None    # skills should not be visible
+    assert job_posting.get('languages') is None    # languages should not be visible
     assert int(job_posting.get('formStep')) == job_posting_object.form_step
     assert job_posting.get('state') == job_posting_object.state.upper()
-    assert job_posting.get('employee').get('id') == to_global_id('Employee', user_employee.employee.id)
+    assert job_posting.get('employee').get('id') == to_global_id('Employee',
+                                                                 user_employee.employee.id)
 
     match_status = job_posting.get('matchStatus')
     assert match_status is None
@@ -74,8 +74,9 @@ def test_job_posting(query_job_posting, job_posting_object: JobPosting, job_type
 
 # pylint: disable=R0913
 @pytest.mark.django_db
-def test_job_posting_as_employee(query_job_posting, job_posting_object: JobPosting, job_type_objects, branch_objects,
-                                 company_object, job_requirement_objects, skill_objects, user_employee,
+def test_job_posting_as_employee(query_job_posting, job_posting_object: JobPosting,
+                                 job_type_objects, branch_objects, company_object,
+                                 job_requirement_objects, skill_objects, user_employee,
                                  language_objects, language_level_objects):
     job_posting_object.title = 'title'
     job_posting_object.slug = 'title'
@@ -92,7 +93,8 @@ def test_job_posting_as_employee(query_job_posting, job_posting_object: JobPosti
     job_posting_object.state = JobPostingState.PUBLIC
     job_posting_object.employee = user_employee.employee
     job_posting_object.save()
-    JobPostingLanguageRelation.objects.create(job_posting=job_posting_object, language=language_objects[0],
+    JobPostingLanguageRelation.objects.create(job_posting=job_posting_object,
+                                              language=language_objects[0],
                                               language_level=language_level_objects[0])
     job_posting_object.branches.set([branch_objects[0]])
 
@@ -106,16 +108,14 @@ def test_job_posting_as_employee(query_job_posting, job_posting_object: JobPosti
     assert job_posting.get('displayTitle') == 'tit\xadle'
     assert job_posting.get('slug') == job_posting_object.slug
     assert job_posting.get('description') == job_posting_object.description
-    assert job_posting.get('jobType').get('id') == to_global_id(
-        'JobType', job_posting_object.job_type_id
-    )
+    assert job_posting.get('jobType').get('id') == to_global_id('JobType',
+                                                                job_posting_object.job_type_id)
     assert job_posting.get('branches')[0].get('id') == to_global_id(
-        'Branch', job_posting_object.branches.all()[0].id
-    )
+        'Branch',
+        job_posting_object.branches.all()[0].id)
     assert job_posting.get('workload') == job_posting_object.workload
-    assert job_posting.get('company').get('id') == to_global_id(
-        'Company', job_posting_object.company_id
-    )
+    assert job_posting.get('company').get('id') == to_global_id('Company',
+                                                                job_posting_object.company_id)
     assert job_posting.get('jobFromDate') == '2021-08-01'
     assert job_posting.get('jobToDate') == '2021-10-01'
     assert job_posting.get('url') == job_posting_object.url
@@ -124,7 +124,8 @@ def test_job_posting_as_employee(query_job_posting, job_posting_object: JobPosti
     assert len(job_posting.get('languages')) == 1
     assert int(job_posting.get('formStep')) == job_posting_object.form_step
     assert job_posting.get('state') == job_posting_object.state.upper()
-    assert job_posting.get('employee').get('id') == to_global_id('Employee', user_employee.employee.id)
+    assert job_posting.get('employee').get('id') == to_global_id('Employee',
+                                                                 user_employee.employee.id)
 
     match_status = job_posting.get('matchStatus')
     assert match_status is None
@@ -134,8 +135,9 @@ def test_job_posting_as_employee(query_job_posting, job_posting_object: JobPosti
 
 
 @pytest.mark.django_db
-def test_job_posting_by_id(query_job_posting_by_id, job_posting_object: JobPosting, job_type_objects, branch_objects,
-                           company_object, job_requirement_objects, skill_objects, user_employee, language_objects,
+def test_job_posting_by_id(query_job_posting_by_id, job_posting_object: JobPosting,
+                           job_type_objects, branch_objects, company_object,
+                           job_requirement_objects, skill_objects, user_employee, language_objects,
                            language_level_objects, user_student):
     job_posting_object.title = 'title'
     job_posting_object.slug = 'title'
@@ -152,7 +154,8 @@ def test_job_posting_by_id(query_job_posting_by_id, job_posting_object: JobPosti
     job_posting_object.state = JobPostingState.PUBLIC
     job_posting_object.employee = user_employee.employee
     job_posting_object.save()
-    JobPostingLanguageRelation.objects.create(job_posting=job_posting_object, language=language_objects[0],
+    JobPostingLanguageRelation.objects.create(job_posting=job_posting_object,
+                                              language=language_objects[0],
                                               language_level=language_level_objects[0])
     job_posting_object.branches.set([branch_objects[0]])
 
@@ -166,27 +169,24 @@ def test_job_posting_by_id(query_job_posting_by_id, job_posting_object: JobPosti
     assert job_posting.get('displayTitle') == 'tit\xadle'
     assert job_posting.get('slug') == job_posting_object.slug
     assert job_posting.get('description') == job_posting_object.description
-    assert job_posting.get('jobType').get('id') == to_global_id(
-        'JobType', job_posting_object.job_type_id
-    )
+    assert job_posting.get('jobType').get('id') == to_global_id('JobType',
+                                                                job_posting_object.job_type_id)
     assert job_posting.get('branches')[0].get('id') == to_global_id(
-        'Branch', job_posting_object.branches.all()[0].id
-    )
+        'Branch',
+        job_posting_object.branches.all()[0].id)
     assert job_posting.get('workload') == job_posting_object.workload
-    assert job_posting.get('company').get('id') == to_global_id(
-        'Company', job_posting_object.company_id
-    )
+    assert job_posting.get('company').get('id') == to_global_id('Company',
+                                                                job_posting_object.company_id)
     assert job_posting.get('jobFromDate') == '2021-08-01'
     assert job_posting.get('jobToDate') == '2021-10-01'
     assert job_posting.get('url') == job_posting_object.url
     assert len(job_posting.get('jobRequirements').get('edges')) == len(job_requirement_objects)
-    assert job_posting.get('skills') is None  # skills should not be visible
-    assert job_posting.get('languages') is None  # languages should not be visible
+    assert job_posting.get('skills') is None    # skills should not be visible
+    assert job_posting.get('languages') is None    # languages should not be visible
     assert int(job_posting.get('formStep')) == job_posting_object.form_step
     assert job_posting.get('state') == job_posting_object.state.upper()
-    assert job_posting.get('employee').get('id') == to_global_id(
-        'Employee', user_employee.employee.id
-    )
+    assert job_posting.get('employee').get('id') == to_global_id('Employee',
+                                                                 user_employee.employee.id)
 
     match_status = job_posting.get('matchStatus')
     assert match_status is None
@@ -198,9 +198,11 @@ def test_job_posting_by_id(query_job_posting_by_id, job_posting_object: JobPosti
 
 
 @pytest.mark.django_db
-def test_job_posting_is_draft_but_accessible_for_employee(login, query_job_posting, job_posting_object: JobPosting,
-                                                          job_type_objects, branch_objects, company_object,
-                                                          job_requirement_objects, skill_objects, user_employee):
+def test_job_posting_is_draft_but_accessible_for_employee(login, query_job_posting,
+                                                          job_posting_object: JobPosting,
+                                                          job_type_objects, branch_objects,
+                                                          company_object, job_requirement_objects,
+                                                          skill_objects, user_employee):
     job_posting_object.title = 'title'
     job_posting_object.slug = 'title'
     job_posting_object.description = 'description'
@@ -230,16 +232,14 @@ def test_job_posting_is_draft_but_accessible_for_employee(login, query_job_posti
     assert job_posting.get('displayTitle') == 'tit\xadle'
     assert job_posting.get('slug') == job_posting_object.slug
     assert job_posting.get('description') == job_posting_object.description
-    assert job_posting.get('jobType').get('id') == to_global_id(
-        'JobType', job_posting_object.job_type_id
-    )
+    assert job_posting.get('jobType').get('id') == to_global_id('JobType',
+                                                                job_posting_object.job_type_id)
     assert job_posting.get('branches')[0].get('id') == to_global_id(
-        'Branch', job_posting_object.branches.all()[0].id
-    )
+        'Branch',
+        job_posting_object.branches.all()[0].id)
     assert job_posting.get('workload') == job_posting_object.workload
-    assert job_posting.get('company').get('id') == to_global_id(
-        'Company', job_posting_object.company_id
-    )
+    assert job_posting.get('company').get('id') == to_global_id('Company',
+                                                                job_posting_object.company_id)
     assert job_posting.get('jobFromDate') == '2021-08-01'
     assert job_posting.get('jobToDate') == '2021-10-01'
     assert job_posting.get('url') == job_posting_object.url
@@ -248,9 +248,8 @@ def test_job_posting_is_draft_but_accessible_for_employee(login, query_job_posti
     assert len(job_posting.get('languages')) == 0
     assert int(job_posting.get('formStep')) == job_posting_object.form_step
     assert job_posting.get('state') == job_posting_object.state.upper()
-    assert job_posting.get('employee').get('id') == to_global_id(
-        'Employee', user_employee.employee.id
-    )
+    assert job_posting.get('employee').get('id') == to_global_id('Employee',
+                                                                 user_employee.employee.id)
 
     match_status = job_posting.get('matchStatus')
     assert match_status is None
@@ -260,7 +259,8 @@ def test_job_posting_is_draft_but_accessible_for_employee(login, query_job_posti
 
 
 @pytest.mark.django_db
-def test_job_posting_without_login(query_job_posting, job_posting_object: JobPosting,  company_object, user_employee):
+def test_job_posting_without_login(query_job_posting, job_posting_object: JobPosting,
+                                   company_object, user_employee):
     job_posting_object.title = 'title'
     job_posting_object.slug = 'title'
     job_posting_object.company = company_object
@@ -276,8 +276,8 @@ def test_job_posting_without_login(query_job_posting, job_posting_object: JobPos
 
 
 @pytest.mark.django_db
-def test_job_posting_is_draft(login, query_job_posting, job_posting_object: JobPosting,  company_object, user_employee,
-                              user_student):
+def test_job_posting_is_draft(login, query_job_posting, job_posting_object: JobPosting,
+                              company_object, user_employee, user_student):
     job_posting_object.title = 'title'
     job_posting_object.slug = 'title'
     job_posting_object.company = company_object
@@ -347,7 +347,8 @@ def test_job_posting_node_without_login_query(query_job_posting_node, job_postin
 
 
 @pytest.mark.django_db
-def test_job_posting_with_match_status_initiated_by_employee(login, query_job_posting, job_posting_object: JobPosting,
+def test_job_posting_with_match_status_initiated_by_employee(login, query_job_posting,
+                                                             job_posting_object: JobPosting,
                                                              user_employee, user_student):
     job_posting_object.title = 'title'
     job_posting_object.slug = 'title'
@@ -356,8 +357,11 @@ def test_job_posting_with_match_status_initiated_by_employee(login, query_job_po
     job_posting_object.employee = user_employee.employee
     job_posting_object.save()
 
-    Match.objects.create(job_posting=job_posting_object, student=user_student.student,
-                         initiator=user_employee.type, company_confirmed=True, student_confirmed=True)
+    Match.objects.create(job_posting=job_posting_object,
+                         student=user_student.student,
+                         initiator=user_employee.type,
+                         company_confirmed=True,
+                         student_confirmed=True)
 
     login(user_student)
     data, errors = query_job_posting(user_student, 'title')
@@ -378,8 +382,9 @@ def test_job_posting_with_match_status_initiated_by_employee(login, query_job_po
 
 
 @pytest.mark.django_db
-def test_job_posting_with_match_status_initiated_by_student(login, query_job_posting, job_posting_object: JobPosting,
-                                                             user_employee, user_student):
+def test_job_posting_with_match_status_initiated_by_student(login, query_job_posting,
+                                                            job_posting_object: JobPosting,
+                                                            user_employee, user_student):
     job_posting_object.title = 'title'
     job_posting_object.slug = 'title'
     job_posting_object.form_step = 4
@@ -387,8 +392,10 @@ def test_job_posting_with_match_status_initiated_by_student(login, query_job_pos
     job_posting_object.employee = user_employee.employee
     job_posting_object.save()
 
-    Match.objects.create(job_posting=job_posting_object, student=user_student.student,
-                         initiator=user_student.type, student_confirmed=True)
+    Match.objects.create(job_posting=job_posting_object,
+                         student=user_student.student,
+                         initiator=user_student.type,
+                         student_confirmed=True)
 
     login(user_student)
     data, errors = query_job_posting(user_student, 'title')
@@ -410,7 +417,8 @@ def test_job_posting_with_match_status_initiated_by_student(login, query_job_pos
 
 @pytest.mark.django_db
 def test_job_posting_with_match_status_initiated_by_student_on_other_job_posting(
-        login, query_job_posting, job_posting_object: JobPosting, job_posting_object_2, user_employee, user_student):
+        login, query_job_posting, job_posting_object: JobPosting, job_posting_object_2,
+        user_employee, user_student):
     job_posting_object.title = 'title'
     job_posting_object.slug = 'title'
     job_posting_object.form_step = 4
@@ -418,8 +426,10 @@ def test_job_posting_with_match_status_initiated_by_student_on_other_job_posting
     job_posting_object.employee = user_employee.employee
     job_posting_object.save()
 
-    Match.objects.create(job_posting=job_posting_object_2, student=user_student.student,
-                         initiator=user_student.type, student_confirmed=True)
+    Match.objects.create(job_posting=job_posting_object_2,
+                         student=user_student.student,
+                         initiator=user_student.type,
+                         student_confirmed=True)
 
     login(user_student)
     data, errors = query_job_posting(user_student, 'title')

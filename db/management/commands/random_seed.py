@@ -9,10 +9,17 @@ class Command(BaseCommand):
     seed = Seed()
 
     def add_arguments(self, parser):
-        parser.add_argument('num_students', type=int, help='Indicates the number of students to be created', default=0)
-        parser.add_argument('num_companies', type=int, help='Indicates the number of companies to be created',
+        parser.add_argument('num_students',
+                            type=int,
+                            help='Indicates the number of students to be created',
                             default=0)
-        parser.add_argument('num_universities', type=int, help='Indicates the number of universities to be created',
+        parser.add_argument('num_companies',
+                            type=int,
+                            help='Indicates the number of companies to be created',
+                            default=0)
+        parser.add_argument('num_universities',
+                            type=int,
+                            help='Indicates the number of universities to be created',
                             default=0)
 
     # noinspection PyUnresolvedReferences

@@ -5,8 +5,8 @@ from db.models import AttachmentKey, ProfileState
 
 # pylint: disable=R0913
 @pytest.mark.django_db
-def test_incomplete_attachments(login, user_student, upload, file_image_jpg, attachments_for_user, logout,
-                                user_employee, query_attachments_for_slug):
+def test_incomplete_attachments(login, user_student, upload, file_image_jpg, attachments_for_user,
+                                logout, user_employee, query_attachments_for_slug):
     user_employee.company.state = ProfileState.INCOMPLETE
     user_employee.company.save()
     login(user_employee)
@@ -36,8 +36,8 @@ def test_incomplete_attachments(login, user_student, upload, file_image_jpg, att
 
 
 @pytest.mark.django_db
-def test_anonymous_attachments(login, user_student, upload, file_image_jpg, attachments_for_user, logout, user_employee,
-                               query_attachments_for_slug):
+def test_anonymous_attachments(login, user_student, upload, file_image_jpg, attachments_for_user,
+                               logout, user_employee, query_attachments_for_slug):
     user_employee.company.state = ProfileState.ANONYMOUS
     user_employee.company.save()
     login(user_employee)
@@ -67,8 +67,8 @@ def test_anonymous_attachments(login, user_student, upload, file_image_jpg, atta
 
 
 @pytest.mark.django_db
-def test_public_attachments(login, user_student, upload, file_image_jpg, attachments_for_user, logout, user_employee,
-                            query_attachments_for_slug):
+def test_public_attachments(login, user_student, upload, file_image_jpg, attachments_for_user,
+                            logout, user_employee, query_attachments_for_slug):
     user_employee.company.state = ProfileState.PUBLIC
     user_employee.company.save()
     login(user_employee)

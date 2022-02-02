@@ -16,16 +16,18 @@ __all__ = ['DebugToolbarMiddleware']
 
 from graphiql_debug_toolbar.serializers import CallableJSONEncoder
 
-
 # temporary fix. waiting for https://github.com/flavors/django-graphiql-debug-toolbar/pull/12 to be merged
 
+
 class _DebugToolbar(DebugToolbar):
+
     def __init__(self, middleware, *args, **kwargs):
         middleware._toolbar = self
         super().__init__(*args, **kwargs)
 
 
 class MockToolbar:
+
     def __init__(self, middleware):
         self._middleware = middleware
 
@@ -102,8 +104,7 @@ class DebugToolbarMiddleware(BaseMiddleware):
             response.write(template)
             set_content_length(response)
 
-        if html_type or not (
-                graphql_view and content_type == 'application/json'):
+        if html_type or not (graphql_view and content_type == 'application/json'):
             return response
 
         # noinspection PyUnresolvedReferences

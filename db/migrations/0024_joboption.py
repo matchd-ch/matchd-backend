@@ -13,9 +13,16 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='JobOption',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id',
+                 models.AutoField(auto_created=True,
+                                  primary_key=True,
+                                  serialize=False,
+                                  verbose_name='ID')),
                 ('name', models.CharField(max_length=255)),
-                ('type', models.CharField(choices=[('date_from', 'Date from'), ('date_range', 'Date range')], max_length=255)),
+                ('type',
+                 models.CharField(choices=[('date_from', 'Date from'),
+                                           ('date_range', 'Date range')],
+                                  max_length=255)),
             ],
         ),
     ]
