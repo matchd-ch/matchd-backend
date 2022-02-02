@@ -76,24 +76,30 @@ def language_objects():
 
 @pytest.fixture
 def query_language_node(execute):
+
     def closure(user, id_value):
-        return execute(
-            language_node_query(), variables={'id': to_global_id('Language', id_value)}, **{'user': user}
-        )
+        return execute(language_node_query(),
+                       variables={'id': to_global_id('Language', id_value)},
+                       **{'user': user})
+
     return closure
 
 
 @pytest.fixture
 def query_languages(execute):
+
     def closure(user):
         return execute(languages_query(), **{'user': user})
+
     return closure
 
 
 @pytest.fixture
 def query_languages_shortlist(execute):
+
     def closure(user):
         return execute(languages_shortlist_query(), **{'user': user})
+
     return closure
 
 

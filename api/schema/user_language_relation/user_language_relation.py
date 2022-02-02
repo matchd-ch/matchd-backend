@@ -9,8 +9,11 @@ class UserLanguageRelation(DjangoObjectType):
 
     class Meta:
         model = UserLanguageRelationModel
-        interfaces = (relay.Node,)
-        fields = ('language', 'language_level',)
+        interfaces = (relay.Node, )
+        fields = (
+            'language',
+            'language_level',
+        )
 
     @classmethod
     def get_queryset(cls, queryset, info):

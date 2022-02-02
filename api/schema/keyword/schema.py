@@ -9,7 +9,7 @@ class Keyword(DjangoObjectType):
 
     class Meta:
         model = KeywordModel
-        interfaces = (relay.Node,)
+        interfaces = (relay.Node, )
         fields = ('name', )
         convert_choices_to_enum = False
 

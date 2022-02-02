@@ -12,7 +12,7 @@ class LanguageAdmin(ModelAdmin):
     add_to_settings_menu = False
     exclude_from_explorer = False
     list_display = ('name', 'short_list')
-    search_fields = ('name',)
+    search_fields = ('name', )
     permission_helper_class = ValidationPermissionHelper
 
 

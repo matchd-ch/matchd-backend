@@ -14,7 +14,7 @@ class User(DjangoObjectType):
 
     class Meta:
         model = get_user_model()
-        interfaces = (relay.Node,)
+        interfaces = (relay.Node, )
         filter_fields = graphql_auth_settings.USER_NODE_FILTER_FIELDS
         exclude = graphql_auth_settings.USER_NODE_EXCLUDE_FIELDS.append('id')
         skip_registry = True

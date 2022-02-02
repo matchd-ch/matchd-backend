@@ -51,8 +51,10 @@ class CompanyProfileInputStep1(graphene.InputObjectType):
 
 
 class CompanyProfileStep1(Output, graphene.Mutation):
+
     class Arguments:
-        step1 = CompanyProfileInputStep1(description=_('Profile Input Step 1 is required.'), required=True)
+        step1 = CompanyProfileInputStep1(description=_('Profile Input Step 1 is required.'),
+                                         required=True)
 
     class Meta:
         description = _('Updates the profile of a Company')
@@ -77,8 +79,10 @@ class CompanyProfileInputStep2(graphene.InputObjectType):
 
 
 class CompanyProfileStep2(Output, graphene.Mutation):
+
     class Arguments:
-        step2 = CompanyProfileInputStep2(description=_('Profile Input Step 2 is required.'), required=True)
+        step2 = CompanyProfileInputStep2(description=_('Profile Input Step 2 is required.'),
+                                         required=True)
 
     class Meta:
         description = _('Updates website url, description, services, member IT St.Gallen')
@@ -101,8 +105,10 @@ class CompanyProfileInputStep3(graphene.InputObjectType):
 
 
 class CompanyProfileStep3(Output, graphene.Mutation):
+
     class Arguments:
-        step3 = CompanyProfileInputStep3(description=_('Profile Input Step 3 is required.'), required=True)
+        step3 = CompanyProfileInputStep3(description=_('Profile Input Step 3 is required.'),
+                                         required=True)
 
     class Meta:
         description = _('Updates the Company Profile with benefits and branches')
@@ -125,8 +131,10 @@ class CompanyProfileInputStep4(graphene.InputObjectType):
 
 
 class CompanyProfileStep4(Output, graphene.Mutation):
+
     class Arguments:
-        step4 = CompanyProfileInputStep4(description=_('Profile Input Step 4 is required.'), required=True)
+        step4 = CompanyProfileInputStep4(description=_('Profile Input Step 4 is required.'),
+                                         required=True)
 
     class Meta:
         description = _('Updates a company profile with soft skills and cultural fit')
@@ -160,13 +168,17 @@ class UniversityProfileInputStep1(graphene.InputObjectType):
     phone = graphene.String(description=_('Phone Number'))
     role = graphene.String(description=_('role'), required=True)
     website = graphene.String(description=_('website'), required=True)
-    top_level_organisation_description = graphene.String(description=_('description'), required=False)
-    top_level_organisation_website = graphene.String(description=_('website dachorganisation'), required=False)
+    top_level_organisation_description = graphene.String(description=_('description'),
+                                                         required=False)
+    top_level_organisation_website = graphene.String(description=_('website dachorganisation'),
+                                                     required=False)
 
 
 class UniversityProfileStep1(Output, graphene.Mutation):
+
     class Arguments:
-        step1 = UniversityProfileInputStep1(description=_('Profile Input Step 1 is required.'), required=True)
+        step1 = UniversityProfileInputStep1(description=_('Profile Input Step 1 is required.'),
+                                            required=True)
 
     class Meta:
         description = _('Updates the profile of a university')
@@ -188,8 +200,10 @@ class UniversityProfileInputStep2(graphene.InputObjectType):
 
 
 class UniversityProfileStep2(Output, graphene.Mutation):
+
     class Arguments:
-        step2 = UniversityProfileInputStep2(description=_('Profile Input Step 2 is required.'), required=True)
+        step2 = UniversityProfileInputStep2(description=_('Profile Input Step 2 is required.'),
+                                            required=True)
 
     class Meta:
         description = _('Updates branches and description')
@@ -216,8 +230,10 @@ class UniversityProfileInputStep3(graphene.InputObjectType):
 
 
 class UniversityProfileStep3(Output, graphene.Mutation):
+
     class Arguments:
-        step3 = UniversityProfileInputStep3(description=_('Profile Input Step 3 is required.'), required=True)
+        step3 = UniversityProfileInputStep3(description=_('Profile Input Step 3 is required.'),
+                                            required=True)
 
     class Meta:
         description = _('Updates website services')
@@ -240,8 +256,10 @@ class UniversityProfileInputStep4(graphene.InputObjectType):
 
 
 class UniversityProfileStep4(Output, graphene.Mutation):
+
     class Arguments:
-        step4 = UniversityProfileInputStep4(description=_('Profile Input Step 4 is required.'), required=True)
+        step4 = UniversityProfileInputStep4(description=_('Profile Input Step 4 is required.'),
+                                            required=True)
 
     class Meta:
         description = _('Updates a company profile with soft skills and cultural fit')
@@ -267,9 +285,10 @@ class UniversityProfileMutation(ObjectType):
 
 class Company(DjangoObjectType):
     employees = graphene.NonNull(graphene.List(graphene.NonNull(Employee)))
-    job_postings = graphene.NonNull(graphene.List(graphene.NonNull('api.schema.job_posting.schema.JobPosting')))
-    project_postings = graphene.NonNull(graphene.List(
-        graphene.NonNull('api.schema.project_posting.schema.ProjectPosting')))
+    job_postings = graphene.NonNull(
+        graphene.List(graphene.NonNull('api.schema.job_posting.schema.JobPosting')))
+    project_postings = graphene.NonNull(
+        graphene.List(graphene.NonNull('api.schema.project_posting.schema.ProjectPosting')))
     type = graphene.Field(graphene.NonNull(ProfileType))
     state = graphene.Field(graphene.NonNull(ProfileState))
     soft_skills = graphene.List(graphene.NonNull('api.schema.soft_skill.schema.SoftSkill'))
@@ -279,11 +298,14 @@ class Company(DjangoObjectType):
 
     class Meta:
         model = CompanyModel
-        interfaces = (relay.Node,)
-        fields = ['uid', 'name', 'zip', 'city', 'street', 'phone', 'description', 'member_it_st_gallen',
-                  'services', 'website', 'benefits', 'state', 'profile_step', 'slug',
-                  'top_level_organisation_description', 'top_level_organisation_website', 'type', 'branches',
-                  'link_education', 'link_projects', 'link_thesis', 'soft_skills', 'cultural_fits', 'job_postings']
+        interfaces = (relay.Node, )
+        fields = [
+            'uid', 'name', 'zip', 'city', 'street', 'phone', 'description', 'member_it_st_gallen',
+            'services', 'website', 'benefits', 'state', 'profile_step', 'slug',
+            'top_level_organisation_description', 'top_level_organisation_website', 'type',
+            'branches', 'link_education', 'link_projects', 'link_thesis', 'soft_skills',
+            'cultural_fits', 'job_postings'
+        ]
         convert_choices_to_enum = False
 
     def resolve_employees(self: CompanyModel, info):

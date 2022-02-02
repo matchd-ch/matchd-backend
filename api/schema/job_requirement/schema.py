@@ -6,13 +6,15 @@ from db.models import JobRequirement as JobRequirementModel
 
 
 class JobRequirement(DjangoObjectType):
+
     class Meta:
         model = JobRequirementModel
-        fields = ('name',)
-        interfaces = (relay.Node,)
+        fields = ('name', )
+        interfaces = (relay.Node, )
 
 
 class JobRequirementConnections(relay.Connection):
+
     class Meta:
         node = JobRequirement
 

@@ -5,13 +5,15 @@ from db.models import FAQCategory as FAQCategoryModel
 
 
 class FAQCategory(DjangoObjectType):
+
     class Meta:
         model = FAQCategoryModel
-        interfaces = (relay.Node,)
-        fields = ('name',)
+        interfaces = (relay.Node, )
+        fields = ('name', )
 
 
 class FAQCategoryConnection(relay.Connection):
+
     class Meta:
         node = FAQCategory
 

@@ -55,8 +55,7 @@ class ProjectPosting(BaseSeed):
                     state=self.rand.project_posting_state(),
                     employee=employee,
                     company=company,
-                    student=student
-                )
+                    student=student)
                 project_posting.save()
                 if project_posting.state == ProjectPostingState.PUBLIC:
                     project_posting.date_published = project_posting.date_created
@@ -67,13 +66,13 @@ class ProjectPosting(BaseSeed):
         else:
             for obj in project_postings:
                 try:
-                    project_posting = ProjectPostingModel.objects.get(
-                        slug=obj.get('slug'))
+                    project_posting = ProjectPostingModel.objects.get(slug=obj.get('slug'))
                 except ProjectPostingModel.DoesNotExist:
-                    project_posting = ProjectPostingModel(
-                        project_type_id=obj.get('project_type'),
-                        topic_id=obj.get('topic'),
-                        company=company, employee=employee, student=student)
+                    project_posting = ProjectPostingModel(project_type_id=obj.get('project_type'),
+                                                          topic_id=obj.get('topic'),
+                                                          company=company,
+                                                          employee=employee,
+                                                          student=student)
                 project_title = obj.get('title', None)
                 if project_title is None:
                     project_title = self.rand.title()
@@ -82,12 +81,14 @@ class ProjectPosting(BaseSeed):
                 project_posting.additional_information = obj.get('additional_information')
                 project_posting.website = obj.get('website')
                 date_created = obj.get('date_created')
-                date_created = datetime.strptime(date_created, '%Y-%m-%d %H:%M:%S').replace(
-                    tzinfo=pytz.timezone(settings.TIME_ZONE))
+                date_created = datetime.strptime(
+                    date_created,
+                    '%Y-%m-%d %H:%M:%S').replace(tzinfo=pytz.timezone(settings.TIME_ZONE))
                 date_published = obj.get('date_published')
                 if date_published is not None:
-                    date_published = datetime.strptime(date_published, '%Y-%m-%d %H:%M:%S').replace(
-                        tzinfo=pytz.timezone(settings.TIME_ZONE))
+                    date_published = datetime.strptime(
+                        date_published,
+                        '%Y-%m-%d %H:%M:%S').replace(tzinfo=pytz.timezone(settings.TIME_ZONE))
                 project_posting.date_created = date_created
                 project_posting.date_published = date_published
                 if project_posting.state == ProjectPostingState.PUBLIC and project_posting.date_created is None:

@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext as _
 
 from db.exceptions import FormException
-from db.helper.forms import validate_form_data,  convert_object_to_id, generic_error_dict, validate_project_posting_step
+from db.helper.forms import validate_form_data, convert_object_to_id, generic_error_dict, validate_project_posting_step
 from db.models import ProjectPosting, ProjectPostingState, Employee, ProfileType
 # pylint: disable=R0912
 # pylint: disable=R0915
@@ -45,23 +45,29 @@ def process_project_posting_form_step_3(user, data):
 
         # check if employee belongs to the same company as the current user
         if employee is not None:
-            if user.type in ProfileType.valid_company_types() and employee.user.company != user.company:
-                errors.update(generic_error_dict('employee',
-                                                 _('Employee does not belong to your company'), 'invalid'))
+            if user.type in ProfileType.valid_company_types(
+            ) and employee.user.company != user.company:
+                errors.update(
+                    generic_error_dict('employee', _('Employee does not belong to your company'),
+                                       'invalid'))
                 raise FormException(errors=errors)
 
         # check if the project posting belongs to the company
         # ! if the user is a student, both values will be None
         # ! see next if statement
         if user.company != project_posting.company:
-            errors.update(generic_error_dict('employee',
-                                             _('Project posting does not belong to your company.'), 'invalid'))
+            errors.update(
+                generic_error_dict('employee',
+                                   _('Project posting does not belong to your company.'),
+                                   'invalid'))
             raise FormException(errors=errors)
 
         # check if the project posting belongs to the student
-        if user.type in ProfileType.valid_student_types() and user.student != project_posting.student:
-            errors.update(generic_error_dict('student',
-                                             _('Project posting does not belong to you.'), 'invalid'))
+        if user.type in ProfileType.valid_student_types(
+        ) and user.student != project_posting.student:
+            errors.update(
+                generic_error_dict('student', _('Project posting does not belong to you.'),
+                                   'invalid'))
             raise FormException(errors=errors)
         project_posting.employee = employee
     else:
@@ -74,13 +80,16 @@ def process_project_posting_form_step_3(user, data):
         user_company = user.company.id
         project_posting_company = project_posting.company.id
         if user_company != project_posting_company:
-            errors.update(generic_error_dict('employee',
-                                             _('Project posting does not belong to your company'), 'invalid'))
+            errors.update(
+                generic_error_dict('employee', _('Project posting does not belong to your company'),
+                                   'invalid'))
             raise FormException(errors=errors)
         project_posting.student = None
     elif user.type in ProfileType.valid_student_types():
         if user.student != project_posting.student:
-            errors.update(generic_error_dict('student', _('Project posting does not belong to you.'), 'invalid'))
+            errors.update(
+                generic_error_dict('student', _('Project posting does not belong to you.'),
+                                   'invalid'))
             raise FormException(errors=errors)
         project_posting.company = None
         project_posting.employee = None

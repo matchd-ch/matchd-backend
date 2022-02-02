@@ -16,13 +16,15 @@ def test_digit(password_validator):
 
 @pytest.mark.django_db
 def test_letter(password_validator):
-    with pytest.raises(ValidationError, match='Das Passwort muss mindestens 1 Buchstaben beinhalten.'):
+    with pytest.raises(ValidationError,
+                       match='Das Passwort muss mindestens 1 Buchstaben beinhalten.'):
         password_validator.validate('12345678')
 
 
 @pytest.mark.django_db
 def test_specialchars(password_validator):
-    with pytest.raises(ValidationError, match='Das Password muss mindestens 1 Sonderzeichen beinhalten.'):
+    with pytest.raises(ValidationError,
+                       match='Das Password muss mindestens 1 Sonderzeichen beinhalten.'):
         password_validator.validate('abcd1234')
 
 

@@ -6,13 +6,15 @@ from db.models import Branch as BranchModel
 
 
 class Branch(DjangoObjectType):
+
     class Meta:
         model = BranchModel
-        interfaces = (relay.Node,)
-        fields = ('name',)
+        interfaces = (relay.Node, )
+        fields = ('name', )
 
 
 class BranchConnections(relay.Connection):
+
     class Meta:
         node = Branch
 

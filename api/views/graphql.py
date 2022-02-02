@@ -14,6 +14,7 @@ def remove_multiple_uploads(file_list):
 
 
 class GraphQLView(FileUploadGraphQLView):
+
     def dispatch(self, request, *args, **kwargs):
         response = super().dispatch(request, *args, **kwargs)
         response = self._delete_cookies_on_response_if_needed(request, response)
@@ -41,11 +42,7 @@ class GraphQLView(FileUploadGraphQLView):
             files_map = json.loads(request.POST.get('map', '{}'))
             files_map = remove_multiple_uploads(files_map)
             files = remove_multiple_uploads(request.FILES)
-            return place_files_in_operations(
-                operations,
-                files_map,
-                files
-            )
+            return place_files_in_operations(operations, files_map, files)
         return super().parse_body(request)
 
     def _delete_cookies_on_response_if_needed(self, request, response):

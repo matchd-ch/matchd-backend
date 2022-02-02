@@ -31,50 +31,18 @@ from api.schema.user_request import UserRequestMutation
 from api.schema.zip_city import ZipCityQuery
 
 
-class Mutation(
-    RegistrationMutation,
-    UserRequestMutation,
-    AuthMutation,
-    LogoutMutation,
-    StudentProfileMutation,
-    CompanyProfileMutation,
-    UniversityProfileMutation,
-    UploadMutation,
-    AttachmentMutation,
-    JobPostingMutation,
-    EmployeeMutation,
-    MatchMutation,
-    ProjectPostingMutation
-):
+class Mutation(RegistrationMutation, UserRequestMutation, AuthMutation, LogoutMutation,
+               StudentProfileMutation, CompanyProfileMutation, UniversityProfileMutation,
+               UploadMutation, AttachmentMutation, JobPostingMutation, EmployeeMutation,
+               MatchMutation, ProjectPostingMutation):
     pass
 
 
-class Query(
-    VerifyPasswordResetToken,
-    UserQuery,
-    LanguageQuery,
-    LanguageLevelQuery,
-    ZipCityQuery,
-    JobTypeQuery,
-    SkillQuery,
-    BenefitQuery,
-    BranchQuery,
-    AttachmentQuery,
-    UploadConfigurationQuery,
-    CompanyQuery,
-    JobPostingQuery,
-    JobRequirementQuery,
-    FAQCategoryQuery,
-    SoftSkillQuery,
-    CulturalFitQuery,
-    MatchQuery,
-    StudentQuery,
-    DashboardQuery,
-    KeywordQuery,
-    TopicQuery,
-    ProjectTypeQuery,
-    ProjectPostingQuery
-):
+class Query(VerifyPasswordResetToken, UserQuery, LanguageQuery, LanguageLevelQuery, ZipCityQuery,
+            JobTypeQuery, SkillQuery, BenefitQuery, BranchQuery, AttachmentQuery,
+            UploadConfigurationQuery, CompanyQuery, JobPostingQuery, JobRequirementQuery,
+            FAQCategoryQuery, SoftSkillQuery, CulturalFitQuery, MatchQuery, StudentQuery,
+            DashboardQuery, KeywordQuery, TopicQuery, ProjectTypeQuery, ProjectPostingQuery):
     node = relay.Node.Field()
 
 

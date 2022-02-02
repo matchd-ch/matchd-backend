@@ -8,11 +8,13 @@ from db.models import JobType, DateMode, Branch
 
 
 @pytest.mark.django_db
-def test_step_2_date_range(login, user_student, student_step_2, job_type_objects_date_range, branch_objects):
+def test_step_2_date_range(login, user_student, student_step_2, job_type_objects_date_range,
+                           branch_objects):
     user_student.student.profile_step = 2
     user_student.student.save()
     login(user_student)
-    data, errors = student_step_2(user_student, job_type_objects_date_range[0], '01.1337', '02.1337', branch_objects[0])
+    data, errors = student_step_2(user_student, job_type_objects_date_range[0], '01.1337',
+                                  '02.1337', branch_objects[0])
     assert errors is None
     assert data is not None
     assert data.get('studentProfileStep2') is not None
@@ -27,12 +29,13 @@ def test_step_2_date_range(login, user_student, student_step_2, job_type_objects
 
 
 @pytest.mark.django_db
-def test_step_2_without_valid_date_range(login, user_student, student_step_2, job_type_objects_date_range,
-                                         branch_objects):
+def test_step_2_without_valid_date_range(login, user_student, student_step_2,
+                                         job_type_objects_date_range, branch_objects):
     user_student.student.profile_step = 2
     user_student.student.save()
     login(user_student)
-    data, errors = student_step_2(user_student, job_type_objects_date_range[0], None, None, branch_objects[0])
+    data, errors = student_step_2(user_student, job_type_objects_date_range[0], None, None,
+                                  branch_objects[0])
 
     assert errors is None
     assert data is not None
@@ -54,11 +57,12 @@ def test_step_2_without_valid_date_range(login, user_student, student_step_2, jo
 
 @pytest.mark.django_db
 def test_step_2_with_from_date_only(login, user_student, student_step_2,
-                                                        job_type_objects_date_range, branch_objects):
+                                    job_type_objects_date_range, branch_objects):
     user_student.student.profile_step = 2
     user_student.student.save()
     login(user_student)
-    data, errors = student_step_2(user_student, job_type_objects_date_range[0], '01.1337', None, branch_objects[0])
+    data, errors = student_step_2(user_student, job_type_objects_date_range[0], '01.1337', None,
+                                  branch_objects[0])
 
     assert errors is None
     assert data is not None
@@ -78,11 +82,13 @@ def test_step_2_with_from_date_only(login, user_student, student_step_2,
 
 
 @pytest.mark.django_db
-def test_step_2_date_from(login, user_student, student_step_2, job_type_objects_date_from, branch_objects):
+def test_step_2_date_from(login, user_student, student_step_2, job_type_objects_date_from,
+                          branch_objects):
     user_student.student.profile_step = 2
     user_student.student.save()
     login(user_student)
-    data, errors = student_step_2(user_student, job_type_objects_date_from[0], '01.1337', None, branch_objects[0])
+    data, errors = student_step_2(user_student, job_type_objects_date_from[0], '01.1337', None,
+                                  branch_objects[0])
     assert errors is None
     assert data is not None
     assert data.get('studentProfileStep2') is not None
@@ -97,9 +103,10 @@ def test_step_2_date_from(login, user_student, student_step_2, job_type_objects_
 
 
 @pytest.mark.django_db
-def test_step_2_without_login(user_student, student_step_2, job_type_objects_date_range, branch_objects):
-    data, errors = student_step_2(AnonymousUser(), job_type_objects_date_range[0], '01.1337', '02.1337',
-                                  branch_objects[0])
+def test_step_2_without_login(user_student, student_step_2, job_type_objects_date_range,
+                              branch_objects):
+    data, errors = student_step_2(AnonymousUser(), job_type_objects_date_range[0], '01.1337',
+                                  '02.1337', branch_objects[0])
     assert errors is not None
     assert data is not None
     assert data.get('studentProfileStep2') is None
@@ -113,10 +120,11 @@ def test_step_2_without_login(user_student, student_step_2, job_type_objects_dat
 
 
 @pytest.mark.django_db
-def test_step_2_as_company(login, user_employee, student_step_2, job_type_objects_date_range, branch_objects):
+def test_step_2_as_company(login, user_employee, student_step_2, job_type_objects_date_range,
+                           branch_objects):
     login(user_employee)
-    data, errors = student_step_2(user_employee, job_type_objects_date_range[0], '01.1337', '02.1337',
-                                  branch_objects[0])
+    data, errors = student_step_2(user_employee, job_type_objects_date_range[0], '01.1337',
+                                  '02.1337', branch_objects[0])
 
     assert errors is None
     assert data is not None
@@ -128,11 +136,13 @@ def test_step_2_as_company(login, user_employee, student_step_2, job_type_object
 
 
 @pytest.mark.django_db
-def test_step_2_invalid_step(login, user_student, student_step_2, job_type_objects_date_range, branch_objects):
+def test_step_2_invalid_step(login, user_student, student_step_2, job_type_objects_date_range,
+                             branch_objects):
     user_student.student.profile_step = 0
     user_student.student.save()
     login(user_student)
-    data, errors = student_step_2(user_student, job_type_objects_date_range[0], '01.1337', '02.1337', branch_objects[0])
+    data, errors = student_step_2(user_student, job_type_objects_date_range[0], '01.1337',
+                                  '02.1337', branch_objects[0])
     assert errors is None
     assert data is not None
     assert data.get('studentProfileStep2') is not None
@@ -152,8 +162,8 @@ def test_step_2_invalid_date_range(login, user_student, student_step_2):
     user_student.student.save()
 
     login(user_student)
-    data, errors = student_step_2(user_student, JobType(id=1337, mode=DateMode.DATE_RANGE), '03.1337', '02.1337',
-                                  Branch(id=1337))
+    data, errors = student_step_2(user_student, JobType(id=1337, mode=DateMode.DATE_RANGE),
+                                  '03.1337', '02.1337', Branch(id=1337))
     assert errors is None
     assert data is not None
     assert data.get('studentProfileStep2') is not None
@@ -169,8 +179,8 @@ def test_step_2_invalid_date_from(login, user_student, student_step_2):
     user_student.student.profile_step = 2
     user_student.student.save()
     login(user_student)
-    data, errors = student_step_2(user_student, JobType(id=1337, mode=DateMode.DATE_FROM), '1337.1337', None,
-                                  Branch(id=1337))
+    data, errors = student_step_2(user_student, JobType(id=1337, mode=DateMode.DATE_FROM),
+                                  '1337.1337', None, Branch(id=1337))
     assert errors is None
     assert data is not None
     assert data.get('studentProfileStep2') is not None
@@ -187,8 +197,8 @@ def test_step_2_invalid_date_range_with_valid_job_type(login, user_student, stud
     user_student.student.profile_step = 2
     user_student.student.save()
     login(user_student)
-    data, errors = student_step_2(user_student, job_type_objects_date_range[0], '03.1337', '02.1337',
-                                  Branch(id=1337))
+    data, errors = student_step_2(user_student, job_type_objects_date_range[0], '03.1337',
+                                  '02.1337', Branch(id=1337))
     assert errors is None
     assert data is not None
     assert data.get('studentProfileStep2') is not None
@@ -200,11 +210,13 @@ def test_step_2_invalid_date_range_with_valid_job_type(login, user_student, stud
 
 
 @pytest.mark.django_db
-def test_step_2_invalid_date_from_with_valid_job_type(login, user_student, student_step_2, job_type_objects_date_from):
+def test_step_2_invalid_date_from_with_valid_job_type(login, user_student, student_step_2,
+                                                      job_type_objects_date_from):
     user_student.student.profile_step = 2
     user_student.student.save()
     login(user_student)
-    data, errors = student_step_2(user_student, job_type_objects_date_from[0], '1337.1337', None, Branch(id=1337))
+    data, errors = student_step_2(user_student, job_type_objects_date_from[0], '1337.1337', None,
+                                  Branch(id=1337))
     assert errors is None
     assert data is not None
     assert data.get('studentProfileStep2') is not None

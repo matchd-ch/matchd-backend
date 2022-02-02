@@ -7,7 +7,8 @@ from db.models import Match
 
 
 @pytest.mark.django_db
-def test_company_match_student_project_posting(user_student, user_employee, company_project_posting_object,
+def test_company_match_student_project_posting(user_student, user_employee,
+                                               company_project_posting_object,
                                                match_project_posting, login):
     company_project_posting_object.employee = user_employee.employee
     company_project_posting_object.save()
@@ -24,7 +25,8 @@ def test_company_match_student_project_posting(user_student, user_employee, comp
 
     match_obj_exists = Match.objects.filter(student=user_student.student,
                                             project_posting=company_project_posting_object,
-                                            initiator=user_student.type, student_confirmed=True,
+                                            initiator=user_student.type,
+                                            student_confirmed=True,
                                             company_confirmed=True).exists()
     assert match_obj_exists is True
 
@@ -33,9 +35,8 @@ def test_company_match_student_project_posting(user_student, user_employee, comp
 
 
 @pytest.mark.django_db
-def test_company_match_student_project_posting_with_invalid_project_posting(user_employee,
-                                                                            student_project_posting_object,
-                                                                            match_project_posting, login):
+def test_company_match_student_project_posting_with_invalid_project_posting(
+        user_employee, student_project_posting_object, match_project_posting, login):
     login(user_employee)
     student_project_posting_object.id = 1337
 
@@ -50,7 +51,8 @@ def test_company_match_student_project_posting_with_invalid_project_posting(user
 
 
 @pytest.mark.django_db
-def test_company_match_student_project_posting_without_login(company_project_posting_object, match_project_posting):
+def test_company_match_student_project_posting_without_login(company_project_posting_object,
+                                                             match_project_posting):
     data, errors = match_project_posting(AnonymousUser(), company_project_posting_object)
     assert errors is not None
     assert data is not None
@@ -60,7 +62,8 @@ def test_company_match_student_project_posting_without_login(company_project_pos
 
 
 @pytest.mark.django_db
-def test_student_match_company_project_posting(user_student, user_employee, student_project_posting_object,
+def test_student_match_company_project_posting(user_student, user_employee,
+                                               student_project_posting_object,
                                                match_project_posting, login):
     login(user_employee)
 
@@ -75,7 +78,8 @@ def test_student_match_company_project_posting(user_student, user_employee, stud
 
     match_obj_exists = Match.objects.filter(company=user_employee.company,
                                             project_posting=student_project_posting_object,
-                                            initiator=user_employee.type, student_confirmed=True,
+                                            initiator=user_employee.type,
+                                            student_confirmed=True,
                                             company_confirmed=True).exists()
     assert match_obj_exists is True
 
@@ -84,9 +88,8 @@ def test_student_match_company_project_posting(user_student, user_employee, stud
 
 
 @pytest.mark.django_db
-def test_student_match_company_project_posting_with_invalid_project_posting(user_student, user_employee,
-                                                                            company_project_posting_object,
-                                                                            match_project_posting, login):
+def test_student_match_company_project_posting_with_invalid_project_posting(
+        user_student, user_employee, company_project_posting_object, match_project_posting, login):
     company_project_posting_object.employee = user_employee.employee
     company_project_posting_object.save()
     login(user_student)
@@ -103,7 +106,8 @@ def test_student_match_company_project_posting_with_invalid_project_posting(user
 
 
 @pytest.mark.django_db
-def test_student_match_company_project_posting_without_login(company_project_posting_object, match_project_posting):
+def test_student_match_company_project_posting_without_login(company_project_posting_object,
+                                                             match_project_posting):
     data, errors = match_project_posting(AnonymousUser(), company_project_posting_object)
     assert errors is not None
     assert data is not None

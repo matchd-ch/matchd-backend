@@ -16,10 +16,9 @@ class JobPostingFormStep1(forms.Form):
     description = forms.CharField(max_length=1000, required=False)
     job_type = forms.ModelChoiceField(queryset=JobType.objects.all(), required=True)
     branches = forms.ModelMultipleChoiceField(queryset=Branch.objects.all(), required=True)
-    workload = forms.IntegerField(required=True, validators=[
-            MaxValueValidator(100),
-            MinValueValidator(10)
-        ])
+    workload = forms.IntegerField(required=True,
+                                  validators=[MaxValueValidator(100),
+                                              MinValueValidator(10)])
     job_from_date = forms.DateField(required=True)
     job_to_date = forms.DateField(required=False)
     url = forms.URLField(required=False)
@@ -74,11 +73,13 @@ def process_job_posting_form_step_1(user, data):
 
         if url is not None and url != '':
             if not validate_html_url(url):
-                errors.update(generic_error_dict('url', _('URL must point to a html page'), 'invalid'))
+                errors.update(
+                    generic_error_dict('url', _('URL must point to a html page'), 'invalid'))
 
         if to_date is not None and from_date >= to_date:
-            errors.update(generic_error_dict('job_to_date', _('Date must be after from date'),
-                                             'invalid_range'))
+            errors.update(
+                generic_error_dict('job_to_date', _('Date must be after from date'),
+                                   'invalid_range'))
         cleaned_data['job_from_date'] = from_date
         cleaned_data['job_to_date'] = to_date
         cleaned_data['company'] = user.company

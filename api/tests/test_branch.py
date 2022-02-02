@@ -19,6 +19,7 @@ def test_query(query_branches, branch_objects):
     assert_node_field(edges[0].get('node'), 'name', branch_objects[1].name)
     assert_node_field(edges[1].get('node'), 'name', branch_objects[0].name)
 
+
 @pytest.mark.django_db
 def test_node_query(query_branch_node, branch_objects):
     data, errors = query_branch_node(AnonymousUser(), branch_objects[1].id)

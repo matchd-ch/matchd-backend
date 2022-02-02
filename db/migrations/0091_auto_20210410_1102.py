@@ -13,7 +13,8 @@ def add_student_slug(apps, schema_editor):
     for student in students:
         if student.profile_step >= 5:
             if student.slug is None or student.slug == '':
-                query = "UPDATE `db_student` SET slug='%s' WHERE id=%i" % (slugify(student.nickname), student.id)
+                query = "UPDATE `db_student` SET slug='%s' WHERE id=%i" % (slugify(
+                    student.nickname), student.id)
                 cursor.execute(query)
 
 
@@ -23,7 +24,4 @@ class Migration(migrations.Migration):
         ('db', '0090_student_slug'),
     ]
 
-    operations = [
-        migrations.RunPython(add_student_slug, migrations.RunPython.noop)
-    ]
-
+    operations = [migrations.RunPython(add_student_slug, migrations.RunPython.noop)]

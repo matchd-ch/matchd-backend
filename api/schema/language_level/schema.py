@@ -8,8 +8,11 @@ class LanguageLevel(DjangoObjectType):
 
     class Meta:
         model = LanguageLevelModel
-        interfaces = (relay.Node,)
-        fields = ('level', 'description',)
+        interfaces = (relay.Node, )
+        fields = (
+            'level',
+            'description',
+        )
 
 
 class LanguageLevelConnection(relay.Connection):

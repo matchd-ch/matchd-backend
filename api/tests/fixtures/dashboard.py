@@ -82,6 +82,8 @@ def dashboard_query():
 
 @pytest.fixture
 def query_dashboard(execute):
+
     def closure(user):
         return execute(dashboard_query(), **{'user': user})
+
     return closure

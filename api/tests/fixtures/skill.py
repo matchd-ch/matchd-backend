@@ -52,15 +52,19 @@ def skill_objects():
 
 @pytest.fixture
 def query_skill_node(execute):
+
     def closure(user, id_value):
-        return execute(
-            skill_node_query(), variables={'id': to_global_id('Skill', id_value)}, **{'user': user}
-        )
+        return execute(skill_node_query(),
+                       variables={'id': to_global_id('Skill', id_value)},
+                       **{'user': user})
+
     return closure
 
 
 @pytest.fixture
 def query_skills(execute):
+
     def closure(user):
         return execute(skills_query(), **{'user': user})
+
     return closure

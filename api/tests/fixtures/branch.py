@@ -17,6 +17,7 @@ def branch_node_query():
     }
     '''
 
+
 def branches_query():
     return '''
     query {
@@ -38,6 +39,7 @@ def branches_query():
     }
     '''
 
+
 @pytest.fixture
 def branch_objects():
     return [
@@ -48,15 +50,19 @@ def branch_objects():
 
 @pytest.fixture
 def query_branch_node(execute):
+
     def closure(user, id_value):
-        return execute(
-            branch_node_query(), variables={'id': to_global_id('Branch', id_value)}, **{'user': user}
-        )
+        return execute(branch_node_query(),
+                       variables={'id': to_global_id('Branch', id_value)},
+                       **{'user': user})
+
     return closure
 
 
 @pytest.fixture
 def query_branches(execute):
+
     def closure(user):
         return execute(branches_query(), **{'user': user})
+
     return closure

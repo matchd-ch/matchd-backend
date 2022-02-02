@@ -9,8 +9,8 @@ class Skill(DjangoObjectType):
 
     class Meta:
         model = SkillModel
-        interfaces = (relay.Node,)
-        fields = ('name',)
+        interfaces = (relay.Node, )
+        fields = ('name', )
 
 
 class SkillConnections(relay.Connection):

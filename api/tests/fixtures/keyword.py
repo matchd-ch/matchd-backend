@@ -42,23 +42,24 @@ def keywords_query():
 
 @pytest.fixture
 def keyword_objects():
-    return [
-        Keyword.objects.create(name="Keyword 2"),
-        Keyword.objects.create(name="Keyword 1")
-    ]
+    return [Keyword.objects.create(name="Keyword 2"), Keyword.objects.create(name="Keyword 1")]
 
 
 @pytest.fixture
 def query_keyword_node(execute):
+
     def closure(user, id_value):
-        return execute(
-            keyword_node_query(), variables={'id': to_global_id('Keyword', id_value)}, **{'user': user}
-        )
+        return execute(keyword_node_query(),
+                       variables={'id': to_global_id('Keyword', id_value)},
+                       **{'user': user})
+
     return closure
 
 
 @pytest.fixture
 def query_keywords(execute):
+
     def closure(user):
         return execute(keywords_query(), **{'user': user})
+
     return closure

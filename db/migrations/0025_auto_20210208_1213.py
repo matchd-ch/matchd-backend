@@ -13,15 +13,19 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='JobPosition',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id',
+                 models.AutoField(auto_created=True,
+                                  primary_key=True,
+                                  serialize=False,
+                                  verbose_name='ID')),
                 ('name', models.CharField(max_length=255)),
             ],
             options={
-                'ordering': ('name',),
+                'ordering': ('name', ),
             },
         ),
         migrations.AlterModelOptions(
             name='joboption',
-            options={'ordering': ('name',)},
+            options={'ordering': ('name', )},
         ),
     ]

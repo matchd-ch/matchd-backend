@@ -24,6 +24,4 @@ class Migration(migrations.Migration):
         ('db', '0101_jobposting_branches'),
     ]
 
-    operations = [
-        migrations.RunPython(move_branch, migrations.RunPython.noop)
-    ]
+    operations = [migrations.RunPython(move_branch, migrations.RunPython.noop)]

@@ -47,8 +47,10 @@ def test_me_company(login, me, user_employee, company_object_complete):
     assert len(company.get('benefits').get('edges')) == len(company_object_complete.benefits.all())
     assert len(company.get('branches').get('edges')) == len(company_object_complete.branches.all())
     assert len(company.get('culturalFits')) == len(company_object_complete.cultural_fits.all())
-    assert company.get('topLevelOrganisationDescription') == company_object_complete.top_level_organisation_description
-    assert company.get('topLevelOrganisationWebsite') == company_object_complete.top_level_organisation_website
+    assert company.get('topLevelOrganisationDescription'
+                       ) == company_object_complete.top_level_organisation_description
+    assert company.get(
+        'topLevelOrganisationWebsite') == company_object_complete.top_level_organisation_website
     assert company.get('linkEducation') == company_object_complete.link_education
     assert company.get('linkProjects') == company_object_complete.link_projects
     assert company.get('linkThesis') == company_object_complete.link_thesis

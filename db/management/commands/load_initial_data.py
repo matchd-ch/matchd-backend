@@ -11,19 +11,9 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         base_path = 'db/seed/data'
         files = [
-            'benefits.json',
-            'branches.json',
-            'cultural_fits.json',
-            'faq_categories.json',
-            'job_requirements.json',
-            'job_types.json',
-            'language_levels.json',
-            'languages.json',
-            'skills.json',
-            'soft_skills.json',
-            'topics.json',
-            'keywords.json',
-            'project_types.json'
+            'benefits.json', 'branches.json', 'cultural_fits.json', 'faq_categories.json',
+            'job_requirements.json', 'job_types.json', 'language_levels.json', 'languages.json',
+            'skills.json', 'soft_skills.json', 'topics.json', 'keywords.json', 'project_types.json'
         ]
         fixture_count = 0
         object_count = 0
@@ -45,8 +35,8 @@ class Command(BaseCommand):
                 data_to_update.save()
                 object_count += 1
         self.stdout.write(
-            self.style.SUCCESS(f'Installed {object_count} object(s) from {fixture_count} fixture(s)')
-        )
+            self.style.SUCCESS(
+                f'Installed {object_count} object(s) from {fixture_count} fixture(s)'))
 
     def read_file(self, path):
         with open(path, encoding='utf-8') as file:

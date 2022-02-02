@@ -8,14 +8,15 @@ class JobPostingScoreCalculator(BaseScoreCalculator):
 
     def __init__(self, user, hits, soft_boost, tech_boost):
         self.user = user
-        student = Student.objects.prefetch_related('languages', 'languages__language_level').get(user=user)
+        student = Student.objects.prefetch_related('languages',
+                                                   'languages__language_level').get(user=user)
         super().__init__(hits, student.languages.all(), soft_boost, tech_boost)
 
     def add_language_score(self, hit):
         languages = hit.languages.all()
         if len(languages) == 0:
             return
-        multiplier = settings.MATCHING_VALUE_LANGUAGES / len(languages) / 2  # language and level
+        multiplier = settings.MATCHING_VALUE_LANGUAGES / len(languages) / 2    # language and level
         score = hit.score
         for language in languages:
             if language.language_id in self.language_level_map:

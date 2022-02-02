@@ -6,4 +6,7 @@ class Hobby(models.Model):
     student = models.ForeignKey('db.Student', on_delete=models.CASCADE, related_name='hobbies')
 
     class Meta:
-        unique_together = ('name', 'student',)
+        unique_together = (
+            'name',
+            'student',
+        )

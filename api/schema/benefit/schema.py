@@ -9,8 +9,11 @@ class Benefit(DjangoObjectType):
 
     class Meta:
         model = BenefitModel
-        interfaces = (relay.Node,)
-        fields = ('icon', 'name',)
+        interfaces = (relay.Node, )
+        fields = (
+            'icon',
+            'name',
+        )
 
 
 class BenefitConnections(relay.Connection):

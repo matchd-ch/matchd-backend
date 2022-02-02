@@ -4,6 +4,7 @@ from db.models import ProfileType
 
 
 class ValidationPermissionHelper(PermissionHelper):
+
     def user_can_list(self, user):
         return True
 

@@ -13,7 +13,10 @@ class User(AbstractUser):
     type = models.CharField(choices=ProfileType.choices, max_length=255, blank=False)
     first_name = models.CharField(_('first name'), max_length=150, blank=False)
     last_name = models.CharField(_('last name'), max_length=150, blank=False)
-    company = models.ForeignKey('db.Company', on_delete=models.DO_NOTHING, blank=True, null=True,
+    company = models.ForeignKey('db.Company',
+                                on_delete=models.DO_NOTHING,
+                                blank=True,
+                                null=True,
                                 related_name='users')
 
     def get_profile_content_type(self):
@@ -52,31 +55,37 @@ class User(AbstractUser):
 
 
 class UserSignalHandler:
+
     @staticmethod
     def pre_delete(sender, instance, **kwargs):
-        pre_delete.disconnect(UserSignalHandler.pre_delete, User,
+        pre_delete.disconnect(UserSignalHandler.pre_delete,
+                              User,
                               dispatch_uid='db.models.UserSignalHandler.pre_delete')
 
         if instance.type in ProfileType.valid_student_types():
             # attachments of project postings
             project_posting_type = ContentType.objects.get(app_label='db', model='projectposting')
             for project_posting in instance.student.project_postings.all():
-                attachments = Attachment.objects.filter(content_type=project_posting_type, object_id=project_posting.id)
+                attachments = Attachment.objects.filter(content_type=project_posting_type,
+                                                        object_id=project_posting.id)
                 for attachment in attachments:
                     attachment.attachment_object.delete()
                 attachments.delete()
 
             # avatars / certificates
             student_type = ContentType.objects.get(app_label='db', model='student')
-            attachments = Attachment.objects.filter(content_type=student_type, object_id=instance.student.id)
+            attachments = Attachment.objects.filter(content_type=student_type,
+                                                    object_id=instance.student.id)
 
             for attachment in attachments:
                 attachment.attachment_object.delete()
             attachments.delete()
 
-        pre_delete.connect(UserSignalHandler.pre_delete, User,
+        pre_delete.connect(UserSignalHandler.pre_delete,
+                           User,
                            dispatch_uid='db.models.UserSignalHandler.pre_delete')
 
 
-pre_delete.connect(UserSignalHandler.pre_delete, User,
+pre_delete.connect(UserSignalHandler.pre_delete,
+                   User,
                    dispatch_uid='db.models.UserSignalHandler.pre_delete')

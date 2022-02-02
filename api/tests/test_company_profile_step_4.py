@@ -25,7 +25,8 @@ def test_step_4(login, user_employee, company_step_4, soft_skill_objects, cultur
 
 
 @pytest.mark.django_db
-def test_step_4_without_login(user_employee, company_step_4, soft_skill_objects, cultural_fit_objects):
+def test_step_4_without_login(user_employee, company_step_4, soft_skill_objects,
+                              cultural_fit_objects):
     data, errors = company_step_4(AnonymousUser(), soft_skill_objects[:6], cultural_fit_objects[:6])
 
     assert errors is not None
@@ -39,7 +40,8 @@ def test_step_4_without_login(user_employee, company_step_4, soft_skill_objects,
 
 
 @pytest.mark.django_db
-def test_step_4_as_student(login, user_student, company_step_4, soft_skill_objects, cultural_fit_objects):
+def test_step_4_as_student(login, user_student, company_step_4, soft_skill_objects,
+                           cultural_fit_objects):
     login(user_student)
     data, errors = company_step_4(user_student, soft_skill_objects[:6], cultural_fit_objects[:6])
     assert errors is None
@@ -52,7 +54,8 @@ def test_step_4_as_student(login, user_student, company_step_4, soft_skill_objec
 
 
 @pytest.mark.django_db
-def test_step_4_invalid_step(login, user_employee, company_step_4, soft_skill_objects, cultural_fit_objects):
+def test_step_4_invalid_step(login, user_employee, company_step_4, soft_skill_objects,
+                             cultural_fit_objects):
     user_employee.company.profile_step = 0
     user_employee.company.save()
     login(user_employee)
@@ -91,8 +94,8 @@ def test_step_4_invalid_data(login, user_employee, company_step_4):
 
 
 @pytest.mark.django_db
-def test_step_4_too_few_soft_skills_and_cultural_fits(login, user_employee, company_step_4, soft_skill_objects,
-                                                      cultural_fit_objects):
+def test_step_4_too_few_soft_skills_and_cultural_fits(login, user_employee, company_step_4,
+                                                      soft_skill_objects, cultural_fit_objects):
     user_employee.company.profile_step = 4
     user_employee.company.save()
     login(user_employee)
@@ -112,8 +115,8 @@ def test_step_4_too_few_soft_skills_and_cultural_fits(login, user_employee, comp
 
 
 @pytest.mark.django_db
-def test_step_4_too_many_soft_skills_and_cultural_fits(login, user_employee, company_step_4, soft_skill_objects,
-                                                       cultural_fit_objects):
+def test_step_4_too_many_soft_skills_and_cultural_fits(login, user_employee, company_step_4,
+                                                       soft_skill_objects, cultural_fit_objects):
     user_employee.company.profile_step = 4
     user_employee.company.save()
     login(user_employee)

@@ -19,7 +19,8 @@ def test_upload_student_image(login, user_student, upload, file_image_jpg, attac
 
 
 @pytest.mark.django_db
-def test_upload_student_document(login, user_student, upload, file_document_pdf, attachments_for_user):
+def test_upload_student_document(login, user_student, upload, file_document_pdf,
+                                 attachments_for_user):
     login(user_student)
     data, errors = upload(user_student, AttachmentKey.STUDENT_DOCUMENTS, file_document_pdf)
     assert data is not None
@@ -57,7 +58,8 @@ def test_upload_without_login(upload, file_image_jpg):
 
 
 @pytest.mark.django_db
-def test_upload_company_avatar_as_student(login, user_student, upload, file_image_jpg, attachments_for_user):
+def test_upload_company_avatar_as_student(login, user_student, upload, file_image_jpg,
+                                          attachments_for_user):
     login(user_student)
     data, errors = upload(user_student, AttachmentKey.COMPANY_AVATAR, file_image_jpg)
     assert data is not None

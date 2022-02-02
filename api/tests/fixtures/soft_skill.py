@@ -62,15 +62,19 @@ def soft_skill_objects():
 
 @pytest.fixture
 def query_soft_skill_node(execute):
+
     def closure(user, id_value):
-        return execute(
-            soft_skill_node_query(), variables={'id': to_global_id('SoftSkill', id_value)}, **{'user': user}
-        )
+        return execute(soft_skill_node_query(),
+                       variables={'id': to_global_id('SoftSkill', id_value)},
+                       **{'user': user})
+
     return closure
 
 
 @pytest.fixture
 def query_soft_skills(execute):
+
     def closure(user):
         return execute(soft_skills_query(), **{'user': user})
+
     return closure

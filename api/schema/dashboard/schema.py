@@ -32,7 +32,8 @@ class DashboardQuery(ObjectType):
         if not user.is_authenticated:
             raise PermissionDenied('You have not the permission to perform this action')
 
-        if user.type not in ProfileType.valid_company_types() and user.type not in ProfileType.valid_student_types():
+        if user.type not in ProfileType.valid_company_types(
+        ) and user.type not in ProfileType.valid_student_types():
             raise PermissionDenied('You have not the permission to perform this action')
 
         job_postings = None
@@ -44,20 +45,28 @@ class DashboardQuery(ObjectType):
         confirmed_matches = None
         project_matches = None
         if user.type in ProfileType.valid_company_types():
-            job_postings = JobPostingModel.objects.filter(company=user.company).order_by('-date_created')
-            project_postings = ProjectPostingModel.objects.filter(company=user.company).order_by('-date_created')
+            job_postings = JobPostingModel.objects.filter(
+                company=user.company).order_by('-date_created')
+            project_postings = ProjectPostingModel.objects.filter(
+                company=user.company).order_by('-date_created')
             latest_job_postings = None
             latest_project_postings = ProjectPostingModel.objects.filter(
                 company__isnull=True,
                 employee__isnull=True, student__isnull=False, state=ProjectPostingState.PUBLIC). \
                                           order_by('-date_created')[:settings.DASHBOARD_NUM_LATEST_ENTRIES]
-            requested_matches = Match.objects.filter(job_posting__company=user.company, initiator=user.type,
-                                                     student_confirmed=False, company_confirmed=True)
-            unconfirmed_matches = Match.objects.filter(job_posting__company=user.company,
-                                                       initiator__in=ProfileType.valid_student_types(),
-                                                       company_confirmed=False, student_confirmed=True)
-            confirmed_matches = Match.objects.filter(job_posting__company=user.company, student_confirmed=True,
-                                                     company_confirmed=True, project_posting__isnull=True)
+            requested_matches = Match.objects.filter(job_posting__company=user.company,
+                                                     initiator=user.type,
+                                                     student_confirmed=False,
+                                                     company_confirmed=True)
+            unconfirmed_matches = Match.objects.filter(
+                job_posting__company=user.company,
+                initiator__in=ProfileType.valid_student_types(),
+                company_confirmed=False,
+                student_confirmed=True)
+            confirmed_matches = Match.objects.filter(job_posting__company=user.company,
+                                                     student_confirmed=True,
+                                                     company_confirmed=True,
+                                                     project_posting__isnull=True)
             query = Q(student_confirmed=True, company_confirmed=True, project_posting__isnull=False)
             project_posting_query = Q(project_posting__company=user.company)
             company_query = Q(company=user.company)
@@ -65,7 +74,8 @@ class DashboardQuery(ObjectType):
             project_matches = Match.objects.filter(query)
         if user.type in ProfileType.valid_student_types():
             job_postings = None
-            project_postings = ProjectPostingModel.objects.filter(student=user.student).order_by('-date_created')
+            project_postings = ProjectPostingModel.objects.filter(
+                student=user.student).order_by('-date_created')
             latest_job_postings = JobPostingModel.objects.filter(
                 branches__in=[user.student.branch], state=JobPostingState.PUBLIC). \
                                       order_by('-date_published')[:settings.DASHBOARD_NUM_LATEST_ENTRIES]
@@ -73,13 +83,19 @@ class DashboardQuery(ObjectType):
                 company__isnull=False,
                 employee__isnull=False, student__isnull=True, state=ProjectPostingState.PUBLIC). \
                                           order_by('-date_created')[:settings.DASHBOARD_NUM_LATEST_ENTRIES]
-            requested_matches = Match.objects.filter(student=user.student, initiator=user.type,
-                                                     company_confirmed=False, student_confirmed=True)
-            unconfirmed_matches = Match.objects.filter(student=user.student,
-                                                       initiator__in=ProfileType.valid_company_types(),
-                                                       student_confirmed=False, company_confirmed=True)
-            confirmed_matches = Match.objects.filter(student=user.student, student_confirmed=True,
-                                                     company_confirmed=True, project_posting__isnull=True)
+            requested_matches = Match.objects.filter(student=user.student,
+                                                     initiator=user.type,
+                                                     company_confirmed=False,
+                                                     student_confirmed=True)
+            unconfirmed_matches = Match.objects.filter(
+                student=user.student,
+                initiator__in=ProfileType.valid_company_types(),
+                student_confirmed=False,
+                company_confirmed=True)
+            confirmed_matches = Match.objects.filter(student=user.student,
+                                                     student_confirmed=True,
+                                                     company_confirmed=True,
+                                                     project_posting__isnull=True)
             query = Q(student_confirmed=True, company_confirmed=True, project_posting__isnull=False)
             project_posting_query = Q(project_posting__student=user.student)
             student_query = Q(student=user.student)

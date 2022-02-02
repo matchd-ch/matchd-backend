@@ -172,24 +172,30 @@ def attachments_by_slug_query(slug):
 
 @pytest.fixture
 def query_attachment_node(execute):
+
     def closure(user, id_value):
-        return execute(
-            attachment_node_query(), variables={'id': to_global_id('Attachment', id_value)}, **{'user': user}
-        )
+        return execute(attachment_node_query(),
+                       variables={'id': to_global_id('Attachment', id_value)},
+                       **{'user': user})
+
     return closure
 
 
 @pytest.fixture
 def query_attachments(execute):
+
     def closure(user, key):
         return execute(attachments_query(key), **{'user': user})
+
     return closure
 
 
 @pytest.fixture
 def query_attachments_for_slug(execute):
+
     def closure(user, slug):
         return execute(attachments_by_slug_query(slug), **{'user': user})
+
     return closure
 
 
@@ -217,6 +223,7 @@ def upload_for_project_posting_mutation(key):
 
 @pytest.fixture
 def upload(default_password):
+
     def closure(user, key, file):
         query = upload_mutation(key)
         data = {
@@ -236,23 +243,30 @@ def upload(default_password):
         response = client.post('/graphql/', data=data)
         content = json.loads(response.content)
         return content.get('data'), content.get('errors')
+
     return closure
 
 
 @pytest.fixture
 def upload_for_project_posting(default_password):
+
     def closure(user, project_posting, key, file):
         query = upload_for_project_posting_mutation(key)
         data = {
-            'operations': json.dumps({
+            'operations':
+            json.dumps({
                 'query': query,
                 'variables': {
                     'file': None,
-                    'projectPosting': {'id': project_posting.id}
+                    'projectPosting': {
+                        'id': project_posting.id
+                    }
                 },
             }),
-            '0': file,
-            'map': json.dumps({
+            '0':
+            file,
+            'map':
+            json.dumps({
                 '0': ['variables.file'],
             }),
         }
@@ -261,6 +275,7 @@ def upload_for_project_posting(default_password):
         response = client.post('/graphql/', data=data)
         content = json.loads(response.content)
         return content.get('data'), content.get('errors')
+
     return closure
 
 
@@ -294,33 +309,44 @@ def file_video_mp4():
 @pytest.fixture
 def file_document_pdf():
     mime_type = 'application/pdf'
-    image_path = os.path.join(settings.BASE_DIR, 'api', 'tests', 'fixtures', 'media', 'document.pdf')
+    image_path = os.path.join(settings.BASE_DIR, 'api', 'tests', 'fixtures', 'media',
+                              'document.pdf')
     with open(image_path, 'rb') as file:
         return SimpleUploadedFile(name='document.pdf', content=file.read(), content_type=mime_type)
 
 
 @pytest.fixture
 def attachments_for_user():
+
     def closure(user, key):
         profile_content_type = user.get_profile_content_type()
         profile_id = user.get_profile_id()
-        return Attachment.objects.filter(key=key, content_type=profile_content_type, object_id=profile_id)
+        return Attachment.objects.filter(key=key,
+                                         content_type=profile_content_type,
+                                         object_id=profile_id)
+
     return closure
 
 
 @pytest.fixture
 def attachments_for_project_posting():
+
     def closure(project_posting, key):
         profile_content_type = ContentType.objects.get(app_label='db', model='projectposting')
         profile_id = project_posting.id
-        return Attachment.objects.filter(key=key, content_type=profile_content_type, object_id=profile_id)
+        return Attachment.objects.filter(key=key,
+                                         content_type=profile_content_type,
+                                         object_id=profile_id)
+
     return closure
 
 
 @pytest.fixture
 def delete_attachment(execute):
+
     def closure(user, attachment_id):
         return execute(delete_attachment_mutation(attachment_id), **{'user': user})
+
     return closure
 
 
@@ -329,22 +355,28 @@ def delete_attachment(execute):
 def company_fallback_images(user_employee):
     image_content_type = ContentType.objects.get(app_label='db', model='image')
 
-    source_image_path = os.path.join(settings.BASE_DIR, 'api', 'tests', 'fixtures', 'media', 'image.jpg')
+    source_image_path = os.path.join(settings.BASE_DIR, 'api', 'tests', 'fixtures', 'media',
+                                     'image.jpg')
     destination_image_path = os.path.join(settings.MEDIA_ROOT, 'company_image.jpg')
     shutil.copy(source_image_path, destination_image_path)
 
     image = Image.objects.create(file='company_image.jpg')
-    Attachment.objects.create(key=AttachmentKey.COMPANY_AVATAR_FALLBACK, object_id=user_employee.get_profile_id(),
-                              content_type=user_employee.get_profile_content_type(), attachment_id=image.id,
+    Attachment.objects.create(key=AttachmentKey.COMPANY_AVATAR_FALLBACK,
+                              object_id=user_employee.get_profile_id(),
+                              content_type=user_employee.get_profile_content_type(),
+                              attachment_id=image.id,
                               attachment_type=image_content_type)
 
-    source_image_path = os.path.join(settings.BASE_DIR, 'api', 'tests', 'fixtures', 'media', 'image.jpg')
+    source_image_path = os.path.join(settings.BASE_DIR, 'api', 'tests', 'fixtures', 'media',
+                                     'image.jpg')
     destination_image_path = os.path.join(settings.MEDIA_ROOT, 'company_image_2.jpg')
     shutil.copy(source_image_path, destination_image_path)
 
     image = Image.objects.create(file='company_image_2.jpg')
-    Attachment.objects.create(key=AttachmentKey.COMPANY_AVATAR_FALLBACK, object_id=user_employee.get_profile_id(),
-                              content_type=user_employee.get_profile_content_type(), attachment_id=image.id,
+    Attachment.objects.create(key=AttachmentKey.COMPANY_AVATAR_FALLBACK,
+                              object_id=user_employee.get_profile_id(),
+                              content_type=user_employee.get_profile_content_type(),
+                              attachment_id=image.id,
                               attachment_type=image_content_type)
 
 
@@ -353,20 +385,26 @@ def company_fallback_images(user_employee):
 def student_fallback_images(user_student):
     image_content_type = ContentType.objects.get(app_label='db', model='image')
 
-    source_image_path = os.path.join(settings.BASE_DIR, 'api', 'tests', 'fixtures', 'media', 'image.jpg')
+    source_image_path = os.path.join(settings.BASE_DIR, 'api', 'tests', 'fixtures', 'media',
+                                     'image.jpg')
     destination_image_path = os.path.join(settings.MEDIA_ROOT, 'student_image.jpg')
     shutil.copy(source_image_path, destination_image_path)
     image = Image.objects.create(file='student_image.jpg')
 
-    Attachment.objects.create(key=AttachmentKey.COMPANY_AVATAR_FALLBACK, object_id=user_student.get_profile_id(),
-                              content_type=user_student.get_profile_content_type(), attachment_id=image.id,
+    Attachment.objects.create(key=AttachmentKey.COMPANY_AVATAR_FALLBACK,
+                              object_id=user_student.get_profile_id(),
+                              content_type=user_student.get_profile_content_type(),
+                              attachment_id=image.id,
                               attachment_type=image_content_type)
 
-    source_image_path = os.path.join(settings.BASE_DIR, 'api', 'tests', 'fixtures', 'media', 'image.jpg')
+    source_image_path = os.path.join(settings.BASE_DIR, 'api', 'tests', 'fixtures', 'media',
+                                     'image.jpg')
     destination_image_path = os.path.join(settings.MEDIA_ROOT, 'student_image_2.jpg')
     shutil.copy(source_image_path, destination_image_path)
     image = Image.objects.create(file='student_image_2.jpg')
 
-    Attachment.objects.create(key=AttachmentKey.STUDENT_AVATAR_FALLBACK, object_id=user_student.get_profile_id(),
-                              content_type=user_student.get_profile_content_type(), attachment_id=image.id,
+    Attachment.objects.create(key=AttachmentKey.STUDENT_AVATAR_FALLBACK,
+                              object_id=user_student.get_profile_id(),
+                              content_type=user_student.get_profile_content_type(),
+                              attachment_id=image.id,
                               attachment_type=image_content_type)

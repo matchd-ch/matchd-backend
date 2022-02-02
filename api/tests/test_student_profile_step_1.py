@@ -9,8 +9,8 @@ from db.helper.forms import convert_date
 @pytest.mark.django_db
 def test_step_1(login, user_student, student_step_1):
     login(user_student)
-    data, errors = student_step_1(user_student, 'John', 'Doe', 'street 1', '0000', 'nowhere', '01.01.1337',
-                                  '+41791234567')
+    data, errors = student_step_1(user_student, 'John', 'Doe', 'street 1', '0000', 'nowhere',
+                                  '01.01.1337', '+41791234567')
 
     assert errors is None
     assert data is not None
@@ -31,8 +31,8 @@ def test_step_1(login, user_student, student_step_1):
 
 @pytest.mark.django_db
 def test_step_1_without_login(user_student, student_step_1):
-    data, errors = student_step_1(AnonymousUser(), 'John', 'Doe', 'street 1', '0000', 'nowhere', '01.01.1337',
-                                  '+41791234569')
+    data, errors = student_step_1(AnonymousUser(), 'John', 'Doe', 'street 1', '0000', 'nowhere',
+                                  '01.01.1337', '+41791234569')
 
     assert errors is not None
     assert data is not None
@@ -53,8 +53,8 @@ def test_step_1_without_login(user_student, student_step_1):
 @pytest.mark.django_db
 def test_step_1_as_company(login, user_employee, student_step_1):
     login(user_employee)
-    data, errors = student_step_1(user_employee, 'John', 'Doe', 'street 1', '0000', 'nowhere', '01.01.1337',
-                                  '+41791234569')
+    data, errors = student_step_1(user_employee, 'John', 'Doe', 'street 1', '0000', 'nowhere',
+                                  '01.01.1337', '+41791234569')
     assert errors is None
     assert data is not None
     assert data.get('studentProfileStep1') is not None
@@ -69,8 +69,8 @@ def test_step_1_invalid_step(login, user_student, student_step_1):
     user_student.student.profile_step = 0
     user_student.student.save()
     login(user_student)
-    data, errors = student_step_1(user_student, 'John', 'Doe', 'street 1', '0000', 'nowhere', '01.01.1337',
-                                  '+41791234567')
+    data, errors = student_step_1(user_student, 'John', 'Doe', 'street 1', '0000', 'nowhere',
+                                  '01.01.1337', '+41791234567')
     assert errors is None
     assert data is not None
     assert data.get('studentProfileStep1') is not None

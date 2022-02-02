@@ -11,7 +11,10 @@ class CulturalFitAdmin(ModelAdmin):
     menu_icon = 'folder-open-inverse'
     add_to_settings_menu = False
     exclude_from_explorer = False
-    list_display = ('student', 'company',)
+    list_display = (
+        'student',
+        'company',
+    )
     search_fields = ('student', 'company')
     permission_helper_class = ValidationPermissionHelper
 

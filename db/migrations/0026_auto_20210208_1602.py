@@ -19,12 +19,18 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='student',
             name='job_option',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='db.joboption'),
+            field=models.ForeignKey(blank=True,
+                                    null=True,
+                                    on_delete=django.db.models.deletion.DO_NOTHING,
+                                    to='db.joboption'),
         ),
         migrations.AddField(
             model_name='student',
             name='job_position',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='db.jobposition'),
+            field=models.ForeignKey(blank=True,
+                                    null=True,
+                                    on_delete=django.db.models.deletion.DO_NOTHING,
+                                    to='db.jobposition'),
         ),
         migrations.AddField(
             model_name='student',

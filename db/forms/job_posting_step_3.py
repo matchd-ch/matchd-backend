@@ -55,7 +55,9 @@ def process_job_posting_form_step_3(user, data):
     user_company = user.company.id
     job_posting_company = job_posting.company.id
     if user_company != job_posting_company:
-        errors.update(generic_error_dict('employee', _('Employee does not belong to this company.'), 'invalid'))
+        errors.update(
+            generic_error_dict('employee', _('Employee does not belong to this company.'),
+                               'invalid'))
         raise FormException(errors=errors)
 
     # update job posting

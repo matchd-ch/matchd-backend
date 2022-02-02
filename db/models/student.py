@@ -19,8 +19,12 @@ def default_date():
 
 
 class Student(models.Model, index.Indexed):
-    user = models.OneToOneField(to=get_user_model(), on_delete=models.CASCADE, related_name='student')
-    mobile = models.CharField(max_length=12, blank=True, validators=[RegexValidator(regex=settings.PHONE_REGEX)])
+    user = models.OneToOneField(to=get_user_model(),
+                                on_delete=models.CASCADE,
+                                related_name='student')
+    mobile = models.CharField(max_length=12,
+                              blank=True,
+                              validators=[RegexValidator(regex=settings.PHONE_REGEX)])
     street = models.CharField(max_length=255, blank=True)
     zip = models.CharField(max_length=255, blank=True)
     city = models.CharField(max_length=255, blank=True)
@@ -35,7 +39,10 @@ class Student(models.Model, index.Indexed):
     job_to_date = models.DateField(null=True, blank=True)
     skills = models.ManyToManyField('db.Skill', related_name='students')
     distinction = models.TextField(max_length=1000, blank=True)
-    state = models.CharField(choices=ProfileState.choices, max_length=255, blank=False, default=ProfileState.INCOMPLETE)
+    state = models.CharField(choices=ProfileState.choices,
+                             max_length=255,
+                             blank=False,
+                             default=ProfileState.INCOMPLETE)
     profile_step = models.IntegerField(default=1)
     soft_skills = models.ManyToManyField('db.SoftSkill', blank=True, related_name='students')
     cultural_fits = models.ManyToManyField('db.CulturalFit', blank=True, related_name='students')
@@ -62,23 +69,30 @@ class Student(models.Model, index.Indexed):
     def has_match(self, company):
         if self.possible_matches.get(company.slug, None) is None:
             model = apps.get_model('db', model_name='match')
-            self.possible_matches[company.slug] = model.objects.filter(student=self, job_posting__company=company)
+            self.possible_matches[company.slug] = model.objects.filter(student=self,
+                                                                       job_posting__company=company)
         possible_matches = self.possible_matches.get(company.slug)
         if len(possible_matches) > 0:
             for possible_match in possible_matches:
-                if possible_match.initiator in ProfileType.valid_student_types() or possible_match.complete:
+                if possible_match.initiator in ProfileType.valid_student_types(
+                ) or possible_match.complete:
                     return True
         return False
 
     def get_match_hints(self, company):
-        has_requested_match = Match.objects.filter(initiator__in=ProfileType.valid_student_types(), student=self,
+        has_requested_match = Match.objects.filter(initiator__in=ProfileType.valid_student_types(),
+                                                   student=self,
                                                    job_posting__company=company).exists()
         if not has_requested_match:
-            has_requested_match = Match.objects.filter(initiator__in=ProfileType.valid_student_types(), student=self,
-                                                       project_posting__company=company).exists()
+            has_requested_match = Match.objects.filter(
+                initiator__in=ProfileType.valid_student_types(),
+                student=self,
+                project_posting__company=company).exists()
 
-        has_confirmed_match = Match.objects.filter(initiator__in=ProfileType.valid_company_types(), student=self,
-                                                   student_confirmed=True, job_posting__company=company).exists()
+        has_confirmed_match = Match.objects.filter(initiator__in=ProfileType.valid_company_types(),
+                                                   student=self,
+                                                   student_confirmed=True,
+                                                   job_posting__company=company).exists()
         if not has_confirmed_match:
             has_confirmed_match = Match.objects.filter(initiator__in=ProfileType.valid_company_types(), student=self,
                                                        student_confirmed=True, project_posting__company=company).\
@@ -100,14 +114,16 @@ class Student(models.Model, index.Indexed):
         index.RelatedFields('skills', [
             index.FilterField('id'),
         ]),
-        index.FilterField('job_from_date', es_extra={
-            'type': 'date',
-            'format': 'yyyy-MM-dd',
-            'null_value': default_date()
-        }),
-        index.FilterField('job_to_date', es_extra={
-            'type': 'date',
-            'format': 'yyyy-MM-dd',
-            'null_value': default_date()
-        }),
+        index.FilterField('job_from_date',
+                          es_extra={
+                              'type': 'date',
+                              'format': 'yyyy-MM-dd',
+                              'null_value': default_date()
+                          }),
+        index.FilterField('job_to_date',
+                          es_extra={
+                              'type': 'date',
+                              'format': 'yyyy-MM-dd',
+                              'null_value': default_date()
+                          }),
     ]

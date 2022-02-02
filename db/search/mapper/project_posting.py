@@ -15,8 +15,8 @@ class ProjectPostingMatchMapper:
     def _prefetch_attachments(self):
         attachments = Attachment.objects.filter(
             key=AttachmentKey.PROJECT_POSTING_IMAGES,
-            object_id__in=self.project_posting_ids
-        ).select_related('content_type', 'attachment_type')
+            object_id__in=self.project_posting_ids).select_related('content_type',
+                                                                   'attachment_type')
 
         for attachment in attachments:
             if attachment.object_id not in self.attachment_map:
@@ -35,19 +35,18 @@ class ProjectPostingMatchMapper:
     def _prefetch_matches(self):
         matches = []
         if self.user.type in ProfileType.valid_company_types():
-            matches = Match.objects.filter(company=self.user.company, project_posting_id__in=self.project_posting_ids)
+            matches = Match.objects.filter(company=self.user.company,
+                                           project_posting_id__in=self.project_posting_ids)
         if self.user.type in ProfileType.valid_student_types():
-            matches = Match.objects.filter(student=self.user.student, project_posting_id__in=self.project_posting_ids)
+            matches = Match.objects.filter(student=self.user.student,
+                                           project_posting_id__in=self.project_posting_ids)
         for match in matches:
             self.matches_map[match.project_posting.id] = match
 
     def _get_match_status(self, project_posting):
         if self.matches_map.get(project_posting.id) is not None:
             match_obj = self.matches_map.get(project_posting.id)
-            return {
-                'confirmed': match_obj.complete,
-                'initiator': match_obj.initiator
-            }
+            return {'confirmed': match_obj.complete, 'initiator': match_obj.initiator}
         return None
 
     def _map_project_posting(self, project_posting):
@@ -75,4 +74,6 @@ class ProjectPostingMatchMapper:
         }
 
     def get_matches(self):
-        return [self._map_project_posting(project_posting) for project_posting in self.project_postings]
+        return [
+            self._map_project_posting(project_posting) for project_posting in self.project_postings
+        ]

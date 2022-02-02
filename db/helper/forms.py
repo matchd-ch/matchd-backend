@@ -9,14 +9,7 @@ from db.validators import ProfileFormStepValidator, StudentTypeValidator, Compan
 
 
 def generic_error_dict(key, message, code):
-    return {
-        key: [
-            {
-                'message': message,
-                'code': code
-            }
-        ]
-    }
+    return {key: [{'message': message, 'code': code}]}
 
 
 def validation_error_to_dict(error, key):

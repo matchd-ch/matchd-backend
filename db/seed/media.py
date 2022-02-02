@@ -36,8 +36,10 @@ class Media:
             image.collection_id = 1
             image.save()
 
-            Attachment.objects.get_or_create(attachment_id=image.id, attachment_type_id=image_content_type.id,
-                                             content_type_id=user_content_type.id, object_id=admin_user.id,
+            Attachment.objects.get_or_create(attachment_id=image.id,
+                                             attachment_type_id=image_content_type.id,
+                                             content_type_id=user_content_type.id,
+                                             object_id=admin_user.id,
                                              key=AttachmentKey.STUDENT_AVATAR_FALLBACK)
 
         for i in range(1, settings.NUMBER_OF_COMPANY_AVATAR_FALLBACK_IMAGES + 1):
@@ -57,8 +59,10 @@ class Media:
             image_content_type = ContentType.objects.get(app_label='db', model='image')
             user_content_type = ContentType.objects.get(app_label='db', model='user')
 
-            Attachment.objects.get_or_create(attachment_id=image.id, attachment_type_id=image_content_type.id,
-                                             content_type_id=user_content_type.id, object_id=admin_user.id,
+            Attachment.objects.get_or_create(attachment_id=image.id,
+                                             attachment_type_id=image_content_type.id,
+                                             content_type_id=user_content_type.id,
+                                             object_id=admin_user.id,
                                              key=AttachmentKey.COMPANY_AVATAR_FALLBACK)
 
         for i in range(1, settings.NUMBER_OF_PROJECT_POSTING_FALLBACK_IMAGES + 1):
@@ -78,6 +82,8 @@ class Media:
             image_content_type = ContentType.objects.get(app_label='db', model='image')
             user_content_type = ContentType.objects.get(app_label='db', model='user')
 
-            Attachment.objects.get_or_create(attachment_id=image.id, attachment_type_id=image_content_type.id,
-                                             content_type_id=user_content_type.id, object_id=admin_user.id,
+            Attachment.objects.get_or_create(attachment_id=image.id,
+                                             attachment_type_id=image_content_type.id,
+                                             content_type_id=user_content_type.id,
+                                             object_id=admin_user.id,
                                              key=AttachmentKey.PROJECT_POSTING_FALLBACK)

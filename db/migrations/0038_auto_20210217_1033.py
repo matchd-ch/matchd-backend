@@ -14,11 +14,17 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='student',
             name='job_option',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='db.joboption'),
+            field=models.ForeignKey(blank=True,
+                                    null=True,
+                                    on_delete=django.db.models.deletion.SET_NULL,
+                                    to='db.joboption'),
         ),
         migrations.AlterField(
             model_name='student',
             name='job_position',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='db.jobposition'),
+            field=models.ForeignKey(blank=True,
+                                    null=True,
+                                    on_delete=django.db.models.deletion.SET_NULL,
+                                    to='db.jobposition'),
         ),
     ]

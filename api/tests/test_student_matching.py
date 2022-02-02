@@ -10,10 +10,10 @@ from db.models import JobPostingState, ProfileState, JobPostingLanguageRelation,
 # pylint: disable=R0913
 # pylint: disable=R0915
 @pytest.mark.django_db
-def test_student_matching(job_posting_object, skill_objects, branch_objects, job_type_objects_date_range,
-                          user_employee, soft_skill_objects, cultural_fit_objects, user_student, user_student_2,
-                          student_matching, login, language_objects, language_level_objects,
-                          student_fallback_images):
+def test_student_matching(job_posting_object, skill_objects, branch_objects,
+                          job_type_objects_date_range, user_employee, soft_skill_objects,
+                          cultural_fit_objects, user_student, user_student_2, student_matching,
+                          login, language_objects, language_level_objects, student_fallback_images):
 
     branch = branch_objects[0]
     job_type = job_type_objects_date_range[0]
@@ -42,7 +42,8 @@ def test_student_matching(job_posting_object, skill_objects, branch_objects, job
     job_posting_object.save()
     job_posting_object.branches.set([branch])
 
-    JobPostingLanguageRelation.objects.create(language=language, language_level=language_level,
+    JobPostingLanguageRelation.objects.create(language=language,
+                                              language_level=language_level,
                                               job_posting=job_posting_object)
 
     # a 100% match
@@ -57,7 +58,9 @@ def test_student_matching(job_posting_object, skill_objects, branch_objects, job
     user_student.student.cultural_fits.set(cultural_fit_objects[:6])
     user_student.student.save()
 
-    UserLanguageRelation.objects.create(language=language, language_level=language_level, student=user_student.student)
+    UserLanguageRelation.objects.create(language=language,
+                                        language_level=language_level,
+                                        student=user_student.student)
 
     # a bad match
     user_student_2.student.branch = job_posting_object.branches.all()[0]
@@ -71,12 +74,15 @@ def test_student_matching(job_posting_object, skill_objects, branch_objects, job
     user_student_2.student.cultural_fits.set(cultural_fit_objects[-6:])
     user_student_2.student.save()
 
-    UserLanguageRelation.objects.create(language=language_objects[1], language_level=language_level_objects[1],
+    UserLanguageRelation.objects.create(language=language_objects[1],
+                                        language_level=language_level_objects[1],
                                         student=user_student_2.student)
 
     management.call_command('update_index', stdout=StringIO())
 
-    Match.objects.create(student=user_student.student, job_posting=job_posting_object, initiator=user_employee.type,
+    Match.objects.create(student=user_student.student,
+                         job_posting=job_posting_object,
+                         initiator=user_employee.type,
                          company_confirmed=True)
 
     login(user_employee)

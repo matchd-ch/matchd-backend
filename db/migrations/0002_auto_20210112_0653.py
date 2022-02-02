@@ -13,7 +13,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='user',
             name='type',
-            field=models.CharField(choices=[('internal', 'Internal'), ('student', 'Student'), ('college-student', 'College Student'), ('junior', 'Junior'), ('company', 'Company'), ('university', 'University'), ('other', 'Other')], default='internal', max_length=255),
+            field=models.CharField(choices=[('internal', 'Internal'), ('student', 'Student'),
+                                            ('college-student', 'College Student'),
+                                            ('junior', 'Junior'), ('company', 'Company'),
+                                            ('university', 'University'), ('other', 'Other')],
+                                   default='internal',
+                                   max_length=255),
             preserve_default=False,
         ),
         migrations.AlterField(

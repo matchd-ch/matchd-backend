@@ -13,6 +13,15 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='attachment',
             name='key',
-            field=models.CharField(choices=[('student_avatar', 'Student Avatar'), ('student_documents', 'Student Documents'), ('company_avatar', 'Company Avatar'), ('company_documents', 'Company Documents'), ('student_avatar_fallback', 'Student Avatar fallback'), ('company_avatar_fallback', 'Company Avatar fallback'), ('project_posting_images', 'Project posting images'), ('project_posting_documents', 'Project posting documents'), ('project_posting_fallback', 'Project posting fallback')], max_length=100),
+            field=models.CharField(choices=[
+                ('student_avatar', 'Student Avatar'), ('student_documents', 'Student Documents'),
+                ('company_avatar', 'Company Avatar'), ('company_documents', 'Company Documents'),
+                ('student_avatar_fallback', 'Student Avatar fallback'),
+                ('company_avatar_fallback', 'Company Avatar fallback'),
+                ('project_posting_images', 'Project posting images'),
+                ('project_posting_documents', 'Project posting documents'),
+                ('project_posting_fallback', 'Project posting fallback')
+            ],
+                                   max_length=100),
         ),
     ]

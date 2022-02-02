@@ -79,8 +79,10 @@ def company_query(slug):
 
 @pytest.fixture
 def query_company(execute):
+
     def closure(user, slug):
         return execute(company_query(slug), **{'user': user})
+
     return closure
 
 
@@ -134,14 +136,16 @@ def company_object_2(company_objects):
 
 @pytest.fixture
 def user_employee(get_user, default_password, company_object):
-    user = get_user('employee-1@matchd.test', default_password, True, ProfileType.COMPANY, company_object)
+    user = get_user('employee-1@matchd.test', default_password, True, ProfileType.COMPANY,
+                    company_object)
     Employee.objects.create(user=user)
     return user
 
 
 @pytest.fixture
 def user_employee_2(get_user, default_password, company_object_2):
-    user = get_user('employee-2@matchd.test', default_password, True, ProfileType.COMPANY, company_object_2)
+    user = get_user('employee-2@matchd.test', default_password, True, ProfileType.COMPANY,
+                    company_object_2)
     Employee.objects.create(user=user)
     return user
 
@@ -149,8 +153,12 @@ def user_employee_2(get_user, default_password, company_object_2):
 @pytest.fixture
 def university_objects():
     return [
-        Company.objects.create(name='University 1', slug='university-1', type=ProfileType.UNIVERSITY),
-        Company.objects.create(name='University 2', slug='university-2', type=ProfileType.UNIVERSITY)
+        Company.objects.create(name='University 1',
+                               slug='university-1',
+                               type=ProfileType.UNIVERSITY),
+        Company.objects.create(name='University 2',
+                               slug='university-2',
+                               type=ProfileType.UNIVERSITY)
     ]
 
 
@@ -166,13 +174,15 @@ def university_object_2(university_objects):
 
 @pytest.fixture
 def user_rector(get_user, default_password, university_object):
-    user = get_user('rector-1@matchd.test', default_password, True, ProfileType.UNIVERSITY, university_object)
+    user = get_user('rector-1@matchd.test', default_password, True, ProfileType.UNIVERSITY,
+                    university_object)
     Employee.objects.create(user=user)
     return user
 
 
 @pytest.fixture
 def user_rector_2(get_user, default_password, university_object_2):
-    user = get_user('rector-2@matchd.test', default_password, True, ProfileType.UNIVERSITY, university_object_2)
+    user = get_user('rector-2@matchd.test', default_password, True, ProfileType.UNIVERSITY,
+                    university_object_2)
     Employee.objects.create(user=user)
     return user

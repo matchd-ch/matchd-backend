@@ -20,11 +20,9 @@ class ZipCityInput(InputObjectType):
 
 class ZipCityQuery(ObjectType):
     zip_city = graphene.NonNull(graphene.List(graphene.NonNull(ZipCity)))
-    zip_city_jobs = graphene.NonNull(
-        graphene.List(graphene.NonNull(ZipCity)),
-        branch_id=graphene.ID(required=False),
-        job_type_id=graphene.ID(required=False)
-    )
+    zip_city_jobs = graphene.NonNull(graphene.List(graphene.NonNull(ZipCity)),
+                                     branch_id=graphene.ID(required=False),
+                                     job_type_id=graphene.ID(required=False))
 
     def resolve_zip_city(self, info, **kwargs):
         return zip_city_datasource.data
@@ -37,7 +35,8 @@ class ZipCityQuery(ObjectType):
             query &= Q(branches__in=[branch])
         if job_type is not None:
             query &= Q(job_type_id=job_type)
-        job_postings = JobPosting.objects.select_related('company').filter(query).only('company__zip', 'company__city')
+        job_postings = JobPosting.objects.select_related('company').filter(query).only(
+            'company__zip', 'company__city')
         zip_mapping = {}
         for job_posting in job_postings:
             zip_mapping[job_posting.company.zip] = job_posting.company.city

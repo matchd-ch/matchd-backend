@@ -7,10 +7,7 @@ class LanguageLevel(models.Model):
     description = models.CharField(max_length=255, blank=True, null=True)
     value = models.IntegerField(default=0)
 
-    panels = [
-        FieldPanel('level'),
-        FieldPanel('description')
-    ]
+    panels = [FieldPanel('level'), FieldPanel('description')]
 
     class Meta:
         ordering = ['level']

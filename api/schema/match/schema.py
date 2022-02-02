@@ -39,8 +39,11 @@ class JobPostingMatchInfo(DjangoObjectType):
 
     class Meta:
         model = MatchModel
-        interfaces = (relay.Node,)
-        fields = ('student', 'job_posting', )
+        interfaces = (relay.Node, )
+        fields = (
+            'student',
+            'job_posting',
+        )
 
 
 class ProjectPostingMatchInfo(DjangoObjectType):
@@ -50,8 +53,12 @@ class ProjectPostingMatchInfo(DjangoObjectType):
 
     class Meta:
         model = MatchModel
-        interfaces = (relay.Node,)
-        fields = ('student', 'project_posting', 'company', )
+        interfaces = (relay.Node, )
+        fields = (
+            'student',
+            'project_posting',
+            'company',
+        )
 
 
 class Match(ObjectType):
@@ -84,16 +91,17 @@ class ProjectPostingMatchingInput(InputObjectType):
 
 
 class MatchQuery(ObjectType):
-    matches = graphene.List(
-        Match,
-        first=graphene.Int(required=False, default_value=100),
-        skip=graphene.Int(required=False, default_value=0),
-        tech_boost=graphene.Int(required=False, default_value=3),
-        soft_boost=graphene.Int(required=False, default_value=3),
-        job_posting_matching=graphene.Argument(JobPostingMatchingInput, required=False),
-        student_matching=graphene.Argument(StudentMatchingInput, required=False),
-        project_posting_matching=graphene.Argument(ProjectPostingMatchingInput, required=False)
-    )
+    matches = graphene.List(Match,
+                            first=graphene.Int(required=False, default_value=100),
+                            skip=graphene.Int(required=False, default_value=0),
+                            tech_boost=graphene.Int(required=False, default_value=3),
+                            soft_boost=graphene.Int(required=False, default_value=3),
+                            job_posting_matching=graphene.Argument(JobPostingMatchingInput,
+                                                                   required=False),
+                            student_matching=graphene.Argument(StudentMatchingInput,
+                                                               required=False),
+                            project_posting_matching=graphene.Argument(ProjectPostingMatchingInput,
+                                                                       required=False))
 
     @login_required
     def resolve_matches(self, info, **kwargs):
@@ -107,7 +115,8 @@ class MatchQuery(ObjectType):
 
         job_posting_matching = kwargs.get('job_posting_matching', None)
         if job_posting_matching is not None:
-            matching = JobPostingMatching(user, job_posting_matching, first, skip, tech_boost, soft_boost)
+            matching = JobPostingMatching(user, job_posting_matching, first, skip, tech_boost,
+                                          soft_boost)
             return matching.find_matches()
 
         student_matching = kwargs.get('student_matching', None)
@@ -117,7 +126,8 @@ class MatchQuery(ObjectType):
 
         project_matching = kwargs.get('project_posting_matching', None)
         if project_matching is not None:
-            matching = ProjectPostingMatching(user, project_matching, first, skip, tech_boost, soft_boost)
+            matching = ProjectPostingMatching(user, project_matching, first, skip, tech_boost,
+                                              soft_boost)
             return matching.find_matches()
 
         matching = CompanyMatching(user, first, skip, tech_boost, soft_boost)

@@ -6,13 +6,18 @@ from db.models import CulturalFit as CulturalFitModel
 
 
 class CulturalFit(DjangoObjectType):
+
     class Meta:
         model = CulturalFitModel
-        interfaces = (relay.Node,)
-        fields = ('student', 'company',)
+        interfaces = (relay.Node, )
+        fields = (
+            'student',
+            'company',
+        )
 
 
 class CulturalFitConnections(relay.Connection):
+
     class Meta:
         node = CulturalFit
 
@@ -31,4 +36,3 @@ class CulturalFitInput(graphene.InputObjectType):
     @property
     def pk(self):
         return self.id
-        

@@ -28,7 +28,8 @@ class AttachmentKeyNumFilesValidator:
 
     def validate(self, key, profile_content_type, profile_id):
         max_files_for_key = get_max_files_for_key(key)
-        existing_files_for_key = Attachment.objects.filter(key=key, content_type=profile_content_type,
+        existing_files_for_key = Attachment.objects.filter(key=key,
+                                                           content_type=profile_content_type,
                                                            object_id=profile_id).count()
         if existing_files_for_key >= max_files_for_key:
             raise ValidationError(code='too_many_files', message=_('Too many files for this key'))
@@ -36,6 +37,7 @@ class AttachmentKeyNumFilesValidator:
 
 @deconstructible
 class AttachmentFileValidator:
+
     def __init__(self, max_size=None, content_types=()):
         self.max_size = max_size
         self.content_types = content_types

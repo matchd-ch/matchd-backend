@@ -8,7 +8,8 @@ from db.models import SoftSkill, CulturalFit
 
 class StudentProfileFormStep3(forms.Form):
     soft_skills = forms.ModelMultipleChoiceField(queryset=SoftSkill.objects.all(), required=True)
-    cultural_fits = forms.ModelMultipleChoiceField(queryset=CulturalFit.objects.all(), required=True)
+    cultural_fits = forms.ModelMultipleChoiceField(queryset=CulturalFit.objects.all(),
+                                                   required=True)
 
 
 def process_student_form_step_3(user, data):
@@ -44,11 +45,13 @@ def process_student_form_step_3(user, data):
 
         # check if more than 6 cultural fits has been selected
         if len(list(cultural_fits_to_save)) > 6:
-            errors.update(generic_error_dict('culturalFits', _('Too many cultural fits'), 'too_many_items'))
+            errors.update(
+                generic_error_dict('culturalFits', _('Too many cultural fits'), 'too_many_items'))
 
         # check if less than 6 cultural fits has been selected
         if len(list(cultural_fits_to_save)) < 6:
-            errors.update(generic_error_dict('culturalFits', _('Too few cultural fits'), 'too_few_items'))
+            errors.update(
+                generic_error_dict('culturalFits', _('Too few cultural fits'), 'too_few_items'))
 
     else:
         errors.update(form.errors.get_json_data())

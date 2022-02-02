@@ -10,7 +10,9 @@ class CompanyParamBuilder(BaseParamBuilder):
                 'query': {
                     'bool': {
                         'must': {
-                            "terms": {"branches.id_filter": [branch_id]},
+                            "terms": {
+                                "branches.id_filter": [branch_id]
+                            },
                         }
                     }
                 },
@@ -23,11 +25,13 @@ class CompanyParamBuilder(BaseParamBuilder):
             return
         boost = boost / len(cultural_fits)
         for obj in cultural_fits:
-            self.should_conditions.append(self.get_condition('cultural_fits', 'id_filter', [obj.id], boost))
+            self.should_conditions.append(
+                self.get_condition('cultural_fits', 'id_filter', [obj.id], boost))
 
     def set_soft_skills(self, soft_skills, boost=1):
         if len(soft_skills) == 0:
             return
         boost = boost / len(soft_skills)
         for obj in soft_skills:
-            self.should_conditions.append(self.get_condition('soft_skills', 'id_filter', [obj.id], boost))
+            self.should_conditions.append(
+                self.get_condition('soft_skills', 'id_filter', [obj.id], boost))

@@ -15,10 +15,18 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Employee',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id',
+                 models.AutoField(auto_created=True,
+                                  primary_key=True,
+                                  serialize=False,
+                                  verbose_name='ID')),
                 ('role', models.CharField(max_length=255)),
-                ('company', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='db.company')),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='employee', to=settings.AUTH_USER_MODEL)),
+                ('company',
+                 models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='db.company')),
+                ('user',
+                 models.OneToOneField(on_delete=django.db.models.deletion.CASCADE,
+                                      related_name='employee',
+                                      to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]

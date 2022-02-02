@@ -13,6 +13,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='company',
             name='type',
-            field=models.CharField(blank=True, choices=[('internal', 'Internal'), ('student', 'Student'), ('college-student', 'College Student'), ('junior', 'Junior'), ('company', 'Company'), ('university', 'University'), ('other', 'Other')], max_length=255),
+            field=models.CharField(blank=True,
+                                   choices=[('internal', 'Internal'), ('student', 'Student'),
+                                            ('college-student', 'College Student'),
+                                            ('junior', 'Junior'), ('company', 'Company'),
+                                            ('university', 'University'), ('other', 'Other')],
+                                   max_length=255),
         ),
     ]

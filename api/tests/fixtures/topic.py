@@ -42,23 +42,24 @@ def topics_query():
 
 @pytest.fixture
 def topic_objects():
-    return [
-        Topic.objects.create(name="Topic 1"),
-        Topic.objects.create(name="Topic 2")
-    ]
+    return [Topic.objects.create(name="Topic 1"), Topic.objects.create(name="Topic 2")]
 
 
 @pytest.fixture
 def query_topic_node(execute):
+
     def closure(user, id_value):
-        return execute(
-            topic_node_query(), variables={'id': to_global_id('Topic', id_value)}, **{'user': user}
-        )
+        return execute(topic_node_query(),
+                       variables={'id': to_global_id('Topic', id_value)},
+                       **{'user': user})
+
     return closure
 
 
 @pytest.fixture
 def query_topics(execute):
+
     def closure(user):
         return execute(topics_query(), **{'user': user})
+
     return closure
