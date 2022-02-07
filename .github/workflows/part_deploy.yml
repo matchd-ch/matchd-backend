@@ -71,7 +71,7 @@ on:
         type: boolean
         default: true
       sentryEnvironment:
-        default: "${{ version }}"
+        default: "${{ github.sha }}"
         type: string
       sentryTracesSampleRate:
         type: number
