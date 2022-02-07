@@ -1,8 +1,10 @@
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
+
 from wagtail.search.backends import get_search_backend
 
+from db.context.match.matching import Matching
 from db.models import ProjectPosting, ProfileType
 from db.search.builders import ProjectPostingParamBuilder
 from db.search.calculators import ProjectPostingScoreCalculator
@@ -12,16 +14,11 @@ from db.search.resolvers import HitResolver
 # pylint: disable=R0913
 
 
-class ProjectPostingMatching:
+class ProjectPostingMatching(Matching):
     search_backend = get_search_backend()
 
-    def __init__(self, user, data, first, skip, tech_boost, soft_boost):
-        self.user = user
-        self.data = data
-        self.first = first
-        self.skip = skip
-        self.tech_boost = tech_boost
-        self.soft_boost = soft_boost
+    def __init__(self, user, **kwargs):
+        super().__init__(user, **kwargs)
         self.project_posting = None
 
     def _validate_input(self):

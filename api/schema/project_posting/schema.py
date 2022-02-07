@@ -13,14 +13,13 @@ from api.schema.keyword.schema import KeywordInput
 from api.schema.project_type.schema import ProjectTypeInput
 from api.schema.topic.schema import TopicInput
 
+from db.context.match.match_status import MatchStatus
 from db.decorators import hyphenate
 from db.exceptions import FormException
 from db.forms import process_project_posting_form_step_1, process_project_posting_form_step_2
 from db.forms.project_posting_step_3 import process_project_posting_form_step_3
 from db.models import ProjectPosting as ProjectPostingModel, ProjectPostingState as ProjectPostingStateModel, \
-    ProfileType, Match as MatchModel
-
-# TODO: Fix permissions for get_node()
+    ProfileType
 
 ProjectPostingState = graphene.Enum.from_enum(ProjectPostingStateModel)
 
@@ -86,17 +85,8 @@ class ProjectPosting(DjangoObjectType):
 
     def resolve_match_status(self: ProjectPostingModel, info):
         user = info.context.user
-        status = None
-        if user.type in ProfileType.valid_student_types():
-            try:
-                status = MatchModel.objects.get(project_posting=self, student=user.student)
-            except MatchModel.DoesNotExist:
-                pass
-        if user.type in ProfileType.valid_company_types():
-            try:
-                status = MatchModel.objects.get(project_posting=self, company=user.company)
-            except MatchModel.DoesNotExist:
-                pass
+
+        status = MatchStatus.get(user, project_posting=self)
 
         if status is not None:
             return {'confirmed': status.complete, 'initiator': status.initiator}
@@ -127,24 +117,25 @@ class ProjectPostingQuery(ObjectType):
     def resolve_project_posting(self, info, **kwargs):
         slug = kwargs.get('slug')
         project_posting_id = kwargs.get('id')
+
         if slug is None and project_posting_id is None:
             raise Http404(_('Project posting not found'))
+
         if slug is not None:
             project_posting = get_object_or_404(ProjectPostingModel, slug=slug)
         elif project_posting_id is not None:
             project_posting = get_object_or_404(ProjectPostingModel, pk=project_posting_id)
 
-        # show incomplete project postings for employees of the company
         user = info.context.user
-        if user.type in ProfileType.valid_company_types():
-            # noinspection PyUnboundLocalVariable
-            if user.company == project_posting.company:
-                return project_posting
+        # show incomplete project postings for employees of the company
+        if user.type in ProfileType.valid_company_types(
+        ) and user.company == project_posting.company:
+            return project_posting
 
         # show incomplete project postings if student is owner
-        if user.type in ProfileType.valid_student_types():
-            if user.student == project_posting.student:
-                return project_posting
+        if user.type in ProfileType.valid_student_types(
+        ) and user.student == project_posting.student:
+            return project_posting
 
         # hide incomplete project postings for other users
         if project_posting.state != ProjectPostingState.PUBLIC:

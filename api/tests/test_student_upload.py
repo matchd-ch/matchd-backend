@@ -86,6 +86,7 @@ def test_upload_too_many_uploads(login, user_student, upload, file_image_jpg, at
     assert data.get('upload').get('success') is False
 
     errors = data.get('upload').get('errors')
+
     assert errors is not None
     assert 'key' in errors
 
