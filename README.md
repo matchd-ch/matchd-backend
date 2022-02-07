@@ -2,6 +2,10 @@
 
 [![.github/workflows/branch_main.yml](https://github.com/matchd-ch/matchd-backend/actions/workflows/branch_main.yml/badge.svg)](https://github.com/matchd-ch/matchd-backend/actions/workflows/branch_main.yml)
 
+## Bugs / Feature Requests
+
+https://github.com/matchd-ch/stories
+
 ## Development Setup
 
 * Install [asdf](https://github.com/asdf-vm/asdf)
