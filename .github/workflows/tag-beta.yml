@@ -34,6 +34,8 @@ jobs:
       csrfCookieDomain: '.joshmartin.ch'
       dataProtectionUrl: 'https://example.com'
       resetDb: true
+      sentryEnvironment: "${{ environment }}"
+      sentryRelease: "${{ version }}"
     secrets:
       DOCKER_PULL_USERNAME: ${{ secrets.DOCKER_PULL_USERNAME }}
       DOCKER_PULL_SECRET: ${{ secrets.DOCKER_PULL_SECRET }}
@@ -41,3 +43,4 @@ jobs:
       SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
       SMTP_USER: ${{ secrets.SMTP_USER }}
       SECRET_KEY: ${{ secrets.STAGING_SECRET_KEY }}
+      SENTRY_DSN: ${{ secrets.SENTRY_DSN }}

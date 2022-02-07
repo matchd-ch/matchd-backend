@@ -70,6 +70,12 @@ on:
       maildevEnabled:
         type: boolean
         default: true
+      sentryEnvironment:
+        default: "${{ version }}"
+        type: string
+      sentryTracesSampleRate:
+        type: number
+        default: 0.5
     secrets:
       DOCKER_PULL_USERNAME:
         required: true
@@ -82,6 +88,8 @@ on:
       SMTP_USER:
         required: true
       SMTP_PASSWORD:
+        required: true
+      SENTRY_DSN:
         required: true
 
 name: "Deploy"
