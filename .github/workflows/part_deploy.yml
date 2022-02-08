@@ -206,6 +206,6 @@ jobs:
               SECRET_KEY: '${{ secrets.SECRET_KEY }}'
               DATA_PROTECTION_URL: '${{ inputs.dataProtectionUrl }}'
               SENTRY_ENVIRONMENT: '${{ inputs.environment }}' 
-              SENTRY_VERSION: '${{ inputs.version }}'
+              SENTRY_RELEASE: '${{ inputs.version }}'
               SENTRY_DSN: '${{ secrets.SENTRY_DSN }}'
               SENTRY_TRACES_SAMPLE_RATE: '${{ inputs.sentryTracesSampleRate }}'
