@@ -2,7 +2,6 @@ on:
   push:
     branches:
       - "main"
-      - "feat/sentry_integration"
 
 name: "Main Branch"
 
@@ -10,19 +9,19 @@ jobs:
   test:
     name: "Test"
     
-    uses: matchd-ch/matchd-backend/.github/workflows/part_test.yml@feat/sentry_integration
+    uses: matchd-ch/matchd-backend/.github/workflows/part_test.yml@main
   
   build:
     name: "Build"
 
-    uses: matchd-ch/matchd-backend/.github/workflows/part_build.yml@feat/sentry_integration
+    uses: matchd-ch/matchd-backend/.github/workflows/part_build.yml@main
 
   deploy:
     name: "Deploy"
 
     needs: ['build']
 
-    uses: matchd-ch/matchd-backend/.github/workflows/part_deploy.yml@feat/sentry_integration
+    uses: matchd-ch/matchd-backend/.github/workflows/part_deploy.yml@main
     with:
       namespace: matchd-backend-development
       release: matchd-backend
