@@ -7,8 +7,8 @@ from db.models import UserRequest
 
 
 @pytest.mark.django_db
-def test_user_request(user_request):
-    data, errors = user_request('John Doe', 'test@matchd.test', 'Some message')
+def test_user_request(make_user_request):
+    data, errors = make_user_request('John Doe', 'test@matchd.test', 'Some message')
     assert errors is None
     assert data is not None
     assert data.get('userRequest') is not None
@@ -35,8 +35,8 @@ def test_user_request(user_request):
 
 
 @pytest.mark.django_db
-def test_user_request_without_data(user_request):
-    data, errors = user_request('', '', '')
+def test_user_request_without_data(make_user_request):
+    data, errors = make_user_request('', '', '')
     assert errors is None
     assert data is not None
     assert data.get('userRequest') is not None
@@ -50,8 +50,8 @@ def test_user_request_without_data(user_request):
 
 
 @pytest.mark.django_db
-def test_user_request_with_invalid_data(user_request):
-    data, errors = user_request('', 'invalid', '')
+def test_user_request_with_invalid_data(make_user_request):
+    data, errors = make_user_request('', 'invalid', '')
     assert errors is None
     assert data is not None
     assert data.get('userRequest') is not None
