@@ -9,14 +9,14 @@ jobs:
   build:
     name: Build
 
-    uses: matchd-ch/matchd-backend/.github/workflows/part_build.yml@feat/sentry_integration
+    uses: matchd-ch/matchd-backend/.github/workflows/part_build.yml@main
 
   deploy:
     name: "Deploy"
 
     needs: ['build']
 
-    uses: matchd-ch/matchd-backend/.github/workflows/part_deploy.yml@feat/sentry_integration
+    uses: matchd-ch/matchd-backend/.github/workflows/part_deploy.yml@main
     with:
       namespace: matchd-backend-staging
       release: matchd-backend
@@ -34,8 +34,6 @@ jobs:
       csrfCookieDomain: '.joshmartin.ch'
       dataProtectionUrl: 'https://example.com'
       resetDb: true
-      sentryEnvironment: ${{ environment }}
-      sentryRelease: ${{ version }}
     secrets:
       DOCKER_PULL_USERNAME: ${{ secrets.DOCKER_PULL_USERNAME }}
       DOCKER_PULL_SECRET: ${{ secrets.DOCKER_PULL_SECRET }}
