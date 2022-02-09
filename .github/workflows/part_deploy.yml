@@ -70,9 +70,6 @@ on:
       maildevEnabled:
         type: boolean
         default: true
-      sentryEnabled:
-        type: boolean
-        default: false
       sentryTracesSampleRate:
         type: number
         default: 0.5
