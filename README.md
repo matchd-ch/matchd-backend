@@ -1,12 +1,14 @@
 # Matchd Backend
 
+## Introduction
+
+Matchd is a job matching system that matches candidates to companies based on a number of factors, making the screening process much easier for recruiters and thus faciliting the talent search process for companies.
+
 [![.github/workflows/branch_main.yml](https://github.com/matchd-ch/matchd-backend/actions/workflows/branch_main.yml/badge.svg)](https://github.com/matchd-ch/matchd-backend/actions/workflows/branch_main.yml)
 
-## Bugs / Feature Requests
+## Getting started
 
-https://github.com/matchd-ch/stories
-
-## Development Setup
+Matchd is a Python, Django based project with a Wagtail CMS and uses a GraphQL as its main (and only) API. A local development environment is available to quickly get up and running.
 
 * Install [asdf](https://github.com/asdf-vm/asdf)
 * Install [asdf-python](https://github.com/danhper/asdf-python)
@@ -77,6 +79,38 @@ If you want to access user specific data you also need to include the authorizat
 Authorization: JWT <YOUR JWT TOKEN HERE>
 ```
 
+## Project details
+
+The project requires a bunch of environment variables at startup. Those variables and their description can be found in `.env.dist`. The project looks automatically for a file named `.env` in the root directory to retrieve the required variables at startup. 
+
+### Database Models
+
+The primary database models: *Users*, *Employees*, *Students* and *Companies*. The *User* is the entry point to interract with the system. A user can be a *Student*, *Employee* (internal, for example a "recruiter") or be related to a *Company*.
+
+
+### Matching process
+
+The matching process can be subdivided in 4 match types: *Student*, *Company*, *Job Posting* and *ProjectPosting*. It relies upon the following environment variables (found in `app/settings/base.py`):
+
+```
+MATCHING_VALUE_BRANCH = 0
+MATCHING_VALUE_JOB_TYPE = 3
+MATCHING_VALUE_PROJECT_TYPE = 3
+MATCHING_VALUE_TOPIC = 3
+MATCHING_VALUE_WORKLOAD = 1
+MATCHING_VALUE_CULTURAL_FITS = 3
+MATCHING_VALUE_SOFT_SKILLS = 3
+MATCHING_VALUE_KEYWORDS = 3
+MATCHING_VALUE_SKILLS = 3
+MATCHING_VALUE_LANGUAGES = 2
+MATCHING_VALUE_DATE_OR_DATE_RANGE = 5
+```
+
+The variables are used as *boosts* in the searching process; each variable increases the relevance / importance of the related topic.
+The highest score value per match type is calculated based on a subset of those variables, such score is used to normalise the retrieved serch results, also called *hits*.
+
+The system uses *elasticsearch* to perform the search (via the Wagtail search backend) and uses the *score* values provided in the results to calculate the final score list. A *match mapper* is then used to match each element of the score list to a desired list of targets (e.g. match map Student to Job Posting, Company to Student, etc).
+
 ## Test Data
 
 *! Do not use dump_data / load_data command from django !*
@@ -125,7 +159,9 @@ cd api/data
 python xlsx_to_json.py
 ```
 
-## Testing
+## Development workflow
+
+The project conforms to the [pep8](https://www.python.org/dev/peps/pep-0008/) styling guide. We recommend running the following command sequence regularly during your coding sessions, and, mandatorily before creating a pull request (so you don't run into problems with the CI / CD pipeline)
 
 ### yapf code formatter
 
@@ -150,4 +186,12 @@ With coverage:
 ```console
 pipenv run test --cov=db --cov=api --cov=app --cov-report html
 ```
+
+## Contributing
+
+You can contribute to the project by opening a pull request that will be peer reviewed. Always run the development workflow commands locally before creating a pull request so that your code conforms to the project's requirements.
+
+## Bugs / Feature Requests
+
+https://github.com/matchd-ch/stories
     
