@@ -70,6 +70,9 @@ on:
       maildevEnabled:
         type: boolean
         default: true
+      sentryTracesSampleRate:
+        type: number
+        default: 0.5
     secrets:
       DOCKER_PULL_USERNAME:
         required: true
@@ -82,6 +85,8 @@ on:
       SMTP_USER:
         required: true
       SMTP_PASSWORD:
+        required: true
+      SENTRY_DSN:
         required: true
 
 name: "Deploy"
@@ -99,7 +104,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - uses: google-github-actions/setup-gcloud@v0.4.0
+      - uses: google-github-actions/setup-gcloud@v0.5.0
         with:
           project_id: "joshmartin-cluster"
 
@@ -108,7 +113,7 @@ jobs:
 
       - id: 'auth'
         name: 'Authenticate to Google Cloud'
-        uses: 'google-github-actions/auth@v0.5.0'
+        uses: 'google-github-actions/auth@v0.6.0'
         with:
           workload_identity_provider: 'projects/182803428686/locations/global/workloadIdentityPools/github/providers/github'
           service_account: 'matchd-deployer@joshmartin-cluster.iam.gserviceaccount.com'
@@ -139,7 +144,7 @@ jobs:
       - name: 'Deploy'
         # TODO: Switch back to deliverybot/helm@v1 as soon as the following PR is merged and released:
         # - https://github.com/deliverybot/helm/pull/68
-        uses: 'Velocity-Engineering/helm@upgrade-alpine'
+        uses: 'Velocity-Engineering/helm@cc5fac2c25dd983ac00d6dcb2cbaebc96c18e6ce'
         with:
           task: '${{ inputs.task }}'
           release: '${{ inputs.release }}'
@@ -200,3 +205,8 @@ jobs:
               WAGTAIL_SITE_NAME: 'MATCHD - ${{ inputs.environment }}'
               SECRET_KEY: '${{ secrets.SECRET_KEY }}'
               DATA_PROTECTION_URL: '${{ inputs.dataProtectionUrl }}'
+              SENTRY_ENABLED: 'true'
+              SENTRY_ENVIRONMENT: '${{ inputs.environment }}' 
+              SENTRY_RELEASE: '${{ inputs.version }}'
+              SENTRY_DSN: '${{ secrets.SENTRY_DSN }}'
+              SENTRY_TRACES_SAMPLE_RATE: '${{ inputs.sentryTracesSampleRate }}'

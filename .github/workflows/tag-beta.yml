@@ -41,3 +41,4 @@ jobs:
       SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
       SMTP_USER: ${{ secrets.SMTP_USER }}
       SECRET_KEY: ${{ secrets.STAGING_SECRET_KEY }}
+      SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
