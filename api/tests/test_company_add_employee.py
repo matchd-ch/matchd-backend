@@ -28,6 +28,7 @@ def test_add_employee_with_existing_username(login, user_employee, add_employee)
     employee_count = len(company.users.all())
     login(user_employee)
     data, errors = add_employee(user_employee, user_employee.username, 'John', 'Doe', 'Role')
+
     assert errors is None
     assert data is not None
     assert data.get('addEmployee') is not None

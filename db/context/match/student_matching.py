@@ -2,8 +2,10 @@ from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.db.models import Prefetch
 from django.http import Http404
+
 from wagtail.search.backends import get_search_backend
 
+from db.context.match.matching import Matching
 from db.models import Student, DateMode, ProfileType, JobPosting, JobPostingLanguageRelation, JobPostingState
 from db.search.builders import StudentParamBuilder
 from db.search.calculators.student import StudentScoreCalculator
@@ -12,17 +14,12 @@ from db.search.resolvers import HitResolver
 
 
 # pylint: disable=R0913
-class StudentMatching:
+class StudentMatching(Matching):
     search_backend = get_search_backend()
 
-    def __init__(self, user, data, first, skip, tech_boost, soft_boost):
-        self.user = user
-        self.data = data
+    def __init__(self, user, **kwargs):
+        super().__init__(user, **kwargs)
         self.job_posting = None
-        self.first = first
-        self.skip = skip
-        self.tech_boost = tech_boost
-        self.soft_boost = soft_boost
 
     def _validate_input(self):
         if self.user.type not in ProfileType.valid_company_types():

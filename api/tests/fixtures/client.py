@@ -10,8 +10,7 @@ from api.schema import schema
 def execute():
 
     def closure(query, variables=None, **kwargs):
-        request_factory = RequestFactory()
-        context_value = request_factory.get('/graphql/')
+        context_value = RequestFactory().get('/graphql/')
         user = kwargs.get('user')
         if user is not None:
             context_value.user = user

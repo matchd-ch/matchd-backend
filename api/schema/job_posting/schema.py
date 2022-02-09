@@ -16,11 +16,11 @@ from api.schema.job_posting_language_relation import JobPostingLanguageRelationI
 from api.schema.registration import EmployeeInput
 from api.schema.skill import SkillInput
 
+from db.context.match.match_status import MatchStatus
 from db.decorators import job_posting_cheating_protection, hyphenate
 from db.exceptions import FormException
 from db.forms import process_job_posting_form_step_1, process_job_posting_form_step_2, process_job_posting_form_step_3
-from db.models import JobPosting as JobPostingModel, Company, JobPostingState as JobPostingStateModel, ProfileType, \
-    Match as MatchModel
+from db.models import JobPosting as JobPostingModel, Company, JobPostingState as JobPostingStateModel, ProfileType
 
 JobPostingState = graphene.Enum.from_enum(JobPostingStateModel)
 
@@ -102,12 +102,8 @@ class JobPosting(DjangoObjectType):
 
     def resolve_match_status(self: JobPostingModel, info):
         user = info.context.user
-        status = None
-        if user.type in ProfileType.valid_student_types():
-            try:
-                status = MatchModel.objects.get(job_posting=self, student=user.student)
-            except MatchModel.DoesNotExist:
-                pass
+
+        status = MatchStatus.get(user, job_posting=self)
 
         if status is not None:
             return {'confirmed': status.complete, 'initiator': status.initiator}

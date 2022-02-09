@@ -15,7 +15,7 @@ def test_register_student(register_student, verification_url_and_token, verify_a
     assert errors is None
     assert data is not None
     assert data.get('registerStudent').get('success')
-    assert data.get('registerStudent').get('errors') is None
+    assert not bool(data.get('registerStudent').get('errors'))
 
     user = get_user_model().objects.get(email=username)
     assert user.first_name == 'John'

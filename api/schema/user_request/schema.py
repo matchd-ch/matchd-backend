@@ -30,17 +30,14 @@ class UserRequest(Output, graphene.Mutation):
 
         user_request_form = UserRequestForm(user_request_data)
         user_request_form.full_clean()
+
         if user_request_form.is_valid():
             user_request = UserRequestModel(**user_request_data)
+            user_request.save()
         else:
             errors.update(user_request_form.errors.get_json_data())
 
-        if errors:
-            return UserRequest(success=False, errors=errors)
-
-        user_request.save()
-
-        return UserRequest(success=True)
+        return UserRequest(success=not errors, errors=errors)
 
 
 class UserRequestMutation(ObjectType):
