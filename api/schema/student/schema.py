@@ -61,7 +61,7 @@ class Student(DjangoObjectType):
         model = StudentModel
         interfaces = (relay.Node, )
         fields = ('mobile', 'street', 'zip', 'city', 'date_of_birth', 'nickname', 'school_name',
-                  'field_of_study', 'graduation', 'skills', 'hobbies', 'languages',
+                  'field_of_study', 'graduation', 'skills', 'hobbies', 'languages', 'distinction',
                   'online_projects', 'state', 'profile_step', 'soft_skills', 'cultural_fits',
                   'branch', 'slug', 'job_type', 'job_from_date', 'job_to_date')
         convert_choices_to_enum = False
