@@ -70,6 +70,9 @@ on:
       maildevEnabled:
         type: boolean
         default: true
+      sentryEnabled:
+        type: boolean
+        default: false
       sentryTracesSampleRate:
         type: number
         default: 0.5
@@ -205,6 +208,7 @@ jobs:
               WAGTAIL_SITE_NAME: 'MATCHD - ${{ inputs.environment }}'
               SECRET_KEY: '${{ secrets.SECRET_KEY }}'
               DATA_PROTECTION_URL: '${{ inputs.dataProtectionUrl }}'
+              SENTRY_ENABLED: 'true'
               SENTRY_ENVIRONMENT: '${{ inputs.environment }}' 
               SENTRY_RELEASE: '${{ inputs.version }}'
               SENTRY_DSN: '${{ secrets.SENTRY_DSN }}'

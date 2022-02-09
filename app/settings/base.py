@@ -434,8 +434,12 @@ DEBUG_TOOLBAR_CONFIG = {
 # Sentry Integration
 # pylint:disable=E0110
 
-sentry_sdk.init(
-    integrations=[DjangoIntegration()],
-    traces_sample_rate=float(os.getenv('SENTRY_TRACES_SAMPLE_RATE', 1.0)),
-    send_default_pii=True,
-)
+SENTRY_ENABLED = os.getenv('SENTRY_ENABLED', False)
+SENTRY_TRACES_SAMPLE_RATE = float(os.getenv('SENTRY_TRACES_SAMPLE_RATE', 1.0))
+
+if SENTRY_ENABLED:
+    sentry_sdk.init(
+        integrations=[DjangoIntegration()],
+        traces_sample_rate=SENTRY_TRACES_SAMPLE_RATE,
+        send_default_pii=True,
+    )
