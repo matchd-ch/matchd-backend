@@ -14,6 +14,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from datetime import timedelta
 from urllib.parse import urlparse
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 SECRET_KEY = 'y1m_k!q=s(7m&8!)91-#9wan_568xbvqg_8$hfl@dkhy_ep#u-'
 ALLOWED_HOSTS = ['*']
@@ -428,3 +430,16 @@ def show_debug_toolbar(request):
 DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': show_debug_toolbar,
 }
+
+# Sentry Integration
+# pylint:disable=E0110
+
+SENTRY_ENABLED = os.getenv('SENTRY_ENABLED', False)
+SENTRY_TRACES_SAMPLE_RATE = float(os.getenv('SENTRY_TRACES_SAMPLE_RATE', 1.0))
+
+if SENTRY_ENABLED:
+    sentry_sdk.init(
+        integrations=[DjangoIntegration()],
+        traces_sample_rate=SENTRY_TRACES_SAMPLE_RATE,
+        send_default_pii=True,
+    )
