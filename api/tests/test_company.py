@@ -2,6 +2,9 @@ import pytest
 
 from django.contrib.auth.models import AnonymousUser
 
+from graphql_relay import to_global_id
+
+from api.tests.helpers.node_helper import assert_node_field, assert_node_id
 from db.models import ProfileState, JobPostingState, ProjectPostingState
 
 
@@ -20,6 +23,7 @@ def test_company(company_object_complete, query_company, job_posting_objects,
     company = data.get('company')
     assert errors is None
     assert company is not None
+    assert company.get('id') == to_global_id('Company', company_object_complete.id)
     assert company.get('type') == company_object_complete.type.upper()
     assert company.get('state') == company_object_complete.state.upper()
     assert company.get('profileStep') == company_object_complete.profile_step
@@ -76,6 +80,7 @@ def test_company_incomplete_as_employee(login, company_object_complete, query_co
     company = data.get('company')
     assert errors is None
     assert company is not None
+    assert company.get('id') == to_global_id('Company', company_object_complete.id)
     assert company.get('type') == company_object_complete.type.upper()
     assert company.get('state') == company_object_complete.state.upper()
     assert company.get('profileStep') == company_object_complete.profile_step
@@ -109,3 +114,17 @@ def test_company_incomplete_as_employee(login, company_object_complete, query_co
 
     employee = company.get('employees')[0]
     assert employee.get('phone') == company.get('phone')
+
+
+@pytest.mark.django_db
+def test_node_query(query_company_node, company_object_complete):
+    data, errors = query_company_node(AnonymousUser(), company_object_complete.id)
+
+    assert errors is None
+    assert data is not None
+
+    node = data.get('node')
+    assert node is not None
+    assert_node_id(node, 'Company', company_object_complete.id)
+    assert_node_field(node, 'name', company_object_complete.name)
+    assert_node_field(node, 'slug', company_object_complete.slug)

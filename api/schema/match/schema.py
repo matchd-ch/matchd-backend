@@ -15,10 +15,10 @@ from api.schema.zip_city import ZipCityInput
 from api.schema.job_posting import JobPostingInput
 from api.schema.job_type import JobTypeInput
 
+from db.context.match.matching_factory import MatchingFactory
 from db.exceptions import FormException
 from db.forms import process_job_posting_match, process_student_match, process_project_posting_match
 from db.models import MatchType as MatchTypeModel, Match as MatchModel
-from db.search.matching import JobPostingMatching, StudentMatching, CompanyMatching, ProjectPostingMatching
 
 MatchType = graphene.Enum.from_enum(MatchTypeModel)
 
@@ -106,32 +106,8 @@ class MatchQuery(ObjectType):
     @login_required
     def resolve_matches(self, info, **kwargs):
         user = info.context.user
-        first = kwargs.get('first')
-        skip = kwargs.get('skip')
 
-        # normalize boost
-        soft_boost = max(min(kwargs.get('soft_boost', 1), 5), 1)
-        tech_boost = max(min(kwargs.get('tech_boost', 1), 5), 1)
-
-        job_posting_matching = kwargs.get('job_posting_matching', None)
-        if job_posting_matching is not None:
-            matching = JobPostingMatching(user, job_posting_matching, first, skip, tech_boost,
-                                          soft_boost)
-            return matching.find_matches()
-
-        student_matching = kwargs.get('student_matching', None)
-        if student_matching is not None:
-            matching = StudentMatching(user, student_matching, first, skip, tech_boost, soft_boost)
-            return matching.find_matches()
-
-        project_matching = kwargs.get('project_posting_matching', None)
-        if project_matching is not None:
-            matching = ProjectPostingMatching(user, project_matching, first, skip, tech_boost,
-                                              soft_boost)
-            return matching.find_matches()
-
-        matching = CompanyMatching(user, first, skip, tech_boost, soft_boost)
-        return matching.find_matches()
+        return MatchingFactory().get_matching_context(user, **kwargs).find_matches()
 
 
 class MatchStudentInput(graphene.InputObjectType):

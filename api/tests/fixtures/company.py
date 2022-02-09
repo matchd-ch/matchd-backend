@@ -1,10 +1,26 @@
 import pytest
 
+from graphql_relay import to_global_id
+
 from db.models import Company, ProfileState, ProfileType, Employee
 
 # pylint: disable=W0621
 # pylint: disable=R0913
 # pylint: disable=C0209
+
+
+def company_node_query():
+    return '''
+    query ($id: ID!) {
+        node(id: $id) {
+            id
+            ... on Company {
+                name
+                slug
+            }
+        }
+    }
+    '''
 
 
 def company_query(slug):
@@ -75,6 +91,17 @@ def company_query(slug):
         }
     }
     ''' % slug
+
+
+@pytest.fixture
+def query_company_node(execute):
+
+    def closure(user, id_value):
+        return execute(company_node_query(),
+                       variables={'id': to_global_id('Company', id_value)},
+                       **{'user': user})
+
+    return closure
 
 
 @pytest.fixture
