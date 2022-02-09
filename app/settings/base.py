@@ -321,7 +321,7 @@ AUTH_USER_MODEL = 'db.User'
 GRAPHIQL_ENABLED = os.getenv('GRAPHIQL_ENABLED', False)
 
 # Database Models
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Graphene Settings
 GRAPHENE = {
