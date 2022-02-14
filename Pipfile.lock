@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "7c940bc010a73fbc085a9d6c4be885e1b3a5348bd72c03bf4e0cfa2061fbc776"
+            "sha256": "5c1e400c0af11448ebfe5da129d8dcbab0ce4493a867fa253a2529f7773e3e61"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -83,11 +83,11 @@
         },
         "charset-normalizer": {
             "hashes": [
-                "sha256:2842d8f5e82a1f6aa437380934d5e1cd4fcf2003b06fed6940769c164a480a45",
-                "sha256:98398a9d69ee80548c762ba991a4728bfc3836768ed226b3945908d1a688371c"
+                "sha256:2857e29ff0d34db842cd7ca3230549d1a697f96ee6d3fb071cfa6c7393832597",
+                "sha256:6881edbebdb17b39b4eaaa821b438bf6eddffb4468cf344f09f89def34a8b1df"
             ],
             "markers": "python_version >= '3'",
-            "version": "==2.0.11"
+            "version": "==2.0.12"
         },
         "coverage": {
             "hashes": [
@@ -646,11 +646,11 @@
         },
         "setuptools": {
             "hashes": [
-                "sha256:43a5575eea6d3459789316e1596a3d2a0d215260cacf4189508112f35c9a145b",
-                "sha256:66b8598da112b8dc8cd941d54cf63ef91d3b50657b374457eda5851f3ff6a899"
+                "sha256:716f9d20b4c3513d1720245eb1dac009b40c9694c88e940e54b67b8b65d09493",
+                "sha256:d181db00651bce5268b8f559795053d5e8f645e4dbafac6d262b22d7e72e19eb"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==60.8.2"
+            "version": "==60.9.0"
         },
         "singledispatch": {
             "hashes": [
@@ -742,11 +742,11 @@
         },
         "wagtail": {
             "hashes": [
-                "sha256:91f0b0f6552b41b6c0c69a13e660b412cc966c239679cb6c418022e09c4c2792",
-                "sha256:dcf522bc2428a4352504b160dca16dfafebafabdd4e13406995be09b2f797998"
+                "sha256:7ee7a5b82669383e3e1fbe17fcaca8da8e14a23462fbf0cb0e57849f8a8c60e8",
+                "sha256:a8b9efe12140972b0c7cad29905505adf42a48094016171c03fdaef90af2639d"
             ],
             "index": "pypi",
-            "version": "==2.15.3"
+            "version": "==2.15.4"
         },
         "wagtailfontawesome": {
             "hashes": [
