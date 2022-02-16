@@ -38,8 +38,6 @@ if settings.DEBUG:
     urlpatterns += staticfiles_urlpatterns()
     urlpatterns += [
         path('__debug__/', include(debug_toolbar.urls)),
-        path('introspection/',
-             csrf_exempt(GraphQLView.as_view(graphiql=settings.GRAPHIQL_ENABLED))),
         path('index/', indexing_debug_view),
     ]
 
