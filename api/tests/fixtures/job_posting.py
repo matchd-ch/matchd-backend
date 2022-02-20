@@ -219,28 +219,27 @@ def query_job_postings(execute):
     return closure
 
 
-def job_posting_mutation(step):
-    step = str(step)
+def job_posting_mutation(kind, gql_variable_name):
     return '''
-    mutation JobPostingMutation($step%s: JobPostingInputStep%s!) {
-      jobPostingStep%s(step%s: $step%s) {
+    mutation JobPostingMutation($%s: JobPostingInput%s!) {
+      jobPosting%s(%s: $%s) {
         success,
         errors,
         slug,
         jobPostingId
       }
     }
-    ''' % (step, step, step, step, step)
+    ''' % (gql_variable_name, kind, kind, gql_variable_name, gql_variable_name)
 
 
 @pytest.fixture
-def job_posting_step_1(execute):
+def job_posting_base_data(execute):
 
     def closure(user, title, description, job_type, branches, workload, job_from_date, job_to_date,
                 url):
-        return execute(job_posting_mutation(1),
+        return execute(job_posting_mutation("BaseData", "baseData"),
                        variables={
-                           'step1': {
+                           'baseData': {
                                'title': title,
                                'description': description,
                                'jobType': None if job_type is None else {
@@ -261,12 +260,12 @@ def job_posting_step_1(execute):
 
 
 @pytest.fixture
-def job_posting_step_2(execute):
+def job_posting_requirements(execute):
 
     def closure(user, job_posting_id, job_requirements, skills, languages):
-        return execute(job_posting_mutation(2),
+        return execute(job_posting_mutation("Requirements", "requirements"),
                        variables={
-                           'step2': {
+                           'requirements': {
                                'id':
                                job_posting_id,
                                'jobRequirements': [{
@@ -287,12 +286,12 @@ def job_posting_step_2(execute):
 
 
 @pytest.fixture
-def job_posting_step_3(execute):
+def job_posting_allocation(execute):
 
     def closure(user, job_posting_id, state, employee):
-        return execute(job_posting_mutation(3),
+        return execute(job_posting_mutation("Allocation", "allocation"),
                        variables={
-                           'step3': {
+                           'allocation': {
                                'id': job_posting_id,
                                'state': state,
                                'employee': {

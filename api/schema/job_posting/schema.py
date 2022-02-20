@@ -19,12 +19,11 @@ from api.schema.skill import SkillInput
 from db.context.match.match_status import MatchStatus
 from db.decorators import job_posting_cheating_protection, hyphenate
 from db.exceptions import FormException
-from db.forms import process_job_posting_form_step_1, process_job_posting_form_step_2, process_job_posting_form_step_3
+from db.forms import process_job_posting_base_data_form, process_job_posting_requirements_form, \
+                process_job_posting_allocation_form
 from db.models import JobPosting as JobPostingModel, Company, JobPostingState as JobPostingStateModel, ProfileType
 
 JobPostingState = graphene.Enum.from_enum(JobPostingStateModel)
-
-# TODO: Check permissions for get_node()
 
 
 class JobPostingInput(graphene.InputObjectType):
@@ -164,7 +163,7 @@ class JobPostingQuery(ObjectType):
         return JobPostingModel.objects.filter(state=JobPostingState.PUBLIC, company=company)
 
 
-class JobPostingInputStep1(graphene.InputObjectType):
+class JobPostingInputBaseData(graphene.InputObjectType):
     id = graphene.ID(required=False)
     title = graphene.String(description=_('Title'), required=True)
     description = graphene.String(description=_('Description'), required=False)
@@ -176,13 +175,13 @@ class JobPostingInputStep1(graphene.InputObjectType):
     url = graphene.String(required=False)
 
 
-class JobPostingStep1(Output, graphene.Mutation):
+class JobPostingBaseDataForm(Output, graphene.Mutation):
     slug = graphene.String()
     job_posting_id = graphene.ID()
 
     class Arguments:
-        step1 = JobPostingInputStep1(description=_('Job Posting Input Step 1 is required.'),
-                                     required=True)
+        base_data = JobPostingInputBaseData(
+            description=_('Job Posting Input Base Data is required.'), required=True)
 
     class Meta:
         description = _('Creates a job posting')
@@ -191,31 +190,31 @@ class JobPostingStep1(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        form_data = data.get('step1', None)
+        form_data = data.get('base_data', None)
         try:
-            job_posting = process_job_posting_form_step_1(user, form_data)
+            job_posting = process_job_posting_base_data_form(user, form_data)
         except FormException as exception:
-            return JobPostingStep1(success=False, errors=exception.errors)
-        return JobPostingStep1(success=True,
-                               errors=None,
-                               slug=job_posting.slug,
-                               job_posting_id=job_posting.id)
+            return JobPostingBaseDataForm(success=False, errors=exception.errors)
+        return JobPostingBaseDataForm(success=True,
+                                      errors=None,
+                                      slug=job_posting.slug,
+                                      job_posting_id=job_posting.id)
 
 
-class JobPostingInputStep2(graphene.InputObjectType):
+class JobPostingInputRequirements(graphene.InputObjectType):
     id = graphene.ID()
     job_requirements = graphene.List(JobRequirementInput, required=False)
     skills = graphene.List(SkillInput, required=False)
     languages = graphene.List(JobPostingLanguageRelationInput, required=False)
 
 
-class JobPostingStep2(Output, graphene.Mutation):
+class JobPostingRequirements(Output, graphene.Mutation):
     slug = graphene.String()
     job_posting_id = graphene.ID()
 
     class Arguments:
-        step2 = JobPostingInputStep2(description=_('Job Posting Input Step 2 is required.'),
-                                     required=True)
+        requirements = JobPostingInputRequirements(
+            description=_('Job Posting Input Requirements is required.'), required=True)
 
     class Meta:
         description = _('Updates a job posting')
@@ -224,30 +223,30 @@ class JobPostingStep2(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        form_data = data.get('step2', None)
+        form_data = data.get('requirements', None)
         try:
-            job_posting = process_job_posting_form_step_2(user, form_data)
+            job_posting = process_job_posting_requirements_form(user, form_data)
         except FormException as exception:
-            return JobPostingStep2(success=False, errors=exception.errors)
-        return JobPostingStep2(success=True,
-                               errors=None,
-                               slug=job_posting.slug,
-                               job_posting_id=job_posting.id)
+            return JobPostingRequirements(success=False, errors=exception.errors)
+        return JobPostingRequirements(success=True,
+                                      errors=None,
+                                      slug=job_posting.slug,
+                                      job_posting_id=job_posting.id)
 
 
-class JobPostingInputStep3(graphene.InputObjectType):
+class JobPostingInputAllocation(graphene.InputObjectType):
     id = graphene.ID()
     state = graphene.String(description=_('State'), required=True)
     employee = graphene.Field(EmployeeInput, required=True)
 
 
-class JobPostingStep3(Output, graphene.Mutation):
+class JobPostingAllocationForm(Output, graphene.Mutation):
     slug = graphene.String()
     job_posting_id = graphene.ID()
 
     class Arguments:
-        step3 = JobPostingInputStep3(description=_('Job Posting Input Step 3 is required.'),
-                                     required=True)
+        allocation = JobPostingInputAllocation(
+            description=_('Job Posting Input Allocation is required.'), required=True)
 
     class Meta:
         description = _('Updates a job posting')
@@ -256,18 +255,18 @@ class JobPostingStep3(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        form_data = data.get('step3', None)
+        form_data = data.get('allocation', None)
         try:
-            job_posting = process_job_posting_form_step_3(user, form_data)
+            job_posting = process_job_posting_allocation_form(user, form_data)
         except FormException as exception:
-            return JobPostingStep3(success=False, errors=exception.errors)
-        return JobPostingStep3(success=True,
-                               errors=None,
-                               slug=job_posting.slug,
-                               job_posting_id=job_posting.id)
+            return JobPostingAllocationForm(success=False, errors=exception.errors)
+        return JobPostingAllocationForm(success=True,
+                                        errors=None,
+                                        slug=job_posting.slug,
+                                        job_posting_id=job_posting.id)
 
 
 class JobPostingMutation(ObjectType):
-    job_posting_step_1 = JobPostingStep1.Field()
-    job_posting_step_2 = JobPostingStep2.Field()
-    job_posting_step_3 = JobPostingStep3.Field()
+    job_posting_base_data = JobPostingBaseDataForm.Field()
+    job_posting_requirements = JobPostingRequirements.Field()
+    job_posting_allocation = JobPostingAllocationForm.Field()

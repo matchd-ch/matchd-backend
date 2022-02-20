@@ -4,25 +4,24 @@ import pytest
 # pylint: disable=C0209
 
 
-def company_profile_mutation(step):
-    step = str(step)
+def company_profile_mutation(kind, gql_variable_name):
     return '''
-    mutation CompanyProfileMutation($step%s: CompanyProfileInputStep%s!) {
-        companyProfileStep%s(step%s: $step%s) {
+    mutation CompanyProfileMutation($%s: CompanyProfileInput%s!) {
+        companyProfile%s(%s: $%s) {
             success,
             errors
         }
     }
-    ''' % (step, step, step, step, step)
+    ''' % (gql_variable_name, kind, kind, gql_variable_name, gql_variable_name)
 
 
 @pytest.fixture
-def company_step_1(execute):
+def company_base_data(execute):
 
     def closure(user, first_name, last_name, name, street, zip_value, city, phone, role):
-        return execute(company_profile_mutation(1),
+        return execute(company_profile_mutation("BaseData", "baseData"),
                        variables={
-                           'step1': {
+                           'baseData': {
                                'firstName': first_name,
                                'lastName': last_name,
                                'name': name,
@@ -39,12 +38,12 @@ def company_step_1(execute):
 
 
 @pytest.fixture
-def company_step_2(execute):
+def company_relations(execute):
 
     def closure(user, website, description, services, member_it_st_gallen):
-        return execute(company_profile_mutation(2),
+        return execute(company_profile_mutation("Relations", "relations"),
                        variables={
-                           'step2': {
+                           'relations': {
                                'website': website,
                                'description': description,
                                'services': services,
@@ -57,12 +56,12 @@ def company_step_2(execute):
 
 
 @pytest.fixture
-def company_step_3(execute):
+def company_advantages(execute):
 
     def closure(user, branches, benefits):
-        return execute(company_profile_mutation(3),
+        return execute(company_profile_mutation("Advantages", "advantages"),
                        variables={
-                           'step3': {
+                           'advantages': {
                                'branches': [{
                                    'id': obj.id
                                } for obj in branches],
@@ -77,12 +76,12 @@ def company_step_3(execute):
 
 
 @pytest.fixture
-def company_step_4(execute):
+def company_values(execute):
 
     def closure(user, soft_skills, cultural_fits):
-        return execute(company_profile_mutation(4),
+        return execute(company_profile_mutation("Values", "values"),
                        variables={
-                           'step4': {
+                           'values': {
                                'softSkills': [{
                                    'id': obj.id
                                } for obj in soft_skills],
