@@ -8,8 +8,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import Client
 
-from graphql_relay import to_global_id
-
 from db.models import Attachment, Image, AttachmentKey
 
 # pylint: disable=C0209
@@ -171,12 +169,10 @@ def attachments_by_slug_query(slug):
 
 
 @pytest.fixture
-def query_attachment_node(execute):
+def query_attachment_node_by_node_id(execute):
 
-    def closure(user, id_value):
-        return execute(attachment_node_query(),
-                       variables={'id': to_global_id('Attachment', id_value)},
-                       **{'user': user})
+    def closure(user, node_id):
+        return execute(attachment_node_query(), variables={'id': node_id}, **{'user': user})
 
     return closure
 
@@ -203,6 +199,9 @@ def upload_mutation(key):
     return '''
     mutation {
       upload(file: Upload, key: %s) {
+        attachment {
+            id
+        }
         success
         errors
       }

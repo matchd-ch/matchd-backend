@@ -95,6 +95,6 @@ python_version = "3.10"
 [scripts]
 setup = "./setup.sh"
 start = "./manage.py runserver"
-test = "pytest"
+test = "pytest --reuse-db --migrations"
 lint = "pylint api app db"
 format = "yapf -ir ."

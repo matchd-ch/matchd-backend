@@ -4,7 +4,7 @@ from graphene_file_upload.scalars import Upload
 from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 
-from api.schema.attachment import AttachmentKey
+from api.schema.attachment import Attachment, AttachmentKey
 from api.schema.project_posting.schema import ProjectPostingInput
 
 from db.context.upload.resource import Resource
@@ -13,6 +13,8 @@ from db.models import upload_configurations
 
 
 class UserUpload(Output, graphene.Mutation):
+
+    attachment = graphene.Field(lambda: Attachment)
 
     class Arguments:
         file = Upload(required=True)
@@ -36,7 +38,9 @@ class UserUpload(Output, graphene.Mutation):
 
         uploader = Uploader().upload(user, resource)
 
-        return UserUpload(success=uploader.success, errors=uploader.errors)
+        return UserUpload(success=uploader.success,
+                          errors=uploader.errors,
+                          attachment=uploader.attachment)
 
 
 class UploadMutation(ObjectType):
