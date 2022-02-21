@@ -16,8 +16,8 @@ from api.schema.topic.schema import TopicInput
 from db.context.match.match_status import MatchStatus
 from db.decorators import hyphenate
 from db.exceptions import FormException
-from db.forms import process_project_posting_form_step_1, process_project_posting_form_step_2
-from db.forms.project_posting_step_3 import process_project_posting_form_step_3
+from db.forms import process_project_posting_base_data_form, process_project_posting_specific_data_form
+from db.forms.project_posting_allocation import process_project_posting_allocation_form
 from db.models import ProjectPosting as ProjectPostingModel, ProjectPostingState as ProjectPostingStateModel, \
     ProfileType
 
@@ -155,7 +155,7 @@ class ProjectPostingQuery(ObjectType):
         return project_postings
 
 
-class ProjectPostingInputStep1(graphene.InputObjectType):
+class ProjectPostingInputBaseData(graphene.InputObjectType):
     id = graphene.ID(required=False)
     title = graphene.String(description=_('Title'), required=True)
     project_type = graphene.Field(ProjectTypeInput, required=True)
@@ -166,13 +166,13 @@ class ProjectPostingInputStep1(graphene.InputObjectType):
                                              required=False)
 
 
-class ProjectPostingStep1(Output, graphene.Mutation):
+class ProjectPostingBaseData(Output, graphene.Mutation):
     slug = graphene.String()
     project_posting_id = graphene.ID()
 
     class Arguments:
-        step1 = ProjectPostingInputStep1(description=_('Project Posting Input Step 1 is required.'),
-                                         required=True)
+        base_data = ProjectPostingInputBaseData(
+            description=_('Project Posting Input Base Data is required.'), required=True)
 
     class Meta:
         description = _('Creates a project posting')
@@ -181,30 +181,30 @@ class ProjectPostingStep1(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        form_data = data.get('step1', None)
+        form_data = data.get('base_data', None)
         try:
-            project_posting = process_project_posting_form_step_1(user, form_data)
+            project_posting = process_project_posting_base_data_form(user, form_data)
         except FormException as exception:
-            return ProjectPostingStep1(success=False, errors=exception.errors)
-        return ProjectPostingStep1(success=True,
-                                   errors=None,
-                                   slug=project_posting.slug,
-                                   project_posting_id=project_posting.id)
+            return ProjectPostingBaseData(success=False, errors=exception.errors)
+        return ProjectPostingBaseData(success=True,
+                                      errors=None,
+                                      slug=project_posting.slug,
+                                      project_posting_id=project_posting.id)
 
 
-class ProjectPostingInputStep2(graphene.InputObjectType):
+class ProjectPostingInputSpecificData(graphene.InputObjectType):
     id = graphene.ID(required=False)
     project_from_date = graphene.String(required=False)
     website = graphene.String(required=False)
 
 
-class ProjectPostingStep2(Output, graphene.Mutation):
+class ProjectPostingSpecificData(Output, graphene.Mutation):
     slug = graphene.String()
     project_posting_id = graphene.ID()
 
     class Arguments:
-        step2 = ProjectPostingInputStep2(description=_('Project Posting Input Step 2 is required.'),
-                                         required=True)
+        specific_data = ProjectPostingInputSpecificData(
+            description=_('Project Posting Input Specific Data is required.'), required=True)
 
     class Meta:
         description = _('Creates a project posting')
@@ -213,30 +213,30 @@ class ProjectPostingStep2(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        form_data = data.get('step2', None)
+        form_data = data.get('specific_data', None)
         try:
-            project_posting = process_project_posting_form_step_2(user, form_data)
+            project_posting = process_project_posting_specific_data_form(user, form_data)
         except FormException as exception:
-            return ProjectPostingStep2(success=False, errors=exception.errors)
-        return ProjectPostingStep2(success=True,
-                                   errors=None,
-                                   slug=project_posting.slug,
-                                   project_posting_id=project_posting.id)
+            return ProjectPostingSpecificData(success=False, errors=exception.errors)
+        return ProjectPostingSpecificData(success=True,
+                                          errors=None,
+                                          slug=project_posting.slug,
+                                          project_posting_id=project_posting.id)
 
 
-class ProjectPostingInputStep3(graphene.InputObjectType):
+class ProjectPostingInputAllocation(graphene.InputObjectType):
     id = graphene.ID()
     state = graphene.String(description=_('State'), required=True)
     employee = graphene.Field(EmployeeInput, required=False)
 
 
-class ProjectPostingStep3(Output, graphene.Mutation):
+class ProjectPostingAllocation(Output, graphene.Mutation):
     slug = graphene.String()
     project_posting_id = graphene.ID()
 
     class Arguments:
-        step3 = ProjectPostingInputStep3(description=_('Project Posting Input Step 3 is required.'),
-                                         required=True)
+        allocation = ProjectPostingInputAllocation(
+            description=_('Project Posting Input Allocation is required.'), required=True)
 
     class Meta:
         description = _('Updates a project posting')
@@ -245,18 +245,18 @@ class ProjectPostingStep3(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        form_data = data.get('step3', None)
+        form_data = data.get('allocation', None)
         try:
-            project_posting = process_project_posting_form_step_3(user, form_data)
+            project_posting = process_project_posting_allocation_form(user, form_data)
         except FormException as exception:
-            return ProjectPostingStep3(success=False, errors=exception.errors)
-        return ProjectPostingStep3(success=True,
-                                   errors=None,
-                                   slug=project_posting.slug,
-                                   project_posting_id=project_posting.id)
+            return ProjectPostingAllocation(success=False, errors=exception.errors)
+        return ProjectPostingAllocation(success=True,
+                                        errors=None,
+                                        slug=project_posting.slug,
+                                        project_posting_id=project_posting.id)
 
 
 class ProjectPostingMutation(ObjectType):
-    project_posting_step_1 = ProjectPostingStep1.Field()
-    project_posting_step_2 = ProjectPostingStep2.Field()
-    project_posting_step_3 = ProjectPostingStep3.Field()
+    project_posting_base_data = ProjectPostingBaseData.Field()
+    project_posting_specific_data = ProjectPostingSpecificData.Field()
+    project_posting_allocation = ProjectPostingAllocation.Field()

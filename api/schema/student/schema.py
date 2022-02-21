@@ -22,9 +22,8 @@ from api.schema.user_language_relation.user_language_relation import UserLanguag
 
 from db.decorators import privacy_protection
 from db.exceptions import FormException, NicknameException
-from db.forms import process_student_form_step_1, process_student_form_step_2, \
-    process_student_form_step_5, process_student_form_step_6, process_student_form_step_4
-from db.forms.student_step_3 import process_student_form_step_3
+from db.forms import process_student_base_data_form, process_student_character_form, process_student_employment_form, \
+    process_student_specific_data_form, process_student_condition_form, process_student_abilities_form
 from db.models import Student as StudentModel, ProfileType, Match as MatchModel, ProjectPostingState
 
 
@@ -179,7 +178,7 @@ class Student(DjangoObjectType):
         return self.project_postings.filter(state=ProjectPostingState.PUBLIC)
 
 
-class StudentProfileInputStep1(graphene.InputObjectType):
+class StudentProfileInputBaseData(graphene.InputObjectType):
     first_name = graphene.String(description=_('First name'), required=True)
     last_name = graphene.String(description=_('Last name'), required=True)
     street = graphene.String(description=_('street'))
@@ -189,11 +188,11 @@ class StudentProfileInputStep1(graphene.InputObjectType):
     mobile = graphene.String(description=_('Date of birth'))
 
 
-class StudentProfileStep1(Output, graphene.Mutation):
+class StudentProfileBaseData(Output, graphene.Mutation):
 
     class Arguments:
-        step1 = StudentProfileInputStep1(description=_('Profile Input Step 1 is required.'),
-                                         required=True)
+        base_data = StudentProfileInputBaseData(
+            description=_('Profile Input Base Data is required.'), required=True)
 
     class Meta:
         description = _('Updates the profile of a student')
@@ -202,26 +201,26 @@ class StudentProfileStep1(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        form_data = data.get('step1', None)
+        form_data = data.get('base_data', None)
         try:
-            process_student_form_step_1(user, form_data)
+            process_student_base_data_form(user, form_data)
         except FormException as exception:
-            return StudentProfileStep1(success=False, errors=exception.errors)
-        return StudentProfileStep1(success=True, errors=None)
+            return StudentProfileBaseData(success=False, errors=exception.errors)
+        return StudentProfileBaseData(success=True, errors=None)
 
 
-class StudentProfileInputStep2(graphene.InputObjectType):
+class StudentProfileInputEmployment(graphene.InputObjectType):
     job_type = graphene.Field(JobTypeInput, required=True)
     job_from_date = graphene.String(required=False)
     job_to_date = graphene.String(required=False)
     branch = graphene.Field(BranchInput, required=False)
 
 
-class StudentProfileStep2(Output, graphene.Mutation):
+class StudentProfileEmployment(Output, graphene.Mutation):
 
     class Arguments:
-        step2 = StudentProfileInputStep2(description=_('Profile Input Step 2 is required.'),
-                                         required=True)
+        employment = StudentProfileInputEmployment(
+            description=_('Profile Input Employment is required.'), required=True)
 
     class Meta:
         description = _('Updates job option, date (start or range) and branch of a student')
@@ -230,24 +229,24 @@ class StudentProfileStep2(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        form_data = data.get('step2', None)
+        form_data = data.get('employment', None)
         try:
-            process_student_form_step_2(user, form_data)
+            process_student_employment_form(user, form_data)
         except FormException as exception:
-            return StudentProfileStep2(success=False, errors=exception.errors)
-        return StudentProfileStep2(success=True, errors=None)
+            return StudentProfileEmployment(success=False, errors=exception.errors)
+        return StudentProfileEmployment(success=True, errors=None)
 
 
-class StudentProfileInputStep3(graphene.InputObjectType):
+class StudentProfileInputCharacter(graphene.InputObjectType):
     soft_skills = graphene.List(SoftSkillInput, required=False)
     cultural_fits = graphene.List(CulturalFitInput, required=False)
 
 
-class StudentProfileStep3(Output, graphene.Mutation):
+class StudentProfileCharacter(Output, graphene.Mutation):
 
     class Arguments:
-        step3 = StudentProfileInputStep3(description=_('Profile Input Step 3 is required.'),
-                                         required=True)
+        character = StudentProfileInputCharacter(
+            description=_('Profile Input Character is required.'), required=True)
 
     class Meta:
         description = _('Updates soft skills and cultural fits of a student')
@@ -256,15 +255,15 @@ class StudentProfileStep3(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        form_data = data.get('step3', None)
+        form_data = data.get('character', None)
         try:
-            process_student_form_step_3(user, form_data)
+            process_student_character_form(user, form_data)
         except FormException as exception:
-            return StudentProfileStep3(success=False, errors=exception.errors)
-        return StudentProfileStep3(success=True, errors=None)
+            return StudentProfileCharacter(success=False, errors=exception.errors)
+        return StudentProfileCharacter(success=True, errors=None)
 
 
-class StudentProfileInputStep4(graphene.InputObjectType):
+class StudentProfileInputAbilities(graphene.InputObjectType):
     skills = graphene.List(SkillInput, description=_('Skills'), required=False)
     hobbies = graphene.List(HobbyInput, description=_('Hobbies'), required=False)
     online_projects = graphene.List(OnlineProjectInput,
@@ -274,10 +273,11 @@ class StudentProfileInputStep4(graphene.InputObjectType):
     distinction = graphene.String(description=_('Distinction'), required=False)
 
 
-class StudentProfileStep4(Output, graphene.Mutation):
+class StudentProfileAbilities(Output, graphene.Mutation):
 
     class Arguments:
-        step4 = StudentProfileInputStep4(description=_('Profile Input Step 4 is required.'))
+        abilities = StudentProfileInputAbilities(
+            description=_('Profile Input Abilities is required.'))
 
     class Meta:
         description = _('Updates the profile of a student')
@@ -286,25 +286,25 @@ class StudentProfileStep4(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        form_data = data.get('step4', None)
+        form_data = data.get('abilities', None)
         try:
-            process_student_form_step_4(user, form_data)
+            process_student_abilities_form(user, form_data)
         except FormException as exception:
-            return StudentProfileStep4(success=False, errors=exception.errors)
-        return StudentProfileStep4(success=True, errors=None)
+            return StudentProfileAbilities(success=False, errors=exception.errors)
+        return StudentProfileAbilities(success=True, errors=None)
 
 
-class StudentProfileInputStep5(graphene.InputObjectType):
+class StudentProfileInputSpecificData(graphene.InputObjectType):
     nickname = graphene.String(description=_('Nickname'), required=True)
 
 
-class StudentProfileStep5(Output, graphene.Mutation):
+class StudentProfileSpecificData(Output, graphene.Mutation):
 
     nickname_suggestions = graphene.List(graphene.String)
 
     class Arguments:
-        step5 = StudentProfileInputStep5(description=_('Profile Input Step 5 is required.'),
-                                         required=True)
+        specific_data = StudentProfileInputSpecificData(
+            description=_('Profile Input Specific Data is required.'), required=True)
 
     class Meta:
         description = _('Updates the nickname of a student')
@@ -313,27 +313,27 @@ class StudentProfileStep5(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        form_data = data.get('step5', None)
+        form_data = data.get('specific_data', None)
         try:
-            process_student_form_step_5(user, form_data)
+            process_student_specific_data_form(user, form_data)
         except NicknameException as exception:
-            return StudentProfileStep5(success=False,
-                                       errors=exception.errors,
-                                       nickname_suggestions=exception.suggestions)
+            return StudentProfileSpecificData(success=False,
+                                              errors=exception.errors,
+                                              nickname_suggestions=exception.suggestions)
         except FormException as exception:
-            return StudentProfileStep5(success=False, errors=exception.errors)
-        return StudentProfileStep5(success=True, errors=None)
+            return StudentProfileSpecificData(success=False, errors=exception.errors)
+        return StudentProfileSpecificData(success=True, errors=None)
 
 
-class StudentProfileInputStep6(graphene.InputObjectType):
+class StudentProfileInputCondition(graphene.InputObjectType):
     state = graphene.String(description=_('State'), required=True)
 
 
-class StudentProfileStep6(Output, graphene.Mutation):
+class StudentProfileCondition(Output, graphene.Mutation):
 
     class Arguments:
-        step6 = StudentProfileInputStep6(description=_('Profile Input Step 6 is required.'),
-                                         required=True)
+        condition = StudentProfileInputCondition(
+            description=_('Profile Input Condition is required.'), required=True)
 
     class Meta:
         description = _('Updates the state of a student')
@@ -342,21 +342,21 @@ class StudentProfileStep6(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        form_data = data.get('step6', None)
+        form_data = data.get('condition', None)
         try:
-            process_student_form_step_6(user, form_data)
+            process_student_condition_form(user, form_data)
         except FormException as exception:
-            return StudentProfileStep6(success=False, errors=exception.errors)
-        return StudentProfileStep6(success=True, errors=None)
+            return StudentProfileCondition(success=False, errors=exception.errors)
+        return StudentProfileCondition(success=True, errors=None)
 
 
 class StudentProfileMutation(ObjectType):
-    student_profile_step1 = StudentProfileStep1.Field()
-    student_profile_step2 = StudentProfileStep2.Field()
-    student_profile_step3 = StudentProfileStep3.Field()
-    student_profile_step4 = StudentProfileStep4.Field()
-    student_profile_step5 = StudentProfileStep5.Field()
-    student_profile_step6 = StudentProfileStep6.Field()
+    student_profile_base_data = StudentProfileBaseData.Field()
+    student_profile_employment = StudentProfileEmployment.Field()
+    student_profile_character = StudentProfileCharacter.Field()
+    student_profile_abilities = StudentProfileAbilities.Field()
+    student_profile_specific_data = StudentProfileSpecificData.Field()
+    student_profile_condition = StudentProfileCondition.Field()
 
 
 class StudentQuery(ObjectType):

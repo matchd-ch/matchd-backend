@@ -243,28 +243,27 @@ def student_project_posting_object(student_project_posting_objects):
     return student_project_posting_objects[0]
 
 
-def project_posting_mutation(step):
-    step = str(step)
+def project_posting_mutation(kind, gql_variable_name):
     return '''
-    mutation ProjectPostingMutation($step%s: ProjectPostingInputStep%s!) {
-      projectPostingStep%s(step%s: $step%s) {
+    mutation ProjectPostingMutation($%s: ProjectPostingInput%s!) {
+      projectPosting%s(%s: $%s) {
         success,
         errors,
         slug,
         projectPostingId
       }
     }
-    ''' % (step, step, step, step, step)
+    ''' % (gql_variable_name, kind, kind, gql_variable_name, gql_variable_name)
 
 
 # pylint: disable=R0913
 @pytest.fixture
-def project_posting_step_1(execute):
+def project_posting_base_data(execute):
 
     def closure(user, title, description, additional_information, topic, project_type, keywords):
-        return execute(project_posting_mutation(1),
+        return execute(project_posting_mutation("BaseData", "baseData"),
                        variables={
-                           'step1': {
+                           'baseData': {
                                'title': title,
                                'description': description,
                                'additionalInformation': additional_information,
@@ -286,12 +285,12 @@ def project_posting_step_1(execute):
 
 # pylint: disable=R0913
 @pytest.fixture
-def project_posting_step_2(execute):
+def project_posting_specific_data(execute):
 
     def closure(user, project_posting_id, project_from_date, website):
-        return execute(project_posting_mutation(2),
+        return execute(project_posting_mutation("SpecificData", "specificData"),
                        variables={
-                           'step2': {
+                           'specificData': {
                                'id': project_posting_id,
                                'projectFromDate': project_from_date,
                                'website': website,
@@ -303,12 +302,12 @@ def project_posting_step_2(execute):
 
 
 @pytest.fixture
-def project_posting_step_3(execute):
+def project_posting_allocation(execute):
 
     def closure(user, project_posting_id, state, employee):
-        return execute(project_posting_mutation(3),
+        return execute(project_posting_mutation("Allocation", "allocation"),
                        variables={
-                           'step3': {
+                           'allocation': {
                                'id': project_posting_id,
                                'state': state,
                                'employee': None if employee is None else {

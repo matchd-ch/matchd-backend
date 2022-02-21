@@ -5,22 +5,21 @@ import pytest
 # pylint: disable=C0209
 
 
-def student_profile_mutation(step):
-    step = str(step)
+def student_profile_mutation(kind, gql_variable_name):
     return '''
-    mutation StudentProfileMutation($step%s: StudentProfileInputStep%s!) {
-        studentProfileStep%s(step%s: $step%s) {
+    mutation StudentProfileMutation($%s: StudentProfileInput%s!) {
+        studentProfile%s(%s: $%s) {
             success,
             errors
         }
     }
-    ''' % (step, step, step, step, step)
+    ''' % (gql_variable_name, kind, kind, gql_variable_name, gql_variable_name)
 
 
-def student_profile_mutation_step_5():
+def student_profile_mutation_specific_data():
     return '''
-    mutation StudentProfileMutation($step5: StudentProfileInputStep5!) {
-        studentProfileStep5(step5: $step5) {
+    mutation StudentProfileMutation($specificData: StudentProfileInputSpecificData!) {
+        studentProfileSpecificData(specificData: $specificData) {
             success,
             errors,
             nicknameSuggestions
@@ -30,12 +29,12 @@ def student_profile_mutation_step_5():
 
 
 @pytest.fixture
-def student_step_1(execute):
+def student_base_data(execute):
 
     def closure(user, first_name, last_name, street, zip_value, city, date_of_birth, mobile):
-        return execute(student_profile_mutation(1),
+        return execute(student_profile_mutation("BaseData", "baseData"),
                        variables={
-                           'step1': {
+                           'baseData': {
                                'firstName': first_name,
                                'lastName': last_name,
                                'street': street,
@@ -51,12 +50,12 @@ def student_step_1(execute):
 
 
 @pytest.fixture
-def student_step_2(execute):
+def student_employment(execute):
 
     def closure(user, job_type, job_from_date, job_to_date, branch):
-        return execute(student_profile_mutation(2),
+        return execute(student_profile_mutation("Employment", "employment"),
                        variables={
-                           'step2': {
+                           'employment': {
                                'jobType': {
                                    'id': job_type.id
                                },
@@ -73,12 +72,12 @@ def student_step_2(execute):
 
 
 @pytest.fixture
-def student_step_3(execute):
+def student_character(execute):
 
     def closure(user, soft_skills, cultural_fits):
-        return execute(student_profile_mutation(3),
+        return execute(student_profile_mutation("Character", "character"),
                        variables={
-                           'step3': {
+                           'character': {
                                'softSkills': [{
                                    'id': obj.id
                                } for obj in soft_skills],
@@ -93,12 +92,12 @@ def student_step_3(execute):
 
 
 @pytest.fixture
-def student_step_4(execute):
+def student_abilities(execute):
 
     def closure(user, skills, languages, hobbies, online_projects, distinction):
-        return execute(student_profile_mutation(4),
+        return execute(student_profile_mutation("Abilities", "abilities"),
                        variables={
-                           'step4': {
+                           'abilities': {
                                'skills': [{
                                    'id': obj.id
                                } for obj in skills],
@@ -120,11 +119,11 @@ def student_step_4(execute):
 
 
 @pytest.fixture
-def student_step_5(execute):
+def student_specific_data(execute):
 
     def closure(user, nickname):
-        return execute(student_profile_mutation_step_5(),
-                       variables={'step5': {
+        return execute(student_profile_mutation_specific_data(),
+                       variables={'specificData': {
                            'nickname': nickname
                        }},
                        **{'user': user})
@@ -133,11 +132,11 @@ def student_step_5(execute):
 
 
 @pytest.fixture
-def student_step_6(execute):
+def student_condition(execute):
 
     def closure(user, state):
-        return execute(student_profile_mutation(6),
-                       variables={'step6': {
+        return execute(student_profile_mutation("Condition", "condition"),
+                       variables={'condition': {
                            'state': state
                        }},
                        **{'user': user})
