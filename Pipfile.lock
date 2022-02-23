@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "11217460bc7721ab75e4febcfac55fe9cad5f29acce34c2be2e640b2760e08d7"
+            "sha256": "1718dc765c0e536deefa5f9b3e15f1baec98bf459e9c702502dd89be4829df27"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -250,11 +250,11 @@
         },
         "faker": {
             "hashes": [
-                "sha256:ee8d9181137cdd2b198bd3d0653b0a3b7b385213862348e15ba8a423324b702b",
-                "sha256:f545b2a1ba5f7effc4ed71af0a5204d939445f0190838d41bee6bc160958bfbe"
+                "sha256:206050b40d6dfb6efe8ccfbbb9866c56477c53edfdab83f80de3b59f38a88ce0",
+                "sha256:edb62f9511a0977abcea6a78e43b99d1f26c915d2142bbf4c6bf02a9bb597c7f"
             ],
             "index": "pypi",
-            "version": "==13.0.0"
+            "version": "==13.2.0"
         },
         "graphene": {
             "hashes": [
@@ -638,11 +638,11 @@
         },
         "sentry-sdk": {
             "hashes": [
-                "sha256:3817274fba2498c8ebf6b896ee98ac916c5598706340573268c07bf2bb30d831",
-                "sha256:98fd155fa5d5fec1dbabed32a1a4ae2705f1edaa5dae4e7f7b62a384ba30e759"
+                "sha256:1ab34e3851a34aeb3d1af1a0f77cec73978c4e9698e5210d050e4932953cb241",
+                "sha256:ac2a50128409d57655279817aedcb7800cace1f76b266f3dd62055d5afd6e098"
             ],
             "index": "pypi",
-            "version": "==1.5.5"
+            "version": "==1.5.6"
         },
         "setuptools": {
             "hashes": [
@@ -758,11 +758,11 @@
         },
         "wagtailmedia": {
             "hashes": [
-                "sha256:550b41f60c546276fb79eac69630364efb82d40389ddb7f64242ff9eaef621ef",
-                "sha256:79313a9565f8b737304412bbf297c3975274e104a2ea005f8a8e1499c3ef743f"
+                "sha256:a898585d5bdc58bdd3b7186c791ae591e94f8e89bee11bdba1d17bd07230c66c",
+                "sha256:e845ce5be97df9f6c8c1518678d15ef686f2d4c2351a893b5882b84a68905dc6"
             ],
             "index": "pypi",
-            "version": "==0.8.0"
+            "version": "==0.9.0"
         },
         "webencodings": {
             "hashes": [
