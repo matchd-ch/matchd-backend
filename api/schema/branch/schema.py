@@ -27,7 +27,7 @@ class BranchQuery(ObjectType):
 
 
 class BranchInput(graphene.InputObjectType):
-    id = graphene.ID(required=True)
+    id = graphene.String(required=True)
     name = graphene.String(required=False)
 
     # pylint: disable=C0103

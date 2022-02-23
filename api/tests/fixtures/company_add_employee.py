@@ -3,8 +3,8 @@ import pytest
 
 def add_employee_mutation():
     return '''
-    mutation AddEmployeeMutation($addEmployee: AddEmployeeInput!) {
-        addEmployee(addEmployee: $addEmployee) {
+    mutation AddEmployeeMutation($input: AddEmployeeInput!) {
+        addEmployee(input: $input) {
             success,
             errors,
             employee {
@@ -25,7 +25,7 @@ def add_employee(execute):
     def closure(employee, email, first_name, last_name, role):
         return execute(add_employee_mutation(),
                        variables={
-                           'addEmployee': {
+                           'input': {
                                'firstName': first_name,
                                'lastName': last_name,
                                'role': role,

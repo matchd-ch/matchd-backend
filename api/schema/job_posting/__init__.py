@@ -1,1 +1,1 @@
-from .schema import JobPostingBaseDataForm, JobPostingQuery, JobPostingMutation, JobPostingInput
+from .schema import JobPostingBaseData, JobPostingQuery, JobPostingMutation, JobPostingInput

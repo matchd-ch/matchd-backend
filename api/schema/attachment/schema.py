@@ -7,24 +7,29 @@ from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 from django.utils.translation import gettext as _
 
+from api.helper import resolve_node_id
+
 from db.helper import generic_error_dict, has_access_to_attachments, get_company_or_student
 from db.models import AttachmentKey as AttachmentKeyModel, Attachment as AttachmentModel, Company, Student, \
     ProjectPosting as ProjectPostingModel
 
+# pylint: disable=W0221
+
 AttachmentKey = graphene.Enum.from_enum(AttachmentKeyModel)
 
 
-class DeleteAttachment(Output, graphene.Mutation):
+class DeleteAttachment(Output, relay.ClientIDMutation):
 
-    class Arguments:
-        id = graphene.ID()
+    class Input:
+        id = graphene.String()
 
     @classmethod
     @login_required
     def mutate(cls, root, info, **kwargs):
         user = info.context.user
         profile_id = user.get_profile_id()
-        attachment_id = kwargs.get('id', None)
+        input_data = kwargs.get('input', {})
+        attachment_id = resolve_node_id(input_data.get('id', None))
 
         # check if the attachment exists and the user is owner of the attachment
         try:
@@ -101,7 +106,7 @@ class AttachmentQuery(ObjectType):
     attachments = relay.ConnectionField(AttachmentConnection,
                                         key=AttachmentKey(required=True),
                                         slug=graphene.String(required=False),
-                                        id=graphene.ID(required=False))
+                                        id=graphene.String(required=False))
 
     # pylint: disable=R0912
     @login_required
@@ -125,7 +130,7 @@ class AttachmentQuery(ObjectType):
             model = ProjectPostingModel
 
         slug = kwargs.get('slug', None)
-        object_id = kwargs.get('id', None)
+        object_id = resolve_node_id(kwargs.get('id', None))
         if slug is not None:
             try:
                 attachment_owner = model.objects.get(slug=slug)

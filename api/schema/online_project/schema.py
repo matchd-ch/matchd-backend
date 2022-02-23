@@ -14,7 +14,7 @@ class OnlineProject(DjangoObjectType):
 
 
 class OnlineProjectInput(graphene.InputObjectType):
-    id = graphene.ID()
+    id = graphene.String()
     url = graphene.String(required=False)
 
     # pylint: disable=C0103

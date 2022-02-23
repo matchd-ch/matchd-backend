@@ -1,5 +1,7 @@
 import pytest
 
+from graphql_relay import to_global_id
+
 from db.helper.forms import convert_date
 from db.models import Student, ProfileType, ProfileState, Hobby, OnlineProject
 
@@ -92,7 +94,7 @@ def student_query(slug):
 def student_with_job_posting_query(slug, job_posting_id):
     return '''
     query {
-      student(slug: "%s", jobPostingId: %i) {
+      student(slug: "%s", jobPostingId: "%s") {
         matchStatus {
           initiator
           confirmed
@@ -178,7 +180,9 @@ def query_student(execute):
     def closure(user, slug, job_posting_id=None):
         if job_posting_id is None:
             return execute(student_query(slug), **{'user': user})
-        return execute(student_with_job_posting_query(slug, job_posting_id), **{'user': user})
+        return execute(
+            student_with_job_posting_query(slug, to_global_id('JobPosting', job_posting_id)),
+            **{'user': user})
 
     return closure
 

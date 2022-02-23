@@ -1,3 +1,4 @@
+from graphql_relay import from_global_id
 import pytest
 
 from django.contrib.auth.models import AnonymousUser
@@ -18,8 +19,11 @@ def test_allocation(user_employee, job_posting_object, login, job_posting_alloca
     assert data.get('jobPostingAllocation') is not None
     assert data.get('jobPostingAllocation').get('success')
 
-    job_posting_slug = JobPosting.objects.get(slug=data.get('jobPostingAllocation').get('slug'))
-    job_posting = JobPosting.objects.get(pk=data.get('jobPostingAllocation').get('jobPostingId'))
+    slug = data.get('jobPostingAllocation').get('slug')
+    element_id = from_global_id(data.get('jobPostingAllocation').get('jobPostingId'))[1]
+
+    job_posting_slug = JobPosting.objects.get(slug=slug)
+    job_posting = JobPosting.objects.get(pk=element_id)
     assert job_posting_slug == job_posting
     assert job_posting.employee.id == user_employee.employee.id
     assert job_posting.state == JobPostingState.PUBLIC

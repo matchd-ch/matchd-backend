@@ -20,6 +20,8 @@ from db.exceptions import FormException
 from db.forms import process_job_posting_match, process_student_match, process_project_posting_match
 from db.models import MatchType as MatchTypeModel, Match as MatchModel
 
+# pylint: disable=W0221
+
 MatchType = graphene.Enum.from_enum(MatchTypeModel)
 
 
@@ -110,17 +112,13 @@ class MatchQuery(ObjectType):
         return MatchingFactory().get_matching_context(user, **kwargs).find_matches()
 
 
-class MatchStudentInput(graphene.InputObjectType):
-    student = graphene.Field(StudentInput, required=True)
-    job_posting = graphene.Field(JobPostingInput, required=True)
-
-
-class MatchStudent(Output, graphene.Mutation):
+class MatchStudent(Output, relay.ClientIDMutation):
 
     confirmed = graphene.NonNull(graphene.Boolean)
 
-    class Arguments:
-        match = MatchStudentInput(description=_('MatchInput'), required=True)
+    class Input:
+        student = graphene.Field(StudentInput, required=True)
+        job_posting = graphene.Field(JobPostingInput, required=True)
 
     class Meta:
         description = _('Initiate or confirm Matching')
@@ -129,23 +127,21 @@ class MatchStudent(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
+        input_data = data.get('input')
+
         try:
-            match_obj = process_student_match(user, data.get('match'))
+            match_obj = process_student_match(user, input_data)
         except FormException as exception:
             return MatchStudent(success=False, errors=exception.errors, confirmed=False)
         return MatchStudent(success=True, errors=None, confirmed=match_obj.complete)
 
 
-class MatchJobPostingInput(graphene.InputObjectType):
-    job_posting = graphene.Field(JobPostingInput, required=True)
-
-
-class MatchJobPosting(Output, graphene.Mutation):
+class MatchJobPosting(Output, relay.ClientIDMutation):
 
     confirmed = graphene.NonNull(graphene.Boolean)
 
-    class Arguments:
-        match = MatchJobPostingInput(description=_('MatchInput'), required=True)
+    class Input:
+        job_posting = graphene.Field(JobPostingInput, required=True)
 
     class Meta:
         description = _('Initiate or confirm Matching')
@@ -154,23 +150,21 @@ class MatchJobPosting(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
+        input_data = data.get('input')
+
         try:
-            match_obj = process_job_posting_match(user, data.get('match'))
+            match_obj = process_job_posting_match(user, input_data)
         except FormException as exception:
             return MatchJobPosting(success=False, errors=exception.errors, confirmed=False)
         return MatchJobPosting(success=True, errors=None, confirmed=match_obj.complete)
 
 
-class MatchProjectPostingInput(graphene.InputObjectType):
-    project_posting = graphene.Field(ProjectPostingInput, required=True)
-
-
-class MatchProjectPosting(Output, graphene.Mutation):
+class MatchProjectPosting(Output, relay.ClientIDMutation):
 
     confirmed = graphene.NonNull(graphene.Boolean)
 
-    class Arguments:
-        match = MatchProjectPostingInput(description=_('MatchInput'), required=True)
+    class Input:
+        project_posting = graphene.Field(ProjectPostingInput, required=True)
 
     class Meta:
         description = _('Initiate or confirm Matching')
@@ -179,8 +173,10 @@ class MatchProjectPosting(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
+        input_data = data.get('input')
+
         try:
-            match_obj = process_project_posting_match(user, data.get('match'))
+            match_obj = process_project_posting_match(user, input_data)
         except FormException as exception:
             return MatchProjectPosting(success=False, errors=exception.errors, confirmed=False)
         return MatchProjectPosting(success=True, errors=None, confirmed=match_obj.complete)
