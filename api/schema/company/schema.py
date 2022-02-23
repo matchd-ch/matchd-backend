@@ -9,7 +9,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext as _
 
-from api.helper import is_me_query
+from api.helper import extract_ids, is_me_query, resolve_node_ids
 from api.schema.benefit import BenefitInput
 from api.schema.branch.schema import BranchInput
 from api.schema.cultural_fit import CulturalFitInput
@@ -27,9 +27,11 @@ from db.forms.company_values import process_company_values_form
 from db.forms.university_values import process_university_values_form
 from db.models import Company as CompanyModel, ProfileState as ProfileStateModel, JobPostingState, ProjectPostingState
 
+# pylint: disable=W0221
+
 
 class CompanyInput(graphene.InputObjectType):
-    id = graphene.ID(required=True)
+    id = graphene.String(required=True)
 
 
 class RegisterCompanyInput(graphene.InputObjectType):
@@ -39,22 +41,17 @@ class RegisterCompanyInput(graphene.InputObjectType):
     city = graphene.String(description=_('City'), required=True)
 
 
-class CompanyProfileInputBaseData(graphene.InputObjectType):
-    first_name = graphene.String(description=_('First name'), required=True)
-    last_name = graphene.String(description=_('Last name'), required=True)
-    name = graphene.String(description=_('Name'), required=False)
-    street = graphene.String(description=_('Street'), required=True)
-    zip = graphene.String(description=_('Zip'), required=True)
-    city = graphene.String(description=_('City'), required=True)
-    phone = graphene.String(description=_('Phone Number'))
-    role = graphene.String(description=_('role'), required=True)
+class CompanyProfileBaseData(Output, relay.ClientIDMutation):
 
-
-class CompanyProfileBaseData(Output, graphene.Mutation):
-
-    class Arguments:
-        base_data = CompanyProfileInputBaseData(
-            description=_('Profile Input Base Data is required.'), required=True)
+    class Input:
+        first_name = graphene.String(description=_('First name'), required=True)
+        last_name = graphene.String(description=_('Last name'), required=True)
+        name = graphene.String(description=_('Name'), required=False)
+        street = graphene.String(description=_('Street'), required=True)
+        zip = graphene.String(description=_('Zip'), required=True)
+        city = graphene.String(description=_('City'), required=True)
+        phone = graphene.String(description=_('Phone Number'))
+        role = graphene.String(description=_('role'), required=True)
 
     class Meta:
         description = _('Updates the profile of a Company')
@@ -63,7 +60,7 @@ class CompanyProfileBaseData(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        form_data = data.get('base_data', None)
+        form_data = data.get('input', None)
         try:
             process_company_base_data_form(user, form_data)
         except FormException as exception:
@@ -71,18 +68,14 @@ class CompanyProfileBaseData(Output, graphene.Mutation):
         return CompanyProfileBaseData(success=True, errors=None)
 
 
-class CompanyProfileInputRelations(graphene.InputObjectType):
-    website = graphene.String(description=_('website'), required=True)
-    description = graphene.String(description=_('description'), required=False)
-    services = graphene.String(description=_('services'), required=False)
-    member_it_st_gallen = graphene.Boolean(description=_('memeber IT St. Gallen'), required=True)
+class CompanyProfileRelations(Output, relay.ClientIDMutation):
 
-
-class CompanyProfileRelations(Output, graphene.Mutation):
-
-    class Arguments:
-        relations = CompanyProfileInputRelations(
-            description=_('Profile Input Relations is required.'), required=True)
+    class Input:
+        website = graphene.String(description=_('website'), required=True)
+        description = graphene.String(description=_('description'), required=False)
+        services = graphene.String(description=_('services'), required=False)
+        member_it_st_gallen = graphene.Boolean(description=_('memeber IT St. Gallen'),
+                                               required=True)
 
     class Meta:
         description = _('Updates website url, description, services, member IT St.Gallen')
@@ -91,7 +84,8 @@ class CompanyProfileRelations(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        form_data = data.get('relations', None)
+        form_data = data.get('input', None)
+
         try:
             process_company_relations_form(user, form_data)
         except FormException as exception:
@@ -99,16 +93,11 @@ class CompanyProfileRelations(Output, graphene.Mutation):
         return CompanyProfileRelations(success=True, errors=None)
 
 
-class CompanyProfileInputAdvantages(graphene.InputObjectType):
-    branches = graphene.List(BranchInput, description=_('Branches'))
-    benefits = graphene.List(BenefitInput, description=_('Benefits'))
+class CompanyProfileAdvantages(Output, relay.ClientIDMutation):
 
-
-class CompanyProfileAdvantages(Output, graphene.Mutation):
-
-    class Arguments:
-        advantages = CompanyProfileInputAdvantages(
-            description=_('Profile Input Advantages is required.'), required=True)
+    class Input:
+        branches = graphene.List(BranchInput, description=_('Branches'))
+        benefits = graphene.List(BenefitInput, description=_('Benefits'))
 
     class Meta:
         description = _('Updates the Company Profile with benefits and branches')
@@ -117,7 +106,10 @@ class CompanyProfileAdvantages(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        form_data = data.get('advantages', None)
+        form_data = resolve_node_ids(data.get('input', None))
+        form_data['branches'] = extract_ids(form_data.get('branches', []), 'id')
+        form_data['benefits'] = extract_ids(form_data.get('benefits', []), 'id')
+
         try:
             process_company_advantages_form(user, form_data)
         except FormException as exception:
@@ -125,16 +117,11 @@ class CompanyProfileAdvantages(Output, graphene.Mutation):
         return CompanyProfileAdvantages(success=True, errors=None)
 
 
-class CompanyProfileInputValues(graphene.InputObjectType):
-    soft_skills = graphene.List(SoftSkillInput, description=_('Soft Skills'))
-    cultural_fits = graphene.List(CulturalFitInput, description=_('Cultural Fit'))
+class CompanyProfileValues(Output, relay.ClientIDMutation):
 
-
-class CompanyProfileValues(Output, graphene.Mutation):
-
-    class Arguments:
-        values = CompanyProfileInputValues(description=_('Profile Input Values is required.'),
-                                           required=True)
+    class Input:
+        soft_skills = graphene.List(SoftSkillInput, description=_('Soft Skills'))
+        cultural_fits = graphene.List(CulturalFitInput, description=_('Cultural Fit'))
 
     class Meta:
         description = _('Updates a company profile with soft skills and cultural fit')
@@ -143,7 +130,10 @@ class CompanyProfileValues(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        form_data = data.get('values', None)
+        form_data = resolve_node_ids(data.get('input', None))
+        form_data['soft_skills'] = extract_ids(form_data.get('soft_skills', []), 'id')
+        form_data['cultural_fits'] = extract_ids(form_data.get('cultural_fits', []), 'id')
+
         try:
             process_company_values_form(user, form_data)
         except FormException as exception:
@@ -158,27 +148,22 @@ class CompanyProfileMutation(ObjectType):
     company_profile_values = CompanyProfileValues.Field()
 
 
-class UniversityProfileInputBaseData(graphene.InputObjectType):
-    first_name = graphene.String(description=_('First name'), required=True)
-    last_name = graphene.String(description=_('Last name'), required=True)
-    name = graphene.String(description=_('Name'), required=False)
-    street = graphene.String(description=_('Street'), required=True)
-    zip = graphene.String(description=_('Zip'), required=True)
-    city = graphene.String(description=_('City'), required=True)
-    phone = graphene.String(description=_('Phone Number'))
-    role = graphene.String(description=_('role'), required=True)
-    website = graphene.String(description=_('website'), required=True)
-    top_level_organisation_description = graphene.String(description=_('description'),
+class UniversityProfileBaseData(Output, relay.ClientIDMutation):
+
+    class Input:
+        first_name = graphene.String(description=_('First name'), required=True)
+        last_name = graphene.String(description=_('Last name'), required=True)
+        name = graphene.String(description=_('Name'), required=False)
+        street = graphene.String(description=_('Street'), required=True)
+        zip = graphene.String(description=_('Zip'), required=True)
+        city = graphene.String(description=_('City'), required=True)
+        phone = graphene.String(description=_('Phone Number'))
+        role = graphene.String(description=_('role'), required=True)
+        website = graphene.String(description=_('website'), required=True)
+        top_level_organisation_description = graphene.String(description=_('description'),
+                                                             required=False)
+        top_level_organisation_website = graphene.String(description=_('website dachorganisation'),
                                                          required=False)
-    top_level_organisation_website = graphene.String(description=_('website dachorganisation'),
-                                                     required=False)
-
-
-class UniversityProfileBaseData(Output, graphene.Mutation):
-
-    class Arguments:
-        base_data = UniversityProfileInputBaseData(
-            description=_('Profile Input Base Data is required.'), required=True)
 
     class Meta:
         description = _('Updates the profile of a university')
@@ -187,7 +172,8 @@ class UniversityProfileBaseData(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        form_data = data.get('base_data', None)
+        form_data = data.get('input', None)
+
         try:
             process_university_base_data_form(user, form_data)
         except FormException as exception:
@@ -195,15 +181,10 @@ class UniversityProfileBaseData(Output, graphene.Mutation):
         return UniversityProfileBaseData(success=True, errors=None)
 
 
-class UniversityProfileInputSpecificData(graphene.InputObjectType):
-    description = graphene.String(description=_('description'), required=False)
+class UniversityProfileSpecificData(Output, relay.ClientIDMutation):
 
-
-class UniversityProfileSpecificData(Output, graphene.Mutation):
-
-    class Arguments:
-        specific_data = UniversityProfileInputSpecificData(
-            description=_('Profile Input Specific Data is required.'), required=True)
+    class Input:
+        description = graphene.String(description=_('description'), required=False)
 
     class Meta:
         description = _('Updates branches and description')
@@ -212,7 +193,8 @@ class UniversityProfileSpecificData(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        form_data = data.get('specific_data', None)
+        form_data = data.get('input', None)
+
         try:
             process_university_specific_data_form(user, form_data)
         except FormException as exception:
@@ -220,20 +202,15 @@ class UniversityProfileSpecificData(Output, graphene.Mutation):
         return UniversityProfileSpecificData(success=True, errors=None)
 
 
-class UniversityProfileInputRelations(graphene.InputObjectType):
-    services = graphene.String(description=_('services'), required=False)
-    link_education = graphene.String(description=_('website education'), required=False)
-    link_projects = graphene.String(description=_('website projects'), required=False)
-    link_thesis = graphene.String(description=_('website thesis'), required=False)
-    branches = graphene.List(BranchInput, description=_('Branches'))
-    benefits = graphene.List(BenefitInput, description=_('Benefits'))
+class UniversityProfileRelations(Output, relay.ClientIDMutation):
 
-
-class UniversityProfileRelations(Output, graphene.Mutation):
-
-    class Arguments:
-        relations = UniversityProfileInputRelations(
-            description=_('Profile Input Relations is required.'), required=True)
+    class Input:
+        services = graphene.String(description=_('services'), required=False)
+        link_education = graphene.String(description=_('website education'), required=False)
+        link_projects = graphene.String(description=_('website projects'), required=False)
+        link_thesis = graphene.String(description=_('website thesis'), required=False)
+        branches = graphene.List(BranchInput, description=_('Branches'))
+        benefits = graphene.List(BenefitInput, description=_('Benefits'))
 
     class Meta:
         description = _('Updates website services')
@@ -242,7 +219,10 @@ class UniversityProfileRelations(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        form_data = data.get('relations', None)
+        form_data = resolve_node_ids(data.get('input', None))
+        form_data['branches'] = extract_ids(form_data.get('branches', []), 'id')
+        form_data['benefits'] = extract_ids(form_data.get('benefits', []), 'id')
+
         try:
             process_university_relations_form(user, form_data)
         except FormException as exception:
@@ -250,16 +230,11 @@ class UniversityProfileRelations(Output, graphene.Mutation):
         return UniversityProfileRelations(success=True, errors=None)
 
 
-class UniversityProfileInputValues(graphene.InputObjectType):
-    soft_skills = graphene.List(SoftSkillInput, description=_('Soft Skills'))
-    cultural_fits = graphene.List(CulturalFitInput, description=_('Cultural Fit'))
+class UniversityProfileValues(Output, relay.ClientIDMutation):
 
-
-class UniversityProfileValues(Output, graphene.Mutation):
-
-    class Arguments:
-        values = UniversityProfileInputValues(description=_('Profile Input Values is required.'),
-                                              required=True)
+    class Input:
+        soft_skills = graphene.List(SoftSkillInput, description=_('Soft Skills'))
+        cultural_fits = graphene.List(CulturalFitInput, description=_('Cultural Fit'))
 
     class Meta:
         description = _('Updates a company profile with soft skills and cultural fit')
@@ -268,7 +243,10 @@ class UniversityProfileValues(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        form_data = data.get('values', None)
+        form_data = resolve_node_ids(data.get('input', None))
+        form_data['soft_skills'] = extract_ids(form_data.get('soft_skills', []), 'id')
+        form_data['cultural_fits'] = extract_ids(form_data.get('cultural_fits', []), 'id')
+
         try:
             process_university_values_form(user, form_data)
         except FormException as exception:

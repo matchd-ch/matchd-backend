@@ -15,7 +15,7 @@ def job_posting_query(filter_value, param_name):
     if param_name == 'slug':
         param = f'slug: "{filter_value}"'
     else:
-        param = f'id: {filter_value}'
+        param = f'id: "{filter_value}"'
     return '''
     query {
         jobPosting(%s) {
@@ -194,7 +194,8 @@ def query_job_posting(execute):
 def query_job_posting_by_id(execute):
 
     def closure(user, job_posting_id):
-        return execute(job_posting_query(job_posting_id, 'id'), **{'user': user})
+        return execute(job_posting_query(to_global_id('JobPosting', job_posting_id), 'id'),
+                       **{'user': user})
 
     return closure
 
@@ -219,17 +220,17 @@ def query_job_postings(execute):
     return closure
 
 
-def job_posting_mutation(kind, gql_variable_name):
+def job_posting_mutation(kind):
     return '''
-    mutation JobPostingMutation($%s: JobPostingInput%s!) {
-      jobPosting%s(%s: $%s) {
+    mutation JobPostingMutation($input: JobPosting%sInput!) {
+      jobPosting%s(input: $input) {
         success,
         errors,
         slug,
         jobPostingId
       }
     }
-    ''' % (gql_variable_name, kind, kind, gql_variable_name, gql_variable_name)
+    ''' % (kind, kind)
 
 
 @pytest.fixture
@@ -237,21 +238,28 @@ def job_posting_base_data(execute):
 
     def closure(user, title, description, job_type, branches, workload, job_from_date, job_to_date,
                 url):
-        return execute(job_posting_mutation("BaseData", "baseData"),
+        return execute(job_posting_mutation("BaseData"),
                        variables={
-                           'baseData': {
-                               'title': title,
-                               'description': description,
-                               'jobType': None if job_type is None else {
-                                   'id': job_type.id
+                           'input': {
+                               'title':
+                               title,
+                               'description':
+                               description,
+                               'jobType':
+                               None if job_type is None else {
+                                   'id': to_global_id('JobType', job_type.id)
                                },
                                'branches': [{
-                                   'id': obj.id
+                                   'id': to_global_id('Branches', obj.id)
                                } for obj in branches],
-                               'workload': workload,
-                               'jobFromDate': job_from_date,
-                               'jobToDate': job_to_date,
-                               'url': url
+                               'workload':
+                               workload,
+                               'jobFromDate':
+                               job_from_date,
+                               'jobToDate':
+                               job_to_date,
+                               'url':
+                               url
                            }
                        },
                        **{'user': user})
@@ -263,20 +271,22 @@ def job_posting_base_data(execute):
 def job_posting_requirements(execute):
 
     def closure(user, job_posting_id, job_requirements, skills, languages):
-        return execute(job_posting_mutation("Requirements", "requirements"),
+        return execute(job_posting_mutation("Requirements"),
                        variables={
-                           'requirements': {
+                           'input': {
                                'id':
-                               job_posting_id,
+                               to_global_id('JobPosting', job_posting_id),
                                'jobRequirements': [{
-                                   'id': obj.id
+                                   'id': to_global_id('JobRequirements', obj.id)
                                } for obj in job_requirements],
                                'skills': [{
-                                   'id': obj.id
+                                   'id': to_global_id('Skills', obj.id)
                                } for obj in skills],
                                'languages': [{
-                                   'language': obj[0].id,
-                                   'languageLevel': obj[1].id
+                                   'language':
+                                   to_global_id('Language', obj[0].id),
+                                   'languageLevel':
+                                   to_global_id('LanguageLevel', obj[1].id)
                                } for obj in languages],
                            }
                        },
@@ -289,13 +299,13 @@ def job_posting_requirements(execute):
 def job_posting_allocation(execute):
 
     def closure(user, job_posting_id, state, employee):
-        return execute(job_posting_mutation("Allocation", "allocation"),
+        return execute(job_posting_mutation("Allocation"),
                        variables={
-                           'allocation': {
-                               'id': job_posting_id,
+                           'input': {
+                               'id': to_global_id('JobPosting', job_posting_id),
                                'state': state,
                                'employee': {
-                                   'id': employee.id
+                                   'id': to_global_id('Employee', employee.id)
                                }
                            }
                        },

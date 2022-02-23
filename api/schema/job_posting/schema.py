@@ -1,6 +1,7 @@
 import graphene
 from graphene import ObjectType, relay
 from graphene_django import DjangoObjectType
+from graphql_relay import to_global_id
 from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 
@@ -8,6 +9,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext as _
 
+from api.helper import extract_ids, resolve_node_id, resolve_node_ids
 from api.schema.branch import BranchInput
 from api.schema.employee import Employee
 from api.schema.job_requirement import JobRequirementInput
@@ -23,11 +25,13 @@ from db.forms import process_job_posting_base_data_form, process_job_posting_req
                 process_job_posting_allocation_form
 from db.models import JobPosting as JobPostingModel, Company, JobPostingState as JobPostingStateModel, ProfileType
 
+# pylint: disable=W0221
+
 JobPostingState = graphene.Enum.from_enum(JobPostingStateModel)
 
 
 class JobPostingInput(graphene.InputObjectType):
-    id = graphene.ID(required=True)
+    id = graphene.String(required=True)
 
     # pylint: disable=C0103
     @property
@@ -123,14 +127,15 @@ class JobPostingConnection(relay.Connection):
 
 class JobPostingQuery(ObjectType):
     job_posting = graphene.Field(JobPosting,
-                                 id=graphene.ID(required=False),
+                                 id=graphene.String(required=False),
                                  slug=graphene.String(required=False))
     job_postings = relay.ConnectionField(JobPostingConnection, slug=graphene.String(required=False))
 
     @login_required
     def resolve_job_posting(self, info, **kwargs):
         slug = kwargs.get('slug')
-        job_posting_id = kwargs.get('id')
+        job_posting_id = resolve_node_id(kwargs.get('id'))
+
         if slug is None and job_posting_id is None:
             raise Http404(_('Job posting not found'))
         if slug is not None:
@@ -163,25 +168,20 @@ class JobPostingQuery(ObjectType):
         return JobPostingModel.objects.filter(state=JobPostingState.PUBLIC, company=company)
 
 
-class JobPostingInputBaseData(graphene.InputObjectType):
-    id = graphene.ID(required=False)
-    title = graphene.String(description=_('Title'), required=True)
-    description = graphene.String(description=_('Description'), required=False)
-    job_type = graphene.Field(JobTypeInput, required=True)
-    branches = graphene.List(BranchInput, required=True)
-    workload = graphene.Int(description=_('Workload'), required=True)
-    job_from_date = graphene.String(required=True)
-    job_to_date = graphene.String(required=False)
-    url = graphene.String(required=False)
-
-
-class JobPostingBaseDataForm(Output, graphene.Mutation):
+class JobPostingBaseData(Output, relay.ClientIDMutation):
     slug = graphene.String()
-    job_posting_id = graphene.ID()
+    job_posting_id = graphene.String()
 
-    class Arguments:
-        base_data = JobPostingInputBaseData(
-            description=_('Job Posting Input Base Data is required.'), required=True)
+    class Input:
+        id = graphene.String(required=False)
+        title = graphene.String(description=_('Title'), required=True)
+        description = graphene.String(description=_('Description'), required=False)
+        job_type = graphene.Field(JobTypeInput, required=True)
+        branches = graphene.List(BranchInput, required=True)
+        workload = graphene.Int(description=_('Workload'), required=True)
+        job_from_date = graphene.String(required=True)
+        job_to_date = graphene.String(required=False)
+        url = graphene.String(required=False)
 
     class Meta:
         description = _('Creates a job posting')
@@ -190,31 +190,28 @@ class JobPostingBaseDataForm(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        form_data = data.get('base_data', None)
+        form_data = resolve_node_ids(data.get('input', None))
+        form_data['branches'] = extract_ids(form_data.get('branches', []), 'id')
+
         try:
             job_posting = process_job_posting_base_data_form(user, form_data)
         except FormException as exception:
-            return JobPostingBaseDataForm(success=False, errors=exception.errors)
-        return JobPostingBaseDataForm(success=True,
-                                      errors=None,
-                                      slug=job_posting.slug,
-                                      job_posting_id=job_posting.id)
+            return JobPostingBaseData(success=False, errors=exception.errors)
+        return JobPostingBaseData(success=True,
+                                  errors=None,
+                                  slug=job_posting.slug,
+                                  job_posting_id=to_global_id('JobPosting', job_posting.id))
 
 
-class JobPostingInputRequirements(graphene.InputObjectType):
-    id = graphene.ID()
-    job_requirements = graphene.List(JobRequirementInput, required=False)
-    skills = graphene.List(SkillInput, required=False)
-    languages = graphene.List(JobPostingLanguageRelationInput, required=False)
-
-
-class JobPostingRequirements(Output, graphene.Mutation):
+class JobPostingRequirements(Output, relay.ClientIDMutation):
     slug = graphene.String()
-    job_posting_id = graphene.ID()
+    job_posting_id = graphene.String()
 
-    class Arguments:
-        requirements = JobPostingInputRequirements(
-            description=_('Job Posting Input Requirements is required.'), required=True)
+    class Input:
+        id = graphene.String()
+        job_requirements = graphene.List(JobRequirementInput, required=False)
+        skills = graphene.List(SkillInput, required=False)
+        languages = graphene.List(JobPostingLanguageRelationInput, required=False)
 
     class Meta:
         description = _('Updates a job posting')
@@ -223,7 +220,10 @@ class JobPostingRequirements(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        form_data = data.get('requirements', None)
+        form_data = resolve_node_ids(data.get('input', None), ['id', 'language', 'language_level'])
+        form_data['job_requirements'] = extract_ids(form_data.get('job_requirements', []), 'id')
+        form_data['skills'] = extract_ids(form_data.get('skills', []), 'id')
+
         try:
             job_posting = process_job_posting_requirements_form(user, form_data)
         except FormException as exception:
@@ -231,22 +231,17 @@ class JobPostingRequirements(Output, graphene.Mutation):
         return JobPostingRequirements(success=True,
                                       errors=None,
                                       slug=job_posting.slug,
-                                      job_posting_id=job_posting.id)
+                                      job_posting_id=to_global_id('JobPosting', job_posting.id))
 
 
-class JobPostingInputAllocation(graphene.InputObjectType):
-    id = graphene.ID()
-    state = graphene.String(description=_('State'), required=True)
-    employee = graphene.Field(EmployeeInput, required=True)
-
-
-class JobPostingAllocationForm(Output, graphene.Mutation):
+class JobPostingAllocation(Output, relay.ClientIDMutation):
     slug = graphene.String()
-    job_posting_id = graphene.ID()
+    job_posting_id = graphene.String()
 
-    class Arguments:
-        allocation = JobPostingInputAllocation(
-            description=_('Job Posting Input Allocation is required.'), required=True)
+    class Input:
+        id = graphene.String()
+        state = graphene.String(description=_('State'), required=True)
+        employee = graphene.Field(EmployeeInput, required=True)
 
     class Meta:
         description = _('Updates a job posting')
@@ -255,18 +250,19 @@ class JobPostingAllocationForm(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        form_data = data.get('allocation', None)
+        form_data = resolve_node_ids(data.get('input', None))
+
         try:
             job_posting = process_job_posting_allocation_form(user, form_data)
         except FormException as exception:
-            return JobPostingAllocationForm(success=False, errors=exception.errors)
-        return JobPostingAllocationForm(success=True,
-                                        errors=None,
-                                        slug=job_posting.slug,
-                                        job_posting_id=job_posting.id)
+            return JobPostingAllocation(success=False, errors=exception.errors)
+        return JobPostingAllocation(success=True,
+                                    errors=None,
+                                    slug=job_posting.slug,
+                                    job_posting_id=to_global_id('JobPosting', job_posting.id))
 
 
 class JobPostingMutation(ObjectType):
-    job_posting_base_data = JobPostingBaseDataForm.Field()
+    job_posting_base_data = JobPostingBaseData.Field()
     job_posting_requirements = JobPostingRequirements.Field()
-    job_posting_allocation = JobPostingAllocationForm.Field()
+    job_posting_allocation = JobPostingAllocation.Field()

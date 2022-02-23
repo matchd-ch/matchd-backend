@@ -1,6 +1,7 @@
 import graphene
 from graphene import ObjectType, relay
 from graphene_django import DjangoObjectType
+from graphql_relay import to_global_id
 from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 
@@ -8,6 +9,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext as _
 
+from api.helper import extract_ids, resolve_node_id, resolve_node_ids
 from api.schema.employee import Employee, EmployeeInput
 from api.schema.keyword.schema import KeywordInput
 from api.schema.project_type.schema import ProjectTypeInput
@@ -21,11 +23,13 @@ from db.forms.project_posting_allocation import process_project_posting_allocati
 from db.models import ProjectPosting as ProjectPostingModel, ProjectPostingState as ProjectPostingStateModel, \
     ProfileType
 
+# pylint: disable=W0221
+
 ProjectPostingState = graphene.Enum.from_enum(ProjectPostingStateModel)
 
 
 class ProjectPostingInput(graphene.InputObjectType):
-    id = graphene.ID(required=True)
+    id = graphene.String(required=True)
 
     # pylint: disable=C0103
     @property
@@ -109,14 +113,14 @@ class ProjectPostingConnection(relay.Connection):
 
 class ProjectPostingQuery(ObjectType):
     project_posting = graphene.Field(ProjectPosting,
-                                     id=graphene.ID(required=False),
+                                     id=graphene.String(required=False),
                                      slug=graphene.String(required=False))
     project_postings = relay.ConnectionField(ProjectPostingConnection)
 
     @login_required
     def resolve_project_posting(self, info, **kwargs):
         slug = kwargs.get('slug')
-        project_posting_id = kwargs.get('id')
+        project_posting_id = resolve_node_id(kwargs.get('id'))
 
         if slug is None and project_posting_id is None:
             raise Http404(_('Project posting not found'))
@@ -155,24 +159,19 @@ class ProjectPostingQuery(ObjectType):
         return project_postings
 
 
-class ProjectPostingInputBaseData(graphene.InputObjectType):
-    id = graphene.ID(required=False)
-    title = graphene.String(description=_('Title'), required=True)
-    project_type = graphene.Field(ProjectTypeInput, required=True)
-    topic = graphene.Field(TopicInput, required=True)
-    keywords = graphene.List(KeywordInput, required=False)
-    description = graphene.String(description=_('Description'), required=True)
-    additional_information = graphene.String(description=_('Additional Information'),
-                                             required=False)
-
-
-class ProjectPostingBaseData(Output, graphene.Mutation):
+class ProjectPostingBaseData(Output, relay.ClientIDMutation):
     slug = graphene.String()
-    project_posting_id = graphene.ID()
+    project_posting_id = graphene.String()
 
-    class Arguments:
-        base_data = ProjectPostingInputBaseData(
-            description=_('Project Posting Input Base Data is required.'), required=True)
+    class Input:
+        id = graphene.String(required=False)
+        title = graphene.String(description=_('Title'), required=True)
+        project_type = graphene.Field(ProjectTypeInput, required=True)
+        topic = graphene.Field(TopicInput, required=True)
+        keywords = graphene.List(KeywordInput, required=False)
+        description = graphene.String(description=_('Description'), required=True)
+        additional_information = graphene.String(description=_('Additional Information'),
+                                                 required=False)
 
     class Meta:
         description = _('Creates a project posting')
@@ -181,7 +180,9 @@ class ProjectPostingBaseData(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        form_data = data.get('base_data', None)
+        form_data = resolve_node_ids(data.get('input', None))
+        form_data['keywords'] = extract_ids(form_data.get('keywords', []), 'id')
+
         try:
             project_posting = process_project_posting_base_data_form(user, form_data)
         except FormException as exception:
@@ -189,22 +190,18 @@ class ProjectPostingBaseData(Output, graphene.Mutation):
         return ProjectPostingBaseData(success=True,
                                       errors=None,
                                       slug=project_posting.slug,
-                                      project_posting_id=project_posting.id)
+                                      project_posting_id=to_global_id('ProjectPosting',
+                                                                      project_posting.id))
 
 
-class ProjectPostingInputSpecificData(graphene.InputObjectType):
-    id = graphene.ID(required=False)
-    project_from_date = graphene.String(required=False)
-    website = graphene.String(required=False)
-
-
-class ProjectPostingSpecificData(Output, graphene.Mutation):
+class ProjectPostingSpecificData(Output, relay.ClientIDMutation):
     slug = graphene.String()
-    project_posting_id = graphene.ID()
+    project_posting_id = graphene.String()
 
-    class Arguments:
-        specific_data = ProjectPostingInputSpecificData(
-            description=_('Project Posting Input Specific Data is required.'), required=True)
+    class Input:
+        id = graphene.String(required=False)
+        project_from_date = graphene.String(required=False)
+        website = graphene.String(required=False)
 
     class Meta:
         description = _('Creates a project posting')
@@ -213,7 +210,8 @@ class ProjectPostingSpecificData(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        form_data = data.get('specific_data', None)
+        form_data = resolve_node_ids(data.get('input', None))
+
         try:
             project_posting = process_project_posting_specific_data_form(user, form_data)
         except FormException as exception:
@@ -221,22 +219,18 @@ class ProjectPostingSpecificData(Output, graphene.Mutation):
         return ProjectPostingSpecificData(success=True,
                                           errors=None,
                                           slug=project_posting.slug,
-                                          project_posting_id=project_posting.id)
+                                          project_posting_id=to_global_id(
+                                              'ProjectPosting', project_posting.id))
 
 
-class ProjectPostingInputAllocation(graphene.InputObjectType):
-    id = graphene.ID()
-    state = graphene.String(description=_('State'), required=True)
-    employee = graphene.Field(EmployeeInput, required=False)
-
-
-class ProjectPostingAllocation(Output, graphene.Mutation):
+class ProjectPostingAllocation(Output, relay.ClientIDMutation):
     slug = graphene.String()
-    project_posting_id = graphene.ID()
+    project_posting_id = graphene.String()
 
-    class Arguments:
-        allocation = ProjectPostingInputAllocation(
-            description=_('Project Posting Input Allocation is required.'), required=True)
+    class Input:
+        id = graphene.String()
+        state = graphene.String(description=_('State'), required=True)
+        employee = graphene.Field(EmployeeInput, required=False)
 
     class Meta:
         description = _('Updates a project posting')
@@ -245,7 +239,8 @@ class ProjectPostingAllocation(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        form_data = data.get('allocation', None)
+        form_data = resolve_node_ids(data.get('input', None))
+
         try:
             project_posting = process_project_posting_allocation_form(user, form_data)
         except FormException as exception:
@@ -253,7 +248,8 @@ class ProjectPostingAllocation(Output, graphene.Mutation):
         return ProjectPostingAllocation(success=True,
                                         errors=None,
                                         slug=project_posting.slug,
-                                        project_posting_id=project_posting.id)
+                                        project_posting_id=to_global_id(
+                                            'ProjectPosting', project_posting.id))
 
 
 class ProjectPostingMutation(ObjectType):

@@ -30,7 +30,7 @@ class BenefitQuery(ObjectType):
 
 
 class BenefitInput(graphene.InputObjectType):
-    id = graphene.ID(required=True)
+    id = graphene.String(required=True)
     icon = graphene.String()
 
     # pylint: disable=C0103

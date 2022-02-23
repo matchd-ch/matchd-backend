@@ -1,5 +1,7 @@
 import pytest
 
+from graphql_relay import to_global_id
+
 # pylint: disable=C0209
 
 
@@ -18,7 +20,7 @@ def zip_city_query():
 def zip_city_jobs_query(branch_id, job_type_id):
     return '''
     query {
-      zipCityJobs(branchId: %i, jobTypeId: %i) {
+      zipCityJobs(branchId: "%s", jobTypeId: "%s") {
         zip
       }
     }
@@ -38,6 +40,8 @@ def query_zip_city(execute):
 def query_zip_city_jobs(execute):
 
     def closure(user, branch, job_type):
-        return execute(zip_city_jobs_query(branch.id, job_type.id), **{'user': user})
+        return execute(
+            zip_city_jobs_query(to_global_id('Branch', branch.id),
+                                to_global_id('JobType', job_type.id)), **{'user': user})
 
     return closure

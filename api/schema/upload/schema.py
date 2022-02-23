@@ -1,6 +1,5 @@
 import graphene
-from graphene import ObjectType
-from graphene_file_upload.scalars import Upload
+from graphene import relay, ObjectType
 from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 
@@ -11,13 +10,14 @@ from db.context.upload.resource import Resource
 from db.context.upload.uploader import Uploader
 from db.models import upload_configurations
 
+# pylint: disable=W0221
 
-class UserUpload(Output, graphene.Mutation):
+
+class UserUpload(Output, relay.ClientIDMutation):
 
     attachment = graphene.Field(lambda: Attachment)
 
-    class Arguments:
-        file = Upload(required=True)
+    class Input:
         key = AttachmentKey(required=True)
         projectPosting = ProjectPostingInput(required=False)
 
@@ -25,8 +25,9 @@ class UserUpload(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **kwargs):
         user = info.context.user
-        key = kwargs.get('key', None)
-        project_posting = kwargs.get('projectPosting', None)
+        input_data = kwargs.get('input', {})
+        key = input_data.get('key', None)
+        project_posting = input_data.get('projectPosting', None)
 
         resource = Resource(user=user,
                             key=key,

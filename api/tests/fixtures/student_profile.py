@@ -1,25 +1,27 @@
 import pytest
 
+from graphql_relay import to_global_id
+
 # pylint: disable=W0621
 # pylint: disable=R0913
 # pylint: disable=C0209
 
 
-def student_profile_mutation(kind, gql_variable_name):
+def student_profile_mutation(kind):
     return '''
-    mutation StudentProfileMutation($%s: StudentProfileInput%s!) {
-        studentProfile%s(%s: $%s) {
+    mutation StudentProfileMutation($input: StudentProfile%sInput!) {
+        studentProfile%s(input: $input) {
             success,
             errors
         }
     }
-    ''' % (gql_variable_name, kind, kind, gql_variable_name, gql_variable_name)
+    ''' % (kind, kind)
 
 
 def student_profile_mutation_specific_data():
     return '''
-    mutation StudentProfileMutation($specificData: StudentProfileInputSpecificData!) {
-        studentProfileSpecificData(specificData: $specificData) {
+    mutation StudentProfileMutation($input: StudentProfileSpecificDataInput!) {
+        studentProfileSpecificData(input: $input) {
             success,
             errors,
             nicknameSuggestions
@@ -32,9 +34,9 @@ def student_profile_mutation_specific_data():
 def student_base_data(execute):
 
     def closure(user, first_name, last_name, street, zip_value, city, date_of_birth, mobile):
-        return execute(student_profile_mutation("BaseData", "baseData"),
+        return execute(student_profile_mutation("BaseData"),
                        variables={
-                           'baseData': {
+                           'input': {
                                'firstName': first_name,
                                'lastName': last_name,
                                'street': street,
@@ -53,16 +55,16 @@ def student_base_data(execute):
 def student_employment(execute):
 
     def closure(user, job_type, job_from_date, job_to_date, branch):
-        return execute(student_profile_mutation("Employment", "employment"),
+        return execute(student_profile_mutation("Employment"),
                        variables={
-                           'employment': {
+                           'input': {
                                'jobType': {
-                                   'id': job_type.id
+                                   'id': to_global_id('JobType', job_type.id)
                                },
                                'jobFromDate': job_from_date,
                                'jobToDate': job_to_date,
                                'branch': {
-                                   'id': branch.id
+                                   'id': to_global_id('Branch', branch.id)
                                }
                            }
                        },
@@ -75,14 +77,14 @@ def student_employment(execute):
 def student_character(execute):
 
     def closure(user, soft_skills, cultural_fits):
-        return execute(student_profile_mutation("Character", "character"),
+        return execute(student_profile_mutation("Character"),
                        variables={
-                           'character': {
+                           'input': {
                                'softSkills': [{
-                                   'id': obj.id
+                                   'id': to_global_id('SoftSkill', obj.id)
                                } for obj in soft_skills],
                                'culturalFits': [{
-                                   'id': obj.id
+                                   'id': to_global_id('CulturalFit', obj.id)
                                } for obj in cultural_fits],
                            }
                        },
@@ -95,25 +97,33 @@ def student_character(execute):
 def student_abilities(execute):
 
     def closure(user, skills, languages, hobbies, online_projects, distinction):
-        return execute(student_profile_mutation("Abilities", "abilities"),
-                       variables={
-                           'abilities': {
-                               'skills': [{
-                                   'id': obj.id
-                               } for obj in skills],
-                               'languages': [{
-                                   'language': obj[0].id,
-                                   'languageLevel': obj[1].id
-                               } for obj in languages],
-                               'hobbies':
-                               hobbies,
-                               'onlineProjects':
-                               online_projects,
-                               'distinction':
-                               distinction
-                           }
-                       },
-                       **{'user': user})
+        languages = languages if languages else []
+        hobbies = hobbies if hobbies else []
+        online_projects = online_projects if online_projects else []
+        return execute(
+            student_profile_mutation("Abilities"),
+            variables={
+                'input': {
+                    'skills': [{
+                        'id': to_global_id('Skill', obj.id)
+                    } for obj in skills],
+                    'languages': [{
+                        'language': to_global_id('Language', obj[0].id),
+                        'languageLevel': to_global_id('LanguageLevel', obj[1].id)
+                    } for obj in languages],
+                    'hobbies': [
+                        __updated_dict(obj, {'id': to_global_id('Hobby', obj['id'])})
+                        if 'id' in obj else obj for obj in hobbies
+                    ],
+                    'onlineProjects': [
+                        __updated_dict(obj, {'id': to_global_id('OnlineProject', obj['id'])})
+                        if 'id' in obj else obj for obj in online_projects
+                    ],
+                    'distinction':
+                    distinction
+                }
+            },
+            **{'user': user})
 
     return closure
 
@@ -123,7 +133,7 @@ def student_specific_data(execute):
 
     def closure(user, nickname):
         return execute(student_profile_mutation_specific_data(),
-                       variables={'specificData': {
+                       variables={'input': {
                            'nickname': nickname
                        }},
                        **{'user': user})
@@ -135,10 +145,15 @@ def student_specific_data(execute):
 def student_condition(execute):
 
     def closure(user, state):
-        return execute(student_profile_mutation("Condition", "condition"),
-                       variables={'condition': {
+        return execute(student_profile_mutation("Condition"),
+                       variables={'input': {
                            'state': state
                        }},
                        **{'user': user})
 
     return closure
+
+
+def __updated_dict(dictionary, keyval):
+    dictionary.update(keyval)
+    return dictionary

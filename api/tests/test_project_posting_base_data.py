@@ -1,5 +1,7 @@
 import pytest
 
+from graphql_relay import from_global_id
+
 from django.contrib.auth.models import AnonymousUser
 
 from db.models import ProjectPosting, Topic, ProjectType, Keyword, ProfileType
@@ -33,10 +35,12 @@ def _test_base_data(user, login, project_posting_base_data, topic_objects, proje
     assert data.get('projectPostingBaseData') is not None
     assert data.get('projectPostingBaseData').get('success')
 
-    project_posting_slug = ProjectPosting.objects.get(
-        slug=data.get('projectPostingBaseData').get('slug'))
-    project_posting = ProjectPosting.objects.get(
-        pk=data.get('projectPostingBaseData').get('projectPostingId'))
+    slug = data.get('projectPostingBaseData').get('slug')
+    element_id = from_global_id(data.get('projectPostingBaseData').get('projectPostingId'))[1]
+
+    project_posting_slug = ProjectPosting.objects.get(slug=slug)
+    project_posting = ProjectPosting.objects.get(pk=element_id)
+
     assert project_posting_slug == project_posting
     assert project_posting.title == 'title'
     assert project_posting.slug == f'title-{str(project_posting.id)}'

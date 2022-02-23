@@ -1,5 +1,5 @@
 import graphene
-from graphene import ObjectType
+from graphene import relay, ObjectType
 from graphql_auth.bases import Output
 
 from django.utils.translation import gettext_lazy as _
@@ -7,17 +7,15 @@ from django.utils.translation import gettext_lazy as _
 from db.forms import UserRequestForm
 from db.models import UserRequest as UserRequestModel
 
-
-class UserRequestInput(graphene.InputObjectType):
-    name = graphene.String(description=_('Name'), required=True)
-    email = graphene.String(description=_('E-Mail'), required=True)
-    message = graphene.String(description=_('Message'), required=True)
+# pylint: disable=W0221
 
 
-class UserRequest(Output, graphene.Mutation):
+class UserRequest(Output, relay.ClientIDMutation):
 
-    class Arguments:
-        input = UserRequestInput(description=_('UserRequest is required.'), required=True)
+    class Input:
+        name = graphene.String(description=_('Name'), required=True)
+        email = graphene.String(description=_('E-Mail'), required=True)
+        message = graphene.String(description=_('Message'), required=True)
 
     class Meta:
         description = _('Creates a new user user request')

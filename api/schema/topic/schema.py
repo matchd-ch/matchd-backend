@@ -28,7 +28,7 @@ class TopicQuery(ObjectType):
 
 
 class TopicInput(graphene.InputObjectType):
-    id = graphene.ID(required=True)
+    id = graphene.String(required=True)
     name = graphene.String(required=False)
 
     # pylint: disable=C0103

@@ -1,5 +1,7 @@
 import pytest
 
+from graphql_relay import from_global_id
+
 from django.contrib.auth.models import AnonymousUser
 
 from db.helper.forms import convert_date
@@ -23,8 +25,11 @@ def test_base_data(requests_mock, user_employee, login, job_posting_base_data, j
     assert data.get('jobPostingBaseData') is not None
     assert data.get('jobPostingBaseData').get('success')
 
-    job_posting_slug = JobPosting.objects.get(slug=data.get('jobPostingBaseData').get('slug'))
-    job_posting = JobPosting.objects.get(pk=data.get('jobPostingBaseData').get('jobPostingId'))
+    slug = data.get('jobPostingBaseData').get('slug')
+    element_id = from_global_id(data.get('jobPostingBaseData').get('jobPostingId'))[1]
+
+    job_posting_slug = JobPosting.objects.get(slug=slug)
+    job_posting = JobPosting.objects.get(pk=element_id)
     assert job_posting_slug == job_posting
     assert job_posting.title == 'title'
     assert job_posting.slug == f'title-{str(job_posting.id)}'

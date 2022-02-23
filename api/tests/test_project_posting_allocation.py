@@ -1,5 +1,7 @@
 import pytest
 
+from graphql_relay import from_global_id
+
 from django.contrib.auth.models import AnonymousUser
 
 from db.models import ProjectPostingState, ProjectPosting
@@ -37,10 +39,11 @@ def _test_allocation(user, employee, company, student, company_project_posting_o
     assert data.get('projectPostingAllocation') is not None
     assert data.get('projectPostingAllocation').get('success')
 
-    project_posting_slug = ProjectPosting.objects.get(
-        slug=data.get('projectPostingAllocation').get('slug'))
-    project_posting = ProjectPosting.objects.get(
-        pk=data.get('projectPostingAllocation').get('projectPostingId'))
+    slug = data.get('projectPostingAllocation').get('slug')
+    element_id = from_global_id(data.get('projectPostingAllocation').get('projectPostingId'))[1]
+
+    project_posting_slug = ProjectPosting.objects.get(slug=slug)
+    project_posting = ProjectPosting.objects.get(pk=element_id)
     assert project_posting_slug == project_posting
     if employee is not None:
         assert project_posting.employee.id == employee.id

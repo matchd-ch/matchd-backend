@@ -1,5 +1,7 @@
 import pytest
 
+from graphql_relay import from_global_id
+
 from django.contrib.auth.models import AnonymousUser
 
 from db.helper.forms import convert_date
@@ -38,8 +40,9 @@ def _test_specific_data(user, company, student, company_project_posting_object, 
     assert data.get('projectPostingSpecificData') is not None
     assert data.get('projectPostingSpecificData').get('success')
 
-    project_posting = ProjectPosting.objects.get(
-        pk=data.get('projectPostingSpecificData').get('projectPostingId'))
+    element_id = from_global_id(data.get('projectPostingSpecificData').get('projectPostingId'))[1]
+
+    project_posting = ProjectPosting.objects.get(pk=element_id)
     assert project_posting.project_from_date == convert_date('03.2021', '%m.%Y')
     assert project_posting.website == 'http://www.project-posting.lo'
     if user.type in ProfileType.valid_company_types():

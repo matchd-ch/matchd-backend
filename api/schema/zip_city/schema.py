@@ -3,10 +3,11 @@ from graphene import ObjectType, InputObjectType
 
 from django.db.models import Q
 
+from api.helper import resolve_node_id
+from api.helper.location import filter_correct_zip_and_city
 from api.data import zip_city_datasource
 
 from db.models import JobPosting, JobPostingState
-from api.helper.location import filter_correct_zip_and_city
 
 
 class ZipCity(ObjectType):
@@ -22,16 +23,16 @@ class ZipCityInput(InputObjectType):
 class ZipCityQuery(ObjectType):
     zip_city = graphene.NonNull(graphene.List(graphene.NonNull(ZipCity)))
     zip_city_jobs = graphene.NonNull(graphene.List(graphene.NonNull(ZipCity)),
-                                     branch_id=graphene.ID(required=False),
-                                     job_type_id=graphene.ID(required=False))
+                                     branch_id=graphene.String(required=False),
+                                     job_type_id=graphene.String(required=False))
 
     def resolve_zip_city(self, info, **kwargs):
         return zip_city_datasource.data
 
     def resolve_zip_city_jobs(self, info, **kwargs):
         query = Q(state=JobPostingState.PUBLIC)
-        branch = kwargs.get('branch_id')
-        job_type = kwargs.get('job_type_id')
+        branch = resolve_node_id(kwargs.get('branch_id'))
+        job_type = resolve_node_id(kwargs.get('job_type_id'))
 
         if branch is not None:
             query &= Q(branches__in=[branch])
