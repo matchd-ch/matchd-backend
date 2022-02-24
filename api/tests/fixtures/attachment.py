@@ -232,8 +232,8 @@ def upload(default_password):
             json.dumps({
                 'query': query,
                 'variables': {
-                    'file': None,
                     'input': {
+                        'file': None,
                         'key': key.upper(),
                         'projectPosting': project_posting
                     }
@@ -243,7 +243,7 @@ def upload(default_password):
             file,
             'map':
             json.dumps({
-                '0': ['variables.file'],
+                '0': ['variables.input.file'],
             }),
         }
 
@@ -267,8 +267,8 @@ def upload_for_project_posting(default_password):
             json.dumps({
                 'query': query,
                 'variables': {
-                    'file': None,
                     'input': {
+                        'file': None,
                         'key': key.upper(),
                         'projectPosting': {
                             'id': project_posting.id
@@ -280,7 +280,7 @@ def upload_for_project_posting(default_password):
             file,
             'map':
             json.dumps({
-                '0': ['variables.file'],
+                '0': ['variables.input.file'],
             }),
         }
 

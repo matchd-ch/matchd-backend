@@ -2,6 +2,7 @@ import graphene
 from graphene import relay, ObjectType
 from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
+from graphene_file_upload.scalars import Upload
 
 from api.schema.attachment import Attachment, AttachmentKey
 from api.schema.project_posting.schema import ProjectPostingInput
@@ -18,6 +19,7 @@ class UserUpload(Output, relay.ClientIDMutation):
     attachment = graphene.Field(lambda: Attachment)
 
     class Input:
+        file = Upload(required=True)
         key = AttachmentKey(required=True)
         projectPosting = ProjectPostingInput(required=False)
 
