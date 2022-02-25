@@ -14,7 +14,7 @@ class Hobby(DjangoObjectType):
 
 
 class HobbyInput(graphene.InputObjectType):
-    id = graphene.ID()
+    id = graphene.String()
     name = graphene.String(required=False)
 
     # pylint: disable=C0103

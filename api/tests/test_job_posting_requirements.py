@@ -1,3 +1,4 @@
+from graphql_relay import from_global_id
 import pytest
 
 from django.contrib.auth.models import AnonymousUser
@@ -31,8 +32,11 @@ def test_requirements(user_employee, job_posting_object, login, job_posting_requ
     assert data.get('jobPostingRequirements') is not None
     assert data.get('jobPostingRequirements').get('success')
 
-    job_posting_slug = JobPosting.objects.get(slug=data.get('jobPostingRequirements').get('slug'))
-    job_posting = JobPosting.objects.get(pk=data.get('jobPostingRequirements').get('jobPostingId'))
+    slug = data.get('jobPostingRequirements').get('slug')
+    element_id = from_global_id(data.get('jobPostingRequirements').get('jobPostingId'))[1]
+
+    job_posting_slug = JobPosting.objects.get(slug=slug)
+    job_posting = JobPosting.objects.get(pk=element_id)
     assert job_posting_slug == job_posting
 
     job_requirements = job_posting.job_requirements.all()

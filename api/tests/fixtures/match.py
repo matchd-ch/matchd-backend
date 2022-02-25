@@ -3,8 +3,8 @@ import pytest
 
 def match_job_posting_mutation():
     return '''
-    mutation MatchMutation($match: MatchJobPostingInput!) {
-      matchJobPosting(match: $match) {
+    mutation MatchMutation($input: MatchJobPostingInput!) {
+      matchJobPosting(input: $input) {
         success,
         errors,
         confirmed
@@ -15,8 +15,8 @@ def match_job_posting_mutation():
 
 def match_student_mutation():
     return '''
-    mutation MatchMutation($match: MatchStudentInput!) {
-      matchStudent(match: $match) {
+    mutation MatchMutation($input: MatchStudentInput!) {
+      matchStudent(input: $input) {
         success,
         errors,
         confirmed
@@ -27,8 +27,8 @@ def match_student_mutation():
 
 def project_posting_matching():
     return '''
-    mutation ProjectPostingMatching($match: MatchProjectPostingInput!){
-        matchProjectPosting(match: $match) {
+    mutation ProjectPostingMatching($input: MatchProjectPostingInput!){
+        matchProjectPosting(input: $input) {
             success
             errors
             confirmed
@@ -42,7 +42,7 @@ def match_job_posting(execute):
 
     def closure(user, job_posting_id):
         return execute(match_job_posting_mutation(),
-                       variables={"match": {
+                       variables={"input": {
                            "jobPosting": {
                                "id": job_posting_id
                            }
@@ -58,7 +58,7 @@ def match_student(execute):
     def closure(user, student_id, job_posting_id):
         return execute(match_student_mutation(),
                        variables={
-                           "match": {
+                           "input": {
                                "student": {
                                    "id": student_id
                                },
@@ -77,7 +77,7 @@ def match_project_posting(execute):
 
     def closure(user, project_posting):
         return execute(project_posting_matching(),
-                       variables={"match": {
+                       variables={"input": {
                            "projectPosting": {
                                "id": project_posting.id
                            }

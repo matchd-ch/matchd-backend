@@ -145,7 +145,6 @@ def process_student_abilities_form(user, data):
     validate_form_data(data)
 
     errors = {}
-
     student = user.student
 
     # validate profile data

@@ -16,6 +16,7 @@ from db.validators import AttachmentKeyValidator, AttachmentKeyNumFilesValidator
 class Uploader:
 
     def __init__(self) -> None:
+        self.__attachment = None
         self.__success = False
         self.__errors = {}
 
@@ -114,6 +115,7 @@ class Uploader:
         return attachment_content_type, file_attachment
 
     def upload(self, user: User, resource: Resource) -> Uploader:
+        attachment = None
         errors = {}
         success = True
 
@@ -138,15 +140,20 @@ class Uploader:
 
         form.full_clean()
         if form.is_valid():
-            form.save()
+            attachment = form.save()
         else:
             success = False
             errors.update(form.errors.get_json_data())
 
+        self.__attachment = attachment
         self.__success = success
         self.__errors = errors
 
         return self
+
+    @property
+    def attachment(self) -> Attachment:
+        return self.__attachment
 
     @property
     def errors(self) -> list[str]:

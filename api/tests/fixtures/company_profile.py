@@ -1,27 +1,29 @@
 import pytest
 
+from graphql_relay import to_global_id
+
 # pylint: disable=R0913
 # pylint: disable=C0209
 
 
-def company_profile_mutation(kind, gql_variable_name):
+def company_profile_mutation(kind):
     return '''
-    mutation CompanyProfileMutation($%s: CompanyProfileInput%s!) {
-        companyProfile%s(%s: $%s) {
+    mutation CompanyProfileMutation($input: CompanyProfile%sInput!) {
+        companyProfile%s(input: $input) {
             success,
             errors
         }
     }
-    ''' % (gql_variable_name, kind, kind, gql_variable_name, gql_variable_name)
+    ''' % (kind, kind)
 
 
 @pytest.fixture
 def company_base_data(execute):
 
     def closure(user, first_name, last_name, name, street, zip_value, city, phone, role):
-        return execute(company_profile_mutation("BaseData", "baseData"),
+        return execute(company_profile_mutation("BaseData"),
                        variables={
-                           'baseData': {
+                           'input': {
                                'firstName': first_name,
                                'lastName': last_name,
                                'name': name,
@@ -41,9 +43,9 @@ def company_base_data(execute):
 def company_relations(execute):
 
     def closure(user, website, description, services, member_it_st_gallen):
-        return execute(company_profile_mutation("Relations", "relations"),
+        return execute(company_profile_mutation("Relations"),
                        variables={
-                           'relations': {
+                           'input': {
                                'website': website,
                                'description': description,
                                'services': services,
@@ -59,14 +61,14 @@ def company_relations(execute):
 def company_advantages(execute):
 
     def closure(user, branches, benefits):
-        return execute(company_profile_mutation("Advantages", "advantages"),
+        return execute(company_profile_mutation("Advantages"),
                        variables={
-                           'advantages': {
+                           'input': {
                                'branches': [{
-                                   'id': obj.id
+                                   'id': to_global_id('Branch', obj.id)
                                } for obj in branches],
                                'benefits': [{
-                                   'id': obj.id
+                                   'id': to_global_id('Benefit', obj.id)
                                } for obj in benefits],
                            }
                        },
@@ -79,14 +81,14 @@ def company_advantages(execute):
 def company_values(execute):
 
     def closure(user, soft_skills, cultural_fits):
-        return execute(company_profile_mutation("Values", "values"),
+        return execute(company_profile_mutation("Values"),
                        variables={
-                           'values': {
+                           'input': {
                                'softSkills': [{
-                                   'id': obj.id
+                                   'id': to_global_id('SoftSkill', obj.id)
                                } for obj in soft_skills],
                                'culturalFits': [{
-                                   'id': obj.id
+                                   'id': to_global_id('CulturalFit', obj.id)
                                } for obj in cultural_fits],
                            }
                        },

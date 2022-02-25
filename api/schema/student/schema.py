@@ -9,7 +9,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext as _
 
-from api.helper import is_me_query
+from api.helper import extract_ids, is_me_query, resolve_node_id, resolve_node_ids
 from api.schema.branch import BranchInput
 from api.schema.cultural_fit import CulturalFitInput
 from api.schema.hobby import HobbyInput, Hobby
@@ -26,13 +26,15 @@ from db.forms import process_student_base_data_form, process_student_character_f
     process_student_specific_data_form, process_student_condition_form, process_student_abilities_form
 from db.models import Student as StudentModel, ProfileType, Match as MatchModel, ProjectPostingState
 
+# pylint: disable=W0221
+
 
 class StudentInput(graphene.InputObjectType):
-    id = graphene.ID(required=True)
+    id = graphene.String(required=True)
 
 
 class RegisterStudentInput(graphene.InputObjectType):
-    id = graphene.ID(required=False)
+    id = graphene.String(required=False)
     mobile = graphene.String(description=_('Mobile'), required=True)
 
 
@@ -133,7 +135,8 @@ class Student(DjangoObjectType):
         #     }
         # }
         try:
-            job_posting_id = info.operation.selection_set.selections[0].arguments[1].value.value
+            node_id = info.operation.selection_set.selections[0].arguments[1].value.value
+            job_posting_id = resolve_node_id(node_id)
         except Exception:
             job_posting_id = None
 
@@ -178,21 +181,16 @@ class Student(DjangoObjectType):
         return self.project_postings.filter(state=ProjectPostingState.PUBLIC)
 
 
-class StudentProfileInputBaseData(graphene.InputObjectType):
-    first_name = graphene.String(description=_('First name'), required=True)
-    last_name = graphene.String(description=_('Last name'), required=True)
-    street = graphene.String(description=_('street'))
-    zip = graphene.String(description=_('Zip'))
-    city = graphene.String(description=_('City'))
-    date_of_birth = graphene.String(description=_('Date of birth'), required=True)
-    mobile = graphene.String(description=_('Date of birth'))
+class StudentProfileBaseData(Output, relay.ClientIDMutation):
 
-
-class StudentProfileBaseData(Output, graphene.Mutation):
-
-    class Arguments:
-        base_data = StudentProfileInputBaseData(
-            description=_('Profile Input Base Data is required.'), required=True)
+    class Input:
+        first_name = graphene.String(description=_('First name'), required=True)
+        last_name = graphene.String(description=_('Last name'), required=True)
+        street = graphene.String(description=_('street'))
+        zip = graphene.String(description=_('Zip'))
+        city = graphene.String(description=_('City'))
+        date_of_birth = graphene.String(description=_('Date of birth'), required=True)
+        mobile = graphene.String(description=_('Date of birth'))
 
     class Meta:
         description = _('Updates the profile of a student')
@@ -201,7 +199,7 @@ class StudentProfileBaseData(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        form_data = data.get('base_data', None)
+        form_data = data.get('input', None)
         try:
             process_student_base_data_form(user, form_data)
         except FormException as exception:
@@ -209,18 +207,13 @@ class StudentProfileBaseData(Output, graphene.Mutation):
         return StudentProfileBaseData(success=True, errors=None)
 
 
-class StudentProfileInputEmployment(graphene.InputObjectType):
-    job_type = graphene.Field(JobTypeInput, required=True)
-    job_from_date = graphene.String(required=False)
-    job_to_date = graphene.String(required=False)
-    branch = graphene.Field(BranchInput, required=False)
+class StudentProfileEmployment(Output, relay.ClientIDMutation):
 
-
-class StudentProfileEmployment(Output, graphene.Mutation):
-
-    class Arguments:
-        employment = StudentProfileInputEmployment(
-            description=_('Profile Input Employment is required.'), required=True)
+    class Input:
+        job_type = graphene.Field(JobTypeInput, required=True)
+        job_from_date = graphene.String(required=False)
+        job_to_date = graphene.String(required=False)
+        branch = graphene.Field(BranchInput, required=False)
 
     class Meta:
         description = _('Updates job option, date (start or range) and branch of a student')
@@ -229,7 +222,8 @@ class StudentProfileEmployment(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        form_data = data.get('employment', None)
+        form_data = resolve_node_ids(data.get('input', None))
+
         try:
             process_student_employment_form(user, form_data)
         except FormException as exception:
@@ -237,16 +231,11 @@ class StudentProfileEmployment(Output, graphene.Mutation):
         return StudentProfileEmployment(success=True, errors=None)
 
 
-class StudentProfileInputCharacter(graphene.InputObjectType):
-    soft_skills = graphene.List(SoftSkillInput, required=False)
-    cultural_fits = graphene.List(CulturalFitInput, required=False)
+class StudentProfileCharacter(Output, relay.ClientIDMutation):
 
-
-class StudentProfileCharacter(Output, graphene.Mutation):
-
-    class Arguments:
-        character = StudentProfileInputCharacter(
-            description=_('Profile Input Character is required.'), required=True)
+    class Input:
+        soft_skills = graphene.List(SoftSkillInput, required=False)
+        cultural_fits = graphene.List(CulturalFitInput, required=False)
 
     class Meta:
         description = _('Updates soft skills and cultural fits of a student')
@@ -255,7 +244,10 @@ class StudentProfileCharacter(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        form_data = data.get('character', None)
+        form_data = resolve_node_ids(data.get('input', None))
+        form_data['soft_skills'] = extract_ids(form_data.get('soft_skills', []), 'id')
+        form_data['cultural_fits'] = extract_ids(form_data.get('cultural_fits', []), 'id')
+
         try:
             process_student_character_form(user, form_data)
         except FormException as exception:
@@ -263,21 +255,18 @@ class StudentProfileCharacter(Output, graphene.Mutation):
         return StudentProfileCharacter(success=True, errors=None)
 
 
-class StudentProfileInputAbilities(graphene.InputObjectType):
-    skills = graphene.List(SkillInput, description=_('Skills'), required=False)
-    hobbies = graphene.List(HobbyInput, description=_('Hobbies'), required=False)
-    online_projects = graphene.List(OnlineProjectInput,
-                                    description=_('Online_Projects'),
-                                    required=False)
-    languages = graphene.List(UserLanguageRelationInput, description=_('Languages'), required=True)
-    distinction = graphene.String(description=_('Distinction'), required=False)
+class StudentProfileAbilities(Output, relay.ClientIDMutation):
 
-
-class StudentProfileAbilities(Output, graphene.Mutation):
-
-    class Arguments:
-        abilities = StudentProfileInputAbilities(
-            description=_('Profile Input Abilities is required.'))
+    class Input:
+        skills = graphene.List(SkillInput, description=_('Skills'), required=False)
+        hobbies = graphene.List(HobbyInput, description=_('Hobbies'), required=False)
+        online_projects = graphene.List(OnlineProjectInput,
+                                        description=_('Online_Projects'),
+                                        required=False)
+        languages = graphene.List(UserLanguageRelationInput,
+                                  description=_('Languages'),
+                                  required=True)
+        distinction = graphene.String(description=_('Distinction'), required=False)
 
     class Meta:
         description = _('Updates the profile of a student')
@@ -286,7 +275,9 @@ class StudentProfileAbilities(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        form_data = data.get('abilities', None)
+        form_data = resolve_node_ids(data.get('input', None), ['id', 'language', 'language_level'])
+        form_data['skills'] = extract_ids(form_data.get('skills', []), 'id')
+
         try:
             process_student_abilities_form(user, form_data)
         except FormException as exception:
@@ -294,17 +285,12 @@ class StudentProfileAbilities(Output, graphene.Mutation):
         return StudentProfileAbilities(success=True, errors=None)
 
 
-class StudentProfileInputSpecificData(graphene.InputObjectType):
-    nickname = graphene.String(description=_('Nickname'), required=True)
-
-
-class StudentProfileSpecificData(Output, graphene.Mutation):
+class StudentProfileSpecificData(Output, relay.ClientIDMutation):
 
     nickname_suggestions = graphene.List(graphene.String)
 
-    class Arguments:
-        specific_data = StudentProfileInputSpecificData(
-            description=_('Profile Input Specific Data is required.'), required=True)
+    class Input:
+        nickname = graphene.String(description=_('Nickname'), required=True)
 
     class Meta:
         description = _('Updates the nickname of a student')
@@ -313,7 +299,8 @@ class StudentProfileSpecificData(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        form_data = data.get('specific_data', None)
+        form_data = data.get('input', None)
+
         try:
             process_student_specific_data_form(user, form_data)
         except NicknameException as exception:
@@ -325,15 +312,10 @@ class StudentProfileSpecificData(Output, graphene.Mutation):
         return StudentProfileSpecificData(success=True, errors=None)
 
 
-class StudentProfileInputCondition(graphene.InputObjectType):
-    state = graphene.String(description=_('State'), required=True)
+class StudentProfileCondition(Output, relay.ClientIDMutation):
 
-
-class StudentProfileCondition(Output, graphene.Mutation):
-
-    class Arguments:
-        condition = StudentProfileInputCondition(
-            description=_('Profile Input Condition is required.'), required=True)
+    class Input:
+        state = graphene.String(description=_('State'), required=True)
 
     class Meta:
         description = _('Updates the state of a student')
@@ -342,7 +324,8 @@ class StudentProfileCondition(Output, graphene.Mutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        form_data = data.get('condition', None)
+        form_data = data.get('input', None)
+
         try:
             process_student_condition_form(user, form_data)
         except FormException as exception:
@@ -373,4 +356,5 @@ class StudentQuery(ObjectType):
         student = get_object_or_404(StudentModel, slug=slug)
         if student.state == ProfileState.INCOMPLETE:
             raise Http404('Student not found')
+
         return student

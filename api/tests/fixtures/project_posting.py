@@ -24,7 +24,7 @@ def project_posting_query(filter_value, param_name):
     if param_name == 'slug':
         param = f'slug: "{filter_value}"'
     else:
-        param = f'id: {filter_value}'
+        param = f'id: "{filter_value}"'
     return '''
     query {
         projectPosting(%s) {
@@ -152,7 +152,9 @@ def query_project_posting(execute):
 def query_project_posting_by_id(execute):
 
     def closure(user, project_posting_id):
-        return execute(project_posting_query(project_posting_id, 'id'), **{'user': user})
+        return execute(
+            project_posting_query(to_global_id('ProjectPosting', project_posting_id), 'id'),
+            **{'user': user})
 
     return closure
 
@@ -243,17 +245,17 @@ def student_project_posting_object(student_project_posting_objects):
     return student_project_posting_objects[0]
 
 
-def project_posting_mutation(kind, gql_variable_name):
+def project_posting_mutation(kind):
     return '''
-    mutation ProjectPostingMutation($%s: ProjectPostingInput%s!) {
-      projectPosting%s(%s: $%s) {
+    mutation ProjectPostingMutation($input: ProjectPosting%sInput!) {
+      projectPosting%s(input: $input) {
         success,
         errors,
         slug,
         projectPostingId
       }
     }
-    ''' % (gql_variable_name, kind, kind, gql_variable_name, gql_variable_name)
+    ''' % (kind, kind)
 
 
 # pylint: disable=R0913
@@ -261,20 +263,27 @@ def project_posting_mutation(kind, gql_variable_name):
 def project_posting_base_data(execute):
 
     def closure(user, title, description, additional_information, topic, project_type, keywords):
-        return execute(project_posting_mutation("BaseData", "baseData"),
+        return execute(project_posting_mutation("BaseData"),
                        variables={
-                           'baseData': {
-                               'title': title,
-                               'description': description,
-                               'additionalInformation': additional_information,
-                               'topic': None if topic is None else {
-                                   'id': topic.id
+                           'input': {
+                               'id':
+                               None,
+                               'title':
+                               title,
+                               'description':
+                               description,
+                               'additionalInformation':
+                               additional_information,
+                               'topic':
+                               None if topic is None else {
+                                   'id': to_global_id('Topic', topic.id)
                                },
-                               'projectType': None if project_type is None else {
-                                   'id': project_type.id
+                               'projectType':
+                               None if project_type is None else {
+                                   'id': to_global_id('ProjectType', project_type.id)
                                },
                                'keywords': [{
-                                   'id': obj.id
+                                   'id': to_global_id('Keywords', obj.id)
                                } for obj in keywords]
                            }
                        },
@@ -288,10 +297,10 @@ def project_posting_base_data(execute):
 def project_posting_specific_data(execute):
 
     def closure(user, project_posting_id, project_from_date, website):
-        return execute(project_posting_mutation("SpecificData", "specificData"),
+        return execute(project_posting_mutation("SpecificData"),
                        variables={
-                           'specificData': {
-                               'id': project_posting_id,
+                           'input': {
+                               'id': to_global_id('ProjectPosting', project_posting_id),
                                'projectFromDate': project_from_date,
                                'website': website,
                            }
@@ -305,13 +314,13 @@ def project_posting_specific_data(execute):
 def project_posting_allocation(execute):
 
     def closure(user, project_posting_id, state, employee):
-        return execute(project_posting_mutation("Allocation", "allocation"),
+        return execute(project_posting_mutation("Allocation"),
                        variables={
-                           'allocation': {
-                               'id': project_posting_id,
+                           'input': {
+                               'id': to_global_id('ProjectPosting', project_posting_id),
                                'state': state,
                                'employee': None if employee is None else {
-                                   'id': employee.id
+                                   'id': to_global_id('Employee', employee.id)
                                }
                            }
                        },

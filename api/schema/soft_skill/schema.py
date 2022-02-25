@@ -30,7 +30,7 @@ class SoftSkillQuery(ObjectType):
 
 
 class SoftSkillInput(graphene.InputObjectType):
-    id = graphene.ID(required=True)
+    id = graphene.String(required=True)
 
     # pylint: disable=C0103
     @property

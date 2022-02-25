@@ -3,12 +3,12 @@ import os
 import shutil
 import pytest
 
+from graphql_relay import to_global_id
+
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import Client
-
-from graphql_relay import to_global_id
 
 from db.models import Attachment, Image, AttachmentKey
 
@@ -171,12 +171,10 @@ def attachments_by_slug_query(slug):
 
 
 @pytest.fixture
-def query_attachment_node(execute):
+def query_attachment_node_by_node_id(execute):
 
-    def closure(user, id_value):
-        return execute(attachment_node_query(),
-                       variables={'id': to_global_id('Attachment', id_value)},
-                       **{'user': user})
+    def closure(user, node_id):
+        return execute(attachment_node_query(), variables={'id': node_id}, **{'user': user})
 
     return closure
 
@@ -199,49 +197,61 @@ def query_attachments_for_slug(execute):
     return closure
 
 
-def upload_mutation(key):
+def upload_mutation():
     return '''
-    mutation {
-      upload(file: Upload, key: %s) {
+    mutation UploadMutation($input: UserUploadInput!) {
+      upload(input: $input) {
+        attachment {
+            id
+        }
         success
         errors
       }
     }
-    ''' % key.upper()
+    '''
 
 
-def upload_for_project_posting_mutation(key):
+def upload_for_project_posting_mutation():
     return '''
-    mutation UploadProjectPosting($projectPosting: ProjectPostingInput!) {
-      upload(file: Upload, key: %s, projectPosting:$projectPosting) {
+    mutation UploadProjectPosting($input: UserUploadInput!) {
+      upload(input: $input) {
         success
         errors
       }
     }
-    ''' % key.upper()
+    '''
 
 
 @pytest.fixture
 def upload(default_password):
 
-    def closure(user, key, file):
-        query = upload_mutation(key)
+    def closure(user, key, file, project_posting=None):
+        query = upload_mutation()
         data = {
-            'operations': json.dumps({
+            'operations':
+            json.dumps({
                 'query': query,
                 'variables': {
-                    'file': None,
+                    'input': {
+                        'file': None,
+                        'key': key.upper(),
+                        'projectPosting': project_posting
+                    }
                 },
             }),
-            '0': file,
-            'map': json.dumps({
-                '0': ['variables.file'],
+            '0':
+            file,
+            'map':
+            json.dumps({
+                '0': ['variables.input.file'],
             }),
         }
+
         client = Client()
         client.login(username=user.username, password=default_password)
         response = client.post('/graphql/', data=data)
         content = json.loads(response.content)
+
         return content.get('data'), content.get('errors')
 
     return closure
@@ -251,15 +261,18 @@ def upload(default_password):
 def upload_for_project_posting(default_password):
 
     def closure(user, project_posting, key, file):
-        query = upload_for_project_posting_mutation(key)
+        query = upload_for_project_posting_mutation()
         data = {
             'operations':
             json.dumps({
                 'query': query,
                 'variables': {
-                    'file': None,
-                    'projectPosting': {
-                        'id': project_posting.id
+                    'input': {
+                        'file': None,
+                        'key': key.upper(),
+                        'projectPosting': {
+                            'id': to_global_id('ProjectPosting', project_posting.id)
+                        }
                     }
                 },
             }),
@@ -267,27 +280,29 @@ def upload_for_project_posting(default_password):
             file,
             'map':
             json.dumps({
-                '0': ['variables.file'],
+                '0': ['variables.input.file'],
             }),
         }
+
         client = Client()
         client.login(username=user.username, password=default_password)
         response = client.post('/graphql/', data=data)
         content = json.loads(response.content)
+
         return content.get('data'), content.get('errors')
 
     return closure
 
 
-def delete_attachment_mutation(attachment_id):
+def delete_attachment_mutation():
     return '''
-    mutation {
-      deleteAttachment(id:%i) {
+    mutation DeleteAttachmentMutation($input: DeleteAttachmentInput!) {
+      deleteAttachment(input: $input) {
         success
         errors
       }
     }
-    ''' % attachment_id
+    '''
 
 
 @pytest.fixture
@@ -345,7 +360,11 @@ def attachments_for_project_posting():
 def delete_attachment(execute):
 
     def closure(user, attachment_id):
-        return execute(delete_attachment_mutation(attachment_id), **{'user': user})
+        return execute(delete_attachment_mutation(),
+                       variables={'input': {
+                           'id': to_global_id('Attachment', attachment_id)
+                       }},
+                       **{'user': user})
 
     return closure
 

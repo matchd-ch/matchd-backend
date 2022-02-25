@@ -28,5 +28,5 @@ class ProjectTypeQuery(ObjectType):
 
 
 class ProjectTypeInput(graphene.InputObjectType):
-    id = graphene.ID(required=True)
+    id = graphene.String(required=True)
     name = graphene.String(required=False)
