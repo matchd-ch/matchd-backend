@@ -12,6 +12,7 @@ from wagtail.documents import urls as wagtaildocs_urls
 from graphql_jwt.decorators import jwt_cookie
 
 from api.views import GraphQLView, AttachmentServeView
+from db.view.csv_export_view import csv_view
 
 urlpatterns = [
     path('django-admin/', admin.site.urls),
@@ -23,6 +24,7 @@ urlpatterns = [
     path('attachment/<int:attachment_id>/<str:stack>/',
          AttachmentServeView.as_view(),
          name='attachment_serve_image'),
+    path('admin/users/export', csv_view)
 ]
 
 if settings.DEBUG:

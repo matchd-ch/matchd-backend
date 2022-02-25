@@ -86,6 +86,7 @@ XlsxWriter = "==3.0.2"
 whitenoise = "*"
 sentry-sdk = "*"
 yapf = "*"
+django-queryset-csv = "*"
 
 [dev-packages]
 
