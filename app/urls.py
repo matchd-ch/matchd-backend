@@ -17,6 +17,7 @@ from db.view.csv_export_view import csv_view
 urlpatterns = [
     path('django-admin/', admin.site.urls),
     path('admin/', include(wagtailadmin_urls)),
+    path('admin/users/export', csv_view),
     path('documents/', include(wagtaildocs_urls)),
     path('graphql/',
          csrf_exempt(jwt_cookie(GraphQLView.as_view(graphiql=settings.GRAPHIQL_ENABLED)))),
@@ -24,7 +25,6 @@ urlpatterns = [
     path('attachment/<int:attachment_id>/<str:stack>/',
          AttachmentServeView.as_view(),
          name='attachment_serve_image'),
-    path('admin/users/export', csv_view)
 ]
 
 if settings.DEBUG:
