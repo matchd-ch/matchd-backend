@@ -4,6 +4,7 @@ from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 from graphene_file_upload.scalars import Upload
 
+from api.helper import resolve_node_ids
 from api.schema.attachment import Attachment, AttachmentKey
 from api.schema.project_posting.schema import ProjectPostingInput
 
@@ -29,7 +30,7 @@ class UserUpload(Output, relay.ClientIDMutation):
         user = info.context.user
         input_data = kwargs.get('input', {})
         key = input_data.get('key', None)
-        project_posting = input_data.get('projectPosting', None)
+        project_posting = resolve_node_ids(input_data.get('projectPosting', None))
 
         resource = Resource(user=user,
                             key=key,

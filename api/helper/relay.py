@@ -8,7 +8,7 @@ def input_to_dictionary(data: dict, id_fields: list[str] = ['id']) -> dict:
     for field in data:
         # Convert GraphQL global id to database id
         if field in id_fields:
-            data[field] = from_global_id(data[field])[1]
+            data[field] = resolve_node_id(data[field])
         else:
             data[field] = resolve_node_ids(data[field], id_fields)
         dictionary[field] = data[field]

@@ -266,6 +266,8 @@ def project_posting_base_data(execute):
         return execute(project_posting_mutation("BaseData"),
                        variables={
                            'input': {
+                               'id':
+                               None,
                                'title':
                                title,
                                'description':

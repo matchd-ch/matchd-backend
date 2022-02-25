@@ -271,7 +271,7 @@ def upload_for_project_posting(default_password):
                         'file': None,
                         'key': key.upper(),
                         'projectPosting': {
-                            'id': project_posting.id
+                            'id': to_global_id('ProjectPosting', project_posting.id)
                         }
                     }
                 },
