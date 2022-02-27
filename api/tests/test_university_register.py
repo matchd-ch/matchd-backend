@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core import mail
 
-from api.tests.helper import verify_notification_new_user
+from api.tests.helper import verify_notification_new_user_registered
 
 from db.models import ProfileState, ProfileType, Company
 
@@ -51,7 +51,7 @@ def test_register_university(register_university, verification_url_and_token, ve
 
     admin_notification_email = mail.outbox[1]
     assert admin_notification_email is not None
-    verify_notification_new_user(user, admin_notification_email)
+    verify_notification_new_user_registered(user, admin_notification_email)
 
 
 @pytest.mark.django_db

@@ -1,7 +1,7 @@
 from django.conf import settings
 
 
-def verify_notification_new_user(user, notification_email):
+def verify_notification_new_user_registered(user, notification_email):
     assert settings.EMAIL_SYSTEM_NOTIFICATION_PREFIX in notification_email.subject
     assert 'New user registration' in notification_email.subject
 
