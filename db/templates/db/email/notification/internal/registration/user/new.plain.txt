@@ -1,0 +1,10 @@
+{% load i18n %}
+{% blocktranslate with first_name=user.first_name last_name=user.last_name email=user.email type=user.type company=user.company %}
+The following user has been registered: 
+
+First name: {{ first_name }}
+Last name: {{ last_name }}
+Email: {{ email }}
+Type: {{ type }}
+Company: {{ company }}
+{% endblocktranslate %}

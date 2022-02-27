@@ -2,7 +2,7 @@ from django.contrib.auth.models import AnonymousUser
 
 import pytest
 
-from api.tests.helpers.node_helper import assert_node_field, assert_node_id
+from api.tests.helper.node_helper import assert_node_field, assert_node_id
 
 
 @pytest.mark.django_db

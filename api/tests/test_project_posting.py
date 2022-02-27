@@ -4,7 +4,7 @@ from django.contrib.auth.models import AnonymousUser
 
 from graphql_relay import to_global_id
 
-from api.tests.helpers.node_helper import assert_node_field, assert_node_id
+from api.tests.helper.node_helper import assert_node_field, assert_node_id
 
 from db.models import ProjectPosting, ProjectPostingState
 # pylint: disable=R0913
