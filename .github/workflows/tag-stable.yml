@@ -31,6 +31,7 @@ jobs:
       dbUser: matchd-production
       dbName: matchd-production
       senderEmail: info@matchd.ch
+      managers: info_info@matchd.ch
       smtpRelay: smtp.postmarkapp.com
       smtpPort: 2525
       frontendUrl: https://get.matchd.ch
