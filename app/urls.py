@@ -12,10 +12,12 @@ from wagtail.documents import urls as wagtaildocs_urls
 from graphql_jwt.decorators import jwt_cookie
 
 from api.views import GraphQLView, AttachmentServeView
+from db.view.csv_export_view import csv_view
 
 urlpatterns = [
     path('django-admin/', admin.site.urls),
     path('admin/', include(wagtailadmin_urls)),
+    path('admin/users/export', csv_view),
     path('documents/', include(wagtaildocs_urls)),
     path('graphql/',
          csrf_exempt(jwt_cookie(GraphQLView.as_view(graphiql=settings.GRAPHIQL_ENABLED)))),

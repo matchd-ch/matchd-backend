@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "1718dc765c0e536deefa5f9b3e15f1baec98bf459e9c702502dd89be4829df27"
+            "sha256": "1658e2b5ac9bfda41980a5feecebc13a94b0557142eaecacb24b693df1c950a5"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -199,6 +199,13 @@
             ],
             "index": "pypi",
             "version": "==5.2"
+        },
+        "django-queryset-csv": {
+            "hashes": [
+                "sha256:46b4fd55686d40c81d4ee725155bde73c9ffd201b7f87d9abfea3679cc7a4a86"
+            ],
+            "index": "pypi",
+            "version": "==1.1.0"
         },
         "django-taggit": {
             "hashes": [
@@ -724,6 +731,12 @@
             "markers": "python_version >= '3.7'",
             "version": "==2.0.1"
         },
+        "unicodecsv": {
+            "hashes": [
+                "sha256:018c08037d48649a0412063ff4eda26eaa81eff1546dbffa51fa5293276ff7fc"
+            ],
+            "version": "==0.14.1"
+        },
         "unidecode": {
             "hashes": [
                 "sha256:8521f2853fd250891dc27d156a9d30e61c4e76319da963c4a1c27083a909ac30",
@@ -782,11 +795,11 @@
         },
         "willow": {
             "hashes": [
-                "sha256:698f755fc6bfb8984ac8550f470a0cb630ec1e628287475315d4d1e7595d7337",
-                "sha256:cde01e054c510284ac3459d6b531e1653a58e33a735706ac27905a94fe81742c"
+                "sha256:0df8ff528531e00b48d40bf72ed81beac1dc82f2d42e5bbed4aff0218bef8c0d",
+                "sha256:fc4042696d090e75aef922fa1ed26d483c764f005b36cf523cf7c34e69d5dd7a"
             ],
             "index": "pypi",
-            "version": "==1.4"
+            "version": "==1.4.1"
         },
         "wrapt": {
             "hashes": [
@@ -855,11 +868,11 @@
         },
         "xlsxwriter": {
             "hashes": [
-                "sha256:1aa65166697c42284e82f5bf9a33c2e913341eeef2b262019c3f5b5334768765",
-                "sha256:53005f03e8eb58f061ebf41d5767c7495ee0772c2396fe26b7e0ca22fa9c2570"
+                "sha256:df0aefe5137478d206847eccf9f114715e42aaea077e6a48d0e8a2152e983010",
+                "sha256:e89f4a1d2fa2c9ea15cde77de95cd3fd8b0345d0efb3964623f395c8c4988b7f"
             ],
             "index": "pypi",
-            "version": "==3.0.2"
+            "version": "==3.0.3"
         },
         "xlwt": {
             "hashes": [
