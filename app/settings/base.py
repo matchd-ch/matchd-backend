@@ -226,6 +226,8 @@ EMAIL_HOST_USER = os.getenv('SMTP_HOST_USER', '')
 EMAIL_USE_SSL = os.getenv('SMTP_USE_SSL', 'false') == 'true'
 EMAIL_USE_TLS = os.getenv('SMTP_USE_TLS', 'true') == 'true'
 EMAIL_SUBJECT_PREFIX = os.getenv('EMAIL_SUBJECT_PREFIX', '')
+EMAIL_SYSTEM_NOTIFICATION_PREFIX = os.getenv('EMAIL_SYSTEM_NOTIFICATION_PREFIX',
+                                             '[MATCHD SYSTEM NOTIFICATION] ')
 USER_REQUEST_FORM_RECIPIENTS = [
     recipient.strip()
     for recipient in os.getenv('USER_REQUEST_FORM_RECIPIENTS', f'{DEFAULT_FROM_EMAIL}').split(',')
@@ -321,6 +323,10 @@ APP_DOMAIN = os.getenv('APP_DOMAIN')
 AUTH_USER_MODEL = 'db.User'
 
 GRAPHIQL_ENABLED = os.getenv('GRAPHIQL_ENABLED', False)
+
+MANAGERS = [
+    i.split("_") for i in os.environ.get("MANAGERS", 'Webmaster_webmaster@matchd.ch').split(",")
+]
 
 # Database Models
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

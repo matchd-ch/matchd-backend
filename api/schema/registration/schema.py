@@ -5,6 +5,7 @@ from graphql_auth.mutations import Register
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 
+from api.helper import notify_managers_new_user_registration
 from api.schema.company import RegisterCompanyInput
 from api.schema.employee import EmployeeInput
 from api.schema.student import RegisterStudentInput
@@ -86,6 +87,8 @@ class RegisterCompany(Register):
         employee.user = user
         employee.save()
 
+        notify_managers_new_user_registration(user)
+
         return result
 
 
@@ -140,6 +143,9 @@ class RegisterStudent(Register):
 
         student.user = user
         student.save()
+
+        notify_managers_new_user_registration(user)
+
         return result
 
 
