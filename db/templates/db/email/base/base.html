@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block css %}
+        <link rel="stylesheet" href="{{ 'static/css/email/style.css' }}">
+    {% endblock %}
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+    <header id="header">
+        {% block header %}
+            {% include './header/default.html' %}
+        {% endblock %}
+    </header>
+
+    <section id="content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer id="footer">
+        {% block footer %}
+            {% include './footer/default.html' %}
+        {% endblock %}
+    </footer>
+</body>
+</html>

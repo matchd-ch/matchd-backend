@@ -1,3 +1,7 @@
+{% extends '../../base/base.html' %}
+
+{% block content %}
+
 {% load db_tags %}
 {% is_student user.type as send_company_mail %}
 {% if send_company_mail %}
@@ -18,3 +22,4 @@
 
 {% endif %}
 
+{% endblock %}

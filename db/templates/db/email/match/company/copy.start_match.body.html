@@ -1,3 +1,7 @@
+{% extends '../../base/base.html' %}
+
+{% block content %}
+
 {% load i18n %}
 <p>Hey {{ user.first_name }} {{ user.last_name }}</p>
 
@@ -12,3 +16,5 @@ geschickt. Ist {{ job_posting.employee.user.first_name }} {{ job_posting.employe
 
 <p>PS: Du hast Fragen oder Inputs an uns? Dann schreib uns einfach
     zurück. Wir freuen uns über Feedback.</p>
+
+{% endblock %}

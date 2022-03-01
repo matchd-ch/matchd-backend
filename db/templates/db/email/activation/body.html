@@ -1,3 +1,7 @@
+{% extends '../base/base.html' %}
+
+{% block content %}
+
 {# Activation-E-mail for student #}
 {% load db_tags %}
 {% is_student user.type as student %}
@@ -17,3 +21,5 @@
     <p>Ihr Matchd-Team </p>
     <p>Datenschutz ist uns wichtig. Mit der Angabe Ihrer E-Mail-Adresse akzeptieren Sie die <a href="{{ data_protection_url }}">Datenschutzerklärung </a>des Vereins IT St.Gallen («IT rockt!»), dem Anbieter von Matchd.</p>
 {% endif %}
+
+{% endblock %}
