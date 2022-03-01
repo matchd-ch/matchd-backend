@@ -1,3 +1,7 @@
+{% extends '../base/base.html' %}
+
+{% block content %}
+
 {# Password-Reset-E-mail for student #}
 {% load db_tags %}
 {% is_student user.type as student %}
@@ -16,3 +20,5 @@
     <p>Bis bald! <br>
         Ihr Matchd-Team</p>
 {% endif %}
+
+{% endblock %}
