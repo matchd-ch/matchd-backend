@@ -4,6 +4,8 @@ import pytest
 
 from django.core import management
 
+from graphql_relay import to_global_id
+
 from db.helper.forms import convert_date
 from db.models import ProfileState, Match, JobPostingState
 
@@ -68,7 +70,7 @@ def test_match_company(user_student, company_matching, soft_skill_objects, cultu
     assert len(matches) == 2
 
     best_match = matches[0]
-    assert int(best_match.get('id')) == user_employee.company.id
+    assert best_match.get('id') == to_global_id('Company', user_employee.company.id)
     assert float(best_match.get('score')) == 1
     assert float(best_match.get('rawScore')) == 1
 
@@ -78,7 +80,7 @@ def test_match_company(user_student, company_matching, soft_skill_objects, cultu
     assert match_status.get('initiator') == user_student.type.upper()
 
     worst_match = matches[1]
-    assert int(worst_match.get('id')) == user_employee_2.company.id
+    assert worst_match.get('id') == to_global_id('Company', user_employee_2.company.id)
     assert float(worst_match.get('score')) == 0
     assert float(worst_match.get('rawScore')) == 0
 

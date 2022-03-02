@@ -2,6 +2,8 @@ from io import StringIO
 
 import pytest
 
+from graphql_relay import to_global_id
+
 from django.core import management
 
 from db.helper.forms import convert_date
@@ -112,7 +114,7 @@ def test_job_posting_matching(job_posting_object, job_posting_object_2, skill_ob
     # job_posting_object is a perfect match --> score = 20
     # job_posting_object_2 matches only with branch --> score = 0
     best_match = matches[0]
-    assert int(best_match.get('id')) == job_posting_object.id
+    assert best_match.get('id') == to_global_id('JobPosting', job_posting_object.id)
     assert float(best_match.get('score')) == 1
     assert float(best_match.get('rawScore')) == 1
     match_status = best_match.get('matchStatus')
@@ -122,7 +124,7 @@ def test_job_posting_matching(job_posting_object, job_posting_object_2, skill_ob
     assert match_status.get('initiator') == user_student.type.upper()
 
     worst_match = matches[1]
-    assert int(worst_match.get('id')) == job_posting_object_2.id
+    assert worst_match.get('id') == to_global_id('JobPosting', job_posting_object_2.id)
     assert float(worst_match.get('score')) == 0
     assert float(worst_match.get('rawScore')) == 0
 

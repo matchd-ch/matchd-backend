@@ -1,3 +1,5 @@
+from graphql_relay import to_global_id
+
 from db.models import Attachment, AttachmentKey, MatchType, Match
 
 
@@ -45,7 +47,7 @@ class JobPostingMatchMapper:
 
     def _map_job_posting(self, job_posting):
         return {
-            'id': job_posting.id,
+            'id': to_global_id('JobPosting', job_posting.id),
             'name': job_posting.company.name,
             'avatar': self._get_attachment(job_posting),
             'type': MatchType.JOB_POSTING,
