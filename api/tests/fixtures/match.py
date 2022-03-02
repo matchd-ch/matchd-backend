@@ -1,5 +1,7 @@
 import pytest
 
+from graphql_relay import to_global_id
+
 
 def match_job_posting_mutation():
     return '''
@@ -41,13 +43,14 @@ def project_posting_matching():
 def match_job_posting(execute):
 
     def closure(user, job_posting_id):
-        return execute(match_job_posting_mutation(),
-                       variables={"input": {
-                           "jobPosting": {
-                               "id": job_posting_id
-                           }
-                       }},
-                       **{'user': user})
+        return execute(
+            match_job_posting_mutation(),
+            variables={"input": {
+                "jobPosting": {
+                    "id": to_global_id('JobPosting', job_posting_id)
+                }
+            }},
+            **{'user': user})
 
     return closure
 
@@ -60,10 +63,10 @@ def match_student(execute):
                        variables={
                            "input": {
                                "student": {
-                                   "id": student_id
+                                   "id": to_global_id('Student', student_id)
                                },
                                "jobPosting": {
-                                   "id": job_posting_id
+                                   "id": to_global_id('JobPosting', job_posting_id)
                                }
                            }
                        },
@@ -77,11 +80,13 @@ def match_project_posting(execute):
 
     def closure(user, project_posting):
         return execute(project_posting_matching(),
-                       variables={"input": {
-                           "projectPosting": {
-                               "id": project_posting.id
+                       variables={
+                           "input": {
+                               "projectPosting": {
+                                   "id": to_global_id('ProjectPosting', project_posting.id)
+                               }
                            }
-                       }},
+                       },
                        **{'user': user})
 
     return closure
