@@ -22,9 +22,6 @@ on:
       domain:
         required: true
         type: string
-      letsencryptEnabled:
-        type: boolean
-        default: false
       monitoringEnabled:
         type: boolean
         default: false
@@ -180,7 +177,6 @@ jobs:
                 - name: "${{ inputs.release }}-pull"
             ingress:
               domain: ${{ inputs.domain }}
-              letsencrypt: ${{ inputs.letsencryptEnabled }}
               monitoring: ${{ inputs.monitoringEnabled }}
             migrate:
               resetDb: ${{ inputs.resetDb }}

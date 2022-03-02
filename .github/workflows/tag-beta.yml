@@ -21,7 +21,7 @@ jobs:
       namespace: matchd-backend-staging
       release: matchd-backend
       environment: staging
-      domain: staging-matchd-backend.joshmartin.ch
+      domain: api.staging.matchd.ch
       version: "${{ needs.build.outputs.tag }}"
       dbHost: 10.100.35.5
       dbUser: matchd-staging
@@ -30,8 +30,8 @@ jobs:
       smtpRelay: smtp.postmarkapp.com
       smtpPort: 2525
       emailSubjectPrefix: '[STAGING]'
-      frontendUrl: https://staging-matchd-frontend.joshmartin.ch
-      csrfCookieDomain: '.joshmartin.ch'
+      frontendUrl: https://staging.matchd.ch
+      csrfCookieDomain: '.matchd.ch'
       dataProtectionUrl: 'https://example.com'
       resetDb: true
     secrets:

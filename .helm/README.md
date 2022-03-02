@@ -91,8 +91,6 @@ All optional variables have smart defaults and can be set if necessary.
 
 `MATCHD_MONITORING_ENABLED`
 
-`MATCHD_USE_LETSENCRYPT`
-
 `MATCHD_TLS_SECRET_NAME`
 
 `MATCHD_STABLE_AUTOSCALING_ENABLED`
