@@ -1,3 +1,5 @@
+from graphql_relay import to_global_id
+
 from db.models import Attachment, AttachmentKey, Match, MatchType, ProfileType
 
 
@@ -44,7 +46,7 @@ class CompanyMatchMapper:
 
     def _map_company(self, company):
         return {
-            'id': company.id,
+            'id': to_global_id('Company', company.id),
             'name': company.name,
             'avatar': self._get_attachment(company),
             'type':

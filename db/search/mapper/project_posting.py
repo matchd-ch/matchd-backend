@@ -1,3 +1,5 @@
+from graphql_relay import to_global_id
+
 from db.models import MatchType, Match, ProfileType, Attachment, AttachmentKey
 
 
@@ -60,7 +62,7 @@ class ProjectPostingMatchMapper:
                 name = project_posting.student.nickname
 
         return {
-            'id': project_posting.id,
+            'id': to_global_id('ProjectPosting', project_posting.id),
             'name': name,
             'avatar': self._get_attachment(project_posting),
             'type': MatchType.PROJECT_POSTING,

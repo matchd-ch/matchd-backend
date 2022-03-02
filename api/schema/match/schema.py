@@ -64,7 +64,7 @@ class ProjectPostingMatchInfo(DjangoObjectType):
 
 
 class Match(ObjectType):
-    id = graphene.ID()
+    id = graphene.String()
     slug = graphene.NonNull(graphene.String)
     name = graphene.NonNull(graphene.String)
     type = graphene.NonNull(MatchType)
