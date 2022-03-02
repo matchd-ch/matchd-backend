@@ -1,3 +1,4 @@
+from graphql_relay import to_global_id
 import pytest
 
 # pylint: disable=C0209
@@ -74,10 +75,10 @@ def job_posting_matching(execute):
                        variables={
                            "jobPostingMatching": {
                                "branch": {
-                                   "id": branch.id
+                                   "id": to_global_id('Branch', branch.id)
                                },
                                "jobType": {
-                                   "id": job_type.id
+                                   "id": to_global_id('JobType', job_type.id)
                                }
                            }
                        },
@@ -91,11 +92,13 @@ def student_matching(execute):
 
     def closure(user, job_posting, tech_boost=1, soft_boost=1):
         return execute(student_matching_query(tech_boost, soft_boost),
-                       variables={"studentMatching": {
-                           "jobPosting": {
-                               "id": job_posting.id
+                       variables={
+                           "studentMatching": {
+                               "jobPosting": {
+                                   "id": to_global_id('JobPosting', job_posting.id)
+                               }
                            }
-                       }},
+                       },
                        **{'user': user})
 
     return closure

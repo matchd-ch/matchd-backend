@@ -6,6 +6,7 @@ from graphene import ObjectType, InputObjectType, relay
 
 from django.utils.translation import gettext as _
 
+from api.helper import resolve_node_ids
 from api.schema.branch import BranchInput
 from api.schema.keyword.schema import Keyword
 from api.schema.profile_type import ProfileType
@@ -108,8 +109,9 @@ class MatchQuery(ObjectType):
     @login_required
     def resolve_matches(self, info, **kwargs):
         user = info.context.user
+        data = resolve_node_ids(kwargs)
 
-        return MatchingFactory().get_matching_context(user, **kwargs).find_matches()
+        return MatchingFactory().get_matching_context(user, **data).find_matches()
 
 
 class MatchStudent(Output, relay.ClientIDMutation):
@@ -127,7 +129,7 @@ class MatchStudent(Output, relay.ClientIDMutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        input_data = data.get('input')
+        input_data = resolve_node_ids(data.get('input'))
 
         try:
             match_obj = process_student_match(user, input_data)
@@ -150,7 +152,7 @@ class MatchJobPosting(Output, relay.ClientIDMutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        input_data = data.get('input')
+        input_data = resolve_node_ids(data.get('input'))
 
         try:
             match_obj = process_job_posting_match(user, input_data)
@@ -173,7 +175,7 @@ class MatchProjectPosting(Output, relay.ClientIDMutation):
     @login_required
     def mutate(cls, root, info, **data):
         user = info.context.user
-        input_data = data.get('input')
+        input_data = resolve_node_ids(data.get('input'))
 
         try:
             match_obj = process_project_posting_match(user, input_data)
