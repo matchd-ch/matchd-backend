@@ -39,7 +39,6 @@ deployment:
 ingress:
   enabled: true
   # domain: my.host.com
-  letsencrypt: false
   monitoring: false
   tlsSecretName: chart-example-tls
 env: {}

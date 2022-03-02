@@ -45,7 +45,6 @@ variable_default "MATCHD_MONITORING_ENABLED" "false"
 
 ## TLS
 
-variable_default "MATCHD_USE_LETSENCRYPT" "true"
 variable_default "MATCHD_TLS_SECRET_NAME" "$MATCHD_ENVIRONMENT_SLUG-tls"
 
 ## Autoscaling

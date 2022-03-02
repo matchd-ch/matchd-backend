@@ -34,7 +34,7 @@ jobs:
       smtpRelay: smtp.postmarkapp.com
       smtpPort: 2525
       emailSubjectPrefix: '[DEV]'
-      frontendUrl: https://dev.matchd.ch
+      frontendUrl: https://development.matchd.ch
       csrfCookieDomain: '.matchd.ch'
       dataProtectionUrl: 'https://example.com'
       resetDb: true

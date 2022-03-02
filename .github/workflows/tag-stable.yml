@@ -23,7 +23,6 @@ jobs:
       environment: production
       domain: api.matchd.ch
       regularReplicaCount: 2
-      letsencryptEnabled: true
       monitoringEnabled: true
       autoscalingEnabled: true
       version: "${{ needs.build.outputs.tag }}"
