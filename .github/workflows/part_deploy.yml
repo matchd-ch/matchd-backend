@@ -188,7 +188,8 @@ jobs:
                     paths: ['/']
                 tls:
                   secretName: maildev-${{ inputs.release }}
-                  - 'maildev-${{ inputs.domain }}'
+                  hotst:
+                    - 'maildev-${{ inputs.domain }}'
             env:
               DJANGO_SETTINGS_MODULE: 'app.settings.base'
               DB_HOST: '${{ inputs.dbHost }}'
