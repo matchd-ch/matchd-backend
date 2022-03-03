@@ -69,6 +69,10 @@ jobs:
         if: steps.cache-pipenv.outputs.cache-hit != 'true'
         run: pipenv install --deploy --dev
 
+      - name: Serve static files
+        run: |
+          pipenv run python manage.py collectstatic --noinput
+
       - name: Run test suite
         run: |
           pipenv run test -svvv
