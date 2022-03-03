@@ -22,9 +22,6 @@ on:
       domain:
         required: true
         type: string
-      letsencryptEnabled:
-        type: boolean
-        default: false
       monitoringEnabled:
         type: boolean
         default: false
@@ -108,7 +105,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
 
       - uses: google-github-actions/setup-gcloud@v0.5.1
         with:
@@ -180,7 +177,6 @@ jobs:
                 - name: "${{ inputs.release }}-pull"
             ingress:
               domain: ${{ inputs.domain }}
-              letsencrypt: ${{ inputs.letsencryptEnabled }}
               monitoring: ${{ inputs.monitoringEnabled }}
             migrate:
               resetDb: ${{ inputs.resetDb }}
@@ -190,6 +186,10 @@ jobs:
                 hosts:
                   - host: 'maildev-${{ inputs.domain }}'
                     paths: ['/']
+                tls:
+                  secretName: maildev-${{ inputs.release }}
+                  hotsts:
+                    - 'maildev-${{ inputs.domain }}'
             env:
               DJANGO_SETTINGS_MODULE: 'app.settings.base'
               DB_HOST: '${{ inputs.dbHost }}'

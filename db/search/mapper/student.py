@@ -1,3 +1,5 @@
+from graphql_relay import to_global_id
+
 from db.models import Attachment, AttachmentKey, ProfileState, MatchType, Match
 
 
@@ -55,7 +57,7 @@ class StudentMatchMapper:
 
     def _map_student(self, student):
         return {
-            'id': student.id,
+            'id': to_global_id('Student', student.id),
             'slug': student.slug,
             'name': self._get_name(student),
             'avatar': self._get_attachment(student),

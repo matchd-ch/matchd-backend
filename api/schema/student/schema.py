@@ -345,7 +345,7 @@ class StudentProfileMutation(ObjectType):
 class StudentQuery(ObjectType):
     student = graphene.Field(Student,
                              slug=graphene.String(),
-                             job_posting_id=graphene.ID(required=False))
+                             job_posting_id=graphene.String(required=False))
 
     def resolve_student(self, info, slug, *args, **kwargs):
         user = info.context.user

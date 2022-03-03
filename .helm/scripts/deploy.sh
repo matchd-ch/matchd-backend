@@ -60,7 +60,6 @@ function deploy() {
     --set ingress.hosts[0].host="$MATCHD_DOMAIN" \
     --set ingress.hosts[0].name="http" \
     --set ingress.hosts[0].port="$MATCHD_SERVICE_INTERNAL_PORT" \
-    --set ingress.letsencrypt=$MATCHD_USE_LETSENCRYPT \
     --set ingress.monitoring=$MATCHD_MONITORING_ENABLED \
     --set ingress.tlsSecretName="$MATCHD_TLS_SECRET_NAME" \
     --set-string ingress.annotations."nginx\.ingress\.kubernetes\.io/from-to-www-redirect"="$MATCHD_WWW_REDIRECT" \

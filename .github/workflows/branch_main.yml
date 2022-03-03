@@ -26,7 +26,7 @@ jobs:
       namespace: matchd-backend-development
       release: matchd-backend
       environment: development
-      domain: development-matchd-backend.joshmartin.ch
+      domain: api.development.matchd.ch
       dbHost: 10.100.35.5
       dbUser: matchd-development
       dbName: matchd-development
@@ -34,8 +34,8 @@ jobs:
       smtpRelay: smtp.postmarkapp.com
       smtpPort: 2525
       emailSubjectPrefix: '[DEV]'
-      frontendUrl: https://development-matchd-frontend.joshmartin.ch
-      csrfCookieDomain: '.joshmartin.ch'
+      frontendUrl: https://development.matchd.ch
+      csrfCookieDomain: '.matchd.ch'
       dataProtectionUrl: 'https://example.com'
       resetDb: true
     secrets:
