@@ -40,7 +40,6 @@ ingress:
   enabled: true
   # domain: my.host.com
   monitoring: false
-  tlsSecretName: chart-example-tls
 env: {}
 elasticsearch:
   enabled: true

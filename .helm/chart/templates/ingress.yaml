@@ -23,9 +23,7 @@ spec:
   tls:
     - hosts:
         - {{ .Values.ingress.domain }}
-      {{- if .Values.ingress.tlsSecretName }}
-      secretName: {{ .Values.ingress.tlsSecretName }}
-      {{- end }}
+      secretName: {{ template "matchd-backend.fullname" . }}
   rules:
     - host: {{ .Values.ingress.domain }}
       http:
