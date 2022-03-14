@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "85ee247bd243785813f1a746fd7f9d9efa18abf66f28e44dc03d447fb37ef7b0"
+            "sha256": "5f0c2819743b4e11b153be6619975ebb3f548aaad86f7e5b27bd99986b35d9fd"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -239,13 +239,21 @@
             "index": "pypi",
             "version": "==2.1.7"
         },
+        "elastic-transport": {
+            "hashes": [
+                "sha256:0bb2ae3d13348e9e4587ca1f17cd813a528a7cc07f879505f56d69c81823b660",
+                "sha256:769ee4c7b28d270cdbce71359973b88129ac312b13be95b4f7479e35c49d9455"
+            ],
+            "markers": "python_version >= '3.6'",
+            "version": "==8.1.0"
+        },
         "elasticsearch": {
             "hashes": [
-                "sha256:406013783cc36af28ea36cd58cf184cd646530e47eea41336b386322fb878b59",
-                "sha256:ccbf3d1651eb79798a55c1e84b8be850db3873f0329e74086a2cfba37e8c288c"
+                "sha256:11e36565dfdf649b7911c2d3cb1f15b99267acfb7f82e94e7613c0323a9936e9",
+                "sha256:648d1c707a632279535356d2762cbc63ae728c4633211fe160f43f87a3e1cdcd"
             ],
             "index": "pypi",
-            "version": "==7.17.0"
+            "version": "==8.1.0"
         },
         "et-xmlfile": {
             "hashes": [
