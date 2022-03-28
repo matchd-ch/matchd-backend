@@ -9,7 +9,7 @@ jobs:
   test:
     name: "Test"
 
-    uses: matchd-ch/matchd-backend/.github/workflows/part_test.yml@feat/html_emails
+    uses: matchd-ch/matchd-backend/.github/workflows/part_test.yml@main
   
   build:
     name: "Build"
