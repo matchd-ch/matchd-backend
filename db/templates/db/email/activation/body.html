@@ -119,7 +119,6 @@
         </tr>
         <tr>
           <td class="main-content">
-            {% block content %}
             {% load db_tags %}
             {% is_student user.type as student %}
             {% if student %}
@@ -162,7 +161,6 @@
               </tbody>
             </table>
             {% endif %}
-            {% endblock %}
           </td>
         </tr>
         <tr>
