@@ -1,3 +1,7 @@
+{% extends '../../base/base.html' %}
+
+{% block content %}
+
 {% load i18n %}
 <p>Hallo {{ job_posting.employee.user.first_name }} {{ job_posting.employee.user.last_name }}</p>
 
@@ -11,3 +15,5 @@
 
 <p>PS: Sie haben Fragen oder Inputs an uns? Dann zögern Sie nicht, uns
     einfach zurückzuschreiben. Wir freuen uns über Feedback.</p>
+
+{% endblock %}

@@ -1,3 +1,7 @@
+{% extends '../../base/base.html' %}
+
+{% block content %}
+
 <p>Hey {{ student.first_name }} {{ student.last_name }}</p>
 
 <p>Wir gratulieren! Es hat gematchd zwischen dir und {{ job_posting.employee.user.first_name }} {{ job_posting.employee.user.last_name }}
@@ -10,3 +14,5 @@
 
 <p>PS: Du hast Fragen oder Inputs an uns? Dann schreib uns einfach
 zurück. Wir freuen uns über Feedback.</p>
+
+{% endblock %}
