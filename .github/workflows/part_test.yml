@@ -58,7 +58,7 @@ jobs:
           python -m pip install --upgrade pipenv wheel
 
       - id: cache-pipenv
-        uses: actions/cache@v2.1.7
+        uses: actions/cache@v3
         with:
           path: ~/.local/share/virtualenvs
           key: pipenv-${{ secrets.CACHE_VERSION }}-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('Pipfile.lock') }}
@@ -133,7 +133,7 @@ jobs:
           python -m pip install --upgrade pipenv wheel
 
       - id: cache-pipenv
-        uses: actions/cache@v2.1.7
+        uses: actions/cache@v3
         with:
           path: ~/.local/share/virtualenvs
           key: pipenv-${{ secrets.CACHE_VERSION }}-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('Pipfile.lock') }}
@@ -175,7 +175,7 @@ jobs:
           python -m pip install --upgrade pipenv wheel
 
       - id: cache-pipenv
-        uses: actions/cache@v2.1.7
+        uses: actions/cache@v3
         with:
           path: ~/.local/share/virtualenvs
           key: pipenv-${{ secrets.CACHE_VERSION }}-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('Pipfile.lock') }}
@@ -210,7 +210,7 @@ jobs:
           python -m pip install --upgrade pipenv wheel
 
       - id: cache-pipenv
-        uses: actions/cache@v2.1.7
+        uses: actions/cache@v3
         with:
           path: ~/.local/share/virtualenvs
           key: pipenv-${{ secrets.CACHE_VERSION }}-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('Pipfile.lock') }}

@@ -10,13 +10,26 @@ Matchd is a job matching system that matches candidates to companies based on a 
 
 Matchd is a Python, Django based project with a Wagtail CMS and uses a GraphQL as its main (and only) API. A local development environment is available to quickly get up and running.
 
-* Install [asdf](https://github.com/asdf-vm/asdf)
-* Install [asdf-python](https://github.com/danhper/asdf-python)
-* `pip install pipenv`
-* `pipenv install`
-* Make sure to have `apt-get install libmysqlclient-dev` and `apt-get install libsqlite3-dev`
-* Run `mariadb`  
+- Install [asdf](https://github.com/asdf-vm/asdf)
+- Install [asdf-python](https://github.com/danhper/asdf-python)
+- Make sure to have
+  - Linux:
+    - `apt-get install libmysqlclient-dev`
+    - `apt-get install libsqlite3-dev`
+  - Mac:
+    - `brew install mysql-client`
+    - `brew install sqlite3`
+    - `brew install libmagic`
+- `pip install pipenv`
+- `pipenv install`
+- If `pipenv install` not work, run `asdf reshim`. After that run `pipenv install` again.
+- Start your docker application (Docker Desktop)
+
 ```console
+# ---------------------------
+# Run mariadb
+# ---------------------------
+
 $ docker volume create mariadb
 $ docker run \
   --restart always \
@@ -28,9 +41,13 @@ $ docker run \
   -e MYSQL_ALLOW_EMPTY_PASSWORD=1 \
   mariadb:latest
 ```
-* Run `elasticsearch`  
+
 ```console
-docker run \
+# ---------------------------
+# Run elasticsearch
+# ---------------------------
+
+$ docker run \
     --restart always \
     -d \
     -p 9200:9200 \
@@ -38,9 +55,13 @@ docker run \
     --name elasticsearch \
     elasticsearch:7.16.1
 ```
-* Run `maildev`  
+
 ```console
-docker run \
+# ---------------------------
+# Run maildev
+# ---------------------------
+
+$ docker run \
     --restart always \
     -d \
     -p 25:25 \
@@ -51,28 +72,31 @@ docker run \
     --smtp 25 \
     --web 8080
 ```
-* Copy `.env.dist` to `.env` and correct necessary settings
-* `pipenv run setup`
-* `pipenv run start`
+
+- Copy `.env.dist` to `.env` and correct necessary settings
+- `pipenv run setup`
+- `pipenv run start`
 
 ## Admin GUI
+
 You can access the Admin gui through <a href="http://api.matchd.localhost:8000/admin/"> http://api.matchd.localhost/admin </a>. Username is `admin` and password is `admin`.
 
 ## Django Admin GUI
+
 You can access the Admin gui through <a href="http://api.matchd.localhost:8000/django-admin/"> http://api.matchd.localhost/django-admin/ </a>. Username is `admin` and password is `admin`.
 
 ## GraphQL-API
+
 The GraphQL Endpoint is available under [http://api.matchd.localhost:8000/graphql](http://api.matchd.localhost:8000/graphql)
 
 In order not to run into csrf token issues, you need to make a GET request to http://api.matchd.localhost:8000/csrf. This request will properly set the csrf cookie.
-
 
 For all future requests to the graphql endpoint, you need to include the cookie in the request. In addition you need to set a custom header:
 
 ```
 X-CSRFToken: <YOUR CSRF TOKEN HERE>
 ```
-    
+
 If you want to access user specific data you also need to include the authorization header:
 
 ```
@@ -81,16 +105,15 @@ Authorization: JWT <YOUR JWT TOKEN HERE>
 
 ## Project details
 
-The project requires a bunch of environment variables at startup. Those variables and their description can be found in `.env.dist`. The project looks automatically for a file named `.env` in the root directory to retrieve the required variables at startup. 
+The project requires a bunch of environment variables at startup. Those variables and their description can be found in `.env.dist`. The project looks automatically for a file named `.env` in the root directory to retrieve the required variables at startup.
 
 ### Database Models
 
-The primary database models: *Users*, *Employees*, *Students* and *Companies*. The *User* is the entry point to interract with the system. A user can be a *Student*, *Employee* (internal, for example a "recruiter") or be related to a *Company*.
-
+The primary database models: _Users_, _Employees_, _Students_ and _Companies_. The _User_ is the entry point to interract with the system. A user can be a _Student_, _Employee_ (internal, for example a "recruiter") or be related to a _Company_.
 
 ### Matching process
 
-The matching process can be subdivided in 4 match types: *Student*, *Company*, *Job Posting* and *ProjectPosting*. It relies upon the following environment variables (found in `app/settings/base.py`):
+The matching process can be subdivided in 4 match types: _Student_, _Company_, _Job Posting_ and _ProjectPosting_. It relies upon the following environment variables (found in `app/settings/base.py`):
 
 ```
 MATCHING_VALUE_BRANCH = 0
@@ -106,14 +129,14 @@ MATCHING_VALUE_LANGUAGES = 2
 MATCHING_VALUE_DATE_OR_DATE_RANGE = 5
 ```
 
-The variables are used as *boosts* in the searching process; each variable increases the relevance / importance of the related topic.
-The highest score value per match type is calculated based on a subset of those variables, such score is used to normalise the retrieved serch results, also called *hits*.
+The variables are used as _boosts_ in the searching process; each variable increases the relevance / importance of the related topic.
+The highest score value per match type is calculated based on a subset of those variables, such score is used to normalise the retrieved serch results, also called _hits_.
 
-The system uses *elasticsearch* to perform the search (via the Wagtail search backend) and uses the *score* values provided in the results to calculate the final score list. A *match mapper* is then used to match each element of the score list to a desired list of targets (e.g. match map Student to Job Posting, Company to Student, etc).
+The system uses _elasticsearch_ to perform the search (via the Wagtail search backend) and uses the _score_ values provided in the results to calculate the final score list. A _match mapper_ is then used to match each element of the score list to a desired list of targets (e.g. match map Student to Job Posting, Company to Student, etc).
 
 ## Test Data
 
-*! Do not use dump_data / load_data command from django !*
+_! Do not use dump_data / load_data command from django !_
 
 Run following command to seed test data:
 
@@ -129,7 +152,7 @@ See `ACCOUNTS.md` for all available user accounts
 ## Dump Fixtures
 
 ```
-docker-compose exec api bash 
+docker-compose exec api bash
 ./manage.py dump_seed
 ```
 
@@ -140,7 +163,7 @@ Updates the file `ACCOUNTS.md` with all users
 ## Create test data
 
 ```
-docker-compose exec api bash 
+docker-compose exec api bash
 # 50 students, 100 companies, 200 universities
 ./manage.py random_seed 50 100 200
 ```
@@ -194,4 +217,3 @@ You can contribute to the project by opening a pull request that will be peer re
 ## Bugs / Feature Requests
 
 https://github.com/matchd-ch/stories
-    
