@@ -155,7 +155,8 @@ class Student(DjangoObjectType):
         # }
         if job_posting_id is None:
             try:
-                job_posting_id = info.variable_values.get('jobPostingId')
+                node_id = info.variable_values.get('jobPostingId')
+                job_posting_id = resolve_node_id(node_id)
             except Exception:
                 job_posting_id = None
 
