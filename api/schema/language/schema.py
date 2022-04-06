@@ -24,7 +24,7 @@ class LanguageQuery(ObjectType):
                                       shortList=graphene.Boolean(required=False))
 
     def resolve_languages(self, info, **kwargs):
-        short_list = kwargs.get('shortList', None)
-        if short_list is not None:
+        short_list = kwargs.get('shortList', False)
+        if short_list:
             return LanguageModel.objects.filter(short_list=short_list)
         return LanguageModel.objects.all()
