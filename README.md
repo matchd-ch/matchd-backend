@@ -103,6 +103,11 @@ If you want to access user specific data you also need to include the authorizat
 Authorization: JWT <YOUR JWT TOKEN HERE>
 ```
 
+## MailDev Email Admin
+
+You can access the email admin page at `localhost:9123` (or a differen port if you choosed another port when running [the MailDev docker run command](https://github.com/matchd-ch/matchd-backend#getting-started)). This can be useful for verifying the emails that are being sent by the backend and for email/newsletter development.
+
+
 ## Project details
 
 The project requires a bunch of environment variables at startup. Those variables and their description can be found in `.env.dist`. The project looks automatically for a file named `.env` in the root directory to retrieve the required variables at startup.
