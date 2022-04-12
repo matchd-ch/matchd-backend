@@ -5,7 +5,7 @@ name = "pypi"
 
 [packages]
 aniso8601 = "==7.0.0"
-anyascii = "==0.3.0"
+anyascii = "==0.3.1"
 asgiref = "==3.5.0"
 astroid = "==2.9.3"
 attrs = "==21.4.0"
