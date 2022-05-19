@@ -3,18 +3,12 @@
 {% block content %}
 
 {% load i18n %}
-<p>Hey {{ user.first_name }} {{ user.last_name }}</p>
-
-<p>Voll toll, du hast ein interessantes Angebot (<a href="{{ job_posting_url }}">{{ job_posting.title }}</a>) gefunden. Wir haben {{ job_posting.employee.user.first_name }} {{ job_posting.employee.user.last_name }} von
-<a href="{{ company_profile_url }}">{{ job_posting.company.name }}</a> den Link zu deinem Matchd-Profil
-geschickt. Ist {{ job_posting.employee.user.first_name }} {{ job_posting.employee.user.last_name }} ebenfalls an einem Matching
-    interessiert, schicken wir dir ein E-Mail.</p>
-
+<h1>Hey {{ user.first_name }} {{ user.last_name }}</h1>
+<p class="mb-30">Voll toll, du hast ein interessantes Angebot (<a href="{{ job_posting_url }}">{{ job_posting.title }}</a>) gefunden.</p>
+<p class="mb-30">Wir haben {{ job_posting.employee.user.first_name }} {{ job_posting.employee.user.last_name }} von <a href="{{ company_profile_url }}">{{ job_posting.company.name }}</a> den Link zu deinem Matchd-Profil geschickt. Ist {{ job_posting.employee.user.first_name }} {{ job_posting.employee.user.last_name }} ebenfalls an einem Matching interessiert, schicken wir dir ein E-Mail.</p>
 <p>Toi toi toi, wir drücken dir die Daumen!</p>
-
-<p>Dein Matchd-Team</p>
-
-<p>PS: Du hast Fragen oder Inputs an uns? Dann schreib uns einfach
-    zurück. Wir freuen uns über Feedback.</p>
+<p class="mb-30">Dein Matchd-Team</p>
+<hr />
+<p>PS: Du hast Fragen oder Inputs an uns? Dann schreib uns einfach zurück. Wir freuen uns über Feedback.</p>
 
 {% endblock %}

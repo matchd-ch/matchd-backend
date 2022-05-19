@@ -6,19 +6,19 @@
 {% load db_tags %}
 {% is_student user.type as student %}
 {% if student %}
-    <p>Hey, {{ user.first_name }}</p>
-    <p>Passwort vergessen? Macht nichts, das passiert uns allen. Hol dir <a href="{{ frontend_url }}/{{ path }}/{{ token }}">dein neues Passwort</a> und weiter gehts mit Matchen.</p>
-    <p>Bis bald! <br>
-        Dein Matchd-Team</p>
+    <h1>Hey, {{ user.first_name }}</h1>
+    <p>Passwort vergessen? Macht nichts, das passiert uns allen.</p>
+    <p class="mb-30">Hol dir <a href="{{ frontend_url }}/{{ path }}/{{ token }}">dein neues Passwort</a> und weiter gehts mit Matchen.</p>
+    <p>Bis bald!<br>Dein Matchd-Team</p>
 {% endif %}
 
 {# Password-Reset-E-Mail for Company #}
 {% is_company user.type as company %}
 {% if company %}
-    <p>Guten Tag</p>
-    <p>Sie haben Ihr Passwort vergessen? Erstellen Sie gleich jetzt <a href="{{ frontend_url }}/{{ path }}/{{ token }}">Ihr neues Passwort </a>und weiter gehts mit Matchen.</p>
-    <p>Bis bald! <br>
-        Ihr Matchd-Team</p>
+    <h1>Guten Tag</h1>
+    <p>Sie haben Ihr Passwort vergessen?</p>
+    <p>Erstellen Sie gleich jetzt <a href="{{ frontend_url }}/{{ path }}/{{ token }}">Ihr neues Passwort </a>und weiter gehts mit Matchen.</p>
+    <p>Bis bald!<br>Ihr Matchd-Team</p>
 {% endif %}
 
 {% endblock %}

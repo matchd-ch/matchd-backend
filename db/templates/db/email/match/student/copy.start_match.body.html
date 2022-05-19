@@ -5,17 +5,13 @@
 {% load i18n %}
 
 {% load i18n %}
-<p>Hallo {{ user.first_name }} {{ user.last_name }}</p>
-<p>Schön zu sehen, dass Sie für Ihre offene Stelle
-(<a href="{{ job_posting_url }}">{{ job_posting.title }}</a>) ein passendes Talent
-entdeckt haben. Sobald <a href="{{ student_profile_url }}">{{ student.first_name }} {{ student.last_name }}</a> den Match bestätigt,
-    schicken wir Ihnen ein E-Mail mit weiteren Informationen.</p>
+<h1>Hallo {{ user.first_name }} {{ user.last_name }}</h1>
+<p class="mb-30">Schön zu sehen, dass Sie für Ihre offene Stelle (<a href="{{ job_posting_url }}">{{ job_posting.title }}</a>) ein passendes Talent entdeckt haben.</p>
+<p class="mb-30">Sobald <a href="{{ student_profile_url }}">{{ student.first_name }} {{ student.last_name }}</a> den Match bestätigt, schicken wir Ihnen ein E-Mail mit weiteren Informationen.</p>
 
 <p>Wir wünschen Ihnen viel Erfolg!</p>
-
-<p>Ihr Matchd-Team</p>
-
-<p>PS: Sie haben Fragen oder Inputs an uns? Dann zögern Sie nicht, uns
-    einfach zurückzuschreiben. Wir freuen uns über Feedback.</p>
+<p class="mb-30">Ihr Matchd-Team</p>
+<hr />
+<p>PS: Sie haben Fragen oder Inputs an uns? Dann zögern Sie nicht, uns einfach zurückzuschreiben. Wir freuen uns über Feedback.</p>
 
 {% endblock %}

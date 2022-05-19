@@ -3,9 +3,9 @@
 {% block content %}
 
 {% load i18n %}
-<p>{% trans 'Formulardaten:' %}</p>
-<p>{% trans 'Name' %}: {{ name }}</p>
-<p>{% trans 'E-Mail' %}: {{ email }}</p>
+<h1>{% trans 'Formulardaten' %}</h1>
+<p class="mb-15">{% trans 'Name' %}: {{ name }}</p>
+<p class="mb-15">{% trans 'E-Mail' %}: {{ email }}</p>
 <p>{% trans 'Nachricht' %}: {{ message }}</p>
 
 {% endblock %}
