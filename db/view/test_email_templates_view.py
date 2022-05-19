@@ -1,4 +1,3 @@
-# TODO: REMOVE this after testeing
 from django.shortcuts import render
 
 templatePath = 'db/email/activation/body.html'
