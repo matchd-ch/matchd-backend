@@ -14,12 +14,7 @@ from graphql_jwt.decorators import jwt_cookie
 from api.views import GraphQLView, AttachmentServeView
 from db.view.csv_export_view import csv_view
 
-# TODO: REMOVE next line after testing the emails
-from db.view.test_email_templates_view import test_email_templates_view
-
 urlpatterns = [
-    # TODO: REMOVE next line after testing the emails
-    path('test-email-template/', test_email_templates_view),
     path('django-admin/', admin.site.urls),
     path('admin/', include(wagtailadmin_urls)),
     path('admin/users/export', csv_view),

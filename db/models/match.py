@@ -31,17 +31,19 @@ class Match(models.Model):
     def complete(self):
         return self.student_confirmed and self.company_confirmed
 
-    def send_complete_job_match_mail(self, user):
+    def send_complete_job_match_mail(self, user, context):
         email_context = self._job_posting_email_context(user)
         template_path = 'db/email/match/student/'
 
         if self.initiator in ProfileType.valid_student_types():
             # email student
             recipients = [self.student.user.email]
-            subject = render_to_string(f'{template_path}complete_match.subject.txt', email_context)
+            subject = render_to_string(f'{template_path}complete_match.subject.txt', email_context,
+                                       context)
             plain_body = render_to_string(f'{template_path}complete_match.body_plain.txt',
-                                          email_context)
-            html_body = render_to_string(f'{template_path}complete_match.body.html', email_context)
+                                          email_context, context)
+            html_body = render_to_string(f'{template_path}complete_match.body.html', email_context,
+                                         context)
             send_mail(subject,
                       plain_body,
                       settings.DEFAULT_FROM_EMAIL,
@@ -52,22 +54,24 @@ class Match(models.Model):
             # email company
             template_path = 'db/email/match/company/'
             recipients = [self.job_posting.employee.user.email]
-            subject = render_to_string(f'{template_path}complete_match.subject.txt', email_context)
+            subject = render_to_string(f'{template_path}complete_match.subject.txt', email_context,
+                                       context)
             plain_body = render_to_string(f'{template_path}complete_match.body_plain.txt',
-                                          email_context)
-            html_body = render_to_string(f'{template_path}complete_match.body.html', email_context)
+                                          email_context, context)
+            html_body = render_to_string(f'{template_path}complete_match.body.html', email_context,
+                                         context)
             send_mail(subject,
                       plain_body,
                       settings.DEFAULT_FROM_EMAIL,
                       recipients,
                       html_message=html_body)
 
-    def send_start_job_match_email(self, user):
+    def send_start_job_match_email(self, user, context):
         if self.initiator in ProfileType.valid_company_types():
-            self._send_initiator_company(user)
+            self._send_initiator_company(user, context)
 
         if self.initiator in ProfileType.valid_student_types():
-            self._send_initiator_student(user)
+            self._send_initiator_student(user, context)
 
     def _job_posting_student_profile_url(self):
         return f'{settings.FRONTEND_URL}{settings.STUDENT_PROFILE_URL}' \
@@ -95,6 +99,7 @@ class Match(models.Model):
 
     def _job_posting_email_context(self, user):
         return {
+            'test': 'TEST',
             'user': user,
             'company': self.job_posting.company,
             'student': self.student.user,
@@ -123,15 +128,18 @@ class Match(models.Model):
             'email_subject_prefix': settings.EMAIL_SUBJECT_PREFIX,
         }
 
-    def _send_initiator_company(self, user):
+    def _send_initiator_company(self, user, context):
         email_context = self._job_posting_email_context(user)
         template_path = 'db/email/match/student/'
 
         # email student
         recipients = [self.student.user.email]
-        subject = render_to_string(f'{template_path}start_match.subject.txt', email_context)
-        plain_body = render_to_string(f'{template_path}start_match.body_plain.txt', email_context)
-        html_body = render_to_string(f'{template_path}start_match.body.html', email_context)
+        subject = render_to_string(f'{template_path}start_match.subject.txt', email_context,
+                                   context)
+        plain_body = render_to_string(f'{template_path}start_match.body_plain.txt', email_context,
+                                      context)
+        html_body = render_to_string(f'{template_path}start_match.body.html', email_context,
+                                     context)
         send_mail(subject,
                   plain_body,
                   settings.DEFAULT_FROM_EMAIL,
@@ -140,25 +148,30 @@ class Match(models.Model):
 
         # email company
         recipients = [self.job_posting.employee.user.email]
-        subject = render_to_string(f'{template_path}copy.start_match.subject.txt', email_context)
+        subject = render_to_string(f'{template_path}copy.start_match.subject.txt', email_context,
+                                   context)
         plain_body = render_to_string(f'{template_path}copy.start_match.body_plain.txt',
-                                      email_context)
-        html_body = render_to_string(f'{template_path}copy.start_match.body.html', email_context)
+                                      email_context, context)
+        html_body = render_to_string(f'{template_path}copy.start_match.body.html', email_context,
+                                     context)
         send_mail(subject,
                   plain_body,
                   settings.DEFAULT_FROM_EMAIL,
                   recipients,
                   html_message=html_body)
 
-    def _send_initiator_student(self, user):
+    def _send_initiator_student(self, user, context):
         email_context = self._job_posting_email_context(user)
         template_path = 'db/email/match/company/'
 
         # email company
         recipients = [self.job_posting.employee.user.email]
-        subject = render_to_string(f'{template_path}start_match.subject.txt', email_context)
-        plain_body = render_to_string(f'{template_path}start_match.body_plain.txt', email_context)
-        html_body = render_to_string(f'{template_path}start_match.body.html', email_context)
+        subject = render_to_string(f'{template_path}start_match.subject.txt', email_context,
+                                   context)
+        plain_body = render_to_string(f'{template_path}start_match.body_plain.txt', email_context,
+                                      context)
+        html_body = render_to_string(f'{template_path}start_match.body.html', email_context,
+                                     context)
         send_mail(subject,
                   plain_body,
                   settings.DEFAULT_FROM_EMAIL,
@@ -167,17 +180,19 @@ class Match(models.Model):
 
         # email student
         recipients = [self.student.user.email]
-        subject = render_to_string(f'{template_path}copy.start_match.subject.txt', email_context)
+        subject = render_to_string(f'{template_path}copy.start_match.subject.txt', email_context,
+                                   context)
         plain_body = render_to_string(f'{template_path}copy.start_match.body_plain.txt',
-                                      email_context)
-        html_body = render_to_string(f'{template_path}copy.start_match.body.html', email_context)
+                                      email_context, context)
+        html_body = render_to_string(f'{template_path}copy.start_match.body.html', email_context,
+                                     context)
         send_mail(subject,
                   plain_body,
                   settings.DEFAULT_FROM_EMAIL,
                   recipients,
                   html_message=html_body)
 
-    def send_complete_project_match_mail(self, user):
+    def send_complete_project_match_mail(self, user, context):
         template_path = 'db/email/match/project/'
         if self.project_posting.student and self.project_posting.student.user.email:
             email_context = self._project_posting_student_email_context(user)
@@ -185,9 +200,10 @@ class Match(models.Model):
         else:
             email_context = self._project_posting_company_email_context(user)
             recipients = [self.project_posting.employee.user.email]
-        subject = render_to_string(f'{template_path}match.subject.txt', email_context)
-        plain_body = render_to_string(f'{template_path}match.body_plain.txt', email_context)
-        html_body = render_to_string(f'{template_path}match.body.html', email_context)
+        subject = render_to_string(f'{template_path}match.subject.txt', email_context, context)
+        plain_body = render_to_string(f'{template_path}match.body_plain.txt', email_context,
+                                      context)
+        html_body = render_to_string(f'{template_path}match.body.html', email_context, context)
         send_mail(subject,
                   plain_body,
                   settings.DEFAULT_FROM_EMAIL,
