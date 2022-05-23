@@ -3,16 +3,12 @@
 {% block content %}
 
 {% load i18n %}
-<p>Hey {{ student.first_name }} {{ student.last_name }}</p>
-
-<p>{{ user.first_name }} {{ user.last_name }} von <a href="{{ company_profile_url }}">{{ company.name }}</a> interessiert sich
-    für dich. Denn die offene Stelle <a href="{{ job_posting_url }}">{{ job_posting.title }}</a> könnte zu dir passen.</p>
+<h1>Hey {{ student.first_name }} {{ student.last_name }}</h1>
+<p class="mb-30">{{ user.first_name }} {{ user.last_name }} von <a href="{{ company_profile_url }}">{{ company.name }}</a> interessiert sich für dich. Denn die offene Stelle <a href="{{ job_posting_url }}">{{ job_posting.title }}</a> könnte zu dir passen.</p>
 
 <p>Wir sind gespannt, wie ihr matchd.</p>
-
-<p>Dein Matchd-Team</p>
-
-<p>PS: Du hast Fragen oder Inputs an uns? Dann schreib uns einfach
-    zurück. Wir freuen uns über Feedback.</p>
+<p class="mb-30">Dein Matchd-Team</p>
+<hr />
+<p>PS: Du hast Fragen oder Inputs an uns? Dann schreib uns einfach zurück. Wir freuen uns über Feedback.</p>
 
 {% endblock %}

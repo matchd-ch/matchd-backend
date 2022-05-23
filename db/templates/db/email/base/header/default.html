@@ -1,0 +1,35 @@
+{% load static_tags %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:v="urn:schemas-microsoft-com:vml"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  lang-="en"
+>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% block styles %}
+        {% include '../styles/default.html' %}
+    {% endblock %}
+  </head>
+  <body>
+    <table class="main-table">
+      <tbody>
+        <tr>
+          <td>
+            <a class="img-link" href="https://matchd.ch/" target="_blank">
+              <img width="397" height="113" src="{% fullstatic 'images/email_matchd_logo.jpg' %}" />
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a class="img-link" href="https://matchd.ch/" target="_blank">
+              <img width="748" height="336" src="{% fullstatic 'images/email_matchd_poster.jpg' %}" />
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td class="main-content">

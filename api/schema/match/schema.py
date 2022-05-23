@@ -132,7 +132,7 @@ class MatchStudent(Output, relay.ClientIDMutation):
         input_data = resolve_node_ids(data.get('input'))
 
         try:
-            match_obj = process_student_match(user, input_data)
+            match_obj = process_student_match(user, input_data, info.context)
         except FormException as exception:
             return MatchStudent(success=False, errors=exception.errors, confirmed=False)
         return MatchStudent(success=True, errors=None, confirmed=match_obj.complete)
@@ -155,7 +155,7 @@ class MatchJobPosting(Output, relay.ClientIDMutation):
         input_data = resolve_node_ids(data.get('input'))
 
         try:
-            match_obj = process_job_posting_match(user, input_data)
+            match_obj = process_job_posting_match(user, input_data, info.context)
         except FormException as exception:
             return MatchJobPosting(success=False, errors=exception.errors, confirmed=False)
         return MatchJobPosting(success=True, errors=None, confirmed=match_obj.complete)
@@ -178,7 +178,7 @@ class MatchProjectPosting(Output, relay.ClientIDMutation):
         input_data = resolve_node_ids(data.get('input'))
 
         try:
-            match_obj = process_project_posting_match(user, input_data)
+            match_obj = process_project_posting_match(user, input_data, info.context)
         except FormException as exception:
             return MatchProjectPosting(success=False, errors=exception.errors, confirmed=False)
         return MatchProjectPosting(success=True, errors=None, confirmed=match_obj.complete)

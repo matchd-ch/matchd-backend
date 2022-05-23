@@ -20,20 +20,20 @@ def get_id_from_data(data, key):
     raise FormException(errors=errors)
 
 
-def send_job_posting_mails(match_object, created, user):
+def send_job_posting_mails(match_object, created, user, context):
     if created:
-        match_object.send_start_job_match_email(user)
+        match_object.send_start_job_match_email(user, context)
     elif match_object.complete and not match_object.complete_mail_sent:
-        match_object.send_complete_job_match_mail(user)
+        match_object.send_complete_job_match_mail(user, context)
         match_object.complete_mail_sent = True
         match_object.save()
 
 
-def send_project_posting_mails(match_object, user):
-    match_object.send_complete_project_match_mail(user)
+def send_project_posting_mails(match_object, user, context):
+    match_object.send_complete_project_match_mail(user, context)
 
 
-def process_student_match(user, data):
+def process_student_match(user, data, context):
     errors = {}
 
     validate_company_user_type(user)
@@ -65,12 +65,12 @@ def process_student_match(user, data):
         match_obj.date_confirmed = datetime.now(tz=pytz.timezone(settings.TIME_ZONE))
     match_obj.save()
 
-    send_job_posting_mails(match_obj, created, user)
+    send_job_posting_mails(match_obj, created, user, context)
 
     return match_obj
 
 
-def process_job_posting_match(user, data):
+def process_job_posting_match(user, data, context):
     errors = {}
 
     validate_student_user_type(user)
@@ -97,12 +97,12 @@ def process_job_posting_match(user, data):
         match_obj.date_confirmed = datetime.now(tz=pytz.timezone(settings.TIME_ZONE))
     match_obj.save()
 
-    send_job_posting_mails(match_obj, created, user)
+    send_job_posting_mails(match_obj, created, user, context)
 
     return match_obj
 
 
-def process_project_posting_match(user, data):
+def process_project_posting_match(user, data, context):
     errors = {}
 
     validate_form_data(data)
@@ -141,6 +141,6 @@ def process_project_posting_match(user, data):
     match_obj.date_confirmed = datetime.now(tz=pytz.timezone(settings.TIME_ZONE))
     match_obj.save()
 
-    send_project_posting_mails(match_obj, user)
+    send_project_posting_mails(match_obj, user, context)
 
     return match_obj

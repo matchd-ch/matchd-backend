@@ -4,6 +4,7 @@ from graphql_auth.bases import Output
 
 from django.utils.translation import gettext_lazy as _
 
+from api.helper import send_user_request_email
 from db.forms import UserRequestForm
 from db.models import UserRequest as UserRequestModel
 
@@ -32,6 +33,7 @@ class UserRequest(Output, relay.ClientIDMutation):
         if user_request_form.is_valid():
             user_request = UserRequestModel(**user_request_data)
             user_request.save()
+            send_user_request_email(user_request, info.context)
         else:
             errors.update(user_request_form.errors.get_json_data())
 
