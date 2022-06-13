@@ -219,6 +219,7 @@ MEDIA_URL = '/media/'
 
 # E-Mail Settings
 DEFAULT_FROM_EMAIL = os.getenv('EMAIL_SENDER', '')
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
 EMAIL_HOST = os.getenv('SMTP_HOST', '')
 EMAIL_PORT = os.getenv('SMTP_PORT', '')
 EMAIL_HOST_PASSWORD = os.getenv('SMTP_HOST_PASSWORD', '')
