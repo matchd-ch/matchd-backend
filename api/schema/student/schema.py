@@ -23,7 +23,8 @@ from api.schema.user_language_relation.user_language_relation import UserLanguag
 from db.decorators import privacy_protection
 from db.exceptions import FormException, NicknameException
 from db.forms import process_student_base_data_form, process_student_character_form, process_student_employment_form, \
-    process_student_specific_data_form, process_student_condition_form, process_student_abilities_form
+    process_student_specific_data_form, process_student_condition_form, process_student_abilities_form, \
+    update_student_info
 from db.models import Student as StudentModel, ProfileType, Match as MatchModel, ProjectPostingState
 
 # pylint: disable=W0221
@@ -57,6 +58,7 @@ class Student(DjangoObjectType):
     match_status = graphene.Field('api.schema.match.MatchStatus')
     project_postings = graphene.NonNull(
         graphene.List(graphene.NonNull('api.schema.project_posting.schema.ProjectPosting')))
+    is_matchable = graphene.NonNull(graphene.Boolean)
 
     class Meta:
         model = StudentModel
@@ -64,7 +66,7 @@ class Student(DjangoObjectType):
         fields = ('mobile', 'street', 'zip', 'city', 'date_of_birth', 'nickname', 'school_name',
                   'field_of_study', 'graduation', 'skills', 'hobbies', 'languages', 'distinction',
                   'online_projects', 'state', 'profile_step', 'soft_skills', 'cultural_fits',
-                  'branch', 'slug', 'job_type', 'job_from_date', 'job_to_date')
+                  'branch', 'slug', 'job_type', 'job_from_date', 'job_to_date', 'is_matchable')
         convert_choices_to_enum = False
 
     @privacy_protection()
@@ -359,3 +361,29 @@ class StudentQuery(ObjectType):
             raise Http404('Student not found')
 
         return student
+
+
+class UpdateStudentMutation(Output, relay.ClientIDMutation):
+    student = graphene.Field(Student)
+
+    class Input:
+        is_matchable = graphene.Boolean(required=False)
+
+    class Meta:
+        description = _('Updates student information')
+
+    @classmethod
+    @login_required
+    def mutate(cls, root, info, **data):
+        user = info.context.user
+        student_data = data.get('input', None)
+
+        try:
+            updated_student = update_student_info(user, student_data)
+        except FormException as exception:
+            return UpdateStudentMutation(success=False, errors=exception.errors, student=None)
+        return UpdateStudentMutation(success=True, errors=None, student=updated_student)
+
+
+class StudentMutation(graphene.ObjectType):
+    update_student = UpdateStudentMutation.Field()

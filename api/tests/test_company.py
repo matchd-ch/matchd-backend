@@ -128,3 +128,27 @@ def test_node_query(query_company_node, company_object_complete):
     assert_node_id(node, 'Company', company_object_complete.id)
     assert_node_field(node, 'name', company_object_complete.name)
     assert_node_field(node, 'slug', company_object_complete.slug)
+
+
+@pytest.mark.django_db
+def test_update_company(login, company_object_complete, update_company):
+    employee = company_object_complete.users.all().first()
+    login(employee)
+
+    name = "New Name"
+    is_public = False
+
+    company_data = {
+        'id': to_global_id('Company', company_object_complete.id),
+        'name': name,
+        'isPublic': is_public
+    }
+
+    data, errors = update_company(employee, company_data)
+    assert data is not None
+    assert errors is None
+    assert data.get('updateCompany').get('success')
+    assert data.get('updateCompany').get('errors') is None
+
+    assert data.get('updateCompany').get('company').get('name') == name
+    assert data.get('updateCompany').get('company').get('isPublic') == is_public

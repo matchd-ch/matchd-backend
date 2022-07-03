@@ -11,9 +11,9 @@ from .university_base_data import UniversityProfileBaseDataForm, process_univers
 from .university_specific_data import UniversityProfileSpecificDataForm, process_university_specific_data_form
 from .university_relations import UniversityProfileRelationsForm, process_university_relations_form
 
-from .company import CompanyForm, UniversityForm
-from .student import StudentForm
-from .user import UserForm
+from .company import CompanyForm, UniversityForm, update_company_info
+from .student import StudentForm, update_student_info
+from .user import UserForm, update_user_info
 from .user_request import UserRequestForm
 from .employee import EmployeeForm
 from .hobby import HobbyForm

@@ -383,6 +383,10 @@ GRAPHQL_AUTH = {
     'db/email/activation/subject.txt',
     'EMAIL_TEMPLATE_ACTIVATION':
     'db/email/activation/body.html',
+    'EMAIL_SUBJECT_ACTIVATION_RESEND':
+    'db/email/activation/resend/subject.txt',
+    'EMAIL_TEMPLATE_ACTIVATION_RESEND':
+    'db/email/activation/resend/body.html',
     'EMAIL_SUBJECT_PASSWORD_RESET':
     'db/email/password_reset/subject.txt',
     'EMAIL_TEMPLATE_PASSWORD_RESET':

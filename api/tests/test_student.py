@@ -283,9 +283,28 @@ def test_student_with_confirmed_match_status(login, user_student_full_profile, q
     login(user_employee)
     data, errors = query_student(user_employee, user_student_full_profile.student.slug,
                                  job_posting_object.id)
+    assert data is not None
+    assert errors is None
 
     student = data.get('student')
     match_status = student.get('matchStatus')
     assert match_status is not None
     assert match_status.get('initiator') == user_employee.type.upper()
     assert match_status.get('confirmed') is True
+
+
+@pytest.mark.django_db
+def test_update_student(login, user_student_full_profile, update_student):
+    login(user_student_full_profile)
+
+    is_matchable = False
+
+    student_data = {"isMatchable": is_matchable}
+
+    data, errors = update_student(user_student_full_profile, student_data)
+    assert data is not None
+    assert errors is None
+    assert data.get('updateStudent').get('success')
+    assert data.get('updateStudent').get('errors') is None
+
+    assert data.get('updateStudent').get('student').get('isMatchable') == is_matchable

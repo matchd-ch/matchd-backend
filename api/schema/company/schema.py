@@ -9,7 +9,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext as _
 
-from api.helper import extract_ids, is_me_query, resolve_node_ids
+from api.helper import extract_ids, is_me_query, resolve_node_id, resolve_node_ids
 from api.schema.benefit import BenefitInput
 from api.schema.branch.schema import BranchInput
 from api.schema.cultural_fit import CulturalFitInput
@@ -21,7 +21,8 @@ from api.schema.profile_type import ProfileType
 from db.decorators import company_cheating_protection, hyphenate
 from db.exceptions import FormException
 from db.forms import process_company_relations_form, process_company_advantages_form, \
-    process_university_base_data_form, process_university_specific_data_form, process_university_relations_form
+    process_university_base_data_form, process_university_specific_data_form, process_university_relations_form, \
+    update_company_info
 from db.forms.company_base_data import process_company_base_data_form
 from db.forms.company_values import process_company_values_form
 from db.forms.university_values import process_university_values_form
@@ -273,6 +274,7 @@ class Company(DjangoObjectType):
     cultural_fits = graphene.List(graphene.NonNull('api.schema.cultural_fit.schema.CulturalFit'))
     name = graphene.NonNull(graphene.String)
     display_name = graphene.NonNull(graphene.String)
+    is_public = graphene.NonNull(graphene.Boolean)
 
     class Meta:
         model = CompanyModel
@@ -333,3 +335,40 @@ class CompanyQuery(ObjectType):
             return company
 
         raise Http404(_('Company not found'))
+
+
+class UpdateCompanyMutation(Output, relay.ClientIDMutation):
+    company = graphene.Field(Company)
+
+    class Input:
+        id = graphene.String(required=True)
+        name = graphene.String(required=False)
+        is_public = graphene.Boolean(required=False)
+
+    class Meta:
+        description = _('Updates company information')
+
+    @classmethod
+    @login_required
+    def mutate(cls, root, info, **data):
+        user = info.context.user
+
+        company_data = data.get('input', None)
+        company_id = resolve_node_id(company_data.get('id'))
+
+        company = CompanyModel.objects.get(pk=company_id)
+
+        if not company.users.filter(pk=user.id).exists():
+            return UpdateCompanyMutation(success=False,
+                                         errors=_('The user is not part of the company'),
+                                         company=None)
+
+        try:
+            updated_company = update_company_info(company, company_data)
+        except FormException as exception:
+            return UpdateCompanyMutation(success=False, errors=exception.errors, company=None)
+        return UpdateCompanyMutation(success=True, errors=None, company=updated_company)
+
+
+class CompanyMutation(graphene.ObjectType):
+    update_company = UpdateCompanyMutation.Field()

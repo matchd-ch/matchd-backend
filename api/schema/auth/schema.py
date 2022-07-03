@@ -15,6 +15,7 @@ class AuthMutation(ObjectType):
     revoke_token = graphql_jwt.Revoke.Field()
     send_password_reset_email = mutations.SendPasswordResetEmail.Field()
     password_reset = mutations.PasswordReset.Field()
+    password_change = mutations.PasswordChange.Field()
 
 
 class VerifyPasswordResetToken(ObjectType):

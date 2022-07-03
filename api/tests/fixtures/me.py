@@ -7,6 +7,7 @@ def me_query():
     return '''
     query {
         me {
+            id
             username
             firstName
             lastName

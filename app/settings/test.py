@@ -23,6 +23,8 @@ GRAPHQL_AUTH['EMAIL_TEMPLATE_VARIABLES']['email_subject_prefix'] = EMAIL_SUBJECT
 GRAPHQL_AUTH['EMAIL_TEMPLATE_VARIABLES']['data_protection_url'] = DATA_PROTECTION_URL
 GRAPHQL_AUTH['EMAIL_SUBJECT_ACTIVATION'] = 'db/tests/email/activation/subject.txt'
 GRAPHQL_AUTH['EMAIL_TEMPLATE_ACTIVATION'] = 'db/tests/email/activation/body.html'
+GRAPHQL_AUTH['EMAIL_SUBJECT_ACTIVATION_RESEND'] = 'db/tests/email/activation/resend/subject.txt'
+GRAPHQL_AUTH['EMAIL_TEMPLATE_ACTIVATION_RESEND'] = 'db/tests/email/activation/resend/body.html'
 GRAPHQL_AUTH['EMAIL_SUBJECT_PASSWORD_RESET'] = 'db/tests/email/password_reset/subject.txt'
 GRAPHQL_AUTH['EMAIL_TEMPLATE_PASSWORD_RESET'] = 'db/tests/email/password_reset/body.html'
 

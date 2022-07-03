@@ -93,6 +93,22 @@ def company_query(slug):
     ''' % slug
 
 
+def update_company_mutation():
+    return '''
+    mutation CompanyMutation($input: UpdateCompanyMutationInput!) {
+      updateCompany(input: $input) {
+        success,
+        errors,
+        company {
+            id
+            name
+            isPublic
+        }
+      }
+    }
+    '''
+
+
 @pytest.fixture
 def query_company_node(execute):
 
@@ -213,3 +229,16 @@ def user_rector_2(get_user, default_password, university_object_2):
                     university_object_2)
     Employee.objects.create(user=user)
     return user
+
+
+@pytest.fixture
+def update_company(execute):
+
+    def closure(user, company_data):
+        return execute(update_company_mutation(),
+                       variables={"input": {
+                           **company_data
+                       }},
+                       **{'user': user})
+
+    return closure
