@@ -1,5 +1,4 @@
 from django import forms
-from django.forms.models import model_to_dict
 
 from db.exceptions import FormException
 from db.models import Company
@@ -23,21 +22,13 @@ class CompanyCompleteForm(forms.ModelForm):
 
     class Meta:
         model = Company
-        fields = '__all__'
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for key, _ in self.fields.items():
-            self.fields[key].required = False
+        fields = ('name', 'state')
 
 
 def update_company_info(company, data):
     errors = {}
 
-    form_data = model_to_dict(company)
-    form_data.update(data)
-
-    form = CompanyCompleteForm(form_data, instance=company)
+    form = CompanyCompleteForm(data, instance=company)
 
     form.full_clean()
 

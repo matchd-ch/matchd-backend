@@ -12,13 +12,13 @@ class UserForm(forms.ModelForm):
 
     class Meta:
         model = get_user_model()
-        fields = '__all__'
+        fields = (
+            'first_name',
+            'last_name',
+            'email',
+            'username',
+        )
         exclude = settings.GRAPHQL_AUTH.get('USER_NODE_EXCLUDE_FIELDS')
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for key, _ in self.fields.items():
-            self.fields[key].required = False
 
 
 def update_user_info(user, data):
