@@ -102,7 +102,7 @@ def update_company_mutation():
         company {
             id
             name
-            isPublic
+            state
         }
       }
     }

@@ -136,19 +136,20 @@ def test_update_company(login, company_object_complete, update_company):
     login(employee)
 
     name = "New Name"
-    is_public = False
+    state = "ANONYMOUS"
 
     company_data = {
         'id': to_global_id('Company', company_object_complete.id),
         'name': name,
-        'isPublic': is_public
+        'state': state
     }
 
     data, errors = update_company(employee, company_data)
+    print(errors)
     assert data is not None
     assert errors is None
     assert data.get('updateCompany').get('success')
     assert data.get('updateCompany').get('errors') is None
 
     assert data.get('updateCompany').get('company').get('name') == name
-    assert data.get('updateCompany').get('company').get('isPublic') == is_public
+    assert data.get('updateCompany').get('company').get('state') == state

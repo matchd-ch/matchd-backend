@@ -274,7 +274,6 @@ class Company(DjangoObjectType):
     cultural_fits = graphene.List(graphene.NonNull('api.schema.cultural_fit.schema.CulturalFit'))
     name = graphene.NonNull(graphene.String)
     display_name = graphene.NonNull(graphene.String)
-    is_public = graphene.NonNull(graphene.Boolean)
 
     class Meta:
         model = CompanyModel
@@ -343,7 +342,7 @@ class UpdateCompanyMutation(Output, relay.ClientIDMutation):
     class Input:
         id = graphene.String(required=True)
         name = graphene.String(required=False)
-        is_public = graphene.Boolean(required=False)
+        state = graphene.Field(ProfileState)
 
     class Meta:
         description = _('Updates company information')

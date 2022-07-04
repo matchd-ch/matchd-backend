@@ -48,7 +48,7 @@ class StudentMatching(Matching):
         self._validate_input()
         queryset = Student.get_indexed_objects()
         index = self.search_backend.get_index_for_model(queryset.model).name
-
+        print()
         builder = StudentParamBuilder(queryset, index, self.first, self.skip)
         builder.set_branches(self.job_posting.branches.all(), settings.MATCHING_VALUE_BRANCH)
         builder.set_job_type(self.job_posting.job_type_id, settings.MATCHING_VALUE_JOB_TYPE)
