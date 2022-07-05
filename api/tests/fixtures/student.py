@@ -174,6 +174,21 @@ def student_with_job_posting_query(slug, job_posting_id):
     ''' % (slug, job_posting_id)
 
 
+def update_student_mutation():
+    return '''
+    mutation StudentMutation($input: UpdateStudentMutationInput!) {
+      updateStudent(input: $input) {
+        success,
+        errors,
+        student {
+            id
+            isMatchable
+        }
+      }
+    }
+    '''
+
+
 @pytest.fixture
 def query_student(execute):
 
@@ -253,3 +268,16 @@ def user_student_not_verified(get_user, default_password):
     user = get_user(username, default_password, False, ProfileType.STUDENT)
     Student.objects.get_or_create(user=user)
     return user
+
+
+@pytest.fixture
+def update_student(execute):
+
+    def closure(user, student_data):
+        return execute(update_student_mutation(),
+                       variables={"input": {
+                           **student_data
+                       }},
+                       **{'user': user})
+
+    return closure

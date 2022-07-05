@@ -1,6 +1,5 @@
 from graphene import ObjectType
-from graphql_auth import mutations
-from graphql_auth.mutations import Register
+from graphql_auth.mutations import Register, VerifyAccount, ResendActivationEmail
 
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
@@ -152,4 +151,5 @@ class RegisterStudent(Register):
 class RegistrationMutation(ObjectType):
     register_company = RegisterCompany.Field()
     register_student = RegisterStudent.Field()
-    verify_account = mutations.VerifyAccount.Field()
+    verify_account = VerifyAccount.Field()
+    resend_activation_email = ResendActivationEmail.Field()

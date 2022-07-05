@@ -6,7 +6,7 @@ from api.schema.branch import BranchQuery
 from api.schema.cultural_fit import CulturalFitQuery
 from api.schema.dashboard import DashboardQuery
 from api.schema.faq_category import FAQCategoryQuery
-from api.schema.company import CompanyProfileMutation, CompanyQuery, UniversityProfileMutation
+from api.schema.company import CompanyProfileMutation, CompanyQuery, UniversityProfileMutation, CompanyMutation
 from api.schema.attachment import AttachmentMutation, AttachmentQuery
 from api.schema.employee import EmployeeMutation
 from api.schema.job_requirement import JobRequirementQuery
@@ -21,12 +21,12 @@ from api.schema.project_posting.schema import ProjectPostingQuery, ProjectPostin
 from api.schema.project_type.schema import ProjectTypeQuery
 from api.schema.skill import SkillQuery
 from api.schema.soft_skill import SoftSkillQuery
-from api.schema.student import StudentProfileMutation, StudentQuery
+from api.schema.student import StudentProfileMutation, StudentQuery, StudentMutation
 from api.schema.registration import RegistrationMutation
 from api.schema.topic.schema import TopicQuery
 from api.schema.upload import UploadMutation
 from api.schema.upload.schema import UploadConfigurationQuery
-from api.schema.user import UserQuery
+from api.schema.user import UserQuery, UserMutation
 from api.schema.user_request import UserRequestMutation
 from api.schema.zip_city import ZipCityQuery
 
@@ -34,7 +34,8 @@ from api.schema.zip_city import ZipCityQuery
 class Mutation(RegistrationMutation, UserRequestMutation, AuthMutation, LogoutMutation,
                StudentProfileMutation, CompanyProfileMutation, UniversityProfileMutation,
                UploadMutation, AttachmentMutation, JobPostingMutation, EmployeeMutation,
-               MatchMutation, ProjectPostingMutation):
+               MatchMutation, ProjectPostingMutation, UserMutation, StudentMutation,
+               CompanyMutation):
     pass
 
 

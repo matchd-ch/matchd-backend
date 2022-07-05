@@ -1,0 +1,1 @@
+{{ email_subject_prefix }}MATCHD Activation email

@@ -1,1 +1,1 @@
-from .schema import UserQuery, User
+from .schema import UserQuery, User, UserMutation

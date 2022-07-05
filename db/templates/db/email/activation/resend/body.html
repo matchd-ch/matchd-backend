@@ -1,0 +1,23 @@
+{% extends '../../base/base.html' %}
+
+{% block content %}
+
+{% load db_tags %}
+<h1>Guten Tag</h1>
+<p>Nur noch 1 Klick und Sie sind Teil der Matchd-Community. Aktivieren Sie jetzt <a href="{{ frontend_url }}/{{ path }}/{{ token }}" target="_blank">Ihr Profil</a> und tauchen Sie ein in den Matchd-Talentpool.</p>
+<p>Wir sind gespannt auf Ihren ersten Match und wünschen viel Spass auf Ihrer Entdeckungsreise.</p>
+<p class="mb-30">Ihr Matchd-Team</p>
+<table>
+  <tbody>
+    <tr>
+      <td style="width: 269px">&nbsp;</td>
+      <td style="width: 150px">
+        <a href="{{ frontend_url }}/{{ path }}/{{ token }}" target="_blank" class="dot-link">
+          Activate your account
+        </a>
+      </td>
+      <td style="width: 269px">&nbsp;</td>
+    </tr>
+  </tbody>
+</table>
+{% endblock %}

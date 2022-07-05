@@ -27,7 +27,7 @@ def resolve_node_ids(data: any, id_fields: list[str] = ['id']) -> any:
     return result
 
 
-def resolve_node_id(node_id: str) -> tuple[str, str]:
+def resolve_node_id(node_id: str) -> str:
     if not node_id:
         return None
 

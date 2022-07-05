@@ -47,6 +47,7 @@ class Student(models.Model, index.Indexed):
     soft_skills = models.ManyToManyField('db.SoftSkill', blank=True, related_name='students')
     cultural_fits = models.ManyToManyField('db.CulturalFit', blank=True, related_name='students')
     slug = models.CharField(max_length=200, blank=True)
+    is_matchable = models.BooleanField(default=True, blank=False)
 
     def __init__(self, *args, **kwargs):
         self.possible_matches = {}
@@ -62,6 +63,7 @@ class Student(models.Model, index.Indexed):
     def get_indexed_objects(cls):
         query = Q(state=ProfileState.PUBLIC)
         query |= Q(state=ProfileState.ANONYMOUS)
+        query &= Q(is_matchable=True)
         return cls.objects.filter(query).prefetch_related('user', 'languages', 'languages__language_level',
                                                           'cultural_fits', 'soft_skills', 'skills').\
             select_related('branch', 'job_type')
