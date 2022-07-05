@@ -48,7 +48,6 @@ def test_resend_email_activation(resend_activation_email, user_student_not_verif
     assert data is not None
 
     activation_email = mail.outbox[0]
-    print(activation_email.recipients())
     assert user_student_not_verified.email in activation_email.recipients()
     assert settings.EMAIL_SUBJECT_PREFIX in activation_email.subject
     assert 'MATCHD Activation email' in activation_email.subject

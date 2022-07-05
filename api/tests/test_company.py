@@ -145,7 +145,6 @@ def test_update_company(login, company_object_complete, update_company):
     }
 
     data, errors = update_company(employee, company_data)
-    print(errors)
     assert data is not None
     assert errors is None
     assert data.get('updateCompany').get('success')
