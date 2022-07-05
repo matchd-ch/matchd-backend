@@ -1,5 +1,7 @@
 import pytest
 
+from graphql_relay import to_global_id
+
 
 def add_employee_mutation():
     return '''
@@ -19,6 +21,17 @@ def add_employee_mutation():
     '''
 
 
+def delete_employee_mutation():
+    return '''
+    mutation DeleteEmployeeMutation($input: DeleteEmployeeInput!) {
+        deleteEmployee(input: $input) {
+            success,
+            errors
+        }
+    }
+    '''
+
+
 @pytest.fixture
 def add_employee(execute):
 
@@ -32,6 +45,19 @@ def add_employee(execute):
                                'email': email
                            }
                        },
+                       **{'user': employee})
+
+    return closure
+
+
+@pytest.fixture
+def delete_employee(execute):
+
+    def closure(employee, id_to_delete):
+        return execute(delete_employee_mutation(),
+                       variables={'input': {
+                           'id': to_global_id('User', id_to_delete)
+                       }},
                        **{'user': employee})
 
     return closure

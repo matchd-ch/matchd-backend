@@ -35,7 +35,8 @@ class RegisterCompany(Register):
         user_type = data.get('type')
 
         if user_type not in ProfileType.valid_company_types():
-            errors.update(generic_error_dict('type', _('You are not a company'), 'invalid_type'))
+            errors.update(
+                generic_error_dict('type', _('You are not part of a company'), 'invalid_type'))
 
         # validate employee
         employee_data = data.pop('employee')

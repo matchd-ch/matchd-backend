@@ -4,7 +4,7 @@ from .benefit import *
 from .branch import *
 from .client import *
 from .company import *
-from .company_add_employee import *
+from .company_employee import *
 from .company_profile import *
 from .cultural_fit import *
 from .dashboard import *
