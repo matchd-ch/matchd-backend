@@ -6,8 +6,7 @@ from django.contrib.auth import get_user_model
 
 from db.forms import EmployeeForm, UserForm
 from db.helper.forms import validate_company_user_type, validate_form_data
-from db.models.employee import Employee
-from db.models.user import User
+from db.models import Employee, User
 
 
 class EmployeeBuilder():

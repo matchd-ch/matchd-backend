@@ -6,7 +6,9 @@ from graphql_jwt.decorators import login_required
 
 from django.utils.translation import gettext as _
 
-from db.context.employee.employee_builder import EmployeeBuilder
+from api.helper import resolve_node_id
+
+from db.context.employee import EmployeeBuilder, EmployeeManager
 from db.models import Employee as EmployeeModel
 
 # pylint: disable=W0221
@@ -67,5 +69,29 @@ class AddEmployee(Output, relay.ClientIDMutation):
         return AddEmployee(success=bool(employee), errors=errors, employee=employee)
 
 
+class DeleteEmployee(Output, relay.ClientIDMutation):
+
+    class Input:
+        id = graphene.String(required=True)
+
+    class Meta:
+        description = _('Deletes an employee within the same company')
+
+    @classmethod
+    @login_required
+    def mutate(cls, root, info, **data):
+        user = info.context.user
+
+        form_data = data.get('input', None)
+        id_to_delete = int(resolve_node_id(form_data.get('id')))
+
+        employee_manager = EmployeeManager(id_to_delete).delete(user)
+        errors = employee_manager.errors
+        employee = employee_manager.employee
+
+        return DeleteEmployee(success=(employee is None and errors == {}), errors=errors)
+
+
 class EmployeeMutation(ObjectType):
     add_employee = AddEmployee.Field()
+    delete_employee = DeleteEmployee.Field()
