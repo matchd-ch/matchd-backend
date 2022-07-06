@@ -43,8 +43,6 @@ class ProjectPostingMatching(Matching):
         builder = ProjectPostingParamBuilder(queryset, index, self.first, self.skip)
         builder.set_project_type(self.project_posting.project_type.id,
                                  settings.MATCHING_VALUE_PROJECT_TYPE)
-        builder.set_topic(self.project_posting.topic.id,
-                          self.tech_boost * settings.MATCHING_VALUE_TOPIC)
         builder.set_keywords(self.project_posting.keywords.all(),
                              self.tech_boost * settings.MATCHING_VALUE_KEYWORDS)
 

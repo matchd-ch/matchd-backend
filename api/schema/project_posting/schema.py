@@ -13,7 +13,6 @@ from api.helper import extract_ids, resolve_node_id, resolve_node_ids
 from api.schema.employee import Employee, EmployeeInput
 from api.schema.keyword.schema import KeywordInput
 from api.schema.project_type.schema import ProjectTypeInput
-from api.schema.topic.schema import TopicInput
 
 from db.context.match.match_status import MatchStatus
 from db.decorators import hyphenate
@@ -55,10 +54,8 @@ class ProjectPosting(DjangoObjectType):
             'title',
             'description',
             'project_type',
-            'topic',
             'company',
             'keywords',
-            'additional_information',
             'website',
             'project_from_date',
             'form_step',
@@ -167,11 +164,8 @@ class ProjectPostingBaseData(Output, relay.ClientIDMutation):
         id = graphene.String(required=False)
         title = graphene.String(description=_('Title'), required=True)
         project_type = graphene.Field(ProjectTypeInput, required=True)
-        topic = graphene.Field(TopicInput, required=True)
         keywords = graphene.List(KeywordInput, required=False)
         description = graphene.String(description=_('Description'), required=True)
-        additional_information = graphene.String(description=_('Additional Information'),
-                                                 required=False)
 
     class Meta:
         description = _('Creates a project posting')

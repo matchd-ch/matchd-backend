@@ -28,10 +28,8 @@ class Command(BaseCommand):
                 'title': project_posting.title,
                 'slug': project_posting.slug,
                 'project_type': project_posting.project_type.id,
-                'topic': project_posting.topic.id,
                 'keywords': [obj.id for obj in project_posting.keywords.all()],
                 'description': project_posting.description,
-                'additional_information': project_posting.additional_information,
                 'website': project_posting.website,
                 'project_from_date': project_posting.project_from_date.strftime('%Y-%m-%d'),
                 'employee':

@@ -4,21 +4,18 @@ from django.utils.text import slugify
 
 from db.exceptions import FormException
 from db.helper.forms import convert_object_to_id, validate_form_data
-from db.models import ProjectType, Topic, Keyword, ProjectPosting, ProfileType
+from db.models import ProjectType, Keyword, ProjectPosting, ProfileType
 
 
 class ProjectPostingBaseDataForm(forms.Form):
     title = forms.CharField(max_length=50, required=True)
-    description = forms.CharField(max_length=300, required=True)
-    additional_information = forms.CharField(max_length=1000, required=False)
+    description = forms.CharField(max_length=1500, required=True)
     project_type = forms.ModelChoiceField(queryset=ProjectType.objects.all(), required=True)
-    topic = forms.ModelChoiceField(queryset=Topic.objects.all(), required=True)
-    keywords = forms.ModelMultipleChoiceField(queryset=Keyword.objects.all(), required=False)
+    keywords = forms.ModelMultipleChoiceField(queryset=Keyword.objects.all(), required=True)
 
     def __init__(self, data=None, **kwargs):
         # due to a bug with ModelChoiceField and graphene_django
         data['project_type'] = convert_object_to_id(data.get('project_type', None))
-        data['topic'] = convert_object_to_id(data.get('topic', None))
         super().__init__(data=data, **kwargs)
 
 
@@ -54,9 +51,7 @@ def process_project_posting_base_data_form(user, data):
 
     project_posting.title = cleaned_data.get('title')
     project_posting.description = cleaned_data.get('description')
-    project_posting.additional_information = cleaned_data.get('additional_information')
     project_posting.project_type = cleaned_data.get('project_type')
-    project_posting.topic = cleaned_data.get('topic')
     project_posting.company = cleaned_data.get('company')
     project_posting.student = cleaned_data.get('student')
     project_posting.employee = cleaned_data.get('employee')

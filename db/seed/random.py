@@ -7,7 +7,7 @@ from dateutil.relativedelta import relativedelta
 from django.conf import settings
 
 from db.models import Branch, CulturalFit, JobType, Language, LanguageLevel, Skill, SoftSkill, ProfileState, Benefit, \
-    JobRequirement, JobPostingState, ProjectType, Topic, Keyword, ProjectPostingState
+    JobRequirement, JobPostingState, ProjectType, Keyword, ProjectPostingState
 
 
 # pylint: disable=R0902
@@ -40,7 +40,6 @@ class Random:
         self._benefits = list(Benefit.objects.all().values_list('id', flat=True))
         self._requirements = list(JobRequirement.objects.all().values_list('id', flat=True))
         self._project_types = list(ProjectType.objects.all().values_list('id', flat=True))
-        self._topics = list(Topic.objects.all().values_list('id', flat=True))
         self._keywords = list(Keyword.objects.all().values_list('id', flat=True))
 
         self._addresses = self._load_address_data()
@@ -151,9 +150,6 @@ class Random:
 
     def project_type(self):
         return self._random(self._project_types, 1)
-
-    def topic(self):
-        return self._random(self._topics, 1)
 
     def keywords(self):
         count = random.randint(2, 3)

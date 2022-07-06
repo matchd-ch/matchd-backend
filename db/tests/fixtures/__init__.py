@@ -20,7 +20,6 @@ from .project_type import *
 from .skill import *
 from .soft_skill import *
 from .student import *
-from .topic import *
 from .user_language_relation import *
 from .user_request import *
 from .user import *

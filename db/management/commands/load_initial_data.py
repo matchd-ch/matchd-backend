@@ -13,7 +13,7 @@ class Command(BaseCommand):
         files = [
             'benefits.json', 'branches.json', 'cultural_fits.json', 'faq_categories.json',
             'job_requirements.json', 'job_types.json', 'language_levels.json', 'languages.json',
-            'skills.json', 'soft_skills.json', 'topics.json', 'keywords.json', 'project_types.json'
+            'skills.json', 'soft_skills.json', 'keywords.json', 'project_types.json'
         ]
         fixture_count = 0
         object_count = 0

@@ -46,9 +46,7 @@ class ProjectPosting(BaseSeed):
                 project_posting = ProjectPostingModel(
                     title=self.rand.project_title(),
                     description=self.rand.description(),
-                    additional_information=self.rand.description(),
                     project_type_id=self.rand.project_type(),
-                    topic_id=self.rand.topic(),
                     project_from_date=self.rand.project_from_date(),
                     website='https://www.project.lo',
                     form_step=3,
@@ -69,7 +67,6 @@ class ProjectPosting(BaseSeed):
                     project_posting = ProjectPostingModel.objects.get(slug=obj.get('slug'))
                 except ProjectPostingModel.DoesNotExist:
                     project_posting = ProjectPostingModel(project_type_id=obj.get('project_type'),
-                                                          topic_id=obj.get('topic'),
                                                           company=company,
                                                           employee=employee,
                                                           student=student)
@@ -78,7 +75,6 @@ class ProjectPosting(BaseSeed):
                     project_title = self.rand.title()
                 project_posting.title = project_title
                 project_posting.description = obj.get('description')
-                project_posting.additional_information = obj.get('additional_information')
                 project_posting.website = obj.get('website')
                 date_created = obj.get('date_created')
                 date_created = datetime.strptime(
