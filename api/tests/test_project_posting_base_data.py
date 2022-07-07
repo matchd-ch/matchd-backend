@@ -26,8 +26,8 @@ def test_base_data_as_student(user_student, login, project_posting_base_data, pr
 
 def _test_base_data(user, login, project_posting_base_data, project_type_objects, keyword_objects):
     login(user)
-    data, errors = project_posting_base_data(user, 'title', 'description', project_type_objects[0],
-                                             keyword_objects)
+    data, errors = project_posting_base_data(user, 'title', 'description', 5, 'to be defined',
+                                             project_type_objects[0], keyword_objects)
 
     assert errors is None
     assert data is not None
@@ -44,6 +44,8 @@ def _test_base_data(user, login, project_posting_base_data, project_type_objects
     assert project_posting.title == 'title'
     assert project_posting.slug == f'title-{str(project_posting.id)}'
     assert project_posting.description == 'description'
+    assert project_posting.team_size == 5
+    assert project_posting.compensation == 'to be defined'
     assert project_posting.project_type == project_type_objects[0]
     assert len(project_posting.keywords.all()) == len(keyword_objects)
     if user.type in ProfileType.valid_company_types():
@@ -59,7 +61,7 @@ def _test_base_data(user, login, project_posting_base_data, project_type_objects
 
 @pytest.mark.django_db
 def test_base_data_without_login(project_posting_base_data, project_type_objects, keyword_objects):
-    data, errors = project_posting_base_data(AnonymousUser(), 'title', 'description',
+    data, errors = project_posting_base_data(AnonymousUser(), 'title', 'description', 5, None,
                                              project_type_objects[0], keyword_objects)
     assert errors is not None
     assert data is not None
@@ -69,7 +71,7 @@ def test_base_data_without_login(project_posting_base_data, project_type_objects
 @pytest.mark.django_db
 def test_base_data_with_invalid_data(user_employee, login, project_posting_base_data):
     login(user_employee)
-    data, errors = project_posting_base_data(user_employee, '', '', ProjectType(id=1337),
+    data, errors = project_posting_base_data(user_employee, '', '', None, '', ProjectType(id=1337),
                                              [Keyword(id=1337)])
     assert errors is None
     assert data is not None

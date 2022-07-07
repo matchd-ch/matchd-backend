@@ -40,6 +40,8 @@ class ProjectPosting(DjangoObjectType):
     title = graphene.NonNull(graphene.String)
     display_title = graphene.NonNull(graphene.String)
     state = graphene.Field(graphene.NonNull(ProjectPostingState))
+    team_size = graphene.Int()
+    compensation = graphene.String()
     employee = graphene.Field(Employee)
     keywords = graphene.List(graphene.NonNull('api.schema.keyword.schema.Keyword'))
     match_status = graphene.Field('api.schema.match.MatchStatus')
@@ -53,6 +55,8 @@ class ProjectPosting(DjangoObjectType):
         fields = (
             'title',
             'description',
+            'team_size',
+            'compensation',
             'project_type',
             'company',
             'keywords',
@@ -70,7 +74,6 @@ class ProjectPosting(DjangoObjectType):
 
     # pylint: disable=W0622
     @classmethod
-    @login_required
     def get_node(cls, info, id):
         return get_object_or_404(ProjectPostingModel, pk=id)
 
@@ -87,6 +90,9 @@ class ProjectPosting(DjangoObjectType):
     def resolve_match_status(self: ProjectPostingModel, info):
         user = info.context.user
 
+        if not user.is_authenticated:
+            return None
+
         status = MatchStatus.get(user, project_posting=self)
 
         if status is not None:
@@ -95,6 +101,10 @@ class ProjectPosting(DjangoObjectType):
 
     def resolve_match_hints(self: ProjectPostingModel, info):
         user = info.context.user
+
+        if not user.is_authenticated:
+            return None
+
         if user.type in ProfileType.valid_company_types():
             return None
         if self.company is None:
@@ -114,7 +124,6 @@ class ProjectPostingQuery(ObjectType):
                                      slug=graphene.String(required=False))
     project_postings = relay.ConnectionField(ProjectPostingConnection)
 
-    @login_required
     def resolve_project_posting(self, info, **kwargs):
         slug = kwargs.get('slug')
         project_posting_id = resolve_node_id(kwargs.get('id'))
@@ -128,6 +137,7 @@ class ProjectPostingQuery(ObjectType):
             project_posting = get_object_or_404(ProjectPostingModel, pk=project_posting_id)
 
         user = info.context.user
+
         # show incomplete project postings for employees of the company
         if user.type in ProfileType.valid_company_types(
         ) and user.company == project_posting.company:
@@ -143,17 +153,8 @@ class ProjectPostingQuery(ObjectType):
             raise Http404(_('Project posting not found'))
         return project_posting
 
-    @login_required
     def resolve_project_postings(self, info, **kwargs):
-        user = info.context.user
-        project_postings = None
-        if user.type in ProfileType.valid_company_types():
-            project_postings = ProjectPostingModel.objects.filter(company=user.company,
-                                                                  state=ProjectPostingState.PUBLIC)
-        if user.type in ProfileType.valid_student_types():
-            project_postings = ProjectPostingModel.objects.filter(student=user.student,
-                                                                  state=ProjectPostingState.PUBLIC)
-        return project_postings
+        return ProjectPostingModel.objects.filter(state=ProjectPostingState.PUBLIC)
 
 
 class ProjectPostingBaseData(Output, relay.ClientIDMutation):
@@ -166,6 +167,8 @@ class ProjectPostingBaseData(Output, relay.ClientIDMutation):
         project_type = graphene.Field(ProjectTypeInput, required=True)
         keywords = graphene.List(KeywordInput, required=False)
         description = graphene.String(description=_('Description'), required=True)
+        team_size = graphene.Int(description=_('Project team size'), required=False)
+        compensation = graphene.String(description=_('Compensation'), required=False)
 
     class Meta:
         description = _('Creates a project posting')

@@ -30,6 +30,8 @@ def test_get_project_posting(project_posting_valid_args):
 
     assert project_posting.title == project_posting_valid_args.get('title')
     assert project_posting.slug == project_posting_valid_args.get('slug')
+    assert project_posting.team_size == project_posting_valid_args.get('team_size')
+    assert project_posting.compensation == project_posting_valid_args.get('compensation')
     assert project_posting.keywords.count() == 0
 
 

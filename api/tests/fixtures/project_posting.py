@@ -35,6 +35,8 @@ def project_posting_query(filter_value, param_name):
             title
             displayTitle
             description
+            teamSize
+            compensation
             projectType {
               id
               name
@@ -91,6 +93,8 @@ def project_postings_query():
                     title
                     displayTitle
                     description
+                    teamSize
+                    compensation
                     projectType {
                         id
                         name
@@ -246,7 +250,7 @@ def project_posting_mutation(kind):
 @pytest.fixture
 def project_posting_base_data(execute):
 
-    def closure(user, title, description, project_type, keywords):
+    def closure(user, title, description, team_size, compensation, project_type, keywords):
         return execute(project_posting_mutation("BaseData"),
                        variables={
                            'input': {
@@ -256,6 +260,10 @@ def project_posting_base_data(execute):
                                title,
                                'description':
                                description,
+                               'teamSize':
+                               team_size,
+                               'compensation':
+                               compensation,
                                'projectType':
                                None if project_type is None else {
                                    'id': to_global_id('ProjectType', project_type.id)

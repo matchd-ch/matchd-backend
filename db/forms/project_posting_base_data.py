@@ -10,6 +10,8 @@ from db.models import ProjectType, Keyword, ProjectPosting, ProfileType
 class ProjectPostingBaseDataForm(forms.Form):
     title = forms.CharField(max_length=50, required=True)
     description = forms.CharField(max_length=1500, required=True)
+    team_size = forms.IntegerField(required=False)
+    compensation = forms.CharField(max_length=300, required=False)
     project_type = forms.ModelChoiceField(queryset=ProjectType.objects.all(), required=True)
     keywords = forms.ModelMultipleChoiceField(queryset=Keyword.objects.all(), required=True)
 
@@ -51,6 +53,8 @@ def process_project_posting_base_data_form(user, data):
 
     project_posting.title = cleaned_data.get('title')
     project_posting.description = cleaned_data.get('description')
+    project_posting.team_size = cleaned_data.get('team_size')
+    project_posting.compensation = cleaned_data.get('compensation')
     project_posting.project_type = cleaned_data.get('project_type')
     project_posting.company = cleaned_data.get('company')
     project_posting.student = cleaned_data.get('student')

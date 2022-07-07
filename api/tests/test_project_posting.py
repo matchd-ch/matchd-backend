@@ -18,6 +18,8 @@ def test_student_project_posting(query_project_posting,
     company_project_posting_object.title = 'title'
     company_project_posting_object.slug = 'title'
     company_project_posting_object.description = 'description'
+    company_project_posting_object.team_size = 5
+    company_project_posting_object.compensation = 'to be discussed'
     company_project_posting_object.project_from_date = '2021-08-01'
     company_project_posting_object.website = 'http://www.project-posting.lo'
     company_project_posting_object.project_type = project_type_objects[0]
@@ -39,6 +41,8 @@ def test_student_project_posting(query_project_posting,
     assert project_posting.get('displayTitle') == 'tit\xadle'
     assert project_posting.get('slug') == company_project_posting_object.slug
     assert project_posting.get('description') == company_project_posting_object.description
+    assert project_posting.get('teamSize') == company_project_posting_object.team_size
+    assert project_posting.get('compensation') == company_project_posting_object.compensation
     assert project_posting.get('projectFromDate') == '2021-08-01'
     assert project_posting.get('website') == company_project_posting_object.website
     assert project_posting.get('projectType').get('id') == to_global_id(
@@ -66,6 +70,8 @@ def test_student_project_posting_draft(query_project_posting,
     company_project_posting_object.title = 'title'
     company_project_posting_object.slug = 'title'
     company_project_posting_object.description = 'description'
+    company_project_posting_object.team_size = 5
+    company_project_posting_object.compensation = 'to be discussed'
     company_project_posting_object.project_from_date = '2021-08-01'
     company_project_posting_object.website = 'http://www.project-posting.lo'
     company_project_posting_object.project_type = project_type_objects[0]
@@ -87,6 +93,8 @@ def test_student_project_posting_draft(query_project_posting,
     assert project_posting.get('displayTitle') == 'tit\xadle'
     assert project_posting.get('slug') == company_project_posting_object.slug
     assert project_posting.get('description') == company_project_posting_object.description
+    assert project_posting.get('teamSize') == company_project_posting_object.team_size
+    assert project_posting.get('compensation') == company_project_posting_object.compensation
     assert project_posting.get('projectFromDate') == '2021-08-01'
     assert project_posting.get('website') == company_project_posting_object.website
     assert project_posting.get('projectType').get('id') == to_global_id(
@@ -114,6 +122,8 @@ def test_student_project_posting_by_id(query_project_posting_by_id,
     company_project_posting_object.title = 'title'
     company_project_posting_object.slug = 'title'
     company_project_posting_object.description = 'description'
+    company_project_posting_object.team_size = 5
+    company_project_posting_object.compensation = 'to be discussed'
     company_project_posting_object.project_from_date = '2021-08-01'
     company_project_posting_object.website = 'http://www.project-posting.lo'
     company_project_posting_object.project_type = project_type_objects[0]
@@ -135,6 +145,8 @@ def test_student_project_posting_by_id(query_project_posting_by_id,
     assert project_posting.get('displayTitle') == 'tit\xadle'
     assert project_posting.get('slug') == company_project_posting_object.slug
     assert project_posting.get('description') == company_project_posting_object.description
+    assert project_posting.get('teamSize') == company_project_posting_object.team_size
+    assert project_posting.get('compensation') == company_project_posting_object.compensation
     assert project_posting.get('projectFromDate') == '2021-08-01'
     assert project_posting.get('website') == company_project_posting_object.website
     assert project_posting.get('projectType').get('id') == to_global_id(
@@ -162,6 +174,8 @@ def test_company_project_posting(query_project_posting,
     company_project_posting_object.title = 'title'
     company_project_posting_object.slug = 'title'
     company_project_posting_object.description = 'description'
+    company_project_posting_object.team_size = 5
+    company_project_posting_object.compensation = 'to be discussed'
     company_project_posting_object.project_from_date = '2021-08-01'
     company_project_posting_object.website = 'http://www.project-posting.lo'
     company_project_posting_object.project_type = project_type_objects[0]
@@ -183,6 +197,8 @@ def test_company_project_posting(query_project_posting,
     assert project_posting.get('displayTitle') == 'tit\xadle'
     assert project_posting.get('slug') == company_project_posting_object.slug
     assert project_posting.get('description') == company_project_posting_object.description
+    assert project_posting.get('teamSize') == company_project_posting_object.team_size
+    assert project_posting.get('compensation') == company_project_posting_object.compensation
     assert project_posting.get('projectFromDate') == '2021-08-01'
     assert project_posting.get('website') == company_project_posting_object.website
     assert project_posting.get('projectType').get('id') == to_global_id(
@@ -211,6 +227,8 @@ def test_company_project_posting_draft(query_project_posting,
     company_project_posting_object.title = 'title'
     company_project_posting_object.slug = 'title'
     company_project_posting_object.description = 'description'
+    company_project_posting_object.team_size = 5
+    company_project_posting_object.compensation = 'to be discussed'
     company_project_posting_object.project_from_date = '2021-08-01'
     company_project_posting_object.website = 'http://www.project-posting.lo'
     company_project_posting_object.project_type = project_type_objects[0]
@@ -232,6 +250,8 @@ def test_company_project_posting_draft(query_project_posting,
     assert project_posting.get('displayTitle') == 'tit\xadle'
     assert project_posting.get('slug') == company_project_posting_object.slug
     assert project_posting.get('description') == company_project_posting_object.description
+    assert project_posting.get('teamSize') == company_project_posting_object.team_size
+    assert project_posting.get('compensation') == company_project_posting_object.compensation
     assert project_posting.get('projectFromDate') == '2021-08-01'
     assert project_posting.get('website') == company_project_posting_object.website
     assert project_posting.get('projectType').get('id') == to_global_id(
@@ -260,6 +280,8 @@ def test_company_project_posting_by_id(query_project_posting_by_id,
     company_project_posting_object.title = 'title'
     company_project_posting_object.slug = 'title'
     company_project_posting_object.description = 'description'
+    company_project_posting_object.team_size = 5
+    company_project_posting_object.compensation = 'to be discussed'
     company_project_posting_object.project_from_date = '2021-08-01'
     company_project_posting_object.website = 'http://www.project-posting.lo'
     company_project_posting_object.project_type = project_type_objects[0]
@@ -281,6 +303,8 @@ def test_company_project_posting_by_id(query_project_posting_by_id,
     assert project_posting.get('displayTitle') == 'tit\xadle'
     assert project_posting.get('slug') == company_project_posting_object.slug
     assert project_posting.get('description') == company_project_posting_object.description
+    assert project_posting.get('teamSize') == company_project_posting_object.team_size
+    assert project_posting.get('compensation') == company_project_posting_object.compensation
     assert project_posting.get('projectFromDate') == '2021-08-01'
     assert project_posting.get('website') == company_project_posting_object.website
     assert project_posting.get('projectType').get('id') == to_global_id(
@@ -381,14 +405,29 @@ def test_node_query(query_project_posting_node, company_project_posting_objects,
 
 
 @pytest.mark.django_db
-def test_node_without_login_query(query_project_posting_node, company_project_posting_objects):
+def test_project_postings_without_login(query_project_postings, company_project_posting_objects):
+    data, errors = query_project_postings(AnonymousUser())
+    assert errors is None
+    assert data is not None
+
+    edges = data.get('projectPostings').get('edges')
+    assert edges is not None
+    assert len(edges) == len(company_project_posting_objects) - 1
+    assert_node_id(edges[0].get('node'), 'ProjectPosting', company_project_posting_objects[0].id)
+    assert_node_id(edges[1].get('node'), 'ProjectPosting', company_project_posting_objects[1].id)
+    assert_node_field(edges[0].get('node'), 'slug', company_project_posting_objects[0].slug)
+    assert_node_field(edges[1].get('node'), 'slug', company_project_posting_objects[1].slug)
+
+
+@pytest.mark.django_db
+def test_node_without_login(query_project_posting_node, company_project_posting_objects):
     data, errors = query_project_posting_node(AnonymousUser(),
                                               company_project_posting_objects[0].id)
 
-    assert errors is not None
+    assert errors is None
     assert data is not None
 
-    error = errors[0].get('message')
     node = data.get('node')
-    assert node is None
-    assert error == "You do not have permission to perform this action"
+    assert node is not None
+    assert_node_id(node, 'ProjectPosting', company_project_posting_objects[0].id)
+    assert_node_field(node, 'slug', company_project_posting_objects[0].slug)

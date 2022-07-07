@@ -24,6 +24,8 @@ class ProjectPosting(models.Model, index.Indexed):
                                      on_delete=models.CASCADE)
     keywords = models.ManyToManyField('db.Keyword', related_name='project_postings')
     description = models.TextField(max_length=1500)
+    team_size = models.IntegerField(blank=True, default=None)
+    compensation = models.TextField(max_length=300, blank=True)
     website = models.URLField(max_length=2048, blank=True)
     project_from_date = models.DateField(null=True, blank=True)
     employee = models.ForeignKey('db.Employee', on_delete=models.SET_NULL, blank=True, null=True)
