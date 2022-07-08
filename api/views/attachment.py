@@ -1,10 +1,7 @@
-import imghdr
-from wsgiref.util import FileWrapper
-
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
-from django.http import HttpResponse, StreamingHttpResponse
+from django.http import HttpResponse, FileResponse
 from django.shortcuts import get_object_or_404
 from django.views.generic import View
 from wagtail.images.exceptions import InvalidFilterSpecError
@@ -45,7 +42,7 @@ class AttachmentServeView(View):
         return HttpResponse(status=404)
 
     def get_file(self, file):
-        return StreamingHttpResponse(FileWrapper(file.file), content_type=file.get_mime_type())
+        return FileResponse(file.file.open('rb'))
 
     def get_image(self, image, stack):
         try:
@@ -62,7 +59,4 @@ class AttachmentServeView(View):
                                 content_type='text/plain',
                                 status=400)
 
-        rendition.file.open('rb')
-        image_format = imghdr.what(rendition.file)
-        return StreamingHttpResponse(FileWrapper(rendition.file),
-                                     content_type='image/' + image_format)
+        return FileResponse(rendition.file.open('rb'))
