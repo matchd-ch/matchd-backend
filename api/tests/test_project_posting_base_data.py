@@ -61,8 +61,9 @@ def _test_base_data(user, login, project_posting_base_data, project_type_objects
 
 @pytest.mark.django_db
 def test_base_data_without_login(project_posting_base_data, project_type_objects, keyword_objects):
-    data, errors = project_posting_base_data(AnonymousUser(), 'title', 'description', 5, None,
-                                             project_type_objects[0], keyword_objects)
+    data, errors = project_posting_base_data(AnonymousUser(), 'title', 'description', 5,
+                                             'No description', project_type_objects[0],
+                                             keyword_objects)
     assert errors is not None
     assert data is not None
     assert data.get('projectPostingBaseData') is None
@@ -71,7 +72,7 @@ def test_base_data_without_login(project_posting_base_data, project_type_objects
 @pytest.mark.django_db
 def test_base_data_with_invalid_data(user_employee, login, project_posting_base_data):
     login(user_employee)
-    data, errors = project_posting_base_data(user_employee, '', '', None, '', ProjectType(id=1337),
+    data, errors = project_posting_base_data(user_employee, '', '', 0, '', ProjectType(id=1337),
                                              [Keyword(id=1337)])
     assert errors is None
     assert data is not None
@@ -83,5 +84,7 @@ def test_base_data_with_invalid_data(user_employee, login, project_posting_base_
     assert errors is not None
     assert 'title' in errors
     assert 'description' in errors
+    assert 'teamSize' in errors
+    assert 'compensation' in errors
     assert 'projectType' in errors
     assert 'keywords' in errors

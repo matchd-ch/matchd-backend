@@ -45,7 +45,7 @@ def test_student(login, user_student_full_profile, query_student, user_employee,
     assert len(student.get('onlineProjects')) == 2
     assert len(student.get('softSkills').get('edges')) == 6
     assert len(student.get('culturalFits').get('edges')) == 6
-    assert len(student.get('projectPostings')) == 2    # public only
+    assert len(student.get('projectPostings')) == 3    # public only
     assert student.get('matchStatus') is None
 
     company = student.get('company')

@@ -72,7 +72,7 @@ def test_dashboard(login, query_dashboard, user_employee, user_student, job_post
     assert len(latest_job_postings) == 3
 
     project_postings = dashboard.get('projectPostings')
-    assert len(project_postings) == 3
+    assert len(project_postings) == len(student_project_posting_objects)
 
     latest_project_postings = dashboard.get('latestProjectPostings')
     assert len(latest_project_postings

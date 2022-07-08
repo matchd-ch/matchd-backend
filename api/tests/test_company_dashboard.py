@@ -66,7 +66,7 @@ def test_dashboard(login, query_dashboard, user_employee, user_student, job_post
     assert latest_job_postings is None
 
     project_postings = dashboard.get('projectPostings')
-    assert len(project_postings) == 3
+    assert len(project_postings) == len(company_project_posting_objects)
 
     latest_project_postings = dashboard.get('latestProjectPostings')
     assert len(latest_project_postings

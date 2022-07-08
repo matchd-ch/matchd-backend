@@ -5,6 +5,7 @@ from graphql_relay import to_global_id
 from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 
+from django.db.models import Q
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext as _
@@ -21,6 +22,7 @@ from db.forms import process_project_posting_base_data_form, process_project_pos
 from db.forms.project_posting_allocation import process_project_posting_allocation_form
 from db.models import ProjectPosting as ProjectPostingModel, ProjectPostingState as ProjectPostingStateModel, \
     ProfileType
+from db.models.profile_state import ProfileState
 
 # pylint: disable=W0221
 
@@ -120,9 +122,18 @@ class ProjectPostingConnection(relay.Connection):
 
 class ProjectPostingQuery(ObjectType):
     project_posting = graphene.Field(ProjectPosting,
-                                     id=graphene.String(required=False),
-                                     slug=graphene.String(required=False))
-    project_postings = relay.ConnectionField(ProjectPostingConnection)
+                                     id=graphene.String(required=False, description=_('Id')),
+                                     slug=graphene.String(required=False, description=_('Slug')))
+    project_postings = relay.ConnectionField(
+        ProjectPostingConnection,
+        project_type_id=graphene.String(required=False, description=_('Project type id')),
+        keyword_ids=graphene.List(graphene.String,
+                                  description=_('List of keyword ids'),
+                                  required=False),
+        team_size=graphene.Int(description=_('Team size'), required=False),
+        project_from_date=graphene.Date(description=_('Project from date'), required=False),
+        company_id=graphene.String(description=_('Company id'), required=False),
+        date_published=graphene.Date(description=_('Date published'), required=False))
 
     def resolve_project_posting(self, info, **kwargs):
         slug = kwargs.get('slug')
@@ -154,7 +165,44 @@ class ProjectPostingQuery(ObjectType):
         return project_posting
 
     def resolve_project_postings(self, info, **kwargs):
-        return ProjectPostingModel.objects.filter(state=ProjectPostingState.PUBLIC)
+        project_type = kwargs.get('project_type_id')
+        keywords = kwargs.get('keyword_ids')
+        team_size = kwargs.get('team_size')
+        project_from_date = kwargs.get('project_from_date')
+        company = kwargs.get('company_id')
+        date_published = kwargs.get('date_published')
+
+        query = Q(company__state=ProfileState.PUBLIC)
+        query |= Q(student__state=ProfileState.PUBLIC)
+
+        filters_query = Q()
+
+        if project_type is not None:
+            filters_query &= Q(project_type=resolve_node_id(project_type))
+
+        if keywords is not None:
+            keyword_query = Q()
+            for keyword in keywords:
+                keyword_query |= Q(keywords=resolve_node_id(keyword))
+            filters_query &= keyword_query
+
+        if team_size is not None:
+            filters_query &= Q(team_size=team_size)
+
+        if project_from_date is not None:
+            print(project_from_date)
+            filters_query &= Q(project_from_date__gte=project_from_date)
+
+        if company is not None:
+            filters_query &= Q(company=resolve_node_id(company))
+
+        if date_published is not None:
+            filters_query &= Q(date_published__gte=date_published)
+
+        query &= filters_query
+        query &= Q(state=ProjectPostingState.PUBLIC)
+
+        return ProjectPostingModel.objects.filter(query).distinct()
 
 
 class ProjectPostingBaseData(Output, relay.ClientIDMutation):
@@ -165,10 +213,10 @@ class ProjectPostingBaseData(Output, relay.ClientIDMutation):
         id = graphene.String(required=False)
         title = graphene.String(description=_('Title'), required=True)
         project_type = graphene.Field(ProjectTypeInput, required=True)
-        keywords = graphene.List(KeywordInput, required=False)
+        keywords = graphene.List(KeywordInput, required=True)
         description = graphene.String(description=_('Description'), required=True)
-        team_size = graphene.Int(description=_('Project team size'), required=False)
-        compensation = graphene.String(description=_('Compensation'), required=False)
+        team_size = graphene.Int(description=_('Team size'), min_value=1, required=True)
+        compensation = graphene.String(description=_('Compensation'), required=True)
 
     class Meta:
         description = _('Creates a project posting')
