@@ -94,8 +94,8 @@ class ProjectPosting(BaseSeed):
                 project_posting.project_from_date = obj.get('project_from_date')
                 project_posting.form_step = obj.get('form_step')
                 project_posting.state = obj.get('state')
-                project_posting.team_size = 5,
-                project_posting.compensation = "To be discussed",
+                project_posting.team_size = 5
+                project_posting.compensation = "To be discussed"
                 employee = None
                 if obj.get('employee') is not None:
                     employee = get_user_model().objects.get(email=obj.get('employee')).employee
