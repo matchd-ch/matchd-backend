@@ -708,7 +708,6 @@
             "profile_step": 5,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 5,
                     "date_created": "2021-06-21 10:01:58",
                     "date_published": null,
@@ -725,11 +724,9 @@
                     "slug": "projekt-mno-1",
                     "state": "draft",
                     "title": "Projekt MNO",
-                    "topic": 12,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 5,
                     "date_created": "2021-06-21 10:01:58",
                     "date_published": "2021-06-02 09:55:13",
@@ -746,11 +743,9 @@
                     "slug": "projekt-def-2",
                     "state": "public",
                     "title": "Projekt DEF",
-                    "topic": 9,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 5,
                     "date_created": "2021-06-21 10:01:58",
                     "date_published": "2021-06-02 09:55:13",
@@ -766,7 +761,6 @@
                     "slug": "projekt-abc-3",
                     "state": "public",
                     "title": "Projekt ABC",
-                    "topic": 3,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -1066,7 +1060,6 @@
             "profile_step": 5,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 6,
                     "date_created": "2021-06-21 10:02:01",
                     "date_published": "2021-06-02 09:55:14",
@@ -1082,7 +1075,6 @@
                     "slug": "projekt-abc-4",
                     "state": "public",
                     "title": "Projekt ABC",
-                    "topic": 13,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -1360,7 +1352,6 @@
             "profile_step": 4,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 11,
                     "date_created": "2021-06-21 10:02:04",
                     "date_published": "2021-06-02 09:55:15",
@@ -1377,11 +1368,9 @@
                     "slug": "projekt-kunstliche-intelligenz-im-alltag-5",
                     "state": "public",
                     "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "topic": 11,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 11,
                     "date_created": "2021-06-21 10:02:04",
                     "date_published": null,
@@ -1397,11 +1386,9 @@
                     "slug": "projekt-abc-6",
                     "state": "draft",
                     "title": "Projekt ABC",
-                    "topic": 9,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 11,
                     "date_created": "2021-06-21 10:02:05",
                     "date_published": "2021-06-02 09:55:15",
@@ -1417,11 +1404,9 @@
                     "slug": "projekt-def-7",
                     "state": "public",
                     "title": "Projekt DEF",
-                    "topic": 9,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 11,
                     "date_created": "2021-06-21 10:02:05",
                     "date_published": null,
@@ -1438,11 +1423,9 @@
                     "slug": "projekt-ghi-8",
                     "state": "draft",
                     "title": "Projekt GHI",
-                    "topic": 6,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 11,
                     "date_created": "2021-06-21 10:02:05",
                     "date_published": null,
@@ -1458,7 +1441,6 @@
                     "slug": "projekt-kunstliche-intelligenz-im-alltag-9",
                     "state": "draft",
                     "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "topic": 5,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -1873,7 +1855,6 @@
             "profile_step": 7,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 8,
                     "date_created": "2021-06-21 10:02:09",
                     "date_published": "2021-06-02 09:55:18",
@@ -1890,11 +1871,9 @@
                     "slug": "projekt-abc-10",
                     "state": "public",
                     "title": "Projekt ABC",
-                    "topic": 10,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 8,
                     "date_created": "2021-06-21 10:02:09",
                     "date_published": "2021-06-02 09:55:18",
@@ -1911,7 +1890,6 @@
                     "slug": "projekt-ghi-11",
                     "state": "public",
                     "title": "Projekt GHI",
-                    "topic": 10,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -2008,7 +1986,6 @@
             "profile_step": 7,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 9,
                     "date_created": "2021-06-21 10:02:10",
                     "date_published": "2021-06-02 09:55:18",
@@ -2025,11 +2002,9 @@
                     "slug": "projekt-def-12",
                     "state": "public",
                     "title": "Projekt DEF",
-                    "topic": 6,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 9,
                     "date_created": "2021-06-21 10:02:10",
                     "date_published": null,
@@ -2046,11 +2021,9 @@
                     "slug": "projekt-ki-13",
                     "state": "draft",
                     "title": "Projekt KI",
-                    "topic": 8,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 9,
                     "date_created": "2021-06-21 10:02:10",
                     "date_published": null,
@@ -2067,7 +2040,6 @@
                     "slug": "projekt-kunstliche-intelligenz-im-alltag-14",
                     "state": "draft",
                     "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "topic": 11,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -2258,7 +2230,6 @@
             "profile_step": 7,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 10,
                     "date_created": "2021-06-21 10:02:13",
                     "date_published": null,
@@ -2275,7 +2246,6 @@
                     "slug": "projekt-kunstliche-intelligenz-im-alltag-15",
                     "state": "draft",
                     "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "topic": 13,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -2391,7 +2361,6 @@
             "profile_step": 7,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 11,
                     "date_created": "2021-06-21 10:02:13",
                     "date_published": null,
@@ -2407,11 +2376,9 @@
                     "slug": "projekt-ghi-16",
                     "state": "draft",
                     "title": "Projekt GHI",
-                    "topic": 5,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 11,
                     "date_created": "2021-06-21 10:02:14",
                     "date_published": null,
@@ -2427,11 +2394,9 @@
                     "slug": "projekt-ki-17",
                     "state": "draft",
                     "title": "Projekt KI",
-                    "topic": 8,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 11,
                     "date_created": "2021-06-21 10:02:14",
                     "date_published": null,
@@ -2448,11 +2413,9 @@
                     "slug": "projekt-def-18",
                     "state": "draft",
                     "title": "Projekt DEF",
-                    "topic": 12,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 11,
                     "date_created": "2021-06-21 10:02:14",
                     "date_published": null,
@@ -2468,7 +2431,6 @@
                     "slug": "projekt-ghi-19",
                     "state": "draft",
                     "title": "Projekt GHI",
-                    "topic": 10,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -2590,7 +2552,6 @@
             "profile_step": 7,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 12,
                     "date_created": "2021-06-21 10:02:15",
                     "date_published": "2021-06-02 09:55:20",
@@ -2606,11 +2567,9 @@
                     "slug": "projekt-ki-20",
                     "state": "public",
                     "title": "Projekt KI",
-                    "topic": 1,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 12,
                     "date_created": "2021-06-21 10:02:15",
                     "date_published": "2021-06-02 09:55:20",
@@ -2627,11 +2586,9 @@
                     "slug": "projekt-ki-21",
                     "state": "public",
                     "title": "Projekt KI",
-                    "topic": 1,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 12,
                     "date_created": "2021-06-21 10:02:15",
                     "date_published": "2021-06-02 09:55:20",
@@ -2648,11 +2605,9 @@
                     "slug": "projekt-ghi-22",
                     "state": "public",
                     "title": "Projekt GHI",
-                    "topic": 3,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 12,
                     "date_created": "2021-06-21 10:02:15",
                     "date_published": null,
@@ -2669,11 +2624,9 @@
                     "slug": "projekt-mno-23",
                     "state": "draft",
                     "title": "Projekt MNO",
-                    "topic": 11,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 12,
                     "date_created": "2021-06-21 10:02:15",
                     "date_published": null,
@@ -2690,7 +2643,6 @@
                     "slug": "projekt-abc-24",
                     "state": "draft",
                     "title": "Projekt ABC",
-                    "topic": 1,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -2807,7 +2759,6 @@
             "profile_step": 7,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 13,
                     "date_created": "2021-06-21 10:02:17",
                     "date_published": "2021-06-02 09:55:21",
@@ -2823,11 +2774,9 @@
                     "slug": "projekt-mno-25",
                     "state": "public",
                     "title": "Projekt MNO",
-                    "topic": 11,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 13,
                     "date_created": "2021-06-21 10:02:17",
                     "date_published": "2021-06-02 09:55:21",
@@ -2844,11 +2793,9 @@
                     "slug": "projekt-def-26",
                     "state": "public",
                     "title": "Projekt DEF",
-                    "topic": 1,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 13,
                     "date_created": "2021-06-21 10:02:17",
                     "date_published": null,
@@ -2864,7 +2811,6 @@
                     "slug": "projekt-ai-27",
                     "state": "draft",
                     "title": "Projekt AI",
-                    "topic": 12,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -2965,7 +2911,6 @@
             "profile_step": 7,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 14,
                     "date_created": "2021-06-21 10:02:18",
                     "date_published": "2021-06-02 09:55:21",
@@ -2982,11 +2927,9 @@
                     "slug": "projekt-jkl-28",
                     "state": "public",
                     "title": "Projekt JKL",
-                    "topic": 3,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 14,
                     "date_created": "2021-06-21 10:02:18",
                     "date_published": "2021-06-02 09:55:21",
@@ -3002,11 +2945,9 @@
                     "slug": "projekt-jkl-29",
                     "state": "public",
                     "title": "Projekt JKL",
-                    "topic": 10,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 14,
                     "date_created": "2021-06-21 10:02:18",
                     "date_published": null,
@@ -3022,11 +2963,9 @@
                     "slug": "projekt-abc-30",
                     "state": "draft",
                     "title": "Projekt ABC",
-                    "topic": 6,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 14,
                     "date_created": "2021-06-21 10:02:18",
                     "date_published": "2021-06-02 09:55:21",
@@ -3042,7 +2981,6 @@
                     "slug": "projekt-jkl-31",
                     "state": "public",
                     "title": "Projekt JKL",
-                    "topic": 6,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -3143,7 +3081,6 @@
             "profile_step": 7,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 15,
                     "date_created": "2021-06-21 10:02:20",
                     "date_published": null,
@@ -3160,11 +3097,9 @@
                     "slug": "projekt-mno-32",
                     "state": "draft",
                     "title": "Projekt MNO",
-                    "topic": 6,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 15,
                     "date_created": "2021-06-21 10:02:20",
                     "date_published": null,
@@ -3180,7 +3115,6 @@
                     "slug": "projekt-def-33",
                     "state": "draft",
                     "title": "Projekt DEF",
-                    "topic": 11,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -3281,7 +3215,6 @@
             "profile_step": 7,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 16,
                     "date_created": "2021-06-21 10:02:21",
                     "date_published": null,
@@ -3298,11 +3231,9 @@
                     "slug": "projekt-ai-34",
                     "state": "draft",
                     "title": "Projekt AI",
-                    "topic": 3,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 16,
                     "date_created": "2021-06-21 10:02:21",
                     "date_published": null,
@@ -3318,7 +3249,6 @@
                     "slug": "projekt-ghi-35",
                     "state": "draft",
                     "title": "Projekt GHI",
-                    "topic": 6,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -3419,7 +3349,6 @@
             "profile_step": 7,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 17,
                     "date_created": "2021-06-21 10:02:22",
                     "date_published": null,
@@ -3436,11 +3365,9 @@
                     "slug": "projekt-ki-36",
                     "state": "draft",
                     "title": "Projekt KI",
-                    "topic": 8,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 17,
                     "date_created": "2021-06-21 10:02:22",
                     "date_published": "2021-06-02 09:55:22",
@@ -3457,11 +3384,9 @@
                     "slug": "projekt-jkl-37",
                     "state": "public",
                     "title": "Projekt JKL",
-                    "topic": 3,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 17,
                     "date_created": "2021-06-21 10:02:22",
                     "date_published": null,
@@ -3478,11 +3403,9 @@
                     "slug": "projekt-ghi-38",
                     "state": "draft",
                     "title": "Projekt GHI",
-                    "topic": 13,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 17,
                     "date_created": "2021-06-21 10:02:22",
                     "date_published": "2021-06-02 09:55:22",
@@ -3498,11 +3421,9 @@
                     "slug": "projekt-jkl-39",
                     "state": "public",
                     "title": "Projekt JKL",
-                    "topic": 6,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 17,
                     "date_created": "2021-06-21 10:02:22",
                     "date_published": "2021-06-02 09:55:22",
@@ -3519,7 +3440,6 @@
                     "slug": "projekt-kunstliche-intelligenz-im-alltag-40",
                     "state": "public",
                     "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "topic": 8,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -3626,7 +3546,6 @@
             "profile_step": 7,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 18,
                     "date_created": "2021-06-21 10:02:24",
                     "date_published": null,
@@ -3642,11 +3561,9 @@
                     "slug": "projekt-ghi-41",
                     "state": "draft",
                     "title": "Projekt GHI",
-                    "topic": 6,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 18,
                     "date_created": "2021-06-21 10:02:24",
                     "date_published": null,
@@ -3662,11 +3579,9 @@
                     "slug": "projekt-def-42",
                     "state": "draft",
                     "title": "Projekt DEF",
-                    "topic": 1,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 18,
                     "date_created": "2021-06-21 10:02:24",
                     "date_published": "2021-06-02 09:55:23",
@@ -3682,11 +3597,9 @@
                     "slug": "projekt-mno-43",
                     "state": "public",
                     "title": "Projekt MNO",
-                    "topic": 1,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 18,
                     "date_created": "2021-06-21 10:02:24",
                     "date_published": "2021-06-02 09:55:23",
@@ -3703,7 +3616,6 @@
                     "slug": "projekt-mno-44",
                     "state": "public",
                     "title": "Projekt MNO",
-                    "topic": 12,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -3804,7 +3716,6 @@
             "profile_step": 7,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 19,
                     "date_created": "2021-06-21 10:02:25",
                     "date_published": "2021-06-02 09:55:23",
@@ -3821,11 +3732,9 @@
                     "slug": "projekt-ghi-45",
                     "state": "public",
                     "title": "Projekt GHI",
-                    "topic": 6,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 19,
                     "date_created": "2021-06-21 10:02:26",
                     "date_published": null,
@@ -3842,11 +3751,9 @@
                     "slug": "projekt-ghi-46",
                     "state": "draft",
                     "title": "Projekt GHI",
-                    "topic": 13,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 19,
                     "date_created": "2021-06-21 10:02:26",
                     "date_published": null,
@@ -3862,7 +3769,6 @@
                     "slug": "projekt-jkl-47",
                     "state": "draft",
                     "title": "Projekt JKL",
-                    "topic": 1,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -3969,7 +3875,6 @@
             "profile_step": 7,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 20,
                     "date_created": "2021-06-21 10:02:26",
                     "date_published": "2021-06-02 09:55:24",
@@ -3986,11 +3891,9 @@
                     "slug": "projekt-kunstliche-intelligenz-im-alltag-48",
                     "state": "public",
                     "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "topic": 6,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 20,
                     "date_created": "2021-06-21 10:02:27",
                     "date_published": null,
@@ -4007,11 +3910,9 @@
                     "slug": "projekt-ghi-49",
                     "state": "draft",
                     "title": "Projekt GHI",
-                    "topic": 1,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 20,
                     "date_created": "2021-06-21 10:02:27",
                     "date_published": null,
@@ -4027,7 +3928,6 @@
                     "slug": "projekt-ki-50",
                     "state": "draft",
                     "title": "Projekt KI",
-                    "topic": 4,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -4128,7 +4028,6 @@
             "profile_step": 7,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 21,
                     "date_created": "2021-06-21 10:02:28",
                     "date_published": null,
@@ -4144,11 +4043,9 @@
                     "slug": "projekt-ai-51",
                     "state": "draft",
                     "title": "Projekt AI",
-                    "topic": 6,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 21,
                     "date_created": "2021-06-21 10:02:28",
                     "date_published": null,
@@ -4165,11 +4062,9 @@
                     "slug": "projekt-ai-52",
                     "state": "draft",
                     "title": "Projekt AI",
-                    "topic": 4,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 21,
                     "date_created": "2021-06-21 10:02:28",
                     "date_published": "2021-06-02 09:55:24",
@@ -4185,11 +4080,9 @@
                     "slug": "projekt-abc-53",
                     "state": "public",
                     "title": "Projekt ABC",
-                    "topic": 5,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 21,
                     "date_created": "2021-06-21 10:02:28",
                     "date_published": "2021-06-02 09:55:24",
@@ -4206,7 +4099,6 @@
                     "slug": "projekt-def-54",
                     "state": "public",
                     "title": "Projekt DEF",
-                    "topic": 3,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -4307,7 +4199,6 @@
             "profile_step": 7,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 22,
                     "date_created": "2021-06-21 10:02:29",
                     "date_published": null,
@@ -4324,11 +4215,9 @@
                     "slug": "projekt-jkl-55",
                     "state": "draft",
                     "title": "Projekt JKL",
-                    "topic": 11,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 22,
                     "date_created": "2021-06-21 10:02:29",
                     "date_published": "2021-06-02 09:55:25",
@@ -4344,11 +4233,9 @@
                     "slug": "projekt-jkl-56",
                     "state": "public",
                     "title": "Projekt JKL",
-                    "topic": 11,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 22,
                     "date_created": "2021-06-21 10:02:30",
                     "date_published": "2021-06-02 09:55:25",
@@ -4364,11 +4251,9 @@
                     "slug": "projekt-ki-57",
                     "state": "public",
                     "title": "Projekt KI",
-                    "topic": 11,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 22,
                     "date_created": "2021-06-21 10:02:30",
                     "date_published": "2021-06-02 09:55:25",
@@ -4384,7 +4269,6 @@
                     "slug": "projekt-ghi-58",
                     "state": "public",
                     "title": "Projekt GHI",
-                    "topic": 9,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -4485,7 +4369,6 @@
             "profile_step": 7,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 23,
                     "date_created": "2021-06-21 10:02:31",
                     "date_published": "2021-06-02 09:55:25",
@@ -4501,11 +4384,9 @@
                     "slug": "projekt-kunstliche-intelligenz-im-alltag-59",
                     "state": "public",
                     "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "topic": 2,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 23,
                     "date_created": "2021-06-21 10:02:31",
                     "date_published": null,
@@ -4521,11 +4402,9 @@
                     "slug": "projekt-kunstliche-intelligenz-im-alltag-60",
                     "state": "draft",
                     "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "topic": 13,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 23,
                     "date_created": "2021-06-21 10:02:31",
                     "date_published": null,
@@ -4541,7 +4420,6 @@
                     "slug": "projekt-def-61",
                     "state": "draft",
                     "title": "Projekt DEF",
-                    "topic": 5,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -4642,7 +4520,6 @@
             "profile_step": 7,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 24,
                     "date_created": "2021-06-21 10:02:32",
                     "date_published": "2021-06-02 09:55:25",
@@ -4659,11 +4536,9 @@
                     "slug": "projekt-abc-62",
                     "state": "public",
                     "title": "Projekt ABC",
-                    "topic": 6,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 24,
                     "date_created": "2021-06-21 10:02:32",
                     "date_published": null,
@@ -4680,11 +4555,9 @@
                     "slug": "projekt-ki-63",
                     "state": "draft",
                     "title": "Projekt KI",
-                    "topic": 8,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 24,
                     "date_created": "2021-06-21 10:02:32",
                     "date_published": "2021-06-02 09:55:25",
@@ -4701,11 +4574,9 @@
                     "slug": "projekt-mno-64",
                     "state": "public",
                     "title": "Projekt MNO",
-                    "topic": 10,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 24,
                     "date_created": "2021-06-21 10:02:32",
                     "date_published": "2021-06-02 09:55:25",
@@ -4721,11 +4592,9 @@
                     "slug": "projekt-kunstliche-intelligenz-im-alltag-65",
                     "state": "public",
                     "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "topic": 12,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 24,
                     "date_created": "2021-06-21 10:02:32",
                     "date_published": "2021-06-02 09:55:25",
@@ -4742,7 +4611,6 @@
                     "slug": "projekt-kunstliche-intelligenz-im-alltag-66",
                     "state": "public",
                     "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "topic": 1,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -4849,7 +4717,6 @@
             "profile_step": 7,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 25,
                     "date_created": "2021-06-21 10:02:33",
                     "date_published": "2021-06-02 09:55:26",
@@ -4866,11 +4733,9 @@
                     "slug": "projekt-mno-67",
                     "state": "public",
                     "title": "Projekt MNO",
-                    "topic": 13,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 25,
                     "date_created": "2021-06-21 10:02:33",
                     "date_published": "2021-06-02 09:55:26",
@@ -4886,7 +4751,6 @@
                     "slug": "projekt-ki-68",
                     "state": "public",
                     "title": "Projekt KI",
-                    "topic": 1,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -4993,7 +4857,6 @@
             "profile_step": 7,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 26,
                     "date_created": "2021-06-21 10:02:35",
                     "date_published": "2021-06-02 09:55:26",
@@ -5010,11 +4873,9 @@
                     "slug": "projekt-jkl-69",
                     "state": "public",
                     "title": "Projekt JKL",
-                    "topic": 4,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 26,
                     "date_created": "2021-06-21 10:02:35",
                     "date_published": null,
@@ -5030,11 +4891,9 @@
                     "slug": "projekt-ki-70",
                     "state": "draft",
                     "title": "Projekt KI",
-                    "topic": 6,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 26,
                     "date_created": "2021-06-21 10:02:35",
                     "date_published": "2021-06-02 09:55:26",
@@ -5051,11 +4910,9 @@
                     "slug": "projekt-ai-71",
                     "state": "public",
                     "title": "Projekt AI",
-                    "topic": 4,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 26,
                     "date_created": "2021-06-21 10:02:35",
                     "date_published": "2021-06-02 09:55:26",
@@ -5072,7 +4929,6 @@
                     "slug": "projekt-mno-72",
                     "state": "public",
                     "title": "Projekt MNO",
-                    "topic": 5,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -5179,7 +5035,6 @@
             "profile_step": 7,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 27,
                     "date_created": "2021-06-21 10:02:36",
                     "date_published": null,
@@ -5195,11 +5050,9 @@
                     "slug": "projekt-def-73",
                     "state": "draft",
                     "title": "Projekt DEF",
-                    "topic": 3,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 27,
                     "date_created": "2021-06-21 10:02:36",
                     "date_published": null,
@@ -5216,11 +5069,9 @@
                     "slug": "projekt-ai-74",
                     "state": "draft",
                     "title": "Projekt AI",
-                    "topic": 3,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 27,
                     "date_created": "2021-06-21 10:02:36",
                     "date_published": null,
@@ -5236,11 +5087,9 @@
                     "slug": "projekt-jkl-75",
                     "state": "draft",
                     "title": "Projekt JKL",
-                    "topic": 8,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 27,
                     "date_created": "2021-06-21 10:02:36",
                     "date_published": null,
@@ -5257,7 +5106,6 @@
                     "slug": "projekt-abc-76",
                     "state": "draft",
                     "title": "Projekt ABC",
-                    "topic": 9,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -5357,7 +5205,6 @@
             "profile_step": 7,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 28,
                     "date_created": "2021-06-21 10:02:38",
                     "date_published": "2021-06-02 09:55:27",
@@ -5374,11 +5221,9 @@
                     "slug": "projekt-ai-77",
                     "state": "public",
                     "title": "Projekt AI",
-                    "topic": 12,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 28,
                     "date_created": "2021-06-21 10:02:38",
                     "date_published": "2021-06-02 09:55:27",
@@ -5395,11 +5240,9 @@
                     "slug": "projekt-jkl-78",
                     "state": "public",
                     "title": "Projekt JKL",
-                    "topic": 5,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 28,
                     "date_created": "2021-06-21 10:02:38",
                     "date_published": "2021-06-02 09:55:27",
@@ -5415,11 +5258,9 @@
                     "slug": "projekt-ghi-79",
                     "state": "public",
                     "title": "Projekt GHI",
-                    "topic": 5,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 28,
                     "date_created": "2021-06-21 10:02:38",
                     "date_published": "2021-06-02 09:55:27",
@@ -5435,11 +5276,9 @@
                     "slug": "projekt-kunstliche-intelligenz-im-alltag-80",
                     "state": "public",
                     "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "topic": 1,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 28,
                     "date_created": "2021-06-21 10:02:38",
                     "date_published": "2021-06-02 09:55:27",
@@ -5456,7 +5295,6 @@
                     "slug": "projekt-ki-81",
                     "state": "public",
                     "title": "Projekt KI",
-                    "topic": 6,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -5555,7 +5393,6 @@
             "profile_step": 7,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 29,
                     "date_created": "2021-06-21 10:02:39",
                     "date_published": null,
@@ -5572,7 +5409,6 @@
                     "slug": "projekt-jkl-82",
                     "state": "draft",
                     "title": "Projekt JKL",
-                    "topic": 6,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -5817,7 +5653,6 @@
             "profile_step": 5,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 13,
                     "date_created": "2021-06-21 10:02:41",
                     "date_published": "2021-06-02 09:55:28",
@@ -5833,7 +5668,6 @@
                     "slug": "projekt-abc-83",
                     "state": "public",
                     "title": "Projekt ABC",
-                    "topic": 5,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -6138,7 +5972,6 @@
             "profile_step": 5,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 14,
                     "date_created": "2021-06-21 10:02:42",
                     "date_published": "2021-06-02 09:55:29",
@@ -6154,11 +5987,9 @@
                     "slug": "projekt-mno-84",
                     "state": "public",
                     "title": "Projekt MNO",
-                    "topic": 8,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 14,
                     "date_created": "2021-06-21 10:02:43",
                     "date_published": null,
@@ -6175,11 +6006,9 @@
                     "slug": "projekt-ki-85",
                     "state": "draft",
                     "title": "Projekt KI",
-                    "topic": 2,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 14,
                     "date_created": "2021-06-21 10:02:43",
                     "date_published": "2021-06-02 09:55:29",
@@ -6195,7 +6024,6 @@
                     "slug": "projekt-abc-86",
                     "state": "public",
                     "title": "Projekt ABC",
-                    "topic": 8,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -6383,7 +6211,6 @@
             "profile_step": 5,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 15,
                     "date_created": "2021-06-21 10:02:44",
                     "date_published": null,
@@ -6400,7 +6227,6 @@
                     "slug": "projekt-ghi-87",
                     "state": "draft",
                     "title": "Projekt GHI",
-                    "topic": 8,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -6605,7 +6431,6 @@
             "profile_step": 5,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 16,
                     "date_created": "2021-06-21 10:02:46",
                     "date_published": "2021-06-02 09:55:31",
@@ -6621,7 +6446,6 @@
                     "slug": "projekt-abc-88",
                     "state": "public",
                     "title": "Projekt ABC",
-                    "topic": 5,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -6842,7 +6666,6 @@
             "profile_step": 5,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 17,
                     "date_created": "2021-06-21 10:02:47",
                     "date_published": "2021-06-02 09:55:31",
@@ -6859,11 +6682,9 @@
                     "slug": "projekt-jkl-89",
                     "state": "public",
                     "title": "Projekt JKL",
-                    "topic": 8,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 17,
                     "date_created": "2021-06-21 10:02:47",
                     "date_published": null,
@@ -6879,7 +6700,6 @@
                     "slug": "projekt-mno-90",
                     "state": "draft",
                     "title": "Projekt MNO",
-                    "topic": 12,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -7105,7 +6925,6 @@
             "profile_step": 5,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 18,
                     "date_created": "2021-06-21 10:02:49",
                     "date_published": "2021-06-02 09:55:32",
@@ -7121,11 +6940,9 @@
                     "slug": "projekt-ai-91",
                     "state": "public",
                     "title": "Projekt AI",
-                    "topic": 13,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 18,
                     "date_created": "2021-06-21 10:02:49",
                     "date_published": null,
@@ -7142,7 +6959,6 @@
                     "slug": "projekt-abc-92",
                     "state": "draft",
                     "title": "Projekt ABC",
-                    "topic": 4,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -7317,7 +7133,6 @@
             "profile_step": 5,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 19,
                     "date_created": "2021-06-21 10:02:50",
                     "date_published": "2021-06-02 09:55:33",
@@ -7334,11 +7149,9 @@
                     "slug": "projekt-jkl-93",
                     "state": "public",
                     "title": "Projekt JKL",
-                    "topic": 2,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 19,
                     "date_created": "2021-06-21 10:02:50",
                     "date_published": "2021-06-02 09:55:33",
@@ -7354,11 +7167,9 @@
                     "slug": "projekt-kunstliche-intelligenz-im-alltag-94",
                     "state": "public",
                     "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "topic": 6,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 19,
                     "date_created": "2021-06-21 10:02:51",
                     "date_published": null,
@@ -7375,11 +7186,9 @@
                     "slug": "projekt-ki-95",
                     "state": "draft",
                     "title": "Projekt KI",
-                    "topic": 4,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 19,
                     "date_created": "2021-06-21 10:02:51",
                     "date_published": "2021-06-02 09:55:33",
@@ -7395,11 +7204,9 @@
                     "slug": "projekt-kunstliche-intelligenz-im-alltag-96",
                     "state": "public",
                     "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "topic": 2,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 19,
                     "date_created": "2021-06-21 10:02:51",
                     "date_published": "2021-06-02 09:55:33",
@@ -7416,7 +7223,6 @@
                     "slug": "projekt-ghi-97",
                     "state": "public",
                     "title": "Projekt GHI",
-                    "topic": 12,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -7740,7 +7546,6 @@
             "profile_step": 5,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 20,
                     "date_created": "2021-06-21 10:02:53",
                     "date_published": null,
@@ -7756,7 +7561,6 @@
                     "slug": "projekt-kunstliche-intelligenz-im-alltag-98",
                     "state": "draft",
                     "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "topic": 6,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -8027,7 +7831,6 @@
             "profile_step": 5,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 21,
                     "date_created": "2021-06-21 10:02:55",
                     "date_published": null,
@@ -8044,11 +7847,9 @@
                     "slug": "projekt-ki-99",
                     "state": "draft",
                     "title": "Projekt KI",
-                    "topic": 1,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 21,
                     "date_created": "2021-06-21 10:02:55",
                     "date_published": "2021-06-02 09:55:35",
@@ -8065,11 +7866,9 @@
                     "slug": "projekt-mno-100",
                     "state": "public",
                     "title": "Projekt MNO",
-                    "topic": 3,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 21,
                     "date_created": "2021-06-21 10:02:55",
                     "date_published": "2021-06-02 09:55:35",
@@ -8085,11 +7884,9 @@
                     "slug": "projekt-abc-101",
                     "state": "public",
                     "title": "Projekt ABC",
-                    "topic": 11,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 21,
                     "date_created": "2021-06-21 10:02:55",
                     "date_published": null,
@@ -8105,7 +7902,6 @@
                     "slug": "projekt-kunstliche-intelligenz-im-alltag-102",
                     "state": "draft",
                     "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "topic": 10,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -8273,7 +8069,6 @@
             "profile_step": 5,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 22,
                     "date_created": "2021-06-21 10:02:57",
                     "date_published": "2021-06-02 09:55:35",
@@ -8290,11 +8085,9 @@
                     "slug": "projekt-def-103",
                     "state": "public",
                     "title": "Projekt DEF",
-                    "topic": 11,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 22,
                     "date_created": "2021-06-21 10:02:57",
                     "date_published": null,
@@ -8310,7 +8103,6 @@
                     "slug": "projekt-ki-104",
                     "state": "draft",
                     "title": "Projekt KI",
-                    "topic": 2,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -8416,7 +8208,6 @@
             "profile_step": 5,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 23,
                     "date_created": "2021-06-21 10:02:58",
                     "date_published": null,
@@ -8432,11 +8223,9 @@
                     "slug": "projekt-ai-105",
                     "state": "draft",
                     "title": "Projekt AI",
-                    "topic": 4,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 23,
                     "date_created": "2021-06-21 10:02:58",
                     "date_published": null,
@@ -8453,11 +8242,9 @@
                     "slug": "projekt-def-106",
                     "state": "draft",
                     "title": "Projekt DEF",
-                    "topic": 6,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 23,
                     "date_created": "2021-06-21 10:02:58",
                     "date_published": "2021-06-02 09:55:36",
@@ -8474,7 +8261,6 @@
                     "slug": "projekt-kunstliche-intelligenz-im-alltag-107",
                     "state": "public",
                     "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "topic": 11,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -8586,7 +8372,6 @@
             "profile_step": 5,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 24,
                     "date_created": "2021-06-21 10:02:59",
                     "date_published": "2021-06-02 09:55:36",
@@ -8602,11 +8387,9 @@
                     "slug": "projekt-kunstliche-intelligenz-im-alltag-108",
                     "state": "public",
                     "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "topic": 5,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 24,
                     "date_created": "2021-06-21 10:03:00",
                     "date_published": "2021-06-02 09:55:37",
@@ -8623,11 +8406,9 @@
                     "slug": "projekt-ai-109",
                     "state": "public",
                     "title": "Projekt AI",
-                    "topic": 11,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 24,
                     "date_created": "2021-06-21 10:03:00",
                     "date_published": "2021-06-02 09:55:37",
@@ -8644,11 +8425,9 @@
                     "slug": "projekt-ki-110",
                     "state": "public",
                     "title": "Projekt KI",
-                    "topic": 1,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 24,
                     "date_created": "2021-06-21 10:03:00",
                     "date_published": "2021-06-02 09:55:37",
@@ -8664,7 +8443,6 @@
                     "slug": "projekt-def-111",
                     "state": "public",
                     "title": "Projekt DEF",
-                    "topic": 13,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -8786,7 +8564,6 @@
             "profile_step": 5,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 25,
                     "date_created": "2021-06-21 10:03:02",
                     "date_published": null,
@@ -8803,11 +8580,9 @@
                     "slug": "projekt-jkl-112",
                     "state": "draft",
                     "title": "Projekt JKL",
-                    "topic": 5,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 25,
                     "date_created": "2021-06-21 10:03:02",
                     "date_published": null,
@@ -8824,11 +8599,9 @@
                     "slug": "projekt-jkl-113",
                     "state": "draft",
                     "title": "Projekt JKL",
-                    "topic": 5,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 25,
                     "date_created": "2021-06-21 10:03:02",
                     "date_published": null,
@@ -8844,11 +8617,9 @@
                     "slug": "projekt-ghi-114",
                     "state": "draft",
                     "title": "Projekt GHI",
-                    "topic": 6,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 25,
                     "date_created": "2021-06-21 10:03:02",
                     "date_published": null,
@@ -8865,7 +8636,6 @@
                     "slug": "projekt-mno-115",
                     "state": "draft",
                     "title": "Projekt MNO",
-                    "topic": 6,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -8985,7 +8755,6 @@
             "profile_step": 5,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 26,
                     "date_created": "2021-06-21 10:03:03",
                     "date_published": null,
@@ -9002,11 +8771,9 @@
                     "slug": "projekt-mno-116",
                     "state": "draft",
                     "title": "Projekt MNO",
-                    "topic": 2,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 26,
                     "date_created": "2021-06-21 10:03:03",
                     "date_published": "2021-06-02 09:55:38",
@@ -9023,7 +8790,6 @@
                     "slug": "projekt-ghi-117",
                     "state": "public",
                     "title": "Projekt GHI",
-                    "topic": 8,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -9127,7 +8893,6 @@
             "profile_step": 5,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 27,
                     "date_created": "2021-06-21 10:03:05",
                     "date_published": null,
@@ -9144,11 +8909,9 @@
                     "slug": "projekt-ki-118",
                     "state": "draft",
                     "title": "Projekt KI",
-                    "topic": 6,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 27,
                     "date_created": "2021-06-21 10:03:05",
                     "date_published": "2021-06-02 09:55:38",
@@ -9165,11 +8928,9 @@
                     "slug": "projekt-kunstliche-intelligenz-im-alltag-119",
                     "state": "public",
                     "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "topic": 3,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 27,
                     "date_created": "2021-06-21 10:03:05",
                     "date_published": null,
@@ -9186,11 +8947,9 @@
                     "slug": "projekt-ki-120",
                     "state": "draft",
                     "title": "Projekt KI",
-                    "topic": 4,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 27,
                     "date_created": "2021-06-21 10:03:05",
                     "date_published": "2021-06-02 09:55:39",
@@ -9206,11 +8965,9 @@
                     "slug": "projekt-ki-121",
                     "state": "public",
                     "title": "Projekt KI",
-                    "topic": 6,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 27,
                     "date_created": "2021-06-21 10:03:05",
                     "date_published": null,
@@ -9227,7 +8984,6 @@
                     "slug": "projekt-def-122",
                     "state": "draft",
                     "title": "Projekt DEF",
-                    "topic": 2,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -9353,7 +9109,6 @@
             "profile_step": 5,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 28,
                     "date_created": "2021-06-21 10:03:07",
                     "date_published": null,
@@ -9369,11 +9124,9 @@
                     "slug": "projekt-ghi-123",
                     "state": "draft",
                     "title": "Projekt GHI",
-                    "topic": 9,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 28,
                     "date_created": "2021-06-21 10:03:07",
                     "date_published": "2021-06-02 09:55:39",
@@ -9389,11 +9142,9 @@
                     "slug": "projekt-ai-124",
                     "state": "public",
                     "title": "Projekt AI",
-                    "topic": 4,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 28,
                     "date_created": "2021-06-21 10:03:08",
                     "date_published": null,
@@ -9410,7 +9161,6 @@
                     "slug": "projekt-jkl-125",
                     "state": "draft",
                     "title": "Projekt JKL",
-                    "topic": 6,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -9525,7 +9275,6 @@
             "profile_step": 5,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 29,
                     "date_created": "2021-06-21 10:03:09",
                     "date_published": null,
@@ -9542,11 +9291,9 @@
                     "slug": "projekt-abc-126",
                     "state": "draft",
                     "title": "Projekt ABC",
-                    "topic": 1,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 29,
                     "date_created": "2021-06-21 10:03:09",
                     "date_published": "2021-06-02 09:55:40",
@@ -9563,11 +9310,9 @@
                     "slug": "projekt-kunstliche-intelligenz-im-alltag-127",
                     "state": "public",
                     "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "topic": 3,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 29,
                     "date_created": "2021-06-21 10:03:09",
                     "date_published": "2021-06-02 09:55:40",
@@ -9584,7 +9329,6 @@
                     "slug": "projekt-jkl-128",
                     "state": "public",
                     "title": "Projekt JKL",
-                    "topic": 5,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -9716,7 +9460,6 @@
             "profile_step": 5,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 30,
                     "date_created": "2021-06-21 10:03:11",
                     "date_published": "2021-06-02 09:55:40",
@@ -9732,11 +9475,9 @@
                     "slug": "projekt-ki-129",
                     "state": "public",
                     "title": "Projekt KI",
-                    "topic": 3,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 30,
                     "date_created": "2021-06-21 10:03:11",
                     "date_published": null,
@@ -9752,11 +9493,9 @@
                     "slug": "projekt-ki-130",
                     "state": "draft",
                     "title": "Projekt KI",
-                    "topic": 6,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 30,
                     "date_created": "2021-06-21 10:03:11",
                     "date_published": "2021-06-02 09:55:40",
@@ -9772,11 +9511,9 @@
                     "slug": "projekt-ki-131",
                     "state": "public",
                     "title": "Projekt KI",
-                    "topic": 11,
                     "website": "https://www.project.lo"
                 },
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 30,
                     "date_created": "2021-06-21 10:03:11",
                     "date_published": null,
@@ -9793,7 +9530,6 @@
                     "slug": "projekt-ai-132",
                     "state": "draft",
                     "title": "Projekt AI",
-                    "topic": 8,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -9915,7 +9651,6 @@
             "profile_step": 5,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 31,
                     "date_created": "2021-06-21 10:03:13",
                     "date_published": null,
@@ -9931,7 +9666,6 @@
                     "slug": "projekt-ghi-133",
                     "state": "draft",
                     "title": "Projekt GHI",
-                    "topic": 8,
                     "website": "https://www.project.lo"
                 }
             ],
@@ -10040,7 +9774,6 @@
             "profile_step": 5,
             "project_postings": [
                 {
-                    "additional_information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "company": 32,
                     "date_created": "2021-06-21 10:03:14",
                     "date_published": "2021-06-02 09:55:42",
@@ -10056,7 +9789,6 @@
                     "slug": "projekt-ki-134",
                     "state": "public",
                     "title": "Projekt KI",
-                    "topic": 3,
                     "website": "https://www.project.lo"
                 }
             ],

@@ -7,7 +7,6 @@ from db.models.employee import Employee
 from db.models.project_type import ProjectType
 from db.models.project_posting import ProjectPosting
 from db.models.student import Student
-from db.models.topic import Topic
 
 
 @pytest.mark.django_db
@@ -24,7 +23,6 @@ def test_get_project_posting(project_posting_valid_args):
 
     assert isinstance(project_posting, ProjectPosting)
     assert isinstance(project_posting.project_type, ProjectType)
-    assert isinstance(project_posting.topic, Topic)
     assert isinstance(project_posting.employee, Employee)
     assert isinstance(project_posting.student, Student)
     assert isinstance(project_posting.company, Company)
@@ -32,6 +30,8 @@ def test_get_project_posting(project_posting_valid_args):
 
     assert project_posting.title == project_posting_valid_args.get('title')
     assert project_posting.slug == project_posting_valid_args.get('slug')
+    assert project_posting.team_size == project_posting_valid_args.get('team_size')
+    assert project_posting.compensation == project_posting_valid_args.get('compensation')
     assert project_posting.keywords.count() == 0
 
 

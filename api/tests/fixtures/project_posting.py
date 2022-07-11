@@ -35,11 +35,8 @@ def project_posting_query(filter_value, param_name):
             title
             displayTitle
             description
-            additionalInformation
-            topic {
-              id
-              name
-            }
+            teamSize
+            compensation
             projectType {
               id
               name
@@ -76,10 +73,10 @@ def project_posting_query(filter_value, param_name):
     ''' % param
 
 
-def project_postings_query():
+def project_postings_query(filters=None):
     return '''
     query {
-        projectPostings(first: 3) {
+        projectPostings(first: 10%s) {
             pageInfo {
                 startCursor
                 endCursor
@@ -96,11 +93,8 @@ def project_postings_query():
                     title
                     displayTitle
                     description
-                    additionalInformation
-                    topic {
-                        id
-                        name
-                    }
+                    teamSize
+                    compensation
                     projectType {
                         id
                         name
@@ -136,7 +130,7 @@ def project_postings_query():
             }
         }
     }
-    '''
+    ''' % stringify_filters(filters)
 
 
 @pytest.fixture
@@ -173,63 +167,84 @@ def query_project_posting_node(execute):
 @pytest.fixture
 def query_project_postings(execute):
 
-    def closure(user):
-        return execute(project_postings_query(), **{'user': user})
+    def closure(user, filters=None):
+        return execute(project_postings_query(filters), **{'user': user})
 
     return closure
 
 
 @pytest.fixture
-def company_project_posting_objects(company_object, project_type_objects, topic_objects):
+def company_project_posting_objects(company_object_complete, project_type_objects):
     project_posting_1 = ProjectPosting.objects.create(id=1,
-                                                      company=company_object,
+                                                      company=company_object_complete,
                                                       slug='project-1',
                                                       project_type=project_type_objects[0],
-                                                      topic=topic_objects[0],
-                                                      state=ProjectPostingState.PUBLIC)
+                                                      state=ProjectPostingState.PUBLIC,
+                                                      team_size=1)
     project_posting_2 = ProjectPosting.objects.create(id=2,
-                                                      company=company_object,
+                                                      company=company_object_complete,
                                                       slug='project-2',
                                                       project_type=project_type_objects[0],
-                                                      topic=topic_objects[0],
-                                                      state=ProjectPostingState.PUBLIC)
+                                                      state=ProjectPostingState.PUBLIC,
+                                                      team_size=1)
     project_posting_3 = ProjectPosting.objects.create(id=3,
-                                                      company=company_object,
+                                                      company=company_object_complete,
                                                       slug='project-3',
                                                       project_type=project_type_objects[0],
-                                                      topic=topic_objects[0],
-                                                      state=ProjectPostingState.DRAFT)
+                                                      state=ProjectPostingState.DRAFT,
+                                                      team_size=1)
+    project_posting_4 = ProjectPosting.objects.create(id=4,
+                                                      company=company_object_complete,
+                                                      slug='project-4',
+                                                      project_type=project_type_objects[1],
+                                                      state=ProjectPostingState.PUBLIC,
+                                                      team_size=10)
+    project_posting_5 = ProjectPosting.objects.create(id=5,
+                                                      company=company_object_complete,
+                                                      slug='project-5',
+                                                      project_type=project_type_objects[1],
+                                                      state=ProjectPostingState.PUBLIC,
+                                                      team_size=5)
     return [
         project_posting_1,
         project_posting_2,
         project_posting_3,
+        project_posting_4,
+        project_posting_5,
     ]
 
 
 @pytest.fixture
-def student_project_posting_objects(user_student, project_type_objects, topic_objects):
-    project_posting_1 = ProjectPosting.objects.create(id=4,
+def student_project_posting_objects(user_student, project_type_objects):
+    project_posting_1 = ProjectPosting.objects.create(id=6,
                                                       student=user_student.student,
                                                       slug='student-project-1',
                                                       project_type=project_type_objects[0],
-                                                      topic=topic_objects[0],
-                                                      state=ProjectPostingState.PUBLIC)
-    project_posting_2 = ProjectPosting.objects.create(id=5,
+                                                      state=ProjectPostingState.PUBLIC,
+                                                      team_size=1)
+    project_posting_2 = ProjectPosting.objects.create(id=7,
                                                       student=user_student.student,
                                                       slug='student-project-2',
                                                       project_type=project_type_objects[0],
-                                                      topic=topic_objects[0],
-                                                      state=ProjectPostingState.PUBLIC)
-    project_posting_3 = ProjectPosting.objects.create(id=6,
+                                                      state=ProjectPostingState.PUBLIC,
+                                                      team_size=1)
+    project_posting_3 = ProjectPosting.objects.create(id=8,
                                                       student=user_student.student,
                                                       slug='student-project-3',
                                                       project_type=project_type_objects[0],
-                                                      topic=topic_objects[0],
-                                                      state=ProjectPostingState.DRAFT)
+                                                      state=ProjectPostingState.DRAFT,
+                                                      team_size=1)
+    project_posting_4 = ProjectPosting.objects.create(id=9,
+                                                      student=user_student.student,
+                                                      slug='student-project-4',
+                                                      project_type=project_type_objects[1],
+                                                      state=ProjectPostingState.PUBLIC,
+                                                      team_size=1)
     return [
         project_posting_1,
         project_posting_2,
         project_posting_3,
+        project_posting_4,
     ]
 
 
@@ -262,7 +277,7 @@ def project_posting_mutation(kind):
 @pytest.fixture
 def project_posting_base_data(execute):
 
-    def closure(user, title, description, additional_information, topic, project_type, keywords):
+    def closure(user, title, description, team_size, compensation, project_type, keywords):
         return execute(project_posting_mutation("BaseData"),
                        variables={
                            'input': {
@@ -272,12 +287,10 @@ def project_posting_base_data(execute):
                                title,
                                'description':
                                description,
-                               'additionalInformation':
-                               additional_information,
-                               'topic':
-                               None if topic is None else {
-                                   'id': to_global_id('Topic', topic.id)
-                               },
+                               'teamSize':
+                               team_size,
+                               'compensation':
+                               compensation,
                                'projectType':
                                None if project_type is None else {
                                    'id': to_global_id('ProjectType', project_type.id)
@@ -327,3 +340,14 @@ def project_posting_allocation(execute):
                        **{'user': user})
 
     return closure
+
+
+def stringify_filters(filters):
+    string = ""
+
+    if filters is None:
+        return string
+
+    for key, value in filters.items():
+        string += f", {key}: {value}"
+    return string.replace("\'", "")

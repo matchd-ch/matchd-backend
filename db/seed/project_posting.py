@@ -46,10 +46,10 @@ class ProjectPosting(BaseSeed):
                 project_posting = ProjectPostingModel(
                     title=self.rand.project_title(),
                     description=self.rand.description(),
-                    additional_information=self.rand.description(),
                     project_type_id=self.rand.project_type(),
-                    topic_id=self.rand.topic(),
                     project_from_date=self.rand.project_from_date(),
+                    team_size=5,
+                    compensation="To be discussed",
                     website='https://www.project.lo',
                     form_step=3,
                     state=self.rand.project_posting_state(),
@@ -69,7 +69,6 @@ class ProjectPosting(BaseSeed):
                     project_posting = ProjectPostingModel.objects.get(slug=obj.get('slug'))
                 except ProjectPostingModel.DoesNotExist:
                     project_posting = ProjectPostingModel(project_type_id=obj.get('project_type'),
-                                                          topic_id=obj.get('topic'),
                                                           company=company,
                                                           employee=employee,
                                                           student=student)
@@ -78,7 +77,6 @@ class ProjectPosting(BaseSeed):
                     project_title = self.rand.title()
                 project_posting.title = project_title
                 project_posting.description = obj.get('description')
-                project_posting.additional_information = obj.get('additional_information')
                 project_posting.website = obj.get('website')
                 date_created = obj.get('date_created')
                 date_created = datetime.strptime(
@@ -96,6 +94,8 @@ class ProjectPosting(BaseSeed):
                 project_posting.project_from_date = obj.get('project_from_date')
                 project_posting.form_step = obj.get('form_step')
                 project_posting.state = obj.get('state')
+                project_posting.team_size = 5
+                project_posting.compensation = "To be discussed"
                 employee = None
                 if obj.get('employee') is not None:
                     employee = get_user_model().objects.get(email=obj.get('employee')).employee

@@ -52,17 +52,6 @@ class ProjectPostingParamBuilder(BaseParamBuilder):
             }
         })
 
-    def set_topic(self, topic_id, boost=1):
-        self.should_conditions.append(
-            {"bool": {
-                "should": [{
-                    'terms': {
-                        'topic_id_filter': [topic_id],
-                        'boost': boost
-                    }
-                }]
-            }})
-
     def set_keywords(self, keywords, boost=1):
         if len(keywords) == 0:
             return

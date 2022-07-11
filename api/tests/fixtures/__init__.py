@@ -23,7 +23,6 @@ from .skill import *
 from .soft_skill import *
 from .student import *
 from .student_profile import *
-from .topic import *
 from .university_profile import *
 from .user import *
 from .user_request import *

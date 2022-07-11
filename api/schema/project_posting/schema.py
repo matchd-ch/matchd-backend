@@ -5,6 +5,7 @@ from graphql_relay import to_global_id
 from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 
+from django.db.models import Q
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext as _
@@ -13,7 +14,6 @@ from api.helper import extract_ids, resolve_node_id, resolve_node_ids
 from api.schema.employee import Employee, EmployeeInput
 from api.schema.keyword.schema import KeywordInput
 from api.schema.project_type.schema import ProjectTypeInput
-from api.schema.topic.schema import TopicInput
 
 from db.context.match.match_status import MatchStatus
 from db.decorators import hyphenate
@@ -22,6 +22,7 @@ from db.forms import process_project_posting_base_data_form, process_project_pos
 from db.forms.project_posting_allocation import process_project_posting_allocation_form
 from db.models import ProjectPosting as ProjectPostingModel, ProjectPostingState as ProjectPostingStateModel, \
     ProfileType
+from db.models.profile_state import ProfileState
 
 # pylint: disable=W0221
 
@@ -41,6 +42,8 @@ class ProjectPosting(DjangoObjectType):
     title = graphene.NonNull(graphene.String)
     display_title = graphene.NonNull(graphene.String)
     state = graphene.Field(graphene.NonNull(ProjectPostingState))
+    team_size = graphene.Int()
+    compensation = graphene.String()
     employee = graphene.Field(Employee)
     keywords = graphene.List(graphene.NonNull('api.schema.keyword.schema.Keyword'))
     match_status = graphene.Field('api.schema.match.MatchStatus')
@@ -54,11 +57,11 @@ class ProjectPosting(DjangoObjectType):
         fields = (
             'title',
             'description',
+            'team_size',
+            'compensation',
             'project_type',
-            'topic',
             'company',
             'keywords',
-            'additional_information',
             'website',
             'project_from_date',
             'form_step',
@@ -73,7 +76,6 @@ class ProjectPosting(DjangoObjectType):
 
     # pylint: disable=W0622
     @classmethod
-    @login_required
     def get_node(cls, info, id):
         return get_object_or_404(ProjectPostingModel, pk=id)
 
@@ -90,6 +92,9 @@ class ProjectPosting(DjangoObjectType):
     def resolve_match_status(self: ProjectPostingModel, info):
         user = info.context.user
 
+        if not user.is_authenticated:
+            return None
+
         status = MatchStatus.get(user, project_posting=self)
 
         if status is not None:
@@ -98,6 +103,10 @@ class ProjectPosting(DjangoObjectType):
 
     def resolve_match_hints(self: ProjectPostingModel, info):
         user = info.context.user
+
+        if not user.is_authenticated:
+            return None
+
         if user.type in ProfileType.valid_company_types():
             return None
         if self.company is None:
@@ -113,11 +122,19 @@ class ProjectPostingConnection(relay.Connection):
 
 class ProjectPostingQuery(ObjectType):
     project_posting = graphene.Field(ProjectPosting,
-                                     id=graphene.String(required=False),
-                                     slug=graphene.String(required=False))
-    project_postings = relay.ConnectionField(ProjectPostingConnection)
+                                     id=graphene.String(required=False, description=_('Id')),
+                                     slug=graphene.String(required=False, description=_('Slug')))
+    project_postings = relay.ConnectionField(
+        ProjectPostingConnection,
+        project_type_id=graphene.String(required=False, description=_('Project type id')),
+        keyword_ids=graphene.List(graphene.String,
+                                  description=_('List of keyword ids'),
+                                  required=False),
+        team_size=graphene.Int(description=_('Team size'), required=False),
+        project_from_date=graphene.Date(description=_('Project from date'), required=False),
+        company_id=graphene.String(description=_('Company id'), required=False),
+        date_published=graphene.Date(description=_('Date published'), required=False))
 
-    @login_required
     def resolve_project_posting(self, info, **kwargs):
         slug = kwargs.get('slug')
         project_posting_id = resolve_node_id(kwargs.get('id'))
@@ -131,6 +148,7 @@ class ProjectPostingQuery(ObjectType):
             project_posting = get_object_or_404(ProjectPostingModel, pk=project_posting_id)
 
         user = info.context.user
+
         # show incomplete project postings for employees of the company
         if user.type in ProfileType.valid_company_types(
         ) and user.company == project_posting.company:
@@ -146,17 +164,45 @@ class ProjectPostingQuery(ObjectType):
             raise Http404(_('Project posting not found'))
         return project_posting
 
-    @login_required
     def resolve_project_postings(self, info, **kwargs):
-        user = info.context.user
-        project_postings = None
-        if user.type in ProfileType.valid_company_types():
-            project_postings = ProjectPostingModel.objects.filter(company=user.company,
-                                                                  state=ProjectPostingState.PUBLIC)
-        if user.type in ProfileType.valid_student_types():
-            project_postings = ProjectPostingModel.objects.filter(student=user.student,
-                                                                  state=ProjectPostingState.PUBLIC)
-        return project_postings
+        project_type = kwargs.get('project_type_id')
+        keywords = kwargs.get('keyword_ids')
+        team_size = kwargs.get('team_size')
+        project_from_date = kwargs.get('project_from_date')
+        company = kwargs.get('company_id')
+        date_published = kwargs.get('date_published')
+
+        query = Q(company__state=ProfileState.PUBLIC)
+        query |= Q(student__state=ProfileState.PUBLIC)
+
+        filters_query = Q()
+
+        if project_type is not None:
+            filters_query &= Q(project_type=resolve_node_id(project_type))
+
+        if keywords is not None:
+            keyword_query = Q()
+            for keyword in keywords:
+                keyword_query |= Q(keywords=resolve_node_id(keyword))
+            filters_query &= keyword_query
+
+        if team_size is not None:
+            filters_query &= Q(team_size=team_size)
+
+        if project_from_date is not None:
+            print(project_from_date)
+            filters_query &= Q(project_from_date__gte=project_from_date)
+
+        if company is not None:
+            filters_query &= Q(company=resolve_node_id(company))
+
+        if date_published is not None:
+            filters_query &= Q(date_published__gte=date_published)
+
+        query &= filters_query
+        query &= Q(state=ProjectPostingState.PUBLIC)
+
+        return ProjectPostingModel.objects.filter(query).distinct()
 
 
 class ProjectPostingBaseData(Output, relay.ClientIDMutation):
@@ -167,11 +213,10 @@ class ProjectPostingBaseData(Output, relay.ClientIDMutation):
         id = graphene.String(required=False)
         title = graphene.String(description=_('Title'), required=True)
         project_type = graphene.Field(ProjectTypeInput, required=True)
-        topic = graphene.Field(TopicInput, required=True)
-        keywords = graphene.List(KeywordInput, required=False)
+        keywords = graphene.List(KeywordInput, required=True)
         description = graphene.String(description=_('Description'), required=True)
-        additional_information = graphene.String(description=_('Additional Information'),
-                                                 required=False)
+        team_size = graphene.Int(description=_('Team size'), min_value=1, required=True)
+        compensation = graphene.String(description=_('Compensation'), required=True)
 
     class Meta:
         description = _('Creates a project posting')

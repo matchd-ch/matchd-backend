@@ -23,7 +23,6 @@ from api.schema.skill import SkillQuery
 from api.schema.soft_skill import SoftSkillQuery
 from api.schema.student import StudentProfileMutation, StudentQuery, StudentMutation
 from api.schema.registration import RegistrationMutation
-from api.schema.topic.schema import TopicQuery
 from api.schema.upload import UploadMutation
 from api.schema.upload.schema import UploadConfigurationQuery
 from api.schema.user import UserQuery, UserMutation
@@ -43,7 +42,7 @@ class Query(VerifyPasswordResetToken, UserQuery, LanguageQuery, LanguageLevelQue
             JobTypeQuery, SkillQuery, BenefitQuery, BranchQuery, AttachmentQuery,
             UploadConfigurationQuery, CompanyQuery, JobPostingQuery, JobRequirementQuery,
             FAQCategoryQuery, SoftSkillQuery, CulturalFitQuery, MatchQuery, StudentQuery,
-            DashboardQuery, KeywordQuery, TopicQuery, ProjectTypeQuery, ProjectPostingQuery):
+            DashboardQuery, KeywordQuery, ProjectTypeQuery, ProjectPostingQuery):
     node = relay.Node.Field()
 
 

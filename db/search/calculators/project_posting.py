@@ -14,7 +14,6 @@ class ProjectPostingScoreCalculator(BaseScoreCalculator):
 
     def highest_possible_value(self):
         value = 0
-        value += settings.MATCHING_VALUE_TOPIC
         value += settings.MATCHING_VALUE_PROJECT_TYPE
         value += self.soft_boost * settings.MATCHING_VALUE_CULTURAL_FITS
         value += self.soft_boost * settings.MATCHING_VALUE_SOFT_SKILLS
