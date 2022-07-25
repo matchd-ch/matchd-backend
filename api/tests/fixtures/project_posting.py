@@ -60,14 +60,6 @@ def project_posting_query(filter_value, param_name):
               email
               id
             }
-            matchStatus {
-              confirmed
-              initiator
-            }
-            matchHints {
-              hasRequestedMatch
-              hasConfirmedMatch
-            }
         }
     }
     ''' % param
@@ -117,14 +109,6 @@ def project_postings_query(filters=None):
                     employee {
                         email
                         id
-                    }
-                    matchStatus {
-                        confirmed
-                        initiator
-                    }
-                    matchHints {
-                        hasRequestedMatch
-                        hasConfirmedMatch
                     }
                 }
             }
@@ -215,27 +199,27 @@ def company_project_posting_objects(company_object_complete, project_type_object
 
 
 @pytest.fixture
-def student_project_posting_objects(user_student, project_type_objects):
+def student_project_posting_objects(user_student_full_profile, project_type_objects):
     project_posting_1 = ProjectPosting.objects.create(id=6,
-                                                      student=user_student.student,
+                                                      student=user_student_full_profile.student,
                                                       slug='student-project-1',
                                                       project_type=project_type_objects[0],
                                                       state=ProjectPostingState.PUBLIC,
                                                       team_size=1)
     project_posting_2 = ProjectPosting.objects.create(id=7,
-                                                      student=user_student.student,
+                                                      student=user_student_full_profile.student,
                                                       slug='student-project-2',
                                                       project_type=project_type_objects[0],
                                                       state=ProjectPostingState.PUBLIC,
                                                       team_size=1)
     project_posting_3 = ProjectPosting.objects.create(id=8,
-                                                      student=user_student.student,
+                                                      student=user_student_full_profile.student,
                                                       slug='student-project-3',
                                                       project_type=project_type_objects[0],
                                                       state=ProjectPostingState.DRAFT,
                                                       team_size=1)
     project_posting_4 = ProjectPosting.objects.create(id=9,
-                                                      student=user_student.student,
+                                                      student=user_student_full_profile.student,
                                                       slug='student-project-4',
                                                       project_type=project_type_objects[1],
                                                       state=ProjectPostingState.PUBLIC,
