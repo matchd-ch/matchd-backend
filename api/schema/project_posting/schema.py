@@ -179,12 +179,18 @@ class ProjectPostingQuery(ObjectType):
 
         if from_talent:
             posting_entity_query |= Q(student__isnull=False)
+        else:
+            posting_entity_query &= Q(student__isnull=True)
 
         if from_company:
             posting_entity_query |= Q(company__type=ProfileType.COMPANY)
+        else:
+            posting_entity_query &= ~Q(company__type=ProfileType.COMPANY)
 
         if from_university:
             posting_entity_query |= Q(company__type=ProfileType.UNIVERSITY)
+        else:
+            posting_entity_query &= ~Q(company__type=ProfileType.UNIVERSITY)
 
         query &= posting_entity_query
 
