@@ -15,7 +15,6 @@ from api.schema.employee import Employee, EmployeeInput
 from api.schema.keyword.schema import KeywordInput
 from api.schema.project_type.schema import ProjectTypeInput
 
-from db.context.match.match_status import MatchStatus
 from db.decorators import hyphenate
 from db.exceptions import FormException
 from db.forms import process_project_posting_base_data_form, process_project_posting_specific_data_form
@@ -46,8 +45,6 @@ class ProjectPosting(DjangoObjectType):
     compensation = graphene.String()
     employee = graphene.Field(Employee)
     keywords = graphene.List(graphene.NonNull('api.schema.keyword.schema.Keyword'))
-    match_status = graphene.Field('api.schema.match.MatchStatus')
-    match_hints = graphene.Field('api.schema.match.MatchHints')
     date_created = graphene.Date()
     date_published = graphene.Date()
 
@@ -89,30 +86,6 @@ class ProjectPosting(DjangoObjectType):
     def resolve_display_title(self, info):
         return self.title
 
-    def resolve_match_status(self: ProjectPostingModel, info):
-        user = info.context.user
-
-        if not user.is_authenticated:
-            return None
-
-        status = MatchStatus.get(user, project_posting=self)
-
-        if status is not None:
-            return {'confirmed': status.complete, 'initiator': status.initiator}
-        return None
-
-    def resolve_match_hints(self: ProjectPostingModel, info):
-        user = info.context.user
-
-        if not user.is_authenticated:
-            return None
-
-        if user.type in ProfileType.valid_company_types():
-            return None
-        if self.company is None:
-            return None
-        return user.student.get_match_hints(self.company)
-
 
 class ProjectPostingConnection(relay.Connection):
 
@@ -130,9 +103,12 @@ class ProjectPostingQuery(ObjectType):
         keyword_ids=graphene.List(graphene.String,
                                   description=_('List of keyword ids'),
                                   required=False),
+        from_talent=graphene.Boolean(description=_('Projects from talents'), required=False),
+        from_company=graphene.Boolean(description=_('Projects from companies'), required=False),
+        from_university=graphene.Boolean(description=_('Projects from universities'),
+                                         required=False),
         team_size=graphene.Int(description=_('Team size'), required=False),
         project_from_date=graphene.Date(description=_('Project from date'), required=False),
-        company_id=graphene.String(description=_('Company id'), required=False),
         date_published=graphene.Date(description=_('Date published'), required=False))
 
     def resolve_project_posting(self, info, **kwargs):
@@ -168,8 +144,10 @@ class ProjectPostingQuery(ObjectType):
         project_type = kwargs.get('project_type_id')
         keywords = kwargs.get('keyword_ids')
         team_size = kwargs.get('team_size')
+        from_talent = kwargs.get('from_talent', True)
+        from_company = kwargs.get('from_company', True)
+        from_university = kwargs.get('from_university', True)
         project_from_date = kwargs.get('project_from_date')
-        company = kwargs.get('company_id')
         date_published = kwargs.get('date_published')
 
         query = Q(company__state=ProfileState.PUBLIC)
@@ -190,16 +168,32 @@ class ProjectPostingQuery(ObjectType):
             filters_query &= Q(team_size=team_size)
 
         if project_from_date is not None:
-            print(project_from_date)
             filters_query &= Q(project_from_date__gte=project_from_date)
-
-        if company is not None:
-            filters_query &= Q(company=resolve_node_id(company))
 
         if date_published is not None:
             filters_query &= Q(date_published__gte=date_published)
 
         query &= filters_query
+
+        posting_entity_query = Q()
+
+        if from_talent:
+            posting_entity_query |= Q(student__isnull=False)
+        else:
+            posting_entity_query &= Q(student__isnull=True)
+
+        if from_company:
+            posting_entity_query |= Q(company__type=ProfileType.COMPANY)
+        else:
+            posting_entity_query &= ~Q(company__type=ProfileType.COMPANY)
+
+        if from_university:
+            posting_entity_query |= Q(company__type=ProfileType.UNIVERSITY)
+        else:
+            posting_entity_query &= ~Q(company__type=ProfileType.UNIVERSITY)
+
+        query &= posting_entity_query
+
         query &= Q(state=ProjectPostingState.PUBLIC)
 
         return ProjectPostingModel.objects.filter(query).distinct()

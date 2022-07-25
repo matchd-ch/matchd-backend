@@ -56,12 +56,6 @@ def test_student_project_posting(query_project_posting,
         company_project_posting_object.keywords.all())
     assert project_posting.get('state') == company_project_posting_object.state.upper()
 
-    match_status = project_posting.get('matchStatus')
-    assert match_status is None
-
-    match_hints = project_posting.get('matchHints')
-    assert match_hints is None
-
 
 @pytest.mark.django_db
 def test_student_project_posting_draft(query_project_posting,
@@ -108,12 +102,6 @@ def test_student_project_posting_draft(query_project_posting,
         company_project_posting_object.keywords.all())
     assert project_posting.get('state') == company_project_posting_object.state.upper()
 
-    match_status = project_posting.get('matchStatus')
-    assert match_status is None
-
-    match_hints = project_posting.get('matchHints')
-    assert match_hints is None
-
 
 @pytest.mark.django_db
 def test_student_project_posting_by_id(query_project_posting_by_id,
@@ -159,12 +147,6 @@ def test_student_project_posting_by_id(query_project_posting_by_id,
     assert len(project_posting.get('keywords')) == len(
         company_project_posting_object.keywords.all())
     assert project_posting.get('state') == company_project_posting_object.state.upper()
-
-    match_status = project_posting.get('matchStatus')
-    assert match_status is None
-
-    match_hints = project_posting.get('matchHints')
-    assert match_hints is None
 
 
 @pytest.mark.django_db
@@ -213,12 +195,6 @@ def test_company_project_posting(query_project_posting,
         company_project_posting_object.keywords.all())
     assert project_posting.get('state') == company_project_posting_object.state.upper()
 
-    match_status = project_posting.get('matchStatus')
-    assert match_status is None
-
-    match_hints = project_posting.get('matchHints')
-    assert match_hints is None
-
 
 @pytest.mark.django_db
 def test_company_project_posting_draft(query_project_posting,
@@ -266,12 +242,6 @@ def test_company_project_posting_draft(query_project_posting,
         company_project_posting_object.keywords.all())
     assert project_posting.get('state') == company_project_posting_object.state.upper()
 
-    match_status = project_posting.get('matchStatus')
-    assert match_status is None
-
-    match_hints = project_posting.get('matchHints')
-    assert match_hints is None
-
 
 @pytest.mark.django_db
 def test_company_project_posting_by_id(query_project_posting_by_id,
@@ -318,12 +288,6 @@ def test_company_project_posting_by_id(query_project_posting_by_id,
     assert len(project_posting.get('keywords')) == len(
         company_project_posting_object.keywords.all())
     assert project_posting.get('state') == company_project_posting_object.state.upper()
-
-    match_status = project_posting.get('matchStatus')
-    assert match_status is None
-
-    match_hints = project_posting.get('matchHints')
-    assert match_hints is None
 
 
 @pytest.mark.django_db

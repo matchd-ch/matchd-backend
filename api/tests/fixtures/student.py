@@ -221,7 +221,7 @@ def user_student_full_profile(user_student, branch_objects, job_type_objects, sk
     user_student.student.branch = branch_objects[0]
     user_student.student.job_type = job_type_objects[0]
     user_student.student.profile_step = 3
-    user_student.student.state = ProfileState.ANONYMOUS
+    user_student.student.state = ProfileState.PUBLIC
     user_student.student.mobile = '+41711234567'
     user_student.student.zip = '1337'
     user_student.student.city = 'nowhere'

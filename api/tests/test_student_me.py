@@ -40,7 +40,7 @@ def test_me_student(login, me, user_student_full_profile, skill_objects, branch_
     assert student.get('profileStep') == 3
     assert student.get('branch').get('id') == to_global_id('Branch', branch_objects[0].id)
     assert student.get('jobType').get('id') == to_global_id('JobType', job_type_objects[0].id)
-    assert student.get('state') == ProfileState.ANONYMOUS.upper()
+    assert student.get('state') == ProfileState.PUBLIC.upper()
     assert student.get('mobile') == '+41711234567'
     assert student.get('zip') == '1337'
     assert student.get('city') == 'nowhere'
