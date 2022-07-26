@@ -103,10 +103,12 @@ class ProjectPostingQuery(ObjectType):
         keyword_ids=graphene.List(graphene.String,
                                   description=_('List of keyword ids'),
                                   required=False),
-        from_talent=graphene.Boolean(description=_('Projects from talents'), required=False),
-        from_company=graphene.Boolean(description=_('Projects from companies'), required=False),
-        from_university=graphene.Boolean(description=_('Projects from universities'),
-                                         required=False),
+        filter_talent_projects=graphene.Boolean(description=_('Filter projects from talents'),
+                                                required=False),
+        filter_company_projects=graphene.Boolean(description=_('Filter projects from companies'),
+                                                 required=False),
+        filter_university_projects=graphene.Boolean(
+            description=_('Filter projects from universities'), required=False),
         team_size=graphene.Int(description=_('Team size'), required=False),
         project_from_date=graphene.Date(description=_('Project from date'), required=False),
         date_published=graphene.Date(description=_('Date published'), required=False))
@@ -144,9 +146,9 @@ class ProjectPostingQuery(ObjectType):
         project_type = kwargs.get('project_type_id')
         keywords = kwargs.get('keyword_ids')
         team_size = kwargs.get('team_size')
-        from_talent = kwargs.get('from_talent', True)
-        from_company = kwargs.get('from_company', True)
-        from_university = kwargs.get('from_university', True)
+        filter_talent_projects = kwargs.get('filter_talent_projects', False)
+        filter_company_projects = kwargs.get('filter_company_projects', False)
+        filter_university_projects = kwargs.get('filter_university_projects', False)
         project_from_date = kwargs.get('project_from_date')
         date_published = kwargs.get('date_published')
 
@@ -177,20 +179,14 @@ class ProjectPostingQuery(ObjectType):
 
         posting_entity_query = Q()
 
-        if from_talent:
+        if filter_talent_projects:
             posting_entity_query |= Q(student__isnull=False)
-        else:
-            posting_entity_query &= Q(student__isnull=True)
 
-        if from_company:
+        if filter_company_projects:
             posting_entity_query |= Q(company__type=ProfileType.COMPANY)
-        else:
-            posting_entity_query &= ~Q(company__type=ProfileType.COMPANY)
 
-        if from_university:
+        if filter_university_projects:
             posting_entity_query |= Q(company__type=ProfileType.UNIVERSITY)
-        else:
-            posting_entity_query &= ~Q(company__type=ProfileType.UNIVERSITY)
 
         query &= posting_entity_query
 
