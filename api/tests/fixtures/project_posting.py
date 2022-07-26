@@ -60,6 +60,14 @@ def project_posting_query(filter_value, param_name):
               email
               id
             }
+            matchStatus {
+              confirmed
+              initiator
+            }
+            matchHints {
+              hasRequestedMatch
+              hasConfirmedMatch
+            }
         }
     }
     ''' % param
@@ -109,6 +117,14 @@ def project_postings_query(filters=None):
                     employee {
                         email
                         id
+                    }
+                    matchStatus {
+                        confirmed
+                        initiator
+                    }
+                    matchHints {
+                        hasRequestedMatch
+                        hasConfirmedMatch
                     }
                 }
             }
