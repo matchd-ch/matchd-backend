@@ -15,6 +15,7 @@ from api.schema.employee import Employee, EmployeeInput
 from api.schema.keyword.schema import KeywordInput
 from api.schema.project_type.schema import ProjectTypeInput
 
+from db.context.match.match_status import MatchStatus
 from db.decorators import hyphenate
 from db.exceptions import FormException
 from db.forms import process_project_posting_base_data_form, process_project_posting_specific_data_form
@@ -45,6 +46,8 @@ class ProjectPosting(DjangoObjectType):
     compensation = graphene.String()
     employee = graphene.Field(Employee)
     keywords = graphene.List(graphene.NonNull('api.schema.keyword.schema.Keyword'))
+    match_status = graphene.Field('api.schema.match.MatchStatus')
+    match_hints = graphene.Field('api.schema.match.MatchHints')
     date_created = graphene.Date()
     date_published = graphene.Date()
 
@@ -85,6 +88,30 @@ class ProjectPosting(DjangoObjectType):
     @hyphenate
     def resolve_display_title(self, info):
         return self.title
+
+    def resolve_match_status(self: ProjectPostingModel, info):
+        user = info.context.user
+
+        if not user.is_authenticated:
+            return None
+
+        status = MatchStatus.get(user, project_posting=self)
+
+        if status is not None:
+            return {'confirmed': status.complete, 'initiator': status.initiator}
+        return None
+
+    def resolve_match_hints(self: ProjectPostingModel, info):
+        user = info.context.user
+
+        if not user.is_authenticated:
+            return None
+
+        if user.type in ProfileType.valid_company_types():
+            return None
+        if self.company is None:
+            return None
+        return user.student.get_match_hints(self.company)
 
 
 class ProjectPostingConnection(relay.Connection):
