@@ -21,7 +21,7 @@ def project_type_node_query():
 def project_types_query():
     return '''
     query {
-        projectTypes(first: 2) {
+        projectTypes(first: 3) {
             pageInfo {
                 startCursor
                 endCursor
@@ -44,7 +44,8 @@ def project_types_query():
 def project_type_objects():
     return [
         ProjectType.objects.create(name="Project Type 1"),
-        ProjectType.objects.create(name="Project Type 2")
+        ProjectType.objects.create(name="Project Type 2"),
+        ProjectType.objects.create(name="Project Type 3")
     ]
 
 
