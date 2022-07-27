@@ -5,7 +5,6 @@ from graphql_relay import to_global_id
 from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 
-from django.db.models import Q
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext as _
@@ -22,7 +21,7 @@ from db.forms import process_project_posting_base_data_form, process_project_pos
 from db.forms.project_posting_allocation import process_project_posting_allocation_form
 from db.models import ProjectPosting as ProjectPostingModel, ProjectPostingState as ProjectPostingStateModel, \
     ProfileType
-from db.models.profile_state import ProfileState
+from db.search.project_posting.project_posting_search import search_project_posting
 
 # pylint: disable=W0221
 
@@ -126,7 +125,11 @@ class ProjectPostingQuery(ObjectType):
                                      slug=graphene.String(required=False, description=_('Slug')))
     project_postings = relay.ConnectionField(
         ProjectPostingConnection,
-        project_type_id=graphene.String(required=False, description=_('Project type id')),
+        text_search=graphene.String(
+            required=False, description=_('Full text search on project title and description')),
+        project_type_ids=graphene.List(graphene.String,
+                                       required=False,
+                                       description=_('List of project type ids')),
         keyword_ids=graphene.List(graphene.String,
                                   description=_('List of keyword ids'),
                                   required=False),
@@ -170,56 +173,10 @@ class ProjectPostingQuery(ObjectType):
         return project_posting
 
     def resolve_project_postings(self, info, **kwargs):
-        project_type = kwargs.get('project_type_id')
-        keywords = kwargs.get('keyword_ids')
-        team_size = kwargs.get('team_size')
-        filter_talent_projects = kwargs.get('filter_talent_projects', False)
-        filter_company_projects = kwargs.get('filter_company_projects', False)
-        filter_university_projects = kwargs.get('filter_university_projects', False)
-        project_from_date = kwargs.get('project_from_date')
-        date_published = kwargs.get('date_published')
+        results = search_project_posting(kwargs)
+        project_posting_ids = list(map(lambda hit: hit.get('_id'), results.get('hits').get('hits')))
 
-        query = Q(company__state=ProfileState.PUBLIC)
-        query |= Q(student__state=ProfileState.PUBLIC)
-
-        filters_query = Q()
-
-        if project_type is not None:
-            filters_query &= Q(project_type=resolve_node_id(project_type))
-
-        if keywords is not None:
-            keyword_query = Q()
-            for keyword in keywords:
-                keyword_query |= Q(keywords=resolve_node_id(keyword))
-            filters_query &= keyword_query
-
-        if team_size is not None:
-            filters_query &= Q(team_size=team_size)
-
-        if project_from_date is not None:
-            filters_query &= Q(project_from_date__gte=project_from_date)
-
-        if date_published is not None:
-            filters_query &= Q(date_published__gte=date_published)
-
-        query &= filters_query
-
-        posting_entity_query = Q()
-
-        if filter_talent_projects:
-            posting_entity_query |= Q(student__isnull=False)
-
-        if filter_company_projects:
-            posting_entity_query |= Q(company__type=ProfileType.COMPANY)
-
-        if filter_university_projects:
-            posting_entity_query |= Q(company__type=ProfileType.UNIVERSITY)
-
-        query &= posting_entity_query
-
-        query &= Q(state=ProjectPostingState.PUBLIC)
-
-        return ProjectPostingModel.objects.filter(query).distinct()
+        return ProjectPostingModel.objects.filter(id__in=project_posting_ids)
 
 
 class ProjectPostingBaseData(Output, relay.ClientIDMutation):

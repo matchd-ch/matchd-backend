@@ -52,6 +52,9 @@ class ProjectPosting(models.Model, index.Indexed):
         return cls.objects.filter(state=ProjectPostingState.PUBLIC).\
             select_related('company', 'project_type', 'employee', 'student').prefetch_related('keywords')
 
+    def project_keywords(self):
+        return [obj.id for obj in self.keywords.all()]
+
     def cultural_fits(self):
         if self.company:
             return [obj.id for obj in self.company.cultural_fits.all()]
@@ -74,18 +77,21 @@ class ProjectPosting(models.Model, index.Indexed):
         return self.student.user
 
     search_fields = [
-        index.FilterField('project_type_id'),
-        index.RelatedFields('keywords', [
-            index.FilterField('id'),
+        index.SearchField('title', partial_match=True),
+        index.SearchField('description', partial_match=True),
+        index.FilterField('team_size'),
+        index.FilterField('date_published'),
+        index.FilterField('state'),
+        index.RelatedFields('student', [
+            index.FilterField('state'),
         ]),
-        index.FilterField('project_from_date',
-                          es_extra={
-                              'type': 'date',
-                              'format': 'yyyy-MM-dd',
-                              'null_value': default_date()
-                          }),
-        index.FilterField('soft_skills'),
-        index.FilterField('cultural_fits'),
+        index.RelatedFields('company', [
+            index.FilterField('type'),
+            index.FilterField('state'),
+        ]),
+        index.FilterField('project_type_id'),
+        index.FilterField('project_from_date'),
+        index.FilterField('project_keywords'),
         index.FilterField('is_student', es_extra={'type': 'boolean'}),
         index.FilterField('is_company', es_extra={'type': 'boolean'}),
     ]

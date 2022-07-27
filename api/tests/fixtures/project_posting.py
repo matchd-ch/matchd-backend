@@ -176,33 +176,43 @@ def query_project_postings(execute):
 @pytest.fixture
 def company_project_posting_objects(company_object_complete, project_type_objects):
     project_posting_1 = ProjectPosting.objects.create(id=1,
+                                                      title="project1",
+                                                      description="one",
                                                       company=company_object_complete,
                                                       slug='project-1',
                                                       project_type=project_type_objects[0],
                                                       state=ProjectPostingState.PUBLIC,
                                                       team_size=1)
     project_posting_2 = ProjectPosting.objects.create(id=2,
+                                                      title="project2",
+                                                      description="two",
                                                       company=company_object_complete,
                                                       slug='project-2',
                                                       project_type=project_type_objects[0],
                                                       state=ProjectPostingState.PUBLIC,
                                                       team_size=1)
     project_posting_3 = ProjectPosting.objects.create(id=3,
+                                                      title="project3",
+                                                      description="three",
                                                       company=company_object_complete,
                                                       slug='project-3',
                                                       project_type=project_type_objects[0],
                                                       state=ProjectPostingState.DRAFT,
                                                       team_size=1)
     project_posting_4 = ProjectPosting.objects.create(id=4,
+                                                      title="project4",
+                                                      description="four",
                                                       company=company_object_complete,
                                                       slug='project-4',
                                                       project_type=project_type_objects[1],
                                                       state=ProjectPostingState.PUBLIC,
                                                       team_size=10)
     project_posting_5 = ProjectPosting.objects.create(id=5,
+                                                      title="project5",
+                                                      description="five",
                                                       company=company_object_complete,
                                                       slug='project-5',
-                                                      project_type=project_type_objects[1],
+                                                      project_type=project_type_objects[2],
                                                       state=ProjectPostingState.PUBLIC,
                                                       team_size=5)
     return [
