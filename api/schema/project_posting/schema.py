@@ -158,14 +158,15 @@ class ProjectPostingQuery(ObjectType):
         user = info.context.user
 
         # show incomplete project postings for employees of the company
-        if user.type in ProfileType.valid_company_types(
-        ) and user.company == project_posting.company:
-            return project_posting
+        if user.is_authenticated:
+            if user.type in ProfileType.valid_company_types(
+            ) and user.company == project_posting.company:
+                return project_posting
 
-        # show incomplete project postings if student is owner
-        if user.type in ProfileType.valid_student_types(
-        ) and user.student == project_posting.student:
-            return project_posting
+            # show incomplete project postings if student is owner
+            if user.type in ProfileType.valid_student_types(
+            ) and user.student == project_posting.student:
+                return project_posting
 
         # hide incomplete project postings for other users
         if project_posting.state != ProjectPostingState.PUBLIC:
