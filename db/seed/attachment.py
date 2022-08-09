@@ -46,7 +46,10 @@ class Attachment(BaseSeed):
         return ''
 
     def _create_image(self, image_path, relative_path, user):
-        image, created = Image.objects.get_or_create(file=relative_path)
+        with PILImage.open(image_path) as img:
+            width, height = img.size
+
+        image, created = Image.objects.get_or_create(file=relative_path, width=width, height=height)
         image.uploaded_by_user = user
         image.collection_id = 1
 
@@ -54,13 +57,6 @@ class Attachment(BaseSeed):
             mime = magic.Magic(mime=True)
             mime_type = mime.from_file(image_path)
             image.mime_type = mime_type
-
-        if image.width is None or image.width == '':
-            with PILImage.open(image_path) as img:
-                width, height = img.size
-
-            image.width = width
-            image.height = height
 
         image.save()
         return image
