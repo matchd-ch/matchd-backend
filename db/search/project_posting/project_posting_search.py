@@ -79,7 +79,8 @@ def search_project_posting(kwargs):
                     "filter": filter_conditions,
                     "should": should_conditions
                 },
-            }
+            },
+            "size": 10000
         },
         "_source": False,
         "stored_fields": "pk",
