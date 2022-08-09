@@ -35,7 +35,9 @@ def update_user_info(user, data):
 
         if 'email' in user_form.changed_data:
             user.status.verified = False
+            user.username = user_form.cleaned_data.get('email')
             user.status.save(update_fields=["verified"])
+            user.save(update_fields=["username"])
     else:
         errors.update(user_form.errors.get_json_data())
         raise FormException(errors=errors)
