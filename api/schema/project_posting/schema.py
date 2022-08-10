@@ -38,6 +38,7 @@ class ProjectPostingInput(graphene.InputObjectType):
 
 
 class ProjectPosting(DjangoObjectType):
+    avatar_url = graphene.String()
     title = graphene.NonNull(graphene.String)
     display_title = graphene.NonNull(graphene.String)
     state = graphene.Field(graphene.NonNull(ProjectPostingState))
@@ -77,6 +78,9 @@ class ProjectPosting(DjangoObjectType):
     @classmethod
     def get_node(cls, info, id):
         return get_object_or_404(ProjectPostingModel, pk=id)
+
+    def resolve_avatar_url(self, info):
+        return getattr(self.avatar(), 'absolute_url', None)
 
     def resolve_keywords(self: ProjectPostingModel, info):
         return self.keywords.all()
