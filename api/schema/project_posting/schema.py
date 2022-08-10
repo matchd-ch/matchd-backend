@@ -15,7 +15,7 @@ from api.schema.keyword.schema import KeywordInput
 from api.schema.project_type.schema import ProjectTypeInput
 
 from db.context.match.match_status import MatchStatus
-from db.decorators import hyphenate
+from db.decorators import hyphenate, restrict_project_posting, restrict_project_posting_node
 from db.exceptions import FormException
 from db.forms import process_project_posting_base_data_form, process_project_posting_specific_data_form
 from db.forms.project_posting_allocation import process_project_posting_allocation_form
@@ -76,6 +76,7 @@ class ProjectPosting(DjangoObjectType):
 
     # pylint: disable=W0622
     @classmethod
+    @restrict_project_posting_node
     def get_node(cls, info, id):
         return get_object_or_404(ProjectPostingModel, pk=id)
 
@@ -147,6 +148,7 @@ class ProjectPostingQuery(ObjectType):
         project_from_date=graphene.Date(description=_('Project from date'), required=False),
         date_published=graphene.Date(description=_('Date published'), required=False))
 
+    @restrict_project_posting
     def resolve_project_posting(self, info, **kwargs):
         slug = kwargs.get('slug')
         project_posting_id = resolve_node_id(kwargs.get('id'))
@@ -177,6 +179,7 @@ class ProjectPostingQuery(ObjectType):
             raise Http404(_('Project posting not found'))
         return project_posting
 
+    @restrict_project_posting
     def resolve_project_postings(self, info, **kwargs):
         results = search_project_posting(kwargs)
         project_posting_ids = list(map(lambda hit: hit.get('_id'), results.get('hits').get('hits')))

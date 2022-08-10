@@ -377,6 +377,58 @@ def test_company_project_posting_draft_not_accessible(
 
 
 @pytest.mark.django_db
+def test_project_posting_without_login(query_project_posting,
+                                       company_project_posting_object: ProjectPosting,
+                                       project_type_objects, user_student, keyword_objects):
+
+    company_project_posting_object.title = 'title'
+    company_project_posting_object.slug = 'title'
+    company_project_posting_object.description = 'description'
+    company_project_posting_object.team_size = 5
+    company_project_posting_object.compensation = 'to be discussed'
+    company_project_posting_object.project_from_date = '2021-08-01'
+    company_project_posting_object.website = 'http://www.project-posting.lo'
+    company_project_posting_object.project_type = project_type_objects[0]
+    company_project_posting_object.form_step = 3
+    company_project_posting_object.company = None
+    company_project_posting_object.employee = None
+    company_project_posting_object.student = user_student.student
+    company_project_posting_object.state = ProjectPostingState.PUBLIC
+    company_project_posting_object.save()
+    company_project_posting_object.keywords.set(keyword_objects)
+
+    data, errors = query_project_posting(AnonymousUser(), company_project_posting_object.slug)
+
+    assert errors is None
+    assert data is not None
+    project_posting = data.get('projectPosting')
+
+    assert project_posting.get('title') == 'title'
+    assert project_posting.get('displayTitle') == 'tit\xadle'
+    assert project_posting.get('slug') == company_project_posting_object.slug
+    assert project_posting.get('description') == company_project_posting_object.description
+    assert project_posting.get('teamSize') is None
+    assert project_posting.get('compensation') is None
+    assert project_posting.get('projectFromDate') == '2021-08-01'
+    assert project_posting.get('website') == ""
+    assert project_posting.get('projectType').get('id') == to_global_id(
+        'ProjectType', company_project_posting_object.project_type_id)
+    assert int(project_posting.get('formStep')) == 0
+    assert project_posting.get('company') is None
+    assert project_posting.get('employee') is None
+    assert project_posting.get('student') is None
+    assert len(project_posting.get('keywords')) == len(
+        company_project_posting_object.keywords.all())
+    assert project_posting.get('state') == company_project_posting_object.state.upper()
+
+    match_status = project_posting.get('matchStatus')
+    assert match_status is None
+
+    match_hints = project_posting.get('matchHints')
+    assert match_hints is None
+
+
+@pytest.mark.django_db
 def test_project_postings(query_project_postings, company_project_posting_objects, user_employee):
     data, errors = query_project_postings(user_employee)
     assert errors is None
@@ -413,10 +465,16 @@ def test_project_postings_without_login(query_project_postings, company_project_
     edges = data.get('projectPostings').get('edges')
     assert edges is not None
     assert len(edges) == len(company_project_posting_objects) - 1
-    assert_node_id(edges[0].get('node'), 'ProjectPosting', company_project_posting_objects[0].id)
-    assert_node_id(edges[1].get('node'), 'ProjectPosting', company_project_posting_objects[1].id)
-    assert_node_field(edges[0].get('node'), 'slug', company_project_posting_objects[0].slug)
-    assert_node_field(edges[1].get('node'), 'slug', company_project_posting_objects[1].slug)
+
+    assert edges[0].get('node').get('team_size') is None
+    assert edges[0].get('node').get('compensation') is None
+    assert edges[0].get('node').get('website') == ""
+    assert edges[0].get('node').get('employee') is None
+    assert edges[0].get('node').get('student') is None
+    assert edges[0].get('node').get('company') is None
+    assert edges[0].get('node').get('match_status') is None
+    assert edges[0].get('node').get('match_hints') is None
+    assert int(edges[0].get('node').get('formStep')) == 0
 
 
 @pytest.mark.django_db
