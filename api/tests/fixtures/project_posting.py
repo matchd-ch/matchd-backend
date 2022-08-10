@@ -28,6 +28,7 @@ def project_posting_query(filter_value, param_name):
     return '''
     query {
         projectPosting(%s) {
+            avatarUrl
             dateCreated
             datePublished
             id
@@ -86,6 +87,7 @@ def project_postings_query(filters=None):
             edges {
                 cursor
                 node {
+                    avatarUrl
                     dateCreated
                     datePublished
                     id

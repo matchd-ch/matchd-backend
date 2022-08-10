@@ -2,7 +2,10 @@ from datetime import datetime
 
 from django.db import models
 from django.utils.translation import gettext as _
+
 from wagtail.search import index
+
+from db.models.attachment import Attachment, AttachmentKey
 
 
 def default_date():
@@ -51,6 +54,16 @@ class ProjectPosting(models.Model, index.Indexed):
     def get_indexed_objects(cls):
         return cls.objects.filter(state=ProjectPostingState.PUBLIC).\
             select_related('company', 'project_type', 'employee', 'student').prefetch_related('keywords')
+
+    def avatar(self):
+        attachment = Attachment.objects.filter(key=AttachmentKey.PROJECT_POSTING_IMAGES,
+                                               object_id=self.id).select_related(
+                                                   'content_type', 'attachment_type').first()
+
+        if attachment is None:
+            attachment = Attachment.get_project_posting_fallback(self)
+
+        return attachment
 
     def project_keywords(self):
         return [obj.id for obj in self.keywords.all()]
