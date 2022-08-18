@@ -163,25 +163,37 @@ class ProjectPostingQuery(ObjectType):
 
         user = info.context.user
 
-        # show incomplete project postings for employees of the company
         if user.is_authenticated:
-            if user.type in ProfileType.valid_company_types(
-            ) and user.company == project_posting.company:
-                return project_posting
+            if user.type in ProfileType.valid_company_types():
+                # do not show project postings company <-> company
+                if project_posting.is_company() and user.company_id != project_posting.company_id:
+                    raise Http404(_('Project posting not found'))
 
-            # show incomplete project postings if student is owner
-            if user.type in ProfileType.valid_student_types(
-            ) and user.student == project_posting.student:
-                return project_posting
+                # do not show draft project postings of students
+                if project_posting.is_student(
+                ) and project_posting.state != ProjectPostingState.PUBLIC:
+                    raise Http404(_('Project posting not found'))
 
-        # hide incomplete project postings for other users
-        if project_posting.state != ProjectPostingState.PUBLIC:
-            raise Http404(_('Project posting not found'))
+            if user.type in ProfileType.valid_student_types():
+                # do not show project postings student <-> student
+                if project_posting.is_student() and user.student.id != project_posting.student_id:
+                    raise Http404(_('Project posting not found'))
+
+                # do not show draft project postings of companies
+                if project_posting.is_company(
+                ) and project_posting.state != ProjectPostingState.PUBLIC:
+                    raise Http404(_('Project posting not found'))
+
+        else:
+            # hide incomplete project postings from anonymous
+            if project_posting.state != ProjectPostingState.PUBLIC:
+                raise Http404(_('Project posting not found'))
+
         return project_posting
 
     @restrict_project_posting
     def resolve_project_postings(self, info, **kwargs):
-        results = search_project_posting(kwargs)
+        results = search_project_posting(info.context.user, kwargs)
         project_posting_ids = list(map(lambda hit: hit.get('_id'), results.get('hits').get('hits')))
 
         return ProjectPostingModel.objects.filter(id__in=project_posting_ids)
