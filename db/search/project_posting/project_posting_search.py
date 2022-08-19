@@ -7,7 +7,7 @@ from db.models import ProfileType, ProfileState, ProjectPostingState, ProjectPos
 # pylint: disable=W0106
 
 
-def search_project_posting(kwargs):
+def search_project_posting(user, kwargs):
     text_search = kwargs.get('text_search')
     project_types = kwargs.get('project_type_ids')
     keywords = kwargs.get('keyword_ids')
@@ -18,9 +18,18 @@ def search_project_posting(kwargs):
     project_from_date = kwargs.get('project_from_date')
     date_published = kwargs.get('date_published')
 
-    filter_conditions = [
-        condition('state_filter', ProjectPostingState.PUBLIC.lower()),
-    ]
+    filter_conditions = []
+
+    # do not show project postings company <-> company
+    if user.is_authenticated:
+        if user.type in ProfileType.valid_company_types():
+            filter_conditions.append(condition("is_student_filter", "true"))
+
+        # do not show project postings student <-> student
+        if user.type in ProfileType.valid_student_types():
+            filter_conditions.append(condition("is_company_filter", "true"))
+
+    filter_conditions.append(condition('state_filter', ProjectPostingState.PUBLIC.lower()))
 
     should_conditions = [
         nested_condition('company', 'state_filter', ProfileState.PUBLIC.lower()),

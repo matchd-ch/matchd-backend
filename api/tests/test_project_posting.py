@@ -429,18 +429,72 @@ def test_project_posting_without_login(query_project_posting,
 
 
 @pytest.mark.django_db
-def test_project_postings(query_project_postings, company_project_posting_objects, user_employee):
+def test_all_project_postings_visible_to_anonymous(query_project_postings,
+                                                   company_project_posting_objects,
+                                                   student_project_posting_objects):
+    data, errors = query_project_postings(AnonymousUser())
+    assert errors is None
+    assert data is not None
+
+    edges = data.get('projectPostings').get('edges')
+    assert edges is not None
+    assert len(
+        edges) == len(company_project_posting_objects) + len(student_project_posting_objects) - 2
+    assert_node_id(edges[0].get('node'), 'ProjectPosting', company_project_posting_objects[0].id)
+    assert_node_id(edges[1].get('node'), 'ProjectPosting', company_project_posting_objects[1].id)
+    assert_node_field(edges[0].get('node'), 'slug', company_project_posting_objects[0].slug)
+    assert_node_field(edges[1].get('node'), 'slug', company_project_posting_objects[1].slug)
+
+
+@pytest.mark.django_db
+def test_company_project_postings_not_visible_to_company(query_project_postings,
+                                                         company_project_posting_objects,
+                                                         user_employee):
     data, errors = query_project_postings(user_employee)
     assert errors is None
     assert data is not None
 
     edges = data.get('projectPostings').get('edges')
     assert edges is not None
+    assert len(edges) == 0
+
+
+@pytest.mark.django_db
+def test_student_project_postings_visible_to_company(query_project_postings,
+                                                     student_project_posting_objects,
+                                                     user_employee):
+    data, errors = query_project_postings(user_employee)
+    assert errors is None
+    assert data is not None
+
+    edges = data.get('projectPostings').get('edges')
+    assert edges is not None
+    assert len(edges) == len(student_project_posting_objects) - 1
+
+
+@pytest.mark.django_db
+def test_student_project_postings_not_visible_to_student(query_project_postings,
+                                                         student_project_posting_objects,
+                                                         user_student):
+    data, errors = query_project_postings(user_student)
+    assert errors is None
+    assert data is not None
+
+    edges = data.get('projectPostings').get('edges')
+    assert edges is not None
+    assert len(edges) == 0
+
+
+@pytest.mark.django_db
+def test_company_project_postings_visible_to_student(query_project_postings,
+                                                     company_project_posting_objects, user_student):
+    data, errors = query_project_postings(user_student)
+    assert errors is None
+    assert data is not None
+
+    edges = data.get('projectPostings').get('edges')
+    assert edges is not None
     assert len(edges) == len(company_project_posting_objects) - 1
-    assert_node_id(edges[0].get('node'), 'ProjectPosting', company_project_posting_objects[0].id)
-    assert_node_id(edges[1].get('node'), 'ProjectPosting', company_project_posting_objects[1].id)
-    assert_node_field(edges[0].get('node'), 'slug', company_project_posting_objects[0].slug)
-    assert_node_field(edges[1].get('node'), 'slug', company_project_posting_objects[1].slug)
 
 
 @pytest.mark.django_db
