@@ -34,7 +34,7 @@ class UserQuery(ObjectType):
     @login_required
     def resolve_me(self, info):
         user = info.context.user
-        if user.is_authenticated:
+        if user is not None and user.is_authenticated:
             user = get_user_model().objects.prefetch_related('student', 'company__users',
                                                              'company__benefits', 'company__branches').\
                 select_related('company').get(pk=user.id)

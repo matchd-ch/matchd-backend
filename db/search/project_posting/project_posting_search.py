@@ -29,11 +29,11 @@ def search_project_posting(user, kwargs):
         if user.type in ProfileType.valid_student_types():
             filter_conditions.append(condition("is_company_filter", "true"))
 
-    filter_conditions.append(condition('state_filter', ProjectPostingState.PUBLIC.lower()))
+    filter_conditions.append(condition('state_filter', ProjectPostingState.PUBLIC))
 
     should_conditions = [
-        nested_condition('company', 'state_filter', ProfileState.PUBLIC.lower()),
-        nested_condition('student', 'state_filter', ProfileState.PUBLIC.lower()),
+        nested_condition('company', 'state_filter', ProfileState.PUBLIC),
+        nested_condition('student', 'state_filter', ProfileState.PUBLIC),
     ]
 
     if project_types:
@@ -64,12 +64,12 @@ def search_project_posting(user, kwargs):
         posting_entity_query.append(condition("is_student_filter", "true"))
 
     if filter_company_projects:
-        posting_entity_query.append(
-            nested_condition('company', 'type_filter', ProfileType.COMPANY.lower())),
+        posting_entity_query.append(nested_condition('company', 'type_filter',
+                                                     ProfileType.COMPANY)),
 
     if filter_university_projects:
         posting_entity_query.append(
-            nested_condition('company', 'type_filter', ProfileType.UNIVERSITY.lower())),
+            nested_condition('company', 'type_filter', ProfileType.UNIVERSITY)),
 
     filter_conditions.append({"bool": {"should": posting_entity_query}})
 
