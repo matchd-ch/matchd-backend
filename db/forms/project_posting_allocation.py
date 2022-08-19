@@ -26,7 +26,7 @@ def process_project_posting_allocation_form(user, data):
     # validate step and data
     validate_form_data(data)
     project_posting = get_object_or_404(ProjectPosting, id=data.get('id'))
-    is_published = project_posting.state == ProjectPostingState.PUBLIC
+    was_published = project_posting.state == ProjectPostingState.PUBLIC
     validate_project_posting_step(project_posting, 3)
 
     # do not disable enum conversion as described here:
@@ -98,14 +98,13 @@ def process_project_posting_allocation_form(user, data):
     if project_posting.form_step == 3:
         project_posting.form_step = 4
 
-    project_posting.save()
-
-    if not is_published:
+    if not was_published:
         if project_posting.state == ProjectPostingState.PUBLIC:
             project_posting.date_published = datetime.datetime.now()
-            project_posting.save()
-        else:
+    else:
+        if project_posting.state == ProjectPostingState.DRAFT:
             project_posting.date_published = None
-            project_posting.save()
+
+    project_posting.save()
 
     return project_posting
