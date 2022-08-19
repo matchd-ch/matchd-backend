@@ -90,8 +90,18 @@ class ProjectPosting(models.Model, index.Indexed):
         return self.student.user
 
     search_fields = [
-        index.SearchField('title', partial_match=True),
-        index.SearchField('description', partial_match=True),
+        index.SearchField('title',
+                          partial_match=True,
+                          es_extra={
+                              'analyzer': 'german',
+                              'search_analyzer': 'german'
+                          }),
+        index.SearchField('description',
+                          partial_match=True,
+                          es_extra={
+                              'analyzer': 'german',
+                              'search_analyzer': 'german'
+                          }),
         index.FilterField('team_size'),
         index.FilterField('date_published'),
         index.FilterField('state'),
