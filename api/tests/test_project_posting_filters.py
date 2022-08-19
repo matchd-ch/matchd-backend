@@ -270,30 +270,3 @@ def test_project_postings_search_description(query_project_postings, user_studen
     edges = data.get('projectPostings').get('edges')
     assert edges is not None
     assert len(edges) == 1
-
-
-@pytest.mark.django_db
-def test_project_postings_search_description_fuzzy(query_project_postings,
-                                                   user_student_full_profile,
-                                                   company_project_posting_objects,
-                                                   student_project_posting_objects):
-    data, errors = query_project_postings(AnonymousUser(), {"textSearch": "\"f\""})
-    assert errors is None
-    assert data is not None
-
-    edges = data.get('projectPostings').get('edges')
-    assert edges is not None
-    assert len(edges) == 2
-
-
-@pytest.mark.django_db
-def test_project_postings_search_title_fuzzy(query_project_postings, user_student_full_profile,
-                                             company_project_posting_objects,
-                                             student_project_posting_objects):
-    data, errors = query_project_postings(AnonymousUser(), {"textSearch": "\"proj\""})
-    assert errors is None
-    assert data is not None
-
-    edges = data.get('projectPostings').get('edges')
-    assert edges is not None
-    assert len(edges) == 4
