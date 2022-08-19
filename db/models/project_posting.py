@@ -91,13 +91,11 @@ class ProjectPosting(models.Model, index.Indexed):
 
     search_fields = [
         index.SearchField('title',
-                          partial_match=True,
                           es_extra={
                               'analyzer': 'german',
                               'search_analyzer': 'german'
                           }),
         index.SearchField('description',
-                          partial_match=True,
                           es_extra={
                               'analyzer': 'german',
                               'search_analyzer': 'german'
