@@ -824,12 +824,6 @@
                     "key": "company_avatar",
                     "type": "db.image",
                     "user": "liip@matchd.localhost"
-                },
-                {
-                    "file": "liip/liip-1.mp4",
-                    "key": "company_documents",
-                    "type": "db.video",
-                    "user": "liip@matchd.localhost"
                 }
             ],
             "benefits": [
