@@ -3,7 +3,7 @@ from django.shortcuts import render
 # This module is used solely for email testing puroses.
 # How to use: add a path to urls.py that points to the function in this module.
 
-TEMPLATE_PATH = 'db/email/activation/body.html'
+TEMPLATE_PATH = 'db/email/activation/resend/body.html'
 CONTEXT_PROPS = {
     'name': 'Peter Lustig',
     'email': 'name@example.com',

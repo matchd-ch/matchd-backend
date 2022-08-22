@@ -3,8 +3,32 @@
 {% block content %}
 
 {% load db_tags %}
+{% is_student user.type as student %}
+{% if student %}
+<h1>Hey {{ user.first_name }}</h1>
+<p>Nur noch 1 Klick um deine E-Mail zu verifizieren.</p>
+<p>Click, click hurray, das ist dein <a href="{{ frontend_url }}/{{ path }}/{{ token }}" target="_blank">Aktivierungs-Link</a>.</p>
+<p class="mb-30">Let's match und bis bald!</p>
+<table>
+  <tbody>
+    <tr>
+      <td style="width: 269px">&nbsp;</td>
+      <td style="width: 150px">
+        <a href="{{ frontend_url }}/{{ path }}/{{ token }}" class="dot-link" target="_blank">
+          Nice to<br />match you
+        </a>
+      </td>
+      <td style="width: 269px">&nbsp;</td>
+    </tr>
+  </tbody>
+</table>
+{% endif %}
+{# Activation-E-mail for Company #}
+{% is_company user.type as company %}
+{% if company %}
 <h1>Guten Tag</h1>
-<p>Nur noch 1 Klick und Sie sind Teil der Matchd-Community. Aktivieren Sie jetzt <a href="{{ frontend_url }}/{{ path }}/{{ token }}" target="_blank">Ihr Profil</a> und tauchen Sie ein in den Matchd-Talentpool.</p>
+<p>Nur noch 1 Klick um Ihre E-Mail zu verifizieren. Klicken Sie <a href="{{ frontend_url }}/{{ path }}/{{ token }}" target="_blank">hier</a> und aktualisieren Sie Ihr Profil.</p>
+<p>Wir sind gespannt auf Ihre Matches und wünschen weiterhin viel Spass auf Ihrer Entdeckungsreise.</p>
 <p class="mb-30">Ihr Matchd-Team</p>
 <table>
   <tbody>
@@ -12,11 +36,13 @@
       <td style="width: 269px">&nbsp;</td>
       <td style="width: 150px">
         <a href="{{ frontend_url }}/{{ path }}/{{ token }}" target="_blank" class="dot-link">
-          Ready to<br />match you
+          Nice to<br />match you
         </a>
       </td>
       <td style="width: 269px">&nbsp;</td>
     </tr>
   </tbody>
 </table>
+{% endif %}
+
 {% endblock %}

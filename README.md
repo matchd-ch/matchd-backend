@@ -186,6 +186,21 @@ cd api/data
 python xlsx_to_json.py
 ```
 
+## Email Test Setup
+
+Add the following lines to the `urls.py` for adding testing view.
+
+[app/urls.py](app/urls.py)
+
+```py
+from db.view.email_template_test_helper_view import email_template_test_helper_view
+
+urlpatterns = [
+    ...
+    path('test-email-template/', email_template_test_helper_view),
+]
+```
+
 ## Development workflow
 
 The project conforms to the [pep8](https://www.python.org/dev/peps/pep-0008/) styling guide. We recommend running the following command sequence regularly during your coding sessions, and, mandatorily before creating a pull request (so you don't run into problems with the CI / CD pipeline)
