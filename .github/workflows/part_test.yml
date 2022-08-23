@@ -73,9 +73,16 @@ jobs:
         run: |
           pipenv run python manage.py collectstatic --noinput
 
-      - name: Update elasticsearch indexes
+      - name: Setup database
         run: |
-          pipenv run python manage.py update_index
+          pipenv run setup
+        env:
+          DB_HOST: '127.0.0.1'
+          DB_PORT: '3306'
+          DB_NAME: 'matchd'
+          DB_USER: 'root'
+          DB_PASSWORD: 'matchd'
+          ELASTIC_SEARCH_URL: 'http://127.0.0.1:9200'
 
       - name: Run test suite
         run: |
