@@ -5,19 +5,19 @@ from django.contrib.auth.models import AnonymousUser
 from graphql_relay import to_global_id
 
 from api.tests.helper.node_helper import assert_node_field, assert_node_id
-from db.models import ProfileState, JobPostingState, ProjectPostingState
+from db.models import ProfileState, JobPostingState, ChallengeState
 
 
 @pytest.mark.django_db
 def test_company(company_object_complete, query_company, job_posting_objects,
-                 company_project_posting_objects):
+                 company_challenge_objects):
     for job_posting in job_posting_objects:
         job_posting.company = company_object_complete
         job_posting.save()
 
-    for project_posting in company_project_posting_objects:
-        project_posting.company = company_object_complete
-        project_posting.save()
+    for challenge in company_challenge_objects:
+        challenge.company = company_object_complete
+        challenge.save()
 
     data, errors = query_company(AnonymousUser(), company_object_complete.slug)
     company = data.get('company')
@@ -48,13 +48,13 @@ def test_company(company_object_complete, query_company, job_posting_objects,
     assert company.get(
         'topLevelOrganisationWebsite') == company_object_complete.top_level_organisation_website
     assert company.get('linkEducation') == company_object_complete.link_education
-    assert company.get('linkProjects') == company_object_complete.link_projects
+    assert company.get('linkChallenges') == company_object_complete.link_challenges
     assert company.get('linkThesis') == company_object_complete.link_thesis
     assert len(company.get('employees')) == len(company_object_complete.users.all())
     assert len(company.get('jobPostings')) == len(
         company_object_complete.job_postings.filter(state=JobPostingState.PUBLIC))
-    assert len(company.get('projectPostings')) == len(
-        company_object_complete.project_postings.filter(state=ProjectPostingState.PUBLIC))
+    assert len(company.get('challenges')) == len(
+        company_object_complete.challenges.filter(state=ChallengeState.PUBLIC))
 
     employee = company.get('employees')[0]
     assert employee.get('phone') == company.get('phone')
@@ -105,12 +105,11 @@ def test_company_incomplete_as_employee(login, company_object_complete, query_co
     assert company.get(
         'topLevelOrganisationWebsite') == company_object_complete.top_level_organisation_website
     assert company.get('linkEducation') == company_object_complete.link_education
-    assert company.get('linkProjects') == company_object_complete.link_projects
+    assert company.get('linkChallenges') == company_object_complete.link_challenges
     assert company.get('linkThesis') == company_object_complete.link_thesis
     assert len(company.get('employees')) == len(company_object_complete.users.all())
     assert len(company.get('jobPostings')) == len(company_object_complete.job_postings.all())
-    assert len(company.get('projectPostings')) == len(
-        company_object_complete.project_postings.all())
+    assert len(company.get('challenges')) == len(company_object_complete.challenges.all())
 
     employee = company.get('employees')[0]
     assert employee.get('phone') == company.get('phone')

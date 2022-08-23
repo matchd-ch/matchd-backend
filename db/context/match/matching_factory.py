@@ -1,7 +1,7 @@
 from db.context.match.matching import Matching
 from db.context.match.company_matching import CompanyMatching
 from db.context.match.job_posting_matching import JobPostingMatching
-from db.context.match.project_posting_matching import ProjectPostingMatching
+from db.context.match.challenge_matching import ChallengeMatching
 from db.context.match.student_matching import StudentMatching
 from db.models.user import User
 
@@ -19,8 +19,8 @@ class MatchingFactory:
             kwargs['data'] = kwargs.pop('student_matching')
             matching_context = StudentMatching(user, **kwargs)
 
-        if kwargs.get('project_posting_matching', False):
-            kwargs['data'] = kwargs.pop('project_posting_matching')
-            matching_context = ProjectPostingMatching(user, **kwargs)
+        if kwargs.get('challenge_matching', False):
+            kwargs['data'] = kwargs.pop('challenge_matching')
+            matching_context = ChallengeMatching(user, **kwargs)
 
         return matching_context

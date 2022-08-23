@@ -1,1 +1,0 @@
-[{"model": "db.projecttype", "pk": 1, "fields": {"name": "Wissenschaftliche Projektarbeit"}}, {"model": "db.projecttype", "pk": 2, "fields": {"name": "Bachelor-Thesis"}}, {"model": "db.projecttype", "pk": 3, "fields": {"name": "Master-Thesis"}}]

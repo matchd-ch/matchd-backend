@@ -11,7 +11,7 @@ def dashboard_query():
           datePublished
           dateCreated
         }
-        projectPostings {
+        challenges {
           id
           title
           datePublished
@@ -23,7 +23,7 @@ def dashboard_query():
           datePublished
           dateCreated
         }
-        latestProjectPostings {
+        latestChallenges {
           id
           title
           datePublished
@@ -56,8 +56,8 @@ def dashboard_query():
             nickname
           }
         }
-        projectMatches {
-          projectPosting {
+        challengeMatches {
+          challenge {
             id
             title
             student {

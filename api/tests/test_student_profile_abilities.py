@@ -3,7 +3,7 @@ import pytest
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 
-from db.models import Skill, Language, LanguageLevel, Hobby, OnlineProject, UserLanguageRelation
+from db.models import Skill, Language, LanguageLevel, Hobby, OnlineChallenge, UserLanguageRelation
 
 # pylint: disable=R0913
 
@@ -47,8 +47,8 @@ def test_abilities(login, user_student, student_abilities, skill_objects, langua
     assert len(languages) == 2
     hobbies = user.student.hobbies.all()
     assert len(hobbies) == 2
-    online_projects = user.student.online_projects.all()
-    assert len(online_projects) == 2
+    online_challenges = user.student.online_challenges.all()
+    assert len(online_challenges) == 2
     assert user.student.distinction == 'distinction'
     assert user_student.student.profile_step == 5
 
@@ -174,19 +174,23 @@ def test_abilities_update_delete_hobbies(login, user_student, student_abilities,
 
 
 @pytest.mark.django_db
-def test_abilities_update_delete_online_projects(login, user_student, student_abilities,
-                                                 skill_objects):
+def test_abilities_update_delete_online_challenges(login, user_student, student_abilities,
+                                                   skill_objects):
     user_student.student.profile_step = 4
-    OnlineProject.objects.create(id=1, url='http://www.project1.lo', student=user_student.student)
-    OnlineProject.objects.create(id=2, url='http://www.project2.lo', student=user_student.student)
+    OnlineChallenge.objects.create(id=1,
+                                   url='http://www.challenge1.lo',
+                                   student=user_student.student)
+    OnlineChallenge.objects.create(id=2,
+                                   url='http://www.challenge2.lo',
+                                   student=user_student.student)
     user_student.student.save()
-    assert len(user_student.student.online_projects.all()) == 2
+    assert len(user_student.student.online_challenges.all()) == 2
 
     login(user_student)
     data, errors = student_abilities(user_student, skill_objects, [], [],
                                      [{
                                          'id': 1,
-                                         'url': 'http://www.project1-edited.lo'
+                                         'url': 'http://www.challenge1-edited.lo'
                                      }], '')
     assert errors is None
     assert data is not None
@@ -194,10 +198,10 @@ def test_abilities_update_delete_online_projects(login, user_student, student_ab
     assert data.get('studentProfileAbilities').get('success')
 
     user = get_user_model().objects.get(pk=user_student.id)
-    online_projects = user.student.online_projects.all()
-    assert len(online_projects) == 1
-    assert online_projects[0].id == 1
-    assert online_projects[0].url == 'http://www.project1-edited.lo'
+    online_challenges = user.student.online_challenges.all()
+    assert len(online_challenges) == 1
+    assert online_challenges[0].id == 1
+    assert online_challenges[0].url == 'http://www.challenge1-edited.lo'
     assert user_student.student.profile_step == 5
 
 
@@ -289,22 +293,26 @@ def test_abilities_unique_hobbies_create(login, user_student, student_abilities,
 
 
 @pytest.mark.django_db
-def test_abilities_unique_online_projects_update(login, user_student, student_abilities,
-                                                 skill_objects):
+def test_abilities_unique_online_challenges_update(login, user_student, student_abilities,
+                                                   skill_objects):
     user_student.student.profile_step = 4
-    OnlineProject.objects.create(id=1, url='http://www.project1.lo', student=user_student.student)
-    OnlineProject.objects.create(id=2, url='http://www.project2.lo', student=user_student.student)
+    OnlineChallenge.objects.create(id=1,
+                                   url='http://www.challenge1.lo',
+                                   student=user_student.student)
+    OnlineChallenge.objects.create(id=2,
+                                   url='http://www.challenge2.lo',
+                                   student=user_student.student)
     user_student.student.save()
-    assert len(user_student.student.online_projects.all()) == 2
+    assert len(user_student.student.online_challenges.all()) == 2
 
     login(user_student)
     data, errors = student_abilities(user_student, skill_objects, [], [],
                                      [{
                                          'id': 1,
-                                         'url': 'http://www.project1.lo'
+                                         'url': 'http://www.challenge1.lo'
                                      }, {
                                          'id': 2,
-                                         'url': 'http://www.project1.lo'
+                                         'url': 'http://www.challenge1.lo'
                                      }], '')
     assert errors is None
     assert data is not None
@@ -318,20 +326,22 @@ def test_abilities_unique_online_projects_update(login, user_student, student_ab
 
 
 @pytest.mark.django_db
-def test_abilities_unique_online_projects_create(login, user_student, student_abilities,
-                                                 skill_objects):
+def test_abilities_unique_online_challenges_create(login, user_student, student_abilities,
+                                                   skill_objects):
     user_student.student.profile_step = 4
-    OnlineProject.objects.create(id=1, url='http://www.project1.lo', student=user_student.student)
+    OnlineChallenge.objects.create(id=1,
+                                   url='http://www.challenge1.lo',
+                                   student=user_student.student)
     user_student.student.save()
-    assert len(user_student.student.online_projects.all()) == 1
+    assert len(user_student.student.online_challenges.all()) == 1
 
     login(user_student)
     data, errors = student_abilities(user_student, skill_objects, [], [],
                                      [{
                                          'id': 1,
-                                         'url': 'http://www.project1.lo'
+                                         'url': 'http://www.challenge1.lo'
                                      }, {
-                                         'url': 'http://www.project1.lo'
+                                         'url': 'http://www.challenge1.lo'
                                      }], '')
     assert errors is None
     assert data is not None
@@ -339,8 +349,8 @@ def test_abilities_unique_online_projects_create(login, user_student, student_ab
     assert data.get('studentProfileAbilities').get('success')
 
     user = get_user_model().objects.get(pk=user_student.id)
-    online_projects = user.student.online_projects.all()
-    assert len(online_projects) == 1
-    assert online_projects[0].id == 1
-    assert online_projects[0].url == 'http://www.project1.lo'
+    online_challenges = user.student.online_challenges.all()
+    assert len(online_challenges) == 1
+    assert online_challenges[0].id == 1
+    assert online_challenges[0].url == 'http://www.challenge1.lo'
     assert user_student.student.profile_step == 5

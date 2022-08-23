@@ -118,12 +118,11 @@ The primary database models: _Users_, _Employees_, _Students_ and _Companies_. T
 
 ### Matching process
 
-The matching process can be subdivided in 4 match types: _Student_, _Company_, _Job Posting_ and _ProjectPosting_. It relies upon the following environment variables (found in `app/settings/base.py`):
+The matching process can be subdivided in 4 match types: _Student_, _Company_, _Job Posting_ and _Challenge_. It relies upon the following environment variables (found in `app/settings/base.py`):
 
 ```
 MATCHING_VALUE_BRANCH = 0
 MATCHING_VALUE_JOB_TYPE = 3
-MATCHING_VALUE_PROJECT_TYPE = 3
 MATCHING_VALUE_WORKLOAD = 1
 MATCHING_VALUE_CULTURAL_FITS = 3
 MATCHING_VALUE_SOFT_SKILLS = 3

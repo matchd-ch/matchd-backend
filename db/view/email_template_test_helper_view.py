@@ -35,10 +35,10 @@ CONTEXT_PROPS = {
         'last_name': 'Petrason'
     },
     'student_profile_url': 'https://example.com/student_profile_url',
-    'project_posting': {
-        'title': 'ProjectPostingTitle',
-        'project_type': {
-            'name': 'ProjectTypeName'
+    'challenge': {
+        'title': 'ChallengeTitle',
+        'challenge_type': {
+            'name': 'ChallengeTypeName'
         },
         'student': {
             'user': {
@@ -47,7 +47,7 @@ CONTEXT_PROPS = {
             }
         }
     },
-    'project_posting_url': 'https://example.com/project_posting_url',
+    'challenge_url': 'https://example.com/challenge_url',
 }
 
 

@@ -10,5 +10,5 @@ from .faq_category import *
 from .soft_skill import *
 from .cultural_fit import *
 from .keyword import *
-from .project_type import *
+from .challenge_type import *
 from .company import *

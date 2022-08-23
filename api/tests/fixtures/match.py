@@ -27,10 +27,10 @@ def match_student_mutation():
     '''
 
 
-def project_posting_matching():
+def challenge_matching():
     return '''
-    mutation ProjectPostingMatching($input: MatchProjectPostingInput!){
-        matchProjectPosting(input: $input) {
+    mutation ChallengeMatching($input: MatchChallengeInput!){
+        matchChallenge(input: $input) {
             success
             errors
             confirmed
@@ -76,17 +76,16 @@ def match_student(execute):
 
 
 @pytest.fixture
-def match_project_posting(execute):
+def match_challenge(execute):
 
-    def closure(user, project_posting):
-        return execute(project_posting_matching(),
-                       variables={
-                           "input": {
-                               "projectPosting": {
-                                   "id": to_global_id('ProjectPosting', project_posting.id)
-                               }
-                           }
-                       },
-                       **{'user': user})
+    def closure(user, challenge):
+        return execute(
+            challenge_matching(),
+            variables={"input": {
+                "challenge": {
+                    "id": to_global_id('Challenge', challenge.id)
+                }
+            }},
+            **{'user': user})
 
     return closure

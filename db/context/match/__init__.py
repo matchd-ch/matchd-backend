@@ -3,5 +3,5 @@ from .student_matching import StudentMatching
 from .company_matching import CompanyMatching
 from .matching import Matching
 from .matching_factory import MatchingFactory
-from .project_posting_matching import ProjectPostingMatching
+from .challenge_matching import ChallengeMatching
 from .match_status import MatchStatus

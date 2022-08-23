@@ -66,7 +66,7 @@ def me_query():
                 hobbies {
                     name
                 }
-                onlineProjects {
+                onlineChallenges {
                     url
                 }
                 languages {
@@ -81,7 +81,7 @@ def me_query():
                         }
                     }
                 }
-                projectPostings {
+                challenges {
                     slug
                 }
             }
@@ -137,7 +137,7 @@ def me_query():
                 topLevelOrganisationDescription
                 topLevelOrganisationWebsite
                 linkEducation
-                linkProjects
+                linkChallenges
                 linkThesis
             }
         }

@@ -26,7 +26,7 @@ from db.forms import process_company_relations_form, process_company_advantages_
 from db.forms.company_base_data import process_company_base_data_form
 from db.forms.company_values import process_company_values_form
 from db.forms.university_values import process_university_values_form
-from db.models import Company as CompanyModel, ProfileState as ProfileStateModel, JobPostingState, ProjectPostingState
+from db.models import Company as CompanyModel, ProfileState as ProfileStateModel, JobPostingState, ChallengeState
 
 # pylint: disable=W0221
 
@@ -208,7 +208,7 @@ class UniversityProfileRelations(Output, relay.ClientIDMutation):
     class Input:
         services = graphene.String(description=_('services'), required=False)
         link_education = graphene.String(description=_('website education'), required=False)
-        link_projects = graphene.String(description=_('website projects'), required=False)
+        link_challenges = graphene.String(description=_('website challenges'), required=False)
         link_thesis = graphene.String(description=_('website thesis'), required=False)
         branches = graphene.List(BranchInput, description=_('Branches'))
         benefits = graphene.List(BenefitInput, description=_('Benefits'))
@@ -266,8 +266,8 @@ class Company(DjangoObjectType):
     employees = graphene.NonNull(graphene.List(graphene.NonNull(Employee)))
     job_postings = graphene.NonNull(
         graphene.List(graphene.NonNull('api.schema.job_posting.schema.JobPosting')))
-    project_postings = graphene.NonNull(
-        graphene.List(graphene.NonNull('api.schema.project_posting.schema.ProjectPosting')))
+    challenges = graphene.NonNull(
+        graphene.List(graphene.NonNull('api.schema.challenge.schema.Challenge')))
     type = graphene.Field(graphene.NonNull(ProfileType))
     state = graphene.Field(graphene.NonNull(ProfileState))
     soft_skills = graphene.List(graphene.NonNull('api.schema.soft_skill.schema.SoftSkill'))
@@ -282,7 +282,7 @@ class Company(DjangoObjectType):
             'uid', 'name', 'zip', 'city', 'street', 'phone', 'description', 'member_it_st_gallen',
             'services', 'website', 'benefits', 'state', 'profile_step', 'slug',
             'top_level_organisation_description', 'top_level_organisation_website', 'type',
-            'branches', 'link_education', 'link_projects', 'link_thesis', 'soft_skills',
+            'branches', 'link_education', 'link_challenges', 'link_thesis', 'soft_skills',
             'cultural_fits', 'job_postings'
         ]
         convert_choices_to_enum = False
@@ -299,10 +299,10 @@ class Company(DjangoObjectType):
             return self.job_postings.all()
         return self.job_postings.filter(state=JobPostingState.PUBLIC)
 
-    def resolve_project_postings(self: CompanyModel, info: ResolveInfo):
+    def resolve_challenges(self: CompanyModel, info: ResolveInfo):
         if is_me_query(info):
-            return self.project_postings.all()
-        return self.project_postings.filter(state=ProjectPostingState.PUBLIC)
+            return self.challenges.all()
+        return self.challenges.filter(state=ChallengeState.PUBLIC)
 
     @company_cheating_protection
     def resolve_soft_skills(self: CompanyModel, info: ResolveInfo):

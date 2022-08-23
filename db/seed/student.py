@@ -1,6 +1,6 @@
 from django.utils.text import slugify
 
-from db.models import DateMode, Student as StudentModel, JobType, Hobby, OnlineProject, UserLanguageRelation
+from db.models import DateMode, Student as StudentModel, JobType, Hobby, OnlineChallenge, UserLanguageRelation
 from db.seed.base import BaseSeed
 
 
@@ -76,7 +76,7 @@ class Student(BaseSeed):
 
         skills = []
         hobbies = []
-        online_projects = []
+        online_challenges = []
         languages = []
         if student.profile_step >= 5:
             skills = data.get('skills')
@@ -92,9 +92,9 @@ class Student(BaseSeed):
             if hobbies is None or len(hobbies) == 0:
                 hobbies = self.rand.hobbies()
 
-            online_projects = data.get('online_projects')
-            if online_projects is None or len(online_projects) == 0:
-                online_projects = self.rand.online_projects()
+            online_challenges = data.get('online_challenges')
+            if online_challenges is None or len(online_challenges) == 0:
+                online_challenges = self.rand.online_challenges()
 
             languages = data.get('languages')
             if languages is None or len(languages) == 0:
@@ -121,8 +121,8 @@ class Student(BaseSeed):
         student.skills.set(skills)
         for hobby in hobbies:
             Hobby.objects.get_or_create(student=student, name=hobby)
-        for url in online_projects:
-            OnlineProject.objects.get_or_create(student=student, url=url)
+        for url in online_challenges:
+            OnlineChallenge.objects.get_or_create(student=student, url=url)
         for language in languages:
             try:
                 existing = UserLanguageRelation.objects.get(student=student,
@@ -183,7 +183,7 @@ class Student(BaseSeed):
             job_to_date = self.rand.job_to_date(job_from_date)
         languages = self.rand.languages()
         nickname = f'{first_name}.{last_name}'.lower()
-        online_projects = self.rand.online_projects()
+        online_challenges = self.rand.online_challenges()
         skills = self.rand.skills()
         soft_skills = self.rand.soft_skills()
 
@@ -218,7 +218,7 @@ class Student(BaseSeed):
                 "mobile": "+791234567",
                 "nickname": nickname,
                 "slug": slugify(nickname),
-                "online_projects": online_projects,
+                "online_challenges": online_challenges,
                 "profile_step": 7,
                 "school_name": "FH Winterthur",
                 "skills": skills,

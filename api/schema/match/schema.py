@@ -10,7 +10,7 @@ from api.helper import resolve_node_ids
 from api.schema.branch import BranchInput
 from api.schema.keyword.schema import Keyword
 from api.schema.profile_type import ProfileType
-from api.schema.project_posting.schema import ProjectPostingInput
+from api.schema.challenge.schema import ChallengeInput
 from api.schema.student import StudentInput
 from api.schema.zip_city import ZipCityInput
 from api.schema.job_posting import JobPostingInput
@@ -18,7 +18,7 @@ from api.schema.job_type import JobTypeInput
 
 from db.context.match.matching_factory import MatchingFactory
 from db.exceptions import FormException
-from db.forms import process_job_posting_match, process_student_match, process_project_posting_match
+from db.forms import process_job_posting_match, process_student_match, process_challenge_match
 from db.models import MatchType as MatchTypeModel, Match as MatchModel
 
 # pylint: disable=W0221
@@ -49,17 +49,17 @@ class JobPostingMatchInfo(DjangoObjectType):
         )
 
 
-class ProjectPostingMatchInfo(DjangoObjectType):
+class ChallengeMatchInfo(DjangoObjectType):
     student = graphene.Field('api.schema.student.schema.Student')
     company = graphene.Field('api.schema.company.schema.Company')
-    project_posting = graphene.NonNull('api.schema.project_posting.schema.ProjectPosting')
+    challenge = graphene.NonNull('api.schema.challenge.schema.Challenge')
 
     class Meta:
         model = MatchModel
         interfaces = (relay.Node, )
         fields = (
             'student',
-            'project_posting',
+            'challenge',
             'company',
         )
 
@@ -89,8 +89,8 @@ class JobPostingMatchingInput(InputObjectType):
     zip = graphene.Field(ZipCityInput, required=False)
 
 
-class ProjectPostingMatchingInput(InputObjectType):
-    project_posting = graphene.Field(ProjectPostingInput, required=True)
+class ChallengeMatchingInput(InputObjectType):
+    challenge = graphene.Field(ChallengeInput, required=True)
 
 
 class MatchQuery(ObjectType):
@@ -103,8 +103,8 @@ class MatchQuery(ObjectType):
                                                                    required=False),
                             student_matching=graphene.Argument(StudentMatchingInput,
                                                                required=False),
-                            project_posting_matching=graphene.Argument(ProjectPostingMatchingInput,
-                                                                       required=False))
+                            challenge_matching=graphene.Argument(ChallengeMatchingInput,
+                                                                 required=False))
 
     @login_required
     def resolve_matches(self, info, **kwargs):
@@ -161,12 +161,12 @@ class MatchJobPosting(Output, relay.ClientIDMutation):
         return MatchJobPosting(success=True, errors=None, confirmed=match_obj.complete)
 
 
-class MatchProjectPosting(Output, relay.ClientIDMutation):
+class MatchChallenge(Output, relay.ClientIDMutation):
 
     confirmed = graphene.NonNull(graphene.Boolean)
 
     class Input:
-        project_posting = graphene.Field(ProjectPostingInput, required=True)
+        challenge = graphene.Field(ChallengeInput, required=True)
 
     class Meta:
         description = _('Initiate or confirm Matching')
@@ -178,13 +178,13 @@ class MatchProjectPosting(Output, relay.ClientIDMutation):
         input_data = resolve_node_ids(data.get('input'))
 
         try:
-            match_obj = process_project_posting_match(user, input_data, info.context)
+            match_obj = process_challenge_match(user, input_data, info.context)
         except FormException as exception:
-            return MatchProjectPosting(success=False, errors=exception.errors, confirmed=False)
-        return MatchProjectPosting(success=True, errors=None, confirmed=match_obj.complete)
+            return MatchChallenge(success=False, errors=exception.errors, confirmed=False)
+        return MatchChallenge(success=True, errors=None, confirmed=match_obj.complete)
 
 
 class MatchMutation(graphene.ObjectType):
     match_student = MatchStudent.Field()
     match_job_posting = MatchJobPosting.Field()
-    match_project_posting = MatchProjectPosting.Field()
+    match_challenge = MatchChallenge.Field()

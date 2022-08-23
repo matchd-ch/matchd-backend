@@ -10,7 +10,7 @@ from .profile_type import ProfileType
 class MatchType(models.TextChoices):
     STUDENT = 'student', _('Student')
     JOB_POSTING = 'job_posting', _('Job posting')
-    PROJECT_POSTING = 'project_posting', _('Project posting')
+    CHALLENGE = 'challenge', _('Challenge')
     COMPANY = 'company', _('Company')
     UNIVERSITY = 'university', _('University')
 
@@ -18,7 +18,7 @@ class MatchType(models.TextChoices):
 class Match(models.Model):
     student = models.ForeignKey('db.Student', null=True, on_delete=models.CASCADE)
     job_posting = models.ForeignKey('db.JobPosting', null=True, on_delete=models.CASCADE)
-    project_posting = models.ForeignKey('db.ProjectPosting', null=True, on_delete=models.CASCADE)
+    challenge = models.ForeignKey('db.Challenge', null=True, on_delete=models.CASCADE)
     company = models.ForeignKey('db.Company', null=True, on_delete=models.CASCADE)
     student_confirmed = models.BooleanField(default=False)
     company_confirmed = models.BooleanField(default=False)
@@ -77,11 +77,11 @@ class Match(models.Model):
         return f'{settings.FRONTEND_URL}{settings.STUDENT_PROFILE_URL}' \
                f'{self.student.slug}?jobPostingId={self.job_posting.id}'
 
-    def _project_posting_student_profile_url(self):
+    def _challenge_student_profile_url(self):
         return f'{settings.FRONTEND_URL}{settings.STUDENT_PROFILE_URL}' \
                f'{self.student.slug}'
 
-    def _project_posting_company_profile_url(self):
+    def _challenge_company_profile_url(self):
         return f'{settings.FRONTEND_URL}{settings.COMPANY_PROFILE_URL}' \
                f'{self.company.slug}'
 
@@ -93,9 +93,9 @@ class Match(models.Model):
         return f'{settings.FRONTEND_URL}{settings.JOB_POSTING_URL}' \
                f'{self.job_posting.slug}'
 
-    def _project_posting_url(self):
-        return f'{settings.FRONTEND_URL}{settings.PROJECT_POSTING_URL}' \
-               f'{self.project_posting.slug}'
+    def _challenge_url(self):
+        return f'{settings.FRONTEND_URL}{settings.CHALLENGE_URL}' \
+               f'{self.challenge.slug}'
 
     def _job_posting_email_context(self, user):
         return {
@@ -110,21 +110,21 @@ class Match(models.Model):
             'company_profile_url': self._job_posting_company_profile_url(),
         }
 
-    def _project_posting_student_email_context(self, user):
+    def _challenge_student_email_context(self, user):
         return {
             'user': user,
-            'project_posting_url': self._project_posting_url(),
-            'project_posting': self.project_posting,
-            'company_profile_url': self._project_posting_company_profile_url(),
+            'challenge_url': self._challenge_url(),
+            'challenge': self.challenge,
+            'company_profile_url': self._challenge_company_profile_url(),
             'email_subject_prefix': settings.EMAIL_SUBJECT_PREFIX,
         }
 
-    def _project_posting_company_email_context(self, user):
+    def _challenge_company_email_context(self, user):
         return {
             'user': user,
-            'project_posting_url': self._project_posting_url(),
-            'project_posting': self.project_posting,
-            'student_profile_url': self._project_posting_student_profile_url(),
+            'challenge_url': self._challenge_url(),
+            'challenge': self.challenge,
+            'student_profile_url': self._challenge_student_profile_url(),
             'email_subject_prefix': settings.EMAIL_SUBJECT_PREFIX,
         }
 
@@ -192,14 +192,14 @@ class Match(models.Model):
                   recipients,
                   html_message=html_body)
 
-    def send_complete_project_match_mail(self, user, context):
-        template_path = 'db/email/match/project/'
-        if self.project_posting.student and self.project_posting.student.user.email:
-            email_context = self._project_posting_student_email_context(user)
-            recipients = [self.project_posting.student.user.email]
+    def send_complete_challenge_match_mail(self, user, context):
+        template_path = 'db/email/match/challenge/'
+        if self.challenge.student and self.challenge.student.user.email:
+            email_context = self._challenge_student_email_context(user)
+            recipients = [self.challenge.student.user.email]
         else:
-            email_context = self._project_posting_company_email_context(user)
-            recipients = [self.project_posting.employee.user.email]
+            email_context = self._challenge_company_email_context(user)
+            recipients = [self.challenge.employee.user.email]
         subject = render_to_string(f'{template_path}match.subject.txt', email_context, context)
         plain_body = render_to_string(f'{template_path}match.body_plain.txt', email_context,
                                       context)

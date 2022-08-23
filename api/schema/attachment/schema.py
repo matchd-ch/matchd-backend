@@ -11,7 +11,7 @@ from api.helper import resolve_node_id
 
 from db.helper import generic_error_dict, has_access_to_attachments, get_company_or_student
 from db.models import AttachmentKey as AttachmentKeyModel, Attachment as AttachmentModel, Company, Student, \
-    ProjectPosting as ProjectPostingModel
+    Challenge as ChallengeModel
 
 # pylint: disable=W0221
 
@@ -39,17 +39,18 @@ class DeleteAttachment(Output, relay.ClientIDMutation):
                                     errors=generic_error_dict('id', _('Attachment does not exist'),
                                                               'not_found'))
 
-        project_posting_type = ContentType.objects.get(app_label='db', model='projectposting')
+        challenge_type = ContentType.objects.get(app_label='db', model='challenge')
 
-        if attachment.content_type.id == project_posting_type.id:
+        if attachment.content_type.id == challenge_type.id:
             try:
-                project_posting = ProjectPostingModel.objects.get(pk=attachment.object_id)
-                if project_posting.get_owner() != user:
+                challenge = ChallengeModel.objects.get(pk=attachment.object_id)
+                if challenge.get_owner() != user:
                     return PermissionDenied('You are not allowed to perform this action.')
-            except ProjectPostingModel.DoesNotExist:
+            except ChallengeModel.DoesNotExist:
                 return DeleteAttachment(success=False,
-                                        errors=generic_error_dict(
-                                            'id', _('ProjectPosting does not exist'), 'not_found'))
+                                        errors=generic_error_dict('id',
+                                                                  _('Challenge does not exist'),
+                                                                  'not_found'))
         else:
             if not attachment.object_id == profile_id:
                 return PermissionDenied('You are not allowed to perform this action.')
@@ -114,11 +115,11 @@ class AttachmentQuery(ObjectType):
         user = info.context.user
         key = kwargs.get('key')
 
-        is_project_posting = key in AttachmentKeyModel.valid_project_posting_keys()
+        is_challenge = key in AttachmentKeyModel.valid_challenge_keys()
         is_student = key in AttachmentKeyModel.valid_student_keys()
         is_company = key in AttachmentKeyModel.valid_company_keys()
 
-        if not is_student and not is_company and not is_project_posting:
+        if not is_student and not is_company and not is_challenge:
             return []
 
         model = None
@@ -126,8 +127,8 @@ class AttachmentQuery(ObjectType):
             model = Student
         if is_company:
             model = Company
-        if is_project_posting:
-            model = ProjectPostingModel
+        if is_challenge:
+            model = ChallengeModel
 
         slug = kwargs.get('slug', None)
         object_id = resolve_node_id(kwargs.get('id', None))
@@ -160,17 +161,17 @@ class AttachmentQuery(ObjectType):
             if is_company:
                 fallback = AttachmentModel.get_company_avatar_fallback(attachment_owner)
                 return [fallback] if fallback is not None else []
-            if is_project_posting:
-                fallback = AttachmentModel.get_project_posting_fallback(attachment_owner)
+            if is_challenge:
+                fallback = AttachmentModel.get_challenge_fallback(attachment_owner)
                 return [fallback] if fallback is not None else []
             return []
 
-        if not is_project_posting:
+        if not is_challenge:
             # get profile content type and id
             profile_content_type = attachment_owner.get_profile_content_type()
             profile_id = attachment_owner.get_profile_id()
         else:
-            profile_content_type = ContentType.objects.get(app_label='db', model='projectposting')
+            profile_content_type = ContentType.objects.get(app_label='db', model='challenge')
             profile_id = attachment_owner.id
         return AttachmentModel.objects.filter(
             key=key,

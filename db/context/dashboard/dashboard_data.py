@@ -8,13 +8,13 @@ class DashboardData(ABC):
     def __init__(self, user: User) -> None:
         self._data = {
             'job_postings': self.collect_job_postings(user),
-            'project_postings': self.collect_project_postings(user),
+            'challenges': self.collect_challenges(user),
             'latest_job_postings': self.collect_latest_job_postings(user),
-            'latest_project_postings': self.collect_latest_project_postings(user),
+            'latest_challenges': self.collect_latest_challenges(user),
             'requested_matches': self.collect_requested_matches(user),
             'unconfirmed_matches': self.collect_unconfirmed_matches(user),
             'confirmed_matches': self.collect_confirmed_matches(user),
-            'project_matches': self.collect_project_matches(user),
+            'challenge_matches': self.collect_challenge_matches(user),
         }
 
     @property
@@ -24,13 +24,13 @@ class DashboardData(ABC):
     def collect_job_postings(self, user: User) -> None:
         return None
 
-    def collect_project_postings(self, user: User) -> None:
+    def collect_challenges(self, user: User) -> None:
         return None
 
     def collect_latest_job_postings(self, user: User) -> None:
         return None
 
-    def collect_latest_project_postings(self, user: User) -> None:
+    def collect_latest_challenges(self, user: User) -> None:
         return None
 
     def collect_requested_matches(self, user: User) -> None:
@@ -42,5 +42,5 @@ class DashboardData(ABC):
     def collect_confirmed_matches(self, user: User) -> None:
         return None
 
-    def collect_project_matches(self, user: User) -> None:
+    def collect_challenge_matches(self, user: User) -> None:
         return None

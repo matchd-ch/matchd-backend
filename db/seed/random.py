@@ -7,7 +7,7 @@ from dateutil.relativedelta import relativedelta
 from django.conf import settings
 
 from db.models import Branch, CulturalFit, JobType, Language, LanguageLevel, Skill, SoftSkill, ProfileState, Benefit, \
-    JobRequirement, JobPostingState, ProjectType, Keyword, ProjectPostingState
+    JobRequirement, JobPostingState, ChallengeType, Keyword, ChallengeState
 
 
 # pylint: disable=R0902
@@ -39,7 +39,7 @@ class Random:
         self._soft_skills = list(SoftSkill.objects.all().values_list('id', flat=True))
         self._benefits = list(Benefit.objects.all().values_list('id', flat=True))
         self._requirements = list(JobRequirement.objects.all().values_list('id', flat=True))
-        self._project_types = list(ProjectType.objects.all().values_list('id', flat=True))
+        self._challenge_types = list(ChallengeType.objects.all().values_list('id', flat=True))
         self._keywords = list(Keyword.objects.all().values_list('id', flat=True))
 
         self._addresses = self._load_address_data()
@@ -50,7 +50,7 @@ class Random:
         ]
         self._state_data = [ProfileState.PUBLIC, ProfileState.ANONYMOUS]
         self._job_posting_state_data = [JobPostingState.PUBLIC, JobPostingState.DRAFT]
-        self._project_posting_state_data = [ProjectPostingState.PUBLIC, ProjectPostingState.DRAFT]
+        self._challenge_state_data = [ChallengeState.PUBLIC, ChallengeState.DRAFT]
 
         self._titles = [
             'Praktikant*in Applikationsentwicklung', 'Praktikant*in Systemtechnik',
@@ -61,9 +61,9 @@ class Random:
             'Praktikant*in Javascript', 'Praktikant*in Vue.js / React.js'
         ]
 
-        self._project_titles = [
-            'Projekt KI', 'Projekt AI', 'Projekt ABC', 'Projekt DEF', 'Projekt GHI', 'Projekt JKL',
-            'Projekt MNO', 'Projekt Künstliche Intelligenz im Alltag'
+        self._challenge_titles = [
+            'Challenge KI', 'Challenge AI', 'Challenge ABC', 'Challenge DEF', 'Challenge GHI',
+            'Challenge JKL', 'Challenge MNO', 'Challenge Künstliche Intelligenz im Alltag'
         ]
         self._workloads = [50, 60, 70, 80, 90, 100]
 
@@ -148,14 +148,14 @@ class Random:
     def job_type(self):
         return self._random(self._job_types, 1)
 
-    def project_type(self):
-        return self._random(self._project_types, 1)
+    def challenge_type(self):
+        return self._random(self._challenge_types, 1)
 
     def keywords(self):
         count = random.randint(2, 3)
         return self._random(self._keywords, count)
 
-    def project_from_date(self):
+    def challenge_from_date(self):
         return self.job_from_date()
 
     def job_from_date(self):
@@ -188,12 +188,12 @@ class Random:
             result.append(obj)
         return result
 
-    def online_projects(self):
+    def online_challenges(self):
         count = random.randint(2, 10)
-        online_projects = []
+        online_challenges = []
         for i in range(1, count):
-            online_projects.append(f'http://www.project-{i}.lo')
-        return online_projects
+            online_challenges.append(f'http://www.challenge-{i}.lo')
+        return online_challenges
 
     def skills(self):
         count = random.randint(2, 8)
@@ -221,8 +221,8 @@ class Random:
     def job_posting_state(self):
         return self._random(self._job_posting_state_data, 1)
 
-    def project_posting_state(self):
-        return self._random(self._project_posting_state_data, 1)
+    def challenge_state(self):
+        return self._random(self._challenge_state_data, 1)
 
     def uid(self):
         numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -258,8 +258,8 @@ class Random:
     def title(self):
         return self._random(self._titles, 1)
 
-    def project_title(self):
-        return self._random(self._project_titles, 1)
+    def challenge_title(self):
+        return self._random(self._challenge_titles, 1)
 
     def workload(self):
         return self._random(self._workloads, 1)

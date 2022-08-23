@@ -14,9 +14,9 @@ from .job_type import *
 from .keyword import *
 from .language_level import *
 from .language import *
-from .online_project import *
-from .project_posting import *
-from .project_type import *
+from .online_challenge import *
+from .challenge import *
+from .challenge_type import *
 from .skill import *
 from .soft_skill import *
 from .student import *

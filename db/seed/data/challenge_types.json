@@ -1,0 +1,1 @@
+[{"model": "db.challengetype", "pk": 1, "fields": {"name": "Wissenschaftliche Challenge"}}, {"model": "db.challengetype", "pk": 2, "fields": {"name": "Bachelor-Thesis"}}, {"model": "db.challengetype", "pk": 3, "fields": {"name": "Master-Thesis"}}]

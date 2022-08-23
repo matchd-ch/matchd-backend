@@ -211,9 +211,9 @@ def upload_mutation():
     '''
 
 
-def upload_for_project_posting_mutation():
+def upload_for_challenge_mutation():
     return '''
-    mutation UploadProjectPosting($input: UserUploadInput!) {
+    mutation UploadChallenge($input: UserUploadInput!) {
       upload(input: $input) {
         success
         errors
@@ -225,7 +225,7 @@ def upload_for_project_posting_mutation():
 @pytest.fixture
 def upload(default_password):
 
-    def closure(user, key, file, project_posting=None):
+    def closure(user, key, file, challenge=None):
         query = upload_mutation()
         data = {
             'operations':
@@ -235,7 +235,7 @@ def upload(default_password):
                     'input': {
                         'file': None,
                         'key': key.upper(),
-                        'projectPosting': project_posting
+                        'challenge': challenge
                     }
                 },
             }),
@@ -258,10 +258,10 @@ def upload(default_password):
 
 
 @pytest.fixture
-def upload_for_project_posting(default_password):
+def upload_for_challenge(default_password):
 
-    def closure(user, project_posting, key, file):
-        query = upload_for_project_posting_mutation()
+    def closure(user, challenge, key, file):
+        query = upload_for_challenge_mutation()
         data = {
             'operations':
             json.dumps({
@@ -270,8 +270,8 @@ def upload_for_project_posting(default_password):
                     'input': {
                         'file': None,
                         'key': key.upper(),
-                        'projectPosting': {
-                            'id': to_global_id('ProjectPosting', project_posting.id)
+                        'challenge': {
+                            'id': to_global_id('Challenge', challenge.id)
                         }
                     }
                 },
@@ -344,11 +344,11 @@ def attachments_for_user():
 
 
 @pytest.fixture
-def attachments_for_project_posting():
+def attachments_for_challenge():
 
-    def closure(project_posting, key):
-        profile_content_type = ContentType.objects.get(app_label='db', model='projectposting')
-        profile_id = project_posting.id
+    def closure(challenge, key):
+        profile_content_type = ContentType.objects.get(app_label='db', model='challenge')
+        profile_id = challenge.id
         return Attachment.objects.filter(key=key,
                                          content_type=profile_content_type,
                                          object_id=profile_id)

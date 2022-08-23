@@ -1,0 +1,26 @@
+{% extends '../../base/base.html' %}
+
+{% block content %}
+
+{% load db_tags %}
+{% is_student user.type as send_company_mail %}
+{% if send_company_mail %}
+    <h1>Gratulation!</h1>
+    <p class="mb-30">{{ user.first_name }} {{ user.last_name }} hat sich Ihr Challenge <a href="{{ challenge_url }}">{{ challenge.title }} ({{ challenge.challenge_type.name }})</a> angesehen und ist an einer Zusammenarbeit interessiert. Damit dem Kennenlernen nichts im Weg steht, erhalten Sie hier den Link zum Matchd-Profil von <a href="{{ student_profile_url }}">{{ user.first_name }} {{ user.last_name }}.</a> </p>
+    <p class="mb-30"> Wir drücken die Daumen für einen erfolgreichen Austausch.</p>
+    <p class="mb-30">Ihr Matchd-Team</p>
+    <hr />
+    <p>PS: Sie haben Fragen oder Inputs an uns? Dann zögern Sie nicht, uns einfach zurückzuschreiben. Wir freuen uns über Feedback. </p>
+{% endif %}
+
+{% is_company user.type as send_student_mail %}
+{% if send_student_mail %}
+    <h1>Hey {{ challenge.student.user.first_name }}</h1>
+    <p class="mb-30">Wir haben Good-News für dich, {{ user.first_name }} {{ user.last_name }} von {{ user.company.name }} hat sich dein Challenge <a href="{{ challenge_url }}">{{ challenge.title }} ({{ challenge.challenge_type.name }})</a> angesehen und möchte sich mit dir darüber unterhalten. Damit dem Kennenlernen nichts im Weg steht, erhältst du hier den Link zum Matchd-Profil von <a href="{{ company_profile_url }}">{{ user.company.name }}.</a></p>
+    <p class="mb-30">Toi toi toi, dass es mit dem gemeinsamen Challenge klappt.</p>
+    <p class="mb-30">Dein Matchd-Team</p>
+    <hr />
+    <p>PS: Du hast Fragen oder Inputs an uns? Dann schreib uns einfach zurück. Wir freuen uns über Feedback.</p>
+{% endif %}
+
+{% endblock %}

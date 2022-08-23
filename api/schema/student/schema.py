@@ -14,7 +14,7 @@ from api.schema.branch import BranchInput
 from api.schema.cultural_fit import CulturalFitInput
 from api.schema.hobby import HobbyInput, Hobby
 from api.schema.job_type import JobTypeInput
-from api.schema.online_project import OnlineProjectInput, OnlineProject
+from api.schema.online_challenge import OnlineChallengeInput, OnlineChallenge
 from api.schema.profile_state import ProfileState
 from api.schema.soft_skill import SoftSkillInput
 from api.schema.skill import SkillInput
@@ -25,7 +25,7 @@ from db.exceptions import FormException, NicknameException
 from db.forms import process_student_base_data_form, process_student_character_form, process_student_employment_form, \
     process_student_specific_data_form, process_student_condition_form, process_student_abilities_form, \
     update_student_info
-from db.models import Student as StudentModel, ProfileType, Match as MatchModel, ProjectPostingState
+from db.models import Student as StudentModel, ProfileType, Match as MatchModel, ChallengeState
 
 # pylint: disable=W0221
 
@@ -49,15 +49,15 @@ class Student(DjangoObjectType):
     street = graphene.String()
     mobile = graphene.String()
     distinction = graphene.String()
-    online_projects = graphene.List(graphene.NonNull(OnlineProject))
+    online_challenges = graphene.List(graphene.NonNull(OnlineChallenge))
     hobbies = graphene.List(graphene.NonNull(Hobby))
     date_of_birth = graphene.String()
     school_name = graphene.String()
     field_of_study = graphene.String()
     graduation = graphene.String()
     match_status = graphene.Field('api.schema.match.MatchStatus')
-    project_postings = graphene.NonNull(
-        graphene.List(graphene.NonNull('api.schema.project_posting.schema.ProjectPosting')))
+    challenges = graphene.NonNull(
+        graphene.List(graphene.NonNull('api.schema.challenge.schema.Challenge')))
     is_matchable = graphene.NonNull(graphene.Boolean)
 
     class Meta:
@@ -65,7 +65,7 @@ class Student(DjangoObjectType):
         interfaces = (relay.Node, )
         fields = ('mobile', 'street', 'zip', 'city', 'date_of_birth', 'nickname', 'school_name',
                   'field_of_study', 'graduation', 'skills', 'hobbies', 'languages', 'distinction',
-                  'online_projects', 'state', 'profile_step', 'soft_skills', 'cultural_fits',
+                  'online_challenges', 'state', 'profile_step', 'soft_skills', 'cultural_fits',
                   'branch', 'slug', 'job_type', 'job_from_date', 'job_to_date', 'is_matchable')
         convert_choices_to_enum = False
 
@@ -102,8 +102,8 @@ class Student(DjangoObjectType):
         return self.distinction
 
     @privacy_protection()
-    def resolve_online_projects(self: StudentModel, info):
-        return self.online_projects.all()
+    def resolve_online_challenges(self: StudentModel, info):
+        return self.online_challenges.all()
 
     @privacy_protection()
     def resolve_hobbies(self: StudentModel, info):
@@ -178,10 +178,10 @@ class Student(DjangoObjectType):
             return {'confirmed': status.complete, 'initiator': status.initiator}
         return None
 
-    def resolve_project_postings(self: StudentModel, info):
+    def resolve_challenges(self: StudentModel, info):
         if is_me_query(info):
-            return self.project_postings.all()
-        return self.project_postings.filter(state=ProjectPostingState.PUBLIC)
+            return self.challenges.all()
+        return self.challenges.filter(state=ChallengeState.PUBLIC)
 
 
 class StudentProfileBaseData(Output, relay.ClientIDMutation):
@@ -263,9 +263,9 @@ class StudentProfileAbilities(Output, relay.ClientIDMutation):
     class Input:
         skills = graphene.List(SkillInput, description=_('Skills'), required=False)
         hobbies = graphene.List(HobbyInput, description=_('Hobbies'), required=False)
-        online_projects = graphene.List(OnlineProjectInput,
-                                        description=_('Online_Projects'),
-                                        required=False)
+        online_challenges = graphene.List(OnlineChallengeInput,
+                                          description=_('Online_Challenges'),
+                                          required=False)
         languages = graphene.List(UserLanguageRelationInput,
                                   description=_('Languages'),
                                   required=True)

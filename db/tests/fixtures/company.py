@@ -43,7 +43,7 @@ def university_valid_args():
         'top_level_organisation_description': 'Good uni.',
         'top_level_organisation_website': 'www.gooduni.ch',
         'link_education': 'www.gooduni.ch/education',
-        'link_projects': 'www.gooduni.ch/projects',
+        'link_challenges': 'www.gooduni.ch/challenges',
         'link_thesis': 'www.gooduni.ch/thesis',
     }
 

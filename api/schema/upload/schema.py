@@ -6,7 +6,7 @@ from graphene_file_upload.scalars import Upload
 
 from api.helper import resolve_node_ids
 from api.schema.attachment import Attachment, AttachmentKey
-from api.schema.project_posting.schema import ProjectPostingInput
+from api.schema.challenge.schema import ChallengeInput
 
 from db.context.upload.resource import Resource
 from db.context.upload.uploader import Uploader
@@ -22,7 +22,7 @@ class UserUpload(Output, relay.ClientIDMutation):
     class Input:
         file = Upload(required=True)
         key = AttachmentKey(required=True)
-        projectPosting = ProjectPostingInput(required=False)
+        challenge = ChallengeInput(required=False)
 
     @classmethod
     @login_required
@@ -30,12 +30,9 @@ class UserUpload(Output, relay.ClientIDMutation):
         user = info.context.user
         input_data = kwargs.get('input', {})
         key = input_data.get('key', None)
-        project_posting = resolve_node_ids(input_data.get('projectPosting', None))
+        challenge = resolve_node_ids(input_data.get('challenge', None))
 
-        resource = Resource(user=user,
-                            key=key,
-                            file=info.context.FILES,
-                            project_posting=project_posting)
+        resource = Resource(user=user, key=key, file=info.context.FILES, challenge=challenge)
 
         if not resource.is_valid:
             return UserUpload(success=False, errors=resource.errors)

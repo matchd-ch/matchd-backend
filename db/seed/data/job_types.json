@@ -43,7 +43,7 @@
     "model": "db.jobtype",
     "pk": 7,
     "fields": {
-        "name": "Thema für Projektarbeit (Gruppe/Einzel)",
+        "name": "Thema für Challenge (Gruppe/Einzel)",
         "mode": "date_from"
     }
 }
