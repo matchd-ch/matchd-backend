@@ -75,6 +75,8 @@ jobs:
 
       - name: Setup database
         run: |
+          set -eux
+
           DB_NAME_BEFORE="$DB_NAME"
           (
               export DB_NAME=mysql
