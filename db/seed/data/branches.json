@@ -80,7 +80,7 @@
     "model": "db.branch",
     "pk": 12,
     "fields": {
-      "name": "Projekt-Management"
+      "name": "Challenge-Management"
     }
   },
   {

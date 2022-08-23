@@ -9,7 +9,7 @@ from .hobby import Hobby
 from .skill import Skill
 from .language import Language
 from .language_level import LanguageLevel
-from .online_project import OnlineProject
+from .online_challenge import OnlineChallenge
 from .job_type import JobType, DateMode
 from .user_language_relation import UserLanguageRelation
 from .branch import Branch
@@ -27,5 +27,5 @@ from .soft_skill import SoftSkill
 from .cultural_fit import CulturalFit
 from .match import MatchType, Match
 from .keyword import Keyword
-from .project_type import ProjectType
-from .project_posting import ProjectPosting, ProjectPostingState
+from .challenge_type import ChallengeType
+from .challenge import Challenge, ChallengeState

@@ -17,7 +17,7 @@ from .user import UserForm, update_user_info
 from .user_request import UserRequestForm
 from .employee import EmployeeForm
 from .hobby import HobbyForm
-from .online_project import OnlineProjectForm
+from .online_challenge import OnlineChallengeForm
 from .user_language_relation import UserLanguageRelationForm
 from .attachment import AttachmentForm
 from .job_posting_language_relation import JobPostingLanguageRelationForm
@@ -26,7 +26,7 @@ from .job_posting_base_data import process_job_posting_base_data_form
 from .job_posting_requirements import process_job_posting_requirements_form
 from .job_posting_allocation import process_job_posting_allocation_form
 
-from .project_posting_base_data import process_project_posting_base_data_form
-from .project_posting_specific_data import process_project_posting_specific_data_form
+from .challenge_base_data import process_challenge_base_data_form
+from .challenge_specific_data import process_challenge_specific_data_form
 
-from .match import process_job_posting_match, process_student_match, process_project_posting_match
+from .match import process_job_posting_match, process_student_match, process_challenge_match

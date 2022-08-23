@@ -10,13 +10,13 @@ from db.models import ProfileState, Match
 
 @pytest.mark.django_db
 def test_student(login, user_student_full_profile, query_student, user_employee, branch_objects,
-                 job_type_objects, skill_objects, student_project_posting_objects):
+                 job_type_objects, skill_objects, student_challenge_objects):
     user_student_full_profile.student.state = ProfileState.PUBLIC
     user_student_full_profile.student.save()
 
-    for project_posting in student_project_posting_objects:
-        project_posting.student = user_student_full_profile.student
-        project_posting.save()
+    for challenge in student_challenge_objects:
+        challenge.student = user_student_full_profile.student
+        challenge.save()
 
     login(user_employee)
     data, errors = query_student(user_employee, user_student_full_profile.student.slug)
@@ -42,10 +42,10 @@ def test_student(login, user_student_full_profile, query_student, user_employee,
     assert student.get('distinction') == 'distinction'
     assert len(student.get('skills').get('edges')) == len(skill_objects)
     assert len(student.get('hobbies')) == 2
-    assert len(student.get('onlineProjects')) == 2
+    assert len(student.get('onlineChallenges')) == 2
     assert len(student.get('softSkills').get('edges')) == 6
     assert len(student.get('culturalFits').get('edges')) == 6
-    assert len(student.get('projectPostings')) == 3    # public only
+    assert len(student.get('challenges')) == 3    # public only
     assert student.get('matchStatus') is None
 
     company = student.get('company')
@@ -82,7 +82,7 @@ def test_student_anonymous(login, user_student_full_profile, query_student, user
     assert student.get('distinction') is None
     assert len(student.get('skills').get('edges')) == len(skill_objects)
     assert student.get('hobbies') is None
-    assert student.get('onlineProjects') is None
+    assert student.get('onlineChallenges') is None
     assert len(student.get('softSkills').get('edges')) == 6
     assert len(student.get('culturalFits').get('edges')) == 6
     assert student.get('matchStatus') is None
@@ -129,7 +129,7 @@ def test_student_anonymous_with_match_initiated_by_student(login, user_student_f
     assert student.get('distinction') == 'distinction'
     assert len(student.get('skills').get('edges')) == len(skill_objects)
     assert len(student.get('hobbies')) == 2
-    assert len(student.get('onlineProjects')) == 2
+    assert len(student.get('onlineChallenges')) == 2
     assert len(student.get('softSkills').get('edges')) == 6
     assert len(student.get('culturalFits').get('edges')) == 6
     assert student.get('matchStatus') is None
@@ -175,7 +175,7 @@ def test_student_anonymous_with_match_initiated_by_employee_but_not_confirmed(
     assert student.get('distinction') is None
     assert len(student.get('skills').get('edges')) == len(skill_objects)
     assert student.get('hobbies') is None
-    assert student.get('onlineProjects') is None
+    assert student.get('onlineChallenges') is None
     assert len(student.get('softSkills').get('edges')) == 6
     assert len(student.get('culturalFits').get('edges')) == 6
     assert student.get('matchStatus') is None
@@ -222,7 +222,7 @@ def test_student_anonymous_with_match_initiated_by_employee_and_confirmed(
     assert student.get('distinction') == 'distinction'
     assert len(student.get('skills').get('edges')) == len(skill_objects)
     assert len(student.get('hobbies')) == 2
-    assert len(student.get('onlineProjects')) == 2
+    assert len(student.get('onlineChallenges')) == 2
     assert len(student.get('softSkills').get('edges')) == 6
     assert len(student.get('culturalFits').get('edges')) == 6
     assert student.get('matchStatus') is None

@@ -3,7 +3,7 @@ import pytest
 from graphql_relay import to_global_id
 
 from db.helper.forms import convert_date
-from db.models import Student, ProfileType, ProfileState, Hobby, OnlineProject
+from db.models import Student, ProfileType, ProfileState, Hobby, OnlineChallenge
 
 # pylint: disable=C0209
 
@@ -68,7 +68,7 @@ def student_query(slug):
         hobbies {
           name
         }
-        onlineProjects {
+        onlineChallenges {
           url
         }
         languages {
@@ -83,7 +83,7 @@ def student_query(slug):
                 }
             }
         }
-        projectPostings {
+        challenges {
           slug
         }
       }
@@ -151,7 +151,7 @@ def student_with_job_posting_query(slug, job_posting_id):
         hobbies {
           name
         }
-        onlineProjects {
+        onlineChallenges {
           url
         }
         languages {
@@ -166,7 +166,7 @@ def student_with_job_posting_query(slug, job_posting_id):
                 }
             }
         }
-        projectPostings {
+        challenges {
           slug
         }
       }
@@ -239,15 +239,15 @@ def user_student_full_profile(user_student, branch_objects, job_type_objects, sk
         Hobby.objects.create(id=2, name='hobby 2', student=user_student.student)
     ]
     user_student.student.hobbies.set(hobbies)
-    online_projects = [
-        OnlineProject.objects.create(id=1,
-                                     url='https://www.project1.lo',
-                                     student=user_student.student),
-        OnlineProject.objects.create(id=2,
-                                     url='https://www.project2.lo',
-                                     student=user_student.student)
+    online_challenges = [
+        OnlineChallenge.objects.create(id=1,
+                                       url='https://www.challenge1.lo',
+                                       student=user_student.student),
+        OnlineChallenge.objects.create(id=2,
+                                       url='https://www.challenge2.lo',
+                                       student=user_student.student)
     ]
-    user_student.student.online_projects.set(online_projects)
+    user_student.student.online_challenges.set(online_challenges)
     user_student.student.soft_skills.set(soft_skill_objects[:6])
     user_student.student.cultural_fits.set(cultural_fit_objects[:6])
     user_student.student.save()

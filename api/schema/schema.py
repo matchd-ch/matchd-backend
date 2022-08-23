@@ -17,8 +17,8 @@ from api.schema.language import LanguageQuery
 from api.schema.auth import AuthMutation, LogoutMutation, VerifyPasswordResetToken
 from api.schema.language_level import LanguageLevelQuery
 from api.schema.match import MatchQuery, MatchMutation
-from api.schema.project_posting.schema import ProjectPostingQuery, ProjectPostingMutation
-from api.schema.project_type.schema import ProjectTypeQuery
+from api.schema.challenge.schema import ChallengeQuery, ChallengeMutation
+from api.schema.challenge_type.schema import ChallengeTypeQuery
 from api.schema.skill import SkillQuery
 from api.schema.soft_skill import SoftSkillQuery
 from api.schema.student import StudentProfileMutation, StudentQuery, StudentMutation
@@ -33,8 +33,7 @@ from api.schema.zip_city import ZipCityQuery
 class Mutation(RegistrationMutation, UserRequestMutation, AuthMutation, LogoutMutation,
                StudentProfileMutation, CompanyProfileMutation, UniversityProfileMutation,
                UploadMutation, AttachmentMutation, JobPostingMutation, EmployeeMutation,
-               MatchMutation, ProjectPostingMutation, UserMutation, StudentMutation,
-               CompanyMutation):
+               MatchMutation, ChallengeMutation, UserMutation, StudentMutation, CompanyMutation):
     pass
 
 
@@ -42,7 +41,7 @@ class Query(VerifyPasswordResetToken, UserQuery, LanguageQuery, LanguageLevelQue
             JobTypeQuery, SkillQuery, BenefitQuery, BranchQuery, AttachmentQuery,
             UploadConfigurationQuery, CompanyQuery, JobPostingQuery, JobRequirementQuery,
             FAQCategoryQuery, SoftSkillQuery, CulturalFitQuery, MatchQuery, StudentQuery,
-            DashboardQuery, KeywordQuery, ProjectTypeQuery, ProjectPostingQuery):
+            DashboardQuery, KeywordQuery, ChallengeTypeQuery, ChallengeQuery):
     node = relay.Node.Field()
 
 

@@ -12,7 +12,7 @@ def test_relations(login, user_rector, university_relations, branch_objects, ben
     user_rector.company.save()
     login(user_rector)
     data, errors = university_relations(user_rector, 'services', 'http://edu.lo',
-                                        'http://projects.lo', 'http://thesis.lo', branch_objects,
+                                        'http://challenges.lo', 'http://thesis.lo', branch_objects,
                                         benefit_objects)
     assert errors is None
     assert data is not None
@@ -23,7 +23,7 @@ def test_relations(login, user_rector, university_relations, branch_objects, ben
 
     assert user.company.services == 'services'
     assert user.company.link_education == 'http://edu.lo'
-    assert user.company.link_projects == 'http://projects.lo'
+    assert user.company.link_challenges == 'http://challenges.lo'
     assert user.company.link_thesis == 'http://thesis.lo'
     assert len(user.company.branches.all()) == len(branch_objects)
     assert user.company.profile_step == 4
@@ -36,7 +36,7 @@ def test_relations_without_login(user_rector, university_relations, branch_objec
     user_rector.company.profile_step = 3
     user_rector.company.save()
     data, errors = university_relations(AnonymousUser(), 'services', 'http://edu.lo',
-                                        'http://projects.lo', 'http://thesis.lo', branch_objects,
+                                        'http://challenges.lo', 'http://thesis.lo', branch_objects,
                                         benefit_objects)
     assert errors is not None
     assert data is not None
@@ -46,7 +46,7 @@ def test_relations_without_login(user_rector, university_relations, branch_objec
 
     assert user.company.services == ''
     assert user.company.link_education is None
-    assert user.company.link_projects is None
+    assert user.company.link_challenges is None
     assert user.company.link_thesis is None
     assert len(user.company.branches.all()) == 0
     assert user.company.profile_step == 3
@@ -57,7 +57,7 @@ def test_relations_as_student(login, user_student, university_relations, branch_
                               benefit_objects):
     login(user_student)
     data, errors = university_relations(user_student, 'services', 'http://edu.lo',
-                                        'http://projects.lo', 'http://thesis.lo', branch_objects,
+                                        'http://challenges.lo', 'http://thesis.lo', branch_objects,
                                         benefit_objects)
     assert errors is None
     assert data is not None
@@ -75,7 +75,7 @@ def test_relations_invalid_step(login, user_rector, university_relations, branch
     user_rector.company.save()
     login(user_rector)
     data, errors = university_relations(user_rector, 'services', 'http://edu.lo',
-                                        'http://projects.lo', 'http://thesis.lo', branch_objects,
+                                        'http://challenges.lo', 'http://thesis.lo', branch_objects,
                                         benefit_objects)
     assert errors is None
     assert data is not None
@@ -106,7 +106,7 @@ def test_relations_invalid_data(login, user_rector, university_relations):
     assert errors is not None
     assert 'services' in errors
     assert 'linkEducation' in errors
-    assert 'linkProjects' in errors
+    assert 'linkChallenges' in errors
     assert 'linkThesis' in errors
     assert 'branches' in errors
     assert 'benefits' in errors

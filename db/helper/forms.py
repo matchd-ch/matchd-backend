@@ -5,7 +5,7 @@ from django.utils.translation import gettext as _
 from db.exceptions import FormException
 from db.models import ProfileType
 from db.validators import ProfileFormStepValidator, StudentTypeValidator, CompanyTypeValidator, \
-    JobPostingFormStepValidator, ProjectPostingFormStepValidator
+    JobPostingFormStepValidator, ChallengeFormStepValidator
 
 
 def generic_error_dict(key, message, code):
@@ -100,15 +100,15 @@ def validate_job_posting_step(job_posting, step):
         raise FormException(errors)
 
 
-def validate_project_posting_step(project_posting, step):
+def validate_challenge_step(challenge, step):
     errors = {}
 
     # validate step
-    step_validator = ProjectPostingFormStepValidator(step)
+    step_validator = ChallengeFormStepValidator(step)
     try:
-        step_validator.validate(project_posting)
+        step_validator.validate(challenge)
     except ValidationError as error:
-        errors.update(validation_error_to_dict(error, 'project_posting_step'))
+        errors.update(validation_error_to_dict(error, 'challenge_step'))
 
     if errors:
         raise FormException(errors)

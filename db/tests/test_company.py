@@ -55,7 +55,7 @@ def test_get_company(company_valid_args):
     assert company.top_level_organisation_description == ''
     assert company.top_level_organisation_website == ''
     assert company.link_education is None
-    assert company.link_projects is None
+    assert company.link_challenges is None
     assert company.link_thesis is None
 
 
@@ -107,7 +107,7 @@ def test_get_university(university_valid_args):
     assert isinstance(university.top_level_organisation_description, str)
     assert isinstance(university.top_level_organisation_website, str)
     assert isinstance(university.link_education, str)
-    assert isinstance(university.link_projects, str)
+    assert isinstance(university.link_challenges, str)
     assert isinstance(university.link_thesis, str)
 
     assert university.branches.count() == 0
@@ -128,7 +128,7 @@ def test_get_university(university_valid_args):
     assert university.top_level_organisation_website == university_valid_args.get(
         'top_level_organisation_website')
     assert university.link_education == university_valid_args.get('link_education')
-    assert university.link_projects == university_valid_args.get('link_projects')
+    assert university.link_challenges == university_valid_args.get('link_challenges')
     assert university.link_thesis == university_valid_args.get('link_thesis')
     assert university.member_it_st_gallen is False
 

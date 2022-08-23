@@ -7,7 +7,7 @@ from django.core.exceptions import PermissionDenied
 from db.exceptions import FormException
 from db.helper import generic_error_dict
 from db.helper.forms import validate_company_user_type, validate_form_data, validate_student_user_type
-from db.models import Student, Match, JobPosting, ProfileType, ProjectPosting
+from db.models import Student, Match, JobPosting, ProfileType, Challenge
 
 
 def get_id_from_data(data, key):
@@ -29,8 +29,8 @@ def send_job_posting_mails(match_object, created, user, context):
         match_object.save()
 
 
-def send_project_posting_mails(match_object, user, context):
-    match_object.send_complete_project_match_mail(user, context)
+def send_challenge_mails(match_object, user, context):
+    match_object.send_complete_challenge_match_mail(user, context)
 
 
 def process_student_match(user, data, context):
@@ -102,17 +102,17 @@ def process_job_posting_match(user, data, context):
     return match_obj
 
 
-def process_project_posting_match(user, data, context):
+def process_challenge_match(user, data, context):
     errors = {}
 
     validate_form_data(data)
 
-    project_posting = None
+    challenge = None
     try:
-        project_posting_id = get_id_from_data(data, 'project_posting')
-        project_posting = ProjectPosting.objects.get(pk=project_posting_id)
-    except ProjectPosting.DoesNotExist:
-        errors.update(generic_error_dict('project_posting', 'Select a valid choice', 'invalid'))
+        challenge_id = get_id_from_data(data, 'challenge')
+        challenge = Challenge.objects.get(pk=challenge_id)
+    except Challenge.DoesNotExist:
+        errors.update(generic_error_dict('challenge', 'Select a valid choice', 'invalid'))
     except FormException as exception:
         # pylint: disable=W0707
         raise FormException(errors=exception.errors)
@@ -123,17 +123,15 @@ def process_project_posting_match(user, data, context):
     # pylint: disable=W0612
     match_obj, created = None, None
     if user.type in ProfileType.valid_student_types():
-        # do not allow students to match projects of other students
-        if project_posting.student is not None:
+        # do not allow students to match challenges of other students
+        if challenge.student is not None:
             raise PermissionDenied('You are not allowed to perform this action.')
-        match_obj, created = Match.objects.get_or_create(project_posting=project_posting,
-                                                         student=user.student)
+        match_obj, created = Match.objects.get_or_create(challenge=challenge, student=user.student)
     if user.type in ProfileType.valid_company_types():
-        # do not allow companies to match projects of other companies
-        if project_posting.company is not None:
+        # do not allow companies to match challenges of other companies
+        if challenge.company is not None:
             raise PermissionDenied('You are not allowed to perform this action.')
-        match_obj, created = Match.objects.get_or_create(project_posting=project_posting,
-                                                         company=user.company)
+        match_obj, created = Match.objects.get_or_create(challenge=challenge, company=user.company)
 
     match_obj.student_confirmed = True
     match_obj.company_confirmed = True
@@ -141,6 +139,6 @@ def process_project_posting_match(user, data, context):
     match_obj.date_confirmed = datetime.now(tz=pytz.timezone(settings.TIME_ZONE))
     match_obj.save()
 
-    send_project_posting_mails(match_obj, user, context)
+    send_challenge_mails(match_obj, user, context)
 
     return match_obj

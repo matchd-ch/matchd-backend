@@ -4,7 +4,7 @@ from django.core.exceptions import PermissionDenied
 from db.helper import generic_error_dict
 from db.models.attachment import AttachmentKey
 from db.models.profile_type import ProfileType
-from db.models.project_posting import ProjectPosting
+from db.models.challenge import Challenge
 
 
 class Resource():
@@ -15,19 +15,18 @@ class Resource():
         user = kwargs.get('user')
         key = kwargs.get('key')
         file = kwargs.get('file')
-        project_posting = kwargs.get('project_posting')
+        challenge = kwargs.get('challenge')
 
-        if project_posting is not None:
+        if challenge is not None:
             try:
-                project_posting = ProjectPosting.objects.get(pk=project_posting.get('id'))
-            except ProjectPosting.DoesNotExist as exception:
+                challenge = Challenge.objects.get(pk=challenge.get('id'))
+            except Challenge.DoesNotExist as exception:
                 is_valid_resource = False
-                errors = errors.update(
-                    generic_error_dict('ProjectPosting', str(exception), 'invalid'))
+                errors = errors.update(generic_error_dict('Challenge', str(exception), 'invalid'))
 
-        if project_posting is not None and key not in (
-                AttachmentKey.PROJECT_POSTING_DOCUMENTS,
-                AttachmentKey.PROJECT_POSTING_IMAGES,
+        if challenge is not None and key not in (
+                AttachmentKey.CHALLENGE_DOCUMENTS,
+                AttachmentKey.CHALLENGE_IMAGES,
         ):
             is_valid_resource = False
             errors = errors.update(generic_error_dict('key', 'Invalid key', 'invalid'))
@@ -35,16 +34,16 @@ class Resource():
         content_type = user.get_profile_content_type()
         resource_owner = user.get_profile_id()
 
-        if project_posting is not None:
+        if challenge is not None:
             if user.type in ProfileType.valid_company_types():
-                if user.company != project_posting.company:
-                    raise PermissionDenied('You are not the owner of this project.')
+                if user.company != challenge.company:
+                    raise PermissionDenied('You are not the owner of this challenge.')
             if user.type in ProfileType.valid_student_types():
-                if user.student != project_posting.student:
-                    raise PermissionDenied('You are not the owner of this project.')
+                if user.student != challenge.student:
+                    raise PermissionDenied('You are not the owner of this challenge.')
 
-            content_type = ContentType.objects.get(app_label='db', model='projectposting')
-            resource_owner = project_posting.id
+            content_type = ContentType.objects.get(app_label='db', model='challenge')
+            resource_owner = challenge.id
 
         self.__errors = errors
         self.__is_valid = is_valid_resource

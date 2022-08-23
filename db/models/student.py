@@ -89,7 +89,7 @@ class Student(models.Model, index.Indexed):
             has_requested_match = Match.objects.filter(
                 initiator__in=ProfileType.valid_student_types(),
                 student=self,
-                project_posting__company=company).exists()
+                challenge__company=company).exists()
 
         has_confirmed_match = Match.objects.filter(initiator__in=ProfileType.valid_company_types(),
                                                    student=self,
@@ -97,7 +97,7 @@ class Student(models.Model, index.Indexed):
                                                    job_posting__company=company).exists()
         if not has_confirmed_match:
             has_confirmed_match = Match.objects.filter(initiator__in=ProfileType.valid_company_types(), student=self,
-                                                       student_confirmed=True, project_posting__company=company).\
+                                                       student_confirmed=True, challenge__company=company).\
                 exists()
         return {
             'has_confirmed_match': has_confirmed_match,

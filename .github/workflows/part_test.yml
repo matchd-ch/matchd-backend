@@ -73,6 +73,10 @@ jobs:
         run: |
           pipenv run python manage.py collectstatic --noinput
 
+      - name: Update elasticsearch indexes
+        run: |
+          pipenv run python manage.py update_index
+
       - name: Run test suite
         run: |
           pipenv run test -svvv

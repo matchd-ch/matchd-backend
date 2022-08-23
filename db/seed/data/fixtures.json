@@ -9,13 +9,13 @@
             "description": "",
             "job_postings": [],
             "link_education": null,
-            "link_projects": null,
+            "link_challenges": null,
             "link_thesis": null,
             "member_it_st_gallen": false,
             "name": "Crutchfield AG",
             "phone": "",
             "profile_step": 1,
-            "project_postings": [],
+            "challenges": [],
             "services": "",
             "slug": "crutchfield-ag-1",
             "soft_skills": [],
@@ -47,13 +47,13 @@
             "description": "",
             "job_postings": [],
             "link_education": null,
-            "link_projects": null,
+            "link_challenges": null,
             "link_thesis": null,
             "member_it_st_gallen": false,
             "name": "Holden AG",
             "phone": "",
             "profile_step": 1,
-            "project_postings": [],
+            "challenges": [],
             "services": "",
             "slug": "holden-ag-2",
             "soft_skills": [],
@@ -85,13 +85,13 @@
             "description": "",
             "job_postings": [],
             "link_education": null,
-            "link_projects": null,
+            "link_challenges": null,
             "link_thesis": null,
             "member_it_st_gallen": false,
             "name": "Schneider AG",
             "phone": "+41719876543",
             "profile_step": 2,
-            "project_postings": [],
+            "challenges": [],
             "services": "",
             "slug": "schneider-ag-3",
             "soft_skills": [],
@@ -123,13 +123,13 @@
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
             "job_postings": [],
             "link_education": null,
-            "link_projects": null,
+            "link_challenges": null,
             "link_thesis": null,
             "member_it_st_gallen": true,
             "name": "Sauls AG",
             "phone": "+41719876543",
             "profile_step": 3,
-            "project_postings": [],
+            "challenges": [],
             "services": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
             "slug": "sauls-ag-4",
             "soft_skills": [],
@@ -700,13 +700,13 @@
                 }
             ],
             "link_education": null,
-            "link_projects": null,
+            "link_challenges": null,
             "link_thesis": null,
             "member_it_st_gallen": true,
             "name": "Hankins AG",
             "phone": "+41719876543",
             "profile_step": 5,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 5,
                     "date_created": "2021-06-21 10:01:58",
@@ -719,12 +719,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-09-25",
-                    "project_type": 3,
-                    "slug": "projekt-mno-1",
+                    "challenge_from_date": "2021-09-25",
+                    "challenge_type": 3,
+                    "slug": "challenge-mno-1",
                     "state": "draft",
-                    "title": "Projekt MNO",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge MNO",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 5,
@@ -738,12 +738,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-06-03",
-                    "project_type": 2,
-                    "slug": "projekt-def-2",
+                    "challenge_from_date": "2020-06-03",
+                    "challenge_type": 2,
+                    "slug": "challenge-def-2",
                     "state": "public",
-                    "title": "Projekt DEF",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge DEF",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 5,
@@ -756,12 +756,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-05-05",
-                    "project_type": 2,
-                    "slug": "projekt-abc-3",
+                    "challenge_from_date": "2020-05-05",
+                    "challenge_type": 2,
+                    "slug": "challenge-abc-3",
                     "state": "public",
-                    "title": "Projekt ABC",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge ABC",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "services": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
@@ -1046,13 +1046,13 @@
                 }
             ],
             "link_education": null,
-            "link_projects": null,
+            "link_challenges": null,
             "link_thesis": null,
             "member_it_st_gallen": true,
             "name": "Liip AG",
             "phone": "+41715771337",
             "profile_step": 5,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 6,
                     "date_created": "2021-06-21 10:02:01",
@@ -1064,12 +1064,12 @@
                         1,
                         3
                     ],
-                    "project_from_date": "2020-07-19",
-                    "project_type": 2,
-                    "slug": "projekt-abc-4",
+                    "challenge_from_date": "2020-07-19",
+                    "challenge_type": 2,
+                    "slug": "challenge-abc-4",
                     "state": "public",
-                    "title": "Projekt ABC",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge ABC",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "services": "Bei Liip bekommst du alles, was es f\u00fcr Digital Progress braucht: Von innovativer User Experience bis zu lupenreinem Development, von messbar gutem SEO und Analytics bis hin zu effizienter New Work. Wir begleiten dich mit unseren Expertisen bei deiner digitalen Herausforderung. Und zwar transparent, agil und immer auf Augenh\u00f6he. Wo k\u00f6nnen wir dich unterst\u00fctzen?",
@@ -1110,13 +1110,13 @@
             "description": "",
             "job_postings": [],
             "link_education": null,
-            "link_projects": null,
+            "link_challenges": null,
             "link_thesis": null,
             "member_it_st_gallen": false,
             "name": "Nielson AG",
             "phone": "",
             "profile_step": 1,
-            "project_postings": [],
+            "challenges": [],
             "services": "",
             "slug": "nielson-ag-7",
             "soft_skills": [],
@@ -1148,13 +1148,13 @@
             "description": "",
             "job_postings": [],
             "link_education": null,
-            "link_projects": null,
+            "link_challenges": null,
             "link_thesis": null,
             "member_it_st_gallen": false,
             "name": "Fitzgerald AG",
             "phone": "",
             "profile_step": 1,
-            "project_postings": [],
+            "challenges": [],
             "services": "",
             "slug": "fitzgerald-ag-8",
             "soft_skills": [],
@@ -1186,13 +1186,13 @@
             "description": "",
             "job_postings": [],
             "link_education": null,
-            "link_projects": null,
+            "link_challenges": null,
             "link_thesis": null,
             "member_it_st_gallen": false,
             "name": "Jackson AG",
             "phone": "+41791234567",
             "profile_step": 2,
-            "project_postings": [],
+            "challenges": [],
             "services": "",
             "slug": "jackson-ag-9",
             "soft_skills": [],
@@ -1231,13 +1231,13 @@
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
             "job_postings": [],
             "link_education": null,
-            "link_projects": null,
+            "link_challenges": null,
             "link_thesis": null,
             "member_it_st_gallen": false,
             "name": "Davis AG",
             "phone": "+41791234567",
             "profile_step": 3,
-            "project_postings": [],
+            "challenges": [],
             "services": "",
             "slug": "davis-ag-10",
             "soft_skills": [],
@@ -1338,13 +1338,13 @@
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
             "job_postings": [],
             "link_education": "http://www.education.lo",
-            "link_projects": "http://www.projects.lo",
+            "link_challenges": "http://www.challenges.lo",
             "link_thesis": "http://www.thesis.lo",
             "member_it_st_gallen": false,
             "name": "Neill AG",
             "phone": "+41791234567",
             "profile_step": 4,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 11,
                     "date_created": "2021-06-21 10:02:04",
@@ -1357,12 +1357,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-02-18",
-                    "project_type": 1,
-                    "slug": "projekt-kunstliche-intelligenz-im-alltag-5",
+                    "challenge_from_date": "2021-02-18",
+                    "challenge_type": 1,
+                    "slug": "challenge-kunstliche-intelligenz-im-alltag-5",
                     "state": "public",
-                    "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge K\u00fcnstliche Intelligenz im Alltag",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 11,
@@ -1375,12 +1375,12 @@
                         1,
                         3
                     ],
-                    "project_from_date": "2021-11-15",
-                    "project_type": 3,
-                    "slug": "projekt-abc-6",
+                    "challenge_from_date": "2021-11-15",
+                    "challenge_type": 3,
+                    "slug": "challenge-abc-6",
                     "state": "draft",
-                    "title": "Projekt ABC",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge ABC",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 11,
@@ -1393,12 +1393,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-02-09",
-                    "project_type": 2,
-                    "slug": "projekt-def-7",
+                    "challenge_from_date": "2021-02-09",
+                    "challenge_type": 2,
+                    "slug": "challenge-def-7",
                     "state": "public",
-                    "title": "Projekt DEF",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge DEF",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 11,
@@ -1412,12 +1412,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-03-22",
-                    "project_type": 1,
-                    "slug": "projekt-ghi-8",
+                    "challenge_from_date": "2021-03-22",
+                    "challenge_type": 1,
+                    "slug": "challenge-ghi-8",
                     "state": "draft",
-                    "title": "Projekt GHI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge GHI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 11,
@@ -1430,12 +1430,12 @@
                         1,
                         3
                     ],
-                    "project_from_date": "2020-04-07",
-                    "project_type": 1,
-                    "slug": "projekt-kunstliche-intelligenz-im-alltag-9",
+                    "challenge_from_date": "2020-04-07",
+                    "challenge_type": 1,
+                    "slug": "challenge-kunstliche-intelligenz-im-alltag-9",
                     "state": "draft",
-                    "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge K\u00fcnstliche Intelligenz im Alltag",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "services": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem.",
@@ -1486,9 +1486,9 @@
             "languages": [],
             "mobile": "",
             "nickname": null,
-            "online_projects": [],
+            "online_challenges": [],
             "profile_step": 1,
-            "project_postings": [],
+            "challenges": [],
             "school_name": "Name der Schule",
             "skills": [],
             "slug": "william-hawkins-1",
@@ -1520,9 +1520,9 @@
             "languages": [],
             "mobile": "",
             "nickname": null,
-            "online_projects": [],
+            "online_challenges": [],
             "profile_step": 1,
-            "project_postings": [],
+            "challenges": [],
             "school_name": "Name der Schule",
             "skills": [],
             "slug": "josephine-thomas-2",
@@ -1554,9 +1554,9 @@
             "languages": [],
             "mobile": "+41791234567",
             "nickname": null,
-            "online_projects": [],
+            "online_challenges": [],
             "profile_step": 2,
-            "project_postings": [],
+            "challenges": [],
             "school_name": "",
             "skills": [],
             "slug": "charles-robison-3",
@@ -1588,9 +1588,9 @@
             "languages": [],
             "mobile": "+41791234567",
             "nickname": null,
-            "online_projects": [],
+            "online_challenges": [],
             "profile_step": 3,
-            "project_postings": [],
+            "challenges": [],
             "school_name": "FH Winterthur",
             "skills": [],
             "slug": "steve-hollar-4",
@@ -1629,9 +1629,9 @@
             "languages": [],
             "mobile": "+41791234567",
             "nickname": null,
-            "online_projects": [],
+            "online_challenges": [],
             "profile_step": 4,
-            "project_postings": [],
+            "challenges": [],
             "school_name": "FH Winterthur",
             "skills": [],
             "slug": "william-herauf-5",
@@ -1689,12 +1689,12 @@
             ],
             "mobile": "+41791234567",
             "nickname": null,
-            "online_projects": [
-                "http://www.project1.lo",
-                "http://www.project2.lo"
+            "online_challenges": [
+                "http://www.challenge1.lo",
+                "http://www.challenge2.lo"
             ],
             "profile_step": 5,
-            "project_postings": [],
+            "challenges": [],
             "school_name": "FH Winterthur",
             "skills": [
                 3,
@@ -1756,12 +1756,12 @@
             ],
             "mobile": "+41791234567",
             "nickname": "anthony-johnson-7",
-            "online_projects": [
-                "http://www.project2.lo",
-                "http://www.project1.lo"
+            "online_challenges": [
+                "http://www.challenge2.lo",
+                "http://www.challenge1.lo"
             ],
             "profile_step": 6,
-            "project_postings": [],
+            "challenges": [],
             "school_name": "FH Winterthur",
             "skills": [
                 3,
@@ -1842,12 +1842,12 @@
             ],
             "mobile": "+41791234567",
             "nickname": "charles-kirby-8",
-            "online_projects": [
-                "http://www.project1.lo",
-                "http://www.project2.lo"
+            "online_challenges": [
+                "http://www.challenge1.lo",
+                "http://www.challenge2.lo"
             ],
             "profile_step": 7,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 8,
                     "date_created": "2021-06-21 10:02:09",
@@ -1860,12 +1860,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-12-05",
-                    "project_type": 1,
-                    "slug": "projekt-abc-10",
+                    "challenge_from_date": "2021-12-05",
+                    "challenge_type": 1,
+                    "slug": "challenge-abc-10",
                     "state": "public",
-                    "title": "Projekt ABC",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge ABC",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 8,
@@ -1879,12 +1879,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-04-20",
-                    "project_type": 2,
-                    "slug": "projekt-ghi-11",
+                    "challenge_from_date": "2021-04-20",
+                    "challenge_type": 2,
+                    "slug": "challenge-ghi-11",
                     "state": "public",
-                    "title": "Projekt GHI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge GHI",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "school_name": "FH Winterthur",
@@ -1973,12 +1973,12 @@
             ],
             "mobile": "+41781234567",
             "nickname": "salley-couch-9",
-            "online_projects": [
-                "http://www.project1.lo",
-                "http://www.project2.lo"
+            "online_challenges": [
+                "http://www.challenge1.lo",
+                "http://www.challenge2.lo"
             ],
             "profile_step": 7,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 9,
                     "date_created": "2021-06-21 10:02:10",
@@ -1991,12 +1991,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-01-20",
-                    "project_type": 3,
-                    "slug": "projekt-def-12",
+                    "challenge_from_date": "2020-01-20",
+                    "challenge_type": 3,
+                    "slug": "challenge-def-12",
                     "state": "public",
-                    "title": "Projekt DEF",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge DEF",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 9,
@@ -2010,12 +2010,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-06-29",
-                    "project_type": 1,
-                    "slug": "projekt-ki-13",
+                    "challenge_from_date": "2021-06-29",
+                    "challenge_type": 1,
+                    "slug": "challenge-ki-13",
                     "state": "draft",
-                    "title": "Projekt KI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge KI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 9,
@@ -2029,12 +2029,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-08-28",
-                    "project_type": 3,
-                    "slug": "projekt-kunstliche-intelligenz-im-alltag-14",
+                    "challenge_from_date": "2020-08-28",
+                    "challenge_type": 3,
+                    "slug": "challenge-kunstliche-intelligenz-im-alltag-14",
                     "state": "draft",
-                    "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge K\u00fcnstliche Intelligenz im Alltag",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "school_name": "FH Winterthur",
@@ -2090,13 +2090,13 @@
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a scelerisque elit. Praesent accumsan mi id mauris scelerisque, sagittis tristique sem facilisis. Mauris in tempor risus. Integer ornare, leo placerat mollis molestie, urna ipsum volutpat lectus, quis vestibulum lorem sem quis urna. Vestibulum finibus, quam eu laoreet facilisis, lectus dolor vehicula orci, consequat feugiat orci enim eu orci. Ut sed urna quis augue gravida tempus. Fusce sed orci et lacus congue gravida. Integer leo arcu, mattis vitae egestas non, fermentum nec justo. Integer in consequat metus. Phasellus tempus, mauris et pharetra tempor, orci eros venenatis orci, in eleifend erat elit ut leo. Maecenas hendrerit eu ipsum at viverra. Mauris auctor sapien eu turpis maximus, eget tincidunt ligula pretium. Nullam at elit ac elit iaculis tincidunt. Nam massa risus, hendrerit ut eros sit amet, aliquam feugiat ante. Donec aliquet nisi a maximus molestie.",
             "job_postings": [],
             "link_education": null,
-            "link_projects": null,
+            "link_challenges": null,
             "link_thesis": null,
             "member_it_st_gallen": true,
             "name": "Julian AG",
             "phone": "+41719876543",
             "profile_step": 4,
-            "project_postings": [],
+            "challenges": [],
             "services": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a scelerisque elit. Praesent accumsan mi id mauris scelerisque, sagittis tristique sem facilisis. Mauris in tempor risus. Integer ornare, leo placerat mollis molestie, urna ipsum volutpat lectus, quis vestibulum lorem sem quis urna. Vestibulum finibus, quam eu laoreet facilisis, lectus dolor vehicula orci, consequat feugiat orci enim eu orci. Ut sed urna quis augue gravida tempus. Fusce sed orci et lacus congue gravida. Integer leo arcu, mattis vitae egestas non, fermentum nec justo. Integer in consequat metus. Phasellus tempus, mauris et pharetra tempor, orci eros venenatis orci, in eleifend erat elit ut leo. Maecenas hendrerit eu ipsum at viverra. Mauris auctor sapien eu turpis maximus, eget tincidunt ligula pretium. Nullam at elit ac elit iaculis tincidunt. Nam massa risus, hendrerit ut eros sit amet, aliquam feugiat ante. Donec aliquet nisi a maximus molestie.",
             "slug": "julian-ag-12",
             "soft_skills": [
@@ -2217,12 +2217,12 @@
             ],
             "mobile": "+41791234567",
             "nickname": "david-shapiro-10",
-            "online_projects": [
-                "http://www.project.lo",
-                "http://www.project2.lo"
+            "online_challenges": [
+                "http://www.challenge.lo",
+                "http://www.challenge2.lo"
             ],
             "profile_step": 7,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 10,
                     "date_created": "2021-06-21 10:02:13",
@@ -2235,12 +2235,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-10-19",
-                    "project_type": 2,
-                    "slug": "projekt-kunstliche-intelligenz-im-alltag-15",
+                    "challenge_from_date": "2021-10-19",
+                    "challenge_type": 2,
+                    "slug": "challenge-kunstliche-intelligenz-im-alltag-15",
                     "state": "draft",
-                    "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge K\u00fcnstliche Intelligenz im Alltag",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "school_name": "FH Winterthur",
@@ -2348,12 +2348,12 @@
             ],
             "mobile": "+41791234567",
             "nickname": "stephen-tynes-11",
-            "online_projects": [
-                "http://www.project.lo",
-                "http://www.project2.lo"
+            "online_challenges": [
+                "http://www.challenge.lo",
+                "http://www.challenge2.lo"
             ],
             "profile_step": 7,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 11,
                     "date_created": "2021-06-21 10:02:13",
@@ -2365,12 +2365,12 @@
                         1,
                         3
                     ],
-                    "project_from_date": "2020-08-18",
-                    "project_type": 3,
-                    "slug": "projekt-ghi-16",
+                    "challenge_from_date": "2020-08-18",
+                    "challenge_type": 3,
+                    "slug": "challenge-ghi-16",
                     "state": "draft",
-                    "title": "Projekt GHI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge GHI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 11,
@@ -2383,12 +2383,12 @@
                         1,
                         2
                     ],
-                    "project_from_date": "2020-07-24",
-                    "project_type": 2,
-                    "slug": "projekt-ki-17",
+                    "challenge_from_date": "2020-07-24",
+                    "challenge_type": 2,
+                    "slug": "challenge-ki-17",
                     "state": "draft",
-                    "title": "Projekt KI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge KI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 11,
@@ -2402,12 +2402,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-11-05",
-                    "project_type": 3,
-                    "slug": "projekt-def-18",
+                    "challenge_from_date": "2020-11-05",
+                    "challenge_type": 3,
+                    "slug": "challenge-def-18",
                     "state": "draft",
-                    "title": "Projekt DEF",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge DEF",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 11,
@@ -2420,12 +2420,12 @@
                         1,
                         3
                     ],
-                    "project_from_date": "2021-10-25",
-                    "project_type": 2,
-                    "slug": "projekt-ghi-19",
+                    "challenge_from_date": "2021-10-25",
+                    "challenge_type": 2,
+                    "slug": "challenge-ghi-19",
                     "state": "draft",
-                    "title": "Projekt GHI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge GHI",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "school_name": "FH Winterthur",
@@ -2539,12 +2539,12 @@
             ],
             "mobile": "+41791234567",
             "nickname": "keitha-patton-12",
-            "online_projects": [
-                "http://www.project.lo",
-                "http://www.project2.lo"
+            "online_challenges": [
+                "http://www.challenge.lo",
+                "http://www.challenge2.lo"
             ],
             "profile_step": 7,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 12,
                     "date_created": "2021-06-21 10:02:15",
@@ -2556,12 +2556,12 @@
                         1,
                         3
                     ],
-                    "project_from_date": "2020-12-31",
-                    "project_type": 3,
-                    "slug": "projekt-ki-20",
+                    "challenge_from_date": "2020-12-31",
+                    "challenge_type": 3,
+                    "slug": "challenge-ki-20",
                     "state": "public",
-                    "title": "Projekt KI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge KI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 12,
@@ -2575,12 +2575,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-08-21",
-                    "project_type": 3,
-                    "slug": "projekt-ki-21",
+                    "challenge_from_date": "2020-08-21",
+                    "challenge_type": 3,
+                    "slug": "challenge-ki-21",
                     "state": "public",
-                    "title": "Projekt KI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge KI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 12,
@@ -2594,12 +2594,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-09-10",
-                    "project_type": 3,
-                    "slug": "projekt-ghi-22",
+                    "challenge_from_date": "2021-09-10",
+                    "challenge_type": 3,
+                    "slug": "challenge-ghi-22",
                     "state": "public",
-                    "title": "Projekt GHI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge GHI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 12,
@@ -2613,12 +2613,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-01-20",
-                    "project_type": 2,
-                    "slug": "projekt-mno-23",
+                    "challenge_from_date": "2021-01-20",
+                    "challenge_type": 2,
+                    "slug": "challenge-mno-23",
                     "state": "draft",
-                    "title": "Projekt MNO",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge MNO",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 12,
@@ -2632,12 +2632,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-01-31",
-                    "project_type": 2,
-                    "slug": "projekt-abc-24",
+                    "challenge_from_date": "2021-01-31",
+                    "challenge_type": 2,
+                    "slug": "challenge-abc-24",
                     "state": "draft",
-                    "title": "Projekt ABC",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge ABC",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "school_name": "FH Winterthur",
@@ -2746,12 +2746,12 @@
             ],
             "mobile": "+41791234567",
             "nickname": "brenda-mosby-13",
-            "online_projects": [
-                "http://www.project.lo",
-                "http://www.project2.lo"
+            "online_challenges": [
+                "http://www.challenge.lo",
+                "http://www.challenge2.lo"
             ],
             "profile_step": 7,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 13,
                     "date_created": "2021-06-21 10:02:17",
@@ -2763,12 +2763,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-12-16",
-                    "project_type": 1,
-                    "slug": "projekt-mno-25",
+                    "challenge_from_date": "2020-12-16",
+                    "challenge_type": 1,
+                    "slug": "challenge-mno-25",
                     "state": "public",
-                    "title": "Projekt MNO",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge MNO",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 13,
@@ -2782,12 +2782,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-01-03",
-                    "project_type": 1,
-                    "slug": "projekt-def-26",
+                    "challenge_from_date": "2021-01-03",
+                    "challenge_type": 1,
+                    "slug": "challenge-def-26",
                     "state": "public",
-                    "title": "Projekt DEF",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge DEF",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 13,
@@ -2800,12 +2800,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-03-22",
-                    "project_type": 1,
-                    "slug": "projekt-ai-27",
+                    "challenge_from_date": "2021-03-22",
+                    "challenge_type": 1,
+                    "slug": "challenge-ai-27",
                     "state": "draft",
-                    "title": "Projekt AI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge AI",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "school_name": "FH Winterthur",
@@ -2898,12 +2898,12 @@
             ],
             "mobile": "+41791234567",
             "nickname": "lenard-meigs-14",
-            "online_projects": [
-                "http://www.project.lo",
-                "http://www.project2.lo"
+            "online_challenges": [
+                "http://www.challenge.lo",
+                "http://www.challenge2.lo"
             ],
             "profile_step": 7,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 14,
                     "date_created": "2021-06-21 10:02:18",
@@ -2916,12 +2916,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-11-30",
-                    "project_type": 1,
-                    "slug": "projekt-jkl-28",
+                    "challenge_from_date": "2020-11-30",
+                    "challenge_type": 1,
+                    "slug": "challenge-jkl-28",
                     "state": "public",
-                    "title": "Projekt JKL",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge JKL",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 14,
@@ -2934,12 +2934,12 @@
                         1,
                         3
                     ],
-                    "project_from_date": "2020-05-30",
-                    "project_type": 2,
-                    "slug": "projekt-jkl-29",
+                    "challenge_from_date": "2020-05-30",
+                    "challenge_type": 2,
+                    "slug": "challenge-jkl-29",
                     "state": "public",
-                    "title": "Projekt JKL",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge JKL",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 14,
@@ -2952,12 +2952,12 @@
                         1,
                         3
                     ],
-                    "project_from_date": "2021-03-28",
-                    "project_type": 3,
-                    "slug": "projekt-abc-30",
+                    "challenge_from_date": "2021-03-28",
+                    "challenge_type": 3,
+                    "slug": "challenge-abc-30",
                     "state": "draft",
-                    "title": "Projekt ABC",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge ABC",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 14,
@@ -2970,12 +2970,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-02-28",
-                    "project_type": 3,
-                    "slug": "projekt-jkl-31",
+                    "challenge_from_date": "2021-02-28",
+                    "challenge_type": 3,
+                    "slug": "challenge-jkl-31",
                     "state": "public",
-                    "title": "Projekt JKL",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge JKL",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "school_name": "FH Winterthur",
@@ -3068,12 +3068,12 @@
             ],
             "mobile": "+41791234567",
             "nickname": "keith-burton-15",
-            "online_projects": [
-                "http://www.project.lo",
-                "http://www.project2.lo"
+            "online_challenges": [
+                "http://www.challenge.lo",
+                "http://www.challenge2.lo"
             ],
             "profile_step": 7,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 15,
                     "date_created": "2021-06-21 10:02:20",
@@ -3086,12 +3086,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-02-20",
-                    "project_type": 3,
-                    "slug": "projekt-mno-32",
+                    "challenge_from_date": "2021-02-20",
+                    "challenge_type": 3,
+                    "slug": "challenge-mno-32",
                     "state": "draft",
-                    "title": "Projekt MNO",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge MNO",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 15,
@@ -3104,12 +3104,12 @@
                         1,
                         3
                     ],
-                    "project_from_date": "2021-08-24",
-                    "project_type": 3,
-                    "slug": "projekt-def-33",
+                    "challenge_from_date": "2021-08-24",
+                    "challenge_type": 3,
+                    "slug": "challenge-def-33",
                     "state": "draft",
-                    "title": "Projekt DEF",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge DEF",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "school_name": "FH Winterthur",
@@ -3202,12 +3202,12 @@
             ],
             "mobile": "+41791234567",
             "nickname": "miguelina-padilla-16",
-            "online_projects": [
-                "http://www.project.lo",
-                "http://www.project2.lo"
+            "online_challenges": [
+                "http://www.challenge.lo",
+                "http://www.challenge2.lo"
             ],
             "profile_step": 7,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 16,
                     "date_created": "2021-06-21 10:02:21",
@@ -3220,12 +3220,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-03-01",
-                    "project_type": 3,
-                    "slug": "projekt-ai-34",
+                    "challenge_from_date": "2021-03-01",
+                    "challenge_type": 3,
+                    "slug": "challenge-ai-34",
                     "state": "draft",
-                    "title": "Projekt AI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge AI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 16,
@@ -3238,12 +3238,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-06-17",
-                    "project_type": 2,
-                    "slug": "projekt-ghi-35",
+                    "challenge_from_date": "2020-06-17",
+                    "challenge_type": 2,
+                    "slug": "challenge-ghi-35",
                     "state": "draft",
-                    "title": "Projekt GHI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge GHI",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "school_name": "FH Winterthur",
@@ -3336,12 +3336,12 @@
             ],
             "mobile": "+41791234567",
             "nickname": "corey-hoffman-17",
-            "online_projects": [
-                "http://www.project.lo",
-                "http://www.project2.lo"
+            "online_challenges": [
+                "http://www.challenge.lo",
+                "http://www.challenge2.lo"
             ],
             "profile_step": 7,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 17,
                     "date_created": "2021-06-21 10:02:22",
@@ -3354,12 +3354,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-12-09",
-                    "project_type": 3,
-                    "slug": "projekt-ki-36",
+                    "challenge_from_date": "2021-12-09",
+                    "challenge_type": 3,
+                    "slug": "challenge-ki-36",
                     "state": "draft",
-                    "title": "Projekt KI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge KI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 17,
@@ -3373,12 +3373,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-07-15",
-                    "project_type": 3,
-                    "slug": "projekt-jkl-37",
+                    "challenge_from_date": "2020-07-15",
+                    "challenge_type": 3,
+                    "slug": "challenge-jkl-37",
                     "state": "public",
-                    "title": "Projekt JKL",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge JKL",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 17,
@@ -3392,12 +3392,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-07-15",
-                    "project_type": 2,
-                    "slug": "projekt-ghi-38",
+                    "challenge_from_date": "2020-07-15",
+                    "challenge_type": 2,
+                    "slug": "challenge-ghi-38",
                     "state": "draft",
-                    "title": "Projekt GHI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge GHI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 17,
@@ -3410,12 +3410,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-04-20",
-                    "project_type": 3,
-                    "slug": "projekt-jkl-39",
+                    "challenge_from_date": "2020-04-20",
+                    "challenge_type": 3,
+                    "slug": "challenge-jkl-39",
                     "state": "public",
-                    "title": "Projekt JKL",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge JKL",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 17,
@@ -3429,12 +3429,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-04-04",
-                    "project_type": 2,
-                    "slug": "projekt-kunstliche-intelligenz-im-alltag-40",
+                    "challenge_from_date": "2021-04-04",
+                    "challenge_type": 2,
+                    "slug": "challenge-kunstliche-intelligenz-im-alltag-40",
                     "state": "public",
-                    "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge K\u00fcnstliche Intelligenz im Alltag",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "school_name": "FH Winterthur",
@@ -3533,12 +3533,12 @@
             ],
             "mobile": "+41791234567",
             "nickname": "mary-bender-18",
-            "online_projects": [
-                "http://www.project.lo",
-                "http://www.project2.lo"
+            "online_challenges": [
+                "http://www.challenge.lo",
+                "http://www.challenge2.lo"
             ],
             "profile_step": 7,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 18,
                     "date_created": "2021-06-21 10:02:24",
@@ -3550,12 +3550,12 @@
                         1,
                         2
                     ],
-                    "project_from_date": "2020-03-15",
-                    "project_type": 1,
-                    "slug": "projekt-ghi-41",
+                    "challenge_from_date": "2020-03-15",
+                    "challenge_type": 1,
+                    "slug": "challenge-ghi-41",
                     "state": "draft",
-                    "title": "Projekt GHI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge GHI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 18,
@@ -3568,12 +3568,12 @@
                         1,
                         3
                     ],
-                    "project_from_date": "2021-10-01",
-                    "project_type": 1,
-                    "slug": "projekt-def-42",
+                    "challenge_from_date": "2021-10-01",
+                    "challenge_type": 1,
+                    "slug": "challenge-def-42",
                     "state": "draft",
-                    "title": "Projekt DEF",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge DEF",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 18,
@@ -3586,12 +3586,12 @@
                         1,
                         2
                     ],
-                    "project_from_date": "2021-11-11",
-                    "project_type": 1,
-                    "slug": "projekt-mno-43",
+                    "challenge_from_date": "2021-11-11",
+                    "challenge_type": 1,
+                    "slug": "challenge-mno-43",
                     "state": "public",
-                    "title": "Projekt MNO",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge MNO",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 18,
@@ -3605,12 +3605,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-11-13",
-                    "project_type": 2,
-                    "slug": "projekt-mno-44",
+                    "challenge_from_date": "2020-11-13",
+                    "challenge_type": 2,
+                    "slug": "challenge-mno-44",
                     "state": "public",
-                    "title": "Projekt MNO",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge MNO",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "school_name": "FH Winterthur",
@@ -3703,12 +3703,12 @@
             ],
             "mobile": "+41791234567",
             "nickname": "lee-sigler-19",
-            "online_projects": [
-                "http://www.project.lo",
-                "http://www.project2.lo"
+            "online_challenges": [
+                "http://www.challenge.lo",
+                "http://www.challenge2.lo"
             ],
             "profile_step": 7,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 19,
                     "date_created": "2021-06-21 10:02:25",
@@ -3721,12 +3721,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-02-18",
-                    "project_type": 1,
-                    "slug": "projekt-ghi-45",
+                    "challenge_from_date": "2021-02-18",
+                    "challenge_type": 1,
+                    "slug": "challenge-ghi-45",
                     "state": "public",
-                    "title": "Projekt GHI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge GHI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 19,
@@ -3740,12 +3740,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-07-10",
-                    "project_type": 3,
-                    "slug": "projekt-ghi-46",
+                    "challenge_from_date": "2020-07-10",
+                    "challenge_type": 3,
+                    "slug": "challenge-ghi-46",
                     "state": "draft",
-                    "title": "Projekt GHI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge GHI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 19,
@@ -3758,12 +3758,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-06-16",
-                    "project_type": 3,
-                    "slug": "projekt-jkl-47",
+                    "challenge_from_date": "2021-06-16",
+                    "challenge_type": 3,
+                    "slug": "challenge-jkl-47",
                     "state": "draft",
-                    "title": "Projekt JKL",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge JKL",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "school_name": "FH Winterthur",
@@ -3862,12 +3862,12 @@
             ],
             "mobile": "+41791234567",
             "nickname": "nathaniel-olivarez-20",
-            "online_projects": [
-                "http://www.project.lo",
-                "http://www.project2.lo"
+            "online_challenges": [
+                "http://www.challenge.lo",
+                "http://www.challenge2.lo"
             ],
             "profile_step": 7,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 20,
                     "date_created": "2021-06-21 10:02:26",
@@ -3880,12 +3880,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-10-14",
-                    "project_type": 3,
-                    "slug": "projekt-kunstliche-intelligenz-im-alltag-48",
+                    "challenge_from_date": "2020-10-14",
+                    "challenge_type": 3,
+                    "slug": "challenge-kunstliche-intelligenz-im-alltag-48",
                     "state": "public",
-                    "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge K\u00fcnstliche Intelligenz im Alltag",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 20,
@@ -3899,12 +3899,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-01-29",
-                    "project_type": 1,
-                    "slug": "projekt-ghi-49",
+                    "challenge_from_date": "2021-01-29",
+                    "challenge_type": 1,
+                    "slug": "challenge-ghi-49",
                     "state": "draft",
-                    "title": "Projekt GHI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge GHI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 20,
@@ -3917,12 +3917,12 @@
                         1,
                         3
                     ],
-                    "project_from_date": "2021-09-19",
-                    "project_type": 3,
-                    "slug": "projekt-ki-50",
+                    "challenge_from_date": "2021-09-19",
+                    "challenge_type": 3,
+                    "slug": "challenge-ki-50",
                     "state": "draft",
-                    "title": "Projekt KI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge KI",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "school_name": "FH Winterthur",
@@ -4015,12 +4015,12 @@
             ],
             "mobile": "+41791234567",
             "nickname": "anne-sullivan-21",
-            "online_projects": [
-                "http://www.project.lo",
-                "http://www.project2.lo"
+            "online_challenges": [
+                "http://www.challenge.lo",
+                "http://www.challenge2.lo"
             ],
             "profile_step": 7,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 21,
                     "date_created": "2021-06-21 10:02:28",
@@ -4032,12 +4032,12 @@
                         1,
                         2
                     ],
-                    "project_from_date": "2020-05-19",
-                    "project_type": 3,
-                    "slug": "projekt-ai-51",
+                    "challenge_from_date": "2020-05-19",
+                    "challenge_type": 3,
+                    "slug": "challenge-ai-51",
                     "state": "draft",
-                    "title": "Projekt AI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge AI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 21,
@@ -4051,12 +4051,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-12-18",
-                    "project_type": 2,
-                    "slug": "projekt-ai-52",
+                    "challenge_from_date": "2020-12-18",
+                    "challenge_type": 2,
+                    "slug": "challenge-ai-52",
                     "state": "draft",
-                    "title": "Projekt AI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge AI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 21,
@@ -4069,12 +4069,12 @@
                         1,
                         2
                     ],
-                    "project_from_date": "2021-05-15",
-                    "project_type": 3,
-                    "slug": "projekt-abc-53",
+                    "challenge_from_date": "2021-05-15",
+                    "challenge_type": 3,
+                    "slug": "challenge-abc-53",
                     "state": "public",
-                    "title": "Projekt ABC",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge ABC",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 21,
@@ -4088,12 +4088,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-10-22",
-                    "project_type": 2,
-                    "slug": "projekt-def-54",
+                    "challenge_from_date": "2020-10-22",
+                    "challenge_type": 2,
+                    "slug": "challenge-def-54",
                     "state": "public",
-                    "title": "Projekt DEF",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge DEF",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "school_name": "FH Winterthur",
@@ -4186,12 +4186,12 @@
             ],
             "mobile": "+41791234567",
             "nickname": "homer-floyd-22",
-            "online_projects": [
-                "http://www.project.lo",
-                "http://www.project2.lo"
+            "online_challenges": [
+                "http://www.challenge.lo",
+                "http://www.challenge2.lo"
             ],
             "profile_step": 7,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 22,
                     "date_created": "2021-06-21 10:02:29",
@@ -4204,12 +4204,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-06-10",
-                    "project_type": 2,
-                    "slug": "projekt-jkl-55",
+                    "challenge_from_date": "2021-06-10",
+                    "challenge_type": 2,
+                    "slug": "challenge-jkl-55",
                     "state": "draft",
-                    "title": "Projekt JKL",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge JKL",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 22,
@@ -4222,12 +4222,12 @@
                         1,
                         3
                     ],
-                    "project_from_date": "2020-01-09",
-                    "project_type": 3,
-                    "slug": "projekt-jkl-56",
+                    "challenge_from_date": "2020-01-09",
+                    "challenge_type": 3,
+                    "slug": "challenge-jkl-56",
                     "state": "public",
-                    "title": "Projekt JKL",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge JKL",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 22,
@@ -4240,12 +4240,12 @@
                         1,
                         2
                     ],
-                    "project_from_date": "2020-07-02",
-                    "project_type": 3,
-                    "slug": "projekt-ki-57",
+                    "challenge_from_date": "2020-07-02",
+                    "challenge_type": 3,
+                    "slug": "challenge-ki-57",
                     "state": "public",
-                    "title": "Projekt KI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge KI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 22,
@@ -4258,12 +4258,12 @@
                         1,
                         3
                     ],
-                    "project_from_date": "2021-09-13",
-                    "project_type": 2,
-                    "slug": "projekt-ghi-58",
+                    "challenge_from_date": "2021-09-13",
+                    "challenge_type": 2,
+                    "slug": "challenge-ghi-58",
                     "state": "public",
-                    "title": "Projekt GHI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge GHI",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "school_name": "FH Winterthur",
@@ -4356,12 +4356,12 @@
             ],
             "mobile": "+41791234567",
             "nickname": "gerald-ridley-23",
-            "online_projects": [
-                "http://www.project.lo",
-                "http://www.project2.lo"
+            "online_challenges": [
+                "http://www.challenge.lo",
+                "http://www.challenge2.lo"
             ],
             "profile_step": 7,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 23,
                     "date_created": "2021-06-21 10:02:31",
@@ -4373,12 +4373,12 @@
                         1,
                         2
                     ],
-                    "project_from_date": "2021-02-21",
-                    "project_type": 3,
-                    "slug": "projekt-kunstliche-intelligenz-im-alltag-59",
+                    "challenge_from_date": "2021-02-21",
+                    "challenge_type": 3,
+                    "slug": "challenge-kunstliche-intelligenz-im-alltag-59",
                     "state": "public",
-                    "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge K\u00fcnstliche Intelligenz im Alltag",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 23,
@@ -4391,12 +4391,12 @@
                         1,
                         2
                     ],
-                    "project_from_date": "2021-12-14",
-                    "project_type": 2,
-                    "slug": "projekt-kunstliche-intelligenz-im-alltag-60",
+                    "challenge_from_date": "2021-12-14",
+                    "challenge_type": 2,
+                    "slug": "challenge-kunstliche-intelligenz-im-alltag-60",
                     "state": "draft",
-                    "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge K\u00fcnstliche Intelligenz im Alltag",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 23,
@@ -4409,12 +4409,12 @@
                         1,
                         3
                     ],
-                    "project_from_date": "2020-12-12",
-                    "project_type": 3,
-                    "slug": "projekt-def-61",
+                    "challenge_from_date": "2020-12-12",
+                    "challenge_type": 3,
+                    "slug": "challenge-def-61",
                     "state": "draft",
-                    "title": "Projekt DEF",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge DEF",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "school_name": "FH Winterthur",
@@ -4507,12 +4507,12 @@
             ],
             "mobile": "+41791234567",
             "nickname": "mary-dorsey-24",
-            "online_projects": [
-                "http://www.project.lo",
-                "http://www.project2.lo"
+            "online_challenges": [
+                "http://www.challenge.lo",
+                "http://www.challenge2.lo"
             ],
             "profile_step": 7,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 24,
                     "date_created": "2021-06-21 10:02:32",
@@ -4525,12 +4525,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-02-23",
-                    "project_type": 2,
-                    "slug": "projekt-abc-62",
+                    "challenge_from_date": "2021-02-23",
+                    "challenge_type": 2,
+                    "slug": "challenge-abc-62",
                     "state": "public",
-                    "title": "Projekt ABC",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge ABC",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 24,
@@ -4544,12 +4544,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-10-22",
-                    "project_type": 3,
-                    "slug": "projekt-ki-63",
+                    "challenge_from_date": "2020-10-22",
+                    "challenge_type": 3,
+                    "slug": "challenge-ki-63",
                     "state": "draft",
-                    "title": "Projekt KI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge KI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 24,
@@ -4563,12 +4563,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-02-20",
-                    "project_type": 2,
-                    "slug": "projekt-mno-64",
+                    "challenge_from_date": "2020-02-20",
+                    "challenge_type": 2,
+                    "slug": "challenge-mno-64",
                     "state": "public",
-                    "title": "Projekt MNO",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge MNO",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 24,
@@ -4581,12 +4581,12 @@
                         1,
                         3
                     ],
-                    "project_from_date": "2020-12-24",
-                    "project_type": 2,
-                    "slug": "projekt-kunstliche-intelligenz-im-alltag-65",
+                    "challenge_from_date": "2020-12-24",
+                    "challenge_type": 2,
+                    "slug": "challenge-kunstliche-intelligenz-im-alltag-65",
                     "state": "public",
-                    "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge K\u00fcnstliche Intelligenz im Alltag",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 24,
@@ -4600,12 +4600,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-05-30",
-                    "project_type": 2,
-                    "slug": "projekt-kunstliche-intelligenz-im-alltag-66",
+                    "challenge_from_date": "2020-05-30",
+                    "challenge_type": 2,
+                    "slug": "challenge-kunstliche-intelligenz-im-alltag-66",
                     "state": "public",
-                    "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge K\u00fcnstliche Intelligenz im Alltag",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "school_name": "FH Winterthur",
@@ -4704,12 +4704,12 @@
             ],
             "mobile": "+41791234567",
             "nickname": "richard-coleman-25",
-            "online_projects": [
-                "http://www.project.lo",
-                "http://www.project2.lo"
+            "online_challenges": [
+                "http://www.challenge.lo",
+                "http://www.challenge2.lo"
             ],
             "profile_step": 7,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 25,
                     "date_created": "2021-06-21 10:02:33",
@@ -4722,12 +4722,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-08-30",
-                    "project_type": 3,
-                    "slug": "projekt-mno-67",
+                    "challenge_from_date": "2021-08-30",
+                    "challenge_type": 3,
+                    "slug": "challenge-mno-67",
                     "state": "public",
-                    "title": "Projekt MNO",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge MNO",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 25,
@@ -4740,12 +4740,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-10-12",
-                    "project_type": 1,
-                    "slug": "projekt-ki-68",
+                    "challenge_from_date": "2021-10-12",
+                    "challenge_type": 1,
+                    "slug": "challenge-ki-68",
                     "state": "public",
-                    "title": "Projekt KI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge KI",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "school_name": "FH Winterthur",
@@ -4844,12 +4844,12 @@
             ],
             "mobile": "+41791234567",
             "nickname": "anne-ramsey-26",
-            "online_projects": [
-                "http://www.project.lo",
-                "http://www.project2.lo"
+            "online_challenges": [
+                "http://www.challenge.lo",
+                "http://www.challenge2.lo"
             ],
             "profile_step": 7,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 26,
                     "date_created": "2021-06-21 10:02:35",
@@ -4862,12 +4862,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-03-19",
-                    "project_type": 3,
-                    "slug": "projekt-jkl-69",
+                    "challenge_from_date": "2021-03-19",
+                    "challenge_type": 3,
+                    "slug": "challenge-jkl-69",
                     "state": "public",
-                    "title": "Projekt JKL",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge JKL",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 26,
@@ -4880,12 +4880,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-07-21",
-                    "project_type": 3,
-                    "slug": "projekt-ki-70",
+                    "challenge_from_date": "2021-07-21",
+                    "challenge_type": 3,
+                    "slug": "challenge-ki-70",
                     "state": "draft",
-                    "title": "Projekt KI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge KI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 26,
@@ -4899,12 +4899,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-01-05",
-                    "project_type": 3,
-                    "slug": "projekt-ai-71",
+                    "challenge_from_date": "2020-01-05",
+                    "challenge_type": 3,
+                    "slug": "challenge-ai-71",
                     "state": "public",
-                    "title": "Projekt AI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge AI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 26,
@@ -4918,12 +4918,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-11-22",
-                    "project_type": 1,
-                    "slug": "projekt-mno-72",
+                    "challenge_from_date": "2021-11-22",
+                    "challenge_type": 1,
+                    "slug": "challenge-mno-72",
                     "state": "public",
-                    "title": "Projekt MNO",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge MNO",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "school_name": "FH Winterthur",
@@ -5022,12 +5022,12 @@
             ],
             "mobile": "+41791234567",
             "nickname": "melissa-hem-27",
-            "online_projects": [
-                "http://www.project.lo",
-                "http://www.project2.lo"
+            "online_challenges": [
+                "http://www.challenge.lo",
+                "http://www.challenge2.lo"
             ],
             "profile_step": 7,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 27,
                     "date_created": "2021-06-21 10:02:36",
@@ -5039,12 +5039,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-03-28",
-                    "project_type": 3,
-                    "slug": "projekt-def-73",
+                    "challenge_from_date": "2020-03-28",
+                    "challenge_type": 3,
+                    "slug": "challenge-def-73",
                     "state": "draft",
-                    "title": "Projekt DEF",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge DEF",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 27,
@@ -5058,12 +5058,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-09-28",
-                    "project_type": 2,
-                    "slug": "projekt-ai-74",
+                    "challenge_from_date": "2020-09-28",
+                    "challenge_type": 2,
+                    "slug": "challenge-ai-74",
                     "state": "draft",
-                    "title": "Projekt AI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge AI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 27,
@@ -5076,12 +5076,12 @@
                         1,
                         2
                     ],
-                    "project_from_date": "2021-06-11",
-                    "project_type": 1,
-                    "slug": "projekt-jkl-75",
+                    "challenge_from_date": "2021-06-11",
+                    "challenge_type": 1,
+                    "slug": "challenge-jkl-75",
                     "state": "draft",
-                    "title": "Projekt JKL",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge JKL",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 27,
@@ -5095,12 +5095,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-11-21",
-                    "project_type": 2,
-                    "slug": "projekt-abc-76",
+                    "challenge_from_date": "2021-11-21",
+                    "challenge_type": 2,
+                    "slug": "challenge-abc-76",
                     "state": "draft",
-                    "title": "Projekt ABC",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge ABC",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "school_name": "FH Winterthur",
@@ -5192,12 +5192,12 @@
             ],
             "mobile": "+41791234567",
             "nickname": "christine-harding-28",
-            "online_projects": [
-                "http://www.project.lo",
-                "http://www.project2.lo"
+            "online_challenges": [
+                "http://www.challenge.lo",
+                "http://www.challenge2.lo"
             ],
             "profile_step": 7,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 28,
                     "date_created": "2021-06-21 10:02:38",
@@ -5210,12 +5210,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-10-08",
-                    "project_type": 2,
-                    "slug": "projekt-ai-77",
+                    "challenge_from_date": "2021-10-08",
+                    "challenge_type": 2,
+                    "slug": "challenge-ai-77",
                     "state": "public",
-                    "title": "Projekt AI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge AI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 28,
@@ -5229,12 +5229,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-01-24",
-                    "project_type": 3,
-                    "slug": "projekt-jkl-78",
+                    "challenge_from_date": "2020-01-24",
+                    "challenge_type": 3,
+                    "slug": "challenge-jkl-78",
                     "state": "public",
-                    "title": "Projekt JKL",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge JKL",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 28,
@@ -5247,12 +5247,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-09-16",
-                    "project_type": 3,
-                    "slug": "projekt-ghi-79",
+                    "challenge_from_date": "2020-09-16",
+                    "challenge_type": 3,
+                    "slug": "challenge-ghi-79",
                     "state": "public",
-                    "title": "Projekt GHI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge GHI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 28,
@@ -5265,12 +5265,12 @@
                         1,
                         2
                     ],
-                    "project_from_date": "2021-01-29",
-                    "project_type": 2,
-                    "slug": "projekt-kunstliche-intelligenz-im-alltag-80",
+                    "challenge_from_date": "2021-01-29",
+                    "challenge_type": 2,
+                    "slug": "challenge-kunstliche-intelligenz-im-alltag-80",
                     "state": "public",
-                    "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge K\u00fcnstliche Intelligenz im Alltag",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 28,
@@ -5284,12 +5284,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-08-02",
-                    "project_type": 1,
-                    "slug": "projekt-ki-81",
+                    "challenge_from_date": "2020-08-02",
+                    "challenge_type": 1,
+                    "slug": "challenge-ki-81",
                     "state": "public",
-                    "title": "Projekt KI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge KI",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "school_name": "FH Winterthur",
@@ -5380,12 +5380,12 @@
             ],
             "mobile": "+41791234567",
             "nickname": "lillian-lalk-29",
-            "online_projects": [
-                "http://www.project.lo",
-                "http://www.project2.lo"
+            "online_challenges": [
+                "http://www.challenge.lo",
+                "http://www.challenge2.lo"
             ],
             "profile_step": 7,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 29,
                     "date_created": "2021-06-21 10:02:39",
@@ -5398,12 +5398,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-01-30",
-                    "project_type": 2,
-                    "slug": "projekt-jkl-82",
+                    "challenge_from_date": "2021-01-30",
+                    "challenge_type": 2,
+                    "slug": "challenge-jkl-82",
                     "state": "draft",
-                    "title": "Projekt JKL",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge JKL",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "school_name": "FH Winterthur",
@@ -5639,13 +5639,13 @@
                 }
             ],
             "link_education": null,
-            "link_projects": null,
+            "link_challenges": null,
             "link_thesis": null,
             "member_it_st_gallen": true,
             "name": "Bloomfield AG",
             "phone": "+41712345678",
             "profile_step": 5,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 13,
                     "date_created": "2021-06-21 10:02:41",
@@ -5657,12 +5657,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-03-02",
-                    "project_type": 2,
-                    "slug": "projekt-abc-83",
+                    "challenge_from_date": "2021-03-02",
+                    "challenge_type": 2,
+                    "slug": "challenge-abc-83",
                     "state": "public",
-                    "title": "Projekt ABC",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge ABC",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
@@ -5958,13 +5958,13 @@
                 }
             ],
             "link_education": null,
-            "link_projects": null,
+            "link_challenges": null,
             "link_thesis": null,
             "member_it_st_gallen": true,
             "name": "Miller AG",
             "phone": "+41712345678",
             "profile_step": 5,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 14,
                     "date_created": "2021-06-21 10:02:42",
@@ -5976,12 +5976,12 @@
                         1,
                         3
                     ],
-                    "project_from_date": "2020-11-24",
-                    "project_type": 3,
-                    "slug": "projekt-mno-84",
+                    "challenge_from_date": "2020-11-24",
+                    "challenge_type": 3,
+                    "slug": "challenge-mno-84",
                     "state": "public",
-                    "title": "Projekt MNO",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge MNO",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 14,
@@ -5995,12 +5995,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-10-26",
-                    "project_type": 1,
-                    "slug": "projekt-ki-85",
+                    "challenge_from_date": "2020-10-26",
+                    "challenge_type": 1,
+                    "slug": "challenge-ki-85",
                     "state": "draft",
-                    "title": "Projekt KI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge KI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 14,
@@ -6013,12 +6013,12 @@
                         1,
                         2
                     ],
-                    "project_from_date": "2020-06-10",
-                    "project_type": 3,
-                    "slug": "projekt-abc-86",
+                    "challenge_from_date": "2020-06-10",
+                    "challenge_type": 3,
+                    "slug": "challenge-abc-86",
                     "state": "public",
-                    "title": "Projekt ABC",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge ABC",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
@@ -6197,13 +6197,13 @@
                 }
             ],
             "link_education": null,
-            "link_projects": null,
+            "link_challenges": null,
             "link_thesis": null,
             "member_it_st_gallen": true,
             "name": "Politi AG",
             "phone": "+41712345678",
             "profile_step": 5,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 15,
                     "date_created": "2021-06-21 10:02:44",
@@ -6216,12 +6216,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-02-29",
-                    "project_type": 1,
-                    "slug": "projekt-ghi-87",
+                    "challenge_from_date": "2020-02-29",
+                    "challenge_type": 1,
+                    "slug": "challenge-ghi-87",
                     "state": "draft",
-                    "title": "Projekt GHI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge GHI",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
@@ -6417,13 +6417,13 @@
                 }
             ],
             "link_education": null,
-            "link_projects": null,
+            "link_challenges": null,
             "link_thesis": null,
             "member_it_st_gallen": true,
             "name": "Gismondi AG",
             "phone": "+41712345678",
             "profile_step": 5,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 16,
                     "date_created": "2021-06-21 10:02:46",
@@ -6435,12 +6435,12 @@
                         1,
                         2
                     ],
-                    "project_from_date": "2020-06-23",
-                    "project_type": 2,
-                    "slug": "projekt-abc-88",
+                    "challenge_from_date": "2020-06-23",
+                    "challenge_type": 2,
+                    "slug": "challenge-abc-88",
                     "state": "public",
-                    "title": "Projekt ABC",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge ABC",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
@@ -6652,13 +6652,13 @@
                 }
             ],
             "link_education": null,
-            "link_projects": null,
+            "link_challenges": null,
             "link_thesis": null,
             "member_it_st_gallen": true,
             "name": "Ahner AG",
             "phone": "+41712345678",
             "profile_step": 5,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 17,
                     "date_created": "2021-06-21 10:02:47",
@@ -6671,12 +6671,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-12-11",
-                    "project_type": 1,
-                    "slug": "projekt-jkl-89",
+                    "challenge_from_date": "2020-12-11",
+                    "challenge_type": 1,
+                    "slug": "challenge-jkl-89",
                     "state": "public",
-                    "title": "Projekt JKL",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge JKL",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 17,
@@ -6689,12 +6689,12 @@
                         1,
                         3
                     ],
-                    "project_from_date": "2021-03-08",
-                    "project_type": 1,
-                    "slug": "projekt-mno-90",
+                    "challenge_from_date": "2021-03-08",
+                    "challenge_type": 1,
+                    "slug": "challenge-mno-90",
                     "state": "draft",
-                    "title": "Projekt MNO",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge MNO",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
@@ -6911,13 +6911,13 @@
                 }
             ],
             "link_education": null,
-            "link_projects": null,
+            "link_challenges": null,
             "link_thesis": null,
             "member_it_st_gallen": true,
             "name": "Coulter AG",
             "phone": "+41712345678",
             "profile_step": 5,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 18,
                     "date_created": "2021-06-21 10:02:49",
@@ -6929,12 +6929,12 @@
                         1,
                         2
                     ],
-                    "project_from_date": "2020-05-01",
-                    "project_type": 1,
-                    "slug": "projekt-ai-91",
+                    "challenge_from_date": "2020-05-01",
+                    "challenge_type": 1,
+                    "slug": "challenge-ai-91",
                     "state": "public",
-                    "title": "Projekt AI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge AI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 18,
@@ -6948,12 +6948,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-10-20",
-                    "project_type": 1,
-                    "slug": "projekt-abc-92",
+                    "challenge_from_date": "2021-10-20",
+                    "challenge_type": 1,
+                    "slug": "challenge-abc-92",
                     "state": "draft",
-                    "title": "Projekt ABC",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge ABC",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
@@ -7119,13 +7119,13 @@
                 }
             ],
             "link_education": null,
-            "link_projects": null,
+            "link_challenges": null,
             "link_thesis": null,
             "member_it_st_gallen": true,
             "name": "Waterman AG",
             "phone": "+41712345678",
             "profile_step": 5,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 19,
                     "date_created": "2021-06-21 10:02:50",
@@ -7138,12 +7138,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-04-27",
-                    "project_type": 3,
-                    "slug": "projekt-jkl-93",
+                    "challenge_from_date": "2020-04-27",
+                    "challenge_type": 3,
+                    "slug": "challenge-jkl-93",
                     "state": "public",
-                    "title": "Projekt JKL",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge JKL",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 19,
@@ -7156,12 +7156,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-09-12",
-                    "project_type": 1,
-                    "slug": "projekt-kunstliche-intelligenz-im-alltag-94",
+                    "challenge_from_date": "2021-09-12",
+                    "challenge_type": 1,
+                    "slug": "challenge-kunstliche-intelligenz-im-alltag-94",
                     "state": "public",
-                    "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge K\u00fcnstliche Intelligenz im Alltag",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 19,
@@ -7175,12 +7175,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-06-05",
-                    "project_type": 2,
-                    "slug": "projekt-ki-95",
+                    "challenge_from_date": "2021-06-05",
+                    "challenge_type": 2,
+                    "slug": "challenge-ki-95",
                     "state": "draft",
-                    "title": "Projekt KI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge KI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 19,
@@ -7193,12 +7193,12 @@
                         1,
                         2
                     ],
-                    "project_from_date": "2020-02-03",
-                    "project_type": 2,
-                    "slug": "projekt-kunstliche-intelligenz-im-alltag-96",
+                    "challenge_from_date": "2020-02-03",
+                    "challenge_type": 2,
+                    "slug": "challenge-kunstliche-intelligenz-im-alltag-96",
                     "state": "public",
-                    "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge K\u00fcnstliche Intelligenz im Alltag",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 19,
@@ -7212,12 +7212,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-04-12",
-                    "project_type": 3,
-                    "slug": "projekt-ghi-97",
+                    "challenge_from_date": "2021-04-12",
+                    "challenge_type": 3,
+                    "slug": "challenge-ghi-97",
                     "state": "public",
-                    "title": "Projekt GHI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge GHI",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
@@ -7532,13 +7532,13 @@
                 }
             ],
             "link_education": null,
-            "link_projects": null,
+            "link_challenges": null,
             "link_thesis": null,
             "member_it_st_gallen": true,
             "name": "Mckinley AG",
             "phone": "+41712345678",
             "profile_step": 5,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 20,
                     "date_created": "2021-06-21 10:02:53",
@@ -7550,12 +7550,12 @@
                         1,
                         2
                     ],
-                    "project_from_date": "2021-11-08",
-                    "project_type": 1,
-                    "slug": "projekt-kunstliche-intelligenz-im-alltag-98",
+                    "challenge_from_date": "2021-11-08",
+                    "challenge_type": 1,
+                    "slug": "challenge-kunstliche-intelligenz-im-alltag-98",
                     "state": "draft",
-                    "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge K\u00fcnstliche Intelligenz im Alltag",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
@@ -7817,13 +7817,13 @@
                 }
             ],
             "link_education": null,
-            "link_projects": null,
+            "link_challenges": null,
             "link_thesis": null,
             "member_it_st_gallen": true,
             "name": "Gautam AG",
             "phone": "+41712345678",
             "profile_step": 5,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 21,
                     "date_created": "2021-06-21 10:02:55",
@@ -7836,12 +7836,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-07-17",
-                    "project_type": 2,
-                    "slug": "projekt-ki-99",
+                    "challenge_from_date": "2021-07-17",
+                    "challenge_type": 2,
+                    "slug": "challenge-ki-99",
                     "state": "draft",
-                    "title": "Projekt KI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge KI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 21,
@@ -7855,12 +7855,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-10-07",
-                    "project_type": 3,
-                    "slug": "projekt-mno-100",
+                    "challenge_from_date": "2021-10-07",
+                    "challenge_type": 3,
+                    "slug": "challenge-mno-100",
                     "state": "public",
-                    "title": "Projekt MNO",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge MNO",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 21,
@@ -7873,12 +7873,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-07-08",
-                    "project_type": 2,
-                    "slug": "projekt-abc-101",
+                    "challenge_from_date": "2020-07-08",
+                    "challenge_type": 2,
+                    "slug": "challenge-abc-101",
                     "state": "public",
-                    "title": "Projekt ABC",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge ABC",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 21,
@@ -7891,12 +7891,12 @@
                         1,
                         2
                     ],
-                    "project_from_date": "2021-11-24",
-                    "project_type": 3,
-                    "slug": "projekt-kunstliche-intelligenz-im-alltag-102",
+                    "challenge_from_date": "2021-11-24",
+                    "challenge_type": 3,
+                    "slug": "challenge-kunstliche-intelligenz-im-alltag-102",
                     "state": "draft",
-                    "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge K\u00fcnstliche Intelligenz im Alltag",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
@@ -8055,13 +8055,13 @@
                 }
             ],
             "link_education": null,
-            "link_projects": null,
+            "link_challenges": null,
             "link_thesis": null,
             "member_it_st_gallen": true,
             "name": "Farley AG",
             "phone": "+41712345678",
             "profile_step": 5,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 22,
                     "date_created": "2021-06-21 10:02:57",
@@ -8074,12 +8074,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-07-01",
-                    "project_type": 1,
-                    "slug": "projekt-def-103",
+                    "challenge_from_date": "2021-07-01",
+                    "challenge_type": 1,
+                    "slug": "challenge-def-103",
                     "state": "public",
-                    "title": "Projekt DEF",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge DEF",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 22,
@@ -8092,12 +8092,12 @@
                         1,
                         2
                     ],
-                    "project_from_date": "2021-09-05",
-                    "project_type": 3,
-                    "slug": "projekt-ki-104",
+                    "challenge_from_date": "2021-09-05",
+                    "challenge_type": 3,
+                    "slug": "challenge-ki-104",
                     "state": "draft",
-                    "title": "Projekt KI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge KI",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "services": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
@@ -8194,13 +8194,13 @@
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [],
             "link_education": "https://www.edu.lo",
-            "link_projects": "https://www.project.lo",
+            "link_challenges": "https://www.challenge.lo",
             "link_thesis": "https://www.thesis.lo",
             "member_it_st_gallen": false,
             "name": "Dery AG",
             "phone": "+41791234567",
             "profile_step": 5,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 23,
                     "date_created": "2021-06-21 10:02:58",
@@ -8212,12 +8212,12 @@
                         1,
                         2
                     ],
-                    "project_from_date": "2020-02-04",
-                    "project_type": 2,
-                    "slug": "projekt-ai-105",
+                    "challenge_from_date": "2020-02-04",
+                    "challenge_type": 2,
+                    "slug": "challenge-ai-105",
                     "state": "draft",
-                    "title": "Projekt AI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge AI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 23,
@@ -8231,12 +8231,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-10-26",
-                    "project_type": 1,
-                    "slug": "projekt-def-106",
+                    "challenge_from_date": "2021-10-26",
+                    "challenge_type": 1,
+                    "slug": "challenge-def-106",
                     "state": "draft",
-                    "title": "Projekt DEF",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge DEF",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 23,
@@ -8250,12 +8250,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-06-17",
-                    "project_type": 3,
-                    "slug": "projekt-kunstliche-intelligenz-im-alltag-107",
+                    "challenge_from_date": "2020-06-17",
+                    "challenge_type": 3,
+                    "slug": "challenge-kunstliche-intelligenz-im-alltag-107",
                     "state": "public",
-                    "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge K\u00fcnstliche Intelligenz im Alltag",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "services": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
@@ -8358,13 +8358,13 @@
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [],
             "link_education": "https://www.edu.lo",
-            "link_projects": "https://www.project.lo",
+            "link_challenges": "https://www.challenge.lo",
             "link_thesis": "https://www.thesis.lo",
             "member_it_st_gallen": false,
             "name": "Aguirre AG",
             "phone": "+41791234567",
             "profile_step": 5,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 24,
                     "date_created": "2021-06-21 10:02:59",
@@ -8376,12 +8376,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-03-03",
-                    "project_type": 2,
-                    "slug": "projekt-kunstliche-intelligenz-im-alltag-108",
+                    "challenge_from_date": "2020-03-03",
+                    "challenge_type": 2,
+                    "slug": "challenge-kunstliche-intelligenz-im-alltag-108",
                     "state": "public",
-                    "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge K\u00fcnstliche Intelligenz im Alltag",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 24,
@@ -8395,12 +8395,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-05-17",
-                    "project_type": 1,
-                    "slug": "projekt-ai-109",
+                    "challenge_from_date": "2021-05-17",
+                    "challenge_type": 1,
+                    "slug": "challenge-ai-109",
                     "state": "public",
-                    "title": "Projekt AI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge AI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 24,
@@ -8414,12 +8414,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-01-19",
-                    "project_type": 3,
-                    "slug": "projekt-ki-110",
+                    "challenge_from_date": "2021-01-19",
+                    "challenge_type": 3,
+                    "slug": "challenge-ki-110",
                     "state": "public",
-                    "title": "Projekt KI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge KI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 24,
@@ -8432,12 +8432,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-06-13",
-                    "project_type": 3,
-                    "slug": "projekt-def-111",
+                    "challenge_from_date": "2021-06-13",
+                    "challenge_type": 3,
+                    "slug": "challenge-def-111",
                     "state": "public",
-                    "title": "Projekt DEF",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge DEF",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "services": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
@@ -8550,13 +8550,13 @@
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [],
             "link_education": "https://www.edu.lo",
-            "link_projects": "https://www.project.lo",
+            "link_challenges": "https://www.challenge.lo",
             "link_thesis": "https://www.thesis.lo",
             "member_it_st_gallen": false,
             "name": "Henry AG",
             "phone": "+41791234567",
             "profile_step": 5,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 25,
                     "date_created": "2021-06-21 10:03:02",
@@ -8569,12 +8569,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-10-11",
-                    "project_type": 3,
-                    "slug": "projekt-jkl-112",
+                    "challenge_from_date": "2021-10-11",
+                    "challenge_type": 3,
+                    "slug": "challenge-jkl-112",
                     "state": "draft",
-                    "title": "Projekt JKL",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge JKL",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 25,
@@ -8588,12 +8588,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-05-06",
-                    "project_type": 1,
-                    "slug": "projekt-jkl-113",
+                    "challenge_from_date": "2020-05-06",
+                    "challenge_type": 1,
+                    "slug": "challenge-jkl-113",
                     "state": "draft",
-                    "title": "Projekt JKL",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge JKL",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 25,
@@ -8606,12 +8606,12 @@
                         1,
                         3
                     ],
-                    "project_from_date": "2021-07-26",
-                    "project_type": 1,
-                    "slug": "projekt-ghi-114",
+                    "challenge_from_date": "2021-07-26",
+                    "challenge_type": 1,
+                    "slug": "challenge-ghi-114",
                     "state": "draft",
-                    "title": "Projekt GHI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge GHI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 25,
@@ -8625,12 +8625,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-05-02",
-                    "project_type": 1,
-                    "slug": "projekt-mno-115",
+                    "challenge_from_date": "2020-05-02",
+                    "challenge_type": 1,
+                    "slug": "challenge-mno-115",
                     "state": "draft",
-                    "title": "Projekt MNO",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge MNO",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "services": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
@@ -8741,13 +8741,13 @@
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [],
             "link_education": "https://www.edu.lo",
-            "link_projects": "https://www.project.lo",
+            "link_challenges": "https://www.challenge.lo",
             "link_thesis": "https://www.thesis.lo",
             "member_it_st_gallen": false,
             "name": "Farmer AG",
             "phone": "+41791234567",
             "profile_step": 5,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 26,
                     "date_created": "2021-06-21 10:03:03",
@@ -8760,12 +8760,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-07-11",
-                    "project_type": 3,
-                    "slug": "projekt-mno-116",
+                    "challenge_from_date": "2021-07-11",
+                    "challenge_type": 3,
+                    "slug": "challenge-mno-116",
                     "state": "draft",
-                    "title": "Projekt MNO",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge MNO",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 26,
@@ -8779,12 +8779,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-08-01",
-                    "project_type": 2,
-                    "slug": "projekt-ghi-117",
+                    "challenge_from_date": "2020-08-01",
+                    "challenge_type": 2,
+                    "slug": "challenge-ghi-117",
                     "state": "public",
-                    "title": "Projekt GHI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge GHI",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "services": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
@@ -8879,13 +8879,13 @@
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [],
             "link_education": "https://www.edu.lo",
-            "link_projects": "https://www.project.lo",
+            "link_challenges": "https://www.challenge.lo",
             "link_thesis": "https://www.thesis.lo",
             "member_it_st_gallen": false,
             "name": "Perry AG",
             "phone": "+41791234567",
             "profile_step": 5,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 27,
                     "date_created": "2021-06-21 10:03:05",
@@ -8898,12 +8898,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-10-08",
-                    "project_type": 2,
-                    "slug": "projekt-ki-118",
+                    "challenge_from_date": "2020-10-08",
+                    "challenge_type": 2,
+                    "slug": "challenge-ki-118",
                     "state": "draft",
-                    "title": "Projekt KI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge KI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 27,
@@ -8917,12 +8917,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-08-26",
-                    "project_type": 3,
-                    "slug": "projekt-kunstliche-intelligenz-im-alltag-119",
+                    "challenge_from_date": "2021-08-26",
+                    "challenge_type": 3,
+                    "slug": "challenge-kunstliche-intelligenz-im-alltag-119",
                     "state": "public",
-                    "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge K\u00fcnstliche Intelligenz im Alltag",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 27,
@@ -8936,12 +8936,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-07-20",
-                    "project_type": 1,
-                    "slug": "projekt-ki-120",
+                    "challenge_from_date": "2021-07-20",
+                    "challenge_type": 1,
+                    "slug": "challenge-ki-120",
                     "state": "draft",
-                    "title": "Projekt KI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge KI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 27,
@@ -8954,12 +8954,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-06-14",
-                    "project_type": 3,
-                    "slug": "projekt-ki-121",
+                    "challenge_from_date": "2021-06-14",
+                    "challenge_type": 3,
+                    "slug": "challenge-ki-121",
                     "state": "public",
-                    "title": "Projekt KI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge KI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 27,
@@ -8973,12 +8973,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-01-19",
-                    "project_type": 2,
-                    "slug": "projekt-def-122",
+                    "challenge_from_date": "2021-01-19",
+                    "challenge_type": 2,
+                    "slug": "challenge-def-122",
                     "state": "draft",
-                    "title": "Projekt DEF",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge DEF",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "services": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
@@ -9095,13 +9095,13 @@
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [],
             "link_education": "https://www.edu.lo",
-            "link_projects": "https://www.project.lo",
+            "link_challenges": "https://www.challenge.lo",
             "link_thesis": "https://www.thesis.lo",
             "member_it_st_gallen": false,
             "name": "Magee AG",
             "phone": "+41791234567",
             "profile_step": 5,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 28,
                     "date_created": "2021-06-21 10:03:07",
@@ -9113,12 +9113,12 @@
                         1,
                         3
                     ],
-                    "project_from_date": "2021-04-06",
-                    "project_type": 2,
-                    "slug": "projekt-ghi-123",
+                    "challenge_from_date": "2021-04-06",
+                    "challenge_type": 2,
+                    "slug": "challenge-ghi-123",
                     "state": "draft",
-                    "title": "Projekt GHI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge GHI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 28,
@@ -9131,12 +9131,12 @@
                         1,
                         3
                     ],
-                    "project_from_date": "2020-03-14",
-                    "project_type": 2,
-                    "slug": "projekt-ai-124",
+                    "challenge_from_date": "2020-03-14",
+                    "challenge_type": 2,
+                    "slug": "challenge-ai-124",
                     "state": "public",
-                    "title": "Projekt AI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge AI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 28,
@@ -9150,12 +9150,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-06-28",
-                    "project_type": 2,
-                    "slug": "projekt-jkl-125",
+                    "challenge_from_date": "2020-06-28",
+                    "challenge_type": 2,
+                    "slug": "challenge-jkl-125",
                     "state": "draft",
-                    "title": "Projekt JKL",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge JKL",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "services": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
@@ -9261,13 +9261,13 @@
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [],
             "link_education": "https://www.edu.lo",
-            "link_projects": "https://www.project.lo",
+            "link_challenges": "https://www.challenge.lo",
             "link_thesis": "https://www.thesis.lo",
             "member_it_st_gallen": false,
             "name": "Desalvo AG",
             "phone": "+41791234567",
             "profile_step": 5,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 29,
                     "date_created": "2021-06-21 10:03:09",
@@ -9280,12 +9280,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-11-02",
-                    "project_type": 3,
-                    "slug": "projekt-abc-126",
+                    "challenge_from_date": "2021-11-02",
+                    "challenge_type": 3,
+                    "slug": "challenge-abc-126",
                     "state": "draft",
-                    "title": "Projekt ABC",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge ABC",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 29,
@@ -9299,12 +9299,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-02-28",
-                    "project_type": 3,
-                    "slug": "projekt-kunstliche-intelligenz-im-alltag-127",
+                    "challenge_from_date": "2021-02-28",
+                    "challenge_type": 3,
+                    "slug": "challenge-kunstliche-intelligenz-im-alltag-127",
                     "state": "public",
-                    "title": "Projekt K\u00fcnstliche Intelligenz im Alltag",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge K\u00fcnstliche Intelligenz im Alltag",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 29,
@@ -9318,12 +9318,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-06-20",
-                    "project_type": 1,
-                    "slug": "projekt-jkl-128",
+                    "challenge_from_date": "2021-06-20",
+                    "challenge_type": 1,
+                    "slug": "challenge-jkl-128",
                     "state": "public",
-                    "title": "Projekt JKL",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge JKL",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "services": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
@@ -9446,13 +9446,13 @@
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [],
             "link_education": "https://www.edu.lo",
-            "link_projects": "https://www.project.lo",
+            "link_challenges": "https://www.challenge.lo",
             "link_thesis": "https://www.thesis.lo",
             "member_it_st_gallen": false,
             "name": "Lewis AG",
             "phone": "+41791234567",
             "profile_step": 5,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 30,
                     "date_created": "2021-06-21 10:03:11",
@@ -9464,12 +9464,12 @@
                         1,
                         3
                     ],
-                    "project_from_date": "2021-11-28",
-                    "project_type": 2,
-                    "slug": "projekt-ki-129",
+                    "challenge_from_date": "2021-11-28",
+                    "challenge_type": 2,
+                    "slug": "challenge-ki-129",
                     "state": "public",
-                    "title": "Projekt KI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge KI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 30,
@@ -9482,12 +9482,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-09-03",
-                    "project_type": 2,
-                    "slug": "projekt-ki-130",
+                    "challenge_from_date": "2020-09-03",
+                    "challenge_type": 2,
+                    "slug": "challenge-ki-130",
                     "state": "draft",
-                    "title": "Projekt KI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge KI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 30,
@@ -9500,12 +9500,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-02-02",
-                    "project_type": 1,
-                    "slug": "projekt-ki-131",
+                    "challenge_from_date": "2021-02-02",
+                    "challenge_type": 1,
+                    "slug": "challenge-ki-131",
                     "state": "public",
-                    "title": "Projekt KI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge KI",
+                    "website": "https://www.challenge.lo"
                 },
                 {
                     "company": 30,
@@ -9519,12 +9519,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2020-07-12",
-                    "project_type": 3,
-                    "slug": "projekt-ai-132",
+                    "challenge_from_date": "2020-07-12",
+                    "challenge_type": 3,
+                    "slug": "challenge-ai-132",
                     "state": "draft",
-                    "title": "Projekt AI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge AI",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "services": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
@@ -9637,13 +9637,13 @@
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [],
             "link_education": "https://www.edu.lo",
-            "link_projects": "https://www.project.lo",
+            "link_challenges": "https://www.challenge.lo",
             "link_thesis": "https://www.thesis.lo",
             "member_it_st_gallen": false,
             "name": "Curry AG",
             "phone": "+41791234567",
             "profile_step": 5,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 31,
                     "date_created": "2021-06-21 10:03:13",
@@ -9655,12 +9655,12 @@
                         1,
                         3
                     ],
-                    "project_from_date": "2020-08-01",
-                    "project_type": 3,
-                    "slug": "projekt-ghi-133",
+                    "challenge_from_date": "2020-08-01",
+                    "challenge_type": 3,
+                    "slug": "challenge-ghi-133",
                     "state": "draft",
-                    "title": "Projekt GHI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge GHI",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "services": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
@@ -9760,13 +9760,13 @@
             "description": "Nunc dictum erat est, porttitor porta quam sagittis sagittis. Sed quis hendrerit tellus. Maecenas lorem massa, hendrerit ut faucibus vel, commodo eget mi. In vitae volutpat nibh. Sed fermentum efficitur iaculis. Curabitur metus erat, dictum in ultrices luctus, maximus non sem. Duis tincidunt tellus id nibh interdum, quis gravida justo suscipit. Morbi auctor, nunc nec mattis imperdiet, lorem orci porttitor ante, a aliquet dolor dolor sed dui.",
             "job_postings": [],
             "link_education": "https://www.edu.lo",
-            "link_projects": "https://www.project.lo",
+            "link_challenges": "https://www.challenge.lo",
             "link_thesis": "https://www.thesis.lo",
             "member_it_st_gallen": false,
             "name": "Mitchell AG",
             "phone": "+41791234567",
             "profile_step": 5,
-            "project_postings": [
+            "challenges": [
                 {
                     "company": 32,
                     "date_created": "2021-06-21 10:03:14",
@@ -9778,12 +9778,12 @@
                         2,
                         3
                     ],
-                    "project_from_date": "2021-02-05",
-                    "project_type": 3,
-                    "slug": "projekt-ki-134",
+                    "challenge_from_date": "2021-02-05",
+                    "challenge_type": 3,
+                    "slug": "challenge-ki-134",
                     "state": "public",
-                    "title": "Projekt KI",
-                    "website": "https://www.project.lo"
+                    "title": "Challenge KI",
+                    "website": "https://www.challenge.lo"
                 }
             ],
             "services": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",

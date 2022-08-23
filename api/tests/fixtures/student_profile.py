@@ -96,10 +96,10 @@ def student_character(execute):
 @pytest.fixture
 def student_abilities(execute):
 
-    def closure(user, skills, languages, hobbies, online_projects, distinction):
+    def closure(user, skills, languages, hobbies, online_challenges, distinction):
         languages = languages if languages else []
         hobbies = hobbies if hobbies else []
-        online_projects = online_projects if online_projects else []
+        online_challenges = online_challenges if online_challenges else []
         return execute(
             student_profile_mutation("Abilities"),
             variables={
@@ -115,9 +115,9 @@ def student_abilities(execute):
                         __updated_dict(obj, {'id': to_global_id('Hobby', obj['id'])})
                         if 'id' in obj else obj for obj in hobbies
                     ],
-                    'onlineProjects': [
-                        __updated_dict(obj, {'id': to_global_id('OnlineProject', obj['id'])})
-                        if 'id' in obj else obj for obj in online_projects
+                    'onlineChallenges': [
+                        __updated_dict(obj, {'id': to_global_id('OnlineChallenge', obj['id'])})
+                        if 'id' in obj else obj for obj in online_challenges
                     ],
                     'distinction':
                     distinction

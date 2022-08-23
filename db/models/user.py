@@ -63,11 +63,11 @@ class UserSignalHandler:
                               dispatch_uid='db.models.UserSignalHandler.pre_delete')
 
         if instance.type in ProfileType.valid_student_types():
-            # attachments of project postings
-            project_posting_type = ContentType.objects.get(app_label='db', model='projectposting')
-            for project_posting in instance.student.project_postings.all():
-                attachments = Attachment.objects.filter(content_type=project_posting_type,
-                                                        object_id=project_posting.id)
+            # attachments of challenges
+            challenge_type = ContentType.objects.get(app_label='db', model='challenge')
+            for challenge in instance.student.challenges.all():
+                attachments = Attachment.objects.filter(content_type=challenge_type,
+                                                        object_id=challenge.id)
                 for attachment in attachments:
                     attachment.attachment_object.delete()
                 attachments.delete()

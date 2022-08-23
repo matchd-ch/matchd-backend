@@ -31,7 +31,7 @@ def process_job_posting_allocation_form(user, data):
     validate_job_posting_step(job_posting, 3)
 
     # do not disable enum conversion as described here:
-    # https://docs.graphene-python.org/projects/django/en/latest/queries/#choices-to-enum-conversion
+    # https://docs.graphene-python.org/challenges/django/en/latest/queries/#choices-to-enum-conversion
     # otherwise the frontend application will not have an enum type for the state field
     # force lower case of the input (eg. "DRAFT", etc)
     data['state'] = data.get('state').lower()

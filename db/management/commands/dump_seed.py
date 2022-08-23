@@ -14,34 +14,33 @@ from db.models import Attachment, ProfileType, ProfileState, AttachmentKey
 class Command(BaseCommand):
     help = 'Dumps test data'
 
-    def get_project_postings_for_company_or_student(self, company_or_student):
-        project_posting_objs = []
+    def get_challenges_for_company_or_student(self, company_or_student):
+        challenge_objs = []
 
-        for project_posting in company_or_student.project_postings.all():
-            date_created = project_posting.date_created.strftime('%Y-%m-%d %H:%M:%S')
+        for challenge in company_or_student.challenges.all():
+            date_created = challenge.date_created.strftime('%Y-%m-%d %H:%M:%S')
 
-            date_published = project_posting.date_published
+            date_published = challenge.date_published
             if date_published is not None:
-                date_published = project_posting.date_published.strftime('%Y-%m-%d %H:%M:%S')
+                date_published = challenge.date_published.strftime('%Y-%m-%d %H:%M:%S')
 
             obj = {
-                'title': project_posting.title,
-                'slug': project_posting.slug,
-                'project_type': project_posting.project_type.id,
-                'keywords': [obj.id for obj in project_posting.keywords.all()],
-                'description': project_posting.description,
-                'website': project_posting.website,
-                'project_from_date': project_posting.project_from_date.strftime('%Y-%m-%d'),
-                'employee':
-                project_posting.employee.user.email if project_posting.employee else None,
+                'title': challenge.title,
+                'slug': challenge.slug,
+                'challenge_type': challenge.challenge_type.id,
+                'keywords': [obj.id for obj in challenge.keywords.all()],
+                'description': challenge.description,
+                'website': challenge.website,
+                'challenge_from_date': challenge.challenge_from_date.strftime('%Y-%m-%d'),
+                'employee': challenge.employee.user.email if challenge.employee else None,
                 'company': company_or_student.id,
                 'date_created': date_created,
                 'date_published': date_published,
-                'form_step': project_posting.form_step,
-                'state': project_posting.state,
+                'form_step': challenge.form_step,
+                'state': challenge.state,
             }
-            project_posting_objs.append(obj)
-        return project_posting_objs
+            challenge_objs.append(obj)
+        return challenge_objs
 
     def get_job_postings_for_company(self, company):
         job_posting_objs = []
@@ -206,8 +205,8 @@ class Command(BaseCommand):
                         company.type,
                         'link_education':
                         company.link_education,
-                        'link_projects':
-                        company.link_projects,
+                        'link_challenges':
+                        company.link_challenges,
                         'link_thesis':
                         company.link_thesis,
                         'benefits': [obj.id for obj in company.benefits.all()],
@@ -218,8 +217,8 @@ class Command(BaseCommand):
                         self.get_attachments_for_company(company),
                         'job_postings':
                         self.get_job_postings_for_company(company),
-                        'project_postings':
-                        self.get_project_postings_for_company_or_student(company)
+                        'challenges':
+                        self.get_challenges_for_company_or_student(company)
                     })
                     dumped_companies.append(company.slug)
                 user_obj['company'] = company_obj
@@ -267,7 +266,7 @@ class Command(BaseCommand):
                     'soft_skills': [obj.id for obj in student.soft_skills.all()],
                     'skills': [obj.id for obj in student.skills.all()],
                     'hobbies': [obj.name for obj in student.hobbies.all()],
-                    'online_projects': [obj.url for obj in student.online_projects.all()],
+                    'online_challenges': [obj.url for obj in student.online_challenges.all()],
                     'languages': [{
                         'language': obj.language.id,
                         'language_level': obj.language_level.id
@@ -276,8 +275,8 @@ class Command(BaseCommand):
                     self.get_attachments_for_student(student),
                     'slug':
                     student.slug,
-                    'project_postings':
-                    self.get_project_postings_for_company_or_student(student)
+                    'challenges':
+                    self.get_challenges_for_company_or_student(student)
                 }
                 user_obj['student'] = student_obj
 

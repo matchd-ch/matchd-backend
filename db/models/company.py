@@ -45,7 +45,7 @@ class Company(models.Model, index.Indexed):
     top_level_organisation_description = models.TextField(max_length=1000, blank=True)
     top_level_organisation_website = models.URLField(max_length=2048, blank=True)
     link_education = models.URLField(max_length=2048, blank=True, null=True)
-    link_projects = models.URLField(max_length=2048, blank=True, null=True)
+    link_challenges = models.URLField(max_length=2048, blank=True, null=True)
     link_thesis = models.URLField(max_length=2048, blank=True, null=True)
 
     def get_profile_content_type(self):
@@ -86,11 +86,11 @@ class CompanySignalHandler:
         for user in instance.users.all():
             user.delete()
 
-        # attachments of project postings
-        project_posting_type = ContentType.objects.get(app_label='db', model='projectposting')
-        for project_posting in instance.project_postings.all():
-            attachments = Attachment.objects.filter(content_type=project_posting_type,
-                                                    object_id=project_posting.id)
+        # attachments of challenges
+        challenge_type = ContentType.objects.get(app_label='db', model='challenge')
+        for challenge in instance.challenges.all():
+            attachments = Attachment.objects.filter(content_type=challenge_type,
+                                                    object_id=challenge.id)
             for attachment in attachments:
                 attachment.attachment_object.delete()
             attachments.delete()

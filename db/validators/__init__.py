@@ -5,4 +5,4 @@ from .student_type import StudentTypeValidator
 from .company_type import CompanyTypeValidator
 from .attachment import AttachmentKeyValidator, AttachmentKeyNumFilesValidator, AttachmentFileValidator
 from .job_posting import JobPostingFormStepValidator
-from .project_posting import ProjectPostingFormStepValidator
+from .challenge import ChallengeFormStepValidator

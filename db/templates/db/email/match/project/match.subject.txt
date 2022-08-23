@@ -1,1 +1,0 @@
-{% load db_tags %}{% is_student user.type as student %}{% is_company user.type as company %}{{ email_subject_prefix }}{% if company %}Du hast einen Projekt-Match!{% elif student %}{{ user.first_name }} gefällt Ihr Projekt{% endif %}

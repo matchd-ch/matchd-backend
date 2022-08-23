@@ -1,1 +1,0 @@
-from .project_posting_search import search_project_posting

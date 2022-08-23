@@ -109,9 +109,9 @@ class Company(BaseSeed):
             if link_education is None or link_education == '':
                 link_education = 'https://www.education.lo'
 
-            link_projects = data.get('link_projects')
-            if link_projects is None or link_projects == '':
-                link_projects = 'https://www.projects.lo'
+            link_challenges = data.get('link_challenges')
+            if link_challenges is None or link_challenges == '':
+                link_challenges = 'https://www.challenges.lo'
 
             link_thesis = data.get('link_thesis')
             if link_thesis is None or link_thesis == '':
@@ -126,7 +126,7 @@ class Company(BaseSeed):
                 cultural_fits = self.rand.cultural_fits()
 
             company.link_education = link_education
-            company.link_projects = link_projects
+            company.link_challenges = link_challenges
             company.link_thesis = link_thesis
 
         company.save()
@@ -266,7 +266,7 @@ class Company(BaseSeed):
                 "description": self.rand.description(),
                 "job_postings": [],
                 "link_education": "",
-                "link_projects": "",
+                "link_challenges": "",
                 "link_thesis": "",
                 "member_it_st_gallen": False,
                 "name": "",
@@ -309,7 +309,7 @@ class Company(BaseSeed):
             data['company']['top_level_organisation_description'] = self.rand.description()
             data['company']['top_level_organisation_website'] = "https://www.toplevel.lo"
             data['company']['link_education'] = "https://www.edu.lo"
-            data['company']['link_projects'] = "https://www.projects.lo"
+            data['company']['link_challenges'] = "https://www.challenges.lo"
             data['company']['link_thesis'] = "https://www.thesis.lo"
             data['company']['soft_skills'] = self.rand.soft_skills()
             data['company']['cultural_fits'] = self.rand.cultural_fits()

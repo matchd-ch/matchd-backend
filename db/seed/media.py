@@ -65,7 +65,7 @@ class Media:
                                              object_id=admin_user.id,
                                              key=AttachmentKey.COMPANY_AVATAR_FALLBACK)
 
-        for i in range(1, settings.NUMBER_OF_PROJECT_POSTING_FALLBACK_IMAGES + 1):
+        for i in range(1, settings.NUMBER_OF_CHALLENGE_FALLBACK_IMAGES + 1):
             image_name = f'p-{i}.png'
             source_path = os.path.join('db', 'seed', 'media', image_name)
             destination_path = os.path.join(random_images_path, image_name)
@@ -86,4 +86,4 @@ class Media:
                                              attachment_type_id=image_content_type.id,
                                              content_type_id=user_content_type.id,
                                              object_id=admin_user.id,
-                                             key=AttachmentKey.PROJECT_POSTING_FALLBACK)
+                                             key=AttachmentKey.CHALLENGE_FALLBACK)

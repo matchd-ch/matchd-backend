@@ -14,27 +14,27 @@ class AttachmentKey(models.TextChoices):
     COMPANY_DOCUMENTS = 'company_documents', _('Company Documents')
     STUDENT_AVATAR_FALLBACK = 'student_avatar_fallback', _('Student Avatar fallback')
     COMPANY_AVATAR_FALLBACK = 'company_avatar_fallback', _('Company Avatar fallback')
-    PROJECT_POSTING_IMAGES = 'project_posting_images', _('Project posting images')
-    PROJECT_POSTING_DOCUMENTS = 'project_posting_documents', _('Project posting documents')
-    PROJECT_POSTING_FALLBACK = 'project_posting_fallback', _('Project posting fallback')
+    CHALLENGE_IMAGES = 'challenge_images', _('Challenge images')
+    CHALLENGE_DOCUMENTS = 'challenge_documents', _('Challenge documents')
+    CHALLENGE_FALLBACK = 'challenge_fallback', _('Challenge fallback')
 
     @classmethod
     def valid_student_keys(cls):
         return [
             cls.STUDENT_AVATAR, cls.STUDENT_DOCUMENTS, cls.STUDENT_AVATAR_FALLBACK,
-            cls.PROJECT_POSTING_IMAGES, cls.PROJECT_POSTING_DOCUMENTS, cls.PROJECT_POSTING_FALLBACK
+            cls.CHALLENGE_IMAGES, cls.CHALLENGE_DOCUMENTS, cls.CHALLENGE_FALLBACK
         ]
 
     @classmethod
     def valid_company_keys(cls):
         return [
             cls.COMPANY_AVATAR, cls.COMPANY_DOCUMENTS, cls.COMPANY_AVATAR_FALLBACK,
-            cls.PROJECT_POSTING_IMAGES, cls.PROJECT_POSTING_DOCUMENTS, cls.PROJECT_POSTING_FALLBACK
+            cls.CHALLENGE_IMAGES, cls.CHALLENGE_DOCUMENTS, cls.CHALLENGE_FALLBACK
         ]
 
     @classmethod
-    def valid_project_posting_keys(cls):
-        return [cls.PROJECT_POSTING_DOCUMENTS, cls.PROJECT_POSTING_IMAGES]
+    def valid_challenge_keys(cls):
+        return [cls.CHALLENGE_DOCUMENTS, cls.CHALLENGE_IMAGES]
 
 
 class Attachment(models.Model):
@@ -80,10 +80,10 @@ class Attachment(models.Model):
         return None
 
     @classmethod
-    def get_project_posting_fallback(cls, project_posting):
+    def get_challenge_fallback(cls, challenge):
         attachments = list(
-            Attachment.objects.filter(key=AttachmentKey.PROJECT_POSTING_FALLBACK).order_by('id'))
-        index = project_posting.id % (settings.NUMBER_OF_PROJECT_POSTING_FALLBACK_IMAGES - 1)
+            Attachment.objects.filter(key=AttachmentKey.CHALLENGE_FALLBACK).order_by('id'))
+        index = challenge.id % (settings.NUMBER_OF_CHALLENGE_FALLBACK_IMAGES - 1)
         if len(attachments) > index:
             return attachments[index]
         return None
@@ -149,7 +149,7 @@ def company_documents_config():
     }
 
 
-def project_posting_images_config():
+def challenge_images_config():
     return {
         'content_types_configuration': [{
             'content_types': settings.USER_UPLOADS_IMAGE_TYPES,
@@ -159,11 +159,11 @@ def project_posting_images_config():
         'max_files':
         5,
         'key':
-        AttachmentKey.PROJECT_POSTING_IMAGES
+        AttachmentKey.CHALLENGE_IMAGES
     }
 
 
-def project_posting_documents_config():
+def challenge_documents_config():
     return {
         'content_types_configuration': [{
             'content_types': settings.USER_UPLOADS_DOCUMENT_TYPES,
@@ -173,7 +173,7 @@ def project_posting_documents_config():
         'max_files':
         5,
         'key':
-        AttachmentKey.PROJECT_POSTING_DOCUMENTS
+        AttachmentKey.CHALLENGE_DOCUMENTS
     }
 
 
@@ -182,8 +182,8 @@ upload_configurations = [
     student_documents_config(),
     company_avatar_config(),
     company_documents_config(),
-    project_posting_documents_config(),
-    project_posting_images_config()
+    challenge_documents_config(),
+    challenge_images_config()
 ]
 
 

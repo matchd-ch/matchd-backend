@@ -80,13 +80,13 @@ def company_query(slug):
             jobPostings {
                 id
             }
-            projectPostings {
+            challenges {
                 id
             }
             topLevelOrganisationDescription
             topLevelOrganisationWebsite
             linkEducation
-            linkProjects
+            linkChallenges
             linkThesis
         }
     }
@@ -166,7 +166,7 @@ def company_object_complete(user_employee, branch_objects, soft_skill_objects, b
     company.top_level_organisation_description = 'top level description'
     company.top_level_organisation_website = 'https://www.top-level.lo'
     company.link_education = 'https://edu.lo'
-    company.link_projects = 'https://projects.lo'
+    company.link_challenges = 'https://challenges.lo'
     company.link_thesis = 'https://thesis.lo'
     company.save()
     return company

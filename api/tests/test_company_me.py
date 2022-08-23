@@ -52,7 +52,7 @@ def test_me_company(login, me, user_employee, company_object_complete):
     assert company.get(
         'topLevelOrganisationWebsite') == company_object_complete.top_level_organisation_website
     assert company.get('linkEducation') == company_object_complete.link_education
-    assert company.get('linkProjects') == company_object_complete.link_projects
+    assert company.get('linkChallenges') == company_object_complete.link_challenges
     assert company.get('linkThesis') == company_object_complete.link_thesis
 
     student = user.get('student')

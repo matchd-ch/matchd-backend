@@ -3,11 +3,11 @@ from django.db.models import Q
 
 from db.exceptions import FormException
 from db.forms.hobby import HobbyForm
-from db.forms.online_project import OnlineProjectForm
+from db.forms.online_challenge import OnlineChallengeForm
 from db.forms.user_language_relation import UserLanguageRelationForm
 
 from db.helper import validate_student_user_type, validate_step, validate_form_data, silent_fail, generic_error_dict
-from db.models import Skill, OnlineProject, Hobby, UserLanguageRelation
+from db.models import Skill, OnlineChallenge, Hobby, UserLanguageRelation
 
 
 class StudentProfileAbilitiesForm(forms.Form):
@@ -65,37 +65,38 @@ def get_hobbies_to_delete(profile, data):
     return Hobby.objects.filter(student=profile).exclude(id__in=exclude_ids)
 
 
-def project_url_already_exists(profile, url, instance=None):
+def challenge_url_already_exists(profile, url, instance=None):
     if instance is None:
-        return OnlineProject.objects.filter(url=url, student=profile).exists()
-    return OnlineProject.objects.filter(url=url, student=profile).exclude(pk=instance.id).exists()
+        return OnlineChallenge.objects.filter(url=url, student=profile).exists()
+    return OnlineChallenge.objects.filter(url=url, student=profile).exclude(pk=instance.id).exists()
 
 
-def process_online_project(profile, data):
-    instance = get_instance_or_none(OnlineProject, data)
-    form = OnlineProjectForm(data, instance=instance)
+def process_online_challenge(profile, data):
+    instance = get_instance_or_none(OnlineChallenge, data)
+    form = OnlineChallengeForm(data, instance=instance)
     form.full_clean()
     if form.is_valid():
         cleaned_data = form.cleaned_data
-        # OnlineProject Model fields (url and user) can't be unique together because url is too long
+        # OnlineChallenge Model fields (url and user) can't be unique together because url is too long
         # This is why we do a manual check
-        if not project_url_already_exists(profile, cleaned_data.get('url'), instance):
+        if not challenge_url_already_exists(profile, cleaned_data.get('url'), instance):
             return form
         if instance is not None:
             raise FormException(errors=generic_error_dict(
-                'nonFieldErrors', 'A project with the same url already exists', 'unique_together'))
+                'nonFieldErrors', 'A challenge with the same url already exists',
+                'unique_together'))
     else:
         raise FormException(errors=form.errors.get_json_data())
     return None
 
 
-def get_online_projects_to_delete(profile, data):
+def get_online_challenges_to_delete(profile, data):
     exclude_ids = []
     if data is not None:
-        for online_project in data:
-            if 'id' in online_project:
-                exclude_ids.append(online_project.get('id'))
-    return OnlineProject.objects.filter(student=profile).exclude(id__in=exclude_ids)
+        for online_challenge in data:
+            if 'id' in online_challenge:
+                exclude_ids.append(online_challenge.get('id'))
+    return OnlineChallenge.objects.filter(student=profile).exclude(id__in=exclude_ids)
 
 
 def process_language(student, data):
@@ -174,17 +175,17 @@ def process_student_abilities_form(user, data):
             except FormException as exception:
                 errors.update(exception.errors)
 
-    # validate online projects
-    online_projects = data.get('online_projects', None)
-    online_projects_to_delete = get_online_projects_to_delete(student, online_projects)
-    valid_online_project_forms = []
-    if online_projects is not None:
-        for online_project in online_projects:
-            online_project['student'] = student.id
+    # validate online challenges
+    online_challenges = data.get('online_challenges', None)
+    online_challenges_to_delete = get_online_challenges_to_delete(student, online_challenges)
+    valid_online_challenge_forms = []
+    if online_challenges is not None:
+        for online_challenge in online_challenges:
+            online_challenge['student'] = student.id
             try:
-                online_project_form = process_online_project(student, online_project)
-                if online_project_form is not None:
-                    valid_online_project_forms.append(online_project_form)
+                online_challenge_form = process_online_challenge(student, online_challenge)
+                if online_challenge_form is not None:
+                    valid_online_challenge_forms.append(online_challenge_form)
             except FormException as exception:
                 errors.update(exception.errors)
 
@@ -207,11 +208,11 @@ def process_student_abilities_form(user, data):
         raise FormException(errors=errors)
 
     hobbies_to_delete.delete()
-    online_projects_to_delete.delete()
+    online_challenges_to_delete.delete()
     languages_to_delete.delete()
 
     # save all valid forms
-    valid_forms = valid_hobby_forms + valid_online_project_forms + valid_languages_forms
+    valid_forms = valid_hobby_forms + valid_online_challenge_forms + valid_languages_forms
     for form in valid_forms:
         form.save()
 

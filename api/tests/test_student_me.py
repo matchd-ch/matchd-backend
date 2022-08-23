@@ -13,11 +13,11 @@ from db.models import ProfileType, ProfileState
 
 @pytest.mark.django_db
 def test_me_student(login, me, user_student_full_profile, skill_objects, branch_objects,
-                    job_type_objects, student_project_posting_objects):
+                    job_type_objects, student_challenge_objects):
 
-    for project_posting in student_project_posting_objects:
-        project_posting.student = user_student_full_profile.student
-        project_posting.save()
+    for challenge in student_challenge_objects:
+        challenge.student = user_student_full_profile.student
+        challenge.save()
 
     login(user_student_full_profile)
     data, errors = me(user_student_full_profile)
@@ -54,10 +54,10 @@ def test_me_student(login, me, user_student_full_profile, skill_objects, branch_
     assert student.get('distinction') == 'distinction'
     assert len(student.get('skills').get('edges')) == len(skill_objects)
     assert len(student.get('hobbies')) == 2
-    assert len(student.get('onlineProjects')) == 2
+    assert len(student.get('onlineChallenges')) == 2
     assert len(student.get('softSkills').get('edges')) == 6
     assert len(student.get('culturalFits').get('edges')) == 6
-    assert len(student.get('projectPostings')) == len(student_project_posting_objects)
+    assert len(student.get('challenges')) == len(student_challenge_objects)
 
     company = user.get('company')
     assert company is None

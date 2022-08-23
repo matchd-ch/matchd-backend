@@ -59,7 +59,7 @@ def university_specific_data(execute):
 @pytest.fixture
 def university_relations(execute):
 
-    def closure(user, services, link_education, link_projects, link_thesis, branches, benefits):
+    def closure(user, services, link_education, link_challenges, link_thesis, branches, benefits):
         return execute(university_profile_mutation("Relations"),
                        variables={
                            'input': {
@@ -67,8 +67,8 @@ def university_relations(execute):
                                services,
                                'linkEducation':
                                link_education,
-                               'linkProjects':
-                               link_projects,
+                               'linkChallenges':
+                               link_challenges,
                                'linkThesis':
                                link_thesis,
                                'branches': [{
