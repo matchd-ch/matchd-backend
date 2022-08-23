@@ -52,8 +52,8 @@ class ProjectPosting(models.Model, index.Indexed):
 
     @classmethod
     def get_indexed_objects(cls):
-        return cls.objects.filter(state=ProjectPostingState.PUBLIC).\
-            select_related('company', 'project_type', 'employee', 'student').prefetch_related('keywords')
+        return cls.objects.select_related('company', 'project_type', 'employee',
+                                          'student').prefetch_related('keywords')
 
     def avatar(self):
         attachment = Attachment.objects.filter(key=AttachmentKey.PROJECT_POSTING_IMAGES,
