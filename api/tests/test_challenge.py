@@ -1,3 +1,5 @@
+from io import StringIO
+
 import pytest
 
 from django.core import management
