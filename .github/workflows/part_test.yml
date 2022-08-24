@@ -75,17 +75,6 @@ jobs:
 
       - name: Run test suite
         run: |
-          set -eux
-
-          DB_NAME_BEFORE="$DB_NAME"
-          (
-              export DB_NAME=mysql
-              echo "DROP DATABASE IF EXISTS \`${DB_NAME_BEFORE}\`;" | pipenv run ./manage.py dbshell
-              echo "CREATE DATABASE \`${DB_NAME_BEFORE}\`;" | pipenv run ./manage.py dbshell
-          )
-          pipenv run ./manage.py migrate
-          pipenv run ./manage.py update_index
-
           pipenv run test -svvv
         env:
           DB_HOST: '127.0.0.1'

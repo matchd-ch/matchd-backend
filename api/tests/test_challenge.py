@@ -1,5 +1,6 @@
 import pytest
 
+from django.core import management
 from django.contrib.auth.models import AnonymousUser
 
 from graphql_relay import to_global_id
@@ -412,6 +413,8 @@ def test_challenge_without_login(query_challenge, company_challenge_object: Chal
 @pytest.mark.django_db
 def test_all_challenges_visible_to_anonymous(query_challenges, company_challenge_objects,
                                              student_challenge_objects):
+    management.call_command('update_index', stdout=StringIO())
+
     data, errors = query_challenges(AnonymousUser())
     assert errors is None
     assert data is not None
@@ -428,6 +431,8 @@ def test_all_challenges_visible_to_anonymous(query_challenges, company_challenge
 @pytest.mark.django_db
 def test_company_challenges_not_visible_to_company(query_challenges, company_challenge_objects,
                                                    user_employee):
+    management.call_command('update_index', stdout=StringIO())
+
     data, errors = query_challenges(user_employee)
     assert errors is None
     assert data is not None
@@ -440,6 +445,8 @@ def test_company_challenges_not_visible_to_company(query_challenges, company_cha
 @pytest.mark.django_db
 def test_student_challenges_visible_to_company(query_challenges, student_challenge_objects,
                                                user_employee):
+    management.call_command('update_index', stdout=StringIO())
+
     data, errors = query_challenges(user_employee)
     assert errors is None
     assert data is not None
@@ -452,6 +459,8 @@ def test_student_challenges_visible_to_company(query_challenges, student_challen
 @pytest.mark.django_db
 def test_student_challenges_not_visible_to_student(query_challenges, student_challenge_objects,
                                                    user_student):
+    management.call_command('update_index', stdout=StringIO())
+
     data, errors = query_challenges(user_student)
     assert errors is None
     assert data is not None
@@ -464,6 +473,8 @@ def test_student_challenges_not_visible_to_student(query_challenges, student_cha
 @pytest.mark.django_db
 def test_company_challenges_visible_to_student(query_challenges, company_challenge_objects,
                                                user_student):
+    management.call_command('update_index', stdout=StringIO())
+
     data, errors = query_challenges(user_student)
     assert errors is None
     assert data is not None
@@ -488,6 +499,8 @@ def test_node_query(query_challenge_node, company_challenge_objects, user_employ
 
 @pytest.mark.django_db
 def test_challenges_without_login(query_challenges, company_challenge_objects):
+    management.call_command('update_index', stdout=StringIO())
+
     data, errors = query_challenges(AnonymousUser())
     assert errors is None
     assert data is not None
