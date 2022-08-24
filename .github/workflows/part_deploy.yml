@@ -147,7 +147,7 @@ jobs:
       - name: 'Deploy'
         # TODO: Switch back to deliverybot/helm@v1 as soon as the following PR is merged and released:
         # - https://github.com/deliverybot/helm/pull/68
-        uses: 'Velocity-Engineering/helm@cc5fac2c25dd983ac00d6dcb2cbaebc96c18e6ce'
+        uses: 'Velocity-Engineering/helm@8e875bcbe9f2eeaf88f80602e665444f053cd4fa'
         with:
           task: '${{ inputs.task }}'
           release: '${{ inputs.release }}'
