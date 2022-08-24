@@ -80,11 +80,11 @@ jobs:
           DB_NAME_BEFORE="$DB_NAME"
           (
               export DB_NAME=mysql
-              echo "DROP DATABASE IF EXISTS \`${DB_NAME_BEFORE}\`;" | ./manage.py dbshell
-              echo "CREATE DATABASE \`${DB_NAME_BEFORE}\`;" | ./manage.py dbshell
+              echo "DROP DATABASE IF EXISTS \`${DB_NAME_BEFORE}\`;" | pipenv run ./manage.py dbshell
+              echo "CREATE DATABASE \`${DB_NAME_BEFORE}\`;" | pipenv run ./manage.py dbshell
           )
-          python ./manage.py migrate
-          python ./manage.py update_index
+          pipenv run ./manage.py migrate
+          pipenv run ./manage.py update_index
         env:
           DB_HOST: '127.0.0.1'
           DB_PORT: '3306'
