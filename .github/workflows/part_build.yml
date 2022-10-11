@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      tag: "${{ steps.branch_name.outputs.SOURCE_TAG }}"
+      tag: "${{ env.SOURCE_TAG }}"
 
     permissions:
       packages: write
@@ -28,8 +28,8 @@ jobs:
       - name: Branch name
         id: branch_name
         run: |
-          echo ::set-output name=SOURCE_BRANCH::${GITHUB_REF/refs\/heads\//}
-          echo ::set-output name=SOURCE_TAG::${GITHUB_REF/refs\/tags\//}
+          echo "SOURCE_BRANCH=${GITHUB_REF/refs\/heads\//}" >> $GITHUB_ENV
+          echo "SOURCE_TAG=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_ENV
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
         with:
@@ -51,7 +51,7 @@ jobs:
             --tag ghcr.io/${{ github.repository }}:$GITHUB_SHA \
             .
       - run: docker push ghcr.io/${{ github.repository }}:$GITHUB_SHA
-      - run: docker tag ghcr.io/${{ github.repository }}:$GITHUB_SHA ghcr.io/${{ github.repository }}:${{ steps.branch_name.outputs.SOURCE_TAG }}
-        if: github.event_name == 'push' && startsWith(steps.branch_name.outputs.SOURCE_TAG, 'v')
-      - run: docker push ghcr.io/${{ github.repository }}:${{ steps.branch_name.outputs.SOURCE_TAG }}
-        if: github.event_name == 'push' && startsWith(steps.branch_name.outputs.SOURCE_TAG, 'v')
+      - run: docker tag ghcr.io/${{ github.repository }}:$GITHUB_SHA ghcr.io/${{ github.repository }}:${{ env.SOURCE_TAG }}
+        if: github.event_name == 'push' && startsWith(env.SOURCE_TAG, 'v')
+      - run: docker push ghcr.io/${{ github.repository }}:${{ env.SOURCE_TAG }}
+        if: github.event_name == 'push' && startsWith(env.SOURCE_TAG, 'v')
