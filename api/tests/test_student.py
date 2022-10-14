@@ -294,6 +294,100 @@ def test_student_with_confirmed_match_status(login, user_student_full_profile, q
 
 
 @pytest.mark.django_db
+def test_student_with_confirmed_challenge_match_status(login, user_student_full_profile,
+                                                       query_student, user_employee,
+                                                       student_challenge_object, branch_objects,
+                                                       skill_objects, job_type_objects):
+    Match.objects.create(challenge=student_challenge_object,
+                         student=user_student_full_profile.student,
+                         company=user_employee.company,
+                         initiator=user_employee.type,
+                         company_confirmed=True,
+                         student_confirmed=True)
+
+    login(user_employee)
+    data, errors = query_student(user_employee, user_student_full_profile.student.slug)
+    assert data is not None
+    assert errors is None
+
+    student = data.get('student')
+    assert student is not None
+    assert student.get('email') == 'student@matchd.test'
+    assert student.get('firstName') == 'John'
+    assert student.get('lastName') == 'Doe'
+    assert student.get('profileStep') == 3
+    assert student.get('branch').get('id') == to_global_id('Branch', branch_objects[0].id)
+    assert student.get('jobType').get('id') == to_global_id('JobType', job_type_objects[0].id)
+    assert student.get('state') == ProfileState.PUBLIC.upper()
+    assert student.get('mobile') == '+41711234567'
+    assert student.get('zip') == '1337'
+    assert student.get('city') == 'nowhere'
+    assert student.get('street') == 'street 1337'
+    assert student.get('dateOfBirth') == '1337-03-01'
+    assert student.get('nickname') == 'nickname'
+    assert student.get('slug') == 'nickname'
+    assert student.get('schoolName') == 'school name'
+    assert student.get('fieldOfStudy') == 'field of study'
+    assert student.get('graduation') == '1337-03-01'
+    assert student.get('distinction') == 'distinction'
+    assert len(student.get('skills').get('edges')) == len(skill_objects)
+    assert len(student.get('hobbies')) == 2
+    assert len(student.get('onlineChallenges')) == 2
+    assert len(student.get('softSkills').get('edges')) == 6
+    assert len(student.get('culturalFits').get('edges')) == 6
+    assert student.get('matchStatus') is None
+
+
+@pytest.mark.django_db
+def test_anonymous_student_with_confirmed_challenge_match_status(login, user_student_full_profile,
+                                                                 query_student, user_employee,
+                                                                 student_challenge_object,
+                                                                 branch_objects, skill_objects,
+                                                                 job_type_objects):
+    user_student_full_profile.student.state = ProfileState.ANONYMOUS
+    user_student_full_profile.student.save()
+
+    Match.objects.create(challenge=student_challenge_object,
+                         student=user_student_full_profile.student,
+                         company=user_employee.company,
+                         initiator=user_employee.type,
+                         company_confirmed=True,
+                         student_confirmed=True)
+
+    login(user_employee)
+    data, errors = query_student(user_employee, user_student_full_profile.student.slug)
+    assert data is not None
+    assert errors is None
+
+    student = data.get('student')
+    assert student is not None
+    assert student.get('email') == 'student@matchd.test'
+    assert student.get('firstName') == 'John'
+    assert student.get('lastName') == 'Doe'
+    assert student.get('profileStep') == 3
+    assert student.get('branch').get('id') == to_global_id('Branch', branch_objects[0].id)
+    assert student.get('jobType').get('id') == to_global_id('JobType', job_type_objects[0].id)
+    assert student.get('state') == ProfileState.ANONYMOUS.upper()
+    assert student.get('mobile') == '+41711234567'
+    assert student.get('zip') == '1337'
+    assert student.get('city') == 'nowhere'
+    assert student.get('street') == 'street 1337'
+    assert student.get('dateOfBirth') == '1337-03-01'
+    assert student.get('nickname') == 'nickname'
+    assert student.get('slug') == 'nickname'
+    assert student.get('schoolName') == 'school name'
+    assert student.get('fieldOfStudy') == 'field of study'
+    assert student.get('graduation') == '1337-03-01'
+    assert student.get('distinction') == 'distinction'
+    assert len(student.get('skills').get('edges')) == len(skill_objects)
+    assert len(student.get('hobbies')) == 2
+    assert len(student.get('onlineChallenges')) == 2
+    assert len(student.get('softSkills').get('edges')) == 6
+    assert len(student.get('culturalFits').get('edges')) == 6
+    assert student.get('matchStatus') is None
+
+
+@pytest.mark.django_db
 def test_update_student(login, user_student_full_profile, update_student):
     login(user_student_full_profile)
 
