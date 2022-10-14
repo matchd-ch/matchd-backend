@@ -71,8 +71,9 @@ class Student(models.Model, index.Indexed):
     def has_match(self, company):
         if self.possible_matches.get(company.slug, None) is None:
             model = apps.get_model('db', model_name='match')
-            self.possible_matches[company.slug] = model.objects.filter(student=self,
-                                                                       job_posting__company=company)
+            self.possible_matches[company.slug] = model.objects.filter(
+                Q(student=self)
+                & (Q(job_posting__company=company) | Q(company=company)))
         possible_matches = self.possible_matches.get(company.slug)
         if len(possible_matches) > 0:
             for possible_match in possible_matches:
