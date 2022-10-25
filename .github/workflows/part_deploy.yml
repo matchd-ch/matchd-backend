@@ -109,7 +109,7 @@ jobs:
 
       - uses: google-github-actions/setup-gcloud@v0.6.2
         with:
-          project_id: "joshmartin-cluster"
+          project_id: "joshmartin-cluster-next"
 
       - name: 'Prepare Helm Chart'
         run: helm dependency update .helm/chart/
@@ -124,7 +124,7 @@ jobs:
       - id: 'get-credentials'
         uses: 'google-github-actions/get-gke-credentials@v0.8.2'
         with:
-          cluster_name: 'joshmartin-cluster'
+          cluster_name: 'joshmartin-cluster-next'
           location: 'europe-west6-a'
 
       - name: 'Create Pull Secret'
