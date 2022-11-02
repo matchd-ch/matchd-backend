@@ -5,24 +5,35 @@ from django.db import connection
 
 
 def combine_topic_with_keywords(apps, schema_editor):
-    Topic = apps.get_model('db', 'Topic')
-    Keyword = apps.get_model('db', 'Keyword')
+    cursor = connection.cursor()
 
-    for topic in Topic.objects.all():
-        Keyword.objects.get_or_create(name=topic.name)
+    query = "INSERT INTO db_keyword (name) \
+                SELECT \
+                    name \
+                    FROM db_topic \
+                    WHERE db_topic.name NOT IN (SELECT name FROM db_keyword);"
+
+    cursor.execute(query)
 
 
 def update_project_posting_keywords(apps, schema_editor):
     cursor = connection.cursor()
-    ProjectPosting = apps.get_model('db', 'ProjectPosting')
-    Keyword = apps.get_model('db', 'Keyword')
+    
+    query = "INSERT INTO \
+        db_projectposting_keywords \
+        (projectposting_id, keyword_id) \
+        SELECT \
+            db_projectposting.id, \
+            db_keyword.id \
+            FROM db_projectposting \
+            JOIN db_topic on db_projectposting.topic_id = db_topic.id \
+            JOIN db_keyword ON db_keyword.name = db_topic.name \
+            WHERE db_keyword.id NOT IN ( \
+                SELECT id \
+                FROM db_projectposting_keywords \
+                WHERE db_projectposting_keywords.projectposting_id = db_projectposting.id);"
 
-    for project_posting in ProjectPosting.objects.all():
-        keyword = Keyword.objects.get(name=project_posting.topic.name)
-
-        query = "INSERT INTO `db_projectposting_keywords` (`projectposting_id`, `keyword_id`) VALUES (%i, %i);" % \
-                (project_posting.id, keyword.id)
-        cursor.execute(query)
+    cursor.execute(query)
 
 
 class Migration(migrations.Migration):
