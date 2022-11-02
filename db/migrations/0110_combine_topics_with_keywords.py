@@ -28,10 +28,10 @@ def update_project_posting_keywords(apps, schema_editor):
             FROM db_projectposting \
             JOIN db_topic on db_projectposting.topic_id = db_topic.id \
             JOIN db_keyword ON db_keyword.name = db_topic.name \
-            WHERE db_keyword.id NOT IN ( \
+            WHERE NOT EXISTS  ( \
                 SELECT id \
                 FROM db_projectposting_keywords \
-                WHERE db_projectposting_keywords.projectposting_id = db_projectposting.id);"
+                WHERE db_projectposting_keywords.projectposting_id = db_projectposting.id AND db_projectposting_keywords.keyword_id = db_keyword.id )"
 
     cursor.execute(query)
 
