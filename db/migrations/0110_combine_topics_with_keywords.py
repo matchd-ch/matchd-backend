@@ -18,7 +18,7 @@ def combine_topic_with_keywords(apps, schema_editor):
 
 def update_project_posting_keywords(apps, schema_editor):
     cursor = connection.cursor()
-    
+
     query = "INSERT INTO \
         db_projectposting_keywords \
         (projectposting_id, keyword_id) \
