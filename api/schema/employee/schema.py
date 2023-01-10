@@ -89,7 +89,7 @@ class DeleteEmployee(Output, relay.ClientIDMutation):
         errors = employee_manager.errors
         employee = employee_manager.employee
 
-        return DeleteEmployee(success=(employee is None and errors == {}), errors=errors)
+        return DeleteEmployee(success=(employee is None and not errors), errors=errors)
 
 
 class EmployeeMutation(ObjectType):
