@@ -21,6 +21,7 @@ from db.forms import process_challenge_base_data_form, process_challenge_specifi
 from db.forms.challenge_allocation import process_challenge_allocation_form
 from db.models import Challenge as ChallengeModel, ChallengeState as ChallengeStateModel, \
     ProfileType
+from db.context.challenge import ChallengeManager
 from db.search.challenge.challenge_search import search_challenge
 
 # pylint: disable=W0221
@@ -286,7 +287,31 @@ class ChallengeAllocation(Output, relay.ClientIDMutation):
                                    challenge_id=to_global_id('Challenge', challenge.id))
 
 
+class DeleteChallenge(Output, relay.ClientIDMutation):
+
+    class Input:
+        id = graphene.String(required=True)
+
+    class Meta:
+        description = _('Deletes a challenge')
+
+    @classmethod
+    @login_required
+    def mutate(cls, root, info, **data):
+        user = info.context.user
+
+        form_data = data.get('input', None)
+        challenge_id = int(resolve_node_id(form_data.get('id')))
+
+        challenge_manager = ChallengeManager(challenge_id).delete(user)
+        errors = challenge_manager.errors
+        challenge = challenge_manager.challenge
+
+        return DeleteChallenge(success=(challenge is None and not errors), errors=errors)
+
+
 class ChallengeMutation(ObjectType):
     challenge_base_data = ChallengeBaseData.Field()
     challenge_specific_data = ChallengeSpecificData.Field()
     challenge_allocation = ChallengeAllocation.Field()
+    delete_challenge = DeleteChallenge.Field()
