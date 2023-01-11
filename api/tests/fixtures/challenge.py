@@ -284,6 +284,30 @@ def challenge_mutation(kind):
     ''' % (kind, kind)
 
 
+def delete_challenge_mutation():
+    return '''
+    mutation DeleteChallenge($input: DeleteChallengeInput!) {
+      deleteChallenge(input: $input) {
+        success,
+        errors
+      }
+    }
+    '''
+
+
+@pytest.fixture
+def delete_challenge(execute):
+
+    def closure(user, challenge_id):
+        return execute(delete_challenge_mutation(),
+                       variables={'input': {
+                           'id': to_global_id('Challenge', challenge_id),
+                       }},
+                       **{'user': user})
+
+    return closure
+
+
 # pylint: disable=R0913
 @pytest.fixture
 def challenge_base_data(execute):
