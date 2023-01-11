@@ -283,7 +283,7 @@ class DeleteJobPosting(Output, relay.ClientIDMutation):
         errors = job_posting_manager.errors
         job_posting = job_posting_manager.job_posting
 
-        return DeleteJobPosting(success=(job_posting is None and not  errors), errors=errors)
+        return DeleteJobPosting(success=(job_posting is None and not errors), errors=errors)
 
 
 class JobPostingMutation(ObjectType):
