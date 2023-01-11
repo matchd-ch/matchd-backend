@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "1adef87aa16cddffab06dc88a52e2d38b4b6f3e4528d8a919ce971ded2b7225d"
+            "sha256": "5eeb32067d358fe8d6ff8afb7aa2aa5a739fb98b2c2115a80e996c056ac4ab95"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -86,7 +86,7 @@
                 "sha256:5a3d016c7c547f69d6f81fb0db9449ce888b418b5b9952cc5e6e66843e9dd845",
                 "sha256:83e9a75d1911279afd89352c68b45348559d1fc0506b054b346651b5e7fee29f"
             ],
-            "markers": "python_full_version >= '3.6.0'",
+            "markers": "python_version >= '3.6'",
             "version": "==2.1.1"
         },
         "coverage": {
@@ -769,7 +769,7 @@
                 "sha256:07de26b0d8cfc18f871aec595fda24d95b08fef89d147caa861939f37230bf4b",
                 "sha256:71b952e5721688937fb02cf9d354dbcf0785066149d2855e44531ebdd2b65d73"
             ],
-            "markers": "python_full_version >= '3.6.0'",
+            "markers": "python_version >= '3.6'",
             "version": "==0.11.6"
         },
         "typing-extensions": {
@@ -820,11 +820,11 @@
         },
         "wagtailmedia": {
             "hashes": [
-                "sha256:9147b5142e44bcf62a74b57cad81436cb1df6ee9971cca0038e548400c39ffed",
-                "sha256:f141441356a42a07a289cf874012ebc17b95a73d8e2d21b11c40fcb5dbce43f4"
+                "sha256:0807515c5d89782666b613de2e4aedab19e9dd358097fad2cb79633c0b5416d3",
+                "sha256:1d39622c3d7d0191e58ffedf45d05fbef851e3905955513012a72ae4d46a12b0"
             ],
             "index": "pypi",
-            "version": "==0.11.1"
+            "version": "==0.12.0"
         },
         "webencodings": {
             "hashes": [
