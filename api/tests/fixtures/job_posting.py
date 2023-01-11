@@ -314,6 +314,30 @@ def job_posting_allocation(execute):
     return closure
 
 
+def delete_job_posting_mutation():
+    return '''
+    mutation DeleteJobPosting($input: DeleteJobPostingInput!) {
+      deleteJobPosting(input: $input) {
+        success,
+        errors
+      }
+    }
+    '''
+
+
+@pytest.fixture
+def delete_job_posting(execute):
+
+    def closure(user, job_posting_id):
+        return execute(delete_job_posting_mutation(),
+                       variables={'input': {
+                           'id': to_global_id('JobPosting', job_posting_id),
+                       }},
+                       **{'user': user})
+
+    return closure
+
+
 @pytest.fixture
 def job_posting_objects(company_object, job_type_objects_date_range, branch_objects):
     job_posting_1 = JobPosting.objects.create(id=1,

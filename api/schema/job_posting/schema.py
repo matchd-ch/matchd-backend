@@ -19,6 +19,7 @@ from api.schema.registration import EmployeeInput
 from api.schema.skill import SkillInput
 
 from db.context.match.match_status import MatchStatus
+from db.context.job_posting import JobPostingManager
 from db.decorators import job_posting_cheating_protection, hyphenate
 from db.exceptions import FormException
 from db.forms import process_job_posting_base_data_form, process_job_posting_requirements_form, \
@@ -262,7 +263,31 @@ class JobPostingAllocation(Output, relay.ClientIDMutation):
                                     job_posting_id=to_global_id('JobPosting', job_posting.id))
 
 
+class DeleteJobPosting(Output, relay.ClientIDMutation):
+
+    class Input:
+        id = graphene.String(required=True)
+
+    class Meta:
+        description = _('Deletes a job posting')
+
+    @classmethod
+    @login_required
+    def mutate(cls, root, info, **data):
+        user = info.context.user
+
+        form_data = data.get('input', None)
+        job_posting_id = int(resolve_node_id(form_data.get('id')))
+
+        job_posting_manager = JobPostingManager(job_posting_id).delete(user)
+        errors = job_posting_manager.errors
+        job_posting = job_posting_manager.job_posting
+
+        return DeleteJobPosting(success=(job_posting is None and not errors), errors=errors)
+
+
 class JobPostingMutation(ObjectType):
     job_posting_base_data = JobPostingBaseData.Field()
     job_posting_requirements = JobPostingRequirements.Field()
     job_posting_allocation = JobPostingAllocation.Field()
+    delete_job_posting = DeleteJobPosting.Field()

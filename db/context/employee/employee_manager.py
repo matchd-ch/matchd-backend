@@ -33,7 +33,7 @@ class EmployeeManager():
             errors.update(
                 generic_error_dict('id', _('An employee cannot delete itself'), 'invalid_id'))
 
-        if not requesting_user.company.id == self.employee.user.company.id:
+        if requesting_user.company is not None and requesting_user.company.id != self.employee.user.company.id:
             errors.update(
                 generic_error_dict('id',
                                    _('The employee to delete is not part of the same company'),
