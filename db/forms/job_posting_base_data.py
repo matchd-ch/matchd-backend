@@ -36,7 +36,7 @@ class JobPostingBaseDataForm(forms.Form):
 # noinspection PyBroadException
 def validate_html_url(url):
     try:
-        response = requests.head(url)
+        response = requests.head(url, timeout=10)
         content_type = response.headers.get('Content-Type')
         return 'text/html' in content_type
     except Exception:

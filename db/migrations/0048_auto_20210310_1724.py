@@ -8,7 +8,7 @@ def populate_slugs(apps, schema_editor):
     cursor = connection.cursor()
     company = apps.get_model('db', 'Company')
     for obj in company.objects.raw('SELECT * FROM db_company'):
-        query = "UPDATE db_company SET slug='%s' WHERE id=%i" % (slugify(obj.name), obj.id)
+        query = f"UPDATE db_company SET slug={slugify(obj.name)} WHERE id={obj.id}"
         cursor.execute(query)
 
 

@@ -13,8 +13,9 @@ def move_branch(apps, schema_editor):
         branch_id = getattr(job_posting, 'branch_id', None)
         if branch_id is None:
             continue
-        query = "INSERT INTO `db_jobposting_branches` (`jobposting_id`, `branch_id`) VALUES (%i, %i);" % \
-                (job_posting.id, branch_id)
+        query = f"INSERT INTO `db_jobposting_branches` (`jobposting_id`, `branch_id`)\
+        VALUES ({job_posting.id}, {branch_id});"
+
         cursor.execute(query)
 
 
