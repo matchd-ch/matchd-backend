@@ -16,7 +16,7 @@ class JobPostingManager():
         except JobPosting.DoesNotExist:
             self.__job_posting = None
             self.__errors = generic_error_dict(
-                'id', _('An job posting with the specified id does not exist'), 'not_found')
+                'id', _('A job posting with the specified id does not exist'), 'not_found')
 
     def delete(self, requesting_user: User) -> JobPostingManager:
         errors = {}
