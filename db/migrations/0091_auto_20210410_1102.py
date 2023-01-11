@@ -13,8 +13,7 @@ def add_student_slug(apps, schema_editor):
     for student in students:
         if student.profile_step >= 5:
             if student.slug is None or student.slug == '':
-                query = "UPDATE `db_student` SET slug='%s' WHERE id=%i" % (slugify(
-                    student.nickname), student.id)
+                query = f"UPDATE `db_student` SET slug={slugify(student.nickname)} WHERE id={student.id}"
                 cursor.execute(query)
 
 

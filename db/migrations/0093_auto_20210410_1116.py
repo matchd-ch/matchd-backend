@@ -12,8 +12,7 @@ def add_job_posting_slug(apps, schema_editor):
 
     for job_posting in job_postings:
         slug = slugify(job_posting.title)
-        query = "UPDATE `db_jobposting` SET slug='%s-%i' WHERE id=%i" % \
-                (slug, job_posting.id, job_posting.id)
+        query = f"UPDATE `db_jobposting` SET slug='{slug}-{job_posting.id}' WHERE id={job_posting.id}"
         cursor.execute(query)
 
 

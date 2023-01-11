@@ -219,7 +219,8 @@ jobs:
 
       - name: Install dependencies
         if: steps.cache-pipenv.outputs.cache-hit != 'true'
-        run: pipenv install --deploy --dev
+        run: |
+          pipenv install --deploy --dev
 
       - name: Run linter
         run: |

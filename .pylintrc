@@ -1,11 +1,11 @@
 [MASTER]
 disable=
+    C0103, # disable module name snake_case naming style
     C0114, # missing-module-docstring
     C0115, # missing-class-docstring
     C0116, # missing-function-docstring
     C0412, # ungrouped-imports
     E1101, # no-member
-    R0201, # no-self-use
     R0801, # duplicate-code
     R0901, # too-many-ancestors
     R0903, # too-few-public-method

@@ -14,7 +14,7 @@ def copy_user_type(apps, schema_editor):
         if getattr(user, 'type') in ProfileType.valid_company_types():
             company_id = getattr(user, 'company_id')
             user_type = getattr(user, 'type')
-            query = "UPDATE db_company SET type='%s' WHERE id=%s;" % (user_type, str(company_id))
+            query = f"UPDATE db_company SET type={user_type} WHERE id={str(company_id)};"
             cursor.execute(query)
 
 
