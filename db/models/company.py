@@ -48,6 +48,14 @@ class Company(models.Model, index.Indexed):
     link_challenges = models.URLField(max_length=2048, blank=True, null=True)
     link_thesis = models.URLField(max_length=2048, blank=True, null=True)
 
+    def get_employees(self):
+        users = self.users.prefetch_related('employee').all()
+        employees = []
+
+        for user in users:
+            employees.append(user.employee)
+        return employees
+
     def get_profile_content_type(self):
         return ContentType.objects.get(app_label='db', model='company')
 

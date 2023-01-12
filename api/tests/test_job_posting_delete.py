@@ -20,6 +20,9 @@ def test_delete_job_posting_as_rightfull_employee(delete_job_posting,
     assert errors is None
     assert data is not None
 
+    assert data.get('deleteJobPosting').get('success')
+    assert not JobPosting.objects.filter(pk=job_posting_object.id).exists()
+
 
 @pytest.mark.django_db
 def test_delete_job_posting_as_wrong_employee(delete_job_posting, job_posting_object: JobPosting,
@@ -85,5 +88,7 @@ def test_delete_job_posting_removes_matches(delete_job_posting, job_posting_obje
     assert errors is None
     assert data is not None
 
+    assert data.get('deleteJobPosting').get('success')
+    assert not JobPosting.objects.filter(pk=job_posting_object.id).exists()
     matches = Match.objects.all()
     assert len(matches) == 0

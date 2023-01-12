@@ -18,6 +18,7 @@ def test_student_challenge_delete_succeeds_as_student_owner(delete_challenge,
     assert data is not None
 
     assert data.get('deleteChallenge').get('success')
+    assert not Challenge.objects.filter(pk=student_challenge_object.id).exists()
 
 
 @pytest.mark.django_db
@@ -82,6 +83,7 @@ def test_company_challenge_delete_succeeds_as_right_employee(delete_challenge,
     assert data is not None
 
     assert data.get('deleteChallenge').get('success')
+    assert not Challenge.objects.filter(pk=company_challenge_object.id).exists()
 
 
 @pytest.mark.django_db

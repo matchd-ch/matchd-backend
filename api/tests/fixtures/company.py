@@ -181,6 +181,7 @@ def company_object_2(company_objects):
 def user_employee(get_user, default_password, company_object):
     user = get_user('employee-1@matchd.test', default_password, True, ProfileType.COMPANY,
                     company_object)
+
     Employee.objects.create(user=user)
     return user
 

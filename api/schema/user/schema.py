@@ -10,6 +10,7 @@ from django.utils.translation import gettext as _
 
 from api.schema.profile_type import ProfileType
 
+from db.context.user import UserManager
 from db.exceptions import FormException
 from db.forms.user import update_user_info
 
@@ -66,5 +67,23 @@ class UpdateUserMutation(Output, relay.ClientIDMutation):
         return UpdateUserMutation(success=True, errors=None, user=updated_user)
 
 
+class DeleteUserMutation(Output, relay.ClientIDMutation):
+
+    class Meta:
+        description = _('Deletes the user')
+
+    @classmethod
+    @login_required
+    def mutate(cls, root, info, **data):
+        user = info.context.user
+
+        user_manager = UserManager(user.id).delete()
+        errors = user_manager.errors
+        user = user_manager.user
+
+        return DeleteUserMutation(success=(user is None and not errors), errors=errors)
+
+
 class UserMutation(graphene.ObjectType):
     update_user = UpdateUserMutation.Field()
+    delete_user = DeleteUserMutation.Field()
