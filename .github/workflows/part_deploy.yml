@@ -145,7 +145,7 @@ jobs:
               --filename=-
 
       - name: 'Deploy'
-        uses: 'deliverybot/helm@v1'
+        uses: 'vimeda/helm@v1'
         with:
           task: '${{ inputs.task }}'
           release: '${{ inputs.release }}'
