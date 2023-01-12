@@ -288,11 +288,7 @@ class Company(DjangoObjectType):
         convert_choices_to_enum = False
 
     def resolve_employees(self: CompanyModel, info):
-        users = self.users.prefetch_related('employee').all()
-        employees = []
-        for user in users:
-            employees.append(user.employee)
-        return employees
+        return self.get_employees()
 
     def resolve_job_postings(self: CompanyModel, info: ResolveInfo):
         if is_me_query(info):

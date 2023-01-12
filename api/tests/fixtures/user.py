@@ -3,9 +3,29 @@ import pytest
 from django.contrib.auth import get_user_model
 
 
+def delete_user_mutation():
+    return '''
+    mutation DeleteUser($input: DeleteUserMutationInput!) {
+      deleteUser(input: $input) {
+        success,
+        errors
+      }
+    }
+    '''
+
+
+@pytest.fixture
+def delete_user(execute):
+
+    def closure(user):
+        return execute(delete_user_mutation(), variables={"input": {}}, **{'user': user})
+
+    return closure
+
+
 def update_user_mutation():
     return '''
-    mutation UserMutation($input: UpdateUserMutationInput!) {
+    mutation UpdateUser($input: UpdateUserMutationInput!) {
       updateUser(input: $input) {
         success,
         errors,
