@@ -453,3 +453,7 @@ if SENTRY_ENABLED:
         traces_sample_rate=SENTRY_TRACES_SAMPLE_RATE,
         send_default_pii=True,
     )
+
+# Super user feature: impersonate
+IMPERSONATION_REDIRECT_URI_TEMPLATE = os.getenv('IMPERSONATION_REDIRECT_URI_TEMPLATE',
+                                                'http://localhost:8080/impersonate/{#token}')

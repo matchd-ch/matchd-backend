@@ -38,6 +38,7 @@ jobs:
       csrfCookieDomain: '.matchd.ch'
       dataProtectionUrl: 'https://example.com'
       resetDb: true
+      impersonationRedirectUriTemplate:  https://development.matchd.ch/impersonate/{#token}
     secrets:
       DOCKER_PULL_USERNAME: ${{ secrets.DOCKER_PULL_USERNAME }}
       DOCKER_PULL_SECRET: ${{ secrets.DOCKER_PULL_SECRET }}

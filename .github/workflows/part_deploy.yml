@@ -76,6 +76,9 @@ on:
       sentryTracesSampleRate:
         type: number
         default: 0.5
+      impersonationRedirectUriTemplate:
+        type: string
+        required: true
     secrets:
       DOCKER_PULL_USERNAME:
         required: true
@@ -216,3 +219,4 @@ jobs:
               SENTRY_RELEASE: '${{ inputs.version }}'
               SENTRY_DSN: '${{ secrets.SENTRY_DSN }}'
               SENTRY_TRACES_SAMPLE_RATE: '${{ inputs.sentryTracesSampleRate }}'
+              IMPERSONATION_REDIRECT_URI_TEMPLATE: '${{ inputs.impersonationRedirectUriTemplate }}'

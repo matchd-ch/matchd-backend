@@ -13,11 +13,13 @@ from graphql_jwt.decorators import jwt_cookie
 
 from api.views import GraphQLView, AttachmentServeView
 from db.view.csv_export_view import csv_view
+from db.view.impersonate_view import impersonate_view
 
 urlpatterns = [
     path('django-admin/', admin.site.urls),
     path('admin/', include(wagtailadmin_urls)),
     path('admin/users/export', csv_view),
+    path('admin/users/impersonate/<int:user_id>', impersonate_view, name="impersonate_url"),
     path('documents/', include(wagtaildocs_urls)),
     path('graphql/',
          csrf_exempt(jwt_cookie(GraphQLView.as_view(graphiql=settings.GRAPHIQL_ENABLED)))),

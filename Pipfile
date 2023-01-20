@@ -87,6 +87,7 @@ XlsxWriter = "==3.0.7"
 whitenoise = "*"
 sentry-sdk = "*"
 yapf = "*"
+uritemplate = "*"
 
 [dev-packages]
 
