@@ -457,3 +457,5 @@ if SENTRY_ENABLED:
 # Super user feature: impersonate
 IMPERSONATION_REDIRECT_URI_TEMPLATE = os.getenv('IMPERSONATION_REDIRECT_URI_TEMPLATE',
                                                 'http://localhost:8080/impersonate/{#token}')
+IMPERSONATION_TOKEN_DURATION_IN_S = os.getenv('IMPERSONATION_TOKEN_DURATION_IN_S',
+                                              timedelta(hours=1))
