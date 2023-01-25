@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.contrib import auth
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
@@ -32,6 +33,7 @@ def impersonate_view(request, user_id):
         impersonation_jwt = jwt_encode(payload)
 
         redirect_url = expand(settings.IMPERSONATION_REDIRECT_URI_TEMPLATE, token=impersonation_jwt)
+        auth.logout(request)
     except User.DoesNotExist:
         error(request, f"Failed to impersonate user ${user_id}, user does not exist")
 
