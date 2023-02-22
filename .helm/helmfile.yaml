@@ -1,0 +1,70 @@
+releases:
+  - name: {{ requiredEnv "HELM_RELEASE_NAME" }}
+    kubeContext: {{ requiredEnv "KUBE_CONTEXT" }}
+    namespace: {{ requiredEnv "KUBE_NAMESPACE" }}
+    createNamespace: false
+    version: {{ requiredEnv "HELM_RELEASE_VERSION" }}
+    chart: "./chart"
+    values:
+      - deployment:
+          variants:
+            regular:
+              replicaCount: {{ requiredEnv "VALUE_REGULAR_REPLICA_COUNT" }}
+              autoscaling:
+                enabled: {{ requiredEnv "VALUE_REGULAR_AUTOSCALING_ENABLED" }}
+            stable:
+              replicaCount: {{ requiredEnv "VALUE_STABLE_REPLICA_COUNT" }}
+              autoscaling:
+                enabled: {{ requiredEnv "VALUE_STABLE_AUTOSCALING_ENABLED" }}
+        version: "{{ requiredEnv "HELM_RELEASE_VERSION" }}"
+        environment: "{{ requiredEnv "VALUE_ENVIRONMENT" }}"
+        name: "{{ requiredEnv "HELM_RELEASE_NAME" }}"
+        image:
+          repository: "ghcr.io/{{ requiredEnv "VALUE_IMAGE_REPOSITORY" }}"
+          tag: "{{ requiredEnv "HELM_RELEASE_VERSION" }}"
+          secrets:
+            - name: "{{ requiredEnv "HELM_RELEASE_NAME" }}-pull"
+        ingress:
+          domain: "{{ requiredEnv "VALUE_DOMAIN" }}"
+          monitoring: {{ requiredEnv "VALUE_MONITORING_ENABLED" }}
+        migrate:
+          resetDb: "{{ requiredEnv "VALUE_RESET_DB" }}"
+        maildev:
+          enabled: "{{ requiredEnv "VALUE_MAILDEV_ENABLED" }}"
+          ingress:
+            hosts:
+              - host: 'maildev-{{ requiredEnv "VALUE_DOMAIN" }}'
+                paths: ['/']
+            tls:
+              - secretName: maildev-{{ requiredEnv "HELM_RELEASE_NAME" }}
+                hosts:
+                  - 'maildev-{{ requiredEnv "VALUE_DOMAIN" }}'
+        env:
+             DJANGO_SETTINGS_MODULE:  '{{ requiredEnv "VALUE_DJANGO_SETTINGS_MODULE" }}'
+              DB_HOST: '{{ requiredEnv "VALUE_DB_HOST" }}'
+              DB_PORT: '{{ requiredEnv "VALUE_DB_PORT" }}'
+              DB_USER: '{{ requiredEnv "VALUE_DB_USER" }}'
+              DB_PASSWORD: '{{ requiredEnv "VALUE_DB_PASSWORD" }}'
+              DB_NAME: '{{ requiredEnv "VALUE_DB_NAME" }}'
+              EMAIL_SENDER: '{{ requiredEnv "VALUE_EMAIL_SENDER" }}'
+              SMTP_HOST: '{{ requiredEnv "VALUE_SMTP_HOST" }}'
+              SMTP_PORT: '{{ requiredEnv "VALUE_SMTP_PORT" }}'
+              SMTP_HOST_PASSWORD: '{{ requiredEnv "VALUE_SMTP_HOST_PASSWORD" }}'
+              SMTP_HOST_USER: '{{ requiredEnv "VALUE_SMTP_HOST_USER" }}'
+              EMAIL_SUBJECT_PREFIX: '{{ requiredEnv "VALUE_EMAIL_SUBJECT_PREFIX" }}'
+              EMAIL_SYSTEM_NOTIFICATION_PREFIX: '{{ requiredEnv "VALUE_EMAIL_SYSTEM_NOTIFICATION_PREFIX" }}'
+              MANAGERS: '{{ requiredEnv "VALUE_MANAGERS" }}'
+              DJANGO_BASE_URL: '{{ requiredEnv "VALUE_DJANGO_BASE_URL" }}'
+              GRAPHIQL_ENABLED: '{{ requiredEnv "VALUE_GRAPHIQL_ENABLED" }}'
+              FRONTEND_URL: '{{ requiredEnv "VALUE_FRONTEND_URL" }}'
+              APP_DOMAIN: '{{ requiredEnv "VALUE_APP_DOMAIN" }}'
+              APP_CSRF_COOKIE_DOMAIN: '{{ requiredEnv "VALUE_APP_CSRF_COOKIE_DOMAIN" }}'
+              WAGTAIL_SITE_NAME: '{{ requiredEnv "VALUE_WAGTAIL_SITE_NAME" }}'
+              SECRET_KEY: '{{ requiredEnv "VALUE_SECRET_KEY" }}'
+              DATA_PROTECTION_URL: '{{ requiredEnv "VALUE_DATA_PROTECTION_URL" }}'
+              SENTRY_ENABLED: '{{ requiredEnv "VALUE_SENTRY_ENABLED" }}'
+              SENTRY_ENVIRONMENT: '{{ requiredEnv "VALUE_SENTRY_ENVIRONMENT" }}'
+              SENTRY_RELEASE: '{{ requiredEnv "VALUE_SENTRY_RELEASE" }}'
+              SENTRY_DSN: '{{ requiredEnv "VALUE_SENTRY_DSN" }}'
+              SENTRY_TRACES_SAMPLE_RATE: '{{ requiredEnv "VALUE_SENTRY_TRACES_SAMPLE_RATE" }}'
+              IMPERSONATION_REDIRECT_URI_TEMPLATE: '{{ requiredEnv "VALUE_IMPERSONATION_REDIRECT_URI_TEMPLATE" }}'

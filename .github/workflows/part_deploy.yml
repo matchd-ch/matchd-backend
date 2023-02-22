@@ -30,7 +30,10 @@ on:
         default: false
       task:
         type: string
-        default: install
+        default: apply
+      commentDeployment:
+          type: boolean
+          default: false
       dbName:
         type: string
         required: true
@@ -102,13 +105,28 @@ jobs:
     name: "Helm"
 
     permissions:
-      contents: 'read'
-      id-token: 'write'
+      contents: read
+      id-token: write
+      pull-requests: write
 
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
+
+      - name: "Read .tool-versions"
+        id: toolVersions
+        run: |
+          HELMFILE_VERSION="$(cat .tool-versions | grep "helmfile " | cut -d' ' -f2-)"
+          echo "HELMFILE_VERSION=${HELMFILE_VERSION}" >> $GITHUB_ENV
+          HELM_VERSION="$(cat .tool-versions | grep "helm " | cut -d' ' -f2-)"
+          echo "HELM_VERSION=${HELM_VERSION}" >> $GITHUB_ENV
+      - name: Setup helmfile
+        uses: mamezou-tech/setup-helmfile@v1.2.0
+        with:
+          helmfile-version: "v${{ env.HELMFILE_VERSION }}"
+          helm-version: "v${{ env.HELM_VERSION }}"
+          install-kubectl: "no"
 
       - uses: google-github-actions/setup-gcloud@v1.1.0
         with:
@@ -148,75 +166,45 @@ jobs:
               --filename=-
 
       - name: 'Deploy'
-        uses: 'vimeda/helm@v1.6.8'
-        with:
-          task: '${{ inputs.task }}'
-          release: '${{ inputs.release }}'
-          namespace: '${{ inputs.namespace }}'
-          helm: helm3
-          version: '${{ inputs.version }}'
-          chart: '.helm/chart'
-          token: '${{ github.token }}'
-          values: |
-            deployment:
-              variants:
-                regular:
-                  replicaCount: ${{ inputs.regularReplicaCount }}
-                  autoscaling:
-                    enabled: ${{ inputs.autoscalingEnabled }}
-                stable:
-                  replicaCount: ${{ inputs.stableReplicaCount }}
-                  autoscaling:
-                    enabled: ${{ inputs.autoscalingEnabled }}
-            version: ${{ inputs.version }}
-            environment: ${{ inputs.environment }}
-            name: ${{ inputs.release }}
-            image:
-              repository: ghcr.io/${{ github.repository }}
-              tag: ${{ inputs.version }}
-              secrets:
-                - name: "${{ inputs.release }}-pull"
-            ingress:
-              domain: ${{ inputs.domain }}
-              monitoring: ${{ inputs.monitoringEnabled }}
-            migrate:
-              resetDb: ${{ inputs.resetDb }}
-            maildev:
-              enabled: ${{ inputs.maildevEnabled }}
-              ingress:
-                hosts:
-                  - host: 'maildev-${{ inputs.domain }}'
-                    paths: ['/']
-                tls:
-                  - secretName: maildev-${{ inputs.release }}
-                    hosts:
-                      - 'maildev-${{ inputs.domain }}'
-            env:
-              DJANGO_SETTINGS_MODULE: 'app.settings.base'
-              DB_HOST: '${{ inputs.dbHost }}'
-              DB_PORT: '3306'
-              DB_USER: '${{ inputs.dbUser }}'
-              DB_PASSWORD: '${{ secrets.DB_PASSWORD }}'
-              DB_NAME: '${{ inputs.dbName }}'
-              EMAIL_SENDER: '${{ inputs.senderEmail }}'
-              SMTP_HOST: '${{ inputs.smtpRelay }}'
-              SMTP_PORT: '${{ inputs.smtpPort }}'
-              SMTP_HOST_PASSWORD: '${{ secrets.SMTP_PASSWORD }}'
-              SMTP_HOST_USER: '${{ secrets.SMTP_USER }}'
-              EMAIL_SUBJECT_PREFIX: '${{ inputs.emailSubjectPrefix }}'
-              EMAIL_SYSTEM_NOTIFICATION_PREFIX: '${{ inputs.emailSystemNotificationPrefix }}'
-              MANAGERS: '${{ inputs.managers }}'
-              DJANGO_BASE_URL: 'https://${{ inputs.domain }}'
-              GRAPHIQL_ENABLED: 'true'
-              FRONTEND_URL: '${{ inputs.frontendUrl }}'
-              APP_DOMAIN: '${{ inputs.domain }}'
-              APP_CSRF_COOKIE_DOMAIN: '${{ inputs.csrfCookieDomain }}'
-              WAGTAIL_SITE_NAME: 'MATCHD - ${{ inputs.environment }}'
-              SECRET_KEY: '${{ secrets.SECRET_KEY }}'
-              DATA_PROTECTION_URL: '${{ inputs.dataProtectionUrl }}'
-              SENTRY_ENABLED: 'true'
-              SENTRY_ENVIRONMENT: '${{ inputs.environment }}' 
-              SENTRY_RELEASE: '${{ inputs.version }}'
-              SENTRY_DSN: '${{ secrets.SENTRY_DSN }}'
-              SENTRY_TRACES_SAMPLE_RATE: '${{ inputs.sentryTracesSampleRate }}'
-              IMPERSONATION_REDIRECT_URI_TEMPLATE: '${{ inputs.impersonationRedirectUriTemplate }}'
+        run: helmfile --file .helm/helmfile.yaml ${{ inputs.task }}
+        env:
+          VALUE_MONITORING_ENABLED: "${{ inputs.monitoringEnabled }}"
+          VALUE_DOMAIN: "${{ inputs.domain }}"
+          VALUE_IMAGE_REPOSITORY: "ghcr.io/${{ github.repository }}"
+          HELM_RELEASE_NAME: "${{ inputs.release }}"
+          VALUE_ENVIRONMENT: "${{ inputs.environment }}"
+          VALUE_STABLE_AUTOSCALING_ENABLED: "${{ inputs.autoscalingEnabled }}"
+          VALUE_STABLE_REPLICA_COUNT: "${{ inputs.stableReplicaCount }}"
+          VALUE_REGULAR_AUTOSCALING_ENABLED: "${{ inputs.autoscalingEnabled }}"
+          VALUE_REGULAR_REPLICA_COUNT: "${{ inputs.regularReplicaCount }}"
+          HELM_RELEASE_VERSION: "${{ inputs.version }}"
+          KUBE_NAMESPACE: "${{ inputs.namespace }}"
+          KUBE_CONTEXT: "gke_joshmartin-cluster_europe-west6-a_joshmartin-cluster-next"
+          VALUE_DJANGO_SETTINGS_MODULE: 'app.settings.base'
+          VALUE_DB_HOST: '${{ inputs.dbHost }}'
+          VALUE_DB_PORT: '3306'
+          VALUE_DB_USER: '${{ inputs.dbUser }}'
+          VALUE_DB_PASSWORD: '${{ secrets.DB_PASSWORD }}'
+          VALUE_DB_NAME: '${{ inputs.dbName }}'
+          VALUE_EMAIL_SENDER: '${{ inputs.senderEmail }}'
+          VALUE_SMTP_HOST: '${{ inputs.smtpRelay }}'
+          VALUE_SMTP_PORT: '${{ inputs.smtpPort }}'
+          VALUE_SMTP_HOST_PASSWORD: '${{ secrets.SMTP_PASSWORD }}'
+          VALUE_SMTP_HOST_USER: '${{ secrets.SMTP_USER }}'
+          VALUE_EMAIL_SUBJECT_PREFIX: '${{ inputs.emailSubjectPrefix }}'
+          VALUE_EMAIL_SYSTEM_NOTIFICATION_PREFIX: '${{ inputs.emailSystemNotificationPrefix }}'
+          VALUE_MANAGERS: '${{ inputs.managers }}'
+          VALUE_DJANGO_BASE_URL: 'https://${{ inputs.domain }}'
+          VALUE_GRAPHIQL_ENABLED: 'true'
+          VALUE_FRONTEND_URL: '${{ inputs.frontendUrl }}'
+          VALUE_APP_DOMAIN: '${{ inputs.domain }}'
+          VALUE_APP_CSRF_COOKIE_DOMAIN: '${{ inputs.csrfCookieDomain }}'
+          VALUE_WAGTAIL_SITE_NAME: 'MATCHD - ${{ inputs.environment }}'
+          VALUE_SECRET_KEY: '${{ secrets.SECRET_KEY }}'
+          VALUE_DATA_PROTECTION_URL: '${{ inputs.dataProtectionUrl }}'
+          VALUE_SENTRY_ENABLED: 'true'
+          VALUE_SENTRY_ENVIRONMENT: '${{ inputs.environment }}' 
+          VALUE_SENTRY_RELEASE: '${{ inputs.version }}'
+          VALUE_SENTRY_DSN: '${{ secrets.SENTRY_DSN }}'
+          VALUE_SENTRY_TRACES_SAMPLE_RATE: '${{ inputs.sentryTracesSampleRate }}'
+          VALUE_IMPERSONATION_REDIRECT_URI_TEMPLATE: '${{ inputs.impersonationRedirectUriTemplate }}'

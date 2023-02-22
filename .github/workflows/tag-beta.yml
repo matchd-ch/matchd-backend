@@ -9,20 +9,21 @@ jobs:
   build:
     name: Build
 
-    uses: matchd-ch/matchd-backend/.github/workflows/part_build.yml@main
+    uses: ./.github/workflows/part_build.yml@main
 
   deploy:
     name: "Deploy"
 
     needs: ['build']
 
-    uses: matchd-ch/matchd-backend/.github/workflows/part_deploy.yml@main
+    uses: ./.github/workflows/part_deploy.yml@main
     with:
       namespace: matchd-backend-staging
       release: matchd-backend
       environment: staging
       domain: api.staging.matchd.ch
       version: "${{ needs.build.outputs.tag }}"
+      commentDeployment: true
       dbHost: 10.100.35.5
       dbUser: matchd-staging
       dbName: matchd-staging
