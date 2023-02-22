@@ -72,7 +72,7 @@ on:
         required: true
       resetDb:
         type: boolean
-        default: true
+        default: false
       maildevEnabled:
         type: boolean
         default: true
@@ -181,6 +181,7 @@ jobs:
           KUBE_NAMESPACE: "${{ inputs.namespace }}"
           KUBE_CONTEXT: "gke_joshmartin-cluster_europe-west6-a_joshmartin-cluster-next"
           VALUE_DJANGO_SETTINGS_MODULE: 'app.settings.base'
+          VALUE_RESET_DB: '${{ inputs.resetDb }}'
           VALUE_DB_HOST: '${{ inputs.dbHost }}'
           VALUE_DB_PORT: '3306'
           VALUE_DB_USER: '${{ inputs.dbUser }}'
