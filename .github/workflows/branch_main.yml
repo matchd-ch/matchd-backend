@@ -9,19 +9,19 @@ jobs:
   test:
     name: "Test"
     
-    uses: ./.github/workflows/part_test.yml@main
+    uses: ./.github/workflows/part_test.yml
   
   build:
     name: "Build"
 
-    uses: ./.github/workflows/part_build.yml@main
+    uses: ./.github/workflows/part_build.yml
 
   deploy:
     name: "Deploy"
 
     needs: ['build']
 
-    uses: ./.github/workflows/part_deploy.yml@main
+    uses: ./.github/workflows/part_deploy.yml
     with:
       namespace: matchd-backend-development
       release: matchd-backend
