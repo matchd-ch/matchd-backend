@@ -40,7 +40,7 @@ releases:
                 hosts:
                   - 'maildev-{{ requiredEnv "VALUE_DOMAIN" }}'
         env:
-             DJANGO_SETTINGS_MODULE:  '{{ requiredEnv "VALUE_DJANGO_SETTINGS_MODULE" }}'
+              DJANGO_SETTINGS_MODULE:  '{{ requiredEnv "VALUE_DJANGO_SETTINGS_MODULE" }}'
               DB_HOST: '{{ requiredEnv "VALUE_DB_HOST" }}'
               DB_PORT: '{{ requiredEnv "VALUE_DB_PORT" }}'
               DB_USER: '{{ requiredEnv "VALUE_DB_USER" }}'

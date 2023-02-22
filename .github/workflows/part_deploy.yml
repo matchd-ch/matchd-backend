@@ -187,6 +187,7 @@ jobs:
           VALUE_DB_USER: '${{ inputs.dbUser }}'
           VALUE_DB_PASSWORD: '${{ secrets.DB_PASSWORD }}'
           VALUE_DB_NAME: '${{ inputs.dbName }}'
+          VALUE_MAILDEV_ENABLED: '${{ inputs.maildevEnabled }}'
           VALUE_EMAIL_SENDER: '${{ inputs.senderEmail }}'
           VALUE_SMTP_HOST: '${{ inputs.smtpRelay }}'
           VALUE_SMTP_PORT: '${{ inputs.smtpPort }}'
