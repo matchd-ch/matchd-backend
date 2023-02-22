@@ -1,3 +1,9 @@
+repositories:
+- name: elastic
+  url: https://helm.elastic.co
+- name: github-cnieg
+  url: https://cnieg.github.io/helm-charts
+
 releases:
   - name: {{ requiredEnv "HELM_RELEASE_NAME" }}
     kubeContext: {{ requiredEnv "KUBE_CONTEXT" }}
