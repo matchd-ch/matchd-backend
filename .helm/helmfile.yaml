@@ -26,7 +26,7 @@ releases:
         environment: "{{ requiredEnv "VALUE_ENVIRONMENT" }}"
         name: "{{ requiredEnv "HELM_RELEASE_NAME" }}"
         image:
-          repository: "ghcr.io/{{ requiredEnv "VALUE_IMAGE_REPOSITORY" }}"
+          repository: "{{ requiredEnv "VALUE_IMAGE_REPOSITORY" }}"
           tag: "{{ requiredEnv "HELM_RELEASE_VERSION" }}"
           secrets:
             - name: "{{ requiredEnv "HELM_RELEASE_NAME" }}-pull"
