@@ -1,9 +1,9 @@
 dependencies:
 - name: elasticsearch
   repository: https://helm.elastic.co
-  version: 7.16.1
+  version: 7.17.3
 - name: maildev
   repository: https://cnieg.github.io/helm-charts
   version: 1.1.1
-digest: sha256:b0916af16ff337077bdf4083c16636d8e3d9b4100f06d6c19a42f0d5458a87d6
-generated: "2021-12-17T12:09:29.5290645+01:00"
+digest: sha256:5e1f87c70fb3fad1809ee277e582297bcb285a35a86c1a0d0a0f68fbf96e1993
+generated: "2023-02-23T17:41:08.418808813+01:00"
