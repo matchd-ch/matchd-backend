@@ -5,11 +5,11 @@ repositories:
   url: https://cnieg.github.io/helm-charts
 
 releases:
-  - name: {{ requiredEnv "HELM_RELEASE_NAME" }}
-    kubeContext: {{ requiredEnv "KUBE_CONTEXT" }}
-    namespace: {{ requiredEnv "KUBE_NAMESPACE" }}
+  - name: {{ requiredEnv "VALUE_HELM_RELEASE_NAME" }}
+    kubeContext: {{ requiredEnv "VALUE_KUBE_CONTEXT" }}
+    namespace: {{ requiredEnv "VALUE_KUBE_NAMESPACE" }}
     createNamespace: false
-    version: {{ requiredEnv "HELM_RELEASE_VERSION" }}
+    version: {{ requiredEnv "VALUE_HELM_RELEASE_VERSION" }}
     chart: "./chart"
     values:
       - deployment:
@@ -22,14 +22,14 @@ releases:
               replicaCount: {{ requiredEnv "VALUE_STABLE_REPLICA_COUNT" }}
               autoscaling:
                 enabled: {{ requiredEnv "VALUE_STABLE_AUTOSCALING_ENABLED" }}
-        version: "{{ requiredEnv "HELM_RELEASE_VERSION" }}"
+        version: "{{ requiredEnv "VALUE_HELM_RELEASE_VERSION" }}"
         environment: "{{ requiredEnv "VALUE_ENVIRONMENT" }}"
-        name: "{{ requiredEnv "HELM_RELEASE_NAME" }}"
+        name: "{{ requiredEnv "VALUE_HELM_RELEASE_NAME" }}"
         image:
           repository: "{{ requiredEnv "VALUE_IMAGE_REPOSITORY" }}"
-          tag: "{{ requiredEnv "HELM_RELEASE_VERSION" }}"
+          tag: "{{ requiredEnv "VALUE_HELM_RELEASE_VERSION" }}"
           secrets:
-            - name: "{{ requiredEnv "HELM_RELEASE_NAME" }}-pull"
+            - name: "{{ requiredEnv "VALUE_HELM_RELEASE_NAME" }}-pull"
         ingress:
           domain: "{{ requiredEnv "VALUE_DOMAIN" }}"
           monitoring: {{ requiredEnv "VALUE_MONITORING_ENABLED" }}
@@ -42,7 +42,7 @@ releases:
               - host: 'maildev-{{ requiredEnv "VALUE_DOMAIN" }}'
                 paths: ['/']
             tls:
-              - secretName: maildev-{{ requiredEnv "HELM_RELEASE_NAME" }}
+              - secretName: maildev-{{ requiredEnv "VALUE_HELM_RELEASE_NAME" }}
                 hosts:
                   - 'maildev-{{ requiredEnv "VALUE_DOMAIN" }}'
         env:

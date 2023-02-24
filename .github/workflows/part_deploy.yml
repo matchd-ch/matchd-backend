@@ -171,15 +171,15 @@ jobs:
           VALUE_MONITORING_ENABLED: "${{ inputs.monitoringEnabled }}"
           VALUE_DOMAIN: "${{ inputs.domain }}"
           VALUE_IMAGE_REPOSITORY: "ghcr.io/${{ github.repository }}"
-          HELM_RELEASE_NAME: "${{ inputs.release }}"
+          VALUE_HELM_RELEASE_NAME: "${{ inputs.release }}"
           VALUE_ENVIRONMENT: "${{ inputs.environment }}"
           VALUE_STABLE_AUTOSCALING_ENABLED: "${{ inputs.autoscalingEnabled }}"
           VALUE_STABLE_REPLICA_COUNT: "${{ inputs.stableReplicaCount }}"
           VALUE_REGULAR_AUTOSCALING_ENABLED: "${{ inputs.autoscalingEnabled }}"
           VALUE_REGULAR_REPLICA_COUNT: "${{ inputs.regularReplicaCount }}"
-          HELM_RELEASE_VERSION: "${{ inputs.version }}"
-          KUBE_NAMESPACE: "${{ inputs.namespace }}"
-          KUBE_CONTEXT: "gke_joshmartin-cluster_europe-west6-a_joshmartin-cluster-next"
+          VALUE_HELM_RELEASE_VERSION: "${{ inputs.version }}"
+          VALUE_KUBE_NAMESPACE: "${{ inputs.namespace }}"
+          VALUE_KUBE_CONTEXT: "gke_joshmartin-cluster_europe-west6-a_joshmartin-cluster-next"
           VALUE_DJANGO_SETTINGS_MODULE: 'app.settings.base'
           VALUE_RESET_DB: '${{ inputs.resetDb }}'
           VALUE_DB_HOST: '${{ inputs.dbHost }}'
