@@ -36,7 +36,7 @@ releases:
         migrate:
           resetDb: "{{ requiredEnv "VALUE_RESET_DB" }}"
         maildev:
-          enabled: "{{ requiredEnv "VALUE_MAILDEV_ENABLED" }}"
+          enabled: {{ requiredEnv "VALUE_MAILDEV_ENABLED" }}
           ingress:
             hosts:
               - host: 'maildev-{{ requiredEnv "VALUE_DOMAIN" }}'
