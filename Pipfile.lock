@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "557648b530aa90a74ba008d932a38c723d06c3d86c10003652ffcc836c00fcb2"
+            "sha256": "2b603cc6089952f3a27bcdbfe537c2efa802b3ec9ef30193c76f717fbec40245"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -361,11 +361,11 @@
         },
         "faker": {
             "hashes": [
-                "sha256:64dcf95eee9f00d2547f29f6762aec80fc3ccbe3752bfa2c45082a6e2cc4d74a",
-                "sha256:ad181f6f9cdc0f7d70ea6eaea35ab4b6549391fbaaea7629cc567aeb2757d296"
+                "sha256:51f37ff9df710159d6d736d0ba1c75e063430a8c806b91334d7794305b5a6114",
+                "sha256:5aaa16fa9cfde7d117eef70b6b293a705021e57158f3fa6b44ed1b70202d2065"
             ],
             "index": "pypi",
-            "version": "==16.8.1"
+            "version": "==17.6.0"
         },
         "graphene": {
             "hashes": [
