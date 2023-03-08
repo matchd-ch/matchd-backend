@@ -1,7 +1,7 @@
 {{- range $variantName, $variant := .Values.deployment.variants -}}
 {{- if $variant -}}
 {{ if and $variant.autoscaling.enabled (not (empty $variant.replicaCount)) }}
-apiVersion: autoscaling/v2beta2
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: {{ printf "%s-%s" (include "matchd-backend.fullname" $) $variantName }}
