@@ -1,7 +1,7 @@
 import graphene
 from graphene import ObjectType, relay
 from graphene_django import DjangoObjectType
-from graphql import ResolveInfo
+from graphql.type import GraphQLResolveInfo
 from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 
@@ -290,22 +290,22 @@ class Company(DjangoObjectType):
     def resolve_employees(self: CompanyModel, info):
         return self.get_employees()
 
-    def resolve_job_postings(self: CompanyModel, info: ResolveInfo):
+    def resolve_job_postings(self: CompanyModel, info: GraphQLResolveInfo):
         if is_me_query(info):
             return self.job_postings.all()
         return self.job_postings.filter(state=JobPostingState.PUBLIC)
 
-    def resolve_challenges(self: CompanyModel, info: ResolveInfo):
+    def resolve_challenges(self: CompanyModel, info: GraphQLResolveInfo):
         if is_me_query(info):
             return self.challenges.all()
         return self.challenges.filter(state=ChallengeState.PUBLIC)
 
     @company_cheating_protection
-    def resolve_soft_skills(self: CompanyModel, info: ResolveInfo):
+    def resolve_soft_skills(self: CompanyModel, info: GraphQLResolveInfo):
         return self.soft_skills.all()
 
     @company_cheating_protection
-    def resolve_cultural_fits(self: CompanyModel, info: ResolveInfo):
+    def resolve_cultural_fits(self: CompanyModel, info: GraphQLResolveInfo):
         return self.cultural_fits.all()
 
     def resolve_name(self, info):

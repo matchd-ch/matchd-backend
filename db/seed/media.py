@@ -16,7 +16,7 @@ class Media:
         random_images_path = os.path.join(media_path, 'random')
         admin_user = get_user_model().objects.get(username='admin')
         if not admin_user:
-            raise Exception('Admin user not found. Could not seed random images')
+            raise RuntimeError('Admin user not found. Could not seed random images')
 
         image_content_type = ContentType.objects.get(app_label='db', model='image')
         user_content_type = ContentType.objects.get(app_label='db', model='user')

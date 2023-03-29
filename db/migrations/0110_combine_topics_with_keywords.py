@@ -31,7 +31,8 @@ def update_project_posting_keywords(apps, schema_editor):
             WHERE NOT EXISTS  ( \
                 SELECT id \
                 FROM db_projectposting_keywords \
-                WHERE db_projectposting_keywords.projectposting_id = db_projectposting.id AND db_projectposting_keywords.keyword_id = db_keyword.id )"
+                WHERE db_projectposting_keywords.projectposting_id = db_projectposting.id AND \
+                  db_projectposting_keywords.keyword_id = db_keyword.id )"
 
     cursor.execute(query)
 

@@ -20,22 +20,20 @@
     action_icon - icon for the 'action' button, default is 'icon-plus'
 
 {% endcomment %}
-<header class="{% if merged %}merged{% endif %} {% if tabbed %}tab-merged{% endif %} {% if search_form %}hasform{% endif %}">
+<header class="w-header {% if merged %}merged{% endif %} {% if tabbed %}tab-merged{% endif %} {% if search_form %}hasform{% endif %}">
     {% block breadcrumb %}{% endblock %}
-    <div class="row{% if not tabbed %} nice-padding{% endif %}">
-        <div class="left">
-            <div class="col header-title">
-                <h1>{% if icon %}{% icon name=icon class_name="header-title-icon" %}{% endif %}
-                    {{ title }}{% if subtitle %} <span>{{ subtitle }}</span>{% endif %}</h1>
+    <div class="row">
+        <div class="left header-left">
+            <div class="col">
+            <h1 class="w-header__title">{% if icon %}{% icon name=icon class_name="w-header__glyph" %}{% endif %}
+                {{ title }}{% if subtitle %} <span>{{ subtitle }}</span>{% endif %}</h1>
             </div>
             {% if search_url %}
                 <form class="col search-form" action="{% url search_url %}{% if query_parameters %}?{{ query_parameters }}{% endif %}" method="get" novalidate role="search">
-                    <ul class="fields">
-                        {% for field in search_form %}
-                            {% include "wagtailadmin/shared/field_as_li.html" with field=field field_classes="field-small iconfield" input_classes="icon-search" %}
-                        {% endfor %}
-                        <li class="submit visuallyhidden"><input type="submit" value="Search" class="button" /></li>
-                    </ul>
+                  {% for field in search_form %}
+                    {% include "wagtailadmin/shared/field.html" with field=field show_label=False classname="w-my-0" %}
+                  {% endfor %}
+                    <div class="submit visuallyhidden"><input type="submit" value="Search" class="button" /></div>
                 </form>
             {% endif %}
             <a href="export" class="button">
@@ -43,7 +41,7 @@
                 {% trans "Export users to CSV" %}
             </a>
         </div>
-        <div class="{% block right_column_classname %}right{% endblock %}">
+        <div class="{% block right_column_classname %}right header-right{% endblock %}">
             {% block right_column %}
                 {% if action_url %}
                     <div class="actionbutton">

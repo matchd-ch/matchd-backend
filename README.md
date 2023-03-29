@@ -107,7 +107,6 @@ Authorization: JWT <YOUR JWT TOKEN HERE>
 
 You can access the email admin page at `localhost:9123` (or a differen port if you choosed another port when running [the MailDev docker run command](https://github.com/matchd-ch/matchd-backend#getting-started)). This can be useful for verifying the emails that are being sent by the backend and for email/newsletter development.
 
-
 ## Project details
 
 The project requires a bunch of environment variables at startup. Those variables and their description can be found in `.env.dist`. The project looks automatically for a file named `.env` in the root directory to retrieve the required variables at startup.
@@ -118,7 +117,8 @@ The primary database models: _Users_, _Employees_, _Students_ and _Companies_. T
 
 ### Matching process
 
-The matching process can be subdivided in 4 match types: _Student_, _Company_, _Job Posting_ and _Challenge_. It relies upon the following environment variables (found in `app/settings/base.py`):
+The matching process is a recommending system that is used for suggesting _Job Posting_(s) to students.
+The following environment variables (found in `app/settings/base.py`) are used when calculating a matching score between a job posting and a student:
 
 ```
 MATCHING_VALUE_BRANCH = 0
@@ -133,9 +133,9 @@ MATCHING_VALUE_DATE_OR_DATE_RANGE = 5
 ```
 
 The variables are used as _boosts_ in the searching process; each variable increases the relevance / importance of the related topic.
-The highest score value per match type is calculated based on a subset of those variables, such score is used to normalise the retrieved serch results, also called _hits_.
+The highest score value is calculated based on a subset of those variables, such score is used to normalise the retrieved serch results, also called _hits_.
 
-The system uses _elasticsearch_ to perform the search (via the Wagtail search backend) and uses the _score_ values provided in the results to calculate the final score list. A _match mapper_ is then used to match each element of the score list to a desired list of targets (e.g. match map Student to Job Posting, Company to Student, etc).
+The system uses _elasticsearch_ to perform the search (via the Wagtail search backend) and uses the _score_ values provided in the results to calculate the final score list. A _match mapper_ is then used to match each element of the score list to a desired list of targets (e.g. match map Student to Job Posting).
 
 ## Test Data
 
