@@ -6,7 +6,7 @@ ENV LC_ALL C.UTF-8
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONFAULTHANDLER 1
 
-RUN apt-get update && apt-get install -y --no-install-recommends mariadb-client poppler-utils antiword libmagic-dev rsync
+RUN apt-get update && apt-get install -y --no-install-recommends git mariadb-client poppler-utils antiword libmagic-dev rsync
 
 FROM base AS python-deps
 
