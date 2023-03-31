@@ -1,7 +1,7 @@
-from graphql import ResolveInfo
-from graphql.language.ast import Name
+from graphql.type import GraphQLResolveInfo
+from graphql.language import NameNode
 
 
-def is_me_query(info: ResolveInfo):
-    query_name: Name = info.operation.selection_set.selections[0].name
+def is_me_query(info: GraphQLResolveInfo):
+    query_name: NameNode = info.operation.selection_set.selections[0].name
     return query_name.value == 'me'

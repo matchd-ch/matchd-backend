@@ -79,7 +79,7 @@ def test_relations_invalid_data(login, user_employee, company_relations):
     user_employee.company.profile_step = 2
     user_employee.company.save()
     login(user_employee)
-    data, errors = company_relations(user_employee, '', '', '', '')
+    data, errors = company_relations(user_employee, '', '', '', False)
     assert errors is None
     assert data is not None
     assert data.get('companyProfileRelations') is not None

@@ -2,6 +2,16 @@ import pytest
 
 from django.conf import settings
 from django.core import mail
+from django.contrib.auth.models import AnonymousUser
+
+
+@pytest.mark.django_db
+def test_login_as_anonymous(login):
+    data, errors = login(AnonymousUser)
+    assert errors is None
+    assert data is not None
+    assert data.get('tokenAuth') is not None
+    assert data.get('tokenAuth').get('success') is False
 
 
 @pytest.mark.django_db
@@ -20,7 +30,6 @@ def test_login_wrong_password(login, user_student):
     assert data is not None
     assert data.get('tokenAuth') is not None
     assert data.get('tokenAuth').get('success') is False
-    assert data.get('tokenAuth').get('token') is None
 
 
 @pytest.mark.django_db

@@ -102,7 +102,7 @@ INSTALLED_APPS = [
     'wagtail.images',
     'wagtail.search',
     'wagtail.admin',
-    'wagtail.core',
+    'wagtail',
     'modelcluster',
     'taggit',
     'graphene_django',
@@ -318,6 +318,8 @@ USER_UPLOADS_MAX_DOCUMENT_SIZE = 1024 * 10000
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = os.getenv('DJANGO_BASE_URL', 'http://api.matchd.localhost:8000')
+
+WAGTAILADMIN_BASE_URL = os.getenv('WAGTAILADMIN_BASE_URL', 'http://api.matchd.localhost:8000/admin')
 
 APP_DOMAIN = os.getenv('APP_DOMAIN')
 
