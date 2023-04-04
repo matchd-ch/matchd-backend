@@ -202,6 +202,7 @@ jobs:
           VALUE_APP_DOMAIN: '${{ inputs.domain }}'
           VALUE_APP_CSRF_COOKIE_DOMAIN: '${{ inputs.csrfCookieDomain }}'
           VALUE_WAGTAIL_SITE_NAME: 'MATCHD - ${{ inputs.environment }}'
+          VALUE_WAGTAILADMIN_BASE_URL: 'https://${{ inputs.domain }}/admin'
           VALUE_SECRET_KEY: '${{ secrets.SECRET_KEY }}'
           VALUE_DATA_PROTECTION_URL: '${{ inputs.dataProtectionUrl }}'
           VALUE_SENTRY_ENABLED: 'true'

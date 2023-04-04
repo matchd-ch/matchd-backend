@@ -66,6 +66,7 @@ releases:
               APP_DOMAIN: '{{ requiredEnv "VALUE_APP_DOMAIN" }}'
               APP_CSRF_COOKIE_DOMAIN: '{{ requiredEnv "VALUE_APP_CSRF_COOKIE_DOMAIN" }}'
               WAGTAIL_SITE_NAME: '{{ requiredEnv "VALUE_WAGTAIL_SITE_NAME" }}'
+              WAGTAILADMIN_BASE_URL: '{{ requiredEnv "VALUE_WAGTAILADMIN_BASE_URL" }}'
               SECRET_KEY: '{{ requiredEnv "VALUE_SECRET_KEY" }}'
               DATA_PROTECTION_URL: '{{ requiredEnv "VALUE_DATA_PROTECTION_URL" }}'
               SENTRY_ENABLED: '{{ requiredEnv "VALUE_SENTRY_ENABLED" }}'
