@@ -7,8 +7,8 @@ from db.models import ProfileType
 
 class CompanyProfileRelationsForm(forms.Form):
     website = forms.URLField(max_length=2048, required=True)
-    description = forms.CharField(max_length=1000, required=False)
-    services = forms.CharField(max_length=1000, required=False)
+    description = forms.CharField(max_length=3000, required=False)
+    services = forms.CharField(max_length=3000, required=False)
     # Bug prevention, when false is given as parameter
     member_it_st_gallen = forms.BooleanField(required=False, initial=False)
 

@@ -6,7 +6,7 @@ from db.models import ProfileType
 
 
 class UniversityProfileSpecificDataForm(forms.Form):
-    description = forms.CharField(max_length=1000, required=False)
+    description = forms.CharField(max_length=3000, required=False)
 
 
 def process_university_specific_data_form(user, data):

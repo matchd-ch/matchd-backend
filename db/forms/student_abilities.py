@@ -12,7 +12,7 @@ from db.models import Skill, OnlineChallenge, Hobby, UserLanguageRelation
 
 class StudentProfileAbilitiesForm(forms.Form):
     skills = forms.ModelMultipleChoiceField(queryset=Skill.objects.all(), required=True)
-    distinction = forms.CharField(max_length=1000, required=False)
+    distinction = forms.CharField(max_length=3000, required=False)
 
 
 def get_language_relation_instance_or_none(student, model, data):

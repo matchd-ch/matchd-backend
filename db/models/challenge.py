@@ -26,9 +26,9 @@ class Challenge(models.Model, index.Indexed):
                                        blank=False,
                                        on_delete=models.CASCADE)
     keywords = models.ManyToManyField('db.Keyword', related_name='challenges')
-    description = models.TextField(max_length=1500)
+    description = models.TextField(max_length=3000)
     team_size = models.PositiveIntegerField()
-    compensation = models.TextField(max_length=300)
+    compensation = models.TextField(max_length=3000)
     website = models.URLField(max_length=2048, blank=True)
     challenge_from_date = models.DateField(null=True, blank=True)
     employee = models.ForeignKey('db.Employee', on_delete=models.SET_NULL, blank=True, null=True)
