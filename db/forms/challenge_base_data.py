@@ -9,9 +9,9 @@ from db.models import ChallengeType, Keyword, Challenge, ProfileType
 
 class ChallengeBaseDataForm(forms.Form):
     title = forms.CharField(max_length=50, required=True)
-    description = forms.CharField(max_length=1500, required=True)
+    description = forms.CharField(max_length=3000, required=True)
     team_size = forms.IntegerField(min_value=1, required=True)
-    compensation = forms.CharField(max_length=300, required=True)
+    compensation = forms.CharField(max_length=3000, required=True)
     challenge_type = forms.ModelChoiceField(queryset=ChallengeType.objects.all(), required=True)
     keywords = forms.ModelMultipleChoiceField(queryset=Keyword.objects.all(), required=True)
 

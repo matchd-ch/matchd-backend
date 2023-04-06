@@ -19,7 +19,7 @@ class JobPostingState(models.TextChoices):
 class JobPosting(models.Model, index.Indexed):
     title = models.CharField(max_length=50, blank=True)
     slug = models.CharField(max_length=100, blank=True)
-    description = models.TextField(max_length=1000)
+    description = models.TextField(max_length=3000)
     job_type = models.ForeignKey('db.JobType',
                                  null=False,
                                  blank=False,

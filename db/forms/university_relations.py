@@ -9,7 +9,7 @@ class UniversityProfileRelationsForm(forms.Form):
     branches = forms.ModelMultipleChoiceField(queryset=Branch.objects.all(), required=False)
     benefits = forms.ModelMultipleChoiceField(queryset=Benefit.objects.all(), required=False)
 
-    services = forms.CharField(max_length=300, required=False)
+    services = forms.CharField(max_length=3000, required=False)
     link_education = forms.URLField(max_length=2048, required=False)
     link_challenges = forms.URLField(max_length=2048, required=False)
     link_thesis = forms.URLField(max_length=2048, required=False)

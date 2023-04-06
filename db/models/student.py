@@ -38,7 +38,7 @@ class Student(models.Model, index.Indexed):
     job_from_date = models.DateField(null=True, blank=True)
     job_to_date = models.DateField(null=True, blank=True)
     skills = models.ManyToManyField('db.Skill', related_name='students')
-    distinction = models.TextField(max_length=1000, blank=True)
+    distinction = models.TextField(max_length=3000, blank=True)
     state = models.CharField(choices=ProfileState.choices,
                              max_length=255,
                              blank=False,

@@ -29,7 +29,7 @@ class Company(models.Model, index.Indexed):
                              validators=[RegexValidator(regex=settings.PHONE_REGEX)])
     website = models.URLField(max_length=2048, blank=True)
     branches = models.ManyToManyField('db.Branch', related_name='companies')
-    description = models.TextField(max_length=1000, blank=True)
+    description = models.TextField(max_length=3000, blank=True)
 
     # fields for company only
     soft_skills = models.ManyToManyField('db.SoftSkill', related_name='companies')
@@ -42,7 +42,7 @@ class Company(models.Model, index.Indexed):
     cultural_fits = models.ManyToManyField('db.CulturalFit', related_name='companies')
 
     # fields for university only
-    top_level_organisation_description = models.TextField(max_length=1000, blank=True)
+    top_level_organisation_description = models.TextField(max_length=3000, blank=True)
     top_level_organisation_website = models.URLField(max_length=2048, blank=True)
     link_education = models.URLField(max_length=2048, blank=True, null=True)
     link_challenges = models.URLField(max_length=2048, blank=True, null=True)

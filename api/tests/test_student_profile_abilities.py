@@ -128,7 +128,7 @@ def test_abilities_with_invalid_data(login, user_student, student_abilities):
         }, {
             'url': 'www.google2.com'
         }],
-        'a' * 1001)
+        'a' * 3001)
     assert errors is None
     assert data is not None
     assert data.get('studentProfileAbilities') is not None
