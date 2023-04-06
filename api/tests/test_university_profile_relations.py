@@ -95,7 +95,7 @@ def test_relations_invalid_data(login, user_rector, university_relations):
     user_rector.company.profile_step = 3
     user_rector.company.save()
     login(user_rector)
-    data, errors = university_relations(user_rector, 'a' * 301, 'invalid', 'invalid', 'invalid',
+    data, errors = university_relations(user_rector, 'a' * 3001, 'invalid', 'invalid', 'invalid',
                                         [SoftSkill(id=1337)], [CulturalFit(id=1337)])
     assert errors is None
     assert data is not None

@@ -73,7 +73,7 @@ def test_specific_data_invalid_data(login, user_rector, university_specific_data
     user_rector.company.profile_step = 2
     user_rector.company.save()
     login(user_rector)
-    data, errors = university_specific_data(user_rector, 'a' * 1001)
+    data, errors = university_specific_data(user_rector, 'a' * 3001)
     assert errors is None
     assert data is not None
     assert data.get('universityProfileSpecificData') is not None
