@@ -351,11 +351,11 @@
         },
         "faker": {
             "hashes": [
-                "sha256:662db19e32768f15440525526849b561bf866cafc05dc8dd674645b9a6070599",
-                "sha256:c2c69414b0cf6ddd7978c64eabbca66a4fc2a5fb7e74317eeb169e906dc2915d"
+                "sha256:170ead9d0d140916168b142df69c44722b8f622ced2070802d0af9c476f0cb84",
+                "sha256:977ad0b7aa7a61ed57287d6a0723a827e9d3dd1f8cc82aaf08707f281b33bacc"
             ],
             "index": "pypi",
-            "version": "==18.3.4"
+            "version": "==18.4.0"
         },
         "graphene": {
             "hashes": [
