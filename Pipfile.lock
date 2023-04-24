@@ -779,11 +779,11 @@
         },
         "setuptools": {
             "hashes": [
-                "sha256:257de92a9d50a60b8e22abfcbb771571fde0dbf3ec234463212027a4eeecbe9a",
-                "sha256:e728ca814a823bf7bf60162daf9db95b93d532948c4c0bea762ce62f60189078"
+                "sha256:6f0839fbdb7e3cfef1fc38d7954f5c1c26bf4eebb155a55c9bf8faf997b9fb67",
+                "sha256:bb16732e8eb928922eabaa022f881ae2b7cdcfaf9993ef1f5e841a96d32b8e0c"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==67.6.1"
+            "version": "==67.7.1"
         },
         "singledispatch": {
             "hashes": [
@@ -913,11 +913,11 @@
         },
         "wagtailmedia": {
             "hashes": [
-                "sha256:112977ab0f2e00fc0e9c023d9635a58435ee70e7e59293c66b9320a13159f6b0",
-                "sha256:2bd42d565a5eb491dbf45bd3bda2cf628217b42e2c707d92d068ecb30a03a396"
+                "sha256:3cab17d49328bf22f9fce6373d9eeffe66821e0af69ac8c53b6c996e286120a4",
+                "sha256:5c90bdcd54b621a35f623f4728e34d62674d96554037e3fdb3cebddbec86875d"
             ],
             "index": "pypi",
-            "version": "==0.13.0"
+            "version": "==0.14.0"
         },
         "webencodings": {
             "hashes": [
