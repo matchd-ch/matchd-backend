@@ -61,11 +61,11 @@
                 </td>
                 <td {% if user.last_login %} class="human-readable-date" title="{{ user.last_login|date:"d M Y H:i" }}"{% endif %}>{% if user.last_login %}{% blocktrans with time_period=user.last_login|timesince %}{{ time_period }} ago{% endblocktrans %}{% endif %}</td>
                 <td class="impersonate">
-                    <a href="{% url 'impersonate_url' user.pk %}" class="button no">
+                    <button onclick="window.location.href='{% url 'impersonate_url' user.pk %}'" class="button no">
                         <i class="icon icon-fa-user-secret" aria-hidden="true"></i>
 
                         {% trans "Impersonate user" %}
-                    </a>
+                    </button>
                 </div>
                 </td>
             </tr>
