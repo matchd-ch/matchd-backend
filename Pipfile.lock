@@ -897,11 +897,11 @@
         },
         "wagtail": {
             "hashes": [
-                "sha256:99f6d18ed8ea6a3a825ebd3441899e639f6833abc98f0f1e578f9eacd172035b",
-                "sha256:b3cf60b371fffc373793a04b6540b800fc83822598f4b7ad580908fa45d04dff"
+                "sha256:c7a3237174ecdcc166fc8e0eae54f8a9617f3d466f747eb23922601f2b6551c1",
+                "sha256:e9854e1a4a8d321b294505335f9f1f51afd56ad80de600628f92df4b93df9ac9"
             ],
             "index": "pypi",
-            "version": "==4.2.2"
+            "version": "==4.2.3"
         },
         "wagtailfontawesome": {
             "hashes": [
