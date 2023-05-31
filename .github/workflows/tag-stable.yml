@@ -39,7 +39,7 @@ jobs:
       dataProtectionUrl: 'https://matchd.ch/impressum-datenschutz/'
       resetDb: false
       maildevEnabled: false
-      impersonationRedirectUriTemplate:  https://matchd.ch/impersonate/{#token}
+      impersonationRedirectUriTemplate: https://get.matchd.ch/impersonate/{#token}
       emailSubjectPrefix: ''
     secrets:
       DOCKER_PULL_USERNAME: ${{ secrets.DOCKER_PULL_USERNAME }}
