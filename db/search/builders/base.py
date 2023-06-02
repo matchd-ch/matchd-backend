@@ -128,7 +128,7 @@ class BaseParamBuilder:
         return {
         # boost dates within the shifted range
             "bool": {
-                "should": [
+                "must": [
                     {
                         "range": {
                             from_key: {
