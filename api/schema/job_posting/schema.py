@@ -68,6 +68,7 @@ class JobPosting(DjangoObjectType):
             'company',
             'job_from_date',
             'job_to_date',
+            'job_period_by_agreement',
             'url',
             'form_step',
             'skills',
@@ -183,8 +184,9 @@ class JobPostingBaseData(Output, relay.ClientIDMutation):
         branches = graphene.List(BranchInput, required=True)
         workload_from = graphene.Int(description=_('Workload from'), required=True)
         workload_to = graphene.Int(description=_('Workload to'), required=True)
-        job_from_date = graphene.String(required=True)
+        job_from_date = graphene.String(required=False)
         job_to_date = graphene.String(required=False)
+        job_period_by_agreement = graphene.Boolean(required=True)
         url = graphene.String(required=False)
 
     class Meta:

@@ -7797,7 +7797,7 @@
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-9-1@matchd.localhost",
                     "form_step": 4,
-                    "job_from_date": "2020-07-22",
+                    "job_period_by_agreement": true,
                     "job_requirements": [
                         3,
                         4,
@@ -7836,7 +7836,7 @@
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-9-1@matchd.localhost",
                     "form_step": 4,
-                    "job_from_date": "2020-10-21",
+                    "job_period_by_agreement": true,
                     "job_requirements": [
                         1,
                         2
@@ -8068,7 +8068,7 @@
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac tincidunt vitae semper quis lectus nulla at volutpat. Ultrices tincidunt arcu non sodales neque sodales ut. Velit sed ullamcorper morbi tincidunt ornare massa. Et tortor at risus viverra adipiscing at. Diam quis enim lobortis scelerisque fermentum.",
                     "employee": "company-10-1@matchd.localhost",
                     "form_step": 4,
-                    "job_from_date": "2021-02-17",
+                    "job_period_by_agreement": true,
                     "job_requirements": [
                         3,
                         1,

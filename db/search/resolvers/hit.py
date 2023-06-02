@@ -18,7 +18,6 @@ class HitResolver:
             ids.append(obj_id)
             score = hit.get('_score')
             scores[obj_id] = score
-            print(score)
 
         query = Q(id__in=ids)
         result = self.queryset.filter(query)
