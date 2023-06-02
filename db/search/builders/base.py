@@ -119,19 +119,33 @@ class BaseParamBuilder:
             },
         }
 
-    def get_range_query(self, key, value, shift, boost):
-        shifted_start = value - shift
-        shifted_end = value + shift
+    def get_workload_range_query(self, from_key, to_key, workload_from, workload_to, tolerance,
+                                 boost):
+        shifted_start = workload_from - tolerance
+        shifted_end = workload_to + tolerance
         shifted_start = max(0, shifted_start)
         shifted_end = min(100, shifted_end)
         return {
         # boost dates within the shifted range
-            "range": {
-                key: {
-                    "gte": shifted_start,
-                    "lte": shifted_end,
-                    "boost": boost
-                }
+            "bool": {
+                "should": [
+                    {
+                        "range": {
+                            from_key: {
+                                "lte": shifted_end,
+                                "boost": boost
+                            }
+                        }
+                    },
+                    {
+                        "range": {
+                            to_key: {
+                                "gte": shifted_start,
+                                "boost": boost
+                            }
+                        }
+                    },
+                ]
             }
         }
 

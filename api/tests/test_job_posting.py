@@ -18,7 +18,8 @@ def test_job_posting(query_job_posting, job_posting_object: JobPosting, job_type
     job_posting_object.slug = 'title'
     job_posting_object.description = 'description'
     job_posting_object.job_type = job_type_objects[0]
-    job_posting_object.workload = 80
+    job_posting_object.workload_from = 80
+    job_posting_object.workload_to = 80
     job_posting_object.company = company_object
     job_posting_object.job_from_date = '2021-08-01'
     job_posting_object.job_to_date = '2021-10-01'
@@ -49,7 +50,8 @@ def test_job_posting(query_job_posting, job_posting_object: JobPosting, job_type
     assert job_posting.get('branches')[0].get('id') == to_global_id(
         'Branch',
         job_posting_object.branches.all()[0].id)
-    assert job_posting.get('workload') == job_posting_object.workload
+    assert job_posting.get('workloadFrom') == job_posting_object.workload_from
+    assert job_posting.get('workloadTo') == job_posting_object.workload_to
     assert job_posting.get('company').get('id') == to_global_id('Company',
                                                                 job_posting_object.company_id)
     assert job_posting.get('jobFromDate') == '2021-08-01'
@@ -82,7 +84,8 @@ def test_job_posting_as_employee(query_job_posting, job_posting_object: JobPosti
     job_posting_object.slug = 'title'
     job_posting_object.description = 'description'
     job_posting_object.job_type = job_type_objects[0]
-    job_posting_object.workload = 80
+    job_posting_object.workload_from = 80
+    job_posting_object.workload_to = 80
     job_posting_object.company = company_object
     job_posting_object.job_from_date = '2021-08-01'
     job_posting_object.job_to_date = '2021-10-01'
@@ -113,7 +116,8 @@ def test_job_posting_as_employee(query_job_posting, job_posting_object: JobPosti
     assert job_posting.get('branches')[0].get('id') == to_global_id(
         'Branch',
         job_posting_object.branches.all()[0].id)
-    assert job_posting.get('workload') == job_posting_object.workload
+    assert job_posting.get('workloadFrom') == job_posting_object.workload_from
+    assert job_posting.get('workloadTo') == job_posting_object.workload_to
     assert job_posting.get('company').get('id') == to_global_id('Company',
                                                                 job_posting_object.company_id)
     assert job_posting.get('jobFromDate') == '2021-08-01'
@@ -143,7 +147,8 @@ def test_job_posting_by_id(query_job_posting_by_id, job_posting_object: JobPosti
     job_posting_object.slug = 'title'
     job_posting_object.description = 'description'
     job_posting_object.job_type = job_type_objects[0]
-    job_posting_object.workload = 80
+    job_posting_object.workload_from = 80
+    job_posting_object.workload_to = 80
     job_posting_object.company = company_object
     job_posting_object.job_from_date = '2021-08-01'
     job_posting_object.job_to_date = '2021-10-01'
@@ -174,7 +179,8 @@ def test_job_posting_by_id(query_job_posting_by_id, job_posting_object: JobPosti
     assert job_posting.get('branches')[0].get('id') == to_global_id(
         'Branch',
         job_posting_object.branches.all()[0].id)
-    assert job_posting.get('workload') == job_posting_object.workload
+    assert job_posting.get('workloadFrom') == job_posting_object.workload_from
+    assert job_posting.get('workloadTo') == job_posting_object.workload_to
     assert job_posting.get('company').get('id') == to_global_id('Company',
                                                                 job_posting_object.company_id)
     assert job_posting.get('jobFromDate') == '2021-08-01'
@@ -207,7 +213,8 @@ def test_job_posting_is_draft_but_accessible_for_employee(login, query_job_posti
     job_posting_object.slug = 'title'
     job_posting_object.description = 'description'
     job_posting_object.job_type = job_type_objects[0]
-    job_posting_object.workload = 80
+    job_posting_object.workload_from = 80
+    job_posting_object.workload_to = 80
     job_posting_object.company = company_object
     job_posting_object.job_from_date = '2021-08-01'
     job_posting_object.job_to_date = '2021-10-01'
@@ -237,7 +244,8 @@ def test_job_posting_is_draft_but_accessible_for_employee(login, query_job_posti
     assert job_posting.get('branches')[0].get('id') == to_global_id(
         'Branch',
         job_posting_object.branches.all()[0].id)
-    assert job_posting.get('workload') == job_posting_object.workload
+    assert job_posting.get('workloadFrom') == job_posting_object.workload_from
+    assert job_posting.get('workloadTo') == job_posting_object.workload_to
     assert job_posting.get('company').get('id') == to_global_id('Company',
                                                                 job_posting_object.company_id)
     assert job_posting.get('jobFromDate') == '2021-08-01'

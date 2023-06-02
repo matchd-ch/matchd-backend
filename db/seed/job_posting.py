@@ -38,10 +38,13 @@ class JobPosting(BaseSeed):
                 if job_type_object.mode == DateMode.DATE_RANGE:
                     job_to_date = self.rand.job_to_date(job_from_date)
 
+                workload_total = self.rand.workload()
+
                 job_posting = JobPostingModel(title=self.rand.title(),
                                               description=self.rand.description(),
                                               job_type_id=job_type,
-                                              workload=self.rand.workload(),
+                                              workload_from=workload_total,
+                                              workload_to=workload_total,
                                               company=company,
                                               job_from_date=job_from_date,
                                               job_to_date=job_to_date,
@@ -74,9 +77,9 @@ class JobPosting(BaseSeed):
                     job_title = self.rand.title()
                 job_posting.title = job_title
                 job_posting.description = obj.get('description')
-                workload = obj.get('workload')
-                if workload is None or workload == '':
-                    workload = self.rand.workload()
+                workload_from = obj.get('workload_from')
+                if workload_from is None or workload_from == '':
+                    workload_from = self.rand.workload()
                 date_created = obj.get('date_created')
                 date_created = datetime.strptime(
                     date_created,
@@ -90,7 +93,8 @@ class JobPosting(BaseSeed):
                     job_posting.date_published = job_posting.date_created
                 job_posting.date_created = date_created
                 job_posting.date_published = date_published
-                job_posting.workload = workload
+                job_posting.workload_from = workload_from
+                job_posting.workload_to = workload_from
                 job_posting.job_from_date = obj.get('job_from_date')
                 job_posting.job_to_date = obj.get('job_to_date')
                 job_posting.url = obj.get('url')

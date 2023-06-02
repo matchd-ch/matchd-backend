@@ -1,5 +1,6 @@
 import requests
 from django import forms
+from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.shortcuts import get_object_or_404
 from django.utils.text import slugify
@@ -16,9 +17,12 @@ class JobPostingBaseDataForm(forms.Form):
     description = forms.CharField(max_length=3000, required=False)
     job_type = forms.ModelChoiceField(queryset=JobType.objects.all(), required=True)
     branches = forms.ModelMultipleChoiceField(queryset=Branch.objects.all(), required=True)
-    workload = forms.IntegerField(required=True,
-                                  validators=[MaxValueValidator(100),
-                                              MinValueValidator(10)])
+    workload_from = forms.IntegerField(required=True,
+                                       validators=[MaxValueValidator(100),
+                                                   MinValueValidator(10)])
+    workload_to = forms.IntegerField(required=True,
+                                     validators=[MaxValueValidator(100),
+                                                 MinValueValidator(10)])
     job_from_date = forms.DateField(required=True)
     job_to_date = forms.DateField(required=False)
     url = forms.URLField(required=False)
@@ -31,6 +35,15 @@ class JobPostingBaseDataForm(forms.Form):
         if to_date is not None:
             data['job_to_date'] = convert_date(data.get('job_to_date', None), '%m.%Y')
         super().__init__(data=data, **kwargs)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        workload_from = cleaned_data.get('workload_from', False)
+        workload_to = cleaned_data.get('workload_to', False)
+
+        if workload_from > workload_to:
+            raise ValidationError(
+                {'workload_to': "Workload to must be greated than workload from."})
 
 
 # noinspection PyBroadException
@@ -99,7 +112,8 @@ def process_job_posting_base_data_form(user, data):
     job_posting.title = cleaned_data.get('title')
     job_posting.description = cleaned_data.get('description')
     job_posting.job_type = cleaned_data.get('job_type')
-    job_posting.workload = cleaned_data.get('workload', None)
+    job_posting.workload_from = cleaned_data.get('workload_from', None)
+    job_posting.workload_to = cleaned_data.get('workload_to', None)
     job_posting.job_from_date = cleaned_data.get('job_from_date')
     job_posting.job_to_date = cleaned_data.get('job_to_date', None)
     job_posting.url = cleaned_data.get('url', None)

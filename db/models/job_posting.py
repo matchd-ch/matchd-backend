@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import gettext as _
@@ -26,11 +27,14 @@ class JobPosting(models.Model, index.Indexed):
                                  on_delete=models.CASCADE,
                                  related_name='+')
     branches = models.ManyToManyField('db.Branch', related_name='job_postings')
-    workload = models.IntegerField(blank=True,
-                                   null=True,
-                                   validators=[MaxValueValidator(100),
-                                               MinValueValidator(10)],
-                                   default=100)
+    workload_from = models.IntegerField(blank=False,
+                                        null=False,
+                                        validators=[MaxValueValidator(100),
+                                                    MinValueValidator(10)])
+    workload_to = models.IntegerField(blank=False,
+                                      null=False,
+                                      validators=[MaxValueValidator(100),
+                                                  MinValueValidator(10)])
     company = models.ForeignKey('db.Company',
                                 null=False,
                                 blank=False,
@@ -59,6 +63,14 @@ class JobPosting(models.Model, index.Indexed):
     def soft_skills(self):
         return [obj.id for obj in self.company.soft_skills.all()]
 
+    def clean(self):
+        workload_from = self.cleaned_data.get('workload_from', False)
+        workload_to = self.cleaned_data.get('workload_to', False)
+
+        if workload_from > workload_to:
+            raise ValidationError(
+                {'workload_to': "Workload to must be greated than workload from."})
+
     @classmethod
     def get_indexed_objects(cls):
         return cls.objects.filter(state=JobPostingState.PUBLIC).select_related('company', 'job_type').\
@@ -69,7 +81,8 @@ class JobPosting(models.Model, index.Indexed):
             index.FilterField('id'),
         ]),
         index.FilterField('job_type_id'),
-        index.FilterField('workload'),
+        index.FilterField('workload_from'),
+        index.FilterField('workload_to'),
         index.FilterField('job_from_date',
                           es_extra={
                               'type': 'date',

@@ -55,7 +55,8 @@ def job_posting_query(filter_value, param_name):
             company {
                 id
             }
-            workload
+            workloadFrom
+            workloadTo
             jobFromDate
             jobToDate
             formStep
@@ -147,7 +148,8 @@ def job_postings_query(slug):
                     company {
                         id
                     }
-                    workload
+                    workloadFrom
+                    workloadTo
                     jobFromDate
                     jobToDate
                     formStep
@@ -236,8 +238,8 @@ def job_posting_mutation(kind):
 @pytest.fixture
 def job_posting_base_data(execute):
 
-    def closure(user, title, description, job_type, branches, workload, job_from_date, job_to_date,
-                url):
+    def closure(user, title, description, job_type, branches, workload_from, workload_to,
+                job_from_date, job_to_date, url):
         return execute(job_posting_mutation("BaseData"),
                        variables={
                            'input': {
@@ -252,8 +254,10 @@ def job_posting_base_data(execute):
                                'branches': [{
                                    'id': to_global_id('Branches', obj.id)
                                } for obj in branches],
-                               'workload':
-                               workload,
+                               'workloadFrom':
+                               workload_from,
+                               'workloadTo':
+                               workload_to,
                                'jobFromDate':
                                job_from_date,
                                'jobToDate':
@@ -344,6 +348,8 @@ def job_posting_objects(company_object, job_type_objects_date_range, branch_obje
                                               company=company_object,
                                               job_type=job_type_objects_date_range[0],
                                               job_from_date=datetime.now(),
+                                              workload_from=80,
+                                              workload_to=100,
                                               slug='job-1',
                                               state=JobPostingState.PUBLIC)
     job_posting_1.branches.set([branch_objects[0]])
@@ -351,6 +357,8 @@ def job_posting_objects(company_object, job_type_objects_date_range, branch_obje
                                               company=company_object,
                                               job_type=job_type_objects_date_range[0],
                                               job_from_date=datetime.now(),
+                                              workload_from=80,
+                                              workload_to=100,
                                               slug='job-2',
                                               state=JobPostingState.PUBLIC)
     job_posting_2.branches.set([branch_objects[0]])
@@ -358,6 +366,8 @@ def job_posting_objects(company_object, job_type_objects_date_range, branch_obje
                                               company=company_object,
                                               job_type=job_type_objects_date_range[0],
                                               job_from_date=datetime.now(),
+                                              workload_from=80,
+                                              workload_to=100,
                                               slug='job-3',
                                               state=JobPostingState.DRAFT)
     job_posting_3.branches.set([branch_objects[0]])
