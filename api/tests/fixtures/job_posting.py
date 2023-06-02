@@ -59,6 +59,7 @@ def job_posting_query(filter_value, param_name):
             workloadTo
             jobFromDate
             jobToDate
+            jobPeriodByAgreement
             formStep
             url
             jobRequirements {
@@ -152,6 +153,7 @@ def job_postings_query(slug):
                     workloadTo
                     jobFromDate
                     jobToDate
+                    jobPeriodByAgreement
                     formStep
                     url
                     jobRequirements {
@@ -239,7 +241,7 @@ def job_posting_mutation(kind):
 def job_posting_base_data(execute):
 
     def closure(user, title, description, job_type, branches, workload_from, workload_to,
-                job_from_date, job_to_date, url):
+                job_from_date, job_to_date, job_period_by_agreement, url):
         return execute(job_posting_mutation("BaseData"),
                        variables={
                            'input': {
@@ -262,6 +264,8 @@ def job_posting_base_data(execute):
                                job_from_date,
                                'jobToDate':
                                job_to_date,
+                               'jobPeriodByAgreement':
+                               job_period_by_agreement,
                                'url':
                                url
                            }
@@ -345,6 +349,7 @@ def delete_job_posting(execute):
 @pytest.fixture
 def job_posting_objects(company_object, job_type_objects_date_range, branch_objects):
     job_posting_1 = JobPosting.objects.create(id=1,
+                                              description='Some description 1',
                                               company=company_object,
                                               job_type=job_type_objects_date_range[0],
                                               job_from_date=datetime.now(),
@@ -354,6 +359,7 @@ def job_posting_objects(company_object, job_type_objects_date_range, branch_obje
                                               state=JobPostingState.PUBLIC)
     job_posting_1.branches.set([branch_objects[0]])
     job_posting_2 = JobPosting.objects.create(id=2,
+                                              description='Some description 2',
                                               company=company_object,
                                               job_type=job_type_objects_date_range[0],
                                               job_from_date=datetime.now(),
@@ -363,6 +369,7 @@ def job_posting_objects(company_object, job_type_objects_date_range, branch_obje
                                               state=JobPostingState.PUBLIC)
     job_posting_2.branches.set([branch_objects[0]])
     job_posting_3 = JobPosting.objects.create(id=3,
+                                              description='Some description 3',
                                               company=company_object,
                                               job_type=job_type_objects_date_range[0],
                                               job_from_date=datetime.now(),

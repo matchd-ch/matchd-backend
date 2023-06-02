@@ -34,6 +34,7 @@ class JobPosting(BaseSeed):
                 job_type = self.rand.job_type()
                 job_from_date = self.rand.job_from_date()
                 job_to_date = None
+                job_period_by_agreement = False
                 job_type_object = JobType.objects.get(pk=job_type)
                 if job_type_object.mode == DateMode.DATE_RANGE:
                     job_to_date = self.rand.job_to_date(job_from_date)
@@ -48,6 +49,7 @@ class JobPosting(BaseSeed):
                                               company=company,
                                               job_from_date=job_from_date,
                                               job_to_date=job_to_date,
+                                              job_period_by_agreement=job_period_by_agreement,
                                               url='https://www.job.lo',
                                               form_step=4,
                                               state=self.rand.job_posting_state(),
@@ -97,6 +99,7 @@ class JobPosting(BaseSeed):
                 job_posting.workload_to = workload_from
                 job_posting.job_from_date = obj.get('job_from_date')
                 job_posting.job_to_date = obj.get('job_to_date')
+                job_posting.job_period_by_agreement = obj.get('job_period_by_agreement', False)
                 job_posting.url = obj.get('url')
                 job_posting.form_step = obj.get('form_step')
                 job_posting.state = obj.get('state')

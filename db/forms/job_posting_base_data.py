@@ -23,27 +23,73 @@ class JobPostingBaseDataForm(forms.Form):
     workload_to = forms.IntegerField(required=True,
                                      validators=[MaxValueValidator(100),
                                                  MinValueValidator(10)])
-    job_from_date = forms.DateField(required=True)
+    job_from_date = forms.DateField(required=False)
     job_to_date = forms.DateField(required=False)
+    job_period_by_agreement = forms.BooleanField(required=False)
     url = forms.URLField(required=False)
 
     def __init__(self, data=None, **kwargs):
         # due to a bug with ModelChoiceField and graphene_django
         data['job_type'] = convert_object_to_id(data.get('job_type', None))
-        data['job_from_date'] = convert_date(data.get('job_from_date', None), '%m.%Y')
-        to_date = data.get('job_to_date', None)
-        if to_date is not None:
-            data['job_to_date'] = convert_date(data.get('job_to_date', None), '%m.%Y')
+
+        data['job_period_by_agreement'] = data.get('job_period_by_agreement', False)
+
+        if not data['job_period_by_agreement']:
+            data['job_from_date'] = convert_date(data.get('job_from_date', None), '%m.%Y')
+            to_date = data.get('job_to_date', None)
+
+            if to_date is not None:
+                data['job_to_date'] = convert_date(data.get('job_to_date', None), '%m.%Y')
+
         super().__init__(data=data, **kwargs)
 
     def clean(self):
-        cleaned_data = super().clean()
-        workload_from = cleaned_data.get('workload_from', False)
-        workload_to = cleaned_data.get('workload_to', False)
+        super().clean()
+        cleaned_data = self.cleaned_data
+
+        self.validate_workload(cleaned_data)
+        self.validate_work_period(cleaned_data)
+
+    def validate_workload(self, cleaned_data):
+        workload_from = cleaned_data.get('workload_from')
+        workload_to = cleaned_data.get('workload_to')
+
+        if workload_from is None:
+            raise ValidationError({'workload_from': "Must be provided."})
+
+        if workload_to is None:
+            raise ValidationError({'workload_to': "Must be provided."})
 
         if workload_from > workload_to:
             raise ValidationError(
                 {'workload_to': "Workload to must be greated than workload from."})
+
+    def validate_work_period(self, cleaned_data):
+        job_from_date = cleaned_data.get('job_from_date')
+        job_to_date = cleaned_data.get('job_to_date')
+        job_period_by_agreement = cleaned_data.get('job_period_by_agreement')
+
+        if job_period_by_agreement:
+            if job_from_date is not None:
+                raise ValidationError(
+                    {'job_from_date': "Must be null if job period is by agreement."})
+
+            if job_to_date is not None:
+                raise ValidationError(
+                    {'job_to_date': "Must be null if job period is by agreement."})
+        else:
+            # pylint: disable=R1720
+            if job_from_date is None:
+                raise ValidationError(
+                    {'job_from_date': "Must be set if the job period is not by agreement."})
+            else:
+                if job_period_by_agreement:
+                    raise ValidationError(
+                        {'job_period_by_agreement': "Must be false if the job has a start date."})
+
+                if job_to_date is not None:
+                    if job_from_date >= job_to_date:
+                        raise ValidationError({'job_to_date': "Must be after from date."})
 
 
 # noinspection PyBroadException
@@ -80,8 +126,6 @@ def process_job_posting_base_data_form(user, data):
         cleaned_data = form.cleaned_data
 
         # validate date range
-        from_date = cleaned_data.get('job_from_date')
-        to_date = cleaned_data.get('job_to_date', None)
         url = cleaned_data.get('url', None)
 
         if url is not None and url != '':
@@ -89,12 +133,6 @@ def process_job_posting_base_data_form(user, data):
                 errors.update(
                     generic_error_dict('url', _('URL must point to a html page'), 'invalid'))
 
-        if to_date is not None and from_date >= to_date:
-            errors.update(
-                generic_error_dict('job_to_date', _('Date must be after from date'),
-                                   'invalid_range'))
-        cleaned_data['job_from_date'] = from_date
-        cleaned_data['job_to_date'] = to_date
         cleaned_data['company'] = user.company
     else:
         errors.update(form.errors.get_json_data())
@@ -112,10 +150,11 @@ def process_job_posting_base_data_form(user, data):
     job_posting.title = cleaned_data.get('title')
     job_posting.description = cleaned_data.get('description')
     job_posting.job_type = cleaned_data.get('job_type')
-    job_posting.workload_from = cleaned_data.get('workload_from', None)
-    job_posting.workload_to = cleaned_data.get('workload_to', None)
-    job_posting.job_from_date = cleaned_data.get('job_from_date')
+    job_posting.workload_from = cleaned_data.get('workload_from')
+    job_posting.workload_to = cleaned_data.get('workload_to')
+    job_posting.job_from_date = cleaned_data.get('job_from_date', None)
     job_posting.job_to_date = cleaned_data.get('job_to_date', None)
+    job_posting.job_period_by_agreement = cleaned_data.get('job_period_by_agreement')
     job_posting.url = cleaned_data.get('url', None)
     job_posting.company = cleaned_data.get('company')
     job_posting.save()

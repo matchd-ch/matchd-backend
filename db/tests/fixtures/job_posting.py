@@ -17,7 +17,8 @@ def job_posting_valid_args(create_job_type, create_company, create_employee):
         'company': create_company,
         'job_from_date': date(2022, 2, 10),
         'job_to_date': date(2024, 2, 10),
-        'url': 'www.joburl.ch',
+        'job_period_by_agreement': False,
+        'url': 'https://www.joburl.ch',
         'employee': create_employee,
         'date_published': date(2024, 2, 15),
     }
@@ -26,6 +27,7 @@ def job_posting_valid_args(create_job_type, create_company, create_employee):
 @pytest.fixture
 def create_job_posting(create_company, create_job_type):
     return JobPosting.objects.create(title='Test',
+                                     description='Test description',
                                      company=create_company,
                                      job_type=create_job_type,
                                      workload_from=10,

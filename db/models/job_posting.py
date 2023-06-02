@@ -40,8 +40,9 @@ class JobPosting(models.Model, index.Indexed):
                                 blank=False,
                                 on_delete=models.CASCADE,
                                 related_name='job_postings')
-    job_from_date = models.DateField(null=False, blank=False)
+    job_from_date = models.DateField(null=True, blank=True)
     job_to_date = models.DateField(null=True, blank=True)
+    job_period_by_agreement = models.BooleanField(null=False, blank=False, default=False)
     url = models.URLField(null=True, blank=True)
     job_requirements = models.ManyToManyField('db.JobRequirement')
     skills = models.ManyToManyField('db.Skill')
@@ -52,7 +53,7 @@ class JobPosting(models.Model, index.Indexed):
                              max_length=255)
     employee = models.ForeignKey('db.Employee', on_delete=models.CASCADE, blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
-    date_published = models.DateTimeField(null=True)
+    date_published = models.DateTimeField(null=True, blank=True)
 
     def zip_code(self):
         return int(self.company.zip)
@@ -63,13 +64,13 @@ class JobPosting(models.Model, index.Indexed):
     def soft_skills(self):
         return [obj.id for obj in self.company.soft_skills.all()]
 
-    def clean(self):
-        workload_from = self.cleaned_data.get('workload_from', False)
-        workload_to = self.cleaned_data.get('workload_to', False)
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        return super().save(*args, **kwargs)
 
-        if workload_from > workload_to:
-            raise ValidationError(
-                {'workload_to': "Workload to must be greated than workload from."})
+    def clean(self):
+        self.validate_workload()
+        self.validate_work_period()
 
     @classmethod
     def get_indexed_objects(cls):
@@ -102,3 +103,31 @@ class JobPosting(models.Model, index.Indexed):
         index.FilterField('soft_skills'),
         index.FilterField('cultural_fits'),
     ]
+
+    def validate_workload(self):
+        if self.workload_from > self.workload_to:
+            raise ValidationError(
+                {'workload_to': "Workload to must be greated than workload from."})
+
+    def validate_work_period(self):
+        job_from_date = self.job_from_date
+        job_to_date = self.job_to_date
+        job_period_by_agreement = self.job_period_by_agreement
+
+        if job_period_by_agreement:
+            if job_from_date is not None:
+                raise ValidationError(
+                    {'job_from_date': "Must be null if job period is by agreement."})
+
+            if job_to_date is not None:
+                raise ValidationError(
+                    {'job_to_date': "Must be null if job period is by agreement."})
+        else:
+            # pylint: disable=R1720
+            if job_from_date is None:
+                raise ValidationError(
+                    {'job_from_date': "Must be set if the job period is not by agreement."})
+            else:
+                if job_period_by_agreement:
+                    raise ValidationError(
+                        {'job_period_by_agreement': "Must be false if the job has a start date."})
