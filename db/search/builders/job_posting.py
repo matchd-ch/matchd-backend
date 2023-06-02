@@ -5,19 +5,23 @@ from .base import BaseParamBuilder
 
 class JobPostingParamBuilder(BaseParamBuilder):
 
-    def set_workload(self, workload, boost=1):
+    def set_workload_range(self, workload_from, workload_to, boost=1):
         boost = boost / len(settings.MATCHING_VALUE_WORKLOAD_PRECISION)
         conditions = [{
-        # we need to include matches without a job start date set, but without boosting it
-        # null values are set to 01.01.1970 see db.models.Student (search_fields)
             "exists": {
-                "field": "workload_filter",
+                "field": "workload_from_filter",
+                "boost": 0
+            }
+        }, {
+            "exists": {
+                "field": "workload_to_filter",
                 "boost": 0
             }
         }]
         for matching_value in settings.MATCHING_VALUE_WORKLOAD_PRECISION:
             conditions.append(
-                self.get_range_query('workload_filter', workload, matching_value, boost))
+                self.get_workload_range_query("workload_from_filter", "workload_to_filter",
+                                              workload_from, workload_to, matching_value, boost))
 
         self.should_conditions.append({"bool": {"should": conditions}})
 

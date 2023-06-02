@@ -27,7 +27,8 @@ def test_match_company(user_student, company_matching, soft_skill_objects, cultu
     job_posting_object.state = JobPostingState.PUBLIC
     job_posting_object.title = 'title'
     job_posting_object.slug = 'title'
-    job_posting_object.workload = 100
+    job_posting_object.workload_from = 10
+    job_posting_object.workload_to = 10
     job_posting_object.company = user_employee.company
     job_posting_object.job_from_date = user_student.student.job_from_date
     job_posting_object.job_to_date = user_student.student.job_to_date

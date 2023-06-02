@@ -34,7 +34,8 @@ def test_student_matching(job_posting_object, skill_objects, branch_objects,
     job_posting_object.title = 'title'
     job_posting_object.slug = 'title'
     job_posting_object.job_type = job_type
-    job_posting_object.workload = 100
+    job_posting_object.workload_from = 80
+    job_posting_object.workload_to = 100
     job_posting_object.company = user_employee.company
     job_posting_object.job_from_date = '2021-08-01'
     job_posting_object.job_to_date = '2022-07-31'
@@ -139,7 +140,8 @@ def test_student_is_not_matchable(job_posting_object, skill_objects, branch_obje
     job_posting_object.title = 'title'
     job_posting_object.slug = 'title'
     job_posting_object.job_type = job_type
-    job_posting_object.workload = 100
+    job_posting_object.workload_from = 80
+    job_posting_object.workload_to = 100
     job_posting_object.company = user_employee.company
     job_posting_object.job_from_date = '2021-08-01'
     job_posting_object.job_to_date = '2022-07-31'

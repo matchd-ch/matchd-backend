@@ -12,7 +12,8 @@ def job_posting_valid_args(create_job_type, create_company, create_employee):
         'slug': 'Nice job',
         'description': 'Apply for this nice job.',
         'job_type': create_job_type,
-        'workload': 100,
+        'workload_from': 80,
+        'workload_to': 100,
         'company': create_company,
         'job_from_date': date(2022, 2, 10),
         'job_to_date': date(2024, 2, 10),
@@ -27,4 +28,6 @@ def create_job_posting(create_company, create_job_type):
     return JobPosting.objects.create(title='Test',
                                      company=create_company,
                                      job_type=create_job_type,
+                                     workload_from=10,
+                                     workload_to=100,
                                      job_from_date=date(2022, 2, 10))

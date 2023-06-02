@@ -22,7 +22,8 @@ class JobPostingMatching(Matching):
 
         self.job_type = None
         self.branch = None
-        self.workload = 100
+        self.workload_from = 10
+        self.workload_to = 100
         self.zip_value = None
 
     def _validate_input(self):
@@ -36,6 +37,7 @@ class JobPostingMatching(Matching):
             self.job_type = get_object_or_404(JobType, pk=job_type_id)
         if self.job_type is None:
             self.job_type = self._user.student.job_type
+
         branch_id = self.data.get('branch', None)
         if branch_id is not None:
             branch_id = branch_id.get('id')
@@ -44,13 +46,9 @@ class JobPostingMatching(Matching):
         if self.branch is None:
             self.branch = self._user.student.branch
 
-        workload = self.data.get('workload', None)
-        if workload is not None:
-            self.workload = workload
+        self.workload_to = self.data.get('workload', self.workload_to)
 
-        zip_value = self.data.get('zip', None)
-        if zip_value is not None:
-            self.zip_value = zip_value.get('zip', None)
+        self.zip_value = self.data.get('zip', self.zip_value)
 
     def find_matches(self):
         self._validate_input()
@@ -67,7 +65,8 @@ class JobPostingMatching(Matching):
                                 self.soft_boost * settings.MATCHING_VALUE_SOFT_SKILLS)
         builder.set_skills(self._user.student.skills.all(),
                            self.tech_boost * settings.MATCHING_VALUE_SKILLS)
-        builder.set_workload(self.workload, settings.MATCHING_VALUE_WORKLOAD)
+        builder.set_workload_range(self.workload_from, self.workload_to,
+                                   settings.MATCHING_VALUE_WORKLOAD)
         if self.zip_value is not None:
             builder.set_zip(self.zip_value)
         date_mode = self.job_type.mode

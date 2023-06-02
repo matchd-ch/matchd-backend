@@ -52,7 +52,8 @@ def test_job_posting_matching(job_posting_object, job_posting_object_2, skill_ob
     job_posting_object.title = 'title'
     job_posting_object.slug = 'title'
     job_posting_object.job_type = job_type
-    job_posting_object.workload = 100
+    job_posting_object.workload_from = 80
+    job_posting_object.workload_to = 100
     job_posting_object.company = user_employee.company
     job_posting_object.job_from_date = user_student.student.job_from_date
     job_posting_object.job_to_date = user_student.student.job_to_date
@@ -79,7 +80,8 @@ def test_job_posting_matching(job_posting_object, job_posting_object_2, skill_ob
     job_posting_object_2.title = 'title2'
     job_posting_object_2.slug = 'title2'
     job_posting_object_2.job_type = job_type_objects_date_range[1]
-    job_posting_object_2.workload = 10
+    job_posting_object_2.workload_from = 10
+    job_posting_object_2.workload_to = 100
     job_posting_object_2.company = user_employee_2.company
     job_posting_object_2.job_from_date = convert_date('2022-08-01', '%Y-%m-%d')
     job_posting_object_2.job_to_date = convert_date('2023-07-31', '%Y-%m-%d')
@@ -126,7 +128,8 @@ def test_job_posting_matching(job_posting_object, job_posting_object_2, skill_ob
     worst_match = matches[1]
     assert worst_match.get('id') == to_global_id('JobPosting', job_posting_object_2.id)
     assert float(worst_match.get('score')) == 0
-    assert float(worst_match.get('rawScore')) == 0
+    # Not 0 since workload always matches
+    assert float(worst_match.get('rawScore')) == 0.1
 
     match_status = worst_match.get('matchStatus')
     assert match_status is None

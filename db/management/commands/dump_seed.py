@@ -69,8 +69,10 @@ class Command(BaseCommand):
                 'job_type':
                 job_posting.job_type.id,
                 'branches': [obj.id for obj in job_posting.branches.all()],
-                'workload':
-                job_posting.workload,
+                'workload_from':
+                job_posting.workload_from,
+                'workload_to':
+                job_posting.workload_to,
                 'job_from_date':
                 job_posting.job_from_date.strftime('%Y-%m-%d'),
                 'job_to_date':

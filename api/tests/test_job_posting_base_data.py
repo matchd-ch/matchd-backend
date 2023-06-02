@@ -18,7 +18,7 @@ def test_base_data(requests_mock, user_employee, login, job_posting_base_data, j
                        headers={'Content-Type': 'text/html'})
     login(user_employee)
     data, errors = job_posting_base_data(user_employee, 'title', 'description', job_type_objects[0],
-                                         [branch_objects[0]], 100, '03.2021', '05.2021',
+                                         [branch_objects[0]], 80, 100, '03.2021', '05.2021',
                                          'www.job-posting.lo')
     assert errors is None
     assert data is not None
@@ -36,7 +36,8 @@ def test_base_data(requests_mock, user_employee, login, job_posting_base_data, j
     assert job_posting.description == 'description'
     assert job_posting.job_type == job_type_objects[0]
     assert job_posting.branches.all()[0] == branch_objects[0]
-    assert job_posting.workload == 100
+    assert job_posting.workload_from == 80
+    assert job_posting.workload_to == 100
     assert job_posting.job_from_date == convert_date('03.2021', '%m.%Y')
     assert job_posting.job_to_date == convert_date('05.2021', '%m.%Y')
     assert job_posting.url == 'http://www.job-posting.lo'
@@ -46,8 +47,8 @@ def test_base_data(requests_mock, user_employee, login, job_posting_base_data, j
 @pytest.mark.django_db
 def test_base_data_without_login(job_posting_base_data, job_type_objects, branch_objects):
     data, errors = job_posting_base_data(AnonymousUser(), 'title', 'description',
-                                         job_type_objects[0], [branch_objects[0]], 100, '03.2021',
-                                         '05.2021', 'www.job-posting.lo')
+                                         job_type_objects[0], [branch_objects[0]], 80, 100,
+                                         '03.2021', '05.2021', 'www.job-posting.lo')
     assert errors is not None
     assert data is not None
     assert data.get('jobPostingBaseData') is None
@@ -58,7 +59,7 @@ def test_base_data_as_student(user_student, login, job_posting_base_data, job_ty
                               branch_objects):
     login(user_student)
     data, errors = job_posting_base_data(user_student, 'title', 'description', job_type_objects[0],
-                                         [branch_objects[0]], 100, '03.2021', '05.2021',
+                                         [branch_objects[0]], 80, 100, '03.2021', '05.2021',
                                          'www.job-posting.lo')
     assert errors is None
     assert data is not None
@@ -77,7 +78,7 @@ def test_base_data_with_invalid_data(requests_mock, user_employee, login, job_po
                        headers={'Content-Type': 'application/pdf'})
     login(user_employee)
     data, errors = job_posting_base_data(user_employee, '', '', JobType(id=1337), [Branch(id=1337)],
-                                         1000, '78.2021', '29.201', 'www.job-posting.lo')
+                                         0, 1000, '78.2021', '29.201', 'www.job-posting.lo')
     assert errors is None
     assert data is not None
     assert data.get('jobPostingBaseData') is not None
@@ -90,7 +91,8 @@ def test_base_data_with_invalid_data(requests_mock, user_employee, login, job_po
     assert 'description' not in errors
     assert 'jobType' in errors
     assert 'branches' in errors
-    assert 'workload' in errors
+    assert 'workloadFrom' in errors
+    assert 'workloadTo' in errors
     assert 'jobFromDate' in errors
     assert 'jobToDate' in errors
     assert 'url' in errors
@@ -104,7 +106,7 @@ def test_base_data_with_invalid_date_range(requests_mock, user_employee, login,
                        headers={'Content-Type': 'text/html'})
     login(user_employee)
     data, errors = job_posting_base_data(user_employee, 'title', 'description', job_type_objects[0],
-                                         [branch_objects[0]], 100, '03.2021', '01.2021',
+                                         [branch_objects[0]], 80, 100, '03.2021', '01.2021',
                                          'www.job-posting.lo')
     assert errors is None
     assert data is not None
@@ -115,3 +117,22 @@ def test_base_data_with_invalid_date_range(requests_mock, user_employee, login,
     errors = data.get('jobPostingBaseData').get('errors')
     assert errors is not None
     assert 'jobToDate' in errors
+
+
+@pytest.mark.django_db
+def test_base_data_with_workload_from_greated_than_workload_to_fails(requests_mock, user_employee,
+                                                                     login, job_posting_base_data,
+                                                                     job_type_objects,
+                                                                     branch_objects):
+    requests_mock.head('http://www.job-posting.lo/',
+                       text='data',
+                       headers={'Content-Type': 'text/html'})
+    login(user_employee)
+    data, errors = job_posting_base_data(user_employee, 'title', 'description', job_type_objects[0],
+                                         [branch_objects[0]], 20, 10, '03.2021', '01.2023',
+                                         'www.job-posting.lo')
+
+    errors = data.get('jobPostingBaseData').get('errors')
+
+    assert errors is not None
+    assert 'workloadTo' in errors

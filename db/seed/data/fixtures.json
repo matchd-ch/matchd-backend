@@ -240,7 +240,8 @@
                     "state": "public",
                     "title": "Praktikant*in Design",
                     "url": "https://www.job.lo",
-                    "workload": 80
+                    "workload_from": 80,
+                    "workload_to": 80
                 },
                 {
                     "branches": [
@@ -272,7 +273,8 @@
                     "state": "public",
                     "title": "Praktikant*in Applikationsentwicklung",
                     "url": "https://www.job.lo",
-                    "workload": 90
+                    "workload_from": 80,
+                    "workload_to": 100
                 },
                 {
                     "branches": [
@@ -305,7 +307,8 @@
                     "state": "public",
                     "title": "Praktikant*in Grafik",
                     "url": "https://www.job.lo",
-                    "workload": 100
+                    "workload_from": 100,
+                    "workload_to": 100
                 },
                 {
                     "branches": [
@@ -337,7 +340,8 @@
                     "state": "public",
                     "title": "Praktikant*in Frontendentwicklung",
                     "url": "https://www.job.lo",
-                    "workload": 90
+                    "workload_from": 90,
+                    "workload_to": 100
                 },
                 {
                     "branches": [
@@ -369,7 +373,8 @@
                     "state": "public",
                     "title": "Praktikant*in Vue.js / React.js",
                     "url": "https://www.job.lo",
-                    "workload": 60
+                    "workload_from": 60,
+                    "workload_to": 80
                 },
                 {
                     "branches": [
@@ -398,7 +403,8 @@
                     "state": "public",
                     "title": "Praktikant*in PHP",
                     "url": "https://www.job.lo",
-                    "workload": 100
+                    "workload_from": 100,
+                    "workload_to": 100
                 },
                 {
                     "branches": [
@@ -436,7 +442,8 @@
                     "state": "public",
                     "title": "Praktikant*in Grafik",
                     "url": "https://www.job.lo",
-                    "workload": 50
+                    "workload_from": 50,
+                    "workload_to": 80
                 },
                 {
                     "branches": [
@@ -475,7 +482,8 @@
                     "state": "public",
                     "title": "Praktikant*in Python",
                     "url": "https://www.job.lo",
-                    "workload": 90
+                    "workload_from": 90,
+                    "workload_to": 100
                 },
                 {
                     "branches": [
@@ -511,7 +519,8 @@
                     "state": "public",
                     "title": "Praktikant*in Design",
                     "url": "https://www.job.lo",
-                    "workload": 50
+                    "workload_from": 50,
+                    "workload_to": 80
                 },
                 {
                     "branches": [
@@ -545,7 +554,8 @@
                     "state": "public",
                     "title": "Praktikant*in Applikationsentwicklung",
                     "url": "https://www.job.lo",
-                    "workload": 50
+                    "workload_from": 50,
+                    "workload_to": 80
                 },
                 {
                     "branches": [
@@ -584,7 +594,8 @@
                     "state": "public",
                     "title": "Praktikant*in DevOps",
                     "url": "https://www.job.lo",
-                    "workload": 50
+                    "workload_from": 50,
+                    "workload_to": 80
                 },
                 {
                     "branches": [
@@ -627,7 +638,8 @@
                     "state": "public",
                     "title": "Praktikant*in Social Media",
                     "url": "https://www.job.lo",
-                    "workload": 60
+                    "workload_from": 60,
+                    "workload_to": 80
                 },
                 {
                     "branches": [
@@ -658,7 +670,8 @@
                     "state": "draft",
                     "title": "Praktikant*in User Experience",
                     "url": "https://www.job.lo",
-                    "workload": 70
+                    "workload_from": 70,
+                    "workload_to": 100
                 },
                 {
                     "branches": [
@@ -696,7 +709,8 @@
                     "state": "draft",
                     "title": "Praktikant*in Vue.js / React.js",
                     "url": "https://www.job.lo",
-                    "workload": 50
+                    "workload_from": 50,
+                    "workload_to": 80
                 }
             ],
             "link_education": null,
@@ -883,7 +897,8 @@
                     "state": "public",
                     "title": "Praktikant*in DevOps",
                     "url": "https://www.job.lo",
-                    "workload": 80
+                    "workload_from": 80,
+                    "workload_to": 100
                 },
                 {
                     "branches": [
@@ -923,7 +938,8 @@
                     "state": "public",
                     "title": "Praktikant*in Grafik",
                     "url": "https://www.job.lo",
-                    "workload": 70
+                    "workload_from": 70,
+                    "workload_to": 100
                 },
                 {
                     "branches": [
@@ -962,7 +978,8 @@
                     "state": "public",
                     "title": "Praktikant*in Datenbanken",
                     "url": "https://www.job.lo",
-                    "workload": 70
+                    "workload_from": 70,
+                    "workload_to": 100
                 },
                 {
                     "branches": [
@@ -1006,7 +1023,8 @@
                     "state": "public",
                     "title": "Praktikant*in Systemtechnik",
                     "url": "https://www.job.lo",
-                    "workload": 90
+                    "workload_from": 90,
+                    "workload_to": 100
                 },
                 {
                     "branches": [
@@ -1042,7 +1060,8 @@
                     "state": "draft",
                     "title": "Praktikant*in Design",
                     "url": "https://www.job.lo",
-                    "workload": 60
+                    "workload_from": 60,
+                    "workload_to": 80
                 }
             ],
             "link_education": null,
@@ -5514,7 +5533,8 @@
                     "state": "public",
                     "title": "Praktikant*in Frontendentwicklung",
                     "url": "https://www.job.lo",
-                    "workload": 70
+                    "workload_from": 70,
+                    "workload_to": 100
                 },
                 {
                     "branches": [
@@ -5552,7 +5572,8 @@
                     "state": "public",
                     "title": "Praktikant*in Grafik",
                     "url": "https://www.job.lo",
-                    "workload": 100
+                    "workload_from": 100,
+                    "workload_to": 100
                 },
                 {
                     "branches": [
@@ -5595,7 +5616,8 @@
                     "state": "public",
                     "title": "Praktikant*in Grafik",
                     "url": "https://www.job.lo",
-                    "workload": 60
+                    "workload_from": 60,
+                    "workload_to": 80
                 },
                 {
                     "branches": [
@@ -5635,7 +5657,8 @@
                     "state": "draft",
                     "title": "Praktikant*in PHP",
                     "url": "https://www.job.lo",
-                    "workload": 100
+                    "workload_from": 100,
+                    "workload_to": 100
                 }
             ],
             "link_education": null,
@@ -5791,7 +5814,8 @@
                     "state": "public",
                     "title": "Praktikant*in Applikationsentwicklung",
                     "url": "https://www.job.lo",
-                    "workload": 80
+                    "workload_from": 80,
+"workload_to": 100
                 },
                 {
                     "branches": [
@@ -5834,7 +5858,8 @@
                     "state": "public",
                     "title": "Praktikant*in Applikationsentwicklung",
                     "url": "https://www.job.lo",
-                    "workload": 70
+                    "workload_from": 70,
+                    "workload_to": 100
                 },
                 {
                     "branches": [
@@ -5874,7 +5899,8 @@
                     "state": "public",
                     "title": "Praktikant*in Vue.js / React.js",
                     "url": "https://www.job.lo",
-                    "workload": 60
+                    "workload_from": 60,
+                    "workload_to": 80
                 },
                 {
                     "branches": [
@@ -5916,7 +5942,8 @@
                     "state": "public",
                     "title": "Praktikant*in Grafik",
                     "url": "https://www.job.lo",
-                    "workload": 60
+                    "workload_from": 60,
+                    "workload_to": 80
                 },
                 {
                     "branches": [
@@ -5954,7 +5981,8 @@
                     "state": "draft",
                     "title": "Praktikant*in PHP",
                     "url": "https://www.job.lo",
-                    "workload": 100
+                    "workload_from": 100,
+                    "workload_to": 100
                 }
             ],
             "link_education": null,
@@ -6160,7 +6188,8 @@
                     "state": "public",
                     "title": "Praktikant*in Javascript",
                     "url": "https://www.job.lo",
-                    "workload": 100
+                    "workload_from": 100,
+                    "workload_to": 100
                 },
                 {
                     "branches": [
@@ -6193,7 +6222,8 @@
                     "state": "public",
                     "title": "Praktikant*in Frontendentwicklung",
                     "url": "https://www.job.lo",
-                    "workload": 60
+                    "workload_from": 60,
+                    "workload_to": 80
                 }
             ],
             "link_education": null,
@@ -6375,7 +6405,8 @@
                     "state": "public",
                     "title": "Praktikant*in Python",
                     "url": "https://www.job.lo",
-                    "workload": 100
+                    "workload_from": 100,
+                    "workload_to": 100
                 },
                 {
                     "branches": [
@@ -6413,7 +6444,8 @@
                     "state": "public",
                     "title": "Praktikant*in Frontendentwicklung",
                     "url": "https://www.job.lo",
-                    "workload": 90
+                    "workload_from": 90,
+                    "workload_to": 100
                 }
             ],
             "link_education": null,
@@ -6570,7 +6602,8 @@
                     "state": "public",
                     "title": "Praktikant*in Frontendentwicklung",
                     "url": "https://www.job.lo",
-                    "workload": 100
+                    "workload_from": 100,
+                    "workload_to": 100
                 },
                 {
                     "branches": [
@@ -6616,7 +6649,8 @@
                     "state": "public",
                     "title": "Praktikant*in Design",
                     "url": "https://www.job.lo",
-                    "workload": 70
+                    "workload_from": 70,
+                    "workload_to": 100
                 },
                 {
                     "branches": [
@@ -6648,7 +6682,8 @@
                     "state": "draft",
                     "title": "Praktikant*in Applikationsentwicklung",
                     "url": "https://www.job.lo",
-                    "workload": 100
+                    "workload_from": 100,
+                    "workload_to": 100
                 }
             ],
             "link_education": null,
@@ -6829,7 +6864,8 @@
                     "state": "public",
                     "title": "Praktikant*in Grafik",
                     "url": "https://www.job.lo",
-                    "workload": 50
+                    "workload_from": 50,
+                    "workload_to": 80
                 },
                 {
                     "branches": [
@@ -6869,7 +6905,8 @@
                     "state": "public",
                     "title": "Praktikant*in DevOps",
                     "url": "https://www.job.lo",
-                    "workload": 60
+                    "workload_from": 60,
+                    "workload_to": 80
                 },
                 {
                     "branches": [
@@ -6907,7 +6944,8 @@
                     "state": "public",
                     "title": "Praktikant*in Frontendentwicklung",
                     "url": "https://www.job.lo",
-                    "workload": 50
+                    "workload_from": 50,
+                    "workload_to": 80
                 }
             ],
             "link_education": null,
@@ -7079,7 +7117,8 @@
                     "state": "public",
                     "title": "Praktikant*in Social Media",
                     "url": "https://www.job.lo",
-                    "workload": 90
+                    "workload_from": 90,
+                    "workload_to": 100
                 },
                 {
                     "branches": [
@@ -7115,7 +7154,8 @@
                     "state": "public",
                     "title": "Praktikant*in User Experience",
                     "url": "https://www.job.lo",
-                    "workload": 100
+                    "workload_from": 100,
+                    "workload_to": 100
                 }
             ],
             "link_education": null,
@@ -7378,7 +7418,8 @@
                     "state": "public",
                     "title": "Praktikant*in Systemtechnik",
                     "url": "https://www.job.lo",
-                    "workload": 90
+                    "workload_from": 90,
+                    "workload_to": 100
                 },
                 {
                     "branches": [
@@ -7415,7 +7456,8 @@
                     "state": "public",
                     "title": "Praktikant*in Frontendentwicklung",
                     "url": "https://www.job.lo",
-                    "workload": 90
+                    "workload_from": 90,
+                    "workload_to": 100
                 },
                 {
                     "branches": [
@@ -7449,7 +7491,8 @@
                     "state": "public",
                     "title": "Praktikant*in PHP",
                     "url": "https://www.job.lo",
-                    "workload": 80
+                    "workload_from": 80,
+"workload_to": 100
                 },
                 {
                     "branches": [
@@ -7491,7 +7534,8 @@
                     "state": "public",
                     "title": "Praktikant*in PHP",
                     "url": "https://www.job.lo",
-                    "workload": 60
+                    "workload_from": 60,
+                    "workload_to": 80
                 },
                 {
                     "branches": [
@@ -7528,7 +7572,8 @@
                     "state": "draft",
                     "title": "Praktikant*in Datenbanken",
                     "url": "https://www.job.lo",
-                    "workload": 70
+                    "workload_from": 70,
+                    "workload_to": 100
                 }
             ],
             "link_education": null,
@@ -7690,7 +7735,8 @@
                     "state": "public",
                     "title": "Praktikant*in User Experience",
                     "url": "https://www.job.lo",
-                    "workload": 50
+                    "workload_from": 50,
+                    "workload_to": 80
                 },
                 {
                     "branches": [
@@ -7739,7 +7785,8 @@
                     "state": "public",
                     "title": "Praktikant*in Frontendentwicklung",
                     "url": "https://www.job.lo",
-                    "workload": 90
+                    "workload_from": 90,
+                    "workload_to": 100
                 },
                 {
                     "branches": [
@@ -7777,7 +7824,8 @@
                     "state": "public",
                     "title": "Praktikant*in UX",
                     "url": "https://www.job.lo",
-                    "workload": 90
+                    "workload_from": 90,
+                    "workload_to": 100
                 },
                 {
                     "branches": [
@@ -7813,7 +7861,8 @@
                     "state": "public",
                     "title": "Praktikant*in HTML / CSS",
                     "url": "https://www.job.lo",
-                    "workload": 90
+                    "workload_from": 90,
+                    "workload_to": 100
                 }
             ],
             "link_education": null,
@@ -8051,7 +8100,8 @@
                     "state": "draft",
                     "title": "Praktikant*in Social Media",
                     "url": "https://www.job.lo",
-                    "workload": 90
+                    "workload_from": 90,
+                    "workload_to": 100
                 }
             ],
             "link_education": null,

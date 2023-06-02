@@ -43,7 +43,8 @@ class JobPostingInput(graphene.InputObjectType):
 class JobPosting(DjangoObjectType):
     state = graphene.Field(graphene.NonNull(JobPostingState))
     employee = graphene.Field(Employee)
-    workload = graphene.Field(graphene.NonNull(graphene.Int))
+    workload_from = graphene.Field(graphene.NonNull(graphene.Int))
+    workload_to = graphene.Field(graphene.NonNull(graphene.Int))
     skills = graphene.List(graphene.NonNull('api.schema.skill.schema.Skill'))
     branches = graphene.NonNull(graphene.List(graphene.NonNull('api.schema.branch.schema.Branch')))
     languages = graphene.List(
@@ -62,7 +63,8 @@ class JobPosting(DjangoObjectType):
             'title',
             'description',
             'job_type',
-            'workload',
+            'workload_from',
+            'workload_to',
             'company',
             'job_from_date',
             'job_to_date',
@@ -179,7 +181,8 @@ class JobPostingBaseData(Output, relay.ClientIDMutation):
         description = graphene.String(description=_('Description'), required=False)
         job_type = graphene.Field(JobTypeInput, required=True)
         branches = graphene.List(BranchInput, required=True)
-        workload = graphene.Int(description=_('Workload'), required=True)
+        workload_from = graphene.Int(description=_('Workload from'), required=True)
+        workload_to = graphene.Int(description=_('Workload to'), required=True)
         job_from_date = graphene.String(required=True)
         job_to_date = graphene.String(required=False)
         url = graphene.String(required=False)
