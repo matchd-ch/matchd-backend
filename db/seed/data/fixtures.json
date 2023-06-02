@@ -7804,7 +7804,6 @@
                         9,
                         7
                     ],
-                    "job_to_date": null,
                     "job_type": 6,
                     "languages": [
                         {
@@ -7841,7 +7840,6 @@
                         1,
                         2
                     ],
-                    "job_to_date": null,
                     "job_type": 7,
                     "languages": [
                         {
@@ -8075,7 +8073,6 @@
                         4,
                         6
                     ],
-                    "job_to_date": "2021-07-07",
                     "job_type": 1,
                     "languages": [
                         {
