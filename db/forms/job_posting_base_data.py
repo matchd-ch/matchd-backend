@@ -33,13 +33,8 @@ class JobPostingBaseDataForm(forms.Form):
         data['job_type'] = convert_object_to_id(data.get('job_type', None))
 
         data['job_period_by_agreement'] = data.get('job_period_by_agreement', False)
-
-        if not data['job_period_by_agreement']:
-            data['job_from_date'] = convert_date(data.get('job_from_date', None), '%m.%Y')
-            to_date = data.get('job_to_date', None)
-
-            if to_date is not None:
-                data['job_to_date'] = convert_date(data.get('job_to_date', None), '%m.%Y')
+        data['job_from_date'] = convert_date(data.get('job_from_date', None), '%m.%Y')
+        data['job_to_date'] = convert_date(data.get('job_to_date', None), '%m.%Y')
 
         super().__init__(data=data, **kwargs)
 
@@ -72,11 +67,11 @@ class JobPostingBaseDataForm(forms.Form):
         if job_period_by_agreement:
             if job_from_date is not None:
                 raise ValidationError(
-                    {'job_from_date': "Must be null if job period is by agreement."})
+                    {'job_from_date': "Must be empty if job period is by agreement."})
 
             if job_to_date is not None:
                 raise ValidationError(
-                    {'job_to_date': "Must be null if job period is by agreement."})
+                    {'job_to_date': "Must be empty if job period is by agreement."})
         else:
             if job_from_date is None and job_to_date is None:
                 raise ValidationError([

@@ -117,11 +117,11 @@ class JobPosting(models.Model, index.Indexed):
         if job_period_by_agreement:
             if job_from_date is not None:
                 raise ValidationError(
-                    {'job_from_date': "Must be null if job period is by agreement."})
+                    {'job_from_date': "Must be empty if job period is by agreement."})
 
             if job_to_date is not None:
                 raise ValidationError(
-                    {'job_to_date': "Must be null if job period is by agreement."})
+                    {'job_to_date': "Must be empty if job period is by agreement."})
         else:
             if job_from_date is None and job_to_date is None:
                 raise ValidationError([
