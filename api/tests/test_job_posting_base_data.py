@@ -117,6 +117,74 @@ def test_base_data_with_invalid_date_range(requests_mock, user_employee, login,
 
 
 @pytest.mark.django_db
+def test_base_data_with_only_to_date(requests_mock, user_employee, login, job_posting_base_data,
+                                     job_type_objects, branch_objects):
+    requests_mock.head('http://www.job-posting.lo/',
+                       text='data',
+                       headers={'Content-Type': 'text/html'})
+    login(user_employee)
+    data, errors = job_posting_base_data(user_employee, 'title', 'description', job_type_objects[0],
+                                         [branch_objects[0]], 80, 100, None, '05.2021', False,
+                                         'www.job-posting.lo')
+    assert errors is None
+    assert data is not None
+    assert data.get('jobPostingBaseData') is not None
+    assert data.get('jobPostingBaseData').get('success')
+
+    element_id = from_global_id(data.get('jobPostingBaseData').get('jobPostingId'))[1]
+
+    job_posting = JobPosting.objects.get(pk=element_id)
+    assert job_posting.job_from_date is None
+    assert job_posting.job_to_date == convert_date('05.2021', '%m.%Y')
+
+
+@pytest.mark.django_db
+def test_base_data_with_only_from_date(requests_mock, user_employee, login, job_posting_base_data,
+                                       job_type_objects, branch_objects):
+    requests_mock.head('http://www.job-posting.lo/',
+                       text='data',
+                       headers={'Content-Type': 'text/html'})
+    login(user_employee)
+    data, errors = job_posting_base_data(user_employee, 'title', 'description', job_type_objects[0],
+                                         [branch_objects[0]], 80, 100, '05.2021', None, False,
+                                         'www.job-posting.lo')
+    assert errors is None
+    assert data is not None
+    assert data.get('jobPostingBaseData') is not None
+    assert data.get('jobPostingBaseData').get('success')
+
+    element_id = from_global_id(data.get('jobPostingBaseData').get('jobPostingId'))[1]
+
+    job_posting = JobPosting.objects.get(pk=element_id)
+    assert job_posting.job_from_date == convert_date('05.2021', '%m.%Y')
+    assert job_posting.job_to_date is None
+
+
+@pytest.mark.django_db
+def test_base_data_with_job_period_by_agreement(requests_mock, user_employee, login,
+                                                job_posting_base_data, job_type_objects,
+                                                branch_objects):
+    requests_mock.head('http://www.job-posting.lo/',
+                       text='data',
+                       headers={'Content-Type': 'text/html'})
+    login(user_employee)
+    data, errors = job_posting_base_data(user_employee, 'title', 'description', job_type_objects[0],
+                                         [branch_objects[0]], 80, 100, None, None, True,
+                                         'www.job-posting.lo')
+    assert errors is None
+    assert data is not None
+    assert data.get('jobPostingBaseData') is not None
+    assert data.get('jobPostingBaseData').get('success')
+
+    element_id = from_global_id(data.get('jobPostingBaseData').get('jobPostingId'))[1]
+
+    job_posting = JobPosting.objects.get(pk=element_id)
+    assert job_posting.job_period_by_agreement is True
+    assert job_posting.job_from_date is None
+    assert job_posting.job_to_date is None
+
+
+@pytest.mark.django_db
 def test_base_data_with_workload_from_greated_than_workload_to_fails(requests_mock, user_employee,
                                                                      login, job_posting_base_data,
                                                                      job_type_objects,
