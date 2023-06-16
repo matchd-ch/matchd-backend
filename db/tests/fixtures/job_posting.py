@@ -17,7 +17,6 @@ def job_posting_valid_args(create_job_type, create_company, create_employee):
         'company': create_company,
         'job_from_date': date(2022, 2, 10),
         'job_to_date': date(2024, 2, 10),
-        'job_period_by_agreement': False,
         'url': 'https://www.joburl.ch',
         'employee': create_employee,
         'date_published': date(2024, 2, 15),

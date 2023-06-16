@@ -25,14 +25,12 @@ class JobPostingBaseDataForm(forms.Form):
                                                  MinValueValidator(10)])
     job_from_date = forms.DateField(required=False)
     job_to_date = forms.DateField(required=False)
-    job_period_by_agreement = forms.BooleanField(required=False)
     url = forms.URLField(required=False)
 
     def __init__(self, data=None, **kwargs):
         # due to a bug with ModelChoiceField and graphene_django
         data['job_type'] = convert_object_to_id(data.get('job_type', None))
 
-        data['job_period_by_agreement'] = data.get('job_period_by_agreement', False)
         data['job_from_date'] = convert_date(data.get('job_from_date', None), '%m.%Y')
         data['job_to_date'] = convert_date(data.get('job_to_date', None), '%m.%Y')
 
@@ -62,34 +60,10 @@ class JobPostingBaseDataForm(forms.Form):
     def validate_work_period(self, cleaned_data):
         job_from_date = cleaned_data.get('job_from_date')
         job_to_date = cleaned_data.get('job_to_date')
-        job_period_by_agreement = cleaned_data.get('job_period_by_agreement')
 
-        if job_period_by_agreement:
-            if job_from_date is not None:
-                raise ValidationError(
-                    {'job_from_date': "Must be empty if job period is by agreement."})
-
-            if job_to_date is not None:
-                raise ValidationError(
-                    {'job_to_date': "Must be empty if job period is by agreement."})
-        else:
-            if job_from_date is None and job_to_date is None:
-                raise ValidationError([
-                    ValidationError(
-                        'job_from_date',
-                        code=
-                        "Either from date or to date must be set if the job period is not by agreement."
-                    ),
-                    ValidationError(
-                        'job_to_date',
-                        code=
-                        "Either from date or to date must be set if the job period is not by agreement."
-                    )
-                ])
-
-            if job_from_date is not None and job_to_date is not None and job_from_date > job_to_date:
-                raise ValidationError(
-                    {'job_to_date': "Job from date to must be greated than job to date."})
+        if job_from_date is not None and job_to_date is not None and job_from_date > job_to_date:
+            raise ValidationError(
+                {'job_to_date': "Job from date to must be greated than job to date."})
 
 
 # noinspection PyBroadException
@@ -154,7 +128,6 @@ def process_job_posting_base_data_form(user, data):
     job_posting.workload_to = cleaned_data.get('workload_to')
     job_posting.job_from_date = cleaned_data.get('job_from_date', None)
     job_posting.job_to_date = cleaned_data.get('job_to_date', None)
-    job_posting.job_period_by_agreement = cleaned_data.get('job_period_by_agreement')
     job_posting.url = cleaned_data.get('url', None)
     job_posting.company = cleaned_data.get('company')
     job_posting.save()

@@ -59,7 +59,6 @@ def job_posting_query(filter_value, param_name):
             workloadTo
             jobFromDate
             jobToDate
-            jobPeriodByAgreement
             formStep
             url
             jobRequirements {
@@ -153,7 +152,6 @@ def job_postings_query(slug):
                     workloadTo
                     jobFromDate
                     jobToDate
-                    jobPeriodByAgreement
                     formStep
                     url
                     jobRequirements {
@@ -241,7 +239,7 @@ def job_posting_mutation(kind):
 def job_posting_base_data(execute):
 
     def closure(user, title, description, job_type, branches, workload_from, workload_to,
-                job_from_date, job_to_date, job_period_by_agreement, url):
+                job_from_date, job_to_date, url):
         return execute(job_posting_mutation("BaseData"),
                        variables={
                            'input': {
@@ -264,8 +262,6 @@ def job_posting_base_data(execute):
                                job_from_date,
                                'jobToDate':
                                job_to_date,
-                               'jobPeriodByAgreement':
-                               job_period_by_agreement,
                                'url':
                                url
                            }
