@@ -77,8 +77,6 @@ class Command(BaseCommand):
                 job_posting.job_from_date.strftime('%Y-%m-%d'),
                 'job_to_date':
                 job_to_date,
-                "job_period_by_agreement":
-                job_posting.job_period_by_agreement,
                 'url':
                 job_posting.url,
                 'job_requirements': [obj.id for obj in job_posting.job_requirements.all()],

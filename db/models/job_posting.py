@@ -42,7 +42,6 @@ class JobPosting(models.Model, index.Indexed):
                                 related_name='job_postings')
     job_from_date = models.DateField(null=True, blank=True)
     job_to_date = models.DateField(null=True, blank=True)
-    job_period_by_agreement = models.BooleanField(null=False, blank=False, default=False)
     url = models.URLField(null=True, blank=True)
     job_requirements = models.ManyToManyField('db.JobRequirement')
     skills = models.ManyToManyField('db.Skill')
@@ -112,31 +111,7 @@ class JobPosting(models.Model, index.Indexed):
     def validate_work_period(self):
         job_from_date = self.job_from_date
         job_to_date = self.job_to_date
-        job_period_by_agreement = self.job_period_by_agreement
 
-        if job_period_by_agreement:
-            if job_from_date is not None:
-                raise ValidationError(
-                    {'job_from_date': "Must be empty if job period is by agreement."})
-
-            if job_to_date is not None:
-                raise ValidationError(
-                    {'job_to_date': "Must be empty if job period is by agreement."})
-        else:
-            if job_from_date is None and job_to_date is None:
-                raise ValidationError([
-                    ValidationError(
-                        'job_from_date',
-                        code=
-                        "Either from date or to date must be set if the job period is not by agreement."
-                    ),
-                    ValidationError(
-                        'job_to_date',
-                        code=
-                        "Either from date or to date must be set if the job period is not by agreement."
-                    )
-                ])
-
-            if job_from_date is not None and job_to_date is not None and job_from_date > job_to_date:
-                raise ValidationError(
-                    {'job_to_date': "Job from date to must be greated than job to date."})
+        if job_from_date is not None and job_to_date is not None and job_from_date > job_to_date:
+            raise ValidationError(
+                {'job_to_date': "Job from date to must be greated than job to date."})
