@@ -39,7 +39,6 @@ def test_get_student(student_valid_args):
     assert student.job_to_date == student_valid_args.get('job_to_date')
     assert student.distinction == student_valid_args.get('distinction')
     assert student.state == student_valid_args.get('state')
-    assert student.profile_step == student_valid_args.get('profile_step')
     assert student.slug == student_valid_args.get('slug')
 
 

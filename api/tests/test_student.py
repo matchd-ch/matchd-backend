@@ -3,6 +3,7 @@ import pytest
 from graphql_relay import to_global_id
 
 from db.models import ProfileState, Match
+from db.helper.profile_calculator import get_relevant_student_profile_fields
 
 # pylint: disable=R0913
 # pylint: disable=W0612
@@ -20,12 +21,14 @@ def test_student(login, user_student_full_profile, query_student, user_employee,
 
     login(user_employee)
     data, errors = query_student(user_employee, user_student_full_profile.student.slug)
+    assert errors is None
+
     student = data.get('student')
     assert student is not None
+
     assert student.get('email') is None    # match protection
     assert student.get('firstName') == 'John'
     assert student.get('lastName') == 'Doe'
-    assert student.get('profileStep') == 3
     assert student.get('branch').get('id') == to_global_id('Branch', branch_objects[0].id)
     assert student.get('jobType').get('id') == to_global_id('JobType', job_type_objects[0].id)
     assert student.get('state') == ProfileState.PUBLIC.upper()
@@ -53,6 +56,66 @@ def test_student(login, user_student_full_profile, query_student, user_employee,
 
 
 @pytest.mark.django_db
+def test_student_profile_100_percent_complete(login, user_student_full_profile, query_student,
+                                              user_employee, branch_objects,
+                                              student_challenge_objects):
+    user_student_full_profile.student.state = ProfileState.PUBLIC
+    user_student_full_profile.student.save()
+
+    for challenge in student_challenge_objects:
+        challenge.student = user_student_full_profile.student
+        challenge.save()
+
+    login(user_employee)
+    data, errors = query_student(user_employee, user_student_full_profile.student.slug)
+    assert errors is None
+
+    student = data.get('student')
+    assert student is not None
+
+    assert len(student.get('profileRelevantFields')) == len(get_relevant_student_profile_fields())
+    assert len(student.get('profileMissingRelevantFields')) == 0
+    assert student.get('profileCompletedPercentage') == 1
+
+
+@pytest.mark.django_db
+def test_student_profile_0_percent_complete(login, user_student_full_profile, query_student,
+                                            user_employee, branch_objects,
+                                            student_challenge_objects):
+    user_student_full_profile.student.state = ProfileState.PUBLIC
+    user_student_full_profile.student.street = ''
+    user_student_full_profile.student.zip = ''
+    user_student_full_profile.student.city = ''
+    user_student_full_profile.student.date_of_birth = None
+    user_student_full_profile.student.school_name = ''
+    user_student_full_profile.student.field_of_study = ''
+    user_student_full_profile.student.graduation = None
+    user_student_full_profile.student.branch = None
+    user_student_full_profile.student.distinction = ''
+    user_student_full_profile.student.skills.set([])
+    user_student_full_profile.student.soft_skills.set([])
+    user_student_full_profile.student.cultural_fits.set([])
+    user_student_full_profile.student.save()
+
+    for challenge in student_challenge_objects:
+        challenge.student = user_student_full_profile.student
+        challenge.save()
+
+    login(user_employee)
+    data, errors = query_student(user_employee, user_student_full_profile.student.slug)
+    assert errors is None
+
+    student = data.get('student')
+    assert student is not None
+
+    assert len(student.get('profileRelevantFields')) == len(get_relevant_student_profile_fields())
+    print(student.get('profileMissingRelevantFields'))
+    assert len(student.get('profileMissingRelevantFields')) == len(
+        get_relevant_student_profile_fields())
+    assert student.get('profileCompletedPercentage') == 0
+
+
+@pytest.mark.django_db
 def test_student_anonymous(login, user_student_full_profile, query_student, user_employee,
                            branch_objects, job_type_objects, skill_objects):
     user_student_full_profile.student.state = ProfileState.ANONYMOUS
@@ -65,7 +128,6 @@ def test_student_anonymous(login, user_student_full_profile, query_student, user
     assert student.get('email') is None
     assert student.get('firstName') is None
     assert student.get('lastName') is None
-    assert student.get('profileStep') == 3
     assert student.get('branch').get('id') == to_global_id('Branch', branch_objects[0].id)
     assert student.get('jobType').get('id') == to_global_id('JobType', job_type_objects[0].id)
     assert student.get('state') == ProfileState.ANONYMOUS.upper()
@@ -112,7 +174,6 @@ def test_student_anonymous_with_match_initiated_by_student(login, user_student_f
     assert student.get('email') == 'student@matchd.test'
     assert student.get('firstName') == 'John'
     assert student.get('lastName') == 'Doe'
-    assert student.get('profileStep') == 3
     assert student.get('branch').get('id') == to_global_id('Branch', branch_objects[0].id)
     assert student.get('jobType').get('id') == to_global_id('JobType', job_type_objects[0].id)
     assert student.get('state') == ProfileState.ANONYMOUS.upper()
@@ -158,7 +219,6 @@ def test_student_anonymous_with_match_initiated_by_employee_but_not_confirmed(
     assert student.get('email') is None
     assert student.get('firstName') is None
     assert student.get('lastName') is None
-    assert student.get('profileStep') == 3
     assert student.get('branch').get('id') == to_global_id('Branch', branch_objects[0].id)
     assert student.get('jobType').get('id') == to_global_id('JobType', job_type_objects[0].id)
     assert student.get('state') == ProfileState.ANONYMOUS.upper()
@@ -205,7 +265,6 @@ def test_student_anonymous_with_match_initiated_by_employee_and_confirmed(
     assert student.get('email') == 'student@matchd.test'
     assert student.get('firstName') == 'John'
     assert student.get('lastName') == 'Doe'
-    assert student.get('profileStep') == 3
     assert student.get('branch').get('id') == to_global_id('Branch', branch_objects[0].id)
     assert student.get('jobType').get('id') == to_global_id('JobType', job_type_objects[0].id)
     assert student.get('state') == ProfileState.ANONYMOUS.upper()
@@ -315,7 +374,6 @@ def test_student_with_confirmed_challenge_company_initiated(login, user_student_
     assert student.get('email') == 'student@matchd.test'
     assert student.get('firstName') == 'John'
     assert student.get('lastName') == 'Doe'
-    assert student.get('profileStep') == 3
     assert student.get('branch').get('id') == to_global_id('Branch', branch_objects[0].id)
     assert student.get('jobType').get('id') == to_global_id('JobType', job_type_objects[0].id)
     assert student.get('state') == ProfileState.PUBLIC.upper()
@@ -361,7 +419,6 @@ def test_anonymous_student_with_confirmed_challenge_company_initiated(
     assert student.get('email') == 'student@matchd.test'
     assert student.get('firstName') == 'John'
     assert student.get('lastName') == 'Doe'
-    assert student.get('profileStep') == 3
     assert student.get('branch').get('id') == to_global_id('Branch', branch_objects[0].id)
     assert student.get('jobType').get('id') == to_global_id('JobType', job_type_objects[0].id)
     assert student.get('state') == ProfileState.ANONYMOUS.upper()
@@ -406,7 +463,6 @@ def test_student_with_confirmed_challenge_student_initiated(login, user_student_
     assert student.get('email') == 'student@matchd.test'
     assert student.get('firstName') == 'John'
     assert student.get('lastName') == 'Doe'
-    assert student.get('profileStep') == 3
     assert student.get('branch').get('id') == to_global_id('Branch', branch_objects[0].id)
     assert student.get('jobType').get('id') == to_global_id('JobType', job_type_objects[0].id)
     assert student.get('state') == ProfileState.PUBLIC.upper()
@@ -452,7 +508,6 @@ def test_anonymous_student_with_confirmed_challenge_student_initiated(
     assert student.get('email') == 'student@matchd.test'
     assert student.get('firstName') == 'John'
     assert student.get('lastName') == 'Doe'
-    assert student.get('profileStep') == 3
     assert student.get('branch').get('id') == to_global_id('Branch', branch_objects[0].id)
     assert student.get('jobType').get('id') == to_global_id('JobType', job_type_objects[0].id)
     assert student.get('state') == ProfileState.ANONYMOUS.upper()

@@ -37,7 +37,6 @@ def test_me_student(login, me, user_student_full_profile, skill_objects, branch_
     assert student.get('email') == 'student@matchd.test'
     assert student.get('firstName') == 'John'
     assert student.get('lastName') == 'Doe'
-    assert student.get('profileStep') == 3
     assert student.get('branch').get('id') == to_global_id('Branch', branch_objects[0].id)
     assert student.get('jobType').get('id') == to_global_id('JobType', job_type_objects[0].id)
     assert student.get('state') == ProfileState.PUBLIC.upper()

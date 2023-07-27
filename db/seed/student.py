@@ -14,105 +14,98 @@ class Student(BaseSeed):
             return None
         user = kwargs.get('user')
         student, created = StudentModel.objects.get_or_create(user=user)
-        student.profile_step = data.get('profile_step')
 
-        if student.profile_step >= 1:
-            pass
+        street = data.get('street')
+        if street is None or street == '':
+            street, zip_code, city = self.rand.address()
+        else:
+            zip_code = data.get('zip')
+            city = data.get('city')
+        date_of_birth = data.get('date_of_birth')
+        if date_of_birth is None or date_of_birth == '':
+            date_of_birth = self.rand.date_of_birth()
+        mobile = data.get('mobile')
+        if mobile is None or mobile == '':
+            mobile = self.rand.mobile()
 
-        if student.profile_step >= 2:
-            street = data.get('street')
-            if street is None or street == '':
-                street, zip_code, city = self.rand.address()
-            else:
-                zip_code = data.get('zip')
-                city = data.get('city')
-            date_of_birth = data.get('date_of_birth')
-            if date_of_birth is None or date_of_birth == '':
-                date_of_birth = self.rand.date_of_birth()
-            mobile = data.get('mobile')
-            if mobile is None or mobile == '':
-                mobile = self.rand.mobile()
+        student.street = street
+        student.zip = zip_code
+        student.city = city
+        student.date_of_birth = date_of_birth
+        student.mobile = mobile
 
-            student.street = street
-            student.zip = zip_code
-            student.city = city
-            student.date_of_birth = date_of_birth
-            student.mobile = mobile
+        job_type = data.get('job_type')
+        if job_type is None:
+            job_type = self.rand.job_type()
+        branch = data.get('branch')
+        if branch is None:
+            branch = self.rand.branch()
 
-        if student.profile_step >= 3:
-            job_type = data.get('job_type')
-            if job_type is None:
-                job_type = self.rand.job_type()
-            branch = data.get('branch')
-            if branch is None:
-                branch = self.rand.branch()
+        student.job_type_id = job_type
+        student.branch_id = branch
 
-            student.job_type_id = job_type
-            student.branch_id = branch
-
-            job_type = JobType.objects.get(pk=job_type)
-            job_from_date = data.get('job_from_date')
-            if job_from_date is None or job_from_date == '':
-                job_from_date = self.rand.job_from_date()
-            job_to_date = data.get('job_to_date')
-            if job_type.mode == DateMode.DATE_RANGE:
-                if job_to_date is None or job_to_date == '':
-                    job_to_date = self.rand.job_to_date(job_from_date)
-            else:
-                job_to_date = None
-            student.job_from_date = job_from_date
-            student.job_to_date = job_to_date
+        job_type = JobType.objects.get(pk=job_type)
+        job_from_date = data.get('job_from_date')
+        if job_from_date is None or job_from_date == '':
+            job_from_date = self.rand.job_from_date()
+        job_to_date = data.get('job_to_date')
+        if job_type.mode == DateMode.DATE_RANGE:
+            if job_to_date is None or job_to_date == '':
+                job_to_date = self.rand.job_to_date(job_from_date)
+        else:
+            job_to_date = None
+        student.job_from_date = job_from_date
+        student.job_to_date = job_to_date
 
         soft_skills = []
         cultural_fits = []
-        if student.profile_step >= 4:
-            soft_skills = data.get('soft_skills')
-            if soft_skills is None or len(soft_skills) < 6:
-                soft_skills = self.rand.soft_skills()
 
-            cultural_fits = data.get('cultural_fits')
-            if cultural_fits is None or len(cultural_fits) < 6:
-                cultural_fits = self.rand.cultural_fits()
+        soft_skills = data.get('soft_skills')
+        if soft_skills is None or len(soft_skills) < 6:
+            soft_skills = self.rand.soft_skills()
+
+        cultural_fits = data.get('cultural_fits')
+        if cultural_fits is None or len(cultural_fits) < 6:
+            cultural_fits = self.rand.cultural_fits()
 
         skills = []
         hobbies = []
         online_challenges = []
         languages = []
-        if student.profile_step >= 5:
-            skills = data.get('skills')
-            if skills is None:
-                skills = self.rand.skills()
 
-            distinction = data.get('distinction')
-            if distinction is None or distinction == '':
-                distinction = self.rand.distinction()
-            student.distinction = distinction
+        skills = data.get('skills')
+        if skills is None:
+            skills = self.rand.skills()
 
-            hobbies = data.get('hobbies')
-            if hobbies is None or len(hobbies) == 0:
-                hobbies = self.rand.hobbies()
+        distinction = data.get('distinction')
+        if distinction is None or distinction == '':
+            distinction = self.rand.distinction()
+        student.distinction = distinction
 
-            online_challenges = data.get('online_challenges')
-            if online_challenges is None or len(online_challenges) == 0:
-                online_challenges = self.rand.online_challenges()
+        hobbies = data.get('hobbies')
+        if hobbies is None or len(hobbies) == 0:
+            hobbies = self.rand.hobbies()
 
-            languages = data.get('languages')
-            if languages is None or len(languages) == 0:
-                languages = self.rand.languages()
+        online_challenges = data.get('online_challenges')
+        if online_challenges is None or len(online_challenges) == 0:
+            online_challenges = self.rand.online_challenges()
+
+        languages = data.get('languages')
+        if languages is None or len(languages) == 0:
+            languages = self.rand.languages()
 
         student.save()
 
         nickname = None
-        if student.profile_step >= 6:
-            nickname = data.get('nickname')
-            if nickname is None or nickname == '':
-                nickname = f'{user.first_name}-{user.last_name}-{student.id}'.lower()
 
-        if student.profile_step >= 7:
-            state = data.get('state')
-            if state is None or state == '':
-                state = self.rand.state()
-            student.state = state
+        nickname = data.get('nickname')
+        if nickname is None or nickname == '':
+            nickname = f'{user.first_name}-{user.last_name}-{student.id}'.lower()
+
+        state = data.get('state')
+        if state is None or state == '':
+            state = self.rand.state()
+        student.state = state
 
         student.save()
 
@@ -219,7 +212,6 @@ class Student(BaseSeed):
                 "nickname": nickname,
                 "slug": slugify(nickname),
                 "online_challenges": online_challenges,
-                "profile_step": 7,
                 "school_name": "FH Winterthur",
                 "skills": skills,
                 "soft_skills": soft_skills,

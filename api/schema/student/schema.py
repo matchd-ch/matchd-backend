@@ -26,6 +26,8 @@ from db.forms import process_student_base_data_form, process_student_character_f
     process_student_specific_data_form, process_student_condition_form, process_student_abilities_form, \
     update_student_info
 from db.models import Student as StudentModel, ProfileType, Match as MatchModel, ChallengeState
+from db.helper.profile_calculator import get_relevant_student_profile_fields, \
+    get_missing_relevant_student_profile_fields, calculate_student_profile_completion
 
 # pylint: disable=W0221
 
@@ -59,14 +61,17 @@ class Student(DjangoObjectType):
     challenges = graphene.NonNull(
         graphene.List(graphene.NonNull('api.schema.challenge.schema.Challenge')))
     is_matchable = graphene.NonNull(graphene.Boolean)
+    profile_relevant_fields = graphene.List(graphene.NonNull(graphene.String))
+    profile_missing_relevant_fields = graphene.List(graphene.NonNull(graphene.String))
+    profile_completed_percentage = graphene.NonNull(graphene.Float)
 
     class Meta:
         model = StudentModel
         interfaces = (relay.Node, )
         fields = ('mobile', 'street', 'zip', 'city', 'date_of_birth', 'nickname', 'school_name',
                   'field_of_study', 'graduation', 'skills', 'hobbies', 'languages', 'distinction',
-                  'online_challenges', 'state', 'profile_step', 'soft_skills', 'cultural_fits',
-                  'branch', 'slug', 'job_type', 'job_from_date', 'job_to_date', 'is_matchable')
+                  'online_challenges', 'state', 'soft_skills', 'cultural_fits', 'branch', 'slug',
+                  'job_type', 'job_from_date', 'job_to_date', 'is_matchable')
         convert_choices_to_enum = False
 
     @privacy_protection()
@@ -182,6 +187,15 @@ class Student(DjangoObjectType):
         if is_me_query(info):
             return self.challenges.all()
         return self.challenges.filter(state=ChallengeState.PUBLIC)
+
+    def resolve_profile_relevant_fields(self: StudentModel, info):
+        return get_relevant_student_profile_fields()
+
+    def resolve_profile_missing_relevant_fields(self: StudentModel, info):
+        return get_missing_relevant_student_profile_fields(self)
+
+    def resolve_profile_completed_percentage(self: StudentModel, info):
+        return calculate_student_profile_completion(self)
 
 
 class StudentProfileBaseData(Output, relay.ClientIDMutation):
@@ -357,6 +371,7 @@ class StudentQuery(ObjectType):
             raise PermissionDenied('You have not the permission to perform this action')
 
         student = get_object_or_404(StudentModel, slug=slug)
+
         if student.state == ProfileState.INCOMPLETE:
             raise Http404('Student not found')
 

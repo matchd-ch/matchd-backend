@@ -25,7 +25,6 @@ def student_valid_args(create_user, create_branch, create_job_type):
         'job_to_date': date(2022, 1, 20),
         'distinction': 'Experienced',
         'state': ProfileState.ANONYMOUS,
-        'profile_step': 1,
         'slug': 'jd'
     }
 

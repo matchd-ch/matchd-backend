@@ -6,7 +6,7 @@ from db.forms.hobby import HobbyForm
 from db.forms.online_challenge import OnlineChallengeForm
 from db.forms.user_language_relation import UserLanguageRelationForm
 
-from db.helper import validate_student_user_type, validate_step, validate_form_data, silent_fail, generic_error_dict
+from db.helper import validate_student_user_type, validate_form_data, silent_fail, generic_error_dict
 from db.models import Skill, OnlineChallenge, Hobby, UserLanguageRelation
 
 
@@ -142,7 +142,6 @@ def get_languages_to_delete(profile, data):
 def process_student_abilities_form(user, data):
     # validate user type, step and data
     validate_student_user_type(user)
-    validate_step(user, 4)
     validate_form_data(data)
 
     errors = {}
@@ -217,10 +216,6 @@ def process_student_abilities_form(user, data):
         form.save()
 
     student.skills.set(skills_to_save)
-
-    # update step only if the user has step 4
-    if student.profile_step == 4:
-        student.profile_step = 5
 
     # save user
     user.save()

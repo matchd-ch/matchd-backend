@@ -4,7 +4,7 @@ from django.utils.text import slugify
 
 from db.exceptions import FormException, NicknameException
 from db.helper import validation_error_to_dict, \
-    validate_student_user_type, validate_step, validate_form_data, NicknameHelper
+    validate_student_user_type, validate_form_data, NicknameHelper
 
 
 class StudentProfileSpecificDataForm(forms.Form):
@@ -15,7 +15,6 @@ def process_student_specific_data_form(user, data):
     errors = {}
     # validate user type, step and data
     validate_student_user_type(user)
-    validate_step(user, 5)
     validate_form_data(data)
 
     student = None
@@ -44,10 +43,5 @@ def process_student_specific_data_form(user, data):
     if errors:
         raise FormException(errors=errors)
 
-    # update step only if the user has step 6
-    if student.profile_step == 5:
-        student.profile_step = 6
-
-    # save user / profile
-    user.save()
+    # save profile
     student.save()

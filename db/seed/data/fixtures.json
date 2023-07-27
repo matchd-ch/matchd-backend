@@ -1506,7 +1506,6 @@
             "mobile": "",
             "nickname": null,
             "online_challenges": [],
-            "profile_step": 1,
             "challenges": [],
             "school_name": "Name der Schule",
             "skills": [],
@@ -1540,7 +1539,6 @@
             "mobile": "",
             "nickname": null,
             "online_challenges": [],
-            "profile_step": 1,
             "challenges": [],
             "school_name": "Name der Schule",
             "skills": [],
@@ -1574,7 +1572,6 @@
             "mobile": "+41791234567",
             "nickname": null,
             "online_challenges": [],
-            "profile_step": 2,
             "challenges": [],
             "school_name": "",
             "skills": [],
@@ -1608,7 +1605,6 @@
             "mobile": "+41791234567",
             "nickname": null,
             "online_challenges": [],
-            "profile_step": 3,
             "challenges": [],
             "school_name": "FH Winterthur",
             "skills": [],
@@ -1649,7 +1645,6 @@
             "mobile": "+41791234567",
             "nickname": null,
             "online_challenges": [],
-            "profile_step": 4,
             "challenges": [],
             "school_name": "FH Winterthur",
             "skills": [],
@@ -1712,7 +1707,6 @@
                 "http://www.challenge1.lo",
                 "http://www.challenge2.lo"
             ],
-            "profile_step": 5,
             "challenges": [],
             "school_name": "FH Winterthur",
             "skills": [
@@ -1779,7 +1773,6 @@
                 "http://www.challenge2.lo",
                 "http://www.challenge1.lo"
             ],
-            "profile_step": 6,
             "challenges": [],
             "school_name": "FH Winterthur",
             "skills": [
@@ -1865,7 +1858,6 @@
                 "http://www.challenge1.lo",
                 "http://www.challenge2.lo"
             ],
-            "profile_step": 7,
             "challenges": [
                 {
                     "company": 8,
@@ -1996,7 +1988,6 @@
                 "http://www.challenge1.lo",
                 "http://www.challenge2.lo"
             ],
-            "profile_step": 7,
             "challenges": [
                 {
                     "company": 9,
@@ -2240,7 +2231,6 @@
                 "http://www.challenge.lo",
                 "http://www.challenge2.lo"
             ],
-            "profile_step": 7,
             "challenges": [
                 {
                     "company": 10,
@@ -2371,7 +2361,6 @@
                 "http://www.challenge.lo",
                 "http://www.challenge2.lo"
             ],
-            "profile_step": 7,
             "challenges": [
                 {
                     "company": 11,
@@ -2562,7 +2551,6 @@
                 "http://www.challenge.lo",
                 "http://www.challenge2.lo"
             ],
-            "profile_step": 7,
             "challenges": [
                 {
                     "company": 12,
@@ -2769,7 +2757,6 @@
                 "http://www.challenge.lo",
                 "http://www.challenge2.lo"
             ],
-            "profile_step": 7,
             "challenges": [
                 {
                     "company": 13,
@@ -2921,7 +2908,6 @@
                 "http://www.challenge.lo",
                 "http://www.challenge2.lo"
             ],
-            "profile_step": 7,
             "challenges": [
                 {
                     "company": 14,
@@ -3091,7 +3077,6 @@
                 "http://www.challenge.lo",
                 "http://www.challenge2.lo"
             ],
-            "profile_step": 7,
             "challenges": [
                 {
                     "company": 15,
@@ -3225,7 +3210,6 @@
                 "http://www.challenge.lo",
                 "http://www.challenge2.lo"
             ],
-            "profile_step": 7,
             "challenges": [
                 {
                     "company": 16,
@@ -3359,7 +3343,6 @@
                 "http://www.challenge.lo",
                 "http://www.challenge2.lo"
             ],
-            "profile_step": 7,
             "challenges": [
                 {
                     "company": 17,
@@ -3556,7 +3539,6 @@
                 "http://www.challenge.lo",
                 "http://www.challenge2.lo"
             ],
-            "profile_step": 7,
             "challenges": [
                 {
                     "company": 18,
@@ -3726,7 +3708,6 @@
                 "http://www.challenge.lo",
                 "http://www.challenge2.lo"
             ],
-            "profile_step": 7,
             "challenges": [
                 {
                     "company": 19,
@@ -3885,7 +3866,6 @@
                 "http://www.challenge.lo",
                 "http://www.challenge2.lo"
             ],
-            "profile_step": 7,
             "challenges": [
                 {
                     "company": 20,
@@ -4038,7 +4018,6 @@
                 "http://www.challenge.lo",
                 "http://www.challenge2.lo"
             ],
-            "profile_step": 7,
             "challenges": [
                 {
                     "company": 21,
@@ -4209,7 +4188,6 @@
                 "http://www.challenge.lo",
                 "http://www.challenge2.lo"
             ],
-            "profile_step": 7,
             "challenges": [
                 {
                     "company": 22,
@@ -4379,7 +4357,6 @@
                 "http://www.challenge.lo",
                 "http://www.challenge2.lo"
             ],
-            "profile_step": 7,
             "challenges": [
                 {
                     "company": 23,
@@ -4530,7 +4507,6 @@
                 "http://www.challenge.lo",
                 "http://www.challenge2.lo"
             ],
-            "profile_step": 7,
             "challenges": [
                 {
                     "company": 24,
@@ -4727,7 +4703,6 @@
                 "http://www.challenge.lo",
                 "http://www.challenge2.lo"
             ],
-            "profile_step": 7,
             "challenges": [
                 {
                     "company": 25,
@@ -4867,7 +4842,6 @@
                 "http://www.challenge.lo",
                 "http://www.challenge2.lo"
             ],
-            "profile_step": 7,
             "challenges": [
                 {
                     "company": 26,
@@ -5045,7 +5019,6 @@
                 "http://www.challenge.lo",
                 "http://www.challenge2.lo"
             ],
-            "profile_step": 7,
             "challenges": [
                 {
                     "company": 27,
@@ -5215,7 +5188,6 @@
                 "http://www.challenge.lo",
                 "http://www.challenge2.lo"
             ],
-            "profile_step": 7,
             "challenges": [
                 {
                     "company": 28,
@@ -5403,7 +5375,6 @@
                 "http://www.challenge.lo",
                 "http://www.challenge2.lo"
             ],
-            "profile_step": 7,
             "challenges": [
                 {
                     "company": 29,

@@ -2,7 +2,7 @@ from django import forms
 from django.utils.translation import gettext as _
 
 from db.exceptions import FormException
-from db.helper.forms import convert_date, generic_error_dict, validate_student_user_type, validate_step,\
+from db.helper.forms import convert_date, generic_error_dict, validate_student_user_type, \
     validate_form_data, convert_object_to_id
 from db.models import JobType, DateMode, Branch
 
@@ -91,7 +91,6 @@ def process_student_employment_form(user, data):
 
     # validate user type, step and data
     validate_student_user_type(user)
-    validate_step(user, 2)
     validate_form_data(data)
 
     student = user.student
@@ -128,10 +127,5 @@ def process_student_employment_form(user, data):
     if errors:
         raise FormException(errors=errors)
 
-    # update step only if the user has step 2
-    if student.profile_step == 2:
-        student.profile_step = 3
-
-    # save user / profile
-    user.save()
+    # save profile
     student.save()

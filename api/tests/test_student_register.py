@@ -26,8 +26,7 @@ def test_register_student(register_student, verification_url_and_token, verify_a
     assert user.type == ProfileType.STUDENT
     assert user.student is not None
     assert user.student.mobile == '+41791234567'
-    assert user.student.state == ProfileState.INCOMPLETE
-    assert user.student.profile_step == 1
+    assert user.student.state == ProfileState.PUBLIC
     assert user.status.verified is False
 
     activation_email = mail.outbox[0]
