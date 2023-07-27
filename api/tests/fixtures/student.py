@@ -49,7 +49,6 @@ def student_query(slug):
         }
         distinction
         state
-        profileStep
         softSkills {
           edges {
             node {
@@ -86,6 +85,9 @@ def student_query(slug):
         challenges {
           slug
         }
+        profileRelevantFields
+        profileMissingRelevantFields
+        profileCompletedPercentage
       }
     }
     ''' % slug
@@ -132,7 +134,6 @@ def student_with_job_posting_query(slug, job_posting_id):
         }
         distinction
         state
-        profileStep
         softSkills {
           edges {
             node {
@@ -169,6 +170,9 @@ def student_with_job_posting_query(slug, job_posting_id):
         challenges {
           slug
         }
+        profileRelevantFields
+        profileMissingRelevantFields
+        profileCompletedPercentage
       }
     }
     ''' % (slug, job_posting_id)
@@ -220,7 +224,6 @@ def user_student_full_profile(user_student, branch_objects, job_type_objects, sk
     user_student.save()
     user_student.student.branch = branch_objects[0]
     user_student.student.job_type = job_type_objects[0]
-    user_student.student.profile_step = 3
     user_student.student.state = ProfileState.PUBLIC
     user_student.student.mobile = '+41711234567'
     user_student.student.zip = '1337'

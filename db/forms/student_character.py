@@ -2,7 +2,7 @@ from django import forms
 from django.utils.translation import gettext as _
 
 from db.exceptions import FormException
-from db.helper import validate_student_user_type, validate_step, validate_form_data, generic_error_dict
+from db.helper import validate_student_user_type, validate_form_data, generic_error_dict
 from db.models import SoftSkill, CulturalFit
 
 
@@ -16,7 +16,6 @@ def process_student_character_form(user, data):
     errors = {}
     # validate user type, step and data
     validate_student_user_type(user)
-    validate_step(user, 3)
     validate_form_data(data)
 
     student = None
@@ -61,10 +60,6 @@ def process_student_character_form(user, data):
 
     student.soft_skills.set(soft_skills_to_save)
     student.cultural_fits.set(cultural_fits_to_save)
-
-    # update step only if the user has step 3
-    if student.profile_step == 3:
-        student.profile_step = 4
 
     # save user / profile
     student.save()

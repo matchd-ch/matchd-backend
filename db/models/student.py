@@ -31,21 +31,26 @@ class Student(models.Model, index.Indexed):
     date_of_birth = models.DateField(blank=True, null=True)
     nickname = models.CharField(max_length=150, null=True, unique=True)
     school_name = models.CharField(blank=True, null=True, max_length=255)
-    field_of_study = models.CharField(blank=False, null=False, max_length=255)
+    field_of_study = models.CharField(blank=True, max_length=255)
     graduation = models.DateField(blank=True, null=True)
     branch = models.ForeignKey('db.Branch', blank=True, null=True, on_delete=models.SET_NULL)
     job_type = models.ForeignKey('db.JobType', blank=True, null=True, on_delete=models.SET_NULL)
     job_from_date = models.DateField(null=True, blank=True)
     job_to_date = models.DateField(null=True, blank=True)
-    skills = models.ManyToManyField('db.Skill', related_name='students')
+    skills = models.ManyToManyField('db.Skill', related_name='students', blank=True)
     distinction = models.TextField(max_length=3000, blank=True)
     state = models.CharField(choices=ProfileState.choices,
                              max_length=255,
                              blank=False,
-                             default=ProfileState.INCOMPLETE)
-    profile_step = models.IntegerField(default=1)
-    soft_skills = models.ManyToManyField('db.SoftSkill', blank=True, related_name='students')
-    cultural_fits = models.ManyToManyField('db.CulturalFit', blank=True, related_name='students')
+                             default=ProfileState.PUBLIC)
+    soft_skills = models.ManyToManyField('db.SoftSkill',
+                                         blank=True,
+                                         null=True,
+                                         related_name='students')
+    cultural_fits = models.ManyToManyField('db.CulturalFit',
+                                           blank=True,
+                                           null=True,
+                                           related_name='students')
     slug = models.CharField(max_length=200, blank=True)
     is_matchable = models.BooleanField(default=True, blank=False)
 

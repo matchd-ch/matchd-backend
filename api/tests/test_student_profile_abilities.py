@@ -11,8 +11,6 @@ from db.models import Skill, Language, LanguageLevel, Hobby, OnlineChallenge, Us
 @pytest.mark.django_db
 def test_abilities(login, user_student, student_abilities, skill_objects, language_objects,
                    language_level_objects):
-    user_student.student.profile_step = 4
-    user_student.student.save()
     login(user_student)
     data, errors = student_abilities(
         user_student,
@@ -50,7 +48,6 @@ def test_abilities(login, user_student, student_abilities, skill_objects, langua
     online_challenges = user.student.online_challenges.all()
     assert len(online_challenges) == 2
     assert user.student.distinction == 'distinction'
-    assert user_student.student.profile_step == 5
 
 
 @pytest.mark.django_db
@@ -85,31 +82,7 @@ def test_abilities_as_company(login, user_employee, student_abilities, skill_obj
 
 
 @pytest.mark.django_db
-def test_abilities_invalid_step(login, user_student, student_abilities, skill_objects,
-                                language_objects, language_level_objects):
-    user_student.student.profile_step = 0
-    user_student.student.save()
-    login(user_student)
-    data, errors = student_abilities(user_student, skill_objects,
-                                     ((language_objects[0], language_level_objects[0]), ), None,
-                                     None, '')
-    assert errors is None
-    assert data is not None
-    assert data.get('studentProfileAbilities') is not None
-    assert data.get('studentProfileAbilities').get('success') is False
-
-    errors = data.get('studentProfileAbilities').get('errors')
-    assert errors is not None
-    assert 'profileStep' in errors
-
-    user = get_user_model().objects.get(pk=user_student.id)
-    assert user.student.profile_step == 0
-
-
-@pytest.mark.django_db
 def test_abilities_with_invalid_data(login, user_student, student_abilities):
-    user_student.student.profile_step = 4
-    user_student.student.save()
     login(user_student)
     data, errors = student_abilities(
         user_student,
@@ -144,15 +117,12 @@ def test_abilities_with_invalid_data(login, user_student, student_abilities):
     user = get_user_model().objects.get(pk=user_student.id)
     assert len(user.student.skills.all()) == 0
     assert len(user.student.languages.all()) == 0
-    assert user_student.student.profile_step == 4
 
 
 @pytest.mark.django_db
 def test_abilities_update_delete_hobbies(login, user_student, student_abilities, skill_objects):
-    user_student.student.profile_step = 4
     Hobby.objects.create(id=1, name='hobby 1', student=user_student.student)
     Hobby.objects.create(id=2, name='hobby 2', student=user_student.student)
-    user_student.student.save()
     assert len(user_student.student.hobbies.all()) == 2
 
     login(user_student)
@@ -170,20 +140,17 @@ def test_abilities_update_delete_hobbies(login, user_student, student_abilities,
     assert len(hobbies) == 1
     assert hobbies[0].id == 1
     assert hobbies[0].name == 'hobby edited'
-    assert user_student.student.profile_step == 5
 
 
 @pytest.mark.django_db
 def test_abilities_update_delete_online_challenges(login, user_student, student_abilities,
                                                    skill_objects):
-    user_student.student.profile_step = 4
     OnlineChallenge.objects.create(id=1,
                                    url='http://www.challenge1.lo',
                                    student=user_student.student)
     OnlineChallenge.objects.create(id=2,
                                    url='http://www.challenge2.lo',
                                    student=user_student.student)
-    user_student.student.save()
     assert len(user_student.student.online_challenges.all()) == 2
 
     login(user_student)
@@ -202,13 +169,11 @@ def test_abilities_update_delete_online_challenges(login, user_student, student_
     assert len(online_challenges) == 1
     assert online_challenges[0].id == 1
     assert online_challenges[0].url == 'http://www.challenge1-edited.lo'
-    assert user_student.student.profile_step == 5
 
 
 @pytest.mark.django_db
 def test_abilities_update_delete_languages(login, user_student, student_abilities, skill_objects,
                                            language_objects, language_level_objects):
-    user_student.student.profile_step = 4
     UserLanguageRelation.objects.create(id=1,
                                         student=user_student.student,
                                         language=language_objects[0],
@@ -217,7 +182,6 @@ def test_abilities_update_delete_languages(login, user_student, student_abilitie
                                         student=user_student.student,
                                         language=language_objects[1],
                                         language_level=language_level_objects[0])
-    user_student.student.save()
     assert len(user_student.student.languages.all()) == 2
 
     login(user_student)
@@ -234,15 +198,12 @@ def test_abilities_update_delete_languages(login, user_student, student_abilitie
     assert len(languages) == 1
     assert languages[0].language.id == language_objects[0].id
     assert languages[0].language_level.id == language_level_objects[1].id
-    assert user_student.student.profile_step == 5
 
 
 @pytest.mark.django_db
 def test_abilities_unique_hobbies_update(login, user_student, student_abilities, skill_objects):
-    user_student.student.profile_step = 4
     Hobby.objects.create(id=1, name='hobby 1', student=user_student.student)
     Hobby.objects.create(id=2, name='hobby 2', student=user_student.student)
-    user_student.student.save()
     assert len(user_student.student.hobbies.all()) == 2
 
     login(user_student)
@@ -266,9 +227,7 @@ def test_abilities_unique_hobbies_update(login, user_student, student_abilities,
 
 @pytest.mark.django_db
 def test_abilities_unique_hobbies_create(login, user_student, student_abilities, skill_objects):
-    user_student.student.profile_step = 4
     Hobby.objects.create(id=1, name='hobby 1', student=user_student.student)
-    user_student.student.save()
     assert len(user_student.student.hobbies.all()) == 1
 
     login(user_student)
@@ -289,13 +248,11 @@ def test_abilities_unique_hobbies_create(login, user_student, student_abilities,
     assert len(hobbies) == 1
     assert hobbies[0].id == 1
     assert hobbies[0].name == 'hobby 1'
-    assert user_student.student.profile_step == 5
 
 
 @pytest.mark.django_db
 def test_abilities_unique_online_challenges_update(login, user_student, student_abilities,
                                                    skill_objects):
-    user_student.student.profile_step = 4
     OnlineChallenge.objects.create(id=1,
                                    url='http://www.challenge1.lo',
                                    student=user_student.student)
@@ -328,11 +285,9 @@ def test_abilities_unique_online_challenges_update(login, user_student, student_
 @pytest.mark.django_db
 def test_abilities_unique_online_challenges_create(login, user_student, student_abilities,
                                                    skill_objects):
-    user_student.student.profile_step = 4
     OnlineChallenge.objects.create(id=1,
                                    url='http://www.challenge1.lo',
                                    student=user_student.student)
-    user_student.student.save()
     assert len(user_student.student.online_challenges.all()) == 1
 
     login(user_student)
@@ -353,4 +308,3 @@ def test_abilities_unique_online_challenges_create(login, user_student, student_
     assert len(online_challenges) == 1
     assert online_challenges[0].id == 1
     assert online_challenges[0].url == 'http://www.challenge1.lo'
-    assert user_student.student.profile_step == 5

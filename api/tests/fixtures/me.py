@@ -47,7 +47,6 @@ def me_query():
                 }
                 distinction
                 state
-                profileStep
                 softSkills {
                     edges {
                         node {

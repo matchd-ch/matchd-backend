@@ -77,7 +77,6 @@ class User(BaseSeed):
                 "nickname": nickname,
                 "slug": slugify(nickname),
                 "online_challenges": self.rand.online_challenges(),
-                "profile_step": 7,
                 "school_name": "School name",
                 "skills": self.rand.skills(),
                 "soft_skills": self.rand.soft_skills(),

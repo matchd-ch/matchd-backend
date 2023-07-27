@@ -36,10 +36,6 @@ class User(AbstractUser):
         return None
 
     def get_profile_step(self):
-        if self.type in ProfileType.valid_student_types():
-            # noinspection PyUnresolvedReferences
-            # student is a reverse relation field
-            return self.student.profile_step
         if self.type in ProfileType.valid_company_types():
             return self.company.profile_step
         return 0

@@ -258,8 +258,6 @@ class Command(BaseCommand):
                     student.job_type.id if student.job_type is not None else None,
                     'distinction':
                     student.distinction,
-                    'profile_step':
-                    student.profile_step,
                     'state':
                     student.state,
                     'branch':
