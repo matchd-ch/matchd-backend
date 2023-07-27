@@ -368,11 +368,11 @@
         },
         "graphene": {
             "hashes": [
-                "sha256:5b03e72770dc901f40be55784058d6bb1d952a49eb819a4a085962d5e1cf5fcf",
-                "sha256:753de13948cbf42e32cc87fb533167c88907066eb984251fdbb006c0aab8da00"
+                "sha256:529bf40c2a698954217d3713c6041d69d3f719ad0080857d7ee31327112446b0",
+                "sha256:bb3810be33b54cb3e6969506671eb72319e8d7ba0d5ca9c8066472f75bf35a38"
             ],
             "index": "pypi",
-            "version": "==3.2.2"
+            "version": "==3.3"
         },
         "graphene-django": {
             "hashes": [
@@ -442,7 +442,7 @@
                 "sha256:3ebb78df84a805d7698245025b975d9d67053cd94c79245ba4b3eb694abe68bb",
                 "sha256:dbace7892d8c0c4ac1ad096662232f831d4e64f4c4545bd53016a3e9d4654743"
             ],
-            "markers": "python_full_version >= '3.8.0'",
+            "markers": "python_version >= '3.8'",
             "version": "==6.8.0"
         },
         "iniconfig": {
@@ -839,7 +839,7 @@
                 "sha256:925c0609e0a8a6488ec4a55b19d485882cf72223b2b19fe2359a50fddd813c9c",
                 "sha256:c280aa8e77ad71ce80e96500a4e4d4a32f35b7e0b52e896bb5fde9a5bcf0699a"
             ],
-            "markers": "python_full_version >= '3.8.0'",
+            "markers": "python_version >= '3.8'",
             "version": "==0.3.1"
         },
         "text-unidecode": {
@@ -1070,7 +1070,7 @@
                 "sha256:679e51dd4403591b2d6838a48de3d283f3d188412a9782faadf845f298736ba0",
                 "sha256:ebc15946aa78bd63458992fc81ec3b6f7b1e92d51c35e6de1c3804e73b799147"
             ],
-            "markers": "python_full_version >= '3.8.0'",
+            "markers": "python_version >= '3.8'",
             "version": "==3.16.2"
         }
     },
