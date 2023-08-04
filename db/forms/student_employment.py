@@ -8,7 +8,7 @@ from db.models import JobType, DateMode, Branch
 
 
 class StudentProfileEmploymentForm(forms.Form):
-    job_type = forms.ModelChoiceField(queryset=JobType.objects.all(), required=True)
+    job_type = forms.ModelChoiceField(queryset=JobType.objects.all(), required=False)
     branch = forms.ModelChoiceField(queryset=Branch.objects.all(), required=False)
 
     def __init__(self, data=None, **kwargs):

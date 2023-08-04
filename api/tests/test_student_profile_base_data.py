@@ -73,10 +73,4 @@ def test_base_data_invalid_data(login, user_student, student_base_data):
 
     errors = data.get('studentProfileBaseData').get('errors')
     assert errors is not None
-    assert 'firstName' in errors
-    assert 'lastName' in errors
-    assert 'street' not in errors
-    assert 'zip' not in errors
-    assert 'city' not in errors
     assert 'dateOfBirth' in errors
-    assert 'mobile' not in errors

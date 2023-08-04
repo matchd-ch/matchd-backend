@@ -8,7 +8,7 @@ from db.helper import validation_error_to_dict, \
 
 
 class StudentProfileSpecificDataForm(forms.Form):
-    nickname = forms.CharField(max_length=150)
+    nickname = forms.CharField(max_length=150, required=False)
 
 
 def process_student_specific_data_form(user, data):

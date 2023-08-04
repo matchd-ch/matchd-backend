@@ -7,9 +7,9 @@ from db.models import SoftSkill, CulturalFit
 
 
 class StudentProfileCharacterForm(forms.Form):
-    soft_skills = forms.ModelMultipleChoiceField(queryset=SoftSkill.objects.all(), required=True)
+    soft_skills = forms.ModelMultipleChoiceField(queryset=SoftSkill.objects.all(), required=False)
     cultural_fits = forms.ModelMultipleChoiceField(queryset=CulturalFit.objects.all(),
-                                                   required=True)
+                                                   required=False)
 
 
 def process_student_character_form(user, data):

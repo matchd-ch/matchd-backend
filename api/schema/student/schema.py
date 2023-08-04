@@ -201,13 +201,13 @@ class Student(DjangoObjectType):
 class StudentProfileBaseData(Output, relay.ClientIDMutation):
 
     class Input:
-        first_name = graphene.String(description=_('First name'), required=True)
-        last_name = graphene.String(description=_('Last name'), required=True)
-        street = graphene.String(description=_('street'))
-        zip = graphene.String(description=_('Zip'))
-        city = graphene.String(description=_('City'))
-        date_of_birth = graphene.String(description=_('Date of birth'), required=True)
-        mobile = graphene.String(description=_('Date of birth'))
+        first_name = graphene.String(description=_('First name'), required=False)
+        last_name = graphene.String(description=_('Last name'), required=False)
+        street = graphene.String(description=_('street'), required=False)
+        zip = graphene.String(description=_('Zip'), required=False)
+        city = graphene.String(description=_('City'), required=False)
+        date_of_birth = graphene.String(description=_('Date of birth'), required=False)
+        mobile = graphene.String(description=_('Date of birth'), required=False)
 
     class Meta:
         description = _('Updates the profile of a student')
@@ -227,7 +227,7 @@ class StudentProfileBaseData(Output, relay.ClientIDMutation):
 class StudentProfileEmployment(Output, relay.ClientIDMutation):
 
     class Input:
-        job_type = graphene.Field(JobTypeInput, required=True)
+        job_type = graphene.Field(JobTypeInput, required=False)
         job_from_date = graphene.String(required=False)
         job_to_date = graphene.String(required=False)
         branch = graphene.Field(BranchInput, required=False)
@@ -282,7 +282,7 @@ class StudentProfileAbilities(Output, relay.ClientIDMutation):
                                           required=False)
         languages = graphene.List(UserLanguageRelationInput,
                                   description=_('Languages'),
-                                  required=True)
+                                  required=False)
         distinction = graphene.String(description=_('Distinction'), required=False)
 
     class Meta:
@@ -307,7 +307,7 @@ class StudentProfileSpecificData(Output, relay.ClientIDMutation):
     nickname_suggestions = graphene.List(graphene.String)
 
     class Input:
-        nickname = graphene.String(description=_('Nickname'), required=True)
+        nickname = graphene.String(description=_('Nickname'), required=False)
 
     class Meta:
         description = _('Updates the nickname of a student')
