@@ -44,20 +44,6 @@ def test_specific_data_as_company(login, user_employee, student_specific_data):
 
 
 @pytest.mark.django_db
-def test_specific_data_invalid_data(login, user_student, student_specific_data):
-    login(user_student)
-    data, errors = student_specific_data(user_student, '')
-    assert errors is None
-    assert data is not None
-    assert data.get('studentProfileSpecificData') is not None
-    assert data.get('studentProfileSpecificData').get('success') is False
-
-    errors = data.get('studentProfileSpecificData').get('errors')
-    assert errors is not None
-    assert 'nickname' in errors
-
-
-@pytest.mark.django_db
 def test_specific_data_nickname_already_exists(login, user_student, user_student_2,
                                                student_specific_data):
     user_student_2.student.nickname = 'nickname'

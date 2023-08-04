@@ -12,12 +12,12 @@ class StudentProfileBaseDataForm(forms.Form):
         data['date_of_birth'] = convert_date(data.get('date_of_birth', None))
         super().__init__(data=data, **kwargs)
 
-    first_name = forms.CharField(max_length=150, required=True)
-    last_name = forms.CharField(max_length=150, required=True)
+    first_name = forms.CharField(max_length=150, required=False)
+    last_name = forms.CharField(max_length=150, required=False)
     street = forms.CharField(max_length=255, required=False)
     zip = forms.CharField(max_length=255, required=False)
     city = forms.CharField(max_length=255, required=False)
-    date_of_birth = forms.DateField(required=True)
+    date_of_birth = forms.DateField(required=False)
     mobile = forms.CharField(max_length=12,
                              validators=[RegexValidator(regex=settings.PHONE_REGEX)],
                              required=False)

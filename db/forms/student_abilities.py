@@ -11,7 +11,7 @@ from db.models import Skill, OnlineChallenge, Hobby, UserLanguageRelation
 
 
 class StudentProfileAbilitiesForm(forms.Form):
-    skills = forms.ModelMultipleChoiceField(queryset=Skill.objects.all(), required=True)
+    skills = forms.ModelMultipleChoiceField(queryset=Skill.objects.all(), required=False)
     distinction = forms.CharField(max_length=3000, required=False)
 
 
