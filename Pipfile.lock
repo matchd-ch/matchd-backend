@@ -384,10 +384,11 @@
         },
         "graphene-django-optimizer": {
             "hashes": [
-                "sha256:c652091d8fb8b93c36c359d46c095b35ce3a6d8fbf9b5ea2ca94e290b1ba3230"
+                "sha256:5a5d9d1e1abda3571bdff77a71af5e71b994e5e9d97d17a576df89181284075d",
+                "sha256:5b81aaa114514c9a89d064aaaf09c8e00c27d1cf6f734993f0ea5afe776041b9"
             ],
             "index": "pypi",
-            "version": "==0.9.1"
+            "version": "==0.10.0"
         },
         "graphene-file-upload": {
             "hashes": [
