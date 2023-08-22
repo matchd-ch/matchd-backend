@@ -35,11 +35,6 @@ class User(AbstractUser):
             return self.company.id
         return None
 
-    def get_profile_step(self):
-        if self.type in ProfileType.valid_company_types():
-            return self.company.profile_step
-        return 0
-
     def get_profile_state(self):
         if self.type in ProfileType.valid_student_types():
             # noinspection PyUnresolvedReferences
@@ -47,7 +42,7 @@ class User(AbstractUser):
             return self.student.state
         if self.type in ProfileType.valid_company_types():
             return self.company.state
-        return ProfileState.INCOMPLETE
+        return ProfileState.PUBLIC
 
 
 class UserSignalHandler:

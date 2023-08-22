@@ -13,7 +13,7 @@ class StudentProfileSpecificDataForm(forms.Form):
 
 def process_student_specific_data_form(user, data):
     errors = {}
-    # validate user type, step and data
+    # validate user type, data
     validate_student_user_type(user)
     validate_form_data(data)
 

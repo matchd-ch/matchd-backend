@@ -1,14 +1,12 @@
 import pytest
 
-from db.models import ProfileState, AttachmentKey
+from db.models import AttachmentKey
 
 
 # pylint: disable=R0913
 @pytest.mark.django_db
 def test_delete_attachment(login, delete_attachment, upload, file_image_jpg, attachments_for_user,
                            user_employee):
-    user_employee.company.state = ProfileState.INCOMPLETE
-    user_employee.company.save()
     login(user_employee)
     data, errors = upload(user_employee, AttachmentKey.COMPANY_AVATAR, file_image_jpg)
     assert data is not None
@@ -28,8 +26,6 @@ def test_delete_attachment(login, delete_attachment, upload, file_image_jpg, att
 @pytest.mark.django_db
 def test_delete_attachment_with_another_user(login, delete_attachment, upload, file_image_jpg,
                                              attachments_for_user, user_employee, user_student):
-    user_employee.company.state = ProfileState.INCOMPLETE
-    user_employee.company.save()
     login(user_employee)
     data, errors = upload(user_employee, AttachmentKey.COMPANY_AVATAR, file_image_jpg)
     assert data is not None

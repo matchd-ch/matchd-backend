@@ -18,7 +18,6 @@ class Company(BaseSeed):
         if len(data.keys()) == 1:
             return company
 
-        company.profile_step = data.get('profile_step')
         company.state = data.get('state')
         company.type = data.get('type')
         if company.type == ProfileType.COMPANY:
@@ -36,98 +35,95 @@ class Company(BaseSeed):
             city = data.get('city')
             street = data.get('street')
 
-        if company.profile_step >= 1:
-            name = data.get('name')
-            if name is None or name == '':
-                name = f'{user.last_name} AG'
+        name = data.get('name')
+        if name is None or name == '':
+            name = f'{user.last_name} AG'
 
-            role = data.get('role')
-            if role is None or role == '':
-                role = 'Rector'
+        role = data.get('role')
+        if role is None or role == '':
+            role = 'Rector'
 
-            company.uid = ''
-            company.name = name
-            company.zip = zip_code
-            company.city = city
-            company.street = ''
+        company.uid = ''
+        company.name = name
+        company.zip = zip_code
+        company.city = city
+        company.street = ''
 
-            user.employee.role = role
+        user.employee.role = role
 
-        if company.profile_step >= 2:
+        phone = data.get('phone')
+        if phone is None or phone == '':
+            phone = self.rand.phone()
 
-            phone = data.get('phone')
-            if phone is None or phone == '':
-                phone = self.rand.phone()
+        company.phone = phone
 
-            company.phone = phone
+        company.street = street
 
-            company.street = street
+        website = data.get('website')
+        if website is None or website == '':
+            website = f'https://www.{user.last_name}-university.lo'.lower()
 
-            website = data.get('website')
-            if website is None or website == '':
-                website = f'https://www.{user.last_name}-university.lo'.lower()
+        top_level_website = data.get('top_level_organisation_website')
+        if top_level_website is None or top_level_website == '':
+            top_level_website = f'https://www.{user.last_name}-university.lo'.lower()
 
-            top_level_website = data.get('top_level_organisation_website')
-            if top_level_website is None or top_level_website == '':
-                top_level_website = f'https://www.{user.last_name}-university.lo'.lower()
+        top_level_description = data.get('top_level_organisation_description')
+        if top_level_description is None or top_level_description == '':
+            top_level_description = self.rand.description()
 
-            top_level_description = data.get('top_level_organisation_description')
-            if top_level_description is None or top_level_description == '':
-                top_level_description = self.rand.description()
-
-            company.website = website
-            company.top_level_organisation_website = top_level_website
-            company.top_level_organisation_description = top_level_description
+        company.website = website
+        company.top_level_organisation_website = top_level_website
+        company.top_level_organisation_description = top_level_description
 
         branches = []
         benefits = []
-        if company.profile_step >= 3:
-            description = data.get('description')
-            if description is None or description == '':
-                description = self.rand.description()
 
-            branches = data.get('branches')
-            if branches is None or len(branches) == 0:
-                branches = self.rand.branches()
+        description = data.get('description')
+        if description is None or description == '':
+            description = self.rand.description()
 
-            benefits = data.get('benefits')
-            if benefits is None or len(benefits) == 0:
-                benefits = self.rand.benefits()
+        branches = data.get('branches')
+        if branches is None or len(branches) == 0:
+            branches = self.rand.branches()
 
-            company.description = description
+        benefits = data.get('benefits')
+        if benefits is None or len(benefits) == 0:
+            benefits = self.rand.benefits()
+
+        company.description = description
 
         soft_skills = []
         cultural_fits = []
-        if company.profile_step >= 4:
-            services = data.get('services')
-            if services is None or services == '':
-                services = self.rand.description()
 
-            company.services = services
+        services = data.get('services')
+        if services is None or services == '':
+            services = self.rand.description()
 
-            link_education = data.get('link_education')
-            if link_education is None or link_education == '':
-                link_education = 'https://www.education.lo'
+        company.services = services
 
-            link_challenges = data.get('link_challenges')
-            if link_challenges is None or link_challenges == '':
-                link_challenges = 'https://www.challenges.lo'
+        link_education = data.get('link_education')
+        if link_education is None or link_education == '':
+            link_education = 'https://www.education.lo'
 
-            link_thesis = data.get('link_thesis')
-            if link_thesis is None or link_thesis == '':
-                link_thesis = 'https://www.thesis.lo'
+        link_challenges = data.get('link_challenges')
+        if link_challenges is None or link_challenges == '':
+            link_challenges = 'https://www.challenges.lo'
 
-            soft_skills = data.get('soft_skills')
-            if soft_skills is None or len(soft_skills) == 0:
-                soft_skills = self.rand.soft_skills()
+        link_thesis = data.get('link_thesis')
+        if link_thesis is None or link_thesis == '':
+            link_thesis = 'https://www.thesis.lo'
 
-            cultural_fits = data.get('cultural_fits')
-            if cultural_fits is None or len(cultural_fits) == 0:
-                cultural_fits = self.rand.cultural_fits()
+        soft_skills = data.get('soft_skills')
+        if soft_skills is None or len(soft_skills) == 0:
+            soft_skills = self.rand.soft_skills()
 
-            company.link_education = link_education
-            company.link_challenges = link_challenges
-            company.link_thesis = link_thesis
+        cultural_fits = data.get('cultural_fits')
+        if cultural_fits is None or len(cultural_fits) == 0:
+            cultural_fits = self.rand.cultural_fits()
+
+        company.link_education = link_education
+        company.link_challenges = link_challenges
+        company.link_thesis = link_thesis
 
         company.save()
         company.branches.set(branches)
@@ -148,73 +144,70 @@ class Company(BaseSeed):
             city = data.get('city')
             street = data.get('street')
 
-        if company.profile_step >= 1:
-            name = data.get('name')
-            if name is None or name == '':
-                name = f'{user.last_name} AG'
+        name = data.get('name')
+        if name is None or name == '':
+            name = f'{user.last_name} AG'
 
-            role = data.get('role')
-            if role is None or role == '':
-                role = 'Recruiter'
-            company.name = name
-            company.zip = zip_code
-            company.city = city
-            company.street = ''
+        role = data.get('role')
+        if role is None or role == '':
+            role = 'Recruiter'
+        company.name = name
+        company.zip = zip_code
+        company.city = city
+        company.street = ''
 
-            user.employee.role = role
+        user.employee.role = role
 
-        if company.profile_step >= 2:
-            company.street = street
+        company.street = street
 
-            phone = data.get('phone')
-            if phone is None or phone == '':
-                phone = self.rand.phone()
+        phone = data.get('phone')
+        if phone is None or phone == '':
+            phone = self.rand.phone()
 
-            company.phone = phone
+        company.phone = phone
 
-        if company.profile_step >= 3:
-            website = data.get('website')
-            if website is None or website == '':
-                website = f'https://www.{user.last_name}-ag.lo'.lower()
+        website = data.get('website')
+        if website is None or website == '':
+            website = f'https://www.{user.last_name}-ag.lo'.lower()
 
-            description = data.get('description')
-            if description is None or description == '':
-                description = self.rand.description()
+        description = data.get('description')
+        if description is None or description == '':
+            description = self.rand.description()
 
-            services = data.get('services')
-            if services is None or services == '':
-                services = self.rand.services()
+        services = data.get('services')
+        if services is None or services == '':
+            services = self.rand.services()
 
-            member_it_st_gallen = data.get('member_it_st_gallen')
-            if member_it_st_gallen is None or member_it_st_gallen == '':
-                member_it_st_gallen = True
+        member_it_st_gallen = data.get('member_it_st_gallen')
+        if member_it_st_gallen is None or member_it_st_gallen == '':
+            member_it_st_gallen = True
 
-            company.website = website
-            company.description = description
-            company.services = services
-            company.member_it_st_gallen = member_it_st_gallen
+        company.website = website
+        company.description = description
+        company.services = services
+        company.member_it_st_gallen = member_it_st_gallen
 
         branches = []
         benefits = []
-        if company.profile_step >= 4:
-            branches = data.get('branches')
-            if branches is None or len(branches) == 0:
-                branches = self.rand.branches()
 
-            benefits = data.get('benefits')
-            if benefits is None or len(benefits) == 0:
-                benefits = self.rand.benefits()
+        branches = data.get('branches')
+        if branches is None or len(branches) == 0:
+            branches = self.rand.branches()
+
+        benefits = data.get('benefits')
+        if benefits is None or len(benefits) == 0:
+            benefits = self.rand.benefits()
 
         soft_skills = []
         cultural_fits = []
-        if company.profile_step >= 4:
-            soft_skills = data.get('soft_skills')
-            if soft_skills is None or len(soft_skills) == 0:
-                soft_skills = self.rand.soft_skills()
 
-            cultural_fits = data.get('cultural_fits')
-            if cultural_fits is None or len(cultural_fits) == 0:
-                cultural_fits = self.rand.cultural_fits()
+        soft_skills = data.get('soft_skills')
+        if soft_skills is None or len(soft_skills) == 0:
+            soft_skills = self.rand.soft_skills()
+
+        cultural_fits = data.get('cultural_fits')
+        if cultural_fits is None or len(cultural_fits) == 0:
+            cultural_fits = self.rand.cultural_fits()
 
         company.save()
         company.branches.set(branches)
@@ -271,7 +264,6 @@ class Company(BaseSeed):
                 "member_it_st_gallen": False,
                 "name": "",
                 "phone": self.rand.phone(),
-                "profile_step": 5,
                 "slug": slug,
                 "uid": "",
                 "website": "",

@@ -5,7 +5,6 @@ from graphql_auth.bases import Output
 from graphql_jwt.decorators import login_required
 
 from django.core.exceptions import PermissionDenied
-from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext as _
 
@@ -371,9 +370,6 @@ class StudentQuery(ObjectType):
             raise PermissionDenied('You have not the permission to perform this action')
 
         student = get_object_or_404(StudentModel, slug=slug)
-
-        if student.state == ProfileState.INCOMPLETE:
-            raise Http404('Student not found')
 
         return student
 

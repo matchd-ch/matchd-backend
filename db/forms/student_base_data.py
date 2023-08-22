@@ -24,7 +24,7 @@ class StudentProfileBaseDataForm(forms.Form):
 
 
 def process_student_base_data_form(user, data):
-    # validate user type, step and data
+    # validate user type, data
     validate_student_user_type(user)
     validate_form_data(data)
 

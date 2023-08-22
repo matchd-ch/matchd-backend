@@ -27,7 +27,6 @@ def test_base_data(login, user_rector, university_base_data):
     assert user.company.website == 'https://www.1337.lo'
     assert user.company.top_level_organisation_website == 'https://www.top-level.lo'
     assert user.company.top_level_organisation_description == 'top level description'
-    assert user.company.profile_step == 2
     assert user.employee.role == 'Role'
 
 
@@ -50,7 +49,6 @@ def test_base_data_without_login(user_rector, university_base_data):
     assert user.company.city == ''
     assert user.company.phone == ''
     assert user.employee.role == ''
-    assert user.company.profile_step == 1
 
 
 @pytest.mark.django_db
@@ -70,25 +68,18 @@ def test_base_data_as_student(login, user_student, university_base_data):
 
 
 @pytest.mark.django_db
-def test_base_data_invalid_step(login, user_rector, university_base_data):
-    user_rector.company.profile_step = 0
-    user_rector.company.save()
+def test_base_data_empty_data(login, user_rector, university_base_data):
     login(user_rector)
-    data, errors = university_base_data(user_rector, 'John', 'Doe', 'Company 1 edited', 'street 1',
-                                        '1337', 'nowhere', '+41791234567', 'Role',
-                                        'https://www.1337.lo', 'https://www.top-level.lo',
-                                        'top level description')
+    data, errors = university_base_data(user_rector, '', '', 'test', '', '', '', '', '', '', '',
+                                        'a' * 1000)
     assert errors is None
     assert data is not None
+    print(data)
     assert data.get('universityProfileBaseData') is not None
-    assert data.get('universityProfileBaseData').get('success') is False
+    assert data.get('universityProfileBaseData').get('success') is True
 
     errors = data.get('universityProfileBaseData').get('errors')
-    assert errors is not None
-    assert 'profileStep' in errors
-
-    user = get_user_model().objects.get(pk=user_rector.id)
-    assert user.company.profile_step == 0
+    assert errors is None
 
 
 @pytest.mark.django_db
@@ -103,17 +94,6 @@ def test_base_data_invalid_data(login, user_rector, university_base_data):
 
     errors = data.get('universityProfileBaseData').get('errors')
     assert errors is not None
-    assert 'firstName' in errors
-    assert 'lastName' in errors
     assert 'name' in errors
-    assert 'street' in errors
-    assert 'zip' in errors
-    assert 'city' in errors
-    assert 'phone' in errors
-    assert 'role' in errors
-    assert 'website' in errors
     assert 'topLevelOrganisationWebsite' in errors
     assert 'topLevelOrganisationDescription' in errors
-
-    user = get_user_model().objects.get(pk=user_rector.id)
-    assert user.company.profile_step == 1

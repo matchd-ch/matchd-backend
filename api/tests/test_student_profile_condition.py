@@ -58,20 +58,3 @@ def test_condition_invalid_data(login, user_student, student_condition):
 
     user = get_user_model().objects.get(pk=user_student.id)
     assert user.student.state == ProfileState.PUBLIC
-
-
-@pytest.mark.django_db
-def test_condition_invalid_state(login, user_student, student_condition):
-    login(user_student)
-    data, errors = student_condition(user_student, ProfileState.INCOMPLETE)
-    assert errors is None
-    assert data is not None
-    assert data.get('studentProfileCondition') is not None
-    assert data.get('studentProfileCondition').get('success') is False
-
-    errors = data.get('studentProfileCondition').get('errors')
-    assert errors is not None
-    assert 'state' in errors
-
-    user = get_user_model().objects.get(pk=user_student.id)
-    assert user.student.state == ProfileState.PUBLIC

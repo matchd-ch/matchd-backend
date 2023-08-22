@@ -1,7 +1,7 @@
 from django import forms
 
 from db.exceptions import FormException
-from db.helper.forms import validate_step, validate_form_data, validate_company_user_type
+from db.helper.forms import validate_form_data, validate_company_user_type
 from db.models import Benefit, ProfileType, Branch
 
 
@@ -11,10 +11,9 @@ class CompanyProfileAdvantagesForm(forms.Form):
 
 
 def process_company_advantages_form(user, data):
-    # validate user type, step and data
+    # validate user type, data
     errors = {}
     validate_company_user_type(user, ProfileType.COMPANY)
-    validate_step(user, 3)
     validate_form_data(data)
     company = user.company
 
@@ -36,10 +35,6 @@ def process_company_advantages_form(user, data):
 
     if errors:
         raise FormException(errors=errors)
-
-    # update step only if the user has step 3
-    if company.profile_step == 3:
-        company.profile_step = 4
 
     # save company
     company.save()

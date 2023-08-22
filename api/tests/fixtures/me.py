@@ -99,7 +99,6 @@ def me_query():
                 services
                 memberItStGallen
                 state
-                profileStep
                 benefits {
                     edges {
                         node {

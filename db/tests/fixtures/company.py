@@ -11,7 +11,6 @@ def company_valid_args():
     return {
         'type': ProfileType.COMPANY,
         'state': ProfileState.PUBLIC,
-        'profile_step': 1,
         'slug': 'acme',
         'name': 'ACME GmbH',
         'zip': '33100',
@@ -31,7 +30,6 @@ def university_valid_args():
     return {
         'type': ProfileType.UNIVERSITY,
         'state': ProfileState.PUBLIC,
-        'profile_step': 1,
         'slug': 'unigood',
         'name': 'Good University',
         'zip': '33100',

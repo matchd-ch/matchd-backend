@@ -26,8 +26,7 @@ def test_register_university(register_university, verification_url_and_token, ve
     assert user.type == ProfileType.UNIVERSITY
     assert user.company is not None
     assert user.company.name == 'Company name'
-    assert user.company.state == ProfileState.INCOMPLETE
-    assert user.company.profile_step == 1
+    assert user.company.state == ProfileState.PUBLIC
     assert user.company.type == ProfileType.UNIVERSITY
 
     activation_email = mail.outbox[0]

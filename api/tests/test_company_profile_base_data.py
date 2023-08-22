@@ -23,7 +23,6 @@ def test_base_data(login, user_employee, company_base_data):
     assert user.company.city == 'nowhere'
     assert user.company.phone == '+41791234567'
     assert user.employee.role == 'Role'
-    assert user.company.profile_step == 2
 
 
 @pytest.mark.django_db
@@ -43,7 +42,6 @@ def test_base_data_without_login(user_employee, company_base_data):
     assert user.company.city == ''
     assert user.company.phone == ''
     assert user.employee.role == ''
-    assert user.company.profile_step == 1
 
 
 @pytest.mark.django_db
@@ -61,44 +59,13 @@ def test_base_data_as_student(login, user_student, company_base_data):
 
 
 @pytest.mark.django_db
-def test_base_data_invalid_step(login, user_employee, company_base_data):
-    user_employee.company.profile_step = 0
-    user_employee.company.save()
-    login(user_employee)
-    data, errors = company_base_data(user_employee, 'John', 'Doe', 'Company 1 edited', 'street 1',
-                                     '1337', 'nowhere', '+41791234567', 'Role')
-    assert errors is None
-    assert data is not None
-    assert data.get('companyProfileBaseData') is not None
-    assert data.get('companyProfileBaseData').get('success') is False
-
-    errors = data.get('companyProfileBaseData').get('errors')
-    assert errors is not None
-    assert 'profileStep' in errors
-
-    user = get_user_model().objects.get(pk=user_employee.id)
-    assert user.company.profile_step == 0
-
-
-@pytest.mark.django_db
-def test_base_data_invalid_data(login, user_employee, company_base_data):
+def test_base_data_empty_data(login, user_employee, company_base_data):
     login(user_employee)
     data, errors = company_base_data(user_employee, '', '', '', '', '', '', '', '')
     assert errors is None
     assert data is not None
     assert data.get('companyProfileBaseData') is not None
-    assert data.get('companyProfileBaseData').get('success') is False
+    assert data.get('companyProfileBaseData').get('success') is True
 
     errors = data.get('companyProfileBaseData').get('errors')
-    assert errors is not None
-    assert 'firstName' in errors
-    assert 'lastName' in errors
-    assert 'name' in errors
-    assert 'street' in errors
-    assert 'zip' in errors
-    assert 'city' in errors
-    assert 'phone' in errors
-    assert 'role' in errors
-
-    user = get_user_model().objects.get(pk=user_employee.id)
-    assert user.company.profile_step == 1
+    assert errors is None

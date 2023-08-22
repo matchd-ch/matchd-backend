@@ -23,7 +23,7 @@ class JobPostingAllocationForm(forms.Form):
 def process_job_posting_allocation_form(user, data):
     errors = {}
 
-    # validate user type, step and data
+    # validate user type, data
     validate_company_user_type(user)
     validate_form_data(data)
     job_posting = get_object_or_404(JobPosting, id=data.get('id'))

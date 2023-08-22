@@ -5,7 +5,7 @@ from django.contrib.auth.models import AnonymousUser
 from graphql_relay import to_global_id
 
 from api.tests.helper.node_helper import assert_node_field, assert_node_id
-from db.models import ProfileState, JobPostingState, ChallengeState
+from db.models import JobPostingState, ChallengeState
 
 
 @pytest.mark.django_db
@@ -26,7 +26,6 @@ def test_company(company_object_complete, query_company, job_posting_objects,
     assert company.get('id') == to_global_id('Company', company_object_complete.id)
     assert company.get('type') == company_object_complete.type.upper()
     assert company.get('state') == company_object_complete.state.upper()
-    assert company.get('profileStep') == company_object_complete.profile_step
     assert company.get('slug') == company_object_complete.slug
     assert company.get('name') == 'Company 1'
     assert company.get('displayName') == 'Com\xadpa\xadny 1'
@@ -61,19 +60,15 @@ def test_company(company_object_complete, query_company, job_posting_objects,
 
 
 @pytest.mark.django_db
-def test_company_incomplete(company_object_complete, query_company):
-    company_object_complete.state = ProfileState.INCOMPLETE
-    company_object_complete.save()
+def test_query_company_as_anonymous(company_object_complete, query_company):
     data, errors = query_company(AnonymousUser(), company_object_complete.slug)
     company = data.get('company')
-    assert company is None
-    assert errors is not None
+    assert company is not None
+    assert errors is None
 
 
 @pytest.mark.django_db
 def test_company_incomplete_as_employee(login, company_object_complete, query_company):
-    company_object_complete.state = ProfileState.INCOMPLETE
-    company_object_complete.save()
     employee = company_object_complete.users.all().first()
     login(employee)
     data, errors = query_company(employee, company_object_complete.slug)
@@ -83,7 +78,6 @@ def test_company_incomplete_as_employee(login, company_object_complete, query_co
     assert company.get('id') == to_global_id('Company', company_object_complete.id)
     assert company.get('type') == company_object_complete.type.upper()
     assert company.get('state') == company_object_complete.state.upper()
-    assert company.get('profileStep') == company_object_complete.profile_step
     assert company.get('slug') == company_object_complete.slug
     assert company.get('name') == 'Company 1'
     assert company.get('displayName') == 'Com\xadpa\xadny 1'

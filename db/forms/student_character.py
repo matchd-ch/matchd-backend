@@ -14,7 +14,7 @@ class StudentProfileCharacterForm(forms.Form):
 
 def process_student_character_form(user, data):
     errors = {}
-    # validate user type, step and data
+    # validate user type, data
     validate_student_user_type(user)
     validate_form_data(data)
 

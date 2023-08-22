@@ -23,15 +23,7 @@ def has_access_to_attachments(user, owner, key=None):
 
     if owner_is_company:
         # company
-        company_users = owner.users.all()
-        if user in company_users:
-            has_access = True
-        else:
-            # check if the company has a completed profile
-            # company attachment are accessible for anonymous and public profile
-            state = owner.state
-            if state != ProfileState.INCOMPLETE:
-                has_access = True
+        has_access = True
     else:
         # user
         if user.id == owner.user.id:

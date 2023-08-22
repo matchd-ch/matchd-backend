@@ -140,7 +140,7 @@ def get_languages_to_delete(profile, data):
 # pylint:disable=R0912
 # pylint:disable=R0915
 def process_student_abilities_form(user, data):
-    # validate user type, step and data
+    # validate user type, data
     validate_student_user_type(user)
     validate_form_data(data)
 

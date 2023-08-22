@@ -1,21 +1,20 @@
 from django import forms
 from django.utils.translation import gettext as _
 from db.exceptions import FormException
-from db.helper.forms import validate_step, validate_form_data, validate_company_user_type, generic_error_dict
-from db.models import SoftSkill, ProfileState, CulturalFit
+from db.helper.forms import validate_form_data, validate_company_user_type, generic_error_dict
+from db.models import SoftSkill, CulturalFit
 
 
 class UniversityProfileValuesForm(forms.Form):
-    soft_skills = forms.ModelMultipleChoiceField(queryset=SoftSkill.objects.all(), required=True)
+    soft_skills = forms.ModelMultipleChoiceField(queryset=SoftSkill.objects.all(), required=False)
     cultural_fits = forms.ModelMultipleChoiceField(queryset=CulturalFit.objects.all(),
-                                                   required=True)
+                                                   required=False)
 
 
 def process_university_values_form(user, data):
-    # validate user type, step and data
+    # validate user type, data
     errors = {}
     validate_company_user_type(user)
-    validate_step(user, 4)
     validate_form_data(data)
     company = user.company
 
@@ -55,12 +54,7 @@ def process_university_values_form(user, data):
     if errors:
         raise FormException(errors=errors)
 
-    # update step only if the user has step 4
-    if company.profile_step == 4:
-        company.profile_step = 5
-
     # save user / profile
-    company.state = ProfileState.PUBLIC
     user.save()
     company.soft_skills.set(soft_skills_to_save)
     company.cultural_fits.set(cultural_fits_to_save)

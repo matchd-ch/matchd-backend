@@ -14,7 +14,6 @@
             "member_it_st_gallen": false,
             "name": "Crutchfield AG",
             "phone": "",
-            "profile_step": 1,
             "challenges": [],
             "services": "",
             "slug": "crutchfield-ag-1",
@@ -52,7 +51,6 @@
             "member_it_st_gallen": false,
             "name": "Holden AG",
             "phone": "",
-            "profile_step": 1,
             "challenges": [],
             "services": "",
             "slug": "holden-ag-2",
@@ -90,7 +88,6 @@
             "member_it_st_gallen": false,
             "name": "Schneider AG",
             "phone": "+41719876543",
-            "profile_step": 2,
             "challenges": [],
             "services": "",
             "slug": "schneider-ag-3",
@@ -128,7 +125,6 @@
             "member_it_st_gallen": true,
             "name": "Sauls AG",
             "phone": "+41719876543",
-            "profile_step": 3,
             "challenges": [],
             "services": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem sed semper tincidunt. Fusce eget interdum dui, ac viverra libero. Aliquam sem justo, placerat non fringilla eu, consequat venenatis urna. Pellentesque massa arcu, luctus in vestibulum ac, suscipit a lorem. Aliquam sed justo condimentum, porta lectus quis, consequat erat. Aliquam congue consequat commodo. Duis vitae vehicula est. Mauris et ornare tellus, non consectetur mauris. Praesent eget magna nisl. Nam congue pharetra tincidunt. Morbi ligula ante, tristique in odio ut, tempor fringilla sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat.",
             "slug": "sauls-ag-4",
@@ -719,7 +715,6 @@
             "member_it_st_gallen": true,
             "name": "Hankins AG",
             "phone": "+41719876543",
-            "profile_step": 5,
             "challenges": [
                 {
                     "company": 5,
@@ -1070,7 +1065,6 @@
             "member_it_st_gallen": true,
             "name": "Liip AG",
             "phone": "+41715771337",
-            "profile_step": 5,
             "challenges": [
                 {
                     "company": 6,
@@ -1134,7 +1128,6 @@
             "member_it_st_gallen": false,
             "name": "Nielson AG",
             "phone": "",
-            "profile_step": 1,
             "challenges": [],
             "services": "",
             "slug": "nielson-ag-7",
@@ -1172,7 +1165,6 @@
             "member_it_st_gallen": false,
             "name": "Fitzgerald AG",
             "phone": "",
-            "profile_step": 1,
             "challenges": [],
             "services": "",
             "slug": "fitzgerald-ag-8",
@@ -1210,7 +1202,6 @@
             "member_it_st_gallen": false,
             "name": "Jackson AG",
             "phone": "+41791234567",
-            "profile_step": 2,
             "challenges": [],
             "services": "",
             "slug": "jackson-ag-9",
@@ -1255,7 +1246,6 @@
             "member_it_st_gallen": false,
             "name": "Davis AG",
             "phone": "+41791234567",
-            "profile_step": 3,
             "challenges": [],
             "services": "",
             "slug": "davis-ag-10",
@@ -1362,7 +1352,6 @@
             "member_it_st_gallen": false,
             "name": "Neill AG",
             "phone": "+41791234567",
-            "profile_step": 4,
             "challenges": [
                 {
                     "company": 11,
@@ -2105,7 +2094,6 @@
             "member_it_st_gallen": true,
             "name": "Julian AG",
             "phone": "+41719876543",
-            "profile_step": 4,
             "challenges": [],
             "services": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a scelerisque elit. Praesent accumsan mi id mauris scelerisque, sagittis tristique sem facilisis. Mauris in tempor risus. Integer ornare, leo placerat mollis molestie, urna ipsum volutpat lectus, quis vestibulum lorem sem quis urna. Vestibulum finibus, quam eu laoreet facilisis, lectus dolor vehicula orci, consequat feugiat orci enim eu orci. Ut sed urna quis augue gravida tempus. Fusce sed orci et lacus congue gravida. Integer leo arcu, mattis vitae egestas non, fermentum nec justo. Integer in consequat metus. Phasellus tempus, mauris et pharetra tempor, orci eros venenatis orci, in eleifend erat elit ut leo. Maecenas hendrerit eu ipsum at viverra. Mauris auctor sapien eu turpis maximus, eget tincidunt ligula pretium. Nullam at elit ac elit iaculis tincidunt. Nam massa risus, hendrerit ut eros sit amet, aliquam feugiat ante. Donec aliquet nisi a maximus molestie.",
             "slug": "julian-ag-12",
@@ -5638,7 +5626,6 @@
             "member_it_st_gallen": true,
             "name": "Bloomfield AG",
             "phone": "+41712345678",
-            "profile_step": 5,
             "challenges": [
                 {
                     "company": 13,
@@ -5962,7 +5949,6 @@
             "member_it_st_gallen": true,
             "name": "Miller AG",
             "phone": "+41712345678",
-            "profile_step": 5,
             "challenges": [
                 {
                     "company": 14,
@@ -6203,7 +6189,6 @@
             "member_it_st_gallen": true,
             "name": "Politi AG",
             "phone": "+41712345678",
-            "profile_step": 5,
             "challenges": [
                 {
                     "company": 15,
@@ -6425,7 +6410,6 @@
             "member_it_st_gallen": true,
             "name": "Gismondi AG",
             "phone": "+41712345678",
-            "profile_step": 5,
             "challenges": [
                 {
                     "company": 16,
@@ -6663,7 +6647,6 @@
             "member_it_st_gallen": true,
             "name": "Ahner AG",
             "phone": "+41712345678",
-            "profile_step": 5,
             "challenges": [
                 {
                     "company": 17,
@@ -6925,7 +6908,6 @@
             "member_it_st_gallen": true,
             "name": "Coulter AG",
             "phone": "+41712345678",
-            "profile_step": 5,
             "challenges": [
                 {
                     "company": 18,
@@ -7135,7 +7117,6 @@
             "member_it_st_gallen": true,
             "name": "Waterman AG",
             "phone": "+41712345678",
-            "profile_step": 5,
             "challenges": [
                 {
                     "company": 19,
@@ -7553,7 +7534,6 @@
             "member_it_st_gallen": true,
             "name": "Mckinley AG",
             "phone": "+41712345678",
-            "profile_step": 5,
             "challenges": [
                 {
                     "company": 20,
@@ -7838,7 +7818,6 @@
             "member_it_st_gallen": true,
             "name": "Gautam AG",
             "phone": "+41712345678",
-            "profile_step": 5,
             "challenges": [
                 {
                     "company": 21,
@@ -8075,7 +8054,6 @@
             "member_it_st_gallen": true,
             "name": "Farley AG",
             "phone": "+41712345678",
-            "profile_step": 5,
             "challenges": [
                 {
                     "company": 22,
@@ -8214,7 +8192,6 @@
             "member_it_st_gallen": false,
             "name": "Dery AG",
             "phone": "+41791234567",
-            "profile_step": 5,
             "challenges": [
                 {
                     "company": 23,
@@ -8378,7 +8355,6 @@
             "member_it_st_gallen": false,
             "name": "Aguirre AG",
             "phone": "+41791234567",
-            "profile_step": 5,
             "challenges": [
                 {
                     "company": 24,
@@ -8570,7 +8546,6 @@
             "member_it_st_gallen": false,
             "name": "Henry AG",
             "phone": "+41791234567",
-            "profile_step": 5,
             "challenges": [
                 {
                     "company": 25,
@@ -8761,7 +8736,6 @@
             "member_it_st_gallen": false,
             "name": "Farmer AG",
             "phone": "+41791234567",
-            "profile_step": 5,
             "challenges": [
                 {
                     "company": 26,
@@ -8899,7 +8873,6 @@
             "member_it_st_gallen": false,
             "name": "Perry AG",
             "phone": "+41791234567",
-            "profile_step": 5,
             "challenges": [
                 {
                     "company": 27,
@@ -9115,7 +9088,6 @@
             "member_it_st_gallen": false,
             "name": "Magee AG",
             "phone": "+41791234567",
-            "profile_step": 5,
             "challenges": [
                 {
                     "company": 28,
@@ -9281,7 +9253,6 @@
             "member_it_st_gallen": false,
             "name": "Desalvo AG",
             "phone": "+41791234567",
-            "profile_step": 5,
             "challenges": [
                 {
                     "company": 29,
@@ -9466,7 +9437,6 @@
             "member_it_st_gallen": false,
             "name": "Lewis AG",
             "phone": "+41791234567",
-            "profile_step": 5,
             "challenges": [
                 {
                     "company": 30,
@@ -9657,7 +9627,6 @@
             "member_it_st_gallen": false,
             "name": "Curry AG",
             "phone": "+41791234567",
-            "profile_step": 5,
             "challenges": [
                 {
                     "company": 31,
@@ -9780,7 +9749,6 @@
             "member_it_st_gallen": false,
             "name": "Mitchell AG",
             "phone": "+41791234567",
-            "profile_step": 5,
             "challenges": [
                 {
                     "company": 32,

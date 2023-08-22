@@ -23,7 +23,7 @@ class ChallengeAllocationForm(forms.Form):
 def process_challenge_allocation_form(user, data):
     errors = {}
 
-    # validate step and data
+    # validate data
     validate_form_data(data)
     challenge = get_object_or_404(Challenge, id=data.get('id'))
     was_published = challenge.state == ChallengeState.PUBLIC
