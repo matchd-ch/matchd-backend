@@ -36,23 +36,23 @@ class CompanyInput(graphene.InputObjectType):
 
 
 class RegisterCompanyInput(graphene.InputObjectType):
-    name = graphene.String(description=_('Name'), required=True)
+    name = graphene.String(description=_('Name'), required=False)
     uid = graphene.String(description=_('UID'))
-    zip = graphene.String(description=_('ZIP'), required=True)
-    city = graphene.String(description=_('City'), required=True)
+    zip = graphene.String(description=_('ZIP'), required=False)
+    city = graphene.String(description=_('City'), required=False)
 
 
 class CompanyProfileBaseData(Output, relay.ClientIDMutation):
 
     class Input:
-        first_name = graphene.String(description=_('First name'), required=True)
-        last_name = graphene.String(description=_('Last name'), required=True)
+        first_name = graphene.String(description=_('First name'), required=False)
+        last_name = graphene.String(description=_('Last name'), required=False)
         name = graphene.String(description=_('Name'), required=False)
-        street = graphene.String(description=_('Street'), required=True)
-        zip = graphene.String(description=_('Zip'), required=True)
-        city = graphene.String(description=_('City'), required=True)
+        street = graphene.String(description=_('Street'), required=False)
+        zip = graphene.String(description=_('Zip'), required=False)
+        city = graphene.String(description=_('City'), required=False)
         phone = graphene.String(description=_('Phone Number'))
-        role = graphene.String(description=_('role'), required=True)
+        role = graphene.String(description=_('role'), required=False)
 
     class Meta:
         description = _('Updates the profile of a Company')
@@ -72,11 +72,11 @@ class CompanyProfileBaseData(Output, relay.ClientIDMutation):
 class CompanyProfileRelations(Output, relay.ClientIDMutation):
 
     class Input:
-        website = graphene.String(description=_('website'), required=True)
+        website = graphene.String(description=_('website'), required=False)
         description = graphene.String(description=_('description'), required=False)
         services = graphene.String(description=_('services'), required=False)
         member_it_st_gallen = graphene.Boolean(description=_('memeber IT St. Gallen'),
-                                               required=True)
+                                               required=False)
 
     class Meta:
         description = _('Updates website url, description, services, member IT St.Gallen')
@@ -152,15 +152,15 @@ class CompanyProfileMutation(ObjectType):
 class UniversityProfileBaseData(Output, relay.ClientIDMutation):
 
     class Input:
-        first_name = graphene.String(description=_('First name'), required=True)
-        last_name = graphene.String(description=_('Last name'), required=True)
-        name = graphene.String(description=_('Name'), required=False)
-        street = graphene.String(description=_('Street'), required=True)
-        zip = graphene.String(description=_('Zip'), required=True)
-        city = graphene.String(description=_('City'), required=True)
+        first_name = graphene.String(description=_('First name'), required=False)
+        last_name = graphene.String(description=_('Last name'), required=False)
+        name = graphene.String(description=_('Name'), required=True)
+        street = graphene.String(description=_('Street'), required=False)
+        zip = graphene.String(description=_('Zip'), required=False)
+        city = graphene.String(description=_('City'), required=False)
         phone = graphene.String(description=_('Phone Number'))
-        role = graphene.String(description=_('role'), required=True)
-        website = graphene.String(description=_('website'), required=True)
+        role = graphene.String(description=_('role'), required=False)
+        website = graphene.String(description=_('website'), required=False)
         top_level_organisation_description = graphene.String(description=_('description'),
                                                              required=False)
         top_level_organisation_website = graphene.String(description=_('website dachorganisation'),
@@ -280,7 +280,7 @@ class Company(DjangoObjectType):
         interfaces = (relay.Node, )
         fields = [
             'uid', 'name', 'zip', 'city', 'street', 'phone', 'description', 'member_it_st_gallen',
-            'services', 'website', 'benefits', 'state', 'profile_step', 'slug',
+            'services', 'website', 'benefits', 'state', 'slug',
             'top_level_organisation_description', 'top_level_organisation_website', 'type',
             'branches', 'link_education', 'link_challenges', 'link_thesis', 'soft_skills',
             'cultural_fits', 'job_postings'

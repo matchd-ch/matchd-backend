@@ -27,8 +27,7 @@ def test_register_company(register_company, verification_url_and_token, verify_a
     assert user.type == ProfileType.COMPANY
     assert user.company is not None
     assert user.company.name == 'Company name'
-    assert user.company.state == ProfileState.INCOMPLETE
-    assert user.company.profile_step == 1
+    assert user.company.state == ProfileState.PUBLIC
     assert user.company.type == ProfileType.COMPANY
 
     activation_email = mail.outbox[0]

@@ -18,7 +18,6 @@ def test_get_company(company_valid_args):
     assert isinstance(company, Company)
     assert isinstance(company.type, str)
     assert isinstance(company.state, str)
-    assert isinstance(company.profile_step, int)
     assert isinstance(company.slug, str)
     assert isinstance(company.name, str)
     assert isinstance(company.zip, str)
@@ -38,7 +37,6 @@ def test_get_company(company_valid_args):
 
     assert company.type == company_valid_args.get('type')
     assert company.state == company_valid_args.get('state')
-    assert company.profile_step == company_valid_args.get('profile_step')
     assert company.slug == company_valid_args.get('slug')
     assert company.name == company_valid_args.get('name')
     assert company.zip == company_valid_args.get('zip')
@@ -95,7 +93,6 @@ def test_get_university(university_valid_args):
     assert isinstance(university, Company)
     assert isinstance(university.type, str)
     assert isinstance(university.state, str)
-    assert isinstance(university.profile_step, int)
     assert isinstance(university.slug, str)
     assert isinstance(university.name, str)
     assert isinstance(university.zip, str)
@@ -114,7 +111,6 @@ def test_get_university(university_valid_args):
 
     assert university.type == university_valid_args.get('type')
     assert university.state == university_valid_args.get('state')
-    assert university.profile_step == university_valid_args.get('profile_step')
     assert university.slug == university_valid_args.get('slug')
     assert university.name == university_valid_args.get('name')
     assert university.zip == university_valid_args.get('zip')

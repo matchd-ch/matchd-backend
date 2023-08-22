@@ -195,8 +195,6 @@ class Command(BaseCommand):
                         company.street,
                         'website':
                         company.website,
-                        'profile_step':
-                        company.profile_step,
                         'state':
                         company.state,
                         'top_level_organisation_website':

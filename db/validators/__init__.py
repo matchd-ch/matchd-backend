@@ -1,6 +1,5 @@
 from .password import PasswordValidator
 from .nickname import NicknameValidator
-from .company_profile import CompanyFormStepValidator
 from .student_type import StudentTypeValidator
 from .company_type import CompanyTypeValidator
 from .attachment import AttachmentKeyValidator, AttachmentKeyNumFilesValidator, AttachmentFileValidator

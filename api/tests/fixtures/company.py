@@ -42,7 +42,6 @@ def company_query(slug):
             services
             memberItStGallen
             state
-            profileStep
             benefits {
                 edges {
                     node {
@@ -147,7 +146,6 @@ def company_object_complete(user_employee, branch_objects, soft_skill_objects, b
                             cultural_fit_objects):
     company = user_employee.company
     company.state = ProfileState.PUBLIC
-    company.profile_step = 4
     company.slug = 'company-1'
     company.name = 'Company 1'
     company.zip = '1337'

@@ -5,7 +5,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.utils.text import slugify
 
-from db.models import ProfileState, JobPosting as JobPostingModel, DateMode, JobPostingState, Employee, \
+from db.models import JobPosting as JobPostingModel, DateMode, JobPostingState, Employee, \
     JobPostingLanguageRelation, JobType, ProfileType
 from db.seed.base import BaseSeed
 
@@ -21,8 +21,6 @@ class JobPosting(BaseSeed):
         if len(data.get('company').keys()) == 1:
             return
         company = kwargs.get('company')
-        if company.state == ProfileState.INCOMPLETE:
-            return
         if company.type != ProfileType.COMPANY:
             return
 

@@ -1,7 +1,7 @@
 from django import forms
 
 from db.exceptions import FormException
-from db.helper.forms import validate_step, validate_form_data, validate_company_user_type
+from db.helper.forms import validate_form_data, validate_company_user_type
 from db.models import ProfileType, Branch, Benefit
 
 
@@ -16,9 +16,8 @@ class UniversityProfileRelationsForm(forms.Form):
 
 
 def process_university_relations_form(user, data):
-    # validate user type, step and data
+    # validate user type, data
     validate_company_user_type(user, ProfileType.UNIVERSITY)
-    validate_step(user, 3)
     validate_form_data(data)
     errors = {}
     company = user.company
@@ -43,10 +42,6 @@ def process_university_relations_form(user, data):
 
     if errors:
         raise FormException(errors=errors)
-
-    # update step only if the user has step 2
-    if company.profile_step == 3:
-        company.profile_step = 4
 
     # save user / profile
     user.save()

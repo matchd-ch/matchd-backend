@@ -8,7 +8,7 @@ from django.contrib.contenttypes.models import ContentType
 from PIL import Image as PILImage
 
 from db.seed.base import BaseSeed
-from db.models import Attachment as AttachmentModel, ProfileState, Image, Video, File, AttachmentKey
+from db.models import Attachment as AttachmentModel, Image, Video, File, AttachmentKey
 
 
 # pylint: disable=W0612
@@ -121,8 +121,6 @@ class Attachment(BaseSeed):
                                               key=attachment_key)
 
     def _create_or_update_company(self, data, company, user):
-        if company.state == ProfileState.INCOMPLETE:
-            return
         attachments = data.get('company').get('attachments')
 
         if attachments is None:
@@ -148,8 +146,6 @@ class Attachment(BaseSeed):
             self._create_attachment(self.company_fixtures, company, attachment, user, 'company')
 
     def _create_or_update_student(self, data, student):
-        if student.state == ProfileState.INCOMPLETE:
-            return
         attachments = data.get('student').get('attachments')
 
         if attachments is None:

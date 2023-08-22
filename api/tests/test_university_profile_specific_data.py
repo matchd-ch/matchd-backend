@@ -6,8 +6,6 @@ from django.contrib.auth.models import AnonymousUser
 
 @pytest.mark.django_db
 def test_specific_data(login, user_rector, university_specific_data):
-    user_rector.company.profile_step = 2
-    user_rector.company.save()
     login(user_rector)
 
     data, errors = university_specific_data(user_rector, 'description')
@@ -19,7 +17,6 @@ def test_specific_data(login, user_rector, university_specific_data):
     user = get_user_model().objects.get(pk=user_rector.id)
 
     assert user.company.description == 'description'
-    assert user.company.profile_step == 3
 
 
 @pytest.mark.django_db
@@ -33,7 +30,6 @@ def test_specific_data_without_login(user_rector, university_specific_data):
     user = get_user_model().objects.get(pk=user_rector.id)
 
     assert user.company.description == ''
-    assert user.company.profile_step == 1
 
 
 @pytest.mark.django_db
@@ -50,28 +46,7 @@ def test_specific_data_as_student(login, user_student, university_specific_data)
 
 
 @pytest.mark.django_db
-def test_specific_data_invalid_step(login, user_rector, university_specific_data):
-    user_rector.company.profile_step = 0
-    user_rector.company.save()
-    login(user_rector)
-    data, errors = university_specific_data(user_rector, 'description')
-    assert errors is None
-    assert data is not None
-    assert data.get('universityProfileSpecificData') is not None
-    assert data.get('universityProfileSpecificData').get('success') is False
-
-    errors = data.get('universityProfileSpecificData').get('errors')
-    assert errors is not None
-    assert 'profileStep' in errors
-
-    user = get_user_model().objects.get(pk=user_rector.id)
-    assert user.company.profile_step == 0
-
-
-@pytest.mark.django_db
 def test_specific_data_invalid_data(login, user_rector, university_specific_data):
-    user_rector.company.profile_step = 2
-    user_rector.company.save()
     login(user_rector)
     data, errors = university_specific_data(user_rector, 'a' * 3001)
     assert errors is None
@@ -82,6 +57,3 @@ def test_specific_data_invalid_data(login, user_rector, university_specific_data
     errors = data.get('universityProfileSpecificData').get('errors')
     assert errors is not None
     assert 'description' in errors
-
-    user = get_user_model().objects.get(pk=user_rector.id)
-    assert user.company.profile_step == 2

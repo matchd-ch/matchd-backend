@@ -17,29 +17,28 @@ class Company(models.Model, index.Indexed):
     state = models.CharField(choices=ProfileState.choices,
                              max_length=255,
                              blank=False,
-                             default=ProfileState.INCOMPLETE)
-    profile_step = models.IntegerField(default=1)
+                             default=ProfileState.PUBLIC)
     slug = models.SlugField(unique=True)
     name = models.CharField(max_length=255, blank=False)
-    zip = models.CharField(max_length=10, blank=False)
-    city = models.CharField(max_length=255, blank=False)
+    zip = models.CharField(max_length=10, blank=True)
+    city = models.CharField(max_length=255, blank=True)
     street = models.CharField(max_length=255, blank=True)
     phone = models.CharField(max_length=12,
                              blank=True,
                              validators=[RegexValidator(regex=settings.PHONE_REGEX)])
     website = models.URLField(max_length=2048, blank=True)
-    branches = models.ManyToManyField('db.Branch', related_name='companies')
+    branches = models.ManyToManyField('db.Branch', related_name='companies', null=True)
     description = models.TextField(max_length=3000, blank=True)
 
     # fields for company only
-    soft_skills = models.ManyToManyField('db.SoftSkill', related_name='companies')
+    soft_skills = models.ManyToManyField('db.SoftSkill', related_name='companies', null=True)
     uid = models.CharField(max_length=255,
                            blank=False,
                            validators=[RegexValidator(regex=settings.UID_REGEX)])
     services = models.TextField(blank=True)
     member_it_st_gallen = models.BooleanField(blank=True, default=False)
-    benefits = models.ManyToManyField('db.Benefit', related_name='companies')
-    cultural_fits = models.ManyToManyField('db.CulturalFit', related_name='companies')
+    benefits = models.ManyToManyField('db.Benefit', related_name='companies', null=True)
+    cultural_fits = models.ManyToManyField('db.CulturalFit', related_name='companies', null=True)
 
     # fields for university only
     top_level_organisation_description = models.TextField(max_length=3000, blank=True)

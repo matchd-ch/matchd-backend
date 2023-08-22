@@ -5,7 +5,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.utils.text import slugify
 
-from db.models import ProfileState, Challenge as ChallengeModel, ChallengeState
+from db.models import Challenge as ChallengeModel, ChallengeState
 from db.seed.base import BaseSeed
 
 
@@ -25,13 +25,9 @@ class Challenge(BaseSeed):
         company = kwargs.get('company')
         challenges = None
         if company is not None:
-            if company.state == ProfileState.INCOMPLETE:
-                return
             challenges = data.get('company').get('challenges')
         student = kwargs.get('student')
         if student is not None:
-            if student.state == ProfileState.INCOMPLETE:
-                return
             challenges = data.get('student').get('challenges')
 
         employee = kwargs.get('employee')

@@ -30,7 +30,6 @@ def test_me_company(login, me, user_employee, company_object_complete):
     assert company is not None
     assert company.get('type') == company_object_complete.type.upper()
     assert company.get('state') == company_object_complete.state.upper()
-    assert company.get('profileStep') == company_object_complete.profile_step
     assert company.get('slug') == company_object_complete.slug
     assert company.get('name') == 'Company 1'
     assert company.get('displayName') == 'Com\xadpa\xadny 1'

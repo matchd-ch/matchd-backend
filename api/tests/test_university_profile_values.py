@@ -8,8 +8,6 @@ from db.models import SoftSkill, CulturalFit, ProfileState
 
 @pytest.mark.django_db
 def test_values(login, user_employee, university_values, soft_skill_objects, cultural_fit_objects):
-    user_employee.company.profile_step = 4
-    user_employee.company.save()
     login(user_employee)
     data, errors = university_values(user_employee, soft_skill_objects[:6],
                                      cultural_fit_objects[:6])
@@ -21,7 +19,6 @@ def test_values(login, user_employee, university_values, soft_skill_objects, cul
     user = get_user_model().objects.get(pk=user_employee.id)
     assert len(user.company.soft_skills.all()) == 6
     assert len(user.company.cultural_fits.all()) == 6
-    assert user.company.profile_step == 5
     assert user.company.state == ProfileState.PUBLIC
 
 
@@ -38,7 +35,6 @@ def test_values_without_login(user_employee, university_values, soft_skill_objec
     user = get_user_model().objects.get(pk=user_employee.id)
     assert len(user.company.soft_skills.all()) == 0
     assert len(user.company.cultural_fits.all()) == 0
-    assert user.company.profile_step == 1
 
 
 @pytest.mark.django_db
@@ -56,30 +52,7 @@ def test_values_as_student(login, user_student, university_values, soft_skill_ob
 
 
 @pytest.mark.django_db
-def test_values_invalid_step(login, user_employee, university_values, soft_skill_objects,
-                             cultural_fit_objects):
-    user_employee.company.profile_step = 0
-    user_employee.company.save()
-    login(user_employee)
-    data, errors = university_values(user_employee, soft_skill_objects[:6],
-                                     cultural_fit_objects[:6])
-    assert errors is None
-    assert data is not None
-    assert data.get('universityProfileValues') is not None
-    assert data.get('universityProfileValues').get('success') is False
-
-    errors = data.get('universityProfileValues').get('errors')
-    assert errors is not None
-    assert 'profileStep' in errors
-
-    user = get_user_model().objects.get(pk=user_employee.id)
-    assert user.company.profile_step == 0
-
-
-@pytest.mark.django_db
 def test_values_invalid_data(login, user_employee, university_values):
-    user_employee.company.profile_step = 4
-    user_employee.company.save()
     login(user_employee)
     data, errors = university_values(user_employee, [SoftSkill(id=1337)], [CulturalFit(id=1337)])
     assert errors is None
@@ -92,15 +65,10 @@ def test_values_invalid_data(login, user_employee, university_values):
     assert 'softSkills' in errors
     assert 'culturalFits' in errors
 
-    user = get_user_model().objects.get(pk=user_employee.id)
-    assert user.company.profile_step == 4
-
 
 @pytest.mark.django_db
 def test_values_too_few_soft_skills_and_cultural_fits(login, user_employee, university_values,
                                                       soft_skill_objects, cultural_fit_objects):
-    user_employee.company.profile_step = 4
-    user_employee.company.save()
     login(user_employee)
     data, errors = university_values(user_employee, soft_skill_objects[:5],
                                      cultural_fit_objects[:5])
@@ -114,15 +82,10 @@ def test_values_too_few_soft_skills_and_cultural_fits(login, user_employee, univ
     assert 'softSkills' in errors
     assert 'culturalFits' in errors
 
-    user = get_user_model().objects.get(pk=user_employee.id)
-    assert user.company.profile_step == 4
-
 
 @pytest.mark.django_db
 def test_values_too_many_soft_skills_and_cultural_fits(login, user_employee, university_values,
                                                        soft_skill_objects, cultural_fit_objects):
-    user_employee.company.profile_step = 4
-    user_employee.company.save()
     login(user_employee)
     data, errors = university_values(user_employee, soft_skill_objects[:7],
                                      cultural_fit_objects[:7])
@@ -135,6 +98,3 @@ def test_values_too_many_soft_skills_and_cultural_fits(login, user_employee, uni
     assert errors is not None
     assert 'softSkills' in errors
     assert 'culturalFits' in errors
-
-    user = get_user_model().objects.get(pk=user_employee.id)
-    assert user.company.profile_step == 4
