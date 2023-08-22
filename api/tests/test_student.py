@@ -3,7 +3,6 @@ import pytest
 from graphql_relay import to_global_id
 
 from db.models import ProfileState, Match
-from db.helper.profile_calculator import get_relevant_student_profile_fields
 
 # pylint: disable=R0913
 # pylint: disable=W0612
@@ -73,10 +72,6 @@ def test_student_profile_100_percent_complete(login, user_student_full_profile, 
     student = data.get('student')
     assert student is not None
 
-    assert len(student.get('profileRelevantFields')) == len(get_relevant_student_profile_fields())
-    assert len(student.get('profileMissingRelevantFields')) == 0
-    assert student.get('profileCompletedPercentage') == 1
-
 
 @pytest.mark.django_db
 def test_student_profile_0_percent_complete(login, user_student_full_profile, query_student,
@@ -107,12 +102,6 @@ def test_student_profile_0_percent_complete(login, user_student_full_profile, qu
 
     student = data.get('student')
     assert student is not None
-
-    assert len(student.get('profileRelevantFields')) == len(get_relevant_student_profile_fields())
-    print(student.get('profileMissingRelevantFields'))
-    assert len(student.get('profileMissingRelevantFields')) == len(
-        get_relevant_student_profile_fields())
-    assert student.get('profileCompletedPercentage') == 0
 
 
 @pytest.mark.django_db

@@ -85,9 +85,6 @@ def student_query(slug):
         challenges {
           slug
         }
-        profileRelevantFields
-        profileMissingRelevantFields
-        profileCompletedPercentage
       }
     }
     ''' % slug
@@ -170,9 +167,6 @@ def student_with_job_posting_query(slug, job_posting_id):
         challenges {
           slug
         }
-        profileRelevantFields
-        profileMissingRelevantFields
-        profileCompletedPercentage
       }
     }
     ''' % (slug, job_posting_id)
