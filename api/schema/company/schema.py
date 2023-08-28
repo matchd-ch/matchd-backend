@@ -37,7 +37,7 @@ class CompanyInput(graphene.InputObjectType):
 
 class RegisterCompanyInput(graphene.InputObjectType):
     name = graphene.String(description=_('Name'), required=False)
-    uid = graphene.String(description=_('UID'))
+    uid = graphene.String(description=_('UID'), required=False)
     zip = graphene.String(description=_('ZIP'), required=False)
     city = graphene.String(description=_('City'), required=False)
 
@@ -97,8 +97,8 @@ class CompanyProfileRelations(Output, relay.ClientIDMutation):
 class CompanyProfileAdvantages(Output, relay.ClientIDMutation):
 
     class Input:
-        branches = graphene.List(BranchInput, description=_('Branches'))
-        benefits = graphene.List(BenefitInput, description=_('Benefits'))
+        branches = graphene.List(BranchInput, description=_('Branches'), required=False)
+        benefits = graphene.List(BenefitInput, description=_('Benefits'), required=False)
 
     class Meta:
         description = _('Updates the Company Profile with benefits and branches')
@@ -121,8 +121,10 @@ class CompanyProfileAdvantages(Output, relay.ClientIDMutation):
 class CompanyProfileValues(Output, relay.ClientIDMutation):
 
     class Input:
-        soft_skills = graphene.List(SoftSkillInput, description=_('Soft Skills'))
-        cultural_fits = graphene.List(CulturalFitInput, description=_('Cultural Fit'))
+        soft_skills = graphene.List(SoftSkillInput, description=_('Soft Skills'), required=False)
+        cultural_fits = graphene.List(CulturalFitInput,
+                                      description=_('Cultural Fit'),
+                                      required=False)
 
     class Meta:
         description = _('Updates a company profile with soft skills and cultural fit')
@@ -210,8 +212,8 @@ class UniversityProfileRelations(Output, relay.ClientIDMutation):
         link_education = graphene.String(description=_('website education'), required=False)
         link_challenges = graphene.String(description=_('website challenges'), required=False)
         link_thesis = graphene.String(description=_('website thesis'), required=False)
-        branches = graphene.List(BranchInput, description=_('Branches'))
-        benefits = graphene.List(BenefitInput, description=_('Benefits'))
+        branches = graphene.List(BranchInput, description=_('Branches'), required=False)
+        benefits = graphene.List(BenefitInput, description=_('Benefits'), required=False)
 
     class Meta:
         description = _('Updates website services')
@@ -234,8 +236,10 @@ class UniversityProfileRelations(Output, relay.ClientIDMutation):
 class UniversityProfileValues(Output, relay.ClientIDMutation):
 
     class Input:
-        soft_skills = graphene.List(SoftSkillInput, description=_('Soft Skills'))
-        cultural_fits = graphene.List(CulturalFitInput, description=_('Cultural Fit'))
+        soft_skills = graphene.List(SoftSkillInput, description=_('Soft Skills'), required=False)
+        cultural_fits = graphene.List(CulturalFitInput,
+                                      description=_('Cultural Fit'),
+                                      required=False)
 
     class Meta:
         description = _('Updates a company profile with soft skills and cultural fit')
