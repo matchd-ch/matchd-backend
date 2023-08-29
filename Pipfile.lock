@@ -789,11 +789,11 @@
         },
         "singledispatch": {
             "hashes": [
-                "sha256:b8f69397a454b45b91e2f949fcc87896c53718ca59aab6367966e8b3f010ec77",
-                "sha256:f3c327a968651a7f4b03586eab7d90a07b05ff3ef7942d1967036eb9f75ab8fc"
+                "sha256:6061bd291204beaeac90cdbc342b68d213b7a6efb44ae6c5e6422a78be351c8a",
+                "sha256:f3430b886d5b4213d07d715096a75da5e4a8105284c497b9aee6d6d48bfe90cb"
             ],
             "index": "pypi",
-            "version": "==4.0.0"
+            "version": "==4.1.0"
         },
         "six": {
             "hashes": [
