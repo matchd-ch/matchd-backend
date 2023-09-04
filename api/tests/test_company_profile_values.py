@@ -65,7 +65,7 @@ def test_values_invalid_data(login, user_employee, company_values):
 
 
 @pytest.mark.django_db
-def test_values_zero_soft_skills_and_cultural_fits(login, user_employee, company_values):
+def test_values_empty_soft_skills_and_cultural_fits(login, user_employee, company_values):
     login(user_employee)
     data, errors = company_values(user_employee, [], [])
     assert errors is None

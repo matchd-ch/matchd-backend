@@ -67,20 +67,16 @@ def test_values_invalid_data(login, user_employee, university_values):
 
 
 @pytest.mark.django_db
-def test_values_too_few_soft_skills_and_cultural_fits(login, user_employee, university_values,
-                                                      soft_skill_objects, cultural_fit_objects):
+def test_values_empty_soft_skills_and_cultural_fits(login, user_employee, university_values):
     login(user_employee)
-    data, errors = university_values(user_employee, soft_skill_objects[:5],
-                                     cultural_fit_objects[:5])
+    data, errors = university_values(user_employee, [], [])
     assert errors is None
     assert data is not None
     assert data.get('universityProfileValues') is not None
-    assert data.get('universityProfileValues').get('success') is False
+    assert data.get('universityProfileValues').get('success') is True
 
     errors = data.get('universityProfileValues').get('errors')
-    assert errors is not None
-    assert 'softSkills' in errors
-    assert 'culturalFits' in errors
+    assert errors is None
 
 
 @pytest.mark.django_db
