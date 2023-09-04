@@ -99,20 +99,16 @@ def test_character_with_too_many_soft_skills_and_cultural_fits(login, user_stude
 
 
 @pytest.mark.django_db
-def test_character_with_too_few_soft_skills_and_cultural_fits(login, user_student,
-                                                              student_character, soft_skill_objects,
-                                                              cultural_fit_objects):
+def test_character_with_empty_soft_skills_and_cultural_fits(login, user_student, student_character):
     login(user_student)
-    data, errors = student_character(user_student, soft_skill_objects[:5], cultural_fit_objects[:5])
+    data, errors = student_character(user_student, [], [])
     assert errors is None
     assert data is not None
     assert data.get('studentProfileCharacter') is not None
-    assert data.get('studentProfileCharacter').get('success') is False
+    assert data.get('studentProfileCharacter').get('success') is True
 
     errors = data.get('studentProfileCharacter').get('errors')
-    assert errors is not None
-    assert 'softSkills' in errors
-    assert 'culturalFits' in errors
+    assert errors is None
 
     user = get_user_model().objects.get(pk=user_student.id)
     assert len(user.student.soft_skills.all()) == 0
