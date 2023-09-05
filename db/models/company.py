@@ -27,18 +27,18 @@ class Company(models.Model, index.Indexed):
                              blank=True,
                              validators=[RegexValidator(regex=settings.PHONE_REGEX)])
     website = models.URLField(max_length=2048, blank=True)
-    branches = models.ManyToManyField('db.Branch', related_name='companies', null=True)
+    branches = models.ManyToManyField('db.Branch', related_name='companies', blank=True)
     description = models.TextField(max_length=3000, blank=True)
 
     # fields for company only
-    soft_skills = models.ManyToManyField('db.SoftSkill', related_name='companies', null=True)
+    soft_skills = models.ManyToManyField('db.SoftSkill', related_name='companies', blank=True)
     uid = models.CharField(max_length=255,
                            blank=False,
                            validators=[RegexValidator(regex=settings.UID_REGEX)])
     services = models.TextField(blank=True)
     member_it_st_gallen = models.BooleanField(blank=True, default=False)
-    benefits = models.ManyToManyField('db.Benefit', related_name='companies', null=True)
-    cultural_fits = models.ManyToManyField('db.CulturalFit', related_name='companies', null=True)
+    benefits = models.ManyToManyField('db.Benefit', related_name='companies', blank=True)
+    cultural_fits = models.ManyToManyField('db.CulturalFit', related_name='companies', blank=True)
 
     # fields for university only
     top_level_organisation_description = models.TextField(max_length=3000, blank=True)
