@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends git mariadb-cli
 FROM base AS python-deps
 
 # Install pipenv and compilation dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends gcc libmariadbclient-dev-compat
+RUN apt-get update && apt-get install -y --no-install-recommends gcc libmariadbclient-dev-compat pkg-config
 
 RUN pip install pipenv
 
