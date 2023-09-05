@@ -43,12 +43,8 @@ class Student(models.Model, index.Indexed):
                              max_length=255,
                              blank=False,
                              default=ProfileState.PUBLIC)
-    soft_skills = models.ManyToManyField('db.SoftSkill',
-                                         blank=True,
-                                         related_name='students')
-    cultural_fits = models.ManyToManyField('db.CulturalFit',
-                                           blank=True,
-                                           related_name='students')
+    soft_skills = models.ManyToManyField('db.SoftSkill', blank=True, related_name='students')
+    cultural_fits = models.ManyToManyField('db.CulturalFit', blank=True, related_name='students')
     slug = models.CharField(max_length=200, blank=True)
     is_matchable = models.BooleanField(default=True, blank=False)
 
