@@ -229,11 +229,11 @@
         },
         "django": {
             "hashes": [
-                "sha256:26d0260c2fb8121009e62ffc548b2398dea2522b6454208a852fb0ef264c206c",
-                "sha256:56343019a9fd839e2e5bf203daf45f25af79d5bffa4c71d56eae4f4404d82ade"
+                "sha256:7b134688965dd331ca4d11ed38e5ce594caed0e906689a9b95251c29c2c03990",
+                "sha256:cac9df0ba87b4f439e1a311ef22f75c938fc874bebf1fbabaed58d0e6d559a25"
             ],
             "index": "pypi",
-            "version": "==4.1.10"
+            "version": "==4.1.11"
         },
         "django-cors-headers": {
             "hashes": [
