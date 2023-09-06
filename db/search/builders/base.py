@@ -15,6 +15,9 @@ class BaseParamBuilder:
         self.filter_conditions = []
 
     def set_branch(self, branch_id, boost=1):
+        if branch_id is None:
+            return
+
         self.must_conditions.append({
             'nested': {
                 "path": "branches",
@@ -32,6 +35,9 @@ class BaseParamBuilder:
         })
 
     def set_job_type(self, job_type_id, boost=1):
+        if job_type_id is None:
+            return
+
         self.should_conditions.append({
             "bool": {
                 "should": [{
@@ -52,6 +58,9 @@ class BaseParamBuilder:
                                                              boost))
 
     def set_date_from(self, date_from, boost=1):
+        if date_from is None:
+            return
+
         boost = boost / len(settings.MATCHING_VALUE_DATE_OR_DATE_RANGE_PRECISION)
         conditions = [{
         # we need to include matches without a job start date set, but without boosting it
@@ -69,6 +78,9 @@ class BaseParamBuilder:
         self.should_conditions.append({"bool": {"should": conditions}})
 
     def set_date_range(self, date_from, date_to, boost=1):
+        if date_from is None or date_to is None:
+            return
+
         boost = boost / len(settings.MATCHING_VALUE_DATE_OR_DATE_RANGE_PRECISION)
         conditions = [{
         # we need to include matches without a job start/end date set, but without boosting it

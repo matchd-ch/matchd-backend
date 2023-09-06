@@ -26,6 +26,9 @@ class JobPostingParamBuilder(BaseParamBuilder):
         self.should_conditions.append({"bool": {"should": conditions}})
 
     def set_zip(self, zip_value):
+        if zip_value is None:
+            return
+
         self.must_conditions.append(
             {"bool": {
                 "must": {

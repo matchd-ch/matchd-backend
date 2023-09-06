@@ -74,7 +74,7 @@ def test_base_data_empty_data(login, user_rector, university_base_data):
                                         'a' * 1000)
     assert errors is None
     assert data is not None
-    print(data)
+
     assert data.get('universityProfileBaseData') is not None
     assert data.get('universityProfileBaseData').get('success') is True
 

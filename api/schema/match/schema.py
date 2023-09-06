@@ -12,7 +12,6 @@ from api.schema.keyword.schema import Keyword
 from api.schema.profile_type import ProfileType
 from api.schema.challenge.schema import ChallengeInput
 from api.schema.student import StudentInput
-from api.schema.zip_city import ZipCityInput
 from api.schema.job_posting import JobPostingInput
 from api.schema.job_type import JobTypeInput
 
@@ -86,7 +85,7 @@ class JobPostingMatchingInput(InputObjectType):
     branch = graphene.Field(BranchInput, required=False)
     job_type = graphene.Field(JobTypeInput, required=False)
     workload = graphene.Int(required=False)
-    zip = graphene.Field(ZipCityInput, required=False)
+    zip = graphene.String(required=False)
 
 
 class ChallengeMatchingInput(InputObjectType):
