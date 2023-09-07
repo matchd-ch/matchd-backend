@@ -6,6 +6,9 @@ from .base import BaseParamBuilder
 class JobPostingParamBuilder(BaseParamBuilder):
 
     def set_workload_range(self, workload_from, workload_to, boost=1):
+        if workload_from is None or workload_to is None:
+            return
+
         boost = boost / len(settings.MATCHING_VALUE_WORKLOAD_PRECISION)
         conditions = [{
             "exists": {
@@ -42,7 +45,7 @@ class JobPostingParamBuilder(BaseParamBuilder):
             }})
 
     def set_cultural_fits(self, cultural_fits, boost=1):
-        if len(cultural_fits) == 0:
+        if cultural_fits is None or len(cultural_fits) == 0:
             return
         boost = boost / len(cultural_fits)
         for obj in cultural_fits:
@@ -58,7 +61,7 @@ class JobPostingParamBuilder(BaseParamBuilder):
             })
 
     def set_soft_skills(self, soft_skills, boost=1):
-        if len(soft_skills) == 0:
+        if soft_skills is None or len(soft_skills) == 0:
             return
         boost = boost / len(soft_skills)
         for obj in soft_skills:
