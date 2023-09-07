@@ -50,7 +50,7 @@ class BaseParamBuilder:
         })
 
     def set_skills(self, skills, boost=1):
-        if skills is None or len(skills) == 0:
+        if len(skills) == 0:
             return
         boost = boost / len(skills)
         for obj in skills:

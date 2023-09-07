@@ -4,7 +4,7 @@ from .base import BaseParamBuilder
 class StudentParamBuilder(BaseParamBuilder):
 
     def set_cultural_fits(self, cultural_fits, boost=1):
-        if cultural_fits is None or len(cultural_fits) == 0:
+        if len(cultural_fits) == 0:
             return
         boost = boost / len(cultural_fits)
         for obj in cultural_fits:
@@ -12,7 +12,7 @@ class StudentParamBuilder(BaseParamBuilder):
                 self.get_condition('cultural_fits', 'id_filter', [obj.id], boost))
 
     def set_soft_skills(self, soft_skills, boost=1):
-        if soft_skills is None or len(soft_skills) == 0:
+        if len(soft_skills) == 0:
             return
         boost = boost / len(soft_skills)
         for obj in soft_skills:
@@ -20,7 +20,7 @@ class StudentParamBuilder(BaseParamBuilder):
                 self.get_condition('soft_skills', 'id_filter', [obj.id], boost))
 
     def set_branches(self, branches, boost=1):
-        if branches is None or len(branches) == 0:
+        if len(branches) == 0:
             return
 
         self.must_conditions.append({
