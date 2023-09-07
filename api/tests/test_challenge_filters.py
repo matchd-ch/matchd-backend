@@ -138,6 +138,94 @@ def test_challenges_filter_challenge_from_date(query_challenges, user_student_fu
 
 
 @pytest.mark.django_db
+def test_challenges_filter_talent_challenges(query_challenges, company_object_complete,
+                                             company_challenge_objects, student_challenge_objects):
+    data, errors = query_challenges(
+        AnonymousUser(), {
+            'filterTalentChallenges': 'true',
+            'filterCompanyChallenges': 'false',
+            'filterUniversityChallenges': 'false'
+        })
+    assert errors is None
+    assert data is not None
+
+    edges = data.get('challenges').get('edges')
+    assert edges is not None
+    assert len(edges) == len(student_challenge_objects) - 1
+
+
+@pytest.mark.django_db
+def test_challenges_filter_company_challenges(query_challenges, company_object_complete,
+                                              company_challenge_objects, student_challenge_objects):
+    data, errors = query_challenges(
+        AnonymousUser(), {
+            'filterTalentChallenges': 'false',
+            'filterCompanyChallenges': 'true',
+            'filterUniversityChallenges': 'false'
+        })
+    assert errors is None
+    assert data is not None
+
+    edges = data.get('challenges').get('edges')
+    assert edges is not None
+    assert len(edges) == len(company_challenge_objects) - 1
+
+
+@pytest.mark.django_db
+def test_challenges_filter_university_challenges(query_challenges, company_object_complete,
+                                                 company_challenge_objects,
+                                                 student_challenge_objects):
+    data, errors = query_challenges(
+        AnonymousUser(), {
+            'filterTalentChallenges': 'false',
+            'filterCompanyChallenges': 'false',
+            'filterUniversityChallenges': 'true'
+        })
+    assert errors is None
+    assert data is not None
+
+    edges = data.get('challenges').get('edges')
+    assert edges is not None
+    assert len(edges) == 0
+
+
+@pytest.mark.django_db
+def test_challenges_filter_talent_and_company_challenges(query_challenges, company_object_complete,
+                                                         company_challenge_objects,
+                                                         student_challenge_objects):
+    data, errors = query_challenges(
+        AnonymousUser(), {
+            'filterTalentChallenges': 'true',
+            'filterCompanyChallenges': 'true',
+            'filterUniversityChallenges': 'false'
+        })
+    assert errors is None
+    assert data is not None
+
+    edges = data.get('challenges').get('edges')
+    assert edges is not None
+    assert len(edges) == len(student_challenge_objects) + len(company_challenge_objects) - 2
+
+
+@pytest.mark.django_db
+def test_challenges_filter_all_entity_challenges(query_challenges, company_object_complete,
+                                                 company_challenge_objects,
+                                                 student_challenge_objects):
+    data, errors = query_challenges(
+        AnonymousUser(), {
+            'filterTalentChallenges': 'true',
+            'filterCompanyChallenges': 'true',
+            'filterUniversityChallenges': 'true'
+        })
+    assert errors is None
+    assert data is not None
+
+    edges = data.get('challenges').get('edges')
+    assert edges is not None
+    assert len(edges) == len(company_challenge_objects) + len(company_challenge_objects) - 3
+
+
+@pytest.mark.django_db
 def test_challenges_filter_date_published(query_challenges, user_student_full_profile,
                                           company_challenge_objects, student_challenge_objects):
     user_student_full_profile.student.state = ProfileState.PUBLIC

@@ -12,6 +12,9 @@ def search_challenge(user, kwargs):
     challenge_types = kwargs.get('challenge_type_ids')
     keywords = kwargs.get('keyword_ids')
     team_size = kwargs.get('team_size')
+    filter_talent_challenges = kwargs.get('filter_talent_challenges', False)
+    filter_company_challenges = kwargs.get('filter_company_challenges', False)
+    filter_university_challenges = kwargs.get('filter_university_challenges', False)
     challenge_from_date = kwargs.get('challenge_from_date')
     date_published = kwargs.get('date_published')
 
@@ -55,6 +58,21 @@ def search_challenge(user, kwargs):
     if date_published is not None:
         filter_conditions.append({'range': {'date_published_filter': {'gte': date_published}}})
 
+    posting_entity_query = []
+
+    if filter_talent_challenges:
+        posting_entity_query.append(condition("is_student_filter", "true"))
+
+    if filter_company_challenges:
+        posting_entity_query.append(nested_condition('company', 'type_filter',
+                                                     ProfileType.COMPANY)),
+
+    if filter_university_challenges:
+        posting_entity_query.append(
+            nested_condition('company', 'type_filter', ProfileType.UNIVERSITY)),
+
+    filter_conditions.append({"bool": {"should": posting_entity_query}})
+
     if text_search is not None:
         filter_conditions.append(
             {"multi_match": {
@@ -76,7 +94,7 @@ def search_challenge(user, kwargs):
         "_source": False,
         "stored_fields": "pk",
     }
-    print(params)
+
     return get_search_backend().es.search(**params)
 
 
