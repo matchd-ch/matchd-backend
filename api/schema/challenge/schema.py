@@ -139,12 +139,6 @@ class ChallengeQuery(ObjectType):
         keyword_ids=graphene.List(graphene.String,
                                   description=_('List of keyword ids'),
                                   required=False),
-        filter_talent_challenges=graphene.Boolean(description=_('Filter challenges from talents'),
-                                                  required=False),
-        filter_company_challenges=graphene.Boolean(
-            description=_('Filter challenges from companies'), required=False),
-        filter_university_challenges=graphene.Boolean(
-            description=_('Filter challenges from universities'), required=False),
         team_size=graphene.Int(description=_('Team size'), required=False),
         challenge_from_date=graphene.Date(description=_('Challenge from date'), required=False),
         date_published=graphene.Date(description=_('Date published'), required=False))
