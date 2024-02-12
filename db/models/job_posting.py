@@ -55,7 +55,7 @@ class JobPosting(models.Model, index.Indexed):
     date_published = models.DateTimeField(null=True, blank=True)
 
     def zip_code(self):
-        return int(self.company.zip)
+        return None if not self.company.zip else int(self.company.zip)
 
     def cultural_fits(self):
         return [obj.id for obj in self.company.cultural_fits.all()]

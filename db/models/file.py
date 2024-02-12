@@ -9,6 +9,9 @@ def get_upload_to(instance, filename):
     return instance.get_upload_to(filename)
 
 
+# pylint: disable=E0601
+
+
 class File(AbstractDocument):
     mime_type = models.CharField(max_length=100, blank=True, null=True)
     file = models.FileField(upload_to=get_upload_to, verbose_name=_('file'))
