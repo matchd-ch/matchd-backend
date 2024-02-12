@@ -6,6 +6,8 @@ from db.models.attachment import AttachmentKey
 from db.models.profile_type import ProfileType
 from db.models.challenge import Challenge
 
+# pylint: disable=E1111
+
 
 class Resource():
 
