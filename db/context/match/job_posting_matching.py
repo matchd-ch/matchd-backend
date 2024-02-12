@@ -54,11 +54,15 @@ class JobPostingMatching(Matching):
         self._validate_input()
         queryset = JobPosting.get_indexed_objects()
         index = self.search_backend.get_index_for_model(queryset.model).name
+        date_mode = None
 
         builder = JobPostingParamBuilder(queryset, index, self.first, self.skip)
         if self.branch is not None:
             builder.set_branch(self.branch.id, settings.MATCHING_VALUE_BRANCH)
-        builder.set_job_type(self.job_type.id, settings.MATCHING_VALUE_JOB_TYPE)
+
+        if self.job_type is not None:
+            date_mode = self.job_type.mode
+            builder.set_job_type(self.job_type.id, settings.MATCHING_VALUE_JOB_TYPE)
         builder.set_cultural_fits(self._user.student.cultural_fits.all(),
                                   self.soft_boost * settings.MATCHING_VALUE_CULTURAL_FITS)
         builder.set_soft_skills(self._user.student.soft_skills.all(),
@@ -69,7 +73,7 @@ class JobPostingMatching(Matching):
                                    settings.MATCHING_VALUE_WORKLOAD)
         if self.zip_value is not None:
             builder.set_zip(self.zip_value)
-        date_mode = self.job_type.mode
+
         if date_mode == DateMode.DATE_RANGE and self._user.student.job_to_date is not None:
             builder.set_date_range(self._user.student.job_from_date, self._user.student.job_to_date,
                                    settings.MATCHING_VALUE_DATE_OR_DATE_RANGE)

@@ -1,5 +1,5 @@
 import graphene
-from graphene import ObjectType, InputObjectType
+from graphene import ObjectType
 
 from django.db.models import Q
 
@@ -14,10 +14,6 @@ class ZipCity(ObjectType):
     zip = graphene.NonNull(graphene.String)
     city = graphene.NonNull(graphene.String)
     canton = graphene.NonNull(graphene.String)
-
-
-class ZipCityInput(InputObjectType):
-    zip = graphene.String(required=True)
 
 
 class ZipCityQuery(ObjectType):

@@ -4,6 +4,9 @@ from .base import BaseParamBuilder
 class CompanyParamBuilder(BaseParamBuilder):
 
     def set_branch(self, branch_id, boost=1):
+        if branch_id is None:
+            return
+
         self.should_conditions.append({
             'nested': {
                 "path": "branches",

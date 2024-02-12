@@ -20,6 +20,9 @@ class StudentParamBuilder(BaseParamBuilder):
                 self.get_condition('soft_skills', 'id_filter', [obj.id], boost))
 
     def set_branches(self, branches, boost=1):
+        if len(branches) == 0:
+            return
+
         self.must_conditions.append({
             "bool": {
                 "should": [{
