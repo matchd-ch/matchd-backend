@@ -52,8 +52,9 @@ $ docker run \
     -d \
     -p 9200:9200 \
     -e discovery.type=single-node \
+    -e xpack.security.enabled=false \
     --name elasticsearch \
-    elasticsearch:7.16.1
+    elasticsearch:8.12.0
 ```
 
 ```console

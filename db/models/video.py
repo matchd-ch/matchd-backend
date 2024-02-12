@@ -4,6 +4,8 @@ from django.db import models
 from wagtailmedia.models import AbstractMedia
 from django.utils.translation import gettext_lazy as _
 
+# pylint: disable=E0601
+
 
 def get_upload_to(instance, filename):
     return instance.get_upload_to(filename)

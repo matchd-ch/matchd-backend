@@ -89,11 +89,10 @@ LOGGING = {
 
 INSTALLED_APPS = [
     'db.apps.DbConfig',
-    'wagtailfontawesome',
     'wagtailmedia',
+    'wagtail_modeladmin',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
-    'wagtail.contrib.modeladmin',
     'wagtail.embeds',
     'wagtail.sites',
     'wagtail.users',
@@ -276,7 +275,7 @@ def get_elasticsearch_url():
 
 WAGTAILSEARCH_BACKENDS = {
     'default': {
-        'BACKEND': 'wagtail.search.backends.elasticsearch7',
+        'BACKEND': 'wagtail.search.backends.elasticsearch8',
         'URLS': [get_elasticsearch_url()],
         'INDEX': f'{INDEX_PREFIX}_matchd',
         'TIMEOUT': 5,

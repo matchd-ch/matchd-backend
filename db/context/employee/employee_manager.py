@@ -6,6 +6,8 @@ from django.utils.translation import gettext as _
 from db.helper import generic_error_dict
 from db.models import Employee, ProfileType, User
 
+# pylint: disable=E1111
+
 
 class EmployeeManager():
 
