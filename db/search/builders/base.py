@@ -109,9 +109,6 @@ class BaseParamBuilder:
                 }
             },
             '_source': 'pk',
-            'stored_fields': 'pk',
-            'size': self.first,
-            'from_': self.skip
         }
 
     def get_condition(self, path, prop, value, boost=1, condition_type='bool'):
