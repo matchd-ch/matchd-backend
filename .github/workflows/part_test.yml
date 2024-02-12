@@ -20,10 +20,10 @@ jobs:
       mariadb:
         image: mariadb:11.2.2
         env:
-          MYSQL_DATABASE: "matchd"
-          MYSQL_USER: "matchd"
-          MYSQL_PASSWORD: "matchd"
-          MYSQL_ROOT_PASSWORD: "matchd"
+          MARIADB_DATABASE: "matchd"
+          MARIADB_USER: "matchd"
+          MARIADB_PASSWORD: "matchd"
+          MARIADB_ROOT_PASSWORD: "matchd"
         ports:
           - 3306:3306
         options: >-
@@ -94,10 +94,10 @@ jobs:
       mariadb:
         image: mariadb:11.2.2
         env:
-          MYSQL_DATABASE: "matchd"
-          MYSQL_USER: "matchd"
-          MYSQL_PASSWORD: "matchd"
-          MYSQL_ROOT_PASSWORD: "matchd"
+          MARIADB_DATABASE: "matchd"
+          MARIADB_USER: "matchd"
+          MARIADB_PASSWORD: "matchd"
+          MARIADB_ROOT_PASSWORD: "matchd"
         ports:
           - 3306:3306
         options: >-
