@@ -378,11 +378,11 @@
         },
         "graphene-django": {
             "hashes": [
-                "sha256:2e42742fae21fa50e514f3acae26a9bc6cb5e51c179a97b3db5390ff258ca816",
-                "sha256:abe42f820b9731d94bebff6d73088d0dc2ffb8c8863a6d7bf3d378412d866a3b"
+                "sha256:9aca4a862f12912c2e611624bdbcf6b0f9bc7a41d240110a41bf95575a7bacab",
+                "sha256:b553ecdc1cd7fd5b2d71de1a729c03ae117321763a90ed48a7fb4fdbf7f0d43f"
             ],
             "index": "pypi",
-            "version": "==3.1.5"
+            "version": "==3.2.0"
         },
         "graphene-django-optimizer": {
             "hashes": [
@@ -406,6 +406,7 @@
                 "sha256:5766780452bd5ec8ba133f8bf287dc92713e3868ddd83aee4faab9fc3e303dc3"
             ],
             "index": "pypi",
+            "markers": "python_version >= '3.6' and python_version < '4'",
             "version": "==3.2.3"
         },
         "graphql-relay": {
@@ -414,6 +415,7 @@
                 "sha256:c9b22bd28b170ba1fe674c74384a8ff30a76c8e26f88ac3aa1584dd3179953e5"
             ],
             "index": "pypi",
+            "markers": "python_version >= '3.6' and python_version < '4'",
             "version": "==3.2.0"
         },
         "gunicorn": {
@@ -812,6 +814,7 @@
                 "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"
             ],
             "index": "pypi",
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
             "version": "==1.16.0"
         },
         "soupsieve": {
