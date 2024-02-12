@@ -68,11 +68,12 @@
         },
         "certifi": {
             "hashes": [
-                "sha256:539cc1d13202e33ca466e88b2807e29f4c13049d6d87031a3c110744495cb082",
-                "sha256:92d6037539857d8206b8f6ae472e8b77db8058fec5937a1ef3f54304089edbb9"
+                "sha256:0569859f95fc761b18b45ef421b1290a0f65f147e92a1e5eb3e635f9a5e4e66f",
+                "sha256:dc383c07b76109f368f6106eee2b593b04a011ea4d55f652c6ca24a754d1cdd1"
             ],
             "index": "pypi",
-            "version": "==2023.7.22"
+            "markers": "python_version >= '3.6'",
+            "version": "==2024.2.2"
         },
         "chardet": {
             "hashes": [
@@ -791,11 +792,11 @@
         },
         "sentry-sdk": {
             "hashes": [
-                "sha256:2e53ad63f96bb9da6570ba2e755c267e529edcf58580a2c0d2a11ef26e1e678b",
-                "sha256:7dc873b87e1faf4d00614afd1058bfa1522942f33daef8a59f90de8ed75cd10c"
+                "sha256:3c2b027979bb400cd65a47970e64f8cef8acda86b288a27f42a98692505086cd",
+                "sha256:73383f28311ae55602bb6cc3b013830811135ba5521e41333a6e68f269413502"
             ],
             "index": "pypi",
-            "version": "==1.30.0"
+            "version": "==1.40.3"
         },
         "singledispatch": {
             "hashes": [
