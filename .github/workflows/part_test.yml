@@ -32,9 +32,10 @@ jobs:
           --health-timeout=10s
           --health-retries=10
       elasticsearch:
-        image: elasticsearch:7.16.1
+        image: elasticsearch:8.12.0
         env:
           discovery.type: single-node
+          xpack.security.enabled: false
         options: >-
           --health-cmd "curl http://localhost:9200/_cluster/health"
           --health-interval 10s
@@ -105,9 +106,10 @@ jobs:
           --health-timeout=10s
           --health-retries=10
       elasticsearch:
-        image: elasticsearch:7.16.1
+        image: elasticsearch:8.12.0
         env:
           discovery.type: single-node
+          xpack.security.enabled: false
         options: >-
           --health-cmd "curl http://localhost:9200/_cluster/health"
           --health-interval 10s
