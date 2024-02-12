@@ -18,7 +18,7 @@ jobs:
 
     services:
       mariadb:
-        image: mariadb:10.3.22
+        image: mariadb:11.2.2
         env:
           MYSQL_DATABASE: "matchd"
           MYSQL_USER: "matchd"
@@ -92,7 +92,7 @@ jobs:
 
     services:
       mariadb:
-        image: mariadb:10.3.22
+        image: mariadb:11.2.2
         env:
           MYSQL_DATABASE: "matchd"
           MYSQL_USER: "matchd"
