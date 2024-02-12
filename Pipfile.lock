@@ -38,6 +38,7 @@
                 "sha256:9e0ce3aa93a819ba5b45120216b23878cf6e8525eb3848653452b4192b92afed"
             ],
             "index": "pypi",
+            "markers": "python_version >= '3.7'",
             "version": "==3.7.2"
         },
         "astroid": {
@@ -229,11 +230,12 @@
         },
         "django": {
             "hashes": [
-                "sha256:7b134688965dd331ca4d11ed38e5ce594caed0e906689a9b95251c29c2c03990",
-                "sha256:cac9df0ba87b4f439e1a311ef22f75c938fc874bebf1fbabaed58d0e6d559a25"
+                "sha256:04ab3f6f46d084a0bba5a2c9a93a3a2eb3fe81589512367a75f79ee8acf790ce",
+                "sha256:94a3f471e833c8f124ee7a2de11e92f633991d975e3fa5bdd91e8abd66426318"
             ],
             "index": "pypi",
-            "version": "==4.1.11"
+            "markers": "python_version >= '3.8'",
+            "version": "==4.1.13"
         },
         "django-cors-headers": {
             "hashes": [
@@ -281,11 +283,12 @@
         },
         "django-modelcluster": {
             "hashes": [
-                "sha256:4ae46f86c43702020f24f212222eef0a2588df937bbb523a5447da247b5fb130",
-                "sha256:cdcffef5baf5d3759ee04c5b60ffaf1a0c95fc0f265e762f3ddfadde3394e5db"
+                "sha256:3f53d47e1af7aec5e238724be16bbebdac9c518e4788b31429e773dcd8e8ea49",
+                "sha256:725c005de22191165b690ea05588b1c702ac34b1e9cd8a8b26fadc2a35fcd337"
             ],
             "index": "pypi",
-            "version": "==6.0"
+            "markers": "python_version >= '3.8'",
+            "version": "==6.2.1"
         },
         "django-permissionedforms": {
             "hashes": [
@@ -749,11 +752,11 @@
         },
         "pytz": {
             "hashes": [
-                "sha256:7b4fddbeb94a1eba4b557da24f19fdf9db575192544270a9101d8509f9f43d7b",
-                "sha256:ce42d816b81b68506614c11e8937d3aa9e41007ceb50bfdcb0749b921bf646c7"
+                "sha256:2a29735ea9c18baf14b448846bde5a48030ed267578472d8955cd0e7443a9812",
+                "sha256:328171f4e3623139da4983451950b28e95ac706e13f3f2630a879749e7a8b319"
             ],
             "index": "pypi",
-            "version": "==2023.3.post1"
+            "version": "==2024.1"
         },
         "requests": {
             "hashes": [
@@ -817,6 +820,7 @@
                 "sha256:d446183e84b8349fa3061f0fe7f06ca94ba65b426946ffebe6e3e8295332420c"
             ],
             "index": "pypi",
+            "markers": "python_version >= '3.5'",
             "version": "==0.4.4"
         },
         "tablib": {
