@@ -8,7 +8,7 @@ name: "Test"
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  DEFAULT_PYTHON_VERSION: 3.11.0
+  DEFAULT_PYTHON_VERSION: 3.12.2
 
 jobs:
   test:
@@ -18,23 +18,24 @@ jobs:
 
     services:
       mariadb:
-        image: mariadb:10.3.22
+        image: mariadb:11.2.2
         env:
-          MYSQL_DATABASE: "matchd"
-          MYSQL_USER: "matchd"
-          MYSQL_PASSWORD: "matchd"
-          MYSQL_ROOT_PASSWORD: "matchd"
+          MARIADB_DATABASE: "matchd"
+          MARIADB_USER: "matchd"
+          MARIADB_PASSWORD: "matchd"
+          MARIADB_ROOT_PASSWORD: "matchd"
         ports:
           - 3306:3306
         options: >-
-          --health-cmd="mysqladmin ping"
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
           --health-interval=10s
           --health-timeout=10s
           --health-retries=10
       elasticsearch:
-        image: elasticsearch:7.16.1
+        image: elasticsearch:8.12.0
         env:
           discovery.type: single-node
+          xpack.security.enabled: false
         options: >-
           --health-cmd "curl http://localhost:9200/_cluster/health"
           --health-interval 10s
@@ -58,7 +59,7 @@ jobs:
           python -m pip install --upgrade pipenv wheel
 
       - id: cache-pipenv
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.local/share/virtualenvs
           key: pipenv-${{ secrets.CACHE_VERSION }}-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('Pipfile.lock') }}
@@ -91,23 +92,24 @@ jobs:
 
     services:
       mariadb:
-        image: mariadb:10.3.22
+        image: mariadb:11.2.2
         env:
-          MYSQL_DATABASE: "matchd"
-          MYSQL_USER: "matchd"
-          MYSQL_PASSWORD: "matchd"
-          MYSQL_ROOT_PASSWORD: "matchd"
+          MARIADB_DATABASE: "matchd"
+          MARIADB_USER: "matchd"
+          MARIADB_PASSWORD: "matchd"
+          MARIADB_ROOT_PASSWORD: "matchd"
         ports:
           - 3306:3306
         options: >-
-          --health-cmd="mysqladmin ping"
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
           --health-interval=10s
           --health-timeout=10s
           --health-retries=10
       elasticsearch:
-        image: elasticsearch:7.16.1
+        image: elasticsearch:8.12.0
         env:
           discovery.type: single-node
+          xpack.security.enabled: false
         options: >-
           --health-cmd "curl http://localhost:9200/_cluster/health"
           --health-interval 10s
@@ -133,7 +135,7 @@ jobs:
           python -m pip install --upgrade pipenv wheel
 
       - id: cache-pipenv
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.local/share/virtualenvs
           key: pipenv-${{ secrets.CACHE_VERSION }}-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('Pipfile.lock') }}
@@ -175,7 +177,7 @@ jobs:
           python -m pip install --upgrade pipenv wheel
 
       - id: cache-pipenv
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.local/share/virtualenvs
           key: pipenv-${{ secrets.CACHE_VERSION }}-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('Pipfile.lock') }}
@@ -210,7 +212,7 @@ jobs:
           python -m pip install --upgrade pipenv wheel
 
       - id: cache-pipenv
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.local/share/virtualenvs
           key: pipenv-${{ secrets.CACHE_VERSION }}-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('Pipfile.lock') }}
