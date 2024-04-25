@@ -1,4 +1,4 @@
-python 3.12.2
+python 3.12.3
 helmfile 0.161.0
 helm 3.14.0
 kubectl 1.25.6
