@@ -924,12 +924,12 @@
         },
         "wagtail": {
             "hashes": [
-                "sha256:4256705686c5ba30115500788aa84c0b7f719abd91675127095030e2c79a09e1",
-                "sha256:e7cfc3c0f53fb302f1798f0e02a7ac6078ab02eb0e8703c0f71ccbd3f18e386f"
+                "sha256:673337cdb1f96ebe5cb063472cff96a28cab488dc4ccf1de5b38901c289803ff",
+                "sha256:bfcea95b7de879197fa2bc26810fe5fae78e616056ad8d09b3f66b1604c456a9"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.8'",
-            "version": "==6.0.2"
+            "version": "==6.0.3"
         },
         "wagtail-modeladmin": {
             "hashes": [
