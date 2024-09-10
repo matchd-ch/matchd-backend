@@ -17,6 +17,8 @@ from urllib.parse import urlparse
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
+FORMS_URLFIELD_ASSUME_HTTPS = False
+
 SECRET_KEY = 'y1m_k!q=s(7m&8!)91-#9wan_568xbvqg_8$hfl@dkhy_ep#u-'
 ALLOWED_HOSTS = ['*']
 

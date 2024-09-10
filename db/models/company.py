@@ -69,6 +69,8 @@ class Company(models.Model, index.Indexed):
                                                           'soft_skills')
 
     search_fields = [
+        index.FilterField('type'),
+        index.FilterField('state'),
         index.RelatedFields('branches', [
             index.FilterField('id'),
         ]),

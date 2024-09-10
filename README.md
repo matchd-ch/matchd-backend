@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Matchd is a job matching system that matches candidates to companies based on a number of factors, making the screening process much easier for recruiters and thus faciliting the talent search process for companies.
+Matchd is a job matching system that matches candidates to companies based on a number of factors, making the screening process much easier for recruiters and thus facilitating the talent search process for companies.
 
 [![.github/workflows/branch_main.yml](https://github.com/matchd-ch/matchd-backend/actions/workflows/branch_main.yml/badge.svg)](https://github.com/matchd-ch/matchd-backend/actions/workflows/branch_main.yml)
 
@@ -106,7 +106,7 @@ Authorization: JWT <YOUR JWT TOKEN HERE>
 
 ## MailDev Email Admin
 
-You can access the email admin page at `localhost:9123` (or a differen port if you choosed another port when running [the MailDev docker run command](https://github.com/matchd-ch/matchd-backend#getting-started)). This can be useful for verifying the emails that are being sent by the backend and for email/newsletter development.
+You can access the email admin page at `localhost:9123` (or a different port if you choose another port when running [the MailDev docker run command](https://github.com/matchd-ch/matchd-backend#getting-started)). This can be useful for verifying the emails that are being sent by the backend and for email/newsletter development.
 
 ## Project details
 
@@ -114,7 +114,7 @@ The project requires a bunch of environment variables at startup. Those variable
 
 ### Database Models
 
-The primary database models: _Users_, _Employees_, _Students_ and _Companies_. The _User_ is the entry point to interract with the system. A user can be a _Student_, _Employee_ (internal, for example a "recruiter") or be related to a _Company_.
+The primary database models: _Users_, _Employees_, _Students_ and _Companies_. The _User_ is the entry point to interact with the system. A user can be a _Student_, _Employee_ (internal, for example a "recruiter") or be related to a _Company_.
 
 ### Matching process
 
@@ -134,7 +134,7 @@ MATCHING_VALUE_DATE_OR_DATE_RANGE = 5
 ```
 
 The variables are used as _boosts_ in the searching process; each variable increases the relevance / importance of the related topic.
-The highest score value is calculated based on a subset of those variables, such score is used to normalise the retrieved serch results, also called _hits_.
+The highest score value is calculated based on a subset of those variables, such score is used to normalize the retrieved search results, also called _hits_.
 
 The system uses _elasticsearch_ to perform the search (via the Wagtail search backend) and uses the _score_ values provided in the results to calculate the final score list. A _match mapper_ is then used to match each element of the score list to a desired list of targets (e.g. match map Student to Job Posting).
 
