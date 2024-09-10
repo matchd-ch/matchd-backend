@@ -33,7 +33,6 @@ if [ "${SETUP_DB:-true}" = "true" ]; then
     echo "Load fallback images"
     ./manage.py load_media
 
-
     if [ "${RESET_DB:-true}" = "true" ]; then
         echo "Load test data"
         ./manage.py seed

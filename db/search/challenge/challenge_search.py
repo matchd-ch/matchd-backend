@@ -1,10 +1,14 @@
+import logging
 from wagtail.search.backends import get_search_backend
 
 from api.helper import resolve_node_ids
 
 from db.models import ProfileType, ProfileState, ChallengeState, Challenge
 
+logger = logging.getLogger(__name__)
+
 # pylint: disable=W0106
+# pylint: disable=R0912
 
 
 def search_challenge(user, kwargs):
@@ -23,11 +27,11 @@ def search_challenge(user, kwargs):
     # do not show challenges company <-> company
     if user.is_authenticated:
         if user.type in ProfileType.valid_company_types():
-            filter_conditions.append(condition("is_student_filter", "true"))
+            filter_conditions.append(condition("is_student_filter", True))
 
         # do not show challenges student <-> student
         if user.type in ProfileType.valid_student_types():
-            filter_conditions.append(condition("is_company_filter", "true"))
+            filter_conditions.append(condition("is_company_filter", True))
 
     filter_conditions.append(condition('state_filter', ChallengeState.PUBLIC))
 
@@ -61,7 +65,7 @@ def search_challenge(user, kwargs):
     posting_entity_query = []
 
     if filter_talent_challenges:
-        posting_entity_query.append(condition("is_student_filter", "true"))
+        posting_entity_query.append(condition("is_student_filter", True))
 
     if filter_company_challenges:
         posting_entity_query.append(nested_condition('company', 'type_filter',
@@ -91,11 +95,17 @@ def search_challenge(user, kwargs):
             },
             "size": 10000
         },
-        "_source": False,
-        "stored_fields": "pk",
+        "_source": False
     }
 
-    return get_search_backend().es.search(**params)
+    try:
+        results = get_search_backend().es.search(**params)
+    except Exception as exception:
+        logger.error("Failed to search using elasticsearch: %s", str(exception))
+
+        return None
+
+    return results
 
 
 def condition(prop, value, occurence_type="term"):

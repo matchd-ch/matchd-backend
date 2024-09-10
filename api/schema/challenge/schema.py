@@ -193,6 +193,10 @@ class ChallengeQuery(ObjectType):
     @restrict_challenge
     def resolve_challenges(self, info, **kwargs):
         results = search_challenge(info.context.user, kwargs)
+
+        if results is None:
+            raise Http404(_('Failed while searching challenges'))
+
         challenge_ids = list(map(lambda hit: hit.get('_id'), results.get('hits').get('hits')))
 
         return ChallengeModel.objects.filter(id__in=challenge_ids)
