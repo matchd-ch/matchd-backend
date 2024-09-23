@@ -82,6 +82,9 @@ on:
       impersonationRedirectUriTemplate:
         type: string
         required: true
+      elasticSearchURL:
+        type: string
+        required: false
     secrets:
       DOCKER_PULL_USERNAME:
         required: true
@@ -211,3 +214,4 @@ jobs:
           VALUE_SENTRY_DSN: '${{ secrets.SENTRY_DSN }}'
           VALUE_SENTRY_TRACES_SAMPLE_RATE: '${{ inputs.sentryTracesSampleRate }}'
           VALUE_IMPERSONATION_REDIRECT_URI_TEMPLATE: '${{ inputs.impersonationRedirectUriTemplate }}'
+          VALUE_ELASTIC_SEARCH_URL: '${{ inputs.elasticSearchURL }}'
