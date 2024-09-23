@@ -18,7 +18,7 @@ RUN pip install pipenv
 # Create and switch to a new user
 RUN useradd --create-home appuser
 WORKDIR /home/appuser
-USER appuser
+# USER appuser
 
 # Install python dependencies in /.venv
 COPY Pipfile .
@@ -48,4 +48,4 @@ VOLUME /home/appuser/media
 
 RUN ["python", "/home/appuser/manage.py", "collectstatic", "--noinput"]
 
-USER appuser
+# USER appuser
