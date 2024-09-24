@@ -48,6 +48,7 @@ elasticsearch:
   extraEnvs:
   - name: xpack.security.enabled
     value: "false"
+  protocol: http
   httpPort: 9200
   replicas: 2
   minimumMasterNodes: 1
