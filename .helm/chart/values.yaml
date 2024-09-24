@@ -45,6 +45,9 @@ elasticsearch:
   enabled: true
   clusterName: "elasticsearch"
   nodeGroup: "master"
+  extraEnvs:
+  - name: xpack.security.enabled
+    value: "false"
   httpPort: 9200
   replicas: 2
   minimumMasterNodes: 1
