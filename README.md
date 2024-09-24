@@ -229,6 +229,11 @@ With coverage:
 pipenv run test --cov=db --cov=api --cov=app --cov-report html
 ```
 
+### Notes
+
+- it is important to set xpack.security.enabled=false in elasticsearch and set protocol to http
+- to reindex elasticsearch, run `python ./manage.py update_index` from inside matchd-backend container
+
 ## Contributing
 
 You can contribute to the project by opening a pull request that will be peer reviewed. Always run the development workflow commands locally before creating a pull request so that your code conforms to the project's requirements.
