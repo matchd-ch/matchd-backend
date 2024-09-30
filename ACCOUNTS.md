@@ -1,34 +1,34 @@
 New Matchd Test Accounts
 ==============
-| Type | username | password | first_name | last_name | email | is_superuser |
-|---|---|---|---|---|---|---|
-| internal | admin | asdf1234$ | admin | admin | admin@example.com | 1 |
-| company | company-not-verified@matchd.localhost | asdf1234$ | Nina | Crutchfield | company-not-verified@matchd.localhost | 0 |
-| company | company-step-1@matchd.localhost | asdf1234$ | Rosemary | Holden | company-step-1@matchd.localhost | 0 |
-| company | company-step-2@matchd.localhost | asdf1234$ | John | Schneider | company-step-2@matchd.localhost | 0 |
-| company | company-step-3@matchd.localhost | asdf1234$ | Matthew | Sauls | company-step-3@matchd.localhost | 0 |
-| company | company-public@matchd.localhost | asdf1234$ | Yvonne | Hankins | company-public@matchd.localhost | 0 |
-| company | liip@matchd.localhost | asdf1234$ | Kilian | Schefer | liip@matchd.localhost | 0 |
-| university | university-not-verified@matchd.localhost | asdf1234$ | Carolyn | Nielson | university-not-verified@matchd.localhost | 0 |
-| university | university-step-1@matchd.localhost | asdf1234$ | James | Fitzgerald | university-step-1@matchd.localhost | 0 |
-| university | university-step-2@matchd.localhost | asdf1234$ | Dollie | Jackson | university-step-2@matchd.localhost | 0 |
-| university | university-step-3@matchd.localhost | asdf1234$ | Albert | Davis | university-step-3@matchd.localhost | 0 |
-| university | university-public@matchd.localhost | asdf1234$ | Janice | Neill | university-public@matchd.localhost | 0 |
-| student | student-not-verified@matchd.localhost | asdf1234$ | William | Hawkins | student-not-verified@matchd.localhost | 0 |
-| student | student-step-1@matchd.localhost | asdf1234$ | Josephine | Thomas | student-step-1@matchd.localhost | 0 |
-| student | student-step-2@matchd.localhost | asdf1234$ | Charles | Robison | student-step-2@matchd.localhost | 0 |
-| student | student-step-3@matchd.localhost | asdf1234$ | Steve | Hollar | student-step-3@matchd.localhost | 0 |
-| student | student-step-4@matchd.localhost | asdf1234$ | William | Herauf | student-step-4@matchd.localhost | 0 |
-| student | student-step-5@matchd.localhost | asdf1234$ | Barbara | Maxey | student-step-5@matchd.localhost | 0 |
-| student | student-step-6@matchd.localhost | asdf1234$ | Anthony | Johnson | student-step-6@matchd.localhost | 0 |
-| student | student-public@matchd.localhost | asdf1234$ | Charles | Kirby | student-public@matchd.localhost | 0 |
-| student | student-anonymous@matchd.localhost | asdf1234$ | Salley | Couch | student-anonymous@matchd.localhost | 0 |
-| company | company-step-4@matchd.localhost | asdf1234$ | Mimi | Julian | company-step-4@matchd.localhost | 0 |
-| student | student-1@matchd.localhost | asdf1234$ | David | Shapiro | student-1@matchd.localhost | 0 |
-| student | student-2@matchd.localhost | asdf1234$ | Stephen | Tynes | student-2@matchd.localhost | 0 |
-| student | student-3@matchd.localhost | asdf1234$ | Keitha | Patton | student-3@matchd.localhost | 0 |
-| student | student-4@matchd.localhost | asdf1234$ | Brenda | Mosby | student-4@matchd.localhost | 0 |
-| student | student-5@matchd.localhost | asdf1234$ | Lenard | Meigs | student-5@matchd.localhost | 0 |
+| Type | Username | Password | Name | Superuser |
+|---|---|---|---|---|
+| internal | admin | asdf1234$ | admin admin | true |
+| company | company-not-verified@matchd.localhost | asdf1234$ | Nina Crutchfield | false |
+| company | company-step-1@matchd.localhost | asdf1234$ | Rosemary Holden | false |
+| company | company-step-2@matchd.localhost | asdf1234$ | John Schneider | false |
+| company | company-step-3@matchd.localhost | asdf1234$ | Matthew Sauls | false |
+| company | company-public@matchd.localhost | asdf1234$ | Yvonne Hankins | false |
+| company | liip@matchd.localhost | asdf1234$ | Kilian Schefer | false |
+| university | university-not-verified@matchd.localhost | asdf1234$ | Carolyn Nielson | false |
+| university | university-step-1@matchd.localhost | asdf1234$ | James Fitzgerald | false |
+| university | university-step-2@matchd.localhost | asdf1234$ | Dollie Jackson | false |
+| university | university-step-3@matchd.localhost | asdf1234$ | Albert Davis | false |
+| university | university-public@matchd.localhost | asdf1234$ | Janice Neill | false |
+| student | student-not-verified@matchd.localhost | asdf1234$ | William Hawkins | false |
+| student | student-step-1@matchd.localhost | asdf1234$ | Josephine Thomas | false |
+| student | student-step-2@matchd.localhost | asdf1234$ | Charles Robison | false |
+| student | student-step-3@matchd.localhost | asdf1234$ | Steve Hollar | false |
+| student | student-step-4@matchd.localhost | asdf1234$ | William Herauf | false |
+| student | student-step-5@matchd.localhost | asdf1234$ | Barbara Maxey | false |
+| student | student-step-6@matchd.localhost | asdf1234$ | Anthony Johnson | false |
+| student | student-public@matchd.localhost | asdf1234$ | Charles Kirby | false |
+| student | student-anonymous@matchd.localhost | asdf1234$ | Salley Couch | false |
+| company | company-step-4@matchd.localhost | asdf1234$ | Mimi Julian | false |
+| student | student-1@matchd.localhost | asdf1234$ | David Shapiro | false |
+| student | student-2@matchd.localhost | asdf1234$ | Stephen Tynes | false |
+| student | student-3@matchd.localhost | asdf1234$ | Keitha Patton | false |
+| student | student-4@matchd.localhost | asdf1234$ | Brenda Mosby | false |
+| student | student-5@matchd.localhost | asdf1234$ | Lenard Meigs | false |
 
 ---
 
