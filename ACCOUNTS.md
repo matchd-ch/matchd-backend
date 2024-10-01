@@ -1,38 +1,4 @@
-New Matchd Test Accounts
-==============
-| Type | Username | Password | Name | Superuser |
-|---|---|---|---|---|
-| internal | admin | asdf1234$ | admin admin | yes |
-| company | company-not-verified@matchd.localhost | asdf1234$ | Nina Crutchfield | - |
-| company | company-step-1@matchd.localhost | asdf1234$ | Rosemary Holden | - |
-| company | company-step-2@matchd.localhost | asdf1234$ | John Schneider | - |
-| company | company-step-3@matchd.localhost | asdf1234$ | Matthew Sauls | - |
-| company | company-public@matchd.localhost | asdf1234$ | Yvonne Hankins | - |
-| company | liip@matchd.localhost | asdf1234$ | Kilian Schefer | - |
-| university | university-not-verified@matchd.localhost | asdf1234$ | Carolyn Nielson | - |
-| university | university-step-1@matchd.localhost | asdf1234$ | James Fitzgerald | - |
-| university | university-step-2@matchd.localhost | asdf1234$ | Dollie Jackson | - |
-| university | university-step-3@matchd.localhost | asdf1234$ | Albert Davis | - |
-| university | university-public@matchd.localhost | asdf1234$ | Janice Neill | - |
-| student | student-not-verified@matchd.localhost | asdf1234$ | William Hawkins | - |
-| student | student-step-1@matchd.localhost | asdf1234$ | Josephine Thomas | - |
-| student | student-step-2@matchd.localhost | asdf1234$ | Charles Robison | - |
-| student | student-step-3@matchd.localhost | asdf1234$ | Steve Hollar | - |
-| student | student-step-4@matchd.localhost | asdf1234$ | William Herauf | - |
-| student | student-step-5@matchd.localhost | asdf1234$ | Barbara Maxey | - |
-| student | student-step-6@matchd.localhost | asdf1234$ | Anthony Johnson | - |
-| student | student-public@matchd.localhost | asdf1234$ | Charles Kirby | - |
-| student | student-anonymous@matchd.localhost | asdf1234$ | Salley Couch | - |
-| company | company-step-4@matchd.localhost | asdf1234$ | Mimi Julian | - |
-| student | student-1@matchd.localhost | asdf1234$ | David Shapiro | - |
-| student | student-2@matchd.localhost | asdf1234$ | Stephen Tynes | - |
-| student | student-3@matchd.localhost | asdf1234$ | Keitha Patton | - |
-| student | student-4@matchd.localhost | asdf1234$ | Brenda Mosby | - |
-| student | student-5@matchd.localhost | asdf1234$ | Lenard Meigs | - |
-
----
-
-Old Matchd Test Accounts
+Matchd Test Accounts
 ==============
 | Type | Username | Password | Nickname | Status | Attachments |
 |---|---|---|---|---|---|
