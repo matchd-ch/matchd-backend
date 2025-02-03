@@ -128,7 +128,7 @@ jobs:
           helm-version: "v${{ env.HELM_VERSION }}"
           install-kubectl: "no"
 
-      - uses: google-github-actions/setup-gcloud@v2.1.2
+      - uses: google-github-actions/setup-gcloud@v2.1.4
         with:
           project_id: "joshmartin-cluster-next"
 
