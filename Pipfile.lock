@@ -802,12 +802,12 @@
         },
         "pytest-django": {
             "hashes": [
-                "sha256:5d054fe011c56f3b10f978f41a8efb2e5adfc7e680ef36fb571ada1f24779d90",
-                "sha256:ca1ddd1e0e4c227cf9e3e40a6afc6d106b3e70868fd2ac5798a22501271cd0c7"
+                "sha256:1091b20ea1491fd04a310fc9aaff4c01b4e8450e3b157687625e16a6b5f3a366",
+                "sha256:57c74ef3aa9d89cae5a5d73fbb69a720a62673ade7ff13b9491872409a3f5918"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.8'",
-            "version": "==4.8.0"
+            "version": "==4.10.0"
         },
         "python-dateutil": {
             "hashes": [
