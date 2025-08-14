@@ -27,7 +27,7 @@ jobs:
       release: matchd-backend
       environment: development
       domain: api.development.matchd.ch
-      dbHost: 10.100.35.5
+      dbHost: 172.31.1.10
       dbUser: matchd-development
       dbName: matchd-development
       senderEmail: info@matchd.ch

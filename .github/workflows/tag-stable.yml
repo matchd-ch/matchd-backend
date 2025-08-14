@@ -27,7 +27,7 @@ jobs:
       autoscalingEnabled: true
       version: "${{ needs.build.outputs.tag }}"
       commentDeployment: true
-      dbHost: 10.100.35.5
+      dbHost: 172.31.1.10
       dbUser: matchd-production
       dbName: matchd-production
       senderEmail: info@matchd.ch

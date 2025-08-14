@@ -24,7 +24,7 @@ jobs:
       domain: api.staging.matchd.ch
       version: "${{ needs.build.outputs.tag }}"
       commentDeployment: true
-      dbHost: 10.100.35.5
+      dbHost: 172.31.1.10
       dbUser: matchd-staging
       dbName: matchd-staging
       senderEmail: info@matchd.ch
