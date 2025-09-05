@@ -50,7 +50,7 @@ jobs:
 
       - name: Setup Python
         id: setup-python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "${{ env.DEFAULT_PYTHON_VERSION }}"
 
@@ -126,7 +126,7 @@ jobs:
 
       - name: Setup Python
         id: setup-python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "${{ env.DEFAULT_PYTHON_VERSION }}"
 
@@ -168,7 +168,7 @@ jobs:
 
       - name: Setup Python
         id: setup-python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "${{ env.DEFAULT_PYTHON_VERSION }}"
 
@@ -203,7 +203,7 @@ jobs:
 
       - name: Setup Python
         id: setup-python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "${{ env.DEFAULT_PYTHON_VERSION }}"
 
