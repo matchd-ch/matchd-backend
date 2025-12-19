@@ -12,40 +12,9 @@ jobs:
     uses: ./.github/workflows/part_build.yml
 
   deploy:
+    runs-on: ubuntu-latest
     name: "Deploy"
-
     needs: ['build']
+    steps:
+      - run: echo "Deploying stable version... To be implemented."
 
-    uses: ./.github/workflows/part_deploy.yml
-    with:
-      namespace: matchd-backend-production
-      release: matchd-backend
-      environment: production
-      domain: api.matchd.ch
-      regularReplicaCount: 2
-      monitoringEnabled: true
-      autoscalingEnabled: true
-      version: "${{ needs.build.outputs.tag }}"
-      commentDeployment: true
-      dbHost: 172.31.1.10
-      dbUser: matchd-production
-      dbName: matchd-production
-      senderEmail: info@matchd.ch
-      managers: info_info@matchd.ch
-      smtpRelay: smtp.postmarkapp.com
-      smtpPort: 2525
-      frontendUrl: https://get.matchd.ch
-      csrfCookieDomain: '.matchd.ch'
-      dataProtectionUrl: 'https://matchd.ch/impressum-datenschutz/'
-      resetDb: false
-      maildevEnabled: false
-      impersonationRedirectUriTemplate: https://get.matchd.ch/impersonate/{#token}
-      emailSubjectPrefix: ''
-    secrets:
-      DOCKER_PULL_USERNAME: ${{ secrets.DOCKER_PULL_USERNAME }}
-      DOCKER_PULL_SECRET: ${{ secrets.DOCKER_PULL_SECRET }}
-      DB_PASSWORD: ${{ secrets.PRODUCTION_DB_PASSWORD }}
-      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
-      SMTP_USER: ${{ secrets.SMTP_USER }}
-      SECRET_KEY: ${{ secrets.PRODUCTION_SECRET_KEY }}
-      SENTRY_DSN: ${{ secrets.SENTRY_DSN }}

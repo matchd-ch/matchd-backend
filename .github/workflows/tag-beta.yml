@@ -12,35 +12,8 @@ jobs:
     uses: ./.github/workflows/part_build.yml
 
   deploy:
+    runs-on: ubuntu-latest
     name: "Deploy"
-
     needs: ['build']
-
-    uses: ./.github/workflows/part_deploy.yml
-    with:
-      namespace: matchd-backend-staging
-      release: matchd-backend
-      environment: staging
-      domain: api.staging.matchd.ch
-      version: "${{ needs.build.outputs.tag }}"
-      commentDeployment: true
-      dbHost: 172.31.1.10
-      dbUser: matchd-staging
-      dbName: matchd-staging
-      senderEmail: info@matchd.ch
-      smtpRelay: smtp.postmarkapp.com
-      smtpPort: 2525
-      emailSubjectPrefix: '[STAGING]'
-      frontendUrl: https://staging.matchd.ch
-      csrfCookieDomain: '.matchd.ch'
-      dataProtectionUrl: 'https://example.com'
-      resetDb: true
-      impersonationRedirectUriTemplate: https://staging.matchd.ch/impersonate/{#token}
-    secrets:
-      DOCKER_PULL_USERNAME: ${{ secrets.DOCKER_PULL_USERNAME }}
-      DOCKER_PULL_SECRET: ${{ secrets.DOCKER_PULL_SECRET }}
-      DB_PASSWORD: ${{ secrets.STAGING_DB_PASSWORD }}
-      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
-      SMTP_USER: ${{ secrets.SMTP_USER }}
-      SECRET_KEY: ${{ secrets.STAGING_SECRET_KEY }}
-      SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+    steps:
+      - run: echo "Deploying beta version... To be implemented."

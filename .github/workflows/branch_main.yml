@@ -17,33 +17,8 @@ jobs:
     uses: ./.github/workflows/part_build.yml
 
   deploy:
+    runs-on: ubuntu-latest
     name: "Deploy"
-
     needs: ['build']
-
-    uses: ./.github/workflows/part_deploy.yml
-    with:
-      namespace: matchd-backend-development
-      release: matchd-backend
-      environment: development
-      domain: api.development.matchd.ch
-      dbHost: 172.31.1.10
-      dbUser: matchd-development
-      dbName: matchd-development
-      senderEmail: info@matchd.ch
-      smtpRelay: smtp.postmarkapp.com
-      smtpPort: 2525
-      emailSubjectPrefix: '[DEV]'
-      frontendUrl: https://development.matchd.ch
-      csrfCookieDomain: '.matchd.ch'
-      dataProtectionUrl: 'https://example.com'
-      resetDb: true
-      impersonationRedirectUriTemplate:  https://development.matchd.ch/impersonate/{#token}
-    secrets:
-      DOCKER_PULL_USERNAME: ${{ secrets.DOCKER_PULL_USERNAME }}
-      DOCKER_PULL_SECRET: ${{ secrets.DOCKER_PULL_SECRET }}
-      DB_PASSWORD: ${{ secrets.DEVELOPMENT_DB_PASSWORD }}
-      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
-      SMTP_USER: ${{ secrets.SMTP_USER }}
-      SECRET_KEY: ${{ secrets.DEVELOPMENT_SECRET_KEY }}
-      SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+    steps:
+      - run: echo "Deploying development version... To be implemented."
