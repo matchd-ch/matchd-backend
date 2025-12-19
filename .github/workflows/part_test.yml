@@ -46,11 +46,11 @@ jobs:
 
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Setup Python
         id: setup-python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "${{ env.DEFAULT_PYTHON_VERSION }}"
 
@@ -59,7 +59,7 @@ jobs:
           python -m pip install --upgrade pipenv wheel
 
       - id: cache-pipenv
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.local/share/virtualenvs
           key: pipenv-${{ secrets.CACHE_VERSION }}-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('Pipfile.lock') }}
@@ -120,13 +120,13 @@ jobs:
 
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           lfs: true
 
       - name: Setup Python
         id: setup-python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "${{ env.DEFAULT_PYTHON_VERSION }}"
 
@@ -135,7 +135,7 @@ jobs:
           python -m pip install --upgrade pipenv wheel
 
       - id: cache-pipenv
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.local/share/virtualenvs
           key: pipenv-${{ secrets.CACHE_VERSION }}-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('Pipfile.lock') }}
@@ -164,11 +164,11 @@ jobs:
 
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Setup Python
         id: setup-python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "${{ env.DEFAULT_PYTHON_VERSION }}"
 
@@ -177,7 +177,7 @@ jobs:
           python -m pip install --upgrade pipenv wheel
 
       - id: cache-pipenv
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.local/share/virtualenvs
           key: pipenv-${{ secrets.CACHE_VERSION }}-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('Pipfile.lock') }}
@@ -199,11 +199,11 @@ jobs:
 
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Setup Python
         id: setup-python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "${{ env.DEFAULT_PYTHON_VERSION }}"
 
@@ -212,7 +212,7 @@ jobs:
           python -m pip install --upgrade pipenv wheel
 
       - id: cache-pipenv
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.local/share/virtualenvs
           key: pipenv-${{ secrets.CACHE_VERSION }}-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('Pipfile.lock') }}
