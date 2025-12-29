@@ -348,12 +348,11 @@ CORS_ORIGIN_REGEX_WHITELIST = [
     r"^http(s?)://localhost(:?)\d{0,5}$",
     r"^http(s?)://(.*\.)?matchd\.localhost(:\d{0,5})?$",
     r"^http(s?)://(.*\.)?matchd\.ch(:\d{0,5})?$",
-    r"^http(s?)://(.*\.)?joshmartin\.ch(:\d{0,5})?$",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
 
-CSRF_TRUSTED_ORIGINS = ["https://*.matchd.ch", "https://*.joshmartin.ch"]
+CSRF_TRUSTED_ORIGINS = ["https://*.matchd.ch"]
 
 GRAPHQL_JWT = {
     'JWT_EXPIRATION_DELTA': timedelta(hours=24),
