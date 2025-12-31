@@ -10,6 +10,7 @@ disable=
     R0901, # too-many-ancestors
     R0903, # too-few-public-method
     R0914, # too-many-locals
+    R0917, # too-many-positional-arguments
     W0401, # wildcard-import
     W0614, # unused-wildcard-import
     W1508, # invalid-envvar-default

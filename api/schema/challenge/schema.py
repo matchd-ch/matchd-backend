@@ -153,6 +153,7 @@ class ChallengeQuery(ObjectType):
     def resolve_challenge(self, info, **kwargs):
         slug = kwargs.get('slug')
         challenge_id = resolve_node_id(kwargs.get('id'))
+        challenge = None
 
         if slug is None and challenge_id is None:
             raise Http404(_('Challenge not found'))

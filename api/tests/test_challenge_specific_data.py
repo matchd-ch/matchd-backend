@@ -44,7 +44,7 @@ def _test_specific_data(user, company, student, company_challenge_object, login,
 
     challenge = Challenge.objects.get(pk=element_id)
     assert challenge.challenge_from_date == convert_date('03.2021', '%m.%Y')
-    assert challenge.website == 'http://www.challenge-posting.lo'
+    assert challenge.website == 'https://www.challenge-posting.lo'
     if user.type in ProfileType.valid_company_types():
         assert challenge.employee.id == user.employee.id
         assert challenge.company.id == user.company.id

@@ -240,6 +240,7 @@ def job_posting_base_data(execute):
 
     def closure(user, title, description, job_type, branches, workload_from, workload_to,
                 job_from_date, job_to_date, url):
+        print(url)
         return execute(job_posting_mutation("BaseData"),
                        variables={
                            'input': {

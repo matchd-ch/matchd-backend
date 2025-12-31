@@ -138,6 +138,7 @@ class JobPostingQuery(ObjectType):
     def resolve_job_posting(self, info, **kwargs):
         slug = kwargs.get('slug')
         job_posting_id = resolve_node_id(kwargs.get('id'))
+        job_posting = None
 
         if slug is None and job_posting_id is None:
             raise Http404(_('Job posting not found'))
