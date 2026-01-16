@@ -419,11 +419,11 @@
         },
         "draftjs-exporter": {
             "hashes": [
-                "sha256:9f44b8dcecb702540e3aab24af2fad8683aec910fe0034c12cfab5d716ac5f84",
-                "sha256:c32932b7933b994fd5ea74c1decf47b5c41e13ba06363f5b69b76ef10137d4e9"
+                "sha256:4d665f8c75fd173d2c99326405300e8defcf4961b9b2f16ff117486489c6760b",
+                "sha256:f5255510a9c1de60807c1ba4be9666fb44ba263841b63329c8ce70d66146764c"
             ],
             "index": "pypi",
-            "version": "==5.1.0"
+            "version": "==5.2.0"
         },
         "elastic-transport": {
             "hashes": [
