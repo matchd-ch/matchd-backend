@@ -504,12 +504,12 @@
         },
         "graphql-core": {
             "hashes": [
-                "sha256:17fc8f3ca4a42913d8e24d9ac9f08deddf0a0b2483076575757f6c412ead2ec0",
-                "sha256:27b6904bdd3b43f2a0556dad5d579bdfdeab1f38e8e8788e555bdcb586a6f62c"
+                "sha256:015457da5d996c924ddf57a43f4e959b0b94fb695b85ed4c29446e508ed65cf3",
+                "sha256:cbee07bee1b3ed5e531723685369039f32ff815ef60166686e0162f540f1520c"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.7' and python_version < '4'",
-            "version": "==3.2.7"
+            "version": "==3.2.8"
         },
         "graphql-relay": {
             "hashes": [
