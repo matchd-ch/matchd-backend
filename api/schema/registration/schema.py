@@ -78,7 +78,7 @@ class RegisterCompany(Register):
 
         result = cls.resolve_mutation(root, info, **data)
         user = get_user_model().objects.get(email=user_data.get('email'))
-
+        print(user)
         company.save()
 
         user.company = company
