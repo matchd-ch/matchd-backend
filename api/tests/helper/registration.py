@@ -9,4 +9,5 @@ def verify_notification_new_user_registered(user, notification_email):
     assert f'Last name: {user.last_name}' in notification_email.body
     assert f'Email: {user.email}' in notification_email.body
     assert f'Type: {user.type}' in notification_email.body
-    assert f'Company: {user.company}' in notification_email.body
+    if user.company is not None:
+        assert f'Company: {user.company.name}' in notification_email.body
