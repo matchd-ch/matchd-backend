@@ -51,10 +51,10 @@ $ docker run \
     --restart always \
     -d \
     -p 9200:9200 \
-    -e discovery.type=single-node \
     -e xpack.security.enabled=false \
+    -e ELASTIC_PASSWORD=asdf1234 \
     --name elasticsearch \
-    elasticsearch:8.5.1
+    elasticsearch:8.19.17
 ```
 
 ```console

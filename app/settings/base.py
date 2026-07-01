@@ -13,7 +13,7 @@ https://docs.djangochallenge.com/en/3.1/ref/settings/
 # Build paths inside the challenge like this: os.path.join(BASE_DIR, ...)
 import os
 from datetime import timedelta
-from urllib.parse import urlparse
+from urllib.parse import urlparse, quote
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
@@ -253,26 +253,26 @@ WAGTAIL_SITE_NAME = os.getenv('WAGTAIL_SITE_NAME', 'MATCHD')
 # Prefix Index to allow for ressource sharing
 INDEX_PREFIX = os.getenv('ELASTIC_INDEX_PREFIX', 'local').replace('-', '_')
 
-
 def get_elasticsearch_url():
-    url = os.getenv('ELASTIC_SEARCH_URL', '')
-    protocol = 'http'
-    port = ''
-    if url and url != '':
-        parsed_uri = urlparse(url)
-        protocol = parsed_uri.scheme
-        url = parsed_uri.hostname
-        port = parsed_uri.port
-    if port and port != '':
-        port = f':{port}'
+    raw_url = os.getenv('ELASTIC_SEARCH_URL', 'https://localhost:9200')
+    
+    parsed_uri = urlparse(raw_url)
+    protocol = parsed_uri.scheme or 'https'
+    host = parsed_uri.hostname or 'localhost'
+    port = parsed_uri.port
+    
+    port_string = f':{port}' if port else ''
 
     user = os.getenv('ELASTIC_SEARCH_USER', '')
     password = os.getenv('ELASTIC_SEARCH_PASSWORD', '')
 
-    elasticsearch_url = ''
-    if user and user != '' and password and password != '':
-        elasticsearch_url = f'{user}:{password}@'
-    return f'{protocol}://{elasticsearch_url}{url}{port}'
+    auth_string = ''
+    if user and password:
+        # CRITICAL: URL-encode the password to handle symbols like '@' or ':' safely
+        safe_password = quote(password)
+        auth_string = f'{user}:{safe_password}@'
+
+    return f'{protocol}://{auth_string}{host}{port_string}'
 
 
 WAGTAILSEARCH_BACKENDS = {
@@ -280,8 +280,10 @@ WAGTAILSEARCH_BACKENDS = {
         'BACKEND': 'wagtail.search.backends.elasticsearch8',
         'URLS': [get_elasticsearch_url()],
         'INDEX': f'{INDEX_PREFIX}_matchd',
+        'OPTIONS': {
+            'verify_certs': False,
+        },
         'TIMEOUT': 5,
-        'OPTIONS': {},
         'INDEX_SETTINGS': {}
     }
 }
