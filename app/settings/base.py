@@ -253,14 +253,15 @@ WAGTAIL_SITE_NAME = os.getenv('WAGTAIL_SITE_NAME', 'MATCHD')
 # Prefix Index to allow for ressource sharing
 INDEX_PREFIX = os.getenv('ELASTIC_INDEX_PREFIX', 'local').replace('-', '_')
 
+
 def get_elasticsearch_url():
     raw_url = os.getenv('ELASTIC_SEARCH_URL', 'https://localhost:9200')
-    
+
     parsed_uri = urlparse(raw_url)
     protocol = parsed_uri.scheme or 'https'
     host = parsed_uri.hostname or 'localhost'
     port = parsed_uri.port
-    
+
     port_string = f':{port}' if port else ''
 
     user = os.getenv('ELASTIC_SEARCH_USER', '')
