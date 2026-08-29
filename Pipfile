@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 coverage = ">=7.2.1"
 django-cors-headers = ">=3.14.0"
-django-debug-toolbar = ">=3.8.1"
+django-debug-toolbar = ">=7.0.0"
 django-filter = ">=22.1"
 django-graphiql-debug-toolbar = ">=0.2.0"
 django-graphql-auth = {ref = "feat/update_deps", git = "https://github.com/jshmrtn/django-graphql-auth"}
